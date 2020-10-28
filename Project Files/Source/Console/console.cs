@@ -1236,7 +1236,7 @@ namespace Thetis
             chkPower.Checked = true;
         }
 
-        private ThreadPriority m_tpDisplayThreadPriority = ThreadPriority.Normal;
+        private ThreadPriority m_tpDisplayThreadPriority = ThreadPriority.Lowest; // at least using GDI, fucks up VAC audio
         public ThreadPriority DisplayThreadPriority
         {
             get
@@ -20175,7 +20175,7 @@ namespace Thetis
             set
             {
                 app_data_path = value;
-                Skin.AppDataPath = value;
+                Skin.SetAppDataPath(value);
             }
         }
 
@@ -23244,6 +23244,7 @@ namespace Thetis
             get { return current_hpsdr_model; }
             set
             {
+                
                 HPSDRModel saved_hpsdr_model = current_hpsdr_model;
                 current_hpsdr_model = value;
 
@@ -29950,20 +29951,10 @@ namespace Thetis
             switch (current_display_engine)
             {
                 case DisplayEngine.GDI_PLUS:
-                    // e.Graphics.Clear(BackColor);
-                    //e.Graphics.CompositingMode = CompositingMode.SourceOver;
-                    //e.Graphics.CompositingQuality = CompositingQuality.Default;
-                    //e.Graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                    //e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
 
                     Display.RenderGDIPlus(ref e);
                     break;
                 case DisplayEngine.DIRECT_X:
-                    /*Thread t = new Thread(new ThreadStart(Display.RenderDirectX));
-                        t.Name = "DirectX Background Update";
-                        t.IsBackground = true;
-                        t.Priority = ThreadPriority.Normal;
-                        t.Start();*/
                     break;
             }
         }

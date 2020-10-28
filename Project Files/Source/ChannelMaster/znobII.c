@@ -28,7 +28,7 @@ warren@wpratt.com
 
 NOB GetRCVRNOBPointer (int stype, int id)
 {
-	NOB a;
+    NOB a = {0};
 	switch (stype)
 	{
 	case 0:

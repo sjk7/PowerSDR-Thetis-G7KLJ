@@ -1068,8 +1068,12 @@ PORT void clearSnapshots() {
     for (i = 0; i < MAX_RX_STREAMS; i++) {
         while (prn->rx[i].snapshots_head != NULL) {
             _seqLogSnapshot_t* tmp = prn->rx[i].snapshots_head;
-            prn->rx[i].snapshots_head = tmp->next;
-            free(tmp);
+            if (tmp && prn->rx[i].snapshots_head) {
+
+                prn->rx[i].snapshots_head = tmp->next;
+                free(tmp);
+                tmp = 0;
+            }
         }
         prn->rx[i].snapshot_length = 0;
         prn->rx[i].snapshots_tail = NULL;

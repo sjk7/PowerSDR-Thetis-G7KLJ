@@ -35,8 +35,10 @@ struct _obpointers {
 } obp;
 
 void start_obthread(int id) {
+#pragma warning(disable : 4312)
     _beginthread(ob_main, 0, (void*)id);
-    // SetThreadPriority(handle, THREAD_PRIORITY_HIGHEST);
+#pragma warning(default: 4312)
+    
 }
 
 void create_obbuffs(int id, int accept, int max_insize, int outsize) {
@@ -144,7 +146,10 @@ void obdata(int id, double* out) {
 void ob_main(void* pargs) {
    HANDLE hpri = prioritise_thread_max();
 
+   #pragma warning(disable : 4311)
     int id = (int)pargs;
+#pragma warning(default : 4311)
+
     OBB a = obp.pdbuff[id];
 
     while (_InterlockedAnd(&a->run, 1)) {

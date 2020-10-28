@@ -365,7 +365,9 @@ void downslew(AAMIX a) {
 void xaamix(AAMIX a) {
     int i, j;
     int what, mask, idx;
+
     EnterCriticalSection(&a->cs_out);
+
     if (!_InterlockedAnd(&a->run, 1)) {
         LeaveCriticalSection(&a->cs_out);
         _endthread();
@@ -393,7 +395,9 @@ void xaamix(AAMIX a) {
                 a->outidx[i] -= a->rsize;
     if (_InterlockedAnd(&a->slew.uflag, 1)) upslew(a);
     if (_InterlockedAnd(&a->slew.dflag, 1)) downslew(a);
-    LeaveCriticalSection(&a->cs_out);
+    
+    // if (got_lock)
+    LeaveCriticalSection(&a->cs_out); // 26117: releasing unheld lock
 }
 
 void flush_mix_ring(AAMIX a, int stream) {

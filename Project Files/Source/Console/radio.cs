@@ -34,7 +34,7 @@ namespace Thetis
     using System.Threading;
 
     #region Radio Class 
-
+    
 	public class Radio
 	{
 		private const int NUM_RX_THREADS = 2;

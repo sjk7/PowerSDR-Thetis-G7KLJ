@@ -368,7 +368,15 @@ namespace Thetis
             SetPSRxIdx(0, 0);   // txid = 0, all current models use Stream0 for RX feedback
             SetPSTxIdx(0, 1);   // txid = 0, all current models use Stream1 for TX feedback
             puresignal.SetPSFeedbackRate(txch, ps_rate);
-            puresignal.SetPSHWPeak(txch, 0.2899);
+            string PSPeak = Common.GetSavedPSPeakValue();
+            if (PSPeak.Length > 0)
+            {
+                puresignal.SetPSHWPeak(txch, Double.Parse(PSPeak));
+            }
+            else
+            {
+                puresignal.SetPSHWPeak(txch, 0.2899);
+            }
 
             // setup transmitter display
             WDSP.TXASetSipMode(txch, 1);            // 1=>call the appropriate 'analyzer'

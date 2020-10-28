@@ -73,7 +73,8 @@ double bessi0(double x) {
 void new_window(int disp, int type, int size, double PiAlpha) {
     DP a = pdisp[disp];
     int i;
-    double arg0, arg1, cgsum, igsum;
+    double arg0, arg1, cgsum;
+    double igsum = 0;
     switch (type) {
         case 0: // rectangular window
         {
@@ -556,9 +557,11 @@ void stitch(int disp) {
 
 DWORD WINAPI spectra(void* pargs) {
     int i, j;
+#pragma warning(disable : 4311)
     int disp = (int)((int)pargs) >> 12;
     int ss = (((int)pargs) >> 4) & 255;
     int LO = ((int)pargs) & 15;
+#pragma warning(default : 4311)
     DP a = pdisp[disp];
 
     if (a->stop) {
@@ -614,9 +617,12 @@ DWORD WINAPI spectra(void* pargs) {
 
 DWORD WINAPI Cspectra(void* pargs) {
     int i, j;
+#pragma warning(disable : 4311)
     int disp = ((int)pargs) >> 12;
     int ss = (((int)pargs) >> 4) & 255;
     int LO = ((int)pargs) & 15;
+#pragma warning(default : 4311)
+
     DP a = pdisp[disp];
     int trans_size = a->size * sizeof(double);
 

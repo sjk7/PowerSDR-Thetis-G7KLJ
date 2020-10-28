@@ -84,10 +84,12 @@ void ringbuffer_reset(ringbuffer_t* rb) {
 
 void ringbuffer_clear(ringbuffer_t* rb, int sz) {
     double* zero = (double*)malloc(sz * sizeof(double));
+    if (zero) {
 
-    memset(zero, 0, sz * sizeof(double));
-    ringbuffer_write(rb, zero, sz);
-    free(zero);
+        memset(zero, 0, sz * sizeof(double));
+        ringbuffer_write(rb, zero, sz);
+        free(zero);
+    }
 }
 
 void ringbuffer_restart(ringbuffer_t* rb, int sz) {

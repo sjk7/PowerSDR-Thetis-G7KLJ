@@ -189,13 +189,13 @@ PORT int StartAudioIVAC(int id) {
 
 #pragma warning(default : 4312)
 
-    if (error != 0) return -1;
+    if (error != paNoError) return error;
 
     error = Pa_StartStream(a->Stream);
 
-    if (error != 0) return -1;
+    if (error != paNoError) return error;
 
-    return 1;
+    return paNoError;
 }
 
 PORT void SetIVACRBReset(int id, int reset) {

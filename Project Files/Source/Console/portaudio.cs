@@ -46,7 +46,7 @@ namespace Thetis
     public class PortAudioForThetis
     {
         #region Constants
-
+        
  
 
         #endregion
@@ -146,7 +146,7 @@ namespace Thetis
 
         #region Function Definitions
 
-
+        static readonly int PaNoError = 0;
         [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_GetVersion", CallingConvention = CallingConvention.Cdecl)]
         public static extern int PA_GetVersion();
 

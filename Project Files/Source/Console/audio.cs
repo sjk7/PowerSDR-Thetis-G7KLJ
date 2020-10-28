@@ -29,7 +29,9 @@
 
 using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Linq;
+using System.Security;
 using System.Windows.Forms;
 //using ProjectCeilidh.PortAudio;
 //using ProjectCeilidh.PortAudio.Native;
@@ -1198,18 +1200,34 @@ namespace Thetis
                     ivac.SetIVACOutLatency(0, out_latency, 0);
                     ivac.SetIVACPAInLatency(0, pa_in_latency, 0);
                     ivac.SetIVACPAOutLatency(0, pa_out_latency, 1);
+                    int return_value = Convert.ToInt32(PortAudioForThetis.PaErrorCode.paNoError); ;
 
                     try
                     {
-                        retval = ivac.StartAudioIVAC(0) == 1;
+                        return_value = ivac.StartAudioIVAC(0);
+                        retval = return_value == Convert.ToInt32(PortAudioForThetis.PaErrorCode.paNoError);
                         if (retval && console.PowerOn)
+                        {
                             ivac.SetIVACrun(0, 1);
+                        }
+                        else
+                        {
+      
+                            throw new Exception("VAC audio engine failed to start");
+                        }
                     }
                     catch (Exception)
                     {
+                        string pa_msg = "";
+                        if (return_value != 0)
+                        {
+                            pa_msg = "\n\nFailed to start VAC. Audio subsystem reports: " +
+                                    PortAudioForThetis.PA_GetErrorText(return_value);
+                        }
+                        
                         MessageBox.Show("The program is having trouble starting the VAC audio streams.\n" +
-                            "Please examine the VAC related settings on the Setup Form -> Audio Tab and try again.",
-                            "VAC Audio Stream Startup Error",
+                            "Please examine the VAC related settings on the Setup Form -> Audio Tab and try again." + pa_msg,
+                            "VAC Audio Stream Startup Error." ,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                     }
@@ -1313,22 +1331,57 @@ namespace Thetis
                 }
             }
 
+
+            double peakval = 0;
+            bool setpeak = false;
+            var saved = Common.GetSavedPSPeakValue();
+            if (saved.Length > 0)
+            {
+                if (Double.TryParse(saved, out peakval))
+                {
+                    puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), peakval);
+                    setpeak = true;
+                }
+            }
+
             // add setup calls that are needed to change between P1 & P2 before startup
             if (NetworkIO.CurrentRadioProtocol == RadioProtocol.USB)
             {
                 console.SampleRateTX = 48000; // set tx audio sampling rate  
                 WDSP.SetTXACFIRRun(cmaster.chid(cmaster.inid(1, 0), 0), false);
-                puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), 0.4072);
-                console.psform.PSdefpeak = "0.4072";
+                
+                peakval = 0.4072;
+                if (!setpeak && Common.RadioModel == HPSDRModel.HERMES)
+                {
+                    peakval = 0.2899;
+                    puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), peakval);
+                    setpeak = true;
+
+                }
+
+                if (!setpeak)
+                {
+                    peakval = 0.4072;
+                    puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), peakval);
+                }
+
+               
+                console.psform.PSdefpeak = Convert.ToString(peakval);
             }
             else
             {
                 console.SampleRateTX = 192000;
                 WDSP.SetTXACFIRRun(cmaster.chid(cmaster.inid(1, 0), 0), true);
-                puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), 0.2899);
+                if (!setpeak)
+                {
+                    puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), 0.2899);
+                    setpeak = true;
+                }
                 console.psform.PSdefpeak = "0.2899";
             }
 
+
+            Debug.Assert(setpeak);
             c.SetupForm.InitAudioTab();
             c.SetupForm.ForceReset = true;
             cmaster.PSLoopback = cmaster.PSLoopback;

@@ -30,3 +30,6 @@ Changed splash screen so it's clear which version you are running.
 Added Launcher to installer. Be clear it's only any good on the only version I distribute (64-bit) due to hard-coded path:
 I gave up after several fruitless hours trying to do it 'The Wix way'
 
+Added capability to auto-save the SetPeak field in PureSignal. My Hermes-Lite 2 requires a value of more like 0.2 than 0.4,
+and it wouldn't save this before.
+

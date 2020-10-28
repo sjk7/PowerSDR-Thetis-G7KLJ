@@ -814,14 +814,16 @@ namespace Thetis
                 if (Audio.GetPAInputDevices(host_index).Count > 0 ||
                     Audio.GetPAOutputDevices(host_index).Count > 0)
                 {
-                    //comboAudioDriver1.Items.Add(new PADeviceInfo(PAHostName, host_index));
+
+                    /*/
                     if (PAHostName != "Windows WASAPI")
+                                        /*/
+                    // G7KLJ does not know why WASAPI is barred. There should be a comment stating why if you really mean it!
                     {
                         comboAudioDriver2.Items.Add(new PADeviceInfo(PAHostName, host_index));
                         comboAudioDriver3.Items.Add(new PADeviceInfo(PAHostName, host_index));
                     }
-                    // comboAudioDriver1.Items.Add(new PADeviceInfo(PAHostName, host_index));
-                    // comboAudioDriver2.Items.Add(new PADeviceInfo(PAHostName, host_index));
+
                 }
                 host_index++; //Increment host index
             }
@@ -915,11 +917,7 @@ namespace Thetis
 
                     String entry = c.Name + "/" + ((CheckBoxTS)c).Checked.ToString();
                     a.Add(entry);
-                    if (c == this.chkAudioEnableVAC)
-                    {
-                        Debug.WriteLine("Why are you not saving me? FFS!");
-                        Debug.WriteLine("DB entry is: " + entry);
-                    }
+
                 }
                 else if (c.GetType() == typeof(ComboBoxTS))
                 {
@@ -6362,7 +6360,7 @@ namespace Thetis
         private void comboAudioDriver2_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             if (comboAudioDriver2.SelectedIndex < 0) return;
-
+            
             int old_driver = Audio.Host2;
             int new_driver = ((PADeviceInfo)comboAudioDriver2.SelectedItem).Index;
             bool power = console.PowerOn;
@@ -19398,6 +19396,7 @@ namespace Thetis
                 console.PowerOn = false;
                 Thread.Sleep(100);
             }
+            Common.RadioModel = console.CurrentHPSDRModel;
             cmaster.CMLoadRouterAll(console.CurrentHPSDRModel);
 
             if (power && (old_model != console.CurrentHPSDRModel))

@@ -64,7 +64,7 @@ PORT void WriteAudio(
         ready = 1;
     }
     for (i = 0; i < size; i++) {
-        if (audiocount < n) {
+        if (audiocount < n && data) {
             switch (mode) {
                 case 0: // I only (mono)
                     data[audiocount++] = (int)(conv * indata[2 * i + 0]);
@@ -78,7 +78,10 @@ PORT void WriteAudio(
                             + indata[2 * i + 1] * indata[2 * i + 1]));
                     break;
                 case 3: // complex samples (stereo)
+                    if (data && data[audiocount+1])
                     data[audiocount++] = (int)(conv * indata[2 * i + 0]);
+                    
+                    if (data && data[audiocount + 1])
                     data[audiocount++] = (int)(conv * indata[2 * i + 1]);
                     break;
             }
@@ -189,8 +192,11 @@ PORT void WriteCharFiles(
                 }
                 if (++mic_dec_count == mic_dec) {
                     int idx = ssidx + num_ddcs * 6;
+                    
+                    if (mic_data[mic_sample_count+1])
                     mic_data[mic_sample_count++] = (int)((indata[idx + 0] << 24)
                         | (indata[idx + 1] << 16)); // mic sample
+                    
                     mic_dec_count = 0;
                 }
             }
