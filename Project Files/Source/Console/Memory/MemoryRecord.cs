@@ -79,7 +79,7 @@ namespace Thetis
         public MemoryRecord(string _group, double _rxfreq, string _name, DSPMode _dsp_mode, bool _scan,
                  string _tune_step, FMTXMode _repeater_mode, double _fm_tx_offset_mhz, bool _ctcss_on, double _ctcss_freq,
                  int _power, int _deviation, bool _split, double _txfreq, Filter _filter, int _filterlow, int _filterhigh,
-                 string _comments, AGCMode _agc_mode, int _agc_thresh, 
+                 string _comments, AGCMode _agc_mode, int _agc_thresh,
                  DateTime _StartDate, bool _ScheduleOn, int _Duration, bool _Repeating, bool _Recording, bool _Repeatingm, int _Extra) // string _StartTime, 
         {
             group = _group;
@@ -111,16 +111,16 @@ namespace Thetis
             repeatingm = _Repeatingm;// ke9ns add  for scheduled freq change and optional recording
             extra = _Extra;// ke9ns add  for scheduled freq change and optional recording
 
-      /*   
-       
-            startdate = StartDate; // ke9ns add  for scheduled freq change and optional recording
-            scheduleon = ScheduleOn; // ke9ns add  for scheduled freq change and optional recording 
-            duration = Duration;// ke9ns add  for scheduled freq change and optional recording
-            repeating = Repeating;// ke9ns add  for scheduled freq change and optional recording
-            recording = Recording;// ke9ns add  for scheduled freq change and optional recording
-            repeatingm = Repeatingm;// ke9ns add  for scheduled freq change and optional recording
-            extra = Extra;// ke9ns add  for scheduled freq change and optional recording
-*/
+            /*   
+
+                  startdate = StartDate; // ke9ns add  for scheduled freq change and optional recording
+                  scheduleon = ScheduleOn; // ke9ns add  for scheduled freq change and optional recording 
+                  duration = Duration;// ke9ns add  for scheduled freq change and optional recording
+                  repeating = Repeating;// ke9ns add  for scheduled freq change and optional recording
+                  recording = Recording;// ke9ns add  for scheduled freq change and optional recording
+                  repeatingm = Repeatingm;// ke9ns add  for scheduled freq change and optional recording
+                  extra = Extra;// ke9ns add  for scheduled freq change and optional recording
+      */
 
 
         } // memoryrecord
@@ -244,7 +244,7 @@ namespace Thetis
             }
         }
 
-      
+
         private int duration = 25; // ke9ns Duration of recording if option enabled
         public int Duration
         {
@@ -292,7 +292,7 @@ namespace Thetis
         //============================================================================
 
 
-   
+
 
 
         private string comments = "";
@@ -374,7 +374,7 @@ namespace Thetis
                 ctcss_freq = value;
                 OnPropertyChanged(this, new PropertyChangedEventArgs("CTCSSFreq"));
             }
-        }        
+        }
 
         private int deviation = 5000;
         public int Deviation
@@ -452,18 +452,18 @@ namespace Thetis
                 OnPropertyChanged(this, new PropertyChangedEventArgs("FilterHigh"));
             }
         }
-/*
-        private string comments = "";
-        public string Comments
-        {
-            get { return comments; }
-            set
-            {
-                comments = value;
-                OnPropertyChanged(this, new PropertyChangedEventArgs("Comments"));
-            }
-        }
-*/
+        /*
+                private string comments = "";
+                public string Comments
+                {
+                    get { return comments; }
+                    set
+                    {
+                        comments = value;
+                        OnPropertyChanged(this, new PropertyChangedEventArgs("Comments"));
+                    }
+                }
+        */
         private AGCMode agc_mode = AGCMode.MED;
         public AGCMode AGCMode
         {
@@ -486,8 +486,8 @@ namespace Thetis
             }
         }
 
-       
-      
+
+
 
         private bool scheduleon = false; // ke9ns add Turn Scedule ON/OFF
         public bool ScheduleOn

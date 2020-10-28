@@ -33,3 +33,6 @@ I gave up after several fruitless hours trying to do it 'The Wix way'
 Added capability to auto-save the SetPeak field in PureSignal. My Hermes-Lite 2 requires a value of more like 0.2 than 0.4,
 and it wouldn't save this before.
 
+Experimental implementation of the nice S-Meter found in old FiFiSDR (GSDR)
+
+

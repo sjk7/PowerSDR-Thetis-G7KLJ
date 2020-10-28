@@ -29,18 +29,18 @@
 //
 // Waterfall AGC Modifications Copyright (C) 2013 Phil Harman (VK6APH)
 //
-    using System;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.Drawing.Imaging;
-    using System.Drawing.Drawing2D;
-    using System.Diagnostics;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using System.Windows.Forms;
-    using System.Runtime.InteropServices;
-    using System.Security;
-    using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
+using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using System.Security;
+using System.Linq;
 
 namespace Thetis
 {
@@ -56,15 +56,15 @@ namespace Thetis
         //private  Bitmap display_bmp;					// Bitmap for use when drawing
         public string background_image = null;
 
-      //  private int[] histogram_data = null;					// histogram display buffer
-       // private int[] histogram_history;					// histogram counter
+        //  private int[] histogram_data = null;					// histogram display buffer
+        // private int[] histogram_history;					// histogram counter
 
         public float[] new_display_data;					// Buffer used to store the new data from the DSP for the display
-        public float[] current_display_data;				// Buffer used to store the current data for the display
-        // public float[] new_display_data_bottom;
-        //  public float[] current_display_data;
+        public float[] current_display_data;                // Buffer used to store the current data for the display
+                                                            // public float[] new_display_data_bottom;
+                                                            //  public float[] current_display_data;
 
-       // public float[] new_waterfall_data;
+        // public float[] new_waterfall_data;
         //  public float[] current_waterfall_data;
         // public float[] waterfall_display_data;
         //  public float[] average_waterfall_buffer;
@@ -117,8 +117,8 @@ namespace Thetis
         public float FreqRulerPosition
         {
             get { return freq_ruler_position; }
-            set 
-            { 
+            set
+            {
                 freq_ruler_position = value;
                 CreateDisplayRegions();
             }
@@ -128,16 +128,16 @@ namespace Thetis
         public int NReceivers
         {
             get { return nreceivers; }
-            set { nreceivers = value;}
+            set { nreceivers = value; }
         }
 
         private Console console;
         public Console cOnsole
         {
-            get { return console; } 
+            get { return console; }
             set { console = value; }
         }
-        
+
         private bool refresh_panadapter_grid = true;                 // yt7pwr
         public bool RefreshPanadapterGrid
         {
@@ -266,7 +266,7 @@ namespace Thetis
             set
             {
                 split_enabled = value;
-               
+
             }
         }
 
@@ -575,8 +575,8 @@ namespace Thetis
                 // draw_display_thread.Start();
                 //  }
                 refresh_panadapter_grid = true;
-               // console.pause_DisplayThread = false;
-               // console.pause_DisplayThread2 = false;
+                // console.pause_DisplayThread = false;
+                // console.pause_DisplayThread2 = false;
             }
         }
 
@@ -1011,7 +1011,7 @@ namespace Thetis
             for (int i = 0; i < BUFFER_SIZE; i++)
             {
                 new_display_data[i] = -200.0f;
-                current_display_data[i] = -200.0f;               
+                current_display_data[i] = -200.0f;
             }
 
             Pixels = W;
@@ -1022,7 +1022,7 @@ namespace Thetis
             // draws the background image for the display based
             // on the current selected display mode.
 
-                this.Invalidate();
+            this.Invalidate();
         }
 
         /// <summary>
@@ -1065,10 +1065,10 @@ namespace Thetis
         unsafe public void RenderGDIPlus(int rx, Graphics e)
         {
             try
-            {                            
-                        DrawPanadapter(e, rx);
-                        if (waterfallRect.Height >= 10)
-                            DrawWaterfall(e, rx);               
+            {
+                DrawPanadapter(e, rx);
+                if (waterfallRect.Height >= 10)
+                    DrawWaterfall(e, rx);
             }
             catch (Exception ex)
             {
@@ -1113,9 +1113,9 @@ namespace Thetis
             // g.FillRectangle(display_background_brush, 0, bottom ? H : 0, W, H);
 
             bool local_mox = false;
-            bool displayduplex = false;
-           // if (mox && rx == 1 && !tx_on_vfob) local_mox = true;
-           // if (mox && rx == 2 && tx_on_vfob) local_mox = true;
+ 
+            // if (mox && rx == 1 && !tx_on_vfob) local_mox = true;
+            // if (mox && rx == 2 && tx_on_vfob) local_mox = true;
             //if (rx == 1 && tx_on_vfob && mox && !rx2_enabled) local_mox = true;
             int Low = 0;// = rx_display_low;					// initialize variables
             int High = 0;// = rx_display_high;
@@ -1131,10 +1131,11 @@ namespace Thetis
             int f_diff = 0;
             long vfo_hz = _vfo_hz; //cmaster.Getrxa(display_id + 2).RXFreq;// 
 
+            /*/
             if ((CurrentDisplayMode == DisplayMode.PANAFALL && (nreceivers <= 2 && display_duplex)) ||
                 (CurrentDisplayMode == DisplayMode.PANAFALL && nreceivers > 2) ||
                (CurrentDisplayMode == DisplayMode.PANADAPTER && display_duplex)) displayduplex = true;
-
+            /*/
             //if (local_mox && !displayduplex)// || (mox && tx_on_vfob))
             //{
             //    Low = tx_display_low;
@@ -1146,13 +1147,13 @@ namespace Thetis
             //}
             //else
             //{
-                Low = low_freq;
-                High = high_freq;
-                grid_max = spectrum_grid_max;
-                grid_min = spectrum_grid_min;
-                grid_step = spectrum_grid_step;
-                g.FillRectangle(display_background_brush, 0, 0, W, H);
-           // }
+            Low = low_freq;
+            High = high_freq;
+            grid_max = spectrum_grid_max;
+            grid_min = spectrum_grid_min;
+            grid_step = spectrum_grid_step;
+            g.FillRectangle(display_background_brush, 0, 0, W, H);
+            // }
             f_diff = freq_diff;
 
             int y_range = grid_max - grid_min;
@@ -1161,9 +1162,9 @@ namespace Thetis
             int filter_low, filter_high;
             int center_line_x;
             int[] band_edge_list;
-        
-                filter_low = rx_filter_low;
-                filter_high = rx_filter_high;
+
+            filter_low = rx_filter_low;
+            filter_high = rx_filter_high;
 
             if (rx_dsp_mode == DSPMode.DRM)
             {
@@ -1331,7 +1332,7 @@ namespace Thetis
                 {
                     long rf_freq = vfo_hz;
                     int rit = rit_hz;
-                    
+
                     if (c.InBW((rf_freq + Low) * 1e-6, (rf_freq + High) * 1e-6)) // is channel visible?
                     {
                         bool on_channel = console.RX1IsIn60mChannel(c); // only true if you are on channel and are in an acceptable mode
@@ -1423,27 +1424,20 @@ namespace Thetis
             center_line_x = (int)((float)(-f_diff - Low) / width * W); // locked 0 line
 
             if (center_line_x >= 0 && center_line_x <= W)
-            {            
-                    g.DrawLine(grid_zero_pen, center_line_x, top, center_line_x, H);
-                    g.DrawLine(grid_zero_pen, center_line_x + 1, top, center_line_x + 1, H);
+            {
+                g.DrawLine(grid_zero_pen, center_line_x, top, center_line_x, H);
+                g.DrawLine(grid_zero_pen, center_line_x + 1, top, center_line_x + 1, H);
             }
 
             if (show_freq_offset)
-            {               
-                    g.DrawString("0", font9, grid_zero_pen.Brush, center_line_x - 5, (float)Math.Floor(H * .01));
+            {
+                g.DrawString("0", font9, grid_zero_pen.Brush, center_line_x - 5, (float)Math.Floor(H * .01));
             }
 
             double vfo;
             vfo = vfo_hz + rit_hz;
             int rxn = rx;
-            int rn = 0;
-            if (rx == 4)
-                rn = 4;
-            if (rx == 5)
-                rn = 5;
-            if (rx == 6)
-                rn = 6;
-
+  
 
             switch (rx_dsp_mode)
             {
@@ -1735,40 +1729,40 @@ namespace Thetis
             switch (current_region)
             {
                 case FRSRegion.Australia:
-                    band_edge_list = new int[]{ 135700, 137800, 472000, 479000, 1800000, 1875000, 
-				 3500000, 3800000, 7000000, 7300000, 10100000, 10150000, 14000000, 14350000, 18068000, 
-				 18168000, 21000000, 21450000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
+                    band_edge_list = new int[]{ 135700, 137800, 472000, 479000, 1800000, 1875000,
+                 3500000, 3800000, 7000000, 7300000, 10100000, 10150000, 14000000, 14350000, 18068000,
+                 18168000, 21000000, 21450000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
                     break;
                 case FRSRegion.UK:
                     band_edge_list = new int[] { 472000, 479000, 1810000, 2000000, 3500000, 3800000,
-				5258500, 5406500, 7000000, 7200000, 10100000, 10150000, 14000000, 14350000, 18068000, 18168000,
-				21000000, 21450000, 24890000, 24990000, 28000000, 29700000, 50000000, 52000000, 144000000, 148000000 };
+                5258500, 5406500, 7000000, 7200000, 10100000, 10150000, 14000000, 14350000, 18068000, 18168000,
+                21000000, 21450000, 24890000, 24990000, 28000000, 29700000, 50000000, 52000000, 144000000, 148000000 };
                     break;
                 case FRSRegion.India:
-                    band_edge_list = new int[]{ 1810000, 1860000, 3500000, 3900000, 7000000, 7200000, 
-				10100000, 10150000, 14000000, 14350000, 18068000, 18168000, 21000000, 21450000,
-				24890000, 24990000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
+                    band_edge_list = new int[]{ 1810000, 1860000, 3500000, 3900000, 7000000, 7200000,
+                10100000, 10150000, 14000000, 14350000, 18068000, 18168000, 21000000, 21450000,
+                24890000, 24990000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
                     break;
                 case FRSRegion.Norway:
                     band_edge_list = new int[]{ 1800000, 2000000, 3500000, 4000000, 5260000, 5410000,
-				7000000, 7300000, 10100000, 10150000, 14000000, 14350000, 18068000, 18168000, 21000000, 21450000,
-				24890000, 24990000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
+                7000000, 7300000, 10100000, 10150000, 14000000, 14350000, 18068000, 18168000, 21000000, 21450000,
+                24890000, 24990000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
                     break;
                 case FRSRegion.US:
                     band_edge_list = new int[]{ 135700, 137800, 472000, 479000, 1800000, 2000000, 3500000, 4000000,
-				7000000, 7300000, 10100000, 10150000, 14000000, 14350000,  18068000, 18168000, 21000000, 21450000,
-				24890000, 24990000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
+                7000000, 7300000, 10100000, 10150000, 14000000, 14350000,  18068000, 18168000, 21000000, 21450000,
+                24890000, 24990000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
                     break;
                 case FRSRegion.Japan:
-                    band_edge_list = new int[]{ 135700, 137800, 472000, 479000, 1810000, 1810000, 1907500, 1912500, 
+                    band_edge_list = new int[]{ 135700, 137800, 472000, 479000, 1810000, 1810000, 1907500, 1912500,
                 3500000, 3575000, 3599000, 3612000, 3687000, 3702000, 3716000, 3745000, 3770000, 3791000, 3805000,
-				7000000, 7200000, 10100000, 10150000, 14000000, 14350000, 18068000, 18168000, 21000000, 21450000,
-				24890000, 24990000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
+                7000000, 7200000, 10100000, 10150000, 14000000, 14350000, 18068000, 18168000, 21000000, 21450000,
+                24890000, 24990000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
                     break;
                 default:
-                    band_edge_list = new int[]{1800000, 2000000, 3500000, 4000000, 7000000, 7300000, 
-				10100000, 10150000, 14000000, 14350000, 18068000, 18168000, 21000000, 21450000,
-				24890000, 24990000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
+                    band_edge_list = new int[]{1800000, 2000000, 3500000, 4000000, 7000000, 7300000,
+                10100000, 10150000, 14000000, 14350000, 18068000, 18168000, 21000000, 21450000,
+                24890000, 24990000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
                     break;
             }
 
@@ -1784,57 +1778,57 @@ namespace Thetis
 
             }
 
-           // if (grid_control)
-           // {
-                // Draw horizontal lines
-                for (int i = 1; i < h_steps; i++)
+            // if (grid_control)
+            // {
+            // Draw horizontal lines
+            for (int i = 1; i < h_steps; i++)
+            {
+                int xOffset = 0;
+                int num = grid_max - i * grid_step;
+                int y = (int)((double)(grid_max - num) * H / y_range);
+
+                g.DrawLine(hgrid_pen, 0, y, W, y);
+
+                // Draw horizontal line labels
+                if (i != 0) // avoid intersecting vertical and horizontal labels
                 {
-                    int xOffset = 0;
-                    int num = grid_max - i * grid_step;
-                    int y = (int)((double)(grid_max - num) * H / y_range);
+                    num = grid_max - i * grid_step;
+                    string label = num.ToString();
+                    if (label.Length == 3)
+                        xOffset = (int)g.MeasureString("-", font9).Width - 2;
+                    // int offset = (int)(label.Length * 4.1);
+                    SizeF size = g.MeasureString(label, font9);
 
-                    g.DrawLine(hgrid_pen, 0, y, W, y);
-
-                    // Draw horizontal line labels
-                    if (i != 0) // avoid intersecting vertical and horizontal labels
+                    int x = 0;
+                    switch (display_label_align)
                     {
-                        num = grid_max - i * grid_step;
-                        string label = num.ToString();
-                        if (label.Length == 3)
-                            xOffset = (int)g.MeasureString("-", font9).Width - 2;
-                        // int offset = (int)(label.Length * 4.1);
-                        SizeF size = g.MeasureString(label, font9);
+                        case DisplayLabelAlignment.LEFT:
+                            x = xOffset + 3;
+                            break;
+                        case DisplayLabelAlignment.CENTER:
+                            x = center_line_x + xOffset;
+                            break;
+                        case DisplayLabelAlignment.RIGHT:
+                            x = (int)(W - size.Width - 3);
+                            break;
+                        case DisplayLabelAlignment.AUTO:
+                            x = xOffset + 3;
+                            break;
+                        case DisplayLabelAlignment.OFF:
+                            x = W;
+                            break;
+                    }
+                    // console.DisplayGridX = x;
+                    // console.DisplayGridW = (int)(x + size.Width);
 
-                        int x = 0;
-                        switch (display_label_align)
-                        {
-                            case DisplayLabelAlignment.LEFT:
-                                x = xOffset + 3;
-                                break;
-                            case DisplayLabelAlignment.CENTER:
-                                x = center_line_x + xOffset;
-                                break;
-                            case DisplayLabelAlignment.RIGHT:
-                                x = (int)(W - size.Width - 3);
-                                break;
-                            case DisplayLabelAlignment.AUTO:
-                                x = xOffset + 3;
-                                break;
-                            case DisplayLabelAlignment.OFF:
-                                x = W;
-                                break;
-                        }
-                       // console.DisplayGridX = x;
-                       // console.DisplayGridW = (int)(x + size.Width);
-
-                        y -= 8;
-                        if (y + 9 < H)
-                        {                           
-                                g.DrawString(label, font9, grid_text_brush, x, y);
-                        }
+                    y -= 8;
+                    if (y + 9 < H)
+                    {
+                        g.DrawString(label, font9, grid_text_brush, x, y);
                     }
                 }
-          //  }
+            }
+            //  }
 
             // draw long cursor & filter overlay
             //if (current_click_tune_mode != ClickTuneMode.Off)
@@ -2029,7 +2023,6 @@ namespace Thetis
                     points = new Point[W];			// array of points to display
             }
             float slope = 0.0F;						// samples to process per pixel
-            int num_samples = 0;					// number of samples to process
             int start_sample_index = 0;				// index to begin looking at samples
             int Low = 0;// rx_display_low;
             int High = 0;// rx_display_high;
@@ -2059,10 +2052,10 @@ namespace Thetis
             //else
             //{
             //    Low = rx_display_low;
-                High = high_freq;
-                grid_max = spectrum_grid_max;
-                grid_min = spectrum_grid_min;
-           // }
+            High = high_freq;
+            grid_max = spectrum_grid_max;
+            grid_min = spectrum_grid_min;
+            // }
 
             if (rx_dsp_mode == DSPMode.DRM)
             {
@@ -2082,10 +2075,10 @@ namespace Thetis
                 //}
                 //else
                 //{
-                    fixed (void* rptr = &new_display_data[0])
-                    fixed (void* wptr = &current_display_data[0])
-                        Win32.memcpy(wptr, rptr, BUFFER_SIZE * sizeof(float));
-               // }
+                fixed (void* rptr = &new_display_data[0])
+                fixed (void* wptr = &current_display_data[0])
+                    Win32.memcpy(wptr, rptr, BUFFER_SIZE * sizeof(float));
+                // }
                 data_ready = false;
             }
 
@@ -2141,13 +2134,13 @@ namespace Thetis
                     else max = current_display_data[i];
 
                     max += rx_display_cal_offset;
-                    
+
 
                     if (!local_mox || (local_mox && displayduplex))
                     {
-                       // if (rx == 1) 
-                            max += preamp_offset;
-                       // else if (rx == 2) max += preamp_offset;
+                        // if (rx == 1) 
+                        max += preamp_offset;
+                        // else if (rx == 2) max += preamp_offset;
                     }
 
                     if (max > local_max_y)
@@ -2196,7 +2189,7 @@ namespace Thetis
                     g.DrawLines(data_line_pen, points);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Trace.WriteLine(ex);
             }
@@ -2220,7 +2213,7 @@ namespace Thetis
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
             }
 
@@ -2335,7 +2328,7 @@ namespace Thetis
 
                 //if (peak_on && local_mox && !displayduplex)
                 //    UpdateDisplayPeak(rx1_peak_buffer, current_display_data);
-                
+
                 int duration = 0;
                 timer_waterfall.Stop();
                 duration = (int)timer_waterfall.DurationMsec;
@@ -3394,7 +3387,7 @@ namespace Thetis
 
             freqScalePanRect = new Rectangle(
                     0,
-                    displayTop + 
+                    displayTop +
                     (int)Math.Round((height - displayTop - freqScaleRectHeight) * freq_ruler_position),
                     width,
                     freqScaleRectHeight);
@@ -3451,8 +3444,8 @@ namespace Thetis
         //  private int grid_minmax_drag_max_delta_x = 0;
         private decimal grid_minmax_max_y = 0;
         private decimal grid_minmax_min_y = 0;
-       // private Cursor grab = new Cursor(msgrab);
-       // private Cursor grabbing = new Cursor(msgrabbing);
+        // private Cursor grab = new Cursor(msgrab);
+        // private Cursor grabbing = new Cursor(msgrabbing);
         private bool moveX = false;
         private bool moveY = false;
 
@@ -3569,18 +3562,18 @@ namespace Thetis
                     flag = 0;
 
                     fixed (float* ptr = &new_display_data[0])
-                        SpecHPSDRDLL.GetPixels(rx-2, 0, ptr, ref flag);
+                        SpecHPSDRDLL.GetPixels(rx - 2, 0, ptr, ref flag);
 
                     this.DataReady = true;
                 }
-                
+
             }
         }
 
         private Point mousePos;
         private Point mouseDownPos;
         private Point rulerMouseDownPos;
-        
+
         private void PanDisplay_MouseMove(object sender, MouseEventArgs e)
         {
             Size pos = new Size(-1, -1);
@@ -3592,160 +3585,160 @@ namespace Thetis
                 e.Button != MouseButtons.Middle)
                 getRegion(mousePos);
 
-           // Cursor next_cursor = null;
+            // Cursor next_cursor = null;
 
             switch (mouseRegion)
             {
-                            case DisplayRegion.freqScalePanadapterRegion:
-                                if (e.Button == MouseButtons.Left)
-                                {
-                                    Point dPos = Point.Subtract(mouseDownPos, pos);
+                case DisplayRegion.freqScalePanadapterRegion:
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        Point dPos = Point.Subtract(mouseDownPos, pos);
 
-                                    if (dPos.Y != 0 && !moveY && !moveX)
-                                    {
-                                        moveY = true;
-                                        moveX = false;
-                                    }
-
-                                    if (moveY)
-                                    {
-                                        int bottom_y = (int)(this.Height - this.FreqScalePanRect.Height);
-                                        int new_y = (int)(rulerMouseDownPos.Y - dPos.Y);
-
-                                        if (new_y < (int)(this.PanRect.Top))// + picDisplay.panSpectrumMinimumHeight))
-                                            new_y = (int)(this.PanRect.Top);// + picDisplay.panSpectrumMinimumHeight);
-                                        if (new_y > bottom_y)
-                                            new_y = bottom_y;
-
-                                        FreqRulerPosition = (float)(new_y - this.PanRect.Top) / (bottom_y - this.PanRect.Top);
-                                        // picDisplay.Init();
-                                        //picDisplay.CreateDisplayRegions();
-                                    }
-                                    //  }
-                                    //  else if (e.Button == System.Windows.Forms.MouseButtons.Left)
-                                    // {
-                                    //  Point dPos = Point.Subtract(m_mouseDownPos, pos);
-                                    if (dPos.X != 0 && !moveY && !moveX)
-                                    {
-                                        moveX = true;
-                                        moveY = false;
-                                    }
-
-                                    if (moveX)
-                                    {
-                                        int displaySpan = HighFreq - LowFreq;
-                                        double unit = (double)(displaySpan / (double)FreqScalePanRect.Width);
-                                        double deltaFreq = unit * dPos.X;
-
-                                        //if (rx1_spectrum_tune_drag)
-                                        //{
-                                        //    // if (!mox || (rx2_enabled && chkVFOBTX.Checked))
-                                        //    // {
-                                        //    float start_freq = PixelToHz(spectrum_drag_last_x);
-                                        //    float end_freq = PixelToHz(e.X);
-                                        //    spectrum_drag_last_x = e.X;
-                                        //    float delta = end_freq - start_freq;
-                                        //    CenterFrequency -= delta * 0.0000010;
-                                        //    txtVFOAFreq_LostFocus(this, EventArgs.Empty);
-                                        //    // }
-                                        //}
-                                        //else
-                                           // VFOFreq += deltaFreq * 0.0000010;
-                                        cmaster.Getrxa(display_id + 2).RXFreq += (long)deltaFreq;
-                                        // cmaster.Getrxa(display_id + 2).RXFreq += (deltaFreq * 0.0000010);
-                                        //VFOHz += (long)deltaFreq;
-                                        //JanusAudio.SetVFOfreq(display_id+2, JanusAudio.Freq2PW((int)VFOHz), 0);
-                                        mouseDownPos = mousePos;
-                                    }
-                                }
-
-                                if (e.Button == MouseButtons.Right)
-                                {
-                                    Point dPos = (Point)Point.Subtract(mouseDownPos, pos);
-                                    if (dPos.X > 0)
-                                        ZoomFactor += 0.01;
-                                    else if (dPos.X < 0)
-                                        ZoomFactor -= 0.01;
-
-                                     // if (freqScaleZoomFactor > 1.0) freqScaleZoomFactor = 1.0;
-                                     // if (freqScaleZoomFactor < 0.05) freqScaleZoomFactor = 0.05;
-
-                                    //  specRX.GetSpecRX(0).ZoomSlider = freqScaleZoomFactor;
-                                   // rx1_zoom_factor_by_band[(int)rx1_band] = rx1_zoom_factor;
-
-                                    mouseDownPos = mousePos;
-                                    //CalcDisplayFreq();
-                                }
-
-                                break;
-
-                            case DisplayRegion.dBmScalePanadapterRegion:                              
-
-                                if (gridminmaxadjust)
-                                {                                  
-                                    int delta_y = e.Y - grid_minmax_drag_start_point.Y;
-                                    double delta_db = ((double)delta_y / 10) * 5;
-                                    decimal val = grid_minmax_max_y;
-                                    val += (decimal)delta_db;
-                                    decimal min_val = grid_minmax_min_y;
-                                    min_val += (decimal)delta_db;
-
-                                    if (val > 200) val = 200;
-                                    if (min_val < -200) min_val = -200;
-
-                                    SpectrumGridMax = (int)val;
-                                    SpectrumGridMin = (int)min_val;                                  
-                                }
-
-                                if (gridmaxadjust)
-                                {                                  
-                                    int delta_y = e.Y - grid_minmax_drag_start_point.Y;
-                                    double delta_db = ((double)delta_y / 10) * 5;
-                                    decimal val = grid_minmax_max_y;
-                                    val += (decimal)delta_db;
-
-                                    if (val > 200) val = 200;
-
-                                    SpectrumGridMax = (int)val;
-                                }                        
-                                break;
-                            case DisplayRegion.filterRegionLow:
-                               // next_cursor = Cursors.SizeWE;
-                                //  m_showFilterLeftBoundary = true;
-                                if (e.Button == MouseButtons.Left)
-                                {
-                                    // Point dPos = Point.Subtract(mouseDownPos, pos);
-                                    // double dFreq = (double)(dPos.X * displaySpan) / (double)panRect.Width;
-
-                                    // filterLowerFrequency = Math.Round(mouseDownFilterFrequencyLo - dFreq);
-                                    //settings.setRXFilter(this, receiver, filterLowerFrequency, filterUpperFrequency);
-                                   // SelectRX1VarFilter();
-                                   // int new_low = (int)Math.Min(PixelToHz(e.X), radio.GetDSPRX(0, 0).RXFilterHigh - 10);
-                                   // UpdateRX1Filters(new_low, radio.GetDSPRX(0, 0).RXFilterHigh);
-                                }
-
-                                // m_highlightFilter = false;
-                                break;
-                            case DisplayRegion.filterRegionHigh:
-                               // next_cursor = Cursors.SizeWE;
-                                if (e.Button == MouseButtons.Left)
-                                {
-                                   // SelectRX1VarFilter();
-                                   // int new_high = (int)Math.Max(PixelToHz(e.X), radio.GetDSPRX(0, 0).RXFilterLow + 10);
-                                    //UpdateRX1Filters(radio.GetDSPRX(0, 0).RXFilterLow, new_high);
-                                }
-                                break;
-                            case DisplayRegion.filterRegion:
-                               // next_cursor = Cursors.NoMoveHoriz;
-                                if (e.Button == MouseButtons.Left)
-                                {
-                                   // SelectRX1VarFilter();
-                                   // int diff = (int)(PixelToHz(e.X) - PixelToHz(whole_filter_start_x));
-                                    //UpdateRX1Filters(whole_filter_start_low + diff, whole_filter_start_high + diff);
-                                }
-                                break;
-
+                        if (dPos.Y != 0 && !moveY && !moveX)
+                        {
+                            moveY = true;
+                            moveX = false;
                         }
+
+                        if (moveY)
+                        {
+                            int bottom_y = (int)(this.Height - this.FreqScalePanRect.Height);
+                            int new_y = (int)(rulerMouseDownPos.Y - dPos.Y);
+
+                            if (new_y < (int)(this.PanRect.Top))// + picDisplay.panSpectrumMinimumHeight))
+                                new_y = (int)(this.PanRect.Top);// + picDisplay.panSpectrumMinimumHeight);
+                            if (new_y > bottom_y)
+                                new_y = bottom_y;
+
+                            FreqRulerPosition = (float)(new_y - this.PanRect.Top) / (bottom_y - this.PanRect.Top);
+                            // picDisplay.Init();
+                            //picDisplay.CreateDisplayRegions();
+                        }
+                        //  }
+                        //  else if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                        // {
+                        //  Point dPos = Point.Subtract(m_mouseDownPos, pos);
+                        if (dPos.X != 0 && !moveY && !moveX)
+                        {
+                            moveX = true;
+                            moveY = false;
+                        }
+
+                        if (moveX)
+                        {
+                            int displaySpan = HighFreq - LowFreq;
+                            double unit = (double)(displaySpan / (double)FreqScalePanRect.Width);
+                            double deltaFreq = unit * dPos.X;
+
+                            //if (rx1_spectrum_tune_drag)
+                            //{
+                            //    // if (!mox || (rx2_enabled && chkVFOBTX.Checked))
+                            //    // {
+                            //    float start_freq = PixelToHz(spectrum_drag_last_x);
+                            //    float end_freq = PixelToHz(e.X);
+                            //    spectrum_drag_last_x = e.X;
+                            //    float delta = end_freq - start_freq;
+                            //    CenterFrequency -= delta * 0.0000010;
+                            //    txtVFOAFreq_LostFocus(this, EventArgs.Empty);
+                            //    // }
+                            //}
+                            //else
+                            // VFOFreq += deltaFreq * 0.0000010;
+                            cmaster.Getrxa(display_id + 2).RXFreq += (long)deltaFreq;
+                            // cmaster.Getrxa(display_id + 2).RXFreq += (deltaFreq * 0.0000010);
+                            //VFOHz += (long)deltaFreq;
+                            //JanusAudio.SetVFOfreq(display_id+2, JanusAudio.Freq2PW((int)VFOHz), 0);
+                            mouseDownPos = mousePos;
+                        }
+                    }
+
+                    if (e.Button == MouseButtons.Right)
+                    {
+                        Point dPos = (Point)Point.Subtract(mouseDownPos, pos);
+                        if (dPos.X > 0)
+                            ZoomFactor += 0.01;
+                        else if (dPos.X < 0)
+                            ZoomFactor -= 0.01;
+
+                        // if (freqScaleZoomFactor > 1.0) freqScaleZoomFactor = 1.0;
+                        // if (freqScaleZoomFactor < 0.05) freqScaleZoomFactor = 0.05;
+
+                        //  specRX.GetSpecRX(0).ZoomSlider = freqScaleZoomFactor;
+                        // rx1_zoom_factor_by_band[(int)rx1_band] = rx1_zoom_factor;
+
+                        mouseDownPos = mousePos;
+                        //CalcDisplayFreq();
+                    }
+
+                    break;
+
+                case DisplayRegion.dBmScalePanadapterRegion:
+
+                    if (gridminmaxadjust)
+                    {
+                        int delta_y = e.Y - grid_minmax_drag_start_point.Y;
+                        double delta_db = ((double)delta_y / 10) * 5;
+                        decimal val = grid_minmax_max_y;
+                        val += (decimal)delta_db;
+                        decimal min_val = grid_minmax_min_y;
+                        min_val += (decimal)delta_db;
+
+                        if (val > 200) val = 200;
+                        if (min_val < -200) min_val = -200;
+
+                        SpectrumGridMax = (int)val;
+                        SpectrumGridMin = (int)min_val;
+                    }
+
+                    if (gridmaxadjust)
+                    {
+                        int delta_y = e.Y - grid_minmax_drag_start_point.Y;
+                        double delta_db = ((double)delta_y / 10) * 5;
+                        decimal val = grid_minmax_max_y;
+                        val += (decimal)delta_db;
+
+                        if (val > 200) val = 200;
+
+                        SpectrumGridMax = (int)val;
+                    }
+                    break;
+                case DisplayRegion.filterRegionLow:
+                    // next_cursor = Cursors.SizeWE;
+                    //  m_showFilterLeftBoundary = true;
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        // Point dPos = Point.Subtract(mouseDownPos, pos);
+                        // double dFreq = (double)(dPos.X * displaySpan) / (double)panRect.Width;
+
+                        // filterLowerFrequency = Math.Round(mouseDownFilterFrequencyLo - dFreq);
+                        //settings.setRXFilter(this, receiver, filterLowerFrequency, filterUpperFrequency);
+                        // SelectRX1VarFilter();
+                        // int new_low = (int)Math.Min(PixelToHz(e.X), radio.GetDSPRX(0, 0).RXFilterHigh - 10);
+                        // UpdateRX1Filters(new_low, radio.GetDSPRX(0, 0).RXFilterHigh);
+                    }
+
+                    // m_highlightFilter = false;
+                    break;
+                case DisplayRegion.filterRegionHigh:
+                    // next_cursor = Cursors.SizeWE;
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        // SelectRX1VarFilter();
+                        // int new_high = (int)Math.Max(PixelToHz(e.X), radio.GetDSPRX(0, 0).RXFilterLow + 10);
+                        //UpdateRX1Filters(radio.GetDSPRX(0, 0).RXFilterLow, new_high);
+                    }
+                    break;
+                case DisplayRegion.filterRegion:
+                    // next_cursor = Cursors.NoMoveHoriz;
+                    if (e.Button == MouseButtons.Left)
+                    {
+                        // SelectRX1VarFilter();
+                        // int diff = (int)(PixelToHz(e.X) - PixelToHz(whole_filter_start_x));
+                        //UpdateRX1Filters(whole_filter_start_low + diff, whole_filter_start_high + diff);
+                    }
+                    break;
+
+            }
         }
 
         private void PanDisplay_MouseUp(object sender, MouseEventArgs e)
@@ -3768,51 +3761,51 @@ namespace Thetis
                 //    case DisplayMode.PANAFALL:
                 //    case DisplayMode.PANASCOPE:
                 //    case DisplayMode.HISTOGRAM:
-                        rx1_low_filter_drag = false;
-                        rx1_high_filter_drag = false;
-                        rx1_whole_filter_drag = false;
-                        // rx2_low_filter_drag = false;
-                        // rx2_high_filter_drag = false;
-                        // rx2_whole_filter_drag = false;
-                        //tx_low_filter_drag = false;
-                        //tx_high_filter_drag = false;
-                        //tx_whole_filter_drag = false;
-                        //rx1_click_tune_drag = false;
-                        //rx1_spectrum_tune_drag = false;
+                rx1_low_filter_drag = false;
+                rx1_high_filter_drag = false;
+                rx1_whole_filter_drag = false;
+                // rx2_low_filter_drag = false;
+                // rx2_high_filter_drag = false;
+                // rx2_whole_filter_drag = false;
+                //tx_low_filter_drag = false;
+                //tx_high_filter_drag = false;
+                //tx_whole_filter_drag = false;
+                //rx1_click_tune_drag = false;
+                //rx1_spectrum_tune_drag = false;
 
-                        //agc_knee_drag = false;
-                        //agc_hang_drag = false;
-                        // agc_knee_drag_max_delta_x = 0;
-                        // agc_knee_drag_max_delta_y = 0;
-                        gridminmaxadjust = false;
-                        rx1_grid_adjust = false;
-                        // rx2_grid_adjust = false;
-                       // tx1_grid_adjust = false;
-                        // tx2_grid_adjust = false;
+                //agc_knee_drag = false;
+                //agc_hang_drag = false;
+                // agc_knee_drag_max_delta_x = 0;
+                // agc_knee_drag_max_delta_y = 0;
+                gridminmaxadjust = false;
+                rx1_grid_adjust = false;
+                // rx2_grid_adjust = false;
+                // tx1_grid_adjust = false;
+                // tx2_grid_adjust = false;
 
-                        // grid_minmax_drag_max_delta_y = 0;
+                // grid_minmax_drag_max_delta_y = 0;
 
-                        // notch_drag = false;
-                        // notch_drag_max_delta_x = 0;
-                        //  notch_drag_max_delta_y = 0;
-                        // timerNotchZoom.Enabled = false;
-                        // notch_zoom = false;
-                        // if (picDisplay.TNFZoom)
-                        // {
-                        //    picDisplay.TNFZoom = false;
-                        //  }
-                        // stop showing details for this notch in the panadapter
-                        //  if (notch_drag_active != null)
-                        //  {
-                        //   notch_drag_active.Details = false;
-                        //   notch_drag_active = null;
-                        // }
-                        //rx2_sub_drag = false;
+                // notch_drag = false;
+                // notch_drag_max_delta_x = 0;
+                //  notch_drag_max_delta_y = 0;
+                // timerNotchZoom.Enabled = false;
+                // notch_zoom = false;
+                // if (picDisplay.TNFZoom)
+                // {
+                //    picDisplay.TNFZoom = false;
+                //  }
+                // stop showing details for this notch in the panadapter
+                //  if (notch_drag_active != null)
+                //  {
+                //   notch_drag_active.Details = false;
+                //   notch_drag_active = null;
+                // }
+                //rx2_sub_drag = false;
 
-                        moveX = false;
-                        moveY = false;
+                moveX = false;
+                moveY = false;
 
-                       // break;
+                // break;
                 //}
 
                 if (rx1_sub_drag)
@@ -3820,13 +3813,13 @@ namespace Thetis
                     rx1_sub_drag = false;
                     // if (rx2_enabled) txtVFOABand_LostFocus(this, EventArgs.Empty);
                     // else 
-                   // txtVFOBFreq_LostFocus(this, EventArgs.Empty);
+                    // txtVFOBFreq_LostFocus(this, EventArgs.Empty);
                 }
 
                 if (rx1_spectrum_drag)
                 {
                     rx1_spectrum_drag = false;
-                   // txtVFOAFreq_LostFocus(this, EventArgs.Empty);
+                    // txtVFOAFreq_LostFocus(this, EventArgs.Empty);
                 }
                 // rx2_spectrum_drag = false;
                 //Cursor = Cursors.Default;
@@ -3840,13 +3833,13 @@ namespace Thetis
                 //    case DisplayMode.PANAFALL:
                 //    case DisplayMode.HISTOGRAM:
                 //    case DisplayMode.SPECTRUM:
-                        gridminmaxadjust = false;
-                        gridmaxadjust = false;
-                        rx1_grid_adjust = false;
-                        // rx2_grid_adjust = false;
-                       // tx1_grid_adjust = false;
-                        // tx2_grid_adjust = false;
-                       // break;
+                gridminmaxadjust = false;
+                gridmaxadjust = false;
+                rx1_grid_adjust = false;
+                // rx2_grid_adjust = false;
+                // tx1_grid_adjust = false;
+                // tx2_grid_adjust = false;
+                // break;
                 //}
             }
 
@@ -3881,8 +3874,8 @@ namespace Thetis
 
         private void PanDisplay_MouseEnter(object sender, EventArgs e)
         {
-           // if (!this.Focused)
-             //   this.Focus();
+            // if (!this.Focused)
+            //   this.Focus();
         }
 
         private void PanDisplay_MouseWheel(object sender, MouseEventArgs e)
@@ -4065,83 +4058,83 @@ namespace Thetis
                     //    case DisplayMode.PANAFALL:
                     //    case DisplayMode.HISTOGRAM:
                     //    case DisplayMode.SPECTRUM:
-                            if (mouseRegion == DisplayRegion.filterRegion)
-                            {
-                                //  m_highlightFilter = true;
-                                // wholeFilterDrag = true;
+                    if (mouseRegion == DisplayRegion.filterRegion)
+                    {
+                        //  m_highlightFilter = true;
+                        // wholeFilterDrag = true;
 
-                                //whole_filter_start_x = e.X;
+                        //whole_filter_start_x = e.X;
 
-                                //if (!mox)
-                                //{
-                                //    rx1_whole_filter_drag = true;
-                                //    whole_filter_start_low = radio.GetDSPRX(0, 0).RXFilterLow;
-                                //    whole_filter_start_high = radio.GetDSPRX(0, 0).RXFilterHigh;
-                                //}
-                                //else
-                                //{
-                                //    tx_whole_filter_drag = true;
-                                //    whole_filter_start_low = SetupForm.TXFilterLow;
-                                //    whole_filter_start_high = SetupForm.TXFilterHigh;
-                                //}
-                            }
-                            else if (mouseRegion == DisplayRegion.freqScalePanadapterRegion)
-                            {
-                                rulerMouseDownPos = new Point(FreqScalePanRect.Left, FreqScalePanRect.Top);
+                        //if (!mox)
+                        //{
+                        //    rx1_whole_filter_drag = true;
+                        //    whole_filter_start_low = radio.GetDSPRX(0, 0).RXFilterLow;
+                        //    whole_filter_start_high = radio.GetDSPRX(0, 0).RXFilterHigh;
+                        //}
+                        //else
+                        //{
+                        //    tx_whole_filter_drag = true;
+                        //    whole_filter_start_low = SetupForm.TXFilterLow;
+                        //    whole_filter_start_high = SetupForm.TXFilterHigh;
+                        //}
+                    }
+                    else if (mouseRegion == DisplayRegion.freqScalePanadapterRegion)
+                    {
+                        rulerMouseDownPos = new Point(FreqScalePanRect.Left, FreqScalePanRect.Top);
 
-                                spectrum_drag_last_x = e.X;
-                                //if (click_tune_display)
-                                //{
-                                //    rx1_spectrum_tune_drag = true;
-                                
-                                //    Cursor = Cursors.SizeWE;
-                                //}
+                        spectrum_drag_last_x = e.X;
+                        //if (click_tune_display)
+                        //{
+                        //    rx1_spectrum_tune_drag = true;
 
-                                //  if (e.Button == System.Windows.Forms.MouseButtons.Right) next_cursor = Cursors.HSplit;
-                                //  return;
-                            }
-                            else if (mouseRegion == DisplayRegion.dBmScalePanadapterRegion)
-                            {
-                                rulerMouseDownPos = new Point(DBMScalePanRect.Left, DBMScalePanRect.Top);
+                        //    Cursor = Cursors.SizeWE;
+                        //}
 
-                               // if (!mox)
-                               // {
-                                    grid_minmax_drag_start_point = pos;
-                                    gridminmaxadjust = true;
-                                   // tx1_grid_adjust = false;
-                                    grid_minmax_max_y = (decimal)SpectrumGridMax;
-                                    grid_minmax_min_y = (decimal)SpectrumGridMin;
-                                   // Cursor = grabbing;
-                                //}
-                                //else
-                                //{
-                                //    if (((rx1_grid_adjust && !TXOnVFOB) ||
-                                //        (rx1_grid_adjust && TXOnVFOB && !RX2Enabled)) &&
-                                //        CurrentDisplayMode != DisplayMode.PANAFALL)
-                                //    {
-                                //        grid_minmax_drag_start_point = pos;
-                                //        gridminmaxadjust = true;
-                                //        tx1_grid_adjust = true;
-                                //        grid_minmax_max_y = (decimal)picDisplay.TXSpectrumGridMax;
-                                //        grid_minmax_min_y = (decimal)picDisplay.TXSpectrumGridMin;
-                                //        Cursor = grabbing;
-                                //    }
-                                //    else if (rx1_grid_adjust && picDisplay.TXOnVFOB)
-                                //    {
-                                //        grid_minmax_drag_start_point = pos;
-                                //        gridminmaxadjust = true;
-                                //        tx1_grid_adjust = false;
-                                //        grid_minmax_max_y = (decimal)SpectrumGridMax;
-                                //        grid_minmax_min_y = (decimal)SpectrumGridMin;
-                                //        Cursor = grabbing;
-                                //    }
-                                //}
-                            }
+                        //  if (e.Button == System.Windows.Forms.MouseButtons.Right) next_cursor = Cursors.HSplit;
+                        //  return;
+                    }
+                    else if (mouseRegion == DisplayRegion.dBmScalePanadapterRegion)
+                    {
+                        rulerMouseDownPos = new Point(DBMScalePanRect.Left, DBMScalePanRect.Top);
 
-                            //break;
+                        // if (!mox)
+                        // {
+                        grid_minmax_drag_start_point = pos;
+                        gridminmaxadjust = true;
+                        // tx1_grid_adjust = false;
+                        grid_minmax_max_y = (decimal)SpectrumGridMax;
+                        grid_minmax_min_y = (decimal)SpectrumGridMin;
+                        // Cursor = grabbing;
+                        //}
+                        //else
+                        //{
+                        //    if (((rx1_grid_adjust && !TXOnVFOB) ||
+                        //        (rx1_grid_adjust && TXOnVFOB && !RX2Enabled)) &&
+                        //        CurrentDisplayMode != DisplayMode.PANAFALL)
+                        //    {
+                        //        grid_minmax_drag_start_point = pos;
+                        //        gridminmaxadjust = true;
+                        //        tx1_grid_adjust = true;
+                        //        grid_minmax_max_y = (decimal)picDisplay.TXSpectrumGridMax;
+                        //        grid_minmax_min_y = (decimal)picDisplay.TXSpectrumGridMin;
+                        //        Cursor = grabbing;
+                        //    }
+                        //    else if (rx1_grid_adjust && picDisplay.TXOnVFOB)
+                        //    {
+                        //        grid_minmax_drag_start_point = pos;
+                        //        gridminmaxadjust = true;
+                        //        tx1_grid_adjust = false;
+                        //        grid_minmax_max_y = (decimal)SpectrumGridMax;
+                        //        grid_minmax_min_y = (decimal)SpectrumGridMin;
+                        //        Cursor = grabbing;
+                        //    }
+                        //}
+                    }
+
+                    //break;
                     //    case DisplayMode.WATERFALL:
                     //        break;
-                   // }
+                    // }
                     // }
 
                     if (mouseRegion == DisplayRegion.panadapterRegion || mouseRegion == DisplayRegion.waterfallRegion)
@@ -4421,14 +4414,14 @@ namespace Thetis
 
                     if (mouseRegion == DisplayRegion.dBmScalePanadapterRegion)
                     {
-                       // if (!mox)
-                       // {
-                            grid_minmax_drag_start_point = new Point(e.X, e.Y);
-                            gridmaxadjust = true;
-                           // tx1_grid_adjust = false;
-                            grid_minmax_max_y = (decimal)SpectrumGridMax;
-                           // Cursor = grabbing;
-                       // }
+                        // if (!mox)
+                        // {
+                        grid_minmax_drag_start_point = new Point(e.X, e.Y);
+                        gridmaxadjust = true;
+                        // tx1_grid_adjust = false;
+                        grid_minmax_max_y = (decimal)SpectrumGridMax;
+                        // Cursor = grabbing;
+                        // }
                         //else if (mox)
                         //{
                         //    if ((rx1_grid_adjust && !picDisplay.TXOnVFOB) ||
@@ -4452,7 +4445,7 @@ namespace Thetis
                     }
                     else if (mouseRegion == DisplayRegion.freqScalePanadapterRegion)
                     {
-                       // CurrentClickTuneMode = ClickTuneMode.Off;
+                        // CurrentClickTuneMode = ClickTuneMode.Off;
                     }
                     //else
                     //{
@@ -4473,27 +4466,27 @@ namespace Thetis
                     //    }
                     //}
                     break;
-                //case MouseButtons.Middle:
-                //    if (mouse_tune_step)
-                //    {
-                //        if (shift_down) ChangeTuneStepDown();
-                //        else ChangeTuneStepUp();
-                //    }
-                //    break;
+                    //case MouseButtons.Middle:
+                    //    if (mouse_tune_step)
+                    //    {
+                    //        if (shift_down) ChangeTuneStepDown();
+                    //        else ChangeTuneStepUp();
+                    //    }
+                    //    break;
             }
         }
 
 
-/********************************************************************************************************
- *																										*
- *											Display Code												*
- *																										*
- ********************************************************************************************************/
+        /********************************************************************************************************
+         *																										*
+         *											Display Code												*
+         *																										*
+         ********************************************************************************************************/
 
-      //  private int dispid;     // the display id would be passed-in as a parameter if the display code is put in a separate class
+        //  private int dispid;     // the display id would be passed-in as a parameter if the display code is put in a separate class
         // example:  See above 'public rxa (int i)'
 
-        private int sample_rate = 192000; 
+        private int sample_rate = 192000;
         public int SampleRate                           // set from incoming sample rate selection for this receiver
         {
             get { return sample_rate; }
@@ -4661,7 +4654,7 @@ namespace Thetis
         }
 
         private int display_id;
-        public int DisplayID                             
+        public int DisplayID
         {
             get { return display_id; }
             set { display_id = value; }

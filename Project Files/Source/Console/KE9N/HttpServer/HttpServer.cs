@@ -33,7 +33,7 @@ namespace Thetis
             {
                 m_listener = new TcpListener(IPAddress.Any, port);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.WriteLine("7exception" + e);
                 return;
@@ -84,7 +84,7 @@ namespace Thetis
                 try
                 {
                     IHandler handler = HandlerFactory.getHandler(m_listener.AcceptTcpClient());
-                    if(m_terminated)
+                    if (m_terminated)
                     {
                         Thread.Sleep(1000);
                         return;

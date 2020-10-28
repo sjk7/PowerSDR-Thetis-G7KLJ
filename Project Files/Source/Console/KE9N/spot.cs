@@ -45,7 +45,7 @@ using System.Net.Sockets;                // ke9ns add for tcpip internet connect
 
 namespace Thetis
 {
-   
+
     //==========================================================
     // ke9ns used by NIST time sync routine to allow update of PC timeclock
     public struct SystemTime
@@ -59,7 +59,7 @@ namespace Thetis
         public ushort wSecond;
         public ushort wMilliseconds;
 
-      
+
         public void FromDateTime(DateTime time)
         {
             wYear = (ushort)time.Year;
@@ -71,12 +71,12 @@ namespace Thetis
             wSecond = (ushort)time.Second;
             wMilliseconds = (ushort)time.Millisecond;
         }
-       
+
         public DateTime ToDateTime()
         {
             return new DateTime(wYear, wMonth, wDay, wHour, wMinute, wSecond, wMilliseconds);
         }
-        
+
         public static DateTime ToDateTime(SystemTime time)
         {
             return time.ToDateTime();
@@ -94,7 +94,7 @@ namespace Thetis
         #region Win32 Multimedia Timer Functions
 
         private int tel;            // time of one element in ms
-     
+
         // Represents the method that is called by Windows when a timer event occurs.
         private delegate void TimeProc(int id, int msg, int user, int param1, int param2);
 
@@ -137,12 +137,12 @@ namespace Thetis
         public CheckBoxTS chkBoxContour;
         private MenuStrip mainMenu1;
         public ToolStripMenuItem mnuSpotOptions;
-        private TimeProc timeProcPeriodic;
+        private readonly TimeProc timeProcPeriodic = null;
 
         // ke9ns run this to kill the prior timer and start a new timer 
         private void setup_timer(int cwxwpm)
         {
-            
+
             tel = cwxwpm;    // (1200 / cwxwpm);
 
             if (timerID != 0)
@@ -150,9 +150,9 @@ namespace Thetis
                 timeKillEvent(timerID);
             }
 
-                    // (delay, resolution, proc, user, mode)
+            // (delay, resolution, proc, user, mode)
             timerID = timeSetEvent(tel, 1, timeProcPeriodic, 0, (int)TimerMode.Periodic);
-            
+
             if (timerID == 0)
             {
                 Debug.Fail("Timer creation failed.");
@@ -183,12 +183,12 @@ namespace Thetis
 
 
         public Setup SetupForm;                             // ke9ns communications with setupform  (i.e. allow combometertype.text update from inside console.cs) 
-     //   public StackControl StackForm;                      // ke9ns add  communications with spot.cs and stack
-     //   public SwlControl SwlForm;                          // ke9ns add  communications with spot.cs and swl
+                                                            //   public StackControl StackForm;                      // ke9ns add  communications with spot.cs and stack
+                                                            //   public SwlControl SwlForm;                          // ke9ns add  communications with spot.cs and swl
 
         public DXMemList dxmemlist;                         //  ke9ns add comm with dx cluster list
 
-      
+
         //   public static Display display;
 
 
@@ -430,7 +430,7 @@ namespace Thetis
             // 
             // textBox1
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox1.BackColor = System.Drawing.Color.LightYellow;
             this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
@@ -1365,6 +1365,7 @@ namespace Thetis
             } // set
         } // callsign
 
+        public static Image Skin1 { get => Skin1; set => Skin1 = value; }
 
 
         private void SpotControl_Load(object sender, EventArgs e)
@@ -1396,9 +1397,9 @@ namespace Thetis
         {
             SP5_Active = 0;
             VOARUN = true;
-           
+
             checkBoxMUF.Checked = false;
-            
+
 
             if (timerID != 0)
             {
@@ -1575,9 +1576,6 @@ namespace Thetis
             string file_name = " ";
             string file_name1 = " ";
 
-            int FLAG22 = 0;
-
-
             file_name = console.AppDataPath + "SWL.csv"; //  sked - b15.csv  
             file_name1 = console.AppDataPath + "SWL2.csv"; // ke9ns extra swl freq that eibispace.de wont add
 
@@ -1612,7 +1610,7 @@ namespace Thetis
                 statusBoxSWL.Text = "Reading SWL2 ";
 
                 //------------------------------------------------------------------
-                for (;;)
+                for (; ; )
                 {
 
                     if (SP3_Active == 1) // aleady scanned database
@@ -1721,9 +1719,9 @@ namespace Thetis
             } // if file exists SWL2
 
 
-            // at this point we have SWL2 data read in
+        // at this point we have SWL2 data read in
 
-            SWL1:;
+        SWL1:;
 
 
 
@@ -1767,7 +1765,7 @@ namespace Thetis
                 statusBoxSWL.Text = "Reading ";
 
                 //------------------------------------------------------------------
-                for (;;)
+                for (; ; )
                 {
 
                     if (SP3_Active == 1) // aleady scanned database
@@ -1920,7 +1918,7 @@ namespace Thetis
                                 //-------------------------------------------------------------------------------------
                                 //-------------------------------------------------------------------------------------
                                 // Ke9ns MERGE SWL and SWL2
-                                FLAG22 = 0; // reset for next line
+                                //FLAG22 = 0; // reset for next line
 
                                 if ((SWL2_Index1 > 0) && (SWL_Index1 > 2)) // only try and merge SWL2 into SWL if SWL2 exists
                                 {
@@ -1969,7 +1967,7 @@ namespace Thetis
 
                                                 //  Debug.WriteLine("INSERT 2 HERE= index=" + SWL_Index1 + " Freq=" + SWL_Freq[SWL_Index1] + " station name=" + SWL_Station[SWL_Index1]);
 
-                                                FLAG22 = 1; // flag that you inserted a new SWL2 line into SWL
+                                                //FLAG22 = 1; // flag that you inserted a new SWL2 line into SWL
 
                                                 if (SWL_Band[SWL_Index1] > SWL_Index) // MHZ of the current examined spot > the mhz your looking at?
                                                 {
@@ -2071,7 +2069,7 @@ namespace Thetis
 
                                 SWL_Index1++; // save this
 
-                                BYPASS:;
+                            BYPASS:;
 
 
                             } // SWL Spots
@@ -2214,7 +2212,7 @@ namespace Thetis
             //  Debug.WriteLine("========row " + dataGridView1.CurrentCell.RowIndex);
             //   Debug.WriteLine("========URL " + (string)dataGridView1["dxurl", dataGridView1.CurrentCell.RowIndex].Value);
 
-            if ((SP2_Active == 0) && (SP_Active == 0) && (callBox.Text != "callsign") && (callBox.Text != null) ) // dont allow dx spotting while beacon is on.
+            if ((SP2_Active == 0) && (SP_Active == 0) && (callBox.Text != "callsign") && (callBox.Text != null)) // dont allow dx spotting while beacon is on.
             {
 
                 Debug.WriteLine("DX SPOTTER ON start THREAD");
@@ -2229,7 +2227,7 @@ namespace Thetis
                 };
                 SP_Active = 1;
                 t.Start();
- 
+
                 textBox1.Text = "Clicked to Open DX Spider \r\n";
 
             }
@@ -2336,7 +2334,7 @@ namespace Thetis
         public static int[] DX_Y = new int[1000];                   // Calculated: y pixel location on map (before any scaling) Latitude
         public static string[] DX_country = new string[1000];       // Calculated: country  by matching the callsign pulled from DXLOC.txt file
 
-      
+
 
 
         //-------------------------------------------------------------------------------------
@@ -2368,7 +2366,7 @@ namespace Thetis
 
         public static int[] BX_dBm = new int[100];                // place to record the signal strength of received stations in dbm
         public static int[] BX_dBm1 = new int[100];               // place to record the noise floor of each freq
-        public static int   BX_dBm2 =0;                           // avg value base line db passed back from display.cs
+        public static int BX_dBm2 = 0;                           // avg value base line db passed back from display.cs
         public static int[] BX_dBm3 = new int[100];               // place to record the background signal strength of received stations as a S#
 
         public static int[] BX_TSlot = new int[100];              // time slot to hear this particular station of this particular freq (0 to 180 seconds)
@@ -2393,7 +2391,7 @@ namespace Thetis
         public static int DXK_Last = 0;                             //  last # in console.DXK (used for DXLOC_Mapper)
 
 
- 
+
         public static int UTCNEW = Convert.ToInt16(FD);                        // convert 24hr UTC to int
         public static int UTCLAST = 0;                                        // last utc time for determining when to check again
         public static int UTCLASTMIN = 0;                                        // last utc time for determining when to check again
@@ -2411,23 +2409,23 @@ namespace Thetis
         private void SPOTTER()  // ke9ns Thread opeation (runs in en-us culture) opens internet connection to genearte list of dx spots
         {
 
-           DXLOC_FILE(); // open DXLOC.txt file and put into array of lat/lon values vs prefix
+            DXLOC_FILE(); // open DXLOC.txt file and put into array of lat/lon values vs prefix
 
-         
+
             try // opening socket
             {
                 textBox1.Text += "Attempt Opening socket \r\n";
 
                 client = new TcpClient(); // for new socket
 
-            
+
                 DXMemRecord nodeBox5 = new DXMemRecord(console.DXMemList.List[dataGridView1.CurrentCell.RowIndex]); // ke9ns 
 
                 nodeBox1.Text = nodeBox5.DXURL; // get string from DXMemory file based on current pointed to index
 
                 Debug.WriteLine("node " + nodeBox1.Text);
-              
-             
+
+
                 if (nodeBox1.Text.Contains(":") == true)
                 {
                     int ind = nodeBox1.Text.IndexOf(":") + 1;
@@ -2447,18 +2445,18 @@ namespace Thetis
                 }
                 else
                 {
-                    Debug.WriteLine("NO PORT# detected us 7000 " );
+                    Debug.WriteLine("NO PORT# detected us 7000 ");
 
                     client.Connect(nodeBox1.Text, 7000);      // 'EXAMPLE  client.Connect("192.168.0.149", 230) 
                 }
 
-               
+
                 networkStream = client.GetStream();
 
-                SP_reader = new StreamReader(networkStream,Encoding.ASCII,detectEncodingFromByteOrderMarks); //Encoding.UTF8  or detectEncodingFromByteOrderMarks
-                SP_writer = new BinaryWriter(networkStream,Encoding.UTF7);
-   
-               
+                SP_reader = new StreamReader(networkStream, Encoding.ASCII, detectEncodingFromByteOrderMarks); //Encoding.UTF8  or detectEncodingFromByteOrderMarks
+                SP_writer = new BinaryWriter(networkStream, Encoding.UTF7);
+
+
                 var sb = new StringBuilder(message2);
                 statusBox.ForeColor = Color.Red;
                 console.spotterMenu.ForeColor = Color.Red;
@@ -2471,7 +2469,7 @@ namespace Thetis
 
                 for (; SP_Active > 0;) // shut down socket and thread if SP_Active = 0  (0=off, 1=turned on, 2=logging , 3=waiting for spots)
                 {
-   
+
                     if (SP_Active == 1) // if you shut down dont attempt to read next spot
                     {
                         sb.Append((char)SP_reader.Read(), 1);
@@ -2482,23 +2480,23 @@ namespace Thetis
                         {
                             textBox1.Text += "Got login: prompt \r\n";
 
-                           
+
                             sb = new StringBuilder(message2); // clear sb string over
 
-                          
+
                             char[] message5 = callBox.Text.ToCharArray(); // get your call sign
 
                             for (int i = 0; i < message5.Length; i++)    // do it this way because telnet server wants slow typing
                             {
                                 SP_writer.Write((char)message5[i]);
-                             
+
                             }  // for loop length of your call sign
 
                             SP_writer.Write((char)13);
-                        
+
                             SP_writer.Write((char)10);
-                       
-                           
+
+
                             statusBox.ForeColor = Color.Red;
                             console.spotterMenu.ForeColor = Color.Red;
 
@@ -2514,7 +2512,7 @@ namespace Thetis
                     else if (SP_Active == 2)
                     {
                         SP_Active = 3; // logging in
-                   
+
                         statusBox.ForeColor = Color.Green;
                         console.spotterMenu.ForeColor = Color.Blue;
 
@@ -2524,7 +2522,7 @@ namespace Thetis
                         textBox1.Text += "Waiting for DX Spots \r\n";
 
 
-                      //  DX_Index = 0; // start at begining
+                        //  DX_Index = 0; // start at begining
 
                     } // SP_active == 2
 
@@ -2540,22 +2538,22 @@ namespace Thetis
 
                         try // use try since its a socket and can fail
                         {
-                         //  SP_reader.BaseStream.ReadTimeout = 3000; // 5000 cause character Read to break every 5 seconds to check age of DX spots
+                            //  SP_reader.BaseStream.ReadTimeout = 3000; // 5000 cause character Read to break every 5 seconds to check age of DX spots
 
-                      //-------------------------------------------------------------------------------------------------------------------------------------
-                      // ke9ns wait for a new message
+                            //-------------------------------------------------------------------------------------------------------------------------------------
+                            // ke9ns wait for a new message
 
-                            for (;!(sb.ToString().Contains("\r\n"));) //  wait for end of line
+                            for (; !(sb.ToString().Contains("\r\n"));) //  wait for end of line
                             {
                                 processDXAGE();
 
                                 Thread.Sleep(50); // slow down the thread here
 
                                 sb.Append((char)SP_reader.Read());  // get next char from socket and add it to build the next dx spot string to parse out 
-                             
+
 
                                 if (SP_Active == 0)
-                                 {
+                                {
                                     Debug.WriteLine("break====="); // if user wants to shut down operation 
                                     break;
                                 }
@@ -2568,26 +2566,26 @@ namespace Thetis
 
 
                             }// for (;!(sb.ToString().Contains("\r\n"));) //  wait for end of line
-                      //-------------------------------------------------------------------------------------------------------------------------------------
+                             //-------------------------------------------------------------------------------------------------------------------------------------
 
 
                             statusBox.ForeColor = Color.Green;
                             statusBox.Text = "Spotting";
                             SP_Active = 3;
 
-                          
+
                             sb.Replace("\a", "");// get rig of bell 
                             sb.Replace("\r", "");// get rig of cr 
                             sb.Replace("\n", "");// get rig of line feed 
 
                             int qq = sb.Length;
-                          // Debug.WriteLine("message1 length " + qq);
+                            // Debug.WriteLine("message1 length " + qq);
 
                             if (qq == 75) // if no grid, then add spaces and CR and line feed
                             {
                                 sb.Append("     "); // keep all strings the same length
                             }
-                           
+
                             message1 = sb.ToString(); // post message
                             message1.TrimEnd('\0');
 
@@ -2613,7 +2611,7 @@ namespace Thetis
                         // ke9ns process received message
                         if ((message1.StartsWith("DX de ") == true) && (message1.Length > 76)) // string can be 77 (with no grid) or 82 (with grid)
                         {
-                          
+
                             DX_Index1 = 250; // use 900 as a temp holding spot. always fill from the top
 
 
@@ -2621,18 +2619,18 @@ namespace Thetis
                             try
                             {
                                 DX_Spotter[DX_Index1] = message1.Substring(6, 10); // get dx call with : at the end
-                                 Debug.WriteLine("DX_Call " + DX_Station[DX_Index1]);
+                                Debug.WriteLine("DX_Call " + DX_Station[DX_Index1]);
 
                                 int pos = 10;
                                 if (DX_Spotter[DX_Index1].Contains(":"))
                                 {
-                                     pos = DX_Spotter[DX_Index1].IndexOf(':'); // find the :
+                                    pos = DX_Spotter[DX_Index1].IndexOf(':'); // find the :
                                 }
                                 else
                                 {
-                                     pos = DX_Spotter[DX_Index1].IndexOf(' '); // find the first space instead of the :
+                                    pos = DX_Spotter[DX_Index1].IndexOf(' '); // find the first space instead of the :
                                 }
-                               
+
 
                                 DX_Spotter[DX_Index1] = DX_Spotter[DX_Index1].Substring(0, pos); // reduce the call without the :
 
@@ -2643,32 +2641,32 @@ namespace Thetis
                                 DX_Spotter[DX_Index1] = sb.ToString();
 
                             }
-                            catch (FormatException e)
+                            catch (FormatException )
                             {
                                 DX_Spotter[DX_Index1] = "NA";
-                           
-                            //    textBox1.Text = e.ToString();
+
+                                //    textBox1.Text = e.ToString();
                             }
-                            catch (ArgumentOutOfRangeException e)
+                            catch (ArgumentOutOfRangeException )
                             {
-                           
-                            //    textBox1.Text = e.ToString();
+
+                                //    textBox1.Text = e.ToString();
                             }
                             //    Debug.WriteLine("DX_Call " + DX_Station[DX_Index1]);
 
                             // grab DX_Freq========================================================================================
                             try
                             {
-                               
-                                DX_Freq[DX_Index1] = (int)((double)Convert.ToDouble(message1.Substring(15, 9)) * (double) 1000.0    ); //  get dx freq 7016.0  in khz 
-                        
+
+                                DX_Freq[DX_Index1] = (int)((double)Convert.ToDouble(message1.Substring(15, 9)) * (double)1000.0); //  get dx freq 7016.0  in khz 
+
                                 if ((DX_Freq[DX_Index1] >= 1800000) && (DX_Freq[DX_Index1] <= 1830000))
                                 {
                                     DX_Mode[DX_Index1] = 1; // cw mode
                                 }
                                 else if ((DX_Freq[DX_Index1] >= 3500000) && (DX_Freq[DX_Index1] <= 3600000))
                                 {
-                                     DX_Mode[DX_Index1] = 1; // cw mode
+                                    DX_Mode[DX_Index1] = 1; // cw mode
                                 }
                                 else if ((DX_Freq[DX_Index1] >= 7000000) && (DX_Freq[DX_Index1] <= 7125000))
                                 {
@@ -2700,7 +2698,7 @@ namespace Thetis
                                 }
                                 else if ((DX_Freq[DX_Index1] >= 50000000) && (DX_Freq[DX_Index1] <= 50100000))
                                 {
-                                     DX_Mode[DX_Index1] = 1; // cw mode
+                                    DX_Mode[DX_Index1] = 1; // cw mode
                                 }
                                 else if ((DX_Freq[DX_Index1] >= 144000000) && (DX_Freq[DX_Index1] <= 144100000))
                                 {
@@ -2710,7 +2708,7 @@ namespace Thetis
                                     (DX_Freq[DX_Index1] == 1885000) || (DX_Freq[DX_Index1] == 1900000) || (DX_Freq[DX_Index1] == 1945000) || (DX_Freq[DX_Index1] == 1985000)
                                     || (DX_Freq[DX_Index1] == 3825000) || (DX_Freq[DX_Index1] == 3870000) || (DX_Freq[DX_Index1] == 3880000) || (DX_Freq[DX_Index1] == 38850000)
                                      || (DX_Freq[DX_Index1] == 7290000) || (DX_Freq[DX_Index1] == 7295000) || (DX_Freq[DX_Index1] == 14286000) || (DX_Freq[DX_Index1] == 18150000)
-                                     || (DX_Freq[DX_Index1] == 21285000) || (DX_Freq[DX_Index1] == 21425000) ||( (DX_Freq[DX_Index1] >= 29000000) && (DX_Freq[DX_Index1] < 29200000))
+                                     || (DX_Freq[DX_Index1] == 21285000) || (DX_Freq[DX_Index1] == 21425000) || ((DX_Freq[DX_Index1] >= 29000000) && (DX_Freq[DX_Index1] < 29200000))
                                      || (DX_Freq[DX_Index1] == 50400000) || (DX_Freq[DX_Index1] == 50250000) || (DX_Freq[DX_Index1] == 144400000) || (DX_Freq[DX_Index1] == 144425000)
                                      || (DX_Freq[DX_Index1] == 144280000) || (DX_Freq[DX_Index1] == 144450000)
 
@@ -2720,7 +2718,7 @@ namespace Thetis
                                 }
                                 else if (
                                          ((DX_Freq[DX_Index1] >= 146000000) && (DX_Freq[DX_Index1] <= 148000000)) || ((DX_Freq[DX_Index1] >= 29200000) && (DX_Freq[DX_Index1] <= 29270000))
-                                       || ((DX_Freq[DX_Index1] >= 144500000) && (DX_Freq[DX_Index1] <= 144900000))|| ((DX_Freq[DX_Index1] >= 145100000) && (DX_Freq[DX_Index1] <= 145500000))
+                                       || ((DX_Freq[DX_Index1] >= 144500000) && (DX_Freq[DX_Index1] <= 144900000)) || ((DX_Freq[DX_Index1] >= 145100000) && (DX_Freq[DX_Index1] <= 145500000))
                                        )
                                 {
                                     DX_Mode[DX_Index1] = 114; // FM mode
@@ -2733,12 +2731,12 @@ namespace Thetis
 
 
                             } // try to determine if in the cw portion or ssb portion of each band
-                            catch (FormatException e)
+                            catch (FormatException)
                             {
                                 DX_Freq[DX_Index1] = 0;
                                 DX_Mode[DX_Index1] = 0; // ssb mode
                             }
-                            catch (ArgumentOutOfRangeException e)
+                            catch (ArgumentOutOfRangeException )
                             {
                                 DX_Freq[DX_Index1] = 0;
                                 DX_Mode[DX_Index1] = 0; // ssb mode
@@ -2754,15 +2752,15 @@ namespace Thetis
                                 int pos = DX_Station[DX_Index1].IndexOf(' '); // find the
                                 DX_Station[DX_Index1] = DX_Station[DX_Index1].Substring(0, pos); // reduce the call without the
                             }
-                            catch (FormatException )
-                            {
-                                DX_Spotter[DX_Index1] = "NA";
-                              }
-                            catch (ArgumentOutOfRangeException )
+                            catch (FormatException)
                             {
                                 DX_Spotter[DX_Index1] = "NA";
                             }
-                              Debug.WriteLine("DX_Spotter " + DX_Spotter[DX_Index1]);
+                            catch (ArgumentOutOfRangeException)
+                            {
+                                DX_Spotter[DX_Index1] = "NA";
+                            }
+                            Debug.WriteLine("DX_Spotter " + DX_Spotter[DX_Index1]);
 
                             // grab comments
                             try
@@ -2770,11 +2768,11 @@ namespace Thetis
                                 DX_Mode2[DX_Index1] = 0; // reset split hz
 
                                 DX_Message[DX_Index1] = message1.Substring(39, 29).ToLower(); // get dx call with : at the end
-                              
+
 
                                 if (DX_Message[DX_Index1].Contains("cw"))
                                 {
-                                      DX_Mode[DX_Index1] = 1; // cw mode
+                                    DX_Mode[DX_Index1] = 1; // cw mode
 
                                 }
                                 else if (DX_Message[DX_Index1].Contains(" rty ") || DX_Message[DX_Index1].Contains("rtty"))
@@ -2825,7 +2823,7 @@ namespace Thetis
                                     DX_Mode[DX_Index1] = 9; // domino mode
 
                                 }
-                                else if (DX_Message[DX_Index1].Contains("packact")|| DX_Message[DX_Index1].Contains("packtor")||DX_Message[DX_Index1].Contains("amtor"))
+                                else if (DX_Message[DX_Index1].Contains("packact") || DX_Message[DX_Index1].Contains("packtor") || DX_Message[DX_Index1].Contains("amtor"))
                                 {
                                     if (chkBoxDIG.Checked != true) continue; // check for a Digitla mode spot
                                     DX_Mode[DX_Index1] = 10; // pactor mode
@@ -2855,7 +2853,7 @@ namespace Thetis
                                     DX_Mode[DX_Index1] = 12; // drm mode
 
                                 }
-                                else if (DX_Message[DX_Index1].Contains(" am ")|| DX_Message[DX_Index1].Contains(" sam "))
+                                else if (DX_Message[DX_Index1].Contains(" am ") || DX_Message[DX_Index1].Contains(" sam "))
                                 {
                                     if (chkBoxSSB.Checked != true) continue; // check for a SSB mode spot
                                     DX_Mode[DX_Index1] = 14; // AM mode
@@ -2870,7 +2868,7 @@ namespace Thetis
 
                                     if (chkBoxSSB.Checked != true)
                                     {
-                                       Debug.WriteLine("bypass ssb because not looking for ssb");
+                                        Debug.WriteLine("bypass ssb because not looking for ssb");
                                         continue; // check for a SSB mode spot
                                     }
 
@@ -2881,7 +2879,7 @@ namespace Thetis
 
                                     if (chkBoxCW.Checked != true)
                                     {
-                                       Debug.WriteLine("bypass CW because not looking for CW");
+                                        Debug.WriteLine("bypass CW because not looking for CW");
                                         continue; // check for a CW mode spot
                                     }
 
@@ -2890,18 +2888,18 @@ namespace Thetis
                                 //----------------------------------------------------------
 
                                 // grab GRID #
-                                DX_Grid[DX_Index1] = message1.Substring(76,4); // get grid
+                                DX_Grid[DX_Index1] = message1.Substring(76, 4); // get grid
 
-                              sb = new StringBuilder(DX_Grid[DX_Index1]); // clear sb string over again
-                              sb.Append(')');
-                              sb.Insert(0, '('); // to differentiate the spotter from the spotted
+                                sb = new StringBuilder(DX_Grid[DX_Index1]); // clear sb string over again
+                                sb.Append(')');
+                                sb.Insert(0, '('); // to differentiate the spotter from the spotted
 
-                              DX_Grid[DX_Index1] = sb.ToString();
-                      
+                                DX_Grid[DX_Index1] = sb.ToString();
 
 
-                          
-                                if (DX_Message[DX_Index1].Contains("<") && DX_Message[DX_Index1].Contains(">") ) // check for split
+
+
+                                if (DX_Message[DX_Index1].Contains("<") && DX_Message[DX_Index1].Contains(">")) // check for split
                                 {
 
                                     int ind = DX_Message[DX_Index1].IndexOf(">") + 1;
@@ -2910,7 +2908,7 @@ namespace Thetis
                                     {
                                         DX_Grid[DX_Index1] = DX_Message[DX_Index1].Substring(ind, 6);
                                         Debug.WriteLine("FOUND COMMENT GRID " + DX_Grid[DX_Index1]);
-                                       
+
                                     }
                                     catch // 
                                     {
@@ -2927,13 +2925,13 @@ namespace Thetis
 
                                 if (DX_Message[DX_Index1].Contains("up")) // check for split
                                 {
-                                  
+
                                     int ind = DX_Message[DX_Index1].IndexOf("up") + 2;
 
                                     try // try 1
                                     {
-                                        int split_hz = (int)(Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind, 4))* 1000));
-                                       Debug.WriteLine("Found UP split hz" +split_hz);
+                                        int split_hz = (int)(Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind, 4)) * 1000));
+                                        Debug.WriteLine("Found UP split hz" + split_hz);
                                         DX_Mode2[DX_Index1] = split_hz;
                                     }
                                     catch // catch 1
@@ -2942,7 +2940,7 @@ namespace Thetis
                                         try // try 2
                                         {
                                             int split_hz = (int)(Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind, 3)) * 1000));
-                                          Debug.WriteLine("Found UP split hz" + split_hz);
+                                            Debug.WriteLine("Found UP split hz" + split_hz);
                                             DX_Mode2[DX_Index1] = split_hz;
                                         }
                                         catch // catch 2
@@ -2951,7 +2949,7 @@ namespace Thetis
                                             try // try 3
                                             {
                                                 int split_hz = (int)(Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind, 2)) * 1000));
-                                              Debug.WriteLine("Found UP split hz" + split_hz);
+                                                Debug.WriteLine("Found UP split hz" + split_hz);
                                                 DX_Mode2[DX_Index1] = split_hz;
                                             }
                                             catch // catch 3
@@ -2962,8 +2960,8 @@ namespace Thetis
                                                 try // try 4
                                                 {
 
-                                                    int split_hz = (int)(Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind1,4)) * 1000));
-                                                   Debug.WriteLine("Found UP split hz" + split_hz);
+                                                    int split_hz = (int)(Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind1, 4)) * 1000));
+                                                    Debug.WriteLine("Found UP split hz" + split_hz);
                                                     DX_Mode2[DX_Index1] = split_hz;
                                                 }
                                                 catch // catch 4
@@ -2974,7 +2972,7 @@ namespace Thetis
                                                     {
 
                                                         int split_hz = (int)(Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind1, 3)) * 1000));
-                                                       Debug.WriteLine("Found UP split hz" + split_hz);
+                                                        Debug.WriteLine("Found UP split hz" + split_hz);
                                                         DX_Mode2[DX_Index1] = split_hz;
                                                     }
                                                     catch // catch 5
@@ -2985,21 +2983,21 @@ namespace Thetis
                                                         {
 
                                                             int split_hz = (int)(Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind1, 2)) * 1000));
-                                                           Debug.WriteLine("Found UP split hz" + split_hz);
+                                                            Debug.WriteLine("Found UP split hz" + split_hz);
                                                             DX_Mode2[DX_Index1] = split_hz;
                                                         }
                                                         catch // catch 6
                                                         {
 
-                                                          Debug.WriteLine("failed to find up value================");
+                                                            Debug.WriteLine("failed to find up value================");
                                                             DX_Mode2[DX_Index1] = 1000; // 1khz up
 
                                                         } // catch6   (2 digits to left side)
-                                                    
+
                                                     } // catch5   (3 digits to left side)
-                                                   
+
                                                 } // catch4   (4 digits to left side)
-                                        
+
                                             } // catch3   (2 digits to right side)
 
                                         } //catch2  (3 digits to right side)
@@ -3008,10 +3006,10 @@ namespace Thetis
 
 
                                 } // split up
-                               
-                                else if ( DX_Message[DX_Index1].Contains("dn")) // check for split down
+
+                                else if (DX_Message[DX_Index1].Contains("dn")) // check for split down
                                 {
-                                 
+
                                     int ind = DX_Message[DX_Index1].IndexOf("dn") + 2;
 
                                     try // try 1
@@ -3026,7 +3024,7 @@ namespace Thetis
                                         try // try 2
                                         {
                                             int split_hz = (int)(-Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind, 3)) * 1000));
-                                          Debug.WriteLine("Found dn split hz" + split_hz);
+                                            Debug.WriteLine("Found dn split hz" + split_hz);
                                             DX_Mode2[DX_Index1] = split_hz;
                                         }
                                         catch // catch 2
@@ -3035,7 +3033,7 @@ namespace Thetis
                                             try // try 3
                                             {
                                                 int split_hz = (int)(-Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind, 2)) * 1000));
-                                               Debug.WriteLine("Found dn split hz" + split_hz);
+                                                Debug.WriteLine("Found dn split hz" + split_hz);
                                                 DX_Mode2[DX_Index1] = split_hz;
                                             }
                                             catch // catch 3
@@ -3072,7 +3070,7 @@ namespace Thetis
                                                         catch // catch 6
                                                         {
 
-                                                          Debug.WriteLine("failed to find dn value================");
+                                                            Debug.WriteLine("failed to find dn value================");
                                                             DX_Mode2[DX_Index1] = -1000; // 1khz dn
 
                                                         } // catch6   (2 digits to left side)
@@ -3097,7 +3095,7 @@ namespace Thetis
                                     try // try 1
                                     {
                                         int split_hz = (int)(-Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind, 4)) * 1000));
-                                       Debug.WriteLine("Found dn split hz" + split_hz);
+                                        Debug.WriteLine("Found dn split hz" + split_hz);
                                         DX_Mode2[DX_Index1] = split_hz;
                                     }
                                     catch // catch 1
@@ -3126,7 +3124,7 @@ namespace Thetis
                                                 try // try 4
                                                 {
                                                     int split_hz = (int)(-Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind1, 4)) * 1000));
-                                                  Debug.WriteLine("Found dn split hz" + split_hz);
+                                                    Debug.WriteLine("Found dn split hz" + split_hz);
                                                     DX_Mode2[DX_Index1] = split_hz;
                                                 }
                                                 catch // catch 4
@@ -3136,7 +3134,7 @@ namespace Thetis
                                                     try // try 5
                                                     {
                                                         int split_hz = (int)(-Convert.ToDouble(DX_Message[DX_Index1].Substring(ind1, 3)) * 1000);
-                                                      Debug.WriteLine("Found dn split hz" + split_hz);
+                                                        Debug.WriteLine("Found dn split hz" + split_hz);
                                                         DX_Mode2[DX_Index1] = split_hz;
                                                     }
                                                     catch // catch 5
@@ -3146,13 +3144,13 @@ namespace Thetis
                                                         try // try 6
                                                         {
                                                             int split_hz = (int)(-Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind1, 2)) * 1000));
-                                                           Debug.WriteLine("Found dn split hz" + split_hz);
+                                                            Debug.WriteLine("Found dn split hz" + split_hz);
                                                             DX_Mode2[DX_Index1] = split_hz;
                                                         }
                                                         catch // catch 6
                                                         {
 
-                                                           Debug.WriteLine("failed to find dn value================");
+                                                            Debug.WriteLine("failed to find dn value================");
                                                             DX_Mode2[DX_Index1] = -1000; // 1khz dn
 
                                                         } // catch6   (2 digits to left side)
@@ -3186,7 +3184,7 @@ namespace Thetis
                                         try // try 2
                                         {
                                             int split_hz = (int)(-Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind, 3)) * 1000));
-                                           Debug.WriteLine("Found dn split hz" + split_hz);
+                                            Debug.WriteLine("Found dn split hz" + split_hz);
                                             DX_Mode2[DX_Index1] = split_hz;
                                         }
                                         catch // catch 2
@@ -3195,7 +3193,7 @@ namespace Thetis
                                             try // try 3
                                             {
                                                 int split_hz = (int)(-Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind, 2)) * 1000));
-                                               Debug.WriteLine("Found dn split hz" + split_hz);
+                                                Debug.WriteLine("Found dn split hz" + split_hz);
                                                 DX_Mode2[DX_Index1] = split_hz;
                                             }
                                             catch // catch 3
@@ -3216,7 +3214,7 @@ namespace Thetis
                                                     try // try 5
                                                     {
                                                         int split_hz = (int)(-Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind1, 3)) * 1000));
-                                                       Debug.WriteLine("Found dn split hz" + split_hz);
+                                                        Debug.WriteLine("Found dn split hz" + split_hz);
                                                         DX_Mode2[DX_Index1] = split_hz;
                                                     }
                                                     catch // catch 5
@@ -3226,13 +3224,13 @@ namespace Thetis
                                                         try // try 6
                                                         {
                                                             int split_hz = (int)(-Math.Abs(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind1, 2)) * 1000));
-                                                           Debug.WriteLine("Found dn split hz" + split_hz);
+                                                            Debug.WriteLine("Found dn split hz" + split_hz);
                                                             DX_Mode2[DX_Index1] = split_hz;
                                                         }
                                                         catch // catch 6
                                                         {
 
-                                                           Debug.WriteLine("failed to find dn value================");
+                                                            Debug.WriteLine("failed to find dn value================");
                                                             DX_Mode2[DX_Index1] = -1000; // 1khz dn
 
                                                         } // catch6   (2 digits to left side)
@@ -3248,7 +3246,7 @@ namespace Thetis
                                     } // catch 1   (4 digits to right side)
 
                                 } // split down
-                                else if ((DX_Message[DX_Index1].Contains("9+")) || (DX_Message[DX_Index1].Contains("59+") )) // check for split
+                                else if ((DX_Message[DX_Index1].Contains("9+")) || (DX_Message[DX_Index1].Contains("59+"))) // check for split
                                 {
                                     // ignore + if its part of s9+
                                 }
@@ -3261,7 +3259,7 @@ namespace Thetis
                                     try // try 1
                                     {
                                         int split_hz = (int)(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind, 4)) * 1000);
-                                       Debug.WriteLine("Found UP split hz" + split_hz);
+                                        Debug.WriteLine("Found UP split hz" + split_hz);
                                         DX_Mode2[DX_Index1] = split_hz;
                                     }
                                     catch // catch 1
@@ -3279,7 +3277,7 @@ namespace Thetis
                                             try // try 3
                                             {
                                                 int split_hz = (int)(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind, 2)) * 1000);
-                                              Debug.WriteLine("Found UP split hz" + split_hz);
+                                                Debug.WriteLine("Found UP split hz" + split_hz);
                                                 DX_Mode2[DX_Index1] = split_hz;
                                             }
                                             catch // catch 3
@@ -3295,7 +3293,7 @@ namespace Thetis
 
                                     } // catch 1   (4 digits to right side)
 
-                                  //  if (DX_Mode2[DX_Index1] > 9000) DX_Mode2[DX_Index1] = 0;
+                                    //  if (DX_Mode2[DX_Index1] > 9000) DX_Mode2[DX_Index1] = 0;
 
                                 } // split up+
 
@@ -3316,7 +3314,7 @@ namespace Thetis
                                         try // try 2
                                         {
                                             int split_hz = (int)(-Convert.ToDouble(DX_Message[DX_Index1].Substring(ind, 3)) * 1000);
-                                           Debug.WriteLine("Found dn split hz" + split_hz);
+                                            Debug.WriteLine("Found dn split hz" + split_hz);
                                             DX_Mode2[DX_Index1] = split_hz;
                                         }
                                         catch // catch 2
@@ -3325,7 +3323,7 @@ namespace Thetis
                                             try // try 3
                                             {
                                                 int split_hz = (int)(-Convert.ToDouble(DX_Message[DX_Index1].Substring(ind, 2)) * 1000);
-                                               Debug.WriteLine("Found dn split hz" + split_hz);
+                                                Debug.WriteLine("Found dn split hz" + split_hz);
                                                 DX_Mode2[DX_Index1] = split_hz;
                                             }
                                             catch // catch 3
@@ -3352,10 +3350,10 @@ namespace Thetis
                                     try // try 1
                                     {
                                         int split_hz = (int)(Convert.ToDouble(DX_Message[DX_Index1].Substring(ind, 8)) * 1000);
-                                       Debug.WriteLine("Found dn split hz" + split_hz);
+                                        Debug.WriteLine("Found dn split hz" + split_hz);
                                         DX_Mode2[DX_Index1] = split_hz;
 
-                                        DX_Mode2[DX_Index1] =  DX_Mode2[DX_Index1] - DX_Freq[DX_Index1];
+                                        DX_Mode2[DX_Index1] = DX_Mode2[DX_Index1] - DX_Freq[DX_Index1];
 
 
                                     }
@@ -3369,7 +3367,7 @@ namespace Thetis
                                             if (split_hz < 10000) split_hz = (DX_Freq[DX_Index1] / 1000000) + split_hz; // if its QRX .412  then treat it with the same mhz as DX_Freq
                                             else if (split_hz < 100000) split_hz = (DX_Freq[DX_Index1] / 1000000) + split_hz; // if its QRX 18.412  then it must be in mhz
 
-                                          Debug.WriteLine("Found qrx split hz" + split_hz);
+                                            Debug.WriteLine("Found qrx split hz" + split_hz);
 
                                             DX_Mode2[DX_Index1] = split_hz;
                                             DX_Mode2[DX_Index1] = DX_Mode2[DX_Index1] - DX_Freq[DX_Index1];
@@ -3385,7 +3383,7 @@ namespace Thetis
                                                 if (split_hz < 10000) split_hz = (DX_Freq[DX_Index1] / 1000000) + split_hz; // if its QRX .412  then treat it with the same mhz as DX_Freq
                                                 else if (split_hz < 100000) split_hz = (DX_Freq[DX_Index1] / 1000000) + split_hz; // if its QRX 18.412  then it must be in mhz
 
-                                               Debug.WriteLine("Found dn split hz" + split_hz);
+                                                Debug.WriteLine("Found dn split hz" + split_hz);
 
                                                 DX_Mode2[DX_Index1] = split_hz;
                                                 DX_Mode2[DX_Index1] = DX_Mode2[DX_Index1] - DX_Freq[DX_Index1];
@@ -3395,13 +3393,13 @@ namespace Thetis
                                             catch // catch 3
                                             {
 
-                                               Debug.WriteLine("failed to find up value================");
+                                                Debug.WriteLine("failed to find up value================");
                                                 DX_Mode2[DX_Index1] = 0; // 
 
                                             } // catch 3   (6 digits to right side)
-                                          
+
                                         } // catch 2   (7 digits to right side)
-                                       
+
                                     } // catch 1   (8 digits to right side)
 
 
@@ -3435,7 +3433,7 @@ namespace Thetis
                                             if (split_hz < 10000) split_hz = (DX_Freq[DX_Index1] / 1000000) + split_hz; // if its QRX .412  then treat it with the same mhz as DX_Freq
                                             else if (split_hz < 100000) split_hz = (DX_Freq[DX_Index1] / 1000000) + split_hz; // if its QRX 18.412  then it must be in mhz
 
-                                          Debug.WriteLine("Found qrz split hz" + split_hz);
+                                            Debug.WriteLine("Found qrz split hz" + split_hz);
 
                                             DX_Mode2[DX_Index1] = split_hz;
                                             DX_Mode2[DX_Index1] = DX_Mode2[DX_Index1] - DX_Freq[DX_Index1];
@@ -3450,7 +3448,7 @@ namespace Thetis
                                                 if (split_hz < 10000) split_hz = (DX_Freq[DX_Index1] / 1000000) + split_hz; // if its QRX .412  then treat it with the same mhz as DX_Freq
                                                 else if (split_hz < 100000) split_hz = (DX_Freq[DX_Index1] / 1000000) + split_hz; // if its QRX 18.412  then it must be in mhz
 
-                                               Debug.WriteLine("Found dn split hz" + split_hz);
+                                                Debug.WriteLine("Found dn split hz" + split_hz);
                                                 DX_Mode2[DX_Index1] = split_hz;
 
                                                 DX_Mode2[DX_Index1] = DX_Mode2[DX_Index1] - DX_Freq[DX_Index1];
@@ -3464,9 +3462,9 @@ namespace Thetis
                                                 DX_Mode2[DX_Index1] = 0; // 
 
                                             } // catch 3   (6 digits to right side)
-                                          
+
                                         } // catch 2   (7 digits to right side)
-                                      
+
                                     } // catch 1   (8 digits to right side)
 
 
@@ -3478,7 +3476,7 @@ namespace Thetis
                             } // try to parse dx spot message above
                             catch (FormatException e)
                             {
-                               Debug.WriteLine("mode issue" + e);
+                                Debug.WriteLine("mode issue" + e);
 
                             }
                             catch (ArgumentOutOfRangeException e)
@@ -3486,7 +3484,7 @@ namespace Thetis
                                 Debug.WriteLine("mode1 issue" + e);
 
                             }
-                          //  Debug.WriteLine("DX_Message " + DX_Message[DX_Index1]);
+                            //  Debug.WriteLine("DX_Message " + DX_Message[DX_Index1]);
 
                             // grab time
                             try
@@ -3500,13 +3498,13 @@ namespace Thetis
                             catch (Exception)
                             {
                                 DX_Time[DX_Index1] = UTCNEW;
-                          
+
                             }
-                           
+
                             //   Debug.WriteLine("DX_Time " + DX_Time[DX_Index1])
-                           
-                           
-                      
+
+
+
                             // set age of spot to 0;
                             DX_Age[DX_Index1] = "00"; // reset to start
 
@@ -3528,7 +3526,7 @@ namespace Thetis
                                 string us1 = DX_Spotter[DX_Index1].Substring(1, 1); // grab first char of Spotter callsign becuase I added a < > around the spotter callsign
                                 string us2 = DX_Spotter[DX_Index1].Substring(2, 1); // grab second char of Spotter callsign
 
-                             //   Debug.WriteLine("us1 " + us1 + " us2 " + us2);
+                                //   Debug.WriteLine("us1 " + us1 + " us2 " + us2);
 
                                 Regex r = new Regex("[KNWAX]"); // first char (include X for Mexico in the NA spots)
                                 Regex r1 = new Regex("[A-Z0-9]"); // 2nd char to select as a NA spot
@@ -3538,7 +3536,7 @@ namespace Thetis
 
                                 if ((us1 == "V") || (us1 == "C")) // check for Canada (NA)
                                 {
-                                    if ( ((us1 == "V") && (r2.IsMatch(us2)) ) || ((us1 == "C") && (r3.IsMatch(us2))))
+                                    if (((us1 == "V") && (r2.IsMatch(us2))) || ((us1 == "C") && (r3.IsMatch(us2))))
                                     {
                                         Debug.WriteLine("bypass4a " + DX_Spotter[DX_Index1]);
                                         continue; // dont show spot if not on the r1 list
@@ -3553,8 +3551,8 @@ namespace Thetis
                                         Debug.WriteLine("bypass3 " + DX_Spotter[DX_Index1]);
                                         continue;// dont show spot if not on the r list
                                     }
-                                 
-                                   // Debug.WriteLine("============CHECK3, fist us1 letter good for not being NA " + DX_Spotter[DX_Index1]);
+
+                                    // Debug.WriteLine("============CHECK3, fist us1 letter good for not being NA " + DX_Spotter[DX_Index1]);
                                     goto PASS2; // if the 1st letter is not a US letter then GOOD use SPOT
 
                                 }
@@ -3585,13 +3583,13 @@ namespace Thetis
 
                                 if (!(r.IsMatch(us1)))
                                 {
-                                     Debug.WriteLine("bypass1 " + DX_Spotter[DX_Index1]);
+                                    Debug.WriteLine("bypass1 " + DX_Spotter[DX_Index1]);
                                     continue;// dont show spot if not on the r list
                                 }
 
                                 if ((us1 == "V") || (us1 == "C"))
                                 {
-                                    if ( ((us1 == "V") && !(r2.IsMatch(us2)) ) || ((us1 == "C") && !(r3.IsMatch(us2))))
+                                    if (((us1 == "V") && !(r2.IsMatch(us2))) || ((us1 == "C") && !(r3.IsMatch(us2))))
                                     {
                                         Debug.WriteLine("bypass2a " + DX_Spotter[DX_Index1]);
                                         continue; // dont show spot if not on the r1 list
@@ -3611,22 +3609,22 @@ namespace Thetis
 
                             SP4_Active = 1; // processing message
 
-                            //=================================================================
-                            //=================================================================
-                            //=================================================================
-                            // ke9ns check for STATION DUPLICATES , there can only be 1 possible duplicate per spot added (but IGNORE if on 2nd band)
-                            PASS2: int xx = 0;
+                        //=================================================================
+                        //=================================================================
+                        //=================================================================
+                        // ke9ns check for STATION DUPLICATES , there can only be 1 possible duplicate per spot added (but IGNORE if on 2nd band)
+                        PASS2: int xx = 0;
 
-                           
+
                             for (int ii = 0; ii <= DX_Index; ii++)
                             {
                                 if ((xx == 0) && (DX_Station[DX_Index1] == DX_Station[ii]))
                                 {
-                                    if ( (Math.Abs(DX_Freq[DX_Index1] - DX_Freq[ii])) < 1000000 )
+                                    if ((Math.Abs(DX_Freq[DX_Index1] - DX_Freq[ii])) < 1000000)
                                     {
-                                  
+
                                         xx = 1;
-                                    Debug.WriteLine("station dup============" + DX_Freq[ii] + " dup "+ DX_Freq[DX_Index1] + " dup " + DX_Station[DX_Index1] + " dup " + DX_Station[ii]);
+                                        Debug.WriteLine("station dup============" + DX_Freq[ii] + " dup " + DX_Freq[DX_Index1] + " dup " + DX_Station[DX_Index1] + " dup " + DX_Station[ii]);
                                     } // freq too close so its a dup
                                 }
 
@@ -3696,13 +3694,13 @@ namespace Thetis
                             //=================================================================================================
                             //=================================================================================================
                             // ke9ns  passed the spotter, dx station , freq, and time test
-                           
+
                             DX_Index++; // jump to PASS2 if it passed the valid call spotter test
 
-                           
+
                             if (DX_Index > 90)
                             {
-                                 Debug.WriteLine("DX SPOT REACH 90 ");
+                                Debug.WriteLine("DX SPOT REACH 90 ");
                                 DX_Index = 90; // you have reached max spots
                             }
 
@@ -3720,7 +3718,7 @@ namespace Thetis
                                 DX_Station[ii] = DX_Station[ii - 1];
                                 DX_Freq[ii] = DX_Freq[ii - 1];
                                 DX_Spotter[ii] = DX_Spotter[ii - 1];
-                                DX_Message[ii] = DX_Message[ii -1];
+                                DX_Message[ii] = DX_Message[ii - 1];
                                 DX_Grid[ii] = DX_Grid[ii - 1];
                                 DX_Time[ii] = DX_Time[ii - 1];
                                 DX_Age[ii] = DX_Age[ii - 1];
@@ -3736,7 +3734,7 @@ namespace Thetis
 
                             DX_FULLSTRING[0] = message1; // add newest message to top
 
-                          
+
                             DX_Station[0] = DX_Station[DX_Index1];    //insert new spot on top of list now
                             DX_Freq[0] = DX_Freq[DX_Index1];
                             DX_Spotter[0] = DX_Spotter[DX_Index1];
@@ -3770,7 +3768,7 @@ namespace Thetis
 
                             SP4_Active = 0; // done processing message
 
-                          
+
                             //      Debug.WriteLine("Aindex " + DX_Index);
 
                         } // (message1.StartsWith("DX de ") valid message
@@ -3806,7 +3804,7 @@ namespace Thetis
                             return;
                         } // if disconnected
 
-     
+
 
                     } // SP_active == 3 (getting spots here)
 
@@ -3830,7 +3828,7 @@ namespace Thetis
                 SP_writer.Close();                  // close down now
                 SP_reader.Close();
                 networkStream.Close();
-              
+
 
                 client.Close();
                 //   Debug.WriteLine("END DX SPOT thread");
@@ -3863,9 +3861,9 @@ namespace Thetis
                     SP_writer.Close();
                     SP_reader.Close();
                 }
-                catch(Exception)
+                catch (Exception)
                 {
-                  
+
 
                 }
 
@@ -3874,12 +3872,12 @@ namespace Thetis
                     networkStream.Close();
                     client.Close();
                 }
-                catch(Exception)
+                catch (Exception)
                 {
 
                 }
 
-               
+
                 SP_Active = 0;
                 SP2_Active = 0;
 
@@ -3887,7 +3885,7 @@ namespace Thetis
                 statusBox.Text = "Closed";
                 console.spotterMenu.Text = "Spot";
 
-            //    textBox1.Text = SE.ToString();
+                //    textBox1.Text = SE.ToString();
 
                 return;
 
@@ -3898,7 +3896,7 @@ namespace Thetis
 
                 Debug.WriteLine("socket exception issue" + e1);
 
-                 statusBox.ForeColor = Color.Red;
+                statusBox.ForeColor = Color.Red;
                 console.spotterMenu.ForeColor = Color.Red;
 
                 statusBox.Text = "Socket";
@@ -3930,7 +3928,7 @@ namespace Thetis
                 statusBox.Text = "Closed";
                 console.spotterMenu.Text = "Spot";
 
-           
+
                 return;
             }
 
@@ -3952,7 +3950,7 @@ namespace Thetis
             // Crosscheck Station Call sign Prefix with data from DXLOC.txt (lat and lon) 
             // and create a list of Country, Callsign, X, Y on unscaled map
 
-            if ((SP8_Active == 1) && (SP_Active > 2)  && (DX_Index > 0 )) // do if dxloc.txt file loaded in        && (SP5_Active == 1 )
+            if ((SP8_Active == 1) && (SP_Active > 2) && (DX_Index > 0)) // do if dxloc.txt file loaded in        && (SP5_Active == 1 )
             {
 
                 int Sun_WidthY1 = Sun_Bot1 - Sun_Top1;             // # of Y pixels from top to bottom of map
@@ -3964,7 +3962,7 @@ namespace Thetis
                 DX_Y[0] = 0;
                 DX_X[0] = 0;
                 DX_country[0] = null;
-                DX_Beam[0] = 0; 
+                DX_Beam[0] = 0;
 
                 int kk = 0;
 
@@ -3987,7 +3985,7 @@ namespace Thetis
 
                         DX_Beam[0] = BeamHeading(DXLOC_LAT[kk], DXLOC_LON[kk]);
 
-                        Debug.WriteLine("MAPPER " + DX_Station[0] + " " + DX_X[0] + " " + DX_Y[0] + " cntry " + DX_country[0] + " prefix " + DXLOC_prefix[kk] + " lat " + DXLOC_LAT[kk] + " lon " + DXLOC_LON[kk] + " BEAM "+DX_Beam[0]);
+                        Debug.WriteLine("MAPPER " + DX_Station[0] + " " + DX_X[0] + " " + DX_Y[0] + " cntry " + DX_country[0] + " prefix " + DXLOC_prefix[kk] + " lat " + DXLOC_LAT[kk] + " lon " + DXLOC_LON[kk] + " BEAM " + DX_Beam[0]);
 
                         break; // got a match so break
 
@@ -4041,16 +4039,16 @@ namespace Thetis
                 //----------------------------------------------------------
                 string DXmode = "    "; // 5 spaces
 
-                if (DX_Mode[ii] == 0)       DXmode = " ssb ";
-                else if (DX_Mode[ii] == 1)  DXmode = " cw  ";
-                else if (DX_Mode[ii] == 2)  DXmode = " rtty";
-                else if (DX_Mode[ii] == 3)  DXmode = " psk ";
-                else if (DX_Mode[ii] == 4)  DXmode = " oliv";
-                else if (DX_Mode[ii] == 5)  DXmode = " jt65";
-                else if (DX_Mode[ii] == 6)  DXmode = " cont";
-                else if (DX_Mode[ii] == 7)  DXmode = " fsk ";
-                else if (DX_Mode[ii] == 8)  DXmode = " mt63";
-                else if (DX_Mode[ii] == 9)  DXmode = " domi";
+                if (DX_Mode[ii] == 0) DXmode = " ssb ";
+                else if (DX_Mode[ii] == 1) DXmode = " cw  ";
+                else if (DX_Mode[ii] == 2) DXmode = " rtty";
+                else if (DX_Mode[ii] == 3) DXmode = " psk ";
+                else if (DX_Mode[ii] == 4) DXmode = " oliv";
+                else if (DX_Mode[ii] == 5) DXmode = " jt65";
+                else if (DX_Mode[ii] == 6) DXmode = " cont";
+                else if (DX_Mode[ii] == 7) DXmode = " fsk ";
+                else if (DX_Mode[ii] == 8) DXmode = " mt63";
+                else if (DX_Mode[ii] == 9) DXmode = " domi";
                 else if (DX_Mode[ii] == 10) DXmode = " pack";
                 else if (DX_Mode[ii] == 11) DXmode = " fm  ";
                 else if (DX_Mode[ii] == 12) DXmode = " drm ";
@@ -4059,8 +4057,8 @@ namespace Thetis
 
                 else DXmode = "     ";
 
-              // old   bigmessage += (DX_FULLSTRING[ii]+ DXmode+ " " + (DX_country[ii].PadRight(8)).Substring(0,8) + " :"+ DX_Age[ii]  + "\r\n" );
-                bigmessage += (DX_FULLSTRING[ii] + DXmode + " " + (DX_country[ii].PadRight(8)).Substring(0, 8) + ": "+ DX_Beam[ii].ToString().PadLeft(3) + "° :" + DX_Age[ii] + "\r\n"); // adds 6
+                // old   bigmessage += (DX_FULLSTRING[ii]+ DXmode+ " " + (DX_country[ii].PadRight(8)).Substring(0,8) + " :"+ DX_Age[ii]  + "\r\n" );
+                bigmessage += (DX_FULLSTRING[ii] + DXmode + " " + (DX_country[ii].PadRight(8)).Substring(0, 8) + ": " + DX_Beam[ii].ToString().PadLeft(3) + "° :" + DX_Age[ii] + "\r\n"); // adds 6
 
             } // for loop to update dx spot window
 
@@ -4072,21 +4070,21 @@ namespace Thetis
 
                 for (int ii = 0; ii < DX_Index; ii++)
                 {
-                    if (  DX_TEXT == textBox1.Text.Substring((ii * LineLength) +16, 40) ) // just check freq and dx call sign for match
+                    if (DX_TEXT == textBox1.Text.Substring((ii * LineLength) + 16, 40)) // just check freq and dx call sign for match
                     {
                         DX_SELECTED = ii;
-                    
+
                         textBox1.SelectionStart = DX_SELECTED * LineLength;      // start of each dx spot line
                         textBox1.SelectionLength = LineLength;                    // length of each dx spot  line
 
-                       // textBox1.ScrollToCaret();
+                        // textBox1.ScrollToCaret();
 
                         break; //get out of for loop ii
                     }
-                    
+
                 } // for loop ii
 
-              
+
 
             }
         } //processTCPMessage
@@ -4133,7 +4131,7 @@ namespace Thetis
 
             } // for loop to update dx spot window
 
-             textBox1.Text = bigmessage; // update screen
+            textBox1.Text = bigmessage; // update screen
 
 
         } //processTCPMessage1 beacon
@@ -4144,10 +4142,10 @@ namespace Thetis
         private void processDXAGE()
         {
 
-            
+
             UTCD = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);
 
-          
+
             FD = UTCD.ToString("HHmm");                                       // get 24hr 4 digit UTC NOW
             UTCNEW = Convert.ToInt16(FD);                                    // convert 24hr UTC to int
 
@@ -4157,15 +4155,15 @@ namespace Thetis
             int mm = Convert.ToInt16(UTCD.ToString("mm"));
 
             int UTCNEWMIN = mm + (60 * hh);
-         //   Debug.WriteLine("time in minutes only " + UTCNEWMIN);
+            //   Debug.WriteLine("time in minutes only " + UTCNEWMIN);
 
 
 
             if ((UTCLAST == 0) && (UTCNEW != 0))  // for startup only (ie. run 1 time)
             {
-                UTCLAST = UTCNEW;        
+                UTCLAST = UTCNEW;
                 DX_Time[0] = UTCNEW;
-                UTCLASTMIN = UTCNEWMIN; 
+                UTCLASTMIN = UTCNEWMIN;
 
             }
 
@@ -4191,16 +4189,16 @@ namespace Thetis
 
                     //  int UTCDIFF = Math.Abs(UTCNEW - DX_Time[ii]); // time difference 
                     //DX_Age[ii] = UTCDIFF.ToString("00"); // 2 digits
-                   
 
-                   int  UTCAGE = Convert.ToInt32(DX_Age[ii]) + UTCDIFFMIN; // current age difference for DX spots
+
+                    int UTCAGE = Convert.ToInt32(DX_Age[ii]) + UTCDIFFMIN; // current age difference for DX spots
 
                     DX_Age[ii] = UTCAGE.ToString(); // age your DX spot
 
-                                       
+
                     int kk = 0; // look at very bottom of list + 1
 
-                    
+
                     if (UTCAGE > 35) // if its an old SPOT then remove it from the list
                     {
 
@@ -4211,8 +4209,8 @@ namespace Thetis
                         xxx++; //shorten dx_Index by 1
 
                         Debug.WriteLine("time expire, remove=========spot " + DX_Time[ii] + " current time " + UTCLAST + " UTCDIFFMIN " + UTCDIFFMIN + " ii " + ii + " station " + DX_Station[ii]);
-                     //   Debug.WriteLine("KK " + kk);
-                     //   Debug.WriteLine("XXX " + xxx);
+                        //   Debug.WriteLine("KK " + kk);
+                        //   Debug.WriteLine("XXX " + xxx);
 
 
                         for (; kk < (DX_Index - xxx); kk++)
@@ -4240,9 +4238,9 @@ namespace Thetis
 
                 DX_Index = DX_Index - xxx;  // update DX_Index list (shorten if any old spots deleted)
 
-             //   Debug.WriteLine("END=========== " + DX_Index);
+                //   Debug.WriteLine("END=========== " + DX_Index);
 
-             //   Debug.WriteLine(" ");
+                //   Debug.WriteLine(" ");
 
                 processTCPMessage(); // update spot window (remove old spots)
 
@@ -4259,27 +4257,27 @@ namespace Thetis
 
         private void nameBox_MouseEnter(object sender, EventArgs e)
         {
-           // ToolTip tt = new ToolTip();
-          //  tt.Show("Name Name of DX Spider node with a > symbol at the end: Example: HB9DRV-9> or NN1D> ", nameBox, 10, 60, 2000);
+            // ToolTip tt = new ToolTip();
+            //  tt.Show("Name Name of DX Spider node with a > symbol at the end: Example: HB9DRV-9> or NN1D> ", nameBox, 10, 60, 2000);
 
         }
 
         private void callBox_MouseEnter(object sender, EventArgs e)
         {
-           // ToolTip tt = new ToolTip();
-          //  tt.Show("Your Call Sign to login to DX Spider node. Note: you must have used this call with this node prior to this first time ", callBox, 10, 60, 2000);
+            // ToolTip tt = new ToolTip();
+            //  tt.Show("Your Call Sign to login to DX Spider node. Note: you must have used this call with this node prior to this first time ", callBox, 10, 60, 2000);
         }
 
         private void nodeBox_MouseEnter(object sender, EventArgs e)
         {
-           // ToolTip tt = new ToolTip();
-          //  tt.Show("Dx Spider node address ", nodeBox, 10, 60, 2000);
+            // ToolTip tt = new ToolTip();
+            //  tt.Show("Dx Spider node address ", nodeBox, 10, 60, 2000);
         }
 
         private void portBox_MouseEnter(object sender, EventArgs e)
         {
-          //  ToolTip tt = new ToolTip();
-          //  tt.Show("Port # that goes with the node address", portBox, 10, 60, 2000);
+            //  ToolTip tt = new ToolTip();
+            //  tt.Show("Port # that goes with the node address", portBox, 10, 60, 2000);
         }
 
 
@@ -4323,10 +4321,10 @@ namespace Thetis
 
         private void nameBox_Leave(object sender, EventArgs e)
         {
-             callB = callBox.Text;
-             nodeB = nodeBox1.Text;
-             portB = portBox2.Text;
-             nameB = nameBox.Text;
+            callB = callBox.Text;
+            nodeB = nodeBox1.Text;
+            portB = portBox2.Text;
+            nameB = nameBox.Text;
         }
 
         private void callBox_Leave(object sender, EventArgs e)
@@ -4356,22 +4354,22 @@ namespace Thetis
             nameB = nameBox.Text;
         }
 
-   
+
         private void chkBoxNA_CheckedChanged(object sender, EventArgs e)
         {
-      
-                if (chkBoxNA.Checked == true)
-                {
 
-                    //   Debug.WriteLine("US SPOT CHECKED");
-                    chkBoxWrld.Checked = false;
+            if (chkBoxNA.Checked == true)
+            {
 
-                }
-                else
-                {
-                    //   Debug.WriteLine("US SPOT UN-CHECKED");
-                }
-           
+                //   Debug.WriteLine("US SPOT CHECKED");
+                chkBoxWrld.Checked = false;
+
+            }
+            else
+            {
+                //   Debug.WriteLine("US SPOT UN-CHECKED");
+            }
+
         }
 
         private void chkBoxWrld_CheckedChanged(object sender, EventArgs e)
@@ -4386,14 +4384,14 @@ namespace Thetis
                 //   Debug.WriteLine("world SPOT UN-CHECKED");
             }
         }
-       
+
 
 
         private void statusBox_Click(object sender, EventArgs e)
         {
             statusBox.ShortcutsEnabled = false; // added to eliminate the contextmenu from popping up on a right click
 
-            if ((SP_Active == 3 )) // if DX cluster active then test it by sending a CR
+            if ((SP_Active == 3)) // if DX cluster active then test it by sending a CR
             {
 
                 try
@@ -4405,12 +4403,12 @@ namespace Thetis
                     SP_writer.Write((char)13);
                     SP_writer.Write((char)10);
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     statusBox.Text = "Failed Test";
 
                 }
-     
+
             } // if connection was supposed to be active
 
         } // statusBox_Click
@@ -4438,22 +4436,22 @@ namespace Thetis
 
                 DX_SELECTED = (int)iii;  // store the last line you clicked on to keep highlighted
 
-              
+
                 textBox1.SelectionStart = DX_SELECTED * LineLength;      // start of each dx spot line
                 textBox1.SelectionLength = LineLength;                    // length of each dx spot  line
 
-                DX_TEXT = textBox1.Text.Substring((DX_SELECTED * LineLength)+16, 40); // just check freq and callsign of dx station
+                DX_TEXT = textBox1.Text.Substring((DX_SELECTED * LineLength) + 16, 40); // just check freq and callsign of dx station
 
-             //   Debug.WriteLine("1DX_SELECTED " + DX_SELECTED + " , "+ DX_TEXT);
+                //   Debug.WriteLine("1DX_SELECTED " + DX_SELECTED + " , "+ DX_TEXT);
 
                 int gg = ii % LineLength;  // get remainder for checking beam heading
 
-             //   Debug.WriteLine("position in line" + gg);
+                //   Debug.WriteLine("position in line" + gg);
 
                 if (gg > (LineLength - 10)) beam_selected = true; // did user Left click over the beam heading on the dx spot list ?
                 else beam_selected = false;
 
-       
+
                 if ((DX_Index > iii) && (beacon1 == false))
                 {
                     int freq1 = DX_Freq[iii];
@@ -4462,16 +4460,16 @@ namespace Thetis
                     {
                         if (chkDXMode.Checked == true)
                         {
-                            if (DX_Mode[iii] == 0)       console.RX1DSPMode = DSPMode.LSB;
-                            else if (DX_Mode[iii] == 1)  console.RX1DSPMode = DSPMode.CWL;
-                            else if (DX_Mode[iii] == 2)  console.RX1DSPMode = DSPMode.DIGL;
-                            else if (DX_Mode[iii] == 3)  console.RX1DSPMode = DSPMode.DIGL;
-                            else if (DX_Mode[iii] == 4)  console.RX1DSPMode = DSPMode.DIGL;
-                            else if (DX_Mode[iii] == 5)  console.RX1DSPMode = DSPMode.DIGL;
-                            else if (DX_Mode[iii] == 6)  console.RX1DSPMode = DSPMode.DIGL;
-                            else if (DX_Mode[iii] == 7)  console.RX1DSPMode = DSPMode.DIGL;
-                            else if (DX_Mode[iii] == 8)  console.RX1DSPMode = DSPMode.DIGL;
-                            else if (DX_Mode[iii] == 9)  console.RX1DSPMode = DSPMode.DIGL;
+                            if (DX_Mode[iii] == 0) console.RX1DSPMode = DSPMode.LSB;
+                            else if (DX_Mode[iii] == 1) console.RX1DSPMode = DSPMode.CWL;
+                            else if (DX_Mode[iii] == 2) console.RX1DSPMode = DSPMode.DIGL;
+                            else if (DX_Mode[iii] == 3) console.RX1DSPMode = DSPMode.DIGL;
+                            else if (DX_Mode[iii] == 4) console.RX1DSPMode = DSPMode.DIGL;
+                            else if (DX_Mode[iii] == 5) console.RX1DSPMode = DSPMode.DIGL;
+                            else if (DX_Mode[iii] == 6) console.RX1DSPMode = DSPMode.DIGL;
+                            else if (DX_Mode[iii] == 7) console.RX1DSPMode = DSPMode.DIGL;
+                            else if (DX_Mode[iii] == 8) console.RX1DSPMode = DSPMode.DIGL;
+                            else if (DX_Mode[iii] == 9) console.RX1DSPMode = DSPMode.DIGL;
                             else if (DX_Mode[iii] == 10) console.RX1DSPMode = DSPMode.DIGL;
                             else if (DX_Mode[iii] == 11) console.RX1DSPMode = DSPMode.FM;
                             else if (DX_Mode[iii] == 12) console.RX1DSPMode = DSPMode.LSB;
@@ -4491,16 +4489,16 @@ namespace Thetis
                         if (chkDXMode.Checked == true)
                         {
 
-                            if (DX_Mode[iii] == 0)       console.RX1DSPMode = DSPMode.USB;
-                            else if (DX_Mode[iii] == 1)  console.RX1DSPMode = DSPMode.CWU;
-                            else if (DX_Mode[iii] == 2)  console.RX1DSPMode = DSPMode.DIGU;
-                            else if (DX_Mode[iii] == 3)  console.RX1DSPMode = DSPMode.DIGU;
-                            else if (DX_Mode[iii] == 4)  console.RX1DSPMode = DSPMode.DIGU;
-                            else if (DX_Mode[iii] == 5)  console.RX1DSPMode = DSPMode.DIGU;
-                            else if (DX_Mode[iii] == 6)  console.RX1DSPMode = DSPMode.DIGU;
-                            else if (DX_Mode[iii] == 7)  console.RX1DSPMode = DSPMode.DIGU;
-                            else if (DX_Mode[iii] == 8)  console.RX1DSPMode = DSPMode.DIGU;
-                            else if (DX_Mode[iii] == 9)  console.RX1DSPMode = DSPMode.DIGU;
+                            if (DX_Mode[iii] == 0) console.RX1DSPMode = DSPMode.USB;
+                            else if (DX_Mode[iii] == 1) console.RX1DSPMode = DSPMode.CWU;
+                            else if (DX_Mode[iii] == 2) console.RX1DSPMode = DSPMode.DIGU;
+                            else if (DX_Mode[iii] == 3) console.RX1DSPMode = DSPMode.DIGU;
+                            else if (DX_Mode[iii] == 4) console.RX1DSPMode = DSPMode.DIGU;
+                            else if (DX_Mode[iii] == 5) console.RX1DSPMode = DSPMode.DIGU;
+                            else if (DX_Mode[iii] == 6) console.RX1DSPMode = DSPMode.DIGU;
+                            else if (DX_Mode[iii] == 7) console.RX1DSPMode = DSPMode.DIGU;
+                            else if (DX_Mode[iii] == 8) console.RX1DSPMode = DSPMode.DIGU;
+                            else if (DX_Mode[iii] == 9) console.RX1DSPMode = DSPMode.DIGU;
                             else if (DX_Mode[iii] == 10) console.RX1DSPMode = DSPMode.DIGU;
                             else if (DX_Mode[iii] == 11) console.RX1DSPMode = DSPMode.FM;
                             else if (DX_Mode[iii] == 12) console.RX1DSPMode = DSPMode.USB;
@@ -4523,7 +4521,7 @@ namespace Thetis
 
                         if (DX_Mode2[iii] != 0)
                         {
-                           
+
                             console.VFOBFreq = (double)(freq1 + DX_Mode2[iii]) / 1000000; // convert to MHZ
                             console.chkVFOSplit.Checked = true; // turn on  split
 
@@ -4547,7 +4545,7 @@ namespace Thetis
                         //console.spotDDUtil_Rotor = ";";
                         //console.spotDDUtil_Rotor = "AM1;";
 
-                   } //  if (chkBoxRotor.Checked == true)
+                    } //  if (chkBoxRotor.Checked == true)
                     button1.Focus();
 
                     if (beacon1 == false) Map_Last = 2; // redraw map spots
@@ -4555,7 +4553,7 @@ namespace Thetis
 
                 } // make sure index you clicked on is within range
 
-                else  if ((BX1_Index > iii) && (beacon1 == true))
+                else if ((BX1_Index > iii) && (beacon1 == true))
                 {
                     int freq1 = BX_Freq[iii];
 
@@ -4667,12 +4665,12 @@ namespace Thetis
                     int ii = textBox1.GetCharIndexFromPosition(e.Location);
 
                     byte iii = (byte)(ii / LineLength);  // get line  /82  or /86 if AGE turned on or 91 if mode is also on /99 if country added
-                    
+
                     if (DX_Index > iii)
                     {
                         string DXName = DX_Station[iii];
 
-                      //  Debug.WriteLine("Line " + iii + " Name " + DXName);
+                        //  Debug.WriteLine("Line " + iii + " Name " + DXName);
 
                         try
                         {
@@ -4680,13 +4678,13 @@ namespace Thetis
                         }
                         catch
                         {
-                       //     Debug.WriteLine("bad station");
+                            //     Debug.WriteLine("bad station");
                             // if not a URL then ignore
                         }
                     }
-                   
+
                 } // not actively processing a new spot
-               else  if ((SP4_Active == 0) && (beacon1 == true))// only process lookup if not processing a new spot which might cause issue
+                else if ((SP4_Active == 0) && (beacon1 == true))// only process lookup if not processing a new spot which might cause issue
                 {
                     int ii = textBox1.GetCharIndexFromPosition(e.Location);
 
@@ -4749,19 +4747,19 @@ namespace Thetis
 
 
 
-        public static Image Skin1 = null; // temp holder for orignal skin image in picdisplay
+        private static Image skin1 = null; // temp holder for orignal skin image in picdisplay
 
         //=========================================================================================
         private void chkSUN_CheckedChanged(object sender, EventArgs e)
         {
-            
+
             if ((chkSUN.Checked == false) && (chkGrayLine.Checked == false))
             {
                 if (Skin1 != null) console.PicDisplayBackgroundImage = Skin1; // put back original image
             }
-            if (SP_Active != 0 ) 
+            if (SP_Active != 0)
             {
-             
+
                 if ((chkSUN.Checked == true) || (chkGrayLine.Checked == true))
                 {
 
@@ -4776,7 +4774,7 @@ namespace Thetis
 
                     }
                     else console.PicDisplayBackgroundImage = MAP;
- 
+
                 } // SUN or GRAY LINE checked
 
             } // dx spot on
@@ -4795,9 +4793,9 @@ namespace Thetis
                 if (Skin1 != null) console.PicDisplayBackgroundImage = Skin1; // put back original image
             }
 
-            if ( SP_Active != 0) 
+            if (SP_Active != 0)
             {
-              
+
                 if ((chkSUN.Checked == true) || (chkGrayLine.Checked == true))
                 {
                     console.picDisplay.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -4811,7 +4809,7 @@ namespace Thetis
                         //  console.SetPicDisplayBackgroundImage(Image.FromStream(Map_image));
                     }
                     else console.PicDisplayBackgroundImage = MAP;
-      
+
                 } // only do if SUN or GRAY LINE checked
 
             } // dx spot active
@@ -4844,11 +4842,11 @@ namespace Thetis
 
                 LastDisplayMode = Display.CurrentDisplayMode; // save the display mode that you were in before you turned on special panafall mode
 
-                if (chkPanMode.Checked == true)  Display.CurrentDisplayMode = DisplayMode.PANAFALL;
+                if (chkPanMode.Checked == true) Display.CurrentDisplayMode = DisplayMode.PANAFALL;
 
 
                 Display.GridOff = 1; // Force Gridlines off but dont change setupform setting
-                
+
                 if ((chkSUN.Checked == true) || (chkGrayLine.Checked == true))
                 {
                     console.picDisplay.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -4887,14 +4885,14 @@ namespace Thetis
                 Display.SpecialPanafall = false;                    // tell display program to got back to standard panafall mode
 
                 if (chkPanMode.Checked == true) Display.CurrentDisplayMode = LastDisplayMode;
-               
-             //   if (console.SetupForm.gridBoxTS.Checked == true) Display.GridControl = 1; // put gridlines back the way they were
-               // else Display.GridOff = 0; // gridlines ON
-            
+
+                //   if (console.SetupForm.gridBoxTS.Checked == true) Display.GridControl = 1; // put gridlines back the way they were
+                // else Display.GridOff = 0; // gridlines ON
+
                 btnTrack.Text = "Track";
-     
+
                 textBox1.Text += "Click to turn off GrayLine Sun Tracking\r\n";
-             
+
                 if (Skin1 != null) console.PicDisplayBackgroundImage = Skin1; // put back original image
 
             } // turn Tracking  off
@@ -4933,7 +4931,7 @@ namespace Thetis
 
         public static bool SUN = false; // true = on
         public static bool GRAYLINE = false; // true = on
-       
+
         public static int suncounter = 0; // for space weather
         public static int SFI = 0;       // for Space weather
         public static int SN = 0;        // for Space weather
@@ -5016,7 +5014,7 @@ namespace Thetis
         //===============================================================================================================================
         private void TrackSun()  // ke9ns Thread opeation (runs in en-us culture) To create and draw Sun and/or Grayline Track
         {
-           
+
 
             //-------------------------------------------------------------------
             // ke9ns grayline check 
@@ -5055,7 +5053,7 @@ namespace Thetis
 
             console.SetupForm.clrbtnGrayLine_Changed(this, EventArgs.Empty);               // get color from setup at startup
 
-          
+
             if (Console.noaaON == 0) // only do this if space weather is OFF on the main console window
             {
                 textBox1.Text += "Attempt login to:  NOAA Space Weather Prediction Center \r\n";
@@ -5064,7 +5062,7 @@ namespace Thetis
 
             }
 
-         //   textBox1.Text += "NOAA Download complete \r\n";
+            //   textBox1.Text += "NOAA Download complete \r\n";
 
 
             //--------------------------------------------------------------------------------------------
@@ -5079,10 +5077,10 @@ namespace Thetis
                 // ke9ns add for VOACAP
                 if (checkBoxMUF.Checked == true)
                 {
-                    if ((VOARUN == false) && (int)double.Parse(console.txtVFOAFreq.Text.Replace(",", ".")) != console.last_MHZ )
+                    if ((VOARUN == false) && (int)double.Parse(console.txtVFOAFreq.Text.Replace(",", ".")) != console.last_MHZ)
                     {
-                      
-                        if( ((int)double.Parse(console.txtVFOAFreq.Text.Replace(",", ".")) > 0) &&( (int)double.Parse(console.txtVFOAFreq.Text.Replace(",", ".")) < 30)  )
+
+                        if (((int)double.Parse(console.txtVFOAFreq.Text.Replace(",", ".")) > 0) && ((int)double.Parse(console.txtVFOAFreq.Text.Replace(",", ".")) < 30))
                         {
                             console.last_MHZ = (int)double.Parse(console.txtVFOAFreq.Text.Replace(",", "."));
                             VOACAP_CHECK();
@@ -5097,7 +5095,7 @@ namespace Thetis
 
                 } // ke9ns voacap
 
-                if (  ((beacon4 == true)) ||((chkSUN.Checked == true) || (chkGrayLine.Checked == true)) &&
+                if (((beacon4 == true)) || ((chkSUN.Checked == true) || (chkGrayLine.Checked == true)) &&
                        ((Display.CurrentDisplayMode == DisplayMode.PANADAPTER) || (Display.CurrentDisplayMode == DisplayMode.PANAFALL))
                    )
                 {
@@ -5114,9 +5112,9 @@ namespace Thetis
                     else GRAYLINE = false;
 
 
-                  
 
-                   
+
+
 
                     // Do a SUN, GRAYLINE, or DX country/callsign update
 
@@ -5129,10 +5127,10 @@ namespace Thetis
 
                     if ((!console.MOX) && ((UTCNEW != UTCLAST2) || (Setup.DisplayGrayLineColor != GrayLine_Last) || (Map_Last > 0) ||
                         (((DX_Index != DX_Last) || (Console.DXK != DXK_Last) || (console.RX1Band != RX1Band_Last)) && (SP8_Active == 1)))
-                        || ((beacon4 == true))      )  // Beacon scanner
+                        || ((beacon4 == true)))  // Beacon scanner
                     {
 
-                      
+
                         Debug.WriteLine("Update DX Spots on Screen=================");
 
                         GrayLine_Last = Setup.DisplayGrayLineColor; // store last color for compare next time
@@ -5140,11 +5138,11 @@ namespace Thetis
                         DXK_Last = Console.DXK;
 
                         DX_Last = DX_Index;                    // if the DX spot list changed
-                      
+
                         RX1Band_Last = console.RX1Band;
 
-                      
-                        if ( (UTCNEW != UTCLAST2) || (Setup.DisplayGrayLineColor != GrayLine_Last) || (Map_Last == 1))
+
+                        if ((UTCNEW != UTCLAST2) || (Setup.DisplayGrayLineColor != GrayLine_Last) || (Map_Last == 1))
                         {
                             Debug.WriteLine("Update GrayLine=================");
 
@@ -5206,7 +5204,7 @@ namespace Thetis
                             Sun_X = (int)(Sun_Left + (float)(Sun_Width * (1.0 - UTC100))); // position of SUN on equator based on time of day
 
 
-                        
+
                             if ((GRAYLINE == true))
                             {
 
@@ -5402,35 +5400,35 @@ namespace Thetis
 
                                 for (double lat = 90.0; lat >= -90.0; lat = lat - 0.5)  // 0.5 horizontal lines top to bottom (North)90 to 0 to -90 (South)
                                 {
-                                  
+
                                     if ((SUNANGLE(lat, -180.0) >= 90) && (SUNANGLE(lat, 180.0) >= 90)) tt = 1; // dark on edges of screen 
                                     else tt = 0; // light on at least 1 side
 
                                     zz = (int)((qq / 360.0 * Sun_WidthY1) + Sun_Top1); // 360 = number of latitude points, determine the y pixel for this latitude grayline
 
-                                 
+
                                     GrayLine_Pos1[zz, 0] = GrayLine_Pos1[zz, 1] = 0;
-                                     
+
                                     if (SUNANGLE(lat, 0.0) < 90) check_for_light = false; // your in light so check for dark
                                     else check_for_light = true; // >= 96 your in dark so check for light
 
-                                
+
                                     for (double lon = 0.0; lon <= 180.0; lon = lon + 0.5)   // 0.5
                                     {
                                         tempsun_ang = SUNANGLE(lat, lon); // pos angle from 0 to 120
 
-                                     
+
                                         if (check_for_light == true) // in dark, looking for light
                                         {
 
-                                            if ((tempsun_ang < 90) ) // found light
+                                            if ((tempsun_ang < 90)) // found light
                                             {
 
                                                 GrayLine_Pos1[zz, ww] = (int)(((lon + 180.0) / 360.0 * Sun_Width) + Sun_Left); // determine x pixel for this longitude grayline
 
                                                 GrayLine_Pos1[zz + 2, ww] = GrayLine_Pos1[zz + 1, ww] = GrayLine_Pos1[zz, ww]; // make sure to cover unused pixels
 
-                                             
+
                                                 ww++;
                                                 if (ww == 2) break;   // both edges found so done
 
@@ -5450,7 +5448,7 @@ namespace Thetis
                                                 GrayLine_Pos1[zz, ww] = (int)(((lon + 180.0) / 360.0 * Sun_Width) + Sun_Left); // determine x pixel for this longitude grayline
 
                                                 GrayLine_Pos1[zz + 2, ww] = GrayLine_Pos1[zz + 1, ww] = GrayLine_Pos1[zz, ww]; // make sure to cover unused pixels
-                                             
+
                                                 ww++;
                                                 if (ww == 2) break;   // both edges found so done
 
@@ -5489,7 +5487,7 @@ namespace Thetis
 
                                                     GrayLine_Pos1[zz, ww] = (int)(((180.0 + lon) / 360.0 * Sun_Width) + Sun_Left); // determine x pixel for this longitude grayline
                                                     GrayLine_Pos1[zz + 2, ww] = GrayLine_Pos1[zz + 1, ww] = GrayLine_Pos1[zz, ww];
-                                                 
+
                                                     ww++;
                                                     if (ww == 2) break;      // if we have 2 edge then done
 
@@ -5507,7 +5505,7 @@ namespace Thetis
                                                     GrayLine_Pos1[zz, ww] = (int)(((180.0 + lon) / 360.0 * Sun_Width) + Sun_Left); // determine x pixel for this longitude grayline
 
                                                     GrayLine_Pos1[zz + 2, ww] = GrayLine_Pos1[zz + 1, ww] = GrayLine_Pos1[zz, ww];
-                                                 
+
                                                     ww++;
                                                     if (ww == 2) break;    // if we have 2 edge then done
 
@@ -5584,7 +5582,7 @@ namespace Thetis
                         //-------------------------------------------------------------------------------------------------
                         //-------------------------------------------------------------------------------------------------
 
-                        if ((Console.DisplaySpot))  MAP = new Bitmap(Map_image); // load up Map image
+                        if ((Console.DisplaySpot)) MAP = new Bitmap(Map_image); // load up Map image
                         else MAP = new Bitmap(Map_image2); // load up Map image
 
                         Graphics g = Graphics.FromImage(MAP);
@@ -5630,7 +5628,7 @@ namespace Thetis
 
 
 
-                      
+
 
                         //---------------------------------------------------------------------------
                         if (GRAYLINE == true)
@@ -5647,8 +5645,8 @@ namespace Thetis
                                 // ke9ns dusk
                                 if (GrayLine_Pos3[ee] == 0) // not dusk on edges on screen
                                 {
-                                    if ( (GrayLine_Pos1[ee, 0]) == 0 && (GrayLine_Pos1[ee, 1] == 0) &&
-                                        ( (ee < (Sun_Top1 + 100)) && (DateTime.UtcNow.DayOfYear > 270 ) || (ee > (Sun_Bot1 - 100)) && (DateTime.UtcNow.DayOfYear < 150))  
+                                    if ((GrayLine_Pos1[ee, 0]) == 0 && (GrayLine_Pos1[ee, 1] == 0) &&
+                                        ((ee < (Sun_Top1 + 100)) && (DateTime.UtcNow.DayOfYear > 270) || (ee > (Sun_Bot1 - 100)) && (DateTime.UtcNow.DayOfYear < 150))
                                        ) // if the line is empty but your on top in the winter then draw a line anyway
                                     {
                                         g.DrawLine(p4, Sun_Left, ee, Sun_Right, ee);
@@ -5657,19 +5655,19 @@ namespace Thetis
                                     {
                                         g.DrawLine(p4, GrayLine_Pos1[ee, 0], ee, GrayLine_Pos1[ee, 1], ee);    // draw line between the left and right sides (starting from the middle)
                                     }
-                                
+
                                 }
                                 else if (GrayLine_Pos3[ee] == 1)
                                 {
                                     g.DrawLine(p4, GrayLine_Pos1[ee, 0], ee, Sun_Right, ee);
                                     g.DrawLine(p4, GrayLine_Pos1[ee, 1], ee, Sun_Left, ee);
-                                  
+
                                 }
                                 else
                                 {
                                     g.DrawLine(p4, GrayLine_Pos1[ee, 1], ee, Sun_Right, ee);
                                     g.DrawLine(p4, GrayLine_Pos1[ee, 0], ee, Sun_Left, ee);
-                                 
+
                                 }
 
 
@@ -5687,19 +5685,19 @@ namespace Thetis
                                     {
                                         g.DrawLine(p3, GrayLine_Pos[ee, 0], ee, GrayLine_Pos[ee, 1], ee);       // draw line between the left and right sides (starting from the middle)
                                     }
-                                 
+
                                 }
                                 else if (GrayLine_Pos2[ee] == 1)
                                 {
                                     g.DrawLine(p3, GrayLine_Pos[ee, 0], ee, Sun_Right, ee);
                                     g.DrawLine(p3, GrayLine_Pos[ee, 1], ee, Sun_Left, ee);
-                                  
+
                                 }
                                 else
                                 {
                                     g.DrawLine(p3, GrayLine_Pos[ee, 1], ee, Sun_Right, ee);
                                     g.DrawLine(p3, GrayLine_Pos[ee, 0], ee, Sun_Left, ee);
-                                 
+
                                 }
 
 
@@ -5739,7 +5737,7 @@ namespace Thetis
 
                                     while (VOA_Y[z, q] != 0)
                                     {
-                                       
+
                                         if (((z == 1) || (z == 2)) && (CR < 70)) g.FillEllipse(graybrush, VOA_X[z, q] - 1, VOA_Y[z, q] - 1, 2, 2);
                                         else if ((z == 3) || (z == 4)) g.FillEllipse(orangebrush, VOA_X[z, q] - 1, VOA_Y[z, q] - 1, 3, 3);
                                         else if ((z == 5) || (z == 6)) g.FillEllipse(yellowbrush, VOA_X[z, q] - 2, VOA_Y[z, q] - 2, 4, 4);
@@ -5758,7 +5756,7 @@ namespace Thetis
                             {
                                 try
                                 {
-                                   
+
 
 
                                     for (int a = 900; a < cnt; a++) // the first 900 lines 3D contours, so skip them
@@ -5805,8 +5803,8 @@ namespace Thetis
 
                                     } // for a loop
 
-                                } 
-                                catch(Exception)
+                                }
+                                catch (Exception)
                                 {
                                     textBox1.Text = "problem with Contour map";
 
@@ -5829,7 +5827,7 @@ namespace Thetis
                             //-------------------------------------------------------------------------------------
                             // draw country or call sign on map
 
-                      
+
                             int Flag11 = 0;
 
                             int kk = 0;
@@ -5843,35 +5841,35 @@ namespace Thetis
 
                             //   Debug.WriteLine(">>>>>>>>BEACON: check red dot");
 
-                          //  Array.Clear(yy,0,200);
+                            //  Array.Clear(yy,0,200);
 
-                            if(beacon1 == true) // show time slot for beacons
+                            if (beacon1 == true) // show time slot for beacons
                             {
-                     
+
                                 for (int x = 0; x < 18; x++)
                                 {
-                                    g.DrawString(Beacon_Call[x].ToString() + " " + Beacon_Country[x].ToString(), font2, grid_text_brush, 55, 20+(x*10)); // use Pandapdater holder[] data
+                                    g.DrawString(Beacon_Call[x].ToString() + " " + Beacon_Country[x].ToString(), font2, grid_text_brush, 55, 20 + (x * 10)); // use Pandapdater holder[] data
                                 }
                                 for (int x = 0; x < 5; x++)
                                 {
                                     int y = BX_Index[x] / 5;
                                     int y1 = BX_Index[x] % 5; // get remainder
 
-                                    g.DrawString((Beacon_Freq[y1]/1e6).ToString("f2"), font2, grid_text_brush, 27, 20 + (y * 10)); // use Pandapdater holder[] data
+                                    g.DrawString((Beacon_Freq[y1] / 1e6).ToString("f2"), font2, grid_text_brush, 27, 20 + (y * 10)); // use Pandapdater holder[] data
                                 }
-      
+
                             } // if beacon scan turned on show list of staations and which ones are on right now
 
                             if (beacon1 == false)
                             {
                                 for (int ii = 0; ii < DX_Index; ii++) // red dot always all bands
                                 {
-     
+
                                     if ((DX_X[ii] != 0) && (DX_Y[ii] != 0))
                                     {
-       
+
                                         g.FillRectangle(redbrush, DX_X[ii], DX_Y[ii], 3, 3);  // place red dot on map (all bands)
-                                       
+
 
                                         if ((chkMapBand.Checked == true)) // map just the band, 
                                         {
@@ -6076,69 +6074,69 @@ namespace Thetis
                             {
 
 
-                            if (beacon1 == false)
-                            { 
-                                for (int ii = 0; ii < DX_Index; ii++) // dx call sign or country name on map is for all HF
+                                if (beacon1 == false)
                                 {
-
-                              
-                                    if ((DX_X[ii] != 0) && (DX_Y[ii] != 0))
+                                    for (int ii = 0; ii < DX_Index; ii++) // dx call sign or country name on map is for all HF
                                     {
 
-                                        if (chkMapCountry.Checked == true) // spot country on map
+
+                                        if ((DX_X[ii] != 0) && (DX_Y[ii] != 0))
                                         {
 
-                                            
-                                            if (chkBoxBeam.Checked == true) g.DrawString(DX_country[ii] + "(" + DX_Beam[ii] + "°)", font2, grid_text_brush, DX_X[ii], DX_Y[ii]); // country name
-                                            else g.DrawString(DX_country[ii], font2, grid_text_brush, DX_X[ii], DX_Y[ii]); // country name
-                                   
-
-                                        } // chkMapCountry true = draw country name on map
-
-                                        else if (chkMapCall.Checked == true)  // show call signs on map
-                                        {
-
-                                            for (rr = 0; rr < kk; rr++)  // check all accumulated countrys from the current DX_index list
+                                            if (chkMapCountry.Checked == true) // spot country on map
                                             {
-                                                if (country[rr] == DX_country[ii])
+
+
+                                                if (chkBoxBeam.Checked == true) g.DrawString(DX_country[ii] + "(" + DX_Beam[ii] + "°)", font2, grid_text_brush, DX_X[ii], DX_Y[ii]); // country name
+                                                else g.DrawString(DX_country[ii], font2, grid_text_brush, DX_X[ii], DX_Y[ii]); // country name
+
+
+                                            } // chkMapCountry true = draw country name on map
+
+                                            else if (chkMapCall.Checked == true)  // show call signs on map
+                                            {
+
+                                                for (rr = 0; rr < kk; rr++)  // check all accumulated countrys from the current DX_index list
                                                 {
-                                                    yy[rr] = yy[rr] + 10; // multiple calls for same country stack downward
-                                                    Flag11 = 1;
-                                                    break;
+                                                    if (country[rr] == DX_country[ii])
+                                                    {
+                                                        yy[rr] = yy[rr] + 10; // multiple calls for same country stack downward
+                                                        Flag11 = 1;
+                                                        break;
+                                                    }
+
+
+                                                } // for rr loop
+
+
+                                                if (Flag11 == 0)
+                                                {
+                                                    country[kk] = DX_country[ii]; // add to list
+                                                    yy[kk] = 0;
                                                 }
 
+                                                kk++; // increment for next country
 
-                                            } // for rr loop
-
-
-                                            if (Flag11 == 0)
-                                            {
-                                                country[kk] = DX_country[ii]; // add to list
-                                                yy[kk] = 0;
-                                            }
-
-                                            kk++; // increment for next country
-
-                                            Flag11 = 0; // reset flag
-
-                                           
-                                            if (chkBoxBeam.Checked == true) g.DrawString(DX_Station[ii] + "(" + DX_Beam[ii] + "°)", font2, grid_text_brush, DX_X[ii], DX_Y[ii] + yy[rr]); // Station  name
-                                            else g.DrawString(DX_Station[ii], font2, grid_text_brush, DX_X[ii], DX_Y[ii] + yy[rr]); // Station  name
-
-                                  
-
-                                        } // chkMapCall true = draw all sign on map
+                                                Flag11 = 0; // reset flag
 
 
-                                    } //  if ((DX_X[ii] != 0) && (DX_Y[ii] != 0))
+                                                if (chkBoxBeam.Checked == true) g.DrawString(DX_Station[ii] + "(" + DX_Beam[ii] + "°)", font2, grid_text_brush, DX_X[ii], DX_Y[ii] + yy[rr]); // Station  name
+                                                else g.DrawString(DX_Station[ii], font2, grid_text_brush, DX_X[ii], DX_Y[ii] + yy[rr]); // Station  name
 
 
-                                } // for ii index loop
-                            } // beacon1 == false
-                                //=========================================================================================
 
-                            else
-                             {
+                                            } // chkMapCall true = draw all sign on map
+
+
+                                        } //  if ((DX_X[ii] != 0) && (DX_Y[ii] != 0))
+
+
+                                    } // for ii index loop
+                                } // beacon1 == false
+                                  //=========================================================================================
+
+                                else
+                                {
                                     for (int ii = 0; ii < BX1_Index; ii++) // dx call sign or country name on map is for all HF
                                     {
 
@@ -6154,61 +6152,61 @@ namespace Thetis
 
                                             if (chkMapCountry.Checked == true) // spot country on map
                                             {
-                                                
-                                                    if (
-                                                        ((beacon11 > 0) && (ii >= ((BX_Index[beacon11 - 1] / 5) * 5)) && (ii <= ((BX_Index[beacon11 - 1] / 5) * 5) + 4)) ||  // for slow beacon scanning
 
-                                                        ((beacon11 == 0) &&
-                                                        (ii >= ((BX_Index[0] / 5) * 5)) && (ii <= ((BX_Index[0] / 5) * 5) + 4) ||        // for fast beacon scanning
-                                                        (ii >= ((BX_Index[1] / 5) * 5)) && (ii <= ((BX_Index[1] / 5) * 5) + 4) ||
-                                                        (ii >= ((BX_Index[2] / 5) * 5)) && (ii <= ((BX_Index[2] / 5) * 5) + 4) ||
-                                                        (ii >= ((BX_Index[3] / 5) * 5)) && (ii <= ((BX_Index[3] / 5) * 5) + 4) ||
-                                                        (ii >= ((BX_Index[4] / 5) * 5)) && (ii <= ((BX_Index[4] / 5) * 5) + 4))
-                                                        )
+                                                if (
+                                                    ((beacon11 > 0) && (ii >= ((BX_Index[beacon11 - 1] / 5) * 5)) && (ii <= ((BX_Index[beacon11 - 1] / 5) * 5) + 4)) ||  // for slow beacon scanning
 
+                                                    ((beacon11 == 0) &&
+                                                    (ii >= ((BX_Index[0] / 5) * 5)) && (ii <= ((BX_Index[0] / 5) * 5) + 4) ||        // for fast beacon scanning
+                                                    (ii >= ((BX_Index[1] / 5) * 5)) && (ii <= ((BX_Index[1] / 5) * 5) + 4) ||
+                                                    (ii >= ((BX_Index[2] / 5) * 5)) && (ii <= ((BX_Index[2] / 5) * 5) + 4) ||
+                                                    (ii >= ((BX_Index[3] / 5) * 5)) && (ii <= ((BX_Index[3] / 5) * 5) + 4) ||
+                                                    (ii >= ((BX_Index[4] / 5) * 5)) && (ii <= ((BX_Index[4] / 5) * 5) + 4))
+                                                    )
+
+                                                {
+                                                    if (chkBoxBeam.Checked == true) g.DrawString(BX_country[ii] + "(" + BX_Beam[ii] + "°)", font2, Beacon_brush, BX_X[ii], BX_Y[ii]); // country name (violet)
+                                                    else g.DrawString(BX_country[ii], font2, Beacon_brush, BX_X[ii], BX_Y[ii]); // country name
+
+                                                }
+                                                else
+                                                {
+
+
+                                                    if (BX_TSlot[ii] == 0)        // ((BX_dBm[ii] == -150)) // not checked yet gray
                                                     {
-                                                        if (chkBoxBeam.Checked == true) g.DrawString(BX_country[ii] + "(" + BX_Beam[ii] + "°)", font2, Beacon_brush, BX_X[ii], BX_Y[ii]); // country name (violet)
-                                                        else g.DrawString(BX_country[ii], font2, Beacon_brush, BX_X[ii], BX_Y[ii]); // country name
+                                                        if (chkBoxBeam.Checked == true) g.DrawString(BX_country[ii] + "(" + BX_Beam[ii] + "°)", font2, graybrush, BX_X[ii], BX_Y[ii]); // country name
+                                                        else g.DrawString(BX_country[ii], font2, graybrush, BX_X[ii], BX_Y[ii]); // country name
 
                                                     }
-                                                    else
+                                                    else if ((dBaboveNoiseFloor > Grn_dBm) && (BX_dBm3[ii] > Grn_S)) // strong green
                                                     {
+                                                        if (chkBoxBeam.Checked == true) g.DrawString(BX_country[ii] + "(" + BX_Beam[ii] + "°)", font2, greenbrush, BX_X[ii], BX_Y[ii]); // country name
+                                                        else g.DrawString(BX_country[ii], font2, greenbrush, BX_X[ii], BX_Y[ii]); // country name
 
-
-                                                        if (BX_TSlot[ii] == 0)        // ((BX_dBm[ii] == -150)) // not checked yet gray
-                                                        {
-                                                            if (chkBoxBeam.Checked == true) g.DrawString(BX_country[ii] + "(" + BX_Beam[ii] + "°)", font2, graybrush, BX_X[ii], BX_Y[ii]); // country name
-                                                            else g.DrawString(BX_country[ii], font2, graybrush, BX_X[ii], BX_Y[ii]); // country name
-
-                                                        }
-                                                        else if ((dBaboveNoiseFloor > Grn_dBm) && (BX_dBm3[ii] > Grn_S)) // strong green
-                                                        {
-                                                            if (chkBoxBeam.Checked == true) g.DrawString(BX_country[ii] + "(" + BX_Beam[ii] + "°)", font2, greenbrush, BX_X[ii], BX_Y[ii]); // country name
-                                                            else g.DrawString(BX_country[ii], font2, greenbrush, BX_X[ii], BX_Y[ii]); // country name
-
-                                                        }
-                                                        else if ((dBaboveNoiseFloor > Yel_dBm) && (BX_dBm3[ii] > Yel_S)) // med yellow
-                                                        {
-                                                            if (chkBoxBeam.Checked == true) g.DrawString(BX_country[ii] + "(" + BX_Beam[ii] + "°)", font2, orangebrush, BX_X[ii], BX_Y[ii]); // country name
-                                                            else g.DrawString(BX_country[ii], font2, orangebrush, BX_X[ii], BX_Y[ii]); // country name
-
-                                                        }
-                                                        else if ((dBaboveNoiseFloor >= Org_dBm) && (BX_dBm3[ii] > Org_S)) // week orange
-                                                        {
-                                                            if (chkBoxBeam.Checked == true) g.DrawString(BX_country[ii] + "(" + BX_Beam[ii] + "°)", font2, grid_text_brush, BX_X[ii], BX_Y[ii]); // country name
-                                                            else g.DrawString(BX_country[ii], font2, grid_text_brush, BX_X[ii], BX_Y[ii]); // country name
-
-                                                        }
-                                                        else            // if ((dBaboveNoiseFloor < 10)) // cannot hear signal red
-                                                        {
-                                                            if (chkBoxBeam.Checked == true) g.DrawString(BX_country[ii] + "(" + BX_Beam[ii] + "°)", font2, redbrush, BX_X[ii], BX_Y[ii]); // country name
-                                                            else g.DrawString(BX_country[ii], font2, redbrush, BX_X[ii], BX_Y[ii]); // country name
-
-                                                        }
                                                     }
+                                                    else if ((dBaboveNoiseFloor > Yel_dBm) && (BX_dBm3[ii] > Yel_S)) // med yellow
+                                                    {
+                                                        if (chkBoxBeam.Checked == true) g.DrawString(BX_country[ii] + "(" + BX_Beam[ii] + "°)", font2, orangebrush, BX_X[ii], BX_Y[ii]); // country name
+                                                        else g.DrawString(BX_country[ii], font2, orangebrush, BX_X[ii], BX_Y[ii]); // country name
 
-                                               
-                                               
+                                                    }
+                                                    else if ((dBaboveNoiseFloor >= Org_dBm) && (BX_dBm3[ii] > Org_S)) // week orange
+                                                    {
+                                                        if (chkBoxBeam.Checked == true) g.DrawString(BX_country[ii] + "(" + BX_Beam[ii] + "°)", font2, grid_text_brush, BX_X[ii], BX_Y[ii]); // country name
+                                                        else g.DrawString(BX_country[ii], font2, grid_text_brush, BX_X[ii], BX_Y[ii]); // country name
+
+                                                    }
+                                                    else            // if ((dBaboveNoiseFloor < 10)) // cannot hear signal red
+                                                    {
+                                                        if (chkBoxBeam.Checked == true) g.DrawString(BX_country[ii] + "(" + BX_Beam[ii] + "°)", font2, redbrush, BX_X[ii], BX_Y[ii]); // country name
+                                                        else g.DrawString(BX_country[ii], font2, redbrush, BX_X[ii], BX_Y[ii]); // country name
+
+                                                    }
+                                                }
+
+
+
 
 
                                             } // chkMapCountry true = draw country name on map
@@ -6239,55 +6237,55 @@ namespace Thetis
 
                                                 Flag11 = 0; // reset flag
 
-                                               
 
-                                                    // violet when its scanning this spot
-                                                    if (
-                                                          ((beacon11 > 0) && (BX_Index[beacon11 - 1] == ii)) ||    // for slow beacon scanning
 
-                                                          (beacon11 == 0) && ((BX_Index[0] == ii) || (BX_Index[1] == ii) || (BX_Index[2] == ii) || (BX_Index[3] == ii) || (BX_Index[4] == ii))  // for fast beacon scanning
-                                                        )
+                                                // violet when its scanning this spot
+                                                if (
+                                                      ((beacon11 > 0) && (BX_Index[beacon11 - 1] == ii)) ||    // for slow beacon scanning
+
+                                                      (beacon11 == 0) && ((BX_Index[0] == ii) || (BX_Index[1] == ii) || (BX_Index[2] == ii) || (BX_Index[3] == ii) || (BX_Index[4] == ii))  // for fast beacon scanning
+                                                    )
+                                                {
+                                                    if (chkBoxBeam.Checked == true) g.DrawString(BX_Station[ii] + "(" + BX_Beam[ii] + "°)", font2, Beacon_brush, BX_X[ii], BX_Y[ii] + yy[rr]); // VIOLET  Station name
+                                                    else g.DrawString(BX_Station[ii], font2, Beacon_brush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
+
+                                                }
+                                                else
+                                                {
+
+                                                    if (BX_TSlot[ii] == 0)        // ((BX_dBm[ii] == -150)) // not checked yet GRAY
                                                     {
-                                                        if (chkBoxBeam.Checked == true) g.DrawString(BX_Station[ii] + "(" + BX_Beam[ii] + "°)", font2, Beacon_brush, BX_X[ii], BX_Y[ii] + yy[rr]); // VIOLET  Station name
-                                                        else g.DrawString(BX_Station[ii], font2, Beacon_brush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
+                                                        if (chkBoxBeam.Checked == true) g.DrawString(BX_Station[ii] + "(" + BX_Beam[ii] + "°)", font2, graybrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
+                                                        else g.DrawString(BX_Station[ii], font2, graybrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
 
                                                     }
-                                                    else
+                                                    else if ((dBaboveNoiseFloor > Grn_dBm) && (BX_dBm3[ii] > Grn_S)) // strong GREEN
                                                     {
+                                                        if (chkBoxBeam.Checked == true) g.DrawString(BX_Station[ii] + "(" + BX_Beam[ii] + "°)", font2, greenbrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
+                                                        else g.DrawString(BX_Station[ii], font2, greenbrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
 
-                                                        if (BX_TSlot[ii] == 0)        // ((BX_dBm[ii] == -150)) // not checked yet GRAY
-                                                        {
-                                                            if (chkBoxBeam.Checked == true) g.DrawString(BX_Station[ii] + "(" + BX_Beam[ii] + "°)", font2, graybrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
-                                                            else g.DrawString(BX_Station[ii], font2, graybrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
-
-                                                        }
-                                                        else if ((dBaboveNoiseFloor > Grn_dBm) && (BX_dBm3[ii] > Grn_S)) // strong GREEN
-                                                        {
-                                                            if (chkBoxBeam.Checked == true) g.DrawString(BX_Station[ii] + "(" + BX_Beam[ii] + "°)", font2, greenbrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
-                                                            else g.DrawString(BX_Station[ii], font2, greenbrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
-
-                                                        }
-                                                        else if ((dBaboveNoiseFloor > Yel_dBm) && (BX_dBm3[ii] > Yel_S)) //med Yel
-                                                        {
-                                                            if (chkBoxBeam.Checked == true) g.DrawString(BX_Station[ii] + "(" + BX_Beam[ii] + "°)", font2, orangebrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
-                                                            else g.DrawString(BX_Station[ii], font2, orangebrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
-
-                                                        }
-                                                        else if ((dBaboveNoiseFloor >= Org_dBm) && (BX_dBm3[ii] > Org_S)) // week Org
-                                                        {
-                                                            if (chkBoxBeam.Checked == true) g.DrawString(BX_Station[ii] + "(" + BX_Beam[ii] + "°)", font2, yellowbrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
-                                                            else g.DrawString(BX_Station[ii], font2, yellowbrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
-
-                                                        }
-                                                        else           //if ((dBaboveNoiseFloor < 10)) // cannot hear signal RED
-                                                        {
-                                                            if (chkBoxBeam.Checked == true) g.DrawString(BX_Station[ii] + "(" + BX_Beam[ii] + "°)", font2, redbrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
-                                                            else g.DrawString(BX_Station[ii], font2, redbrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
-
-                                                        }
                                                     }
-                                               
-                                               
+                                                    else if ((dBaboveNoiseFloor > Yel_dBm) && (BX_dBm3[ii] > Yel_S)) //med Yel
+                                                    {
+                                                        if (chkBoxBeam.Checked == true) g.DrawString(BX_Station[ii] + "(" + BX_Beam[ii] + "°)", font2, orangebrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
+                                                        else g.DrawString(BX_Station[ii], font2, orangebrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
+
+                                                    }
+                                                    else if ((dBaboveNoiseFloor >= Org_dBm) && (BX_dBm3[ii] > Org_S)) // week Org
+                                                    {
+                                                        if (chkBoxBeam.Checked == true) g.DrawString(BX_Station[ii] + "(" + BX_Beam[ii] + "°)", font2, yellowbrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
+                                                        else g.DrawString(BX_Station[ii], font2, yellowbrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
+
+                                                    }
+                                                    else           //if ((dBaboveNoiseFloor < 10)) // cannot hear signal RED
+                                                    {
+                                                        if (chkBoxBeam.Checked == true) g.DrawString(BX_Station[ii] + "(" + BX_Beam[ii] + "°)", font2, redbrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
+                                                        else g.DrawString(BX_Station[ii], font2, redbrush, BX_X[ii], BX_Y[ii] + yy[rr]); // Station  name
+
+                                                    }
+                                                }
+
+
 
                                             } // chkMapCall true = draw all sign on map
 
@@ -6330,8 +6328,8 @@ namespace Thetis
         } // TrackSun
 
 
-       
-   
+
+
 
 
         //==================================================================================================
@@ -6377,7 +6375,7 @@ namespace Thetis
         public static string[] DXLOC_country = new string[2000];      // country
         public static string[] DXLOC_continent = new string[2000];    // continent
 
-     
+
         //=======================================================================================
         //=======================================================================================
         //ke9ns Open and read DXLOC.txt file here (put into array of prefix vs lat/lon value)
@@ -6412,7 +6410,7 @@ namespace Thetis
                     reader2 = new BinaryReader(stream2, Encoding.ASCII);
 
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     SP8_Active = 0;
                     Debug.WriteLine("NO DX LOC FILE============================");
@@ -6428,7 +6426,7 @@ namespace Thetis
 
                 }
 
-                for (;;) // read file and extract data from it and close it and set sp8_active = 1 when done
+                for (; ; ) // read file and extract data from it and close it and set sp8_active = 1 when done
                 {
 
                     if (SP8_Active == 1) // aleady scanned database
@@ -6517,7 +6515,7 @@ namespace Thetis
                                 catch (Exception)
                                 {
 
-                                       Debug.WriteLine(" NORTH " + DXLOC_lon[DXLOC_Index1].Substring(1, ff));
+                                    Debug.WriteLine(" NORTH " + DXLOC_lon[DXLOC_Index1].Substring(1, ff));
                                     DXLOC_LAT[DXLOC_Index1] = 0;
 
 
@@ -6538,8 +6536,8 @@ namespace Thetis
                                 catch (Exception)
                                 {
                                     DXLOC_LAT[DXLOC_Index1] = 0;
-                                       Debug.WriteLine(" SOUTH " + DXLOC_lon[DXLOC_Index1].Substring(1, ff));
-                                        Debug.Write(" prefix>" + DXLOC_prefix[DXLOC_Index1]);
+                                    Debug.WriteLine(" SOUTH " + DXLOC_lon[DXLOC_Index1].Substring(1, ff));
+                                    Debug.Write(" prefix>" + DXLOC_prefix[DXLOC_Index1]);
 
                                 }
 
@@ -6559,7 +6557,7 @@ namespace Thetis
                                 }
                                 catch (Exception)
                                 {
-                                        Debug.WriteLine(" WEST " + DXLOC_lon[DXLOC_Index1].Substring(1, ff));
+                                    Debug.WriteLine(" WEST " + DXLOC_lon[DXLOC_Index1].Substring(1, ff));
                                     DXLOC_LON[DXLOC_Index1] = 0;
                                 }
 
@@ -6577,7 +6575,7 @@ namespace Thetis
                                 }
                                 catch (Exception)
                                 {
-                                       Debug.WriteLine(" EAST " + DXLOC_lon[DXLOC_Index1].Substring(1, ff));
+                                    Debug.WriteLine(" EAST " + DXLOC_lon[DXLOC_Index1].Substring(1, ff));
                                     DXLOC_LON[DXLOC_Index1] = 0;
                                 }
 
@@ -6603,7 +6601,7 @@ namespace Thetis
                         DXLOC_Index1--;
 
                         if (DXLOC_Index1 < 10) textBox1.Text += "No DXLOC.txt list file found in database folder\r\n";
-                        else   textBox1.Text += "End of DX LOC FILE at " + DXLOC_Index1.ToString() + "\r\n";
+                        else textBox1.Text += "End of DX LOC FILE at " + DXLOC_Index1.ToString() + "\r\n";
 
                         break; // done with file
                     }
@@ -6621,7 +6619,7 @@ namespace Thetis
                 } // for loop until end of file is reached
 
 
-             //   Debug.WriteLine("reached DXLOC end of file" + DXLOC_Index1.ToString());
+                //   Debug.WriteLine("reached DXLOC end of file" + DXLOC_Index1.ToString());
                 textBox1.Text += "Reached End of DXLOC.txt FILE with # " + DXLOC_Index1.ToString() + "\r\n";
 
 
@@ -6707,8 +6705,8 @@ namespace Thetis
 
         }
 
-      
-      
+
+
 
 
         public static byte SP6_Active = 0; // 1= turn on MEMORY in panadapter
@@ -6718,8 +6716,8 @@ namespace Thetis
 
             if (chkBoxMem.Checked == true)
             {
-              
-                  dataGridView2.DataSource = console.MemoryList.List;   // ke9ns get list of memories from memorylist.cs is where the file is opened and saved
+
+                dataGridView2.DataSource = console.MemoryList.List;   // ke9ns get list of memories from memorylist.cs is where the file is opened and saved
 
                 SP6_Active = 1;
 
@@ -6732,7 +6730,7 @@ namespace Thetis
 
                 //  Debug.WriteLine("comboFM " + (string)dataGridView2[2, 0].Value);
                 //  Debug.WriteLine("comboFM1 " + dataGridView2[1, 3].ToString());
-                  Debug.WriteLine("Rows Count " + dataGridView2.Rows.Count);
+                Debug.WriteLine("Rows Count " + dataGridView2.Rows.Count);
 
             }
             else
@@ -6740,10 +6738,10 @@ namespace Thetis
                 SP6_Active = 0;
             }
 
-        //  MemoryList X = console.MemoryList.List;
-         //   MemoryRecord recordToRestore = new MemoryRecord((MemoryRecord)comboFMMemory.SelectedItem);
-           
-              //  console.RecallMemory(recordToRestore);
+            //  MemoryList X = console.MemoryList.List;
+            //   MemoryRecord recordToRestore = new MemoryRecord((MemoryRecord)comboFMMemory.SelectedItem);
+
+            //  console.RecallMemory(recordToRestore);
 
         } //chkboxmem_checked
 
@@ -6821,85 +6819,85 @@ namespace Thetis
 
                 reader.Close();
                 response.Close();
-             //   Debug.WriteLine("noaa=== " + noaa);
+                //   Debug.WriteLine("noaa=== " + noaa);
 
-             //   textBox1.Text += "NOAA Download complete \r\n";
+                //   textBox1.Text += "NOAA Download complete \r\n";
 
-           
 
-            //--------------------------------------------------------------------
-            if (noaa.Contains("Solar flux ")) // 
-            {
 
-                int ind = noaa.IndexOf("Solar flux ") + 11;
-
-                try
+                //--------------------------------------------------------------------
+                if (noaa.Contains("Solar flux ")) // 
                 {
-                    SFI = (int)(Convert.ToDouble(noaa.Substring(ind, 3)));
-                    Debug.WriteLine("SFI " + SFI);
-                }
-                catch (Exception)
+
+                    int ind = noaa.IndexOf("Solar flux ") + 11;
+
+                    try
+                    {
+                        SFI = (int)(Convert.ToDouble(noaa.Substring(ind, 3)));
+                        Debug.WriteLine("SFI " + SFI);
+                    }
+                    catch (Exception)
+                    {
+                        SFI = 0;
+                    }
+
+
+                } // SFI
+
+                if (noaa.Contains("A-index ")) // 
                 {
-                    SFI = 0;
-                }
+
+                    int ind = noaa.IndexOf("A-index ") + 8;
+
+                    try
+                    {
+                        Aindex = (int)(Convert.ToDouble(noaa.Substring(ind, 2)));
+                        Debug.WriteLine("Aindex " + Aindex);
+                    }
+                    catch (Exception)
+                    {
+                        Aindex = 0;
+                    }
 
 
-            } // SFI
+                } // Aindex
 
-            if (noaa.Contains("A-index ")) // 
-            {
-
-                int ind = noaa.IndexOf("A-index ") + 8;
-
-                try
+                if (noaa.Contains("Radio blackouts reaching the ")) // 
                 {
-                    Aindex = (int)(Convert.ToDouble(noaa.Substring(ind, 2)));
-                  Debug.WriteLine("Aindex " + Aindex);
-                }
-                catch (Exception)
+
+                    int ind = noaa.IndexOf("Radio blackouts reaching the ") + 29;
+
+                    try
+                    {
+                        RadioBlackout = noaa.Substring(ind, 2);
+                        Debug.WriteLine("Radio Blackout " + RadioBlackout);
+                    }
+                    catch (Exception)
+                    {
+                        RadioBlackout = " ";
+                    }
+
+
+                } // radio blackouts
+
+
+                if (!noaa.Contains("No space weather storms ") && noaa.Contains("Geomagnetic storms reaching the ")) // 
                 {
-                    Aindex = 0;
-                }
+
+                    int ind = noaa.IndexOf("Geomagnetic storms reaching the ") + 32;
+
+                    try
+                    {
+                        GeoBlackout = noaa.Substring(ind, 2);
+                        Debug.WriteLine("Geomagnetic storms" + GeoBlackout);
+                    }
+                    catch (Exception)
+                    {
+                        GeoBlackout = " ";
+                    }
 
 
-            } // Aindex
-
-            if (noaa.Contains("Radio blackouts reaching the ")) // 
-            {
-
-                int ind = noaa.IndexOf("Radio blackouts reaching the ") + 29;
-
-                try
-                {
-                    RadioBlackout = noaa.Substring(ind, 2);
-                      Debug.WriteLine("Radio Blackout " + RadioBlackout);
-                }
-                catch (Exception)
-                {
-                    RadioBlackout = " ";
-                }
-
-
-            } // radio blackouts
-           
-          
-            if (!noaa.Contains("No space weather storms ") && noaa.Contains("Geomagnetic storms reaching the ")) // 
-            {
-
-                int ind = noaa.IndexOf("Geomagnetic storms reaching the ") + 32;
-
-                try
-                {
-                    GeoBlackout = noaa.Substring(ind, 2);
-                    Debug.WriteLine("Geomagnetic storms" + GeoBlackout);
-                }
-                catch (Exception)
-                {
-                    GeoBlackout = " ";
-                }
-
-
-            } // radio blackouts
+                } // radio blackouts
 
                 if (RadioBlackout != " ")
                 {
@@ -6918,12 +6916,13 @@ namespace Thetis
             catch (Exception ex)
             {
                 //   Debug.WriteLine("noaa fault=== " + ex);
+                Common.LogException(ex);
                 textBox1.Text += "Failed to download Space Weather \r\n";
 
             }
 
 
-    } // NOAA
+        } // NOAA
 
 
         //=====================================================
@@ -6952,11 +6951,11 @@ namespace Thetis
             double x = Math.Cos(LatStart) * Math.Sin(LatDest) - Math.Sin(LatStart) * Math.Cos(LatDest) * Math.Cos(LongDest - LongStart);
 
             int Bearing = (int)(Math.Atan2(y, x) * (180.0 / Math.PI));
-         //   Debug.WriteLine("Init Bearing=" + Bearing);
+            //   Debug.WriteLine("Init Bearing=" + Bearing);
 
-            int FBearing = (int)(((Math.Atan2(y, x) * (180.0 / Math.PI)) + 360) % 360.0 );
+            int FBearing = (int)(((Math.Atan2(y, x) * (180.0 / Math.PI)) + 360) % 360.0);
 
-         //   Debug.WriteLine("Final Bearing=" + FBearing);
+            //   Debug.WriteLine("Final Bearing=" + FBearing);
 
             return FBearing;
 
@@ -6978,7 +6977,7 @@ namespace Thetis
         // OA4B, and YV5B in 10 second intervals.Thats 5 frequecies and 18 stations
         // rotating in 10 intervals = 10 * 18 = 180second = 3minutes until a repeat.
         // must have 18 stations so 4U1UN repeats on 14100 20 times/ hour exactly
-   
+
         public int Grn_dBm = 35;   // green indicator when this dBm above noise floor
         public int Grn_S = 3;      // green indicator when this S units or above
 
@@ -6987,13 +6986,13 @@ namespace Thetis
 
         public int Org_dBm = 15;   // Orange indicator when this dBm above noise floor
         public int Org_S = 1;      // Orange indicator when this S units or above
-      
+
         public int Red_dBm = 5;    // Red indicator when this dBm above noise floor
         public int Red_S = 0;      // Red indicator when this S units or above
 
         public int[] Beacon_Freq = new int[] { 14100000, 18110000, 21150000, 24930000, 28200000 }; // ke9ns NCDXF/IARU beacon channels 0-4
 
-        public string[] Beacon_Call = new string[]               
+        public string[] Beacon_Call = new string[]
           { "4U1UN", "VE8AT", "W6WX", "KH6RS", "ZL6B", "VK6RBP",   //  "4U1UN", "VE8AT", "W6WX", "KH6RS", "ZL6B", "VK6RBP",
            "JA2IGY", "RR9O", "VR2B", "-4S7B", "ZS6DN", "5Z4B", //  "JA2IGY", "RR9O", "VR2B", "4S7B", "ZS6DN", "5Z4B",
               "4X6TU", "OH2B", "-CS3B", "LU4AA", "0A4B", "YV5B" };    //  "4X6TU", "OH2B", "CS3B", "LU4AA", "0A4B", "YV5B"               // BEACON CALL SIGN
@@ -7003,12 +7002,12 @@ namespace Thetis
            "JAPAN", "RUSSIA", "HONG KONG", "SRI LANKA", "S.AFRICA", "KENYA", //  "Japan", "RUSSIA", "HONG KONG", "SRI LANKA", "S.AFRICA", "KENYA",
             "ISRAEL", "FINLAND",  "MADEIRA", "ARGENTINA", "PERU", "VENEZUELA" };   // "ISRAEL", "FINLAND",  "MADEIRA", "ARGENTINA", "PERU", "VENEZUELA" // BEACON COUNTRY
 
-        public string[] Beacon_Grid = new string[] 
+        public string[] Beacon_Grid = new string[]
         { "FN30", "EQ78", "CM97", "BL10", "RE78", "OF87",
             "PM84", "NO14", "OL72", "MJ96", "KG44", "KI88",
             "KM72", "KP20", "IM12", "GF05", "FH17", "FJ69" };             // BEACON GRID LOCATION
 
-        public double[] Beacon_Lat = new double[] 
+        public double[] Beacon_Lat = new double[]
         { 40.75, 79.978, 37.145, 20.77, -41.06, -32.105,
             34.436, 54.978, 22.27, 6.895, -25.896, -1.23,
             32.06, 62.989, 32.728, -34.645, -12.063, 9.103 };                       // always 18 stations
@@ -7048,7 +7047,7 @@ namespace Thetis
 
         public DSPMode beacon7;       // to store prior operating mode before running beacon scan
         public int beacon8 = 0;       // to store prior high filter before running beacon scan
-        public int beacon9= 0;        //to store prior low filter before running beacon scan
+        public int beacon9 = 0;        //to store prior low filter before running beacon scan
         public Filter beacon89;       // to store filter name before running beacon scan
         public Filter beacon89a;       // to store filter name before running beacon scan
 
@@ -7069,7 +7068,7 @@ namespace Thetis
                 btnBeacon.Text = "Beacon Chk";
                 btnBeacon.ForeColor = Color.Black;
 
-               
+
                 stopWatch.Stop();
                 stopWatch1.Stop();
 
@@ -7079,7 +7078,7 @@ namespace Thetis
             }
             else // if the beacon chk was OFF,then turn it on
             {
-            
+
                 beacon = true;
                 btnBeacon.Text = "Beacon Run";
                 btnBeacon.ForeColor = Color.Red;
@@ -7100,7 +7099,7 @@ namespace Thetis
                     if (chkPanMode.Checked == true) Display.SpecialPanafall = true;
                     else Display.SpecialPanafall = false;
 
-                //    btnTrack.Text = "Track ON";
+                    //    btnTrack.Text = "Track ON";
 
                     LastDisplayMode = Display.CurrentDisplayMode; // save the display mode that you were in before you turned on special panafall mode
 
@@ -7135,7 +7134,7 @@ namespace Thetis
                     }; // turn on track map (sun, grayline, voacap, or beacon)
                     SP5_Active = 1; // turn on track map (sun, grayline, voacap, or beacon)
                     t.Start();
- 
+
                     textBox1.Text = "Clicked to Turn on GrayLine Sun Tracker\r\n";
 
                     Debug.WriteLine(">>>>>>>>BEACON:  mapping turned on");
@@ -7150,7 +7149,7 @@ namespace Thetis
                 }
 
 
-             
+
             } //  if (beacon != true) from here and above is all part of the Beacon ON button clicking
 
             //------------------------------------------------
@@ -7254,7 +7253,7 @@ namespace Thetis
                         BX_FULLSTRING[x * 5 + 4] = "DX de " + (callBox.Text + ": ").PadRight(11) + (((float)Beacon_Freq[4] / 1e3).ToString("f1")).PadRight(9) + Beacon_Call[x].PadRight(13) + "NCDXF/IARU Beacon     " + "- NA" + " dBm " + BX_Time[x * 5 + 4].ToString("D4") + "z " + Beacon_Grid[x];
 
                     } // BX_Load = false
-           
+
                 } // for loop. load up data on all 18 Beacon stations
 
                 Debug.WriteLine(">>>>>>>>BEACON: loaded up BX");
@@ -7267,7 +7266,7 @@ namespace Thetis
                     SP8_Active = 1; // fake it for the red dots
                 }
                 else beacon2 = true; // dxloc was already loaded so SP8_active is 1
-                 
+
                 BX1_Index = 90; // this is always 90 unless they change the number of beacons
 
                 beacon1 = true; // flag it so we know we ran a beacon check
@@ -7325,8 +7324,8 @@ namespace Thetis
 
                     if (chkPanMode.Checked == true) Display.CurrentDisplayMode = LastDisplayMode;
 
-                 //   if (console.SetupForm.gridBoxTS.Checked == true) Display.GridOff = 1; // put gridlines back the way they were
-                 //   else Display.GridOff = 0; // gridlines ON
+                    //   if (console.SetupForm.gridBoxTS.Checked == true) Display.GridOff = 1; // put gridlines back the way they were
+                    //   else Display.GridOff = 0; // gridlines ON
 
                     btnTrack.Text = "Track";
 
@@ -7380,7 +7379,7 @@ namespace Thetis
         double BandSwitchDelay = 0.24;                                   // replaced beacon6 amount of delay to get past the ant switch glitch
 
         public static string SEC1;                                       // get 24hr 4 digit UTC NOW
-      
+
         public static int SECNEW1;                                       // convert 24hr UTC to int
         public static int seconds;
         public static int minutes;                                       // get 24hr 4 digit UTC NOW
@@ -7397,14 +7396,14 @@ namespace Thetis
             Debug.WriteLine(">>>>>>>>BEACON:  thread started");
 
             UTCD = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);
-            SEC1= UTCD.ToString("mm:ss");
-            minutes = Convert.ToInt16( SEC1.Substring(0, 2));
+            SEC1 = UTCD.ToString("mm:ss");
+            minutes = Convert.ToInt16(SEC1.Substring(0, 2));
             seconds = Convert.ToInt16(SEC1.Substring(3, 2));
-   
+
             // seconds = TimeSpan.Parse(SEC1).TotalSeconds; // get total seconds of the day
             // example: 23:19 = 23min 19sec = min%3 = modulo of 2minutes into a 3 min block + 19sec = 139 seconds into a 180second block
 
-            SlotSeconds = ((minutes % 3)*60)+seconds;
+            SlotSeconds = ((minutes % 3) * 60) + seconds;
             TSlot = (SlotSeconds / 10) * 10;
 
             Debug.WriteLine(">>>TIME1: THREAD START TIME " + SEC1);
@@ -7415,32 +7414,32 @@ namespace Thetis
 
 
             //---------------------------------------------------------------------
-            for (int x = 0; x < 18;x++) // find starting station then BX_Index will keep track
+            for (int x = 0; x < 18; x++) // find starting station then BX_Index will keep track
             {
-             
-                if ((BX_TSlot1[x*5] >= TSlot) && (BX_TSlot1[x * 5] < TSlot+10))
+
+                if ((BX_TSlot1[x * 5] >= TSlot) && (BX_TSlot1[x * 5] < TSlot + 10))
                 {
                     BX_Index[0] = x * 5; // this is the start index
-                    Debug.WriteLine(">>>TIME1: Current BX_Index[0] 14mhz station# " +  BX_Index[0] + " , "+BX_Station[BX_Index[0]]);
+                    Debug.WriteLine(">>>TIME1: Current BX_Index[0] 14mhz station# " + BX_Index[0] + " , " + BX_Station[BX_Index[0]]);
                 }
                 else if ((BX_TSlot1[x * 5 + 1] >= TSlot) && (BX_TSlot1[x * 5 + 1] < TSlot + 10))
                 {
-                    BX_Index[1] = x * 5+1; // this is the start index
+                    BX_Index[1] = x * 5 + 1; // this is the start index
                     Debug.WriteLine(">>>TIME1: Current BX_Index[1] 18mhz station# " + BX_Index[1] + " , " + BX_Station[BX_Index[1]]);
                 }
                 else if ((BX_TSlot1[x * 5 + 2] >= TSlot) && (BX_TSlot1[x * 5 + 2] < TSlot + 10))
                 {
-                    BX_Index[2] = x * 5+2; // this is the start index
+                    BX_Index[2] = x * 5 + 2; // this is the start index
                     Debug.WriteLine(">>>TIME1: Current BX_Index[2] 21mhz station# " + BX_Index[2] + " , " + BX_Station[BX_Index[2]]);
                 }
                 else if ((BX_TSlot1[x * 5 + 3] >= TSlot) && (BX_TSlot1[x * 5 + 3] < TSlot + 10))
                 {
-                    BX_Index[3] = x * 5+3; // this is the start index
+                    BX_Index[3] = x * 5 + 3; // this is the start index
                     Debug.WriteLine(">>>TIME1: Current BX_Index[3] 24mhz station#  " + BX_Index[3] + " , " + BX_Station[BX_Index[3]]);
                 }
                 else if ((BX_TSlot1[x * 5 + 4] >= TSlot) && (BX_TSlot1[x * 5 + 4] < TSlot + 10))
                 {
-                    BX_Index[4] = x * 5+4; // this is the start index
+                    BX_Index[4] = x * 5 + 4; // this is the start index
                     Debug.WriteLine(">>>TIME1: Current BX_Index[4] 28mhz station# " + BX_Index[4] + " , " + BX_Station[BX_Index[4]]);
                 }
 
@@ -7448,7 +7447,7 @@ namespace Thetis
 
             Last_TSlot1 = BX_TSlot2 = Last_TSlot = TSlot;
 
-          
+
             beacon4 = true;
             beacon5 = 0;
 
@@ -7470,7 +7469,7 @@ namespace Thetis
 
             //-----------------------------------------------------------------------
             //-----------------------------------------------------------------------
-            while ( (beacon1 == true) ) // only do while the beacon testing is going on
+            while ((beacon1 == true)) // only do while the beacon testing is going on
             {
                 Thread.Sleep(10); // slow down the thread here
 
@@ -7480,15 +7479,15 @@ namespace Thetis
                 seconds = Convert.ToInt16(SEC1.Substring(3, 2));
 
 
-                 SlotSeconds = ((minutes % 3) * 60) + seconds;
-                 TSlot = (SlotSeconds / 10) * 10;
+                SlotSeconds = ((minutes % 3) * 60) + seconds;
+                TSlot = (SlotSeconds / 10) * 10;
 
 
                 if (Last_TSlot != TSlot)
                 {
                     Last_TSlot = TSlot; // update 1 time per 10seconds
 
-                 //  Debug.WriteLine(">>>TIME2: THREAD START TIME in total seconds per 3 minute intervals/10: " + TSlot);
+                    //  Debug.WriteLine(">>>TIME2: THREAD START TIME in total seconds per 3 minute intervals/10: " + TSlot);
 
                     for (int x = 0; x < 18; x++) // find starting station then BX_Index will keep track
                     {
@@ -7496,7 +7495,7 @@ namespace Thetis
                         if ((BX_TSlot1[x * 5] >= TSlot) && (BX_TSlot1[x * 5] < TSlot + 10)) // find the 5 stations currently transmitting for this 10 second slot
                         {
                             BX_Index[0] = x * 5; // this is the start index
-                           Debug.WriteLine(">>>TIME2: Current BX_Index[0] 14mhz station# " + BX_Index[0] + " , " + BX_Station[BX_Index[0]]);
+                            Debug.WriteLine(">>>TIME2: Current BX_Index[0] 14mhz station# " + BX_Index[0] + " , " + BX_Station[BX_Index[0]]);
 
                         }
                         else if ((BX_TSlot1[x * 5 + 1] >= TSlot) && (BX_TSlot1[x * 5 + 1] < TSlot + 10))
@@ -7505,22 +7504,22 @@ namespace Thetis
                             Debug.WriteLine(">>>TIME2: Current BX_Index[1] 18mhz station# " + BX_Index[1] + " , " + BX_Station[BX_Index[1]]);
 
                         }
-                        else if ((BX_TSlot1[x *5 + 2] >= TSlot) && (BX_TSlot1[x * 5 + 2] < TSlot + 10))
+                        else if ((BX_TSlot1[x * 5 + 2] >= TSlot) && (BX_TSlot1[x * 5 + 2] < TSlot + 10))
                         {
                             BX_Index[2] = x * 5 + 2; // this is the start index
-                           Debug.WriteLine(">>>TIME2: Current BX_Index[2] 21mhz station# " + BX_Index[2] + " , " + BX_Station[BX_Index[2]]);
+                            Debug.WriteLine(">>>TIME2: Current BX_Index[2] 21mhz station# " + BX_Index[2] + " , " + BX_Station[BX_Index[2]]);
 
                         }
                         else if ((BX_TSlot1[x * 5 + 3] >= TSlot) && (BX_TSlot1[x * 5 + 3] < TSlot + 10))
                         {
                             BX_Index[3] = x * 5 + 3; // this is the start index
-                          Debug.WriteLine(">>>TIME2: Current BX_Index[3] 24mhz station#  " + BX_Index[3] + " , " + BX_Station[BX_Index[3]]);
+                            Debug.WriteLine(">>>TIME2: Current BX_Index[3] 24mhz station#  " + BX_Index[3] + " , " + BX_Station[BX_Index[3]]);
 
                         }
                         else if ((BX_TSlot1[x * 5 + 4] >= TSlot) && (BX_TSlot1[x * 5 + 4] < TSlot + 10))
                         {
                             BX_Index[4] = x * 5 + 4; // this is the start index
-                           Debug.WriteLine(">>>TIME2: Current BX_Index[4] 28mhz station# " + BX_Index[4] + " , " + BX_Station[BX_Index[4]]);
+                            Debug.WriteLine(">>>TIME2: Current BX_Index[4] 28mhz station# " + BX_Index[4] + " , " + BX_Station[BX_Index[4]]);
 
                         }
 
@@ -7536,8 +7535,8 @@ namespace Thetis
 
                         if (console.SampleRateRX1 == 192000)  // need to reduce the 192SR because the Tone detection needs a longer sample time to detect weak signals at 192k and 2048 buffer size limit
                         {
-                         //   console.SetupForm.comboAudioSampleRate1.Text = "96000"; // select 96000
-                         //   if (console.BlockSize1 != 2048) console.BlockSize1 = 2048;  // need the largest buffer size for the Tone detection to work.
+                            //   console.SetupForm.comboAudioSampleRate1.Text = "96000"; // select 96000
+                            //   if (console.BlockSize1 != 2048) console.BlockSize1 = 2048;  // need the largest buffer size for the Tone detection to work.
 
                         }
 
@@ -7545,10 +7544,10 @@ namespace Thetis
                         LasttsTime = 0;   // time period for fast scanning each of 5 frequencies
                         stopWatch.Restart(); // reset every time Slot (10 seconds)
 
-                      
+
                         if (beacon5 == 0) // only do one time
                         {
-                           
+
                             beacon5 = 1; // scan all 5 freq fast fast
                             beacon10 = true; // you will put back original op mode when done with scan
                             Debug.WriteLine(">>>BEACON5 RESET..................... ");
@@ -7565,8 +7564,8 @@ namespace Thetis
 
                         if (console.SampleRateRX1 == 192000)  // need to reduce the 192SR because the Tone detection needs a longer sample time to detect weak signals at 192k and 2048 buffer size limit
                         {
-                         //   console.SetupForm.comboAudioSampleRate1.Text = "96000"; // select 96000
-                         //   if (console.BlockSize1 != 2048) console.BlockSize1 = 2048;  // need the largest buffer size for the Tone detection to work.
+                            //   console.SetupForm.comboAudioSampleRate1.Text = "96000"; // select 96000
+                            //   if (console.BlockSize1 != 2048) console.BlockSize1 = 2048;  // need the largest buffer size for the Tone detection to work.
 
                         }
 
@@ -7598,7 +7597,7 @@ namespace Thetis
                         if (beacon10 == true) // put back original op mode, now that the beacon scanner was turned from ON to OFF
                         {
                             console.udCWPitch.Value = beacon77;     // restore cw pitch value
-                          
+
                             console.UpdateRX1Filters(beacon9, beacon8); // restore filter
                             console.RX1Filter = beacon89;           // restore filter name
                             console.RX1DSPMode = beacon7;           //  restore  mode  when you turn off the beacon check
@@ -7636,23 +7635,23 @@ namespace Thetis
 
                 if (beacon11 > 0) // do a slow scan
                 {
-                  
+
                     if (Last_TSlot1 != TSlot)
                     {
                         Last_TSlot1 = TSlot; // update 1 time per 10seconds
 
-                       
+
                         if (beacon11 < 6) // scan through all 5 beacon freq
                         {
 
                             // set mode and freq
                             if (console.RX1DSPMode != DSPMode.CWU) console.RX1DSPMode = DSPMode.CWU;
 
-                            if (console.udCWPitch.Value != 600)   console.udCWPitch.Value = 600;
+                            if (console.udCWPitch.Value != 600) console.udCWPitch.Value = 600;
 
                             if (console.RX1Filter != Filter.VAR1) console.RX1Filter = Filter.VAR1;
 
-                            if ( (console.RX1FilterHigh != 650) || (console.RX1FilterLow != 550) )
+                            if ((console.RX1FilterHigh != 650) || (console.RX1FilterLow != 550))
                             {
                                 console.UpdateRX1Filters(550, 650);   // sete cw filter
                             }
@@ -7661,13 +7660,13 @@ namespace Thetis
 
                             console.UpdateDisplay();
 
-                            Debug.WriteLine(">>>freq:beacon11, BX_Index[beacon11 - 1] , beacon14: " + beacon11+" , "+ BX_Index[beacon11 - 1] + " , " + beacon14);
+                            Debug.WriteLine(">>>freq:beacon11, BX_Index[beacon11 - 1] , beacon14: " + beacon11 + " , " + BX_Index[beacon11 - 1] + " , " + beacon14);
 
                             //------------------------------------------
 
                             if (beacon15 > 0) // start processing after the 1st 10 seconds of each freq change
                             {
-                                if (BX_dBm[beacon14] >= -73)      BX_dBm3[beacon14] = 9;
+                                if (BX_dBm[beacon14] >= -73) BX_dBm3[beacon14] = 9;
                                 else if (BX_dBm[beacon14] >= -79) BX_dBm3[beacon14] = 8;
                                 else if (BX_dBm[beacon14] >= -85) BX_dBm3[beacon14] = 7;
                                 else if (BX_dBm[beacon14] >= -91) BX_dBm3[beacon14] = 6;
@@ -7678,10 +7677,10 @@ namespace Thetis
                                 else if (BX_dBm[beacon14] >= -121) BX_dBm3[beacon14] = 1;
                                 else BX_dBm3[beacon14] = 0;
 
-                              
+
                                 if ((BX_dBm1[beacon14] - BX_dBm[beacon14]) > -1)
                                 {
-                                  //  Debug.WriteLine("dbm " + BX_dBm1[beacon14] + " , " + BX_dBm[beacon14]);
+                                    //  Debug.WriteLine("dbm " + BX_dBm1[beacon14] + " , " + BX_dBm[beacon14]);
 
                                     BX_dBm1[beacon14] = -151; // noise floor
                                     BX_dBm[beacon14] = -150; // signal 
@@ -7691,10 +7690,10 @@ namespace Thetis
 
                                 BX_TSlot[beacon14] = 1; // set indicator for panadapter display
 
-                                BX_FULLSTRING[ beacon14] = "DX de " + (callBox.Text + ": ").PadRight(11) + (((float)BX_Freq[ beacon14] / 1e3).ToString("f1")).PadRight(9) + BX_Station[ beacon14].PadRight(13) + "NCDXF/IARU Beacon  " + "S" + BX_dBm3[ beacon14] + " " + (BX_dBm1[beacon14] - BX_dBm[beacon14]).ToString("D3") + " dBm " + BX_Time[ beacon14].ToString("D4") + "z " + BX_Grid[beacon14];
+                                BX_FULLSTRING[beacon14] = "DX de " + (callBox.Text + ": ").PadRight(11) + (((float)BX_Freq[beacon14] / 1e3).ToString("f1")).PadRight(9) + BX_Station[beacon14].PadRight(13) + "NCDXF/IARU Beacon  " + "S" + BX_dBm3[beacon14] + " " + (BX_dBm1[beacon14] - BX_dBm[beacon14]).ToString("D3") + " dBm " + BX_Time[beacon14].ToString("D4") + "z " + BX_Grid[beacon14];
 
                                 processTCPMessage1(); // update dx spotter window
-                           
+
 
                             } // if beacon15 > 0
 
@@ -7706,7 +7705,7 @@ namespace Thetis
 
                             if (beacon12 == 18) // when we have all 18 stations then go to next freq
                             {
-                               
+
                                 beacon12 = 0;   // reset counter
                                 beacon11++;     // go to next freq the the slot
 
@@ -7714,8 +7713,8 @@ namespace Thetis
                                 stopWatch1.Stop();
                                 stopWatch1.Reset();
 
-                                              
-                                Debug.WriteLine(">>>RESET BEACON11: "+beacon11);
+
+                                Debug.WriteLine(">>>RESET BEACON11: " + beacon11);
 
                                 if (beacon11 == 6)
                                 {
@@ -7760,14 +7759,12 @@ namespace Thetis
                             if (tsTime1 >= BandSwitchDelay)    // (beacon6 > 25) // wait for band switching pulse to disapate
                             {
                                 int tempDB = 0;
-                                int tempDB1 = 0;
 
-                               
                                 tempDB = console.ReadAvgStrength(0);    // get beacon CW signal strength, but this does not factor out the noise floor (i.e. S5 signal might just be the noise floor at S5)
 
-                              //  tempDB1 = console.WWVTone;  // get Magnitude value from audio.cs and Goertzel routine  (i.e. this will determine if we are actually hearing a CW signal at 600hz and not just an S5 noise floor)
+                                //  tempDB1 = console.WWVTone;  // get Magnitude value from audio.cs and Goertzel routine  (i.e. this will determine if we are actually hearing a CW signal at 600hz and not just an S5 noise floor)
 
-                             //   Debug.WriteLine("BEACON TONE Detection: " + tempDB1);
+                                //   Debug.WriteLine("BEACON TONE Detection: " + tempDB1);
 
 
                                 if (tempDB > BX_dBm[beacon14])
@@ -7775,12 +7772,12 @@ namespace Thetis
                                     BX_dBm[beacon14] = tempDB; // get signal strengh avg reading to match avg floor reading
                                 }
 
-                                if (BX_dBm2 > BX_dBm1[beacon14] )
+                                if (BX_dBm2 > BX_dBm1[beacon14])
                                     BX_dBm1[beacon14] = BX_dBm2; // value passed back from display.cs noise floor (avg value)
 
-                              //  WWVThreshold = BX_dBm1[beacon14]; // display.cs the floor
+                                //  WWVThreshold = BX_dBm1[beacon14]; // display.cs the floor
                             }
-                            else   beacon6++;
+                            else beacon6++;
 
                         }
 
@@ -7801,14 +7798,14 @@ namespace Thetis
 
                 if (beacon5 > 0)
                 {
-                 
+
                     ts = stopWatch.Elapsed;
                     tsTime = (double)ts.Seconds + ((double)ts.Milliseconds / 1000.0);
 
-                    if (tsTime >= LasttsTime )
+                    if (tsTime >= LasttsTime)
                     {
 
-                      //   Debug.WriteLine("RunTime1 " + tsTime);
+                        //   Debug.WriteLine("RunTime1 " + tsTime);
 
                         LasttsTime = LasttsTime + 1.15;  // FAST SCAN time delay of 1.4 seconds
 
@@ -7832,7 +7829,7 @@ namespace Thetis
                             stopWatch1.Stop();
                             stopWatch1.Reset();
 
-         
+
                         }
 
                         if (beacon5 == 6)
@@ -7866,7 +7863,7 @@ namespace Thetis
 
                                 if ((BX_dBm1[BX_Index[u]] - BX_dBm[BX_Index[u]]) > -1)
                                 {
-                                     Debug.WriteLine("dbm " + BX_dBm1[BX_Index[u]] + " , " + BX_dBm[BX_Index[u]]);
+                                    Debug.WriteLine("dbm " + BX_dBm1[BX_Index[u]] + " , " + BX_dBm[BX_Index[u]]);
 
                                     BX_dBm1[BX_Index[u]] = -151; // noise floor
                                     BX_dBm[BX_Index[u]] = -150; // signal 
@@ -7892,8 +7889,8 @@ namespace Thetis
 
                             processTCPMessage1(); // update dx spotter window
 
-                             stopWatch.Stop(); // stop to reset
-                             stopWatch1.Stop(); // stop to reset
+                            stopWatch.Stop(); // stop to reset
+                            stopWatch1.Stop(); // stop to reset
 
 
                             beacon12++;
@@ -7920,7 +7917,7 @@ namespace Thetis
                         } // if beacon5 == 6
                         else
                         {
-                            if (beacon5 < 6)  beacon5++; // if not == 6 
+                            if (beacon5 < 6) beacon5++; // if not == 6 
 
                         }
 
@@ -7932,9 +7929,9 @@ namespace Thetis
                         ts1 = stopWatch1.Elapsed;
                         tsTime1 = (double)ts1.Seconds + ((double)ts1.Milliseconds / 1000.0);
 
-                        if ((beacon5 < 7) &&  (tsTime1 >= BandSwitchDelay))          //(beacon6 > 25)) // wait for band switching pulse to disapate
+                        if ((beacon5 < 7) && (tsTime1 >= BandSwitchDelay))          //(beacon6 > 25)) // wait for band switching pulse to disapate
                         {
-    
+
                             int tempDB = console.ReadAvgStrength(0);
 
                             if (tempDB > BX_dBm[beacon14])
@@ -7942,13 +7939,13 @@ namespace Thetis
                                 BX_dBm[BX_Index[beacon5 - 2]] = tempDB; // get signal strengh avg reading to match avg floor reading
                             }
 
-                            if (BX_dBm2 > BX_dBm1[BX_Index[beacon5 - 2]] )
-                               BX_dBm1[BX_Index[beacon5 - 2]] = BX_dBm2;                           // this is the noise Floor value passed back from Display to spot.cs
+                            if (BX_dBm2 > BX_dBm1[BX_Index[beacon5 - 2]])
+                                BX_dBm1[BX_Index[beacon5 - 2]] = BX_dBm2;                           // this is the noise Floor value passed back from Display to spot.cs
 
-                         //   WWVThreshold = BX_dBm1[BX_Index[beacon5 - 2]]; // display.cs floor
+                            //   WWVThreshold = BX_dBm1[BX_Index[beacon5 - 2]]; // display.cs floor
 
                         } //   wait for band switching pulse to disapate
-                        
+
                         beacon6++;
 
 
@@ -8043,8 +8040,8 @@ namespace Thetis
         {
             textBox1.Text = "Attempting Internet Connection to NIST Time Server!\r\n";
 
-            DateTime startDT = DateTime.Now; 
-           
+            DateTime startDT = DateTime.Now;
+
             //Create a IPAddress object and port, create an IPEndPoint node:  
             int port = 13;
             string[] whost = { "utcnist.colorado.edu", "utcnist2.colorado.edu", "0.de.pool.ntp.org", "0.south-america.pool.ntp.org", "0.north-america.pool.ntp.org", "time-a-g.nist.gov", "time-b-g.nist.gov", "time-c-g.nist.gov", "time-d-g.nist.gov" };  //   Servers changed DH1KLM
@@ -8076,30 +8073,30 @@ namespace Thetis
 
             startDT = DateTime.Now; // record time you opened a connection to NIST
 
-           
+
 
             try
             {
                 foreach (string strHost in whost)   // try all the time servers until you get a response
                 {
-                
-                        iphostinfo = Dns.GetHostEntry(strHost);
 
-                        ip = iphostinfo.AddressList[0];
+                    iphostinfo = Dns.GetHostEntry(strHost);
 
-                        ipe = new IPEndPoint(ip, port);
+                    ip = iphostinfo.AddressList[0];
 
-                        c.Connect(ipe);     // Connect to server which starts clock (NIST will now send back the correct Time)
+                    ipe = new IPEndPoint(ip, port);
 
-                        if (c.Connected)
-                        {
+                    c.Connect(ipe);     // Connect to server which starts clock (NIST will now send back the correct Time)
 
-                            textBox1.Text += "Connected to NIST Time Server!\r\n";
+                    if (c.Connected)
+                    {
 
-                            Debug.WriteLine("got connection to " + strHost);
-                            break;// If the connection to the server is out of 
-                       
-                        } 
+                        textBox1.Text += "Connected to NIST Time Server!\r\n";
+
+                        Debug.WriteLine("got connection to " + strHost);
+                        break;// If the connection to the server is out of 
+
+                    }
 
                 } // for loop through time server addresses
 
@@ -8142,7 +8139,7 @@ namespace Thetis
                 }
 
             }
-            catch(Exception)
+            catch (Exception)
             {
 
                 if (c.Connected) c.Close(); // close the socket
@@ -8152,7 +8149,7 @@ namespace Thetis
                 return;
             }
 
-            if (c.Connected)  c.Close(); // close the socket
+            if (c.Connected) c.Close(); // close the socket
 
             // example of downloaded time sync from NIST
             // <cr>57682 16-10-21 14:42:46 17 0 0 159.1 UTC(NIST) * 
@@ -8176,7 +8173,7 @@ namespace Thetis
                 string temp1 = o[1] + " " + o[2] + ".000";
 
                 SetDT = DateTime.ParseExact(temp1, "yy-MM-dd HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None);
-              
+
                 k1 = TimeSpan.FromMilliseconds(Convert.ToInt32(temp2)); // convert NIST delay to k1 timespan
                 k = (TimeSpan)(DateTime.Now - startDT);   // get the delay since we read the time from NIST (milliseconds)
 
@@ -8184,13 +8181,13 @@ namespace Thetis
 
 
                 SetDT = Convert.ToDateTime(SetDT).Subtract(k1); // subtract this k1 value since NIST always reports a future time
-              
+
                 SetDT = SetDT.ToLocalTime(); // adjust UTC back to my time .NOW
 
                 st.FromDateTime(SetDT); //Convert System.DateTime to SystemTime 
                 Win32API.SetLocalTime(ref st);  //Call Win32 API to set the system time  
 
-                textBox1.Text = "IMPORTANT: Your PC Time will NOT update unless Thetis is launched in ADMIN mode!!!!" + "\r\n" + 
+                textBox1.Text = "IMPORTANT: Your PC Time will NOT update unless Thetis is launched in ADMIN mode!!!!" + "\r\n" +
                                 "PC LOC TIME when Request sent to NIST: " + startDT.ToString("yy-MM-dd HH:mm:ss.fff") + "\r\n" +
                                 "TIME UTC reported back from NIST : " + temp1 + "\r\n" +
                                 "NIST reported this time: " + temp2 + " milliseconds Early" + "\r\n" +
@@ -8251,7 +8248,7 @@ namespace Thetis
                     checkBoxWWV.Checked = false;   // turn off WWV checking if you click on the Time sync button again
                     WTime = false;
                     WWVNewTime.Stop();
-                    indexP = 0;                  
+                    indexP = 0;
                     indexS = 0;
                 }
 
@@ -8286,7 +8283,7 @@ namespace Thetis
         double[] WWV_Freq1 = { 2.5, 5.0, 10.0, 15.0 };                     // listen to 1000khz tone
 
         public bool WTime = false;
-     
+
         Stopwatch tickON = new Stopwatch();        // WWV 100hz tick ON elapsed time to find if PCM BCD data stream pluse is 1 or 0
         Stopwatch tickOFF = new Stopwatch();       // WWV 100hz tick OFF elapsed time to find start of minute (HOLE)
 
@@ -8325,8 +8322,8 @@ namespace Thetis
         {
 
 
-         //   timeProcPeriodic = new TimeProc(TimerPeriodicEventCallback);
-         //   setup_timer(1000);
+            //   timeProcPeriodic = new TimeProc(TimerPeriodicEventCallback);
+            //   setup_timer(1000);
 
 
             beacon7 = console.RX1DSPMode;           // get mode so you can restore it when you turn off the beacon check
@@ -8338,27 +8335,27 @@ namespace Thetis
             beacon88 = console.VFOAFreq;            // get freq you were on before 
             beacon66 = console.BlockSize1;          // get blocksize (must be 2048 during wwv bcd read)
 
-         //   beacon55 = console.CATPreamp;
+            //   beacon55 = console.CATPreamp;
 
 
             oldSR = console.SampleRateRX1;            // get SR
 
             if (checkBoxTone.Checked == true)    // this would allow you to select the signal strength based detection instead of Pitch(tone) based detection. For experimenting
             {
-          //      WWVPitch = false;
+                //      WWVPitch = false;
             }
             else
             {
                 WWVPitch = true;  // only allow Pitch (tone) detection
             }
 
-          // REDUCE SAMPLERATE (until I can figure out why I cant make it work at 192k)
+            // REDUCE SAMPLERATE (until I can figure out why I cant make it work at 192k)
             if (oldSR == 192000)  // need to reduce the 192SR because the Tone detection needs a longer sample time to detect weak signals at 192k and 2048 buffer size limit
             {
                 console.SetupForm.comboAudioSampleRate1.Text = "96000"; // select 96000
-                
+
             }
-          
+
             textBox2.Text = "";
             checkBoxTone.Checked = false;   // turn off tone marker when done.
 
@@ -8389,13 +8386,13 @@ namespace Thetis
                 console.chkEnableMultiRX.Checked = true;  // enable sub receiver
                 console.VFOBFreq = WWV_Freq1[(int)udDisplayWWV.Value - 1];       // WWV in CWU mode will center on 5000 khz
 
-         
+
             }
             else
             {
                 console.chkEnableMultiRX.Checked = false;  // enable sub receiver
 
-              //  console.CATPreamp = PreampMode.OFF;
+                //  console.CATPreamp = PreampMode.OFF;
 
                 console.RX1DSPMode = DSPMode.USB;
                 beacon89a = console.RX1Filter;           // get filter name so you can restore
@@ -8408,14 +8405,14 @@ namespace Thetis
 
                 console.VFOAFreq = WWV_Freq1[(int)udDisplayWWV.Value - 1];         // main receiver: WWV in DIGU mode on  sub-Carrier
 
-              
+
             }
 
 
-          
+
             console.UpdateDisplay();
 
-            int BCDSignal= 0;              // measured BCD data stream dBm signal
+            int BCDSignal = 0;              // measured BCD data stream dBm signal
             int CarrierSignal = 0;         // measured Carrier dBm signal
             int CarrierSignalINIT = 0;         // measured Carrier dBm signal
 
@@ -8425,29 +8422,28 @@ namespace Thetis
             bool BCDOFFTrig = false;
 
             int tickTimeON = 0;
-           
+
             int tickTimeOFF = 0;
-          
+
             tickON.Reset();
             tickOFF.Reset();
 
             int BCDMax = 0;
             int BCDMin = 0;
-                  
+
             int BCDSignalON = 0;           // BCD data steam high dbm signal found initially
             int BCDSignalOFF = 0;           // BCD data steam high dbm signal found initially
 
-      
+
 
             double BCDAdj = 3;                // % adjustment to what it determined to be the High signal
-            int BCDCount = 0;              // counter for the % adjustment
 
             int BCDSignalON1 = 0;         // BCD data steam high dbm signal found while running
             int BCDSignalOFF1 = 0;           // BCD data steam low dbm signal found while running
 
             int WWVCF = 0;               // fault counter for low signal strength fault
 
-          
+
             int[,] P = new int[7, 20]; // 6 Position Identifiers with 10 seconds inside each Position frame 
 
             int newMinutes = 0;
@@ -8461,7 +8457,7 @@ namespace Thetis
             int BCD1 = 0; // false BCD value detected as (0), true BCD value detected as (1)   [for this last second]
 
             bool WWVStart = false; // true = got start of minute frame
-            bool WWVStop = false; // true = got entire 1 minute frame
+
             bool[] WWVFault = { false, false, false, false, false, false }; // true = bad data bit somewhere in WWV frames
             bool WWVPos = false;  // true = indicates you got a Position indicator frame at least 1 time before you got the HOLE (i.e. before WWVStart == true)
 
@@ -8475,7 +8471,7 @@ namespace Thetis
 
             Stopwatch ST2 = new Stopwatch();
 
-            Debug.WriteLine("WWV>>1"); 
+            Debug.WriteLine("WWV>>1");
 
 
             ST.Restart();
@@ -8494,13 +8490,13 @@ namespace Thetis
             BCDSignalOFF = 0;         // RESET BCD data steam high dbm signal found while running
             BCDSignalOFF1 = 0;         // RESET BCD data steam high dbm signal found while running
 
-            BCDCount = 0;
+            //BCDCount = 0;
             BCDAdj = 0;
-            
+
             Debug.WriteLine("WWV>>2");
 
             //------------------------------------------------------------------
-          
+
             ST.Restart();
 
             if (WWVPitch == false)  // signal strength based detected
@@ -8512,7 +8508,7 @@ namespace Thetis
             }
 
 
-            while ( ST.ElapsedMilliseconds < 1300)                          // get floor for bcd stream
+            while (ST.ElapsedMilliseconds < 1300)                          // get floor for bcd stream
             {
 
                 if (WWVPitch == false)  // signal strength based detected
@@ -8520,12 +8516,12 @@ namespace Thetis
                     BCDSignal = console.ReadStrength(0);            // read wwv 100 hz OFF of carrier point (BCD data stream)            
                     CarrierSignal = console.ReadStrength(1);        // read WWV 0hz carrier point
 
-                    if ((BCDSignal < BCDSignalOFF) )       // check low dBm value
+                    if ((BCDSignal < BCDSignalOFF))       // check low dBm value
                     {
                         BCDSignalOFF = BCDSignal;                               // finding the OFF state of this bcd stream area if the WWV signal
                         CarrierSignalINIT = CarrierSignal;                      // find the carrier level at the same time
                     }
-                    if ((BCDSignal > BCDSignalON) )        // check high dBm value
+                    if ((BCDSignal > BCDSignalON))        // check high dBm value
                     {
                         BCDSignalON = BCDSignal;                                // finding the ON state of this bcd stream area if the WWV signal
                     }
@@ -8544,9 +8540,9 @@ namespace Thetis
 
             } // for loop 1.3 seconds to test levels
 
-  
+
             BCDSignalON1 = 0;         // RESET BCD data steam high dbm signal found while running
-            BCDCount = 0;
+            //BCDCount = 0;
 
             BCDAdj = 3.0;
 
@@ -8567,7 +8563,7 @@ namespace Thetis
 
             ST.Restart();
 
-         //  ST2.Restart();
+            //  ST2.Restart();
 
             //---------------------------------------------------------------
             //---------------------------------------------------------------
@@ -8620,7 +8616,7 @@ namespace Thetis
                             indexS = 0;
                             WWVPos = false;
                             WWVStart = false;
-                            WWVStop = false;
+                            //WWVStop = false;
                             WWVFault[0] = WWVFault[1] = WWVFault[2] = WWVFault[3] = WWVFault[4] = WWVFault[5] = false;
                             WTime = false;
                         }
@@ -8644,15 +8640,15 @@ namespace Thetis
                     {
                         BCDSignal = console.WWVTone;  // get Magnitude value from audio.cs and Goertzel routine
 
-                      //  Debug.WriteLine("WWVTONE: " + ST2.ElapsedMilliseconds + " , "+BCDSignal);
+                        //  Debug.WriteLine("WWVTONE: " + ST2.ElapsedMilliseconds + " , "+BCDSignal);
 
-                      //  ST2.Restart();
+                        //  ST2.Restart();
 
                         below_count++;   // counter for how many times you got new data and it was below the threshold
                         console.WWVReady = false;
 
                     }
-               
+
                     //------------------------------------------------------------------
                     // keep adjusting signal based on signal strength you are seeing
 
@@ -8668,7 +8664,7 @@ namespace Thetis
                         BCDSignalON = BCDSignalON1;
 
                         BCDSignalON1 = 0;         // RESET BCD data steam high dbm signal found while running
-                        BCDCount = 0;
+                        //BCDCount = 0;
 
                         ST.Restart();
 
@@ -8692,7 +8688,7 @@ namespace Thetis
                             indexS = 0;
                             WWVPos = false;
                             WWVStart = false;
-                            WWVStop = false;
+                            //WWVStop = false;
                             WWVFault[0] = WWVFault[1] = WWVFault[2] = WWVFault[3] = WWVFault[4] = WWVFault[5] = false;
                             WTime = false;
                         }
@@ -8721,10 +8717,10 @@ namespace Thetis
 
                 if (WWVStart == true)   // do below if got HOLE (start of new minute) WWVNewTime timer is running from 0 second
                 {
-                  
+
                     // the extra 230 is for the extra time starting WWVNewTime at the end of P0 to the start of the new Minute Second#0
 
-                    if (WWVNewTime.ElapsedMilliseconds >= ( 230 + (indexS + (indexP*10))*1000 )   )   // 1000,2000,3000,4000,5000 milliseconds, etc
+                    if (WWVNewTime.ElapsedMilliseconds >= (230 + (indexS + (indexP * 10)) * 1000))   // 1000,2000,3000,4000,5000 milliseconds, etc
                     {
                         if (ST.IsRunning) ST.Stop();   // turn off init threshold timer
 
@@ -8751,7 +8747,7 @@ namespace Thetis
                             BCD1 = 0;  // reset value
 
                             indexP++;
-                            textBox1.Text += " P"+(indexP)+">";
+                            textBox1.Text += " P" + (indexP) + ">";
                             indexS = 1;
                         }
                         else // first 9 seconds of every P frame
@@ -8760,16 +8756,16 @@ namespace Thetis
                             if (BCD1 > 1)   // BCD tone was med ( 440 msec)
                             {
                                 BCD1 = 0;  // reset value
-     
-                                P[indexP, indexS-1] = 1;
+
+                                P[indexP, indexS - 1] = 1;
                                 textBox1.Text += "1";
-                                
+
                             }
                             else // BCD tone was short ( 170 msec)
                             {
                                 BCD1 = 0;  // reset value
 
-                                P[indexP, indexS-1] = 0;
+                                P[indexP, indexS - 1] = 0;
                                 textBox1.Text += "0";
                             }
 
@@ -8779,7 +8775,7 @@ namespace Thetis
 
                         tickON.Restart();  // we no we will get a BCD tone, but for how long: 170msec= 0, 440msec = 1, or 770msec if it a P frame
 
-                   } // if (WWVNewTime.ElapsedMilliseconds >= ( 230 + (indexS + (indexP*10))*1000 )   ) 
+                    } // if (WWVNewTime.ElapsedMilliseconds >= ( 230 + (indexS + (indexP*10))*1000 )   ) 
 
 
                     //--------------------------------------------------------------
@@ -8787,11 +8783,11 @@ namespace Thetis
                     //--------------------------------------------------------------
 
 
-                   // if (indexP == 5)
+                    // if (indexP == 5)
                     if ((indexP == 4) && (indexS > 3))
                     {
 
-                        if ((WWVFault[1] == true) || (WWVFault[2] == true)||(WWVFault[3] == true) || (WWVFault[4] == true))
+                        if ((WWVFault[1] == true) || (WWVFault[2] == true) || (WWVFault[3] == true) || (WWVFault[4] == true))
                         {
                             textBox1.Text += "\r\n";
                             textBox1.Text += "Radio Station WWV: Data No Good, will Try again.\r\n";
@@ -8802,7 +8798,7 @@ namespace Thetis
                             BCDAdj = 3;
                             WWVPos = false;
                             WWVStart = false;
-                            WWVStop = false;
+                            //WWVStop = false;
                             WWVFault[0] = WWVFault[1] = WWVFault[2] = WWVFault[3] = WWVFault[4] = WWVFault[5] = false;
                             WWVNewTime.Stop();
 
@@ -8826,7 +8822,7 @@ namespace Thetis
                             Debug.WriteLine("UTC Min: " + newMinutes);
                             Debug.WriteLine("UTC Day of year: " + newDay);
 
-                            WWVStop = true;
+                            //WWVStop = true;
                             WTime = false;  // DONE
                             WWVPos = false;
 
@@ -8840,16 +8836,16 @@ namespace Thetis
                                 int year = DateTime.UtcNow.Year;                                      // current UTC year that your PC is reporting
                                 theDate = new DateTime(year, 1, 1).AddDays(newDay - 1);      // this is the current Date based on your PC year and WWV UTC day of the year.
 
-                              //  theDate = theDate.Date;
+                                //  theDate = theDate.Date;
                                 theTime = DateTime.ParseExact(ww1, "HH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None);
 
-                              //  DateTime date = Convert.ToDateTime(txtTrainDate.Text);
-                              //  DateTime time = Convert.ToDateTime();
+                                //  DateTime date = Convert.ToDateTime(txtTrainDate.Text);
+                                //  DateTime time = Convert.ToDateTime();
 
                                 WWVUTC = new DateTime(theDate.Year, theDate.Month, theDate.Day, theTime.Hour, theTime.Minute, theTime.Second);
 
                             }
-                            catch(Exception)
+                            catch (Exception)
                             {
                                 textBox1.Text += "WWV time not read correctly. Will Try again.\r\n";
                                 WWVNewTime.Stop();
@@ -8859,7 +8855,7 @@ namespace Thetis
                                 WWVCF = 0;
                                 WWVPos = false;
                                 WWVStart = false;
-                                WWVStop = false;
+                                //WWVStop = false;
                                 WWVFault[0] = WWVFault[1] = WWVFault[2] = WWVFault[3] = WWVFault[4] = WWVFault[5] = false;
                                 goto EXITOUT;
                             }
@@ -8871,9 +8867,9 @@ namespace Thetis
                             // now computer real time and save it.
                             textBox1.Text += "IMPORTANT: Your PC Time will NOT update unless Thetis is launched in ADMIN mode!!!!" + "\r\n";
 
-                           
+
                             DateTime startDT = DateTime.Now;   // get current PC time and date
- 
+
 
                             DialogResult temp0 = MessageBox.Show("You must be running in ADMIN mode to set your PC Clock.\r\nYour Current LOCAL Date time: " + startDT.ToString("yy-MM-dd HH:mm:ss.fff") +
                                 "\r\nDoes this UTC Time (below) look Correct?\r\nDo You Want to Update Your PC Clock?\r\n" +
@@ -8919,7 +8915,7 @@ namespace Thetis
 
                 } //if (WWVStart == true) 
 
-                EXITOUT:
+            EXITOUT:
 
 
                 //---------------------------------------------------------------
@@ -8964,7 +8960,7 @@ namespace Thetis
                         } // below_count > 2
 
                     }
-                        //-----------------------------------------------------------
+                    //-----------------------------------------------------------
                     if (BCDONTrig == true) // got the Tick ON time
                     {
                         BCDONTrig = false; // do just 1 time per tick
@@ -8991,7 +8987,7 @@ namespace Thetis
                         else // you have already found the Sync Hole, but this last tone too short
                         {
                             WWVPos = false;
-                        
+
                             if (WWVPitch == true)
                             {
                                 BCDSignalON = BCDSignalON1;
@@ -9046,7 +9042,7 @@ namespace Thetis
                     }
                     else  // no TONE  this should be a 0 in the BCD data stream
                     {
-                        
+
                         if (below_count > 1)  // dont allow drop below threshold unless its for 3 times
                         {
                             checkBoxTone.Checked = false;
@@ -9086,7 +9082,7 @@ namespace Thetis
                                 }
                                 else if (tickTimeON > 1000)
                                 {
-                                  
+
                                     if (WWVPitch == true)
                                     {
                                         BCDSignalON = BCDSignalON1;
@@ -9134,12 +9130,12 @@ namespace Thetis
 
                         textBox2.Text = tickTimeON.ToString();
 
-                        if ((WWVPos == true)  && (tickTimeOFF > 1010) && (tickTimeOFF < 1700))  // Long HOLE indicates start of new minute
+                        if ((WWVPos == true) && (tickTimeOFF > 1010) && (tickTimeOFF < 1700))  // Long HOLE indicates start of new minute
                         {
 
                             Debug.WriteLine("WWV TIME>> Position HOLE: Start of new MINUTE============");
 
-                        
+
                             textBox1.Text += " Got Start of new Minute Sync Pulse\r\n";
                             textBox1.Text += "Frame (1-6)#: P0>";
 
@@ -9154,7 +9150,7 @@ namespace Thetis
                         }
                         else
                         {
-                            if ((WWVPos == true) )  // Long HOLE indicates start of new minute
+                            if ((WWVPos == true))  // Long HOLE indicates start of new minute
                             {
                                 if (WWVPitch == true)
                                 {
@@ -9189,24 +9185,24 @@ namespace Thetis
 
             checkBoxWWV.Checked = false; // turn off WWV checking
 
-         
-                if (oldSR == 192000)  // 192kSR will not work so reduce to 96k
-                {
-                    console.SetupForm.comboAudioSampleRate1.Text = "192000"; // select 192000 again when done
 
-                }
+            if (oldSR == 192000)  // 192kSR will not work so reduce to 96k
+            {
+                console.SetupForm.comboAudioSampleRate1.Text = "192000"; // select 192000 again when done
 
-                console.chkEnableMultiRX.Checked = false;  // enable sub receiver
+            }
 
-         
+            console.chkEnableMultiRX.Checked = false;  // enable sub receiver
+
+
             textBox2.Text = "";
             checkBoxTone.Checked = false;   // turn off tone marker when done.
 
             //---------------------------------------------------------------
             console.RX1Filter = beacon89a;           // restore filter back to original for this mode
 
-            console.UpdateRX1Filters(beacon9,beacon8); // restore filter
-          
+            console.UpdateRX1Filters(beacon9, beacon8); // restore filter
+
             console.RX1DSPMode = beacon7;           //  restore  mode  when you turn off the beacon check
             console.RX1Filter = beacon89;           // restore filter name
 
@@ -9229,14 +9225,14 @@ namespace Thetis
                 WWVNewTime.Stop();
                 indexP = 0;     // reset data to catch next minute data stream
                 indexS = 0;
-               
+
             }
 
         }
 
         private void numericUpDownTS1_ValueChanged(object sender, EventArgs e)
         {
-         //   beacon11 = 0; // reset when changing
+            //   beacon11 = 0; // reset when changing
 
         }
 
@@ -9273,9 +9269,9 @@ namespace Thetis
 
 
         //========================================================================================
-        public void GoertzelCoef( double freq, int SIGNAL_SAMPLE_RATE)
+        public void GoertzelCoef(double freq, int SIGNAL_SAMPLE_RATE)
         {
-   
+
             normalizedfreq = freq / SIGNAL_SAMPLE_RATE;
             Coeff = 2 * Math.Cos(2 * Math.PI * normalizedfreq);
         }
@@ -9315,7 +9311,7 @@ namespace Thetis
 
             if (VOARUN == true)
             {
-                    return;
+                return;
             }
 
 
@@ -9432,7 +9428,7 @@ namespace Thetis
                     IsBackground = true,
                     Priority = ThreadPriority.Lowest
                 };
-                t.Start();      
+                t.Start();
             }
 
 
@@ -9462,15 +9458,15 @@ namespace Thetis
         public static int[] VOA_S1 = new int[100];    // VOA_S1[1] = how many S1 readings in the map total, [2] = S2 readings 
 
 
-        public static int[,] VOA_SS = new int[3000,3000];   // each point on map is converted to an S meter reading
+        public static int[,] VOA_SS = new int[3000, 3000];   // each point on map is converted to an S meter reading
         public static int[] VOA_SY = new int[3000];
         public static int[] VOA_SX = new int[3000];
 
 
-        public static int[,] VOA_X = new int[10,1000];    // conversion of MUF LAT & LONG to X Y points  (VOA_S1[h] = number of each S unit found in map, h=S unit your checking)
-        public static int[,] VOA_Y = new int[10,1000];     // [][] = S unit S0 to S9 then list of x,y points that fall under that S reading
+        public static int[,] VOA_X = new int[10, 1000];    // conversion of MUF LAT & LONG to X Y points  (VOA_S1[h] = number of each S unit found in map, h=S unit your checking)
+        public static int[,] VOA_Y = new int[10, 1000];     // [][] = S unit S0 to S9 then list of x,y points that fall under that S reading
 
-      
+
         public static int[,] VOA_X1 = new int[10, 1000];    // PLOT routine dumps data here
         public static int[,] VOA_Y1 = new int[10, 1000];     //
 
@@ -9524,18 +9520,18 @@ namespace Thetis
         public static float[] S = new float[10000];
 
         public static int cnt = 0;  // counter for the conrec.cs routine (how many lines to draw for the contour map)
-       
+
         //=======================================================================================
         //=======================================================================================
         //ke9ns start voacap propagation spotting THREAD 1 and done
         private void VOACAP()
         {
             VOARUN = true; // dont allow this to trigger until its finished
-            
+
             string file_name = " ";
             string file_name1 = " ";
-           
-         
+
+
             //-------------------------------------- create a ke9ns.voa file from your lat,long,callsign, date,time, ssn and band your on
 
 
@@ -9551,7 +9547,7 @@ namespace Thetis
             Last_WATTS = WATTS;
             Last_MODE = console.RX1DSPMode;
 
-          
+
             string[] VOA = new string[20];
 
             string VOA1 = "";
@@ -9604,7 +9600,7 @@ namespace Thetis
 
             if (VOACAP_FORCE == false)
             {
-               METHOD = "30";
+                METHOD = "30";
             }
             else
             {
@@ -9618,7 +9614,7 @@ namespace Thetis
             }
             else
             {
-                if ((int)SpotOptions.udDAY.Value > 0)  COEFF = "URSI";
+                if ((int)SpotOptions.udDAY.Value > 0) COEFF = "URSI";
                 else COEFF = "CCRI";
             }
             Debug.WriteLine("COEFF: " + COEFF);
@@ -9628,26 +9624,26 @@ namespace Thetis
 
             //------------------------------------------------
             // ke9ns.voa file
-             VOA[0] = "Model    :VOACAP\r\n";
-             VOA[1] = "Colors   :Black    :Blue     :Ignore   :Ignore   :Red      :Black with shading\r\n";
-             VOA[2] = "Cities   :Receive.cty\r\n";
-             VOA[3] = "Nparms   :    1\r\n";
-             VOA[4] = "Parameter:SDBW     0\r\n";
-             VOA[5] = "Transmit : " + VOALAT + "   " + VOALNG + "   ME                   Short\r\n";          // VOALAT = -00.00N  VOALNG = -000.00W
-             VOA[6] = "Pcenter  :  0.00N     0.00E   center\r\n";
-             VOA[7] = "Area     :    -180.0     180.0     -90.0      90.0\r\n";
-             VOA[8] = "Gridsize :   31    1\r\n";
-             VOA[9] = "Method   :   " + METHOD +"\r\n";
-            VOA[10] = "Coeffs   :"+ COEFF +"\r\n";
+            VOA[0] = "Model    :VOACAP\r\n";
+            VOA[1] = "Colors   :Black    :Blue     :Ignore   :Ignore   :Red      :Black with shading\r\n";
+            VOA[2] = "Cities   :Receive.cty\r\n";
+            VOA[3] = "Nparms   :    1\r\n";
+            VOA[4] = "Parameter:SDBW     0\r\n";
+            VOA[5] = "Transmit : " + VOALAT + "   " + VOALNG + "   ME                   Short\r\n";          // VOALAT = -00.00N  VOALNG = -000.00W
+            VOA[6] = "Pcenter  :  0.00N     0.00E   center\r\n";
+            VOA[7] = "Area     :    -180.0     180.0     -90.0      90.0\r\n";
+            VOA[8] = "Gridsize :   31    1\r\n";
+            VOA[9] = "Method   :   " + METHOD + "\r\n";
+            VOA[10] = "Coeffs   :" + COEFF + "\r\n";
             VOA[11] = "Months   :  " + MONTH + "." + DAY + "   0.00   0.00   0.00   0.00   0.00   0.00   0.00   0.00\r\n";   // MONTH = 00  HOUR = 00
             VOA[12] = "Ssns     :    " + SSN + "      0      0      0      0      0      0      0      0\r\n";               // SSN = 000
-            VOA[13] = "Hours    :     "+ HOUR + "      0      0      0      0      0      0      0      0\r\n";
+            VOA[13] = "Hours    :     " + HOUR + "      0      0      0      0      0      0      0      0\r\n";
             VOA[14] = "Freqs    : " + MHZ + ".000  0.000  0.000  0.000  0.000  0.000  0.000  0.000  0.000\r\n";            // MHZ = 00
 
-        //  VOA[15] = "System   :  145     0.100   90   73     3.000     0.100\r\n"; // this is the standard VOA settings
-       //   VOA[15] = "System   :  140     3.000   90   70     3.000     0.100\r\n";  // this is supposed to be the prefered amateur settings
-            VOA[15] = "System   :  145     "+ ANGLE +"   " + REL +"   "+ CRS +"     3.000     0.100\r\n"; // this is the standard VOA settings
-        //  VOA[15] = Noise dbm, Takeoff Angle, Circuit Reliability, SNR dbm, Multipath Power Tol dbm, Time Delay msec
+            //  VOA[15] = "System   :  145     0.100   90   73     3.000     0.100\r\n"; // this is the standard VOA settings
+            //   VOA[15] = "System   :  140     3.000   90   70     3.000     0.100\r\n";  // this is supposed to be the prefered amateur settings
+            VOA[15] = "System   :  145     " + ANGLE + "   " + REL + "   " + CRS + "     3.000     0.100\r\n"; // this is the standard VOA settings
+                                                                                                               //  VOA[15] = Noise dbm, Takeoff Angle, Circuit Reliability, SNR dbm, Multipath Power Tol dbm, Time Delay msec
 
             VOA[16] = "Fprob    : 1.00 1.00 1.00 0.00\r\n";
             VOA[17] = "Rec Ants :[hamcap  \\Dipole35.N14]  gain=   0.0   0.0\r\n";
@@ -9664,22 +9660,22 @@ namespace Thetis
             VOA1 = VOA[0] + VOA[1] + VOA[2] + VOA[3] + VOA[4] + VOA[5] + VOA[6] + VOA[7] + VOA[8] + VOA[9] + VOA[10] +
                 VOA[11] + VOA[12] + VOA[13] + VOA[14] + VOA[15] + VOA[16] + VOA[17] + VOA[18];
 
-/*
-            textBox1.Text = "Method: " + METHOD + "\r\n";
-            textBox1.Text += "Coeff: " + COEFF + "\r\n";
-            textBox1.Text += "Month: " + MONTH + "\r\n";
-            textBox1.Text += "Day: " + DAY + "\r\n";
-            textBox1.Text += "Hour: " + HOUR + "\r\n";
-            textBox1.Text += "SSN: " + SSN + "\r\n";
-            textBox1.Text += "Freq: " + MHZ + "\r\n";
-            textBox1.Text += "Mode: " + Last_MODE + "\r\n";
-            textBox1.Text += "Angle: " + ANGLE + "\r\n";
-            textBox1.Text += "Reliability: " + REL + "\r\n";
-            textBox1.Text += "SNR: " + CRS + "\r\n";
-            textBox1.Text += "Watts: " + WATTS + "\r\n";
-*/
-     //       textBox1.Text = "Method: " + METHOD + " Coeff: " + COEFF +  " Month: " + MONTH +  " Day: " + DAY + " Hour: " + HOUR + 
-     //    " SSN: " + SSN + " Freq: " + MHZ + " Mode: " + Last_MODE +  " Angle: " + ANGLE +" Rel: " + REL + " SNR: " + CRS + " Watts: " + WATTS + "\r\n";
+            /*
+                        textBox1.Text = "Method: " + METHOD + "\r\n";
+                        textBox1.Text += "Coeff: " + COEFF + "\r\n";
+                        textBox1.Text += "Month: " + MONTH + "\r\n";
+                        textBox1.Text += "Day: " + DAY + "\r\n";
+                        textBox1.Text += "Hour: " + HOUR + "\r\n";
+                        textBox1.Text += "SSN: " + SSN + "\r\n";
+                        textBox1.Text += "Freq: " + MHZ + "\r\n";
+                        textBox1.Text += "Mode: " + Last_MODE + "\r\n";
+                        textBox1.Text += "Angle: " + ANGLE + "\r\n";
+                        textBox1.Text += "Reliability: " + REL + "\r\n";
+                        textBox1.Text += "SNR: " + CRS + "\r\n";
+                        textBox1.Text += "Watts: " + WATTS + "\r\n";
+            */
+            //       textBox1.Text = "Method: " + METHOD + " Coeff: " + COEFF +  " Month: " + MONTH +  " Day: " + DAY + " Hour: " + HOUR + 
+            //    " SSN: " + SSN + " Freq: " + MHZ + " Mode: " + Last_MODE +  " Angle: " + ANGLE +" Rel: " + REL + " SNR: " + CRS + " Watts: " + WATTS + "\r\n";
 
 
             //  file_name1 = console.AppDataPath + "ke9ns.voa"; //   
@@ -9692,18 +9688,18 @@ namespace Thetis
                 File.WriteAllText(file_name1, VOA1);
                 Debug.WriteLine("NEW VOA FILE CREATED");
             }
-            catch(Exception q)
+            catch (Exception q)
             {
-                Debug.WriteLine("NEW VOA FILE NOT CREATED "+q);
+                Debug.WriteLine("NEW VOA FILE NOT CREATED " + q);
 
                 goto VOACAP_FINISH;
 
-             
+
             }
-     
+
 
             //-------------------------------------- create a voacap data table from ke9ns.voa
-        
+
             Debug.WriteLine(" Create a voacap data table from ke9ns.voa");
 
             string s1 = Environment.CurrentDirectory;
@@ -9712,14 +9708,14 @@ namespace Thetis
 
             try
             {
-             
+
                 string file_name2 = "voacapw.exe";        // c:\itshfbc AREA CALC default\ke9ns.voa"; // voacap data to create table
                 Debug.WriteLine("file2: " + file_name2);
 
                 string argument = "SILENT c:.. AREA CALC default\\ke9ns.voa"; // voacap data to create table
                 Debug.WriteLine("argument: " + argument);
 
-                var proc1 =  System.Diagnostics.Process.Start(file_name2, argument);
+                var proc1 = System.Diagnostics.Process.Start(file_name2, argument);
 
                 proc1.WaitForExit(5000); // wait no more than 5 seconds for the file to finish 
             }
@@ -9730,29 +9726,29 @@ namespace Thetis
 
                 goto VOACAP_FINISH;
 
-               
+
             }
 
             file_name = console.AppDataPath + @"itshfbc\areadata\default\ke9ns.vg1"; // voacap table  data
 
             int Flt1 = 0;
 
-      
-            
-RT1:     
 
-         
+
+        RT1:
+
+
             Environment.CurrentDirectory = s1;
 
             //-------------------------------------- ke9ns.vg1 is a voa muf table for your lat/long location
 
-           // file_name = console.AppDataPath + @"itshfbc\areadata\default\ke9ns.vg1"; // voacap table  data
-           
+            // file_name = console.AppDataPath + @"itshfbc\areadata\default\ke9ns.vg1"; // voacap table  data
+
             Debug.WriteLine("read ke9ns.vg1 is a voa muf table for your lat/long location");
 
-            if ((File.Exists(file_name)) )
+            if ((File.Exists(file_name)))
             {
-               
+
                 try
                 {
 
@@ -9764,24 +9760,24 @@ RT1:
                 }
                 catch (Exception s)
                 {
-                    Debug.WriteLine("fault: "+ s);
+                    Debug.WriteLine("fault: " + s);
 
                     if (Flt1++ > 10)
                     {
                         goto VOACAP_FINISH;
                     }
                     else
-                    goto RT1; // 
+                        goto RT1; // 
 
                 }
 
                 var result = new StringBuilder();
 
-               
+
                 VOA_Index = 0; // how big is the ke9ns.vg1 data file in lines
                 int Flag24 = 0;
-              
-                for (int h=0;h < 10;h++)
+
+                for (int h = 0; h < 10; h++)
                 {
                     VOA_S1[h] = 0; // reset number of each S unit reading found in the new map
                 }
@@ -9789,9 +9785,9 @@ RT1:
                 //------------------------------------------------------------------
                 Debug.WriteLine("reading VOACAP VG1 file");
 
-                for (;;)
+                for (; ; )
                 {
-                 
+
                     try
                     {
                         var newChar = (char)reader2.ReadChar();
@@ -9808,22 +9804,22 @@ RT1:
 
                                 try
                                 {
-                                
+
                                     VOA_LAT[VOA_Index] = (Convert.ToDouble(result.ToString().Substring(8, 8)));    // get lat reading
-                                
+
                                     VOA_LNG[VOA_Index] = (Convert.ToDouble(result.ToString().Substring(17, 9)));   // get lat reading
-                                  
+
                                     VOA_MUF[VOA_Index] = (Convert.ToDouble(result.ToString().Substring(27, 5)));   // get MUF reading
-                                 
+
                                     VOA_MODE[VOA_Index] = result.ToString().Substring(34, 4);                      // get MODE reading
-                                
+
                                     VOA_DBU[VOA_Index] = (Convert.ToDouble(result.ToString().Substring(68, 6)));   // get DBU reading
-                                   
+
                                     VOA_SDBW[VOA_Index] = (Convert.ToDouble(result.ToString().Substring(74, 6)));  // get SDBW reading
-                                  
+
 
                                     VOA_SNR[VOA_Index] = (Convert.ToDouble(result.ToString().Substring(86, 6)));  // get SNR reading
-                                  
+
 
                                     if (VOA_SDBW[VOA_Index] >= -103) VOA_S[VOA_Index] = 9;
                                     else if (VOA_SDBW[VOA_Index] >= -109) VOA_S[VOA_Index] = 8;
@@ -9839,15 +9835,15 @@ RT1:
 
                                     VOA_S1[VOA_S[VOA_Index]]++;  // increment the number of S unit reading in the map
 
-                                     //    Debug.WriteLine("LAT:" + VOA_LAT[VOA_Index] + "  LNG:" + VOA_LNG[VOA_Index] + "  S:" + VOA_S[VOA_Index] + "  MUF:" + VOA_MUF[VOA_Index] + "  SNR:" + VOA_SNR[VOA_Index] + "  Mode:" + VOA_MODE[VOA_Index] + "  DBU:" + VOA_DBU[VOA_Index]+ "  SDBW:" + VOA_SDBW[VOA_Index]);
+                                    //    Debug.WriteLine("LAT:" + VOA_LAT[VOA_Index] + "  LNG:" + VOA_LNG[VOA_Index] + "  S:" + VOA_S[VOA_Index] + "  MUF:" + VOA_MUF[VOA_Index] + "  SNR:" + VOA_SNR[VOA_Index] + "  Mode:" + VOA_MODE[VOA_Index] + "  DBU:" + VOA_DBU[VOA_Index]+ "  SDBW:" + VOA_SDBW[VOA_Index]);
 
                                     VOA_Index++;
 
                                 }
-                                catch(Exception a)
+                                catch (Exception a)
                                 {
-                                    Debug.WriteLine("fault> "+ result.ToString());
-
+                                    Debug.WriteLine("fault> " + result.ToString());
+                                    Common.LogException(a);
                                 }
 
                             } // SWL Spots
@@ -9871,7 +9867,7 @@ RT1:
                     }
                     catch (Exception e)
                     {
-                         Debug.WriteLine("excpt======== " + e);
+                        Debug.WriteLine("excpt======== " + e);
                         //     textBox1.Text = e.ToString();
 
                         break; // done with file
@@ -9893,13 +9889,13 @@ RT1:
                 Debug.WriteLine("convert LAT LONG data to X and Y Contour data base on S readings");
 
 
-                Debug.WriteLine("SSS INDEX LENGTH "+ VOA_Index); // should be 961 or 31 x 31
+                Debug.WriteLine("SSS INDEX LENGTH " + VOA_Index); // should be 961 or 31 x 31
 
                 for (int h = 0; h < 10; h++)
                 {
-                    Debug.WriteLine("Found number of S" + h +  " readings: " + VOA_S1[h]);
+                    Debug.WriteLine("Found number of S" + h + " readings: " + VOA_S1[h]);
                 }
-             
+
 
                 //-------------------------------------------------------------------
 
@@ -9924,22 +9920,22 @@ RT1:
                 // ke9ns data for voacap conrec.cs contour map
 
                 for (int y = 2; y < VOA_Ysize - 2; y++) // latitude (down to up) (-90 to +90)
-               {
+                {
                     for (int x = 0; x < VOA_Xsize; x++) // long (left to right) -180 to +180
                     {
 
                         int yy = y * VOA_Ysize;
 
-                        yy = ((VOA_Ysize-1) * VOA_Xsize) - yy; // -1 because 0 is the first index 960 to 0
-   
-                       y1[y-2]=  (int)(((180 - (VOA_LAT[yy] + 90)) / 180.0) * Sun_WidthY1) + Sun_Top1;  //latitude -90S to +90N
-                       x1[x] =    (int)(((VOA_LNG[x + (yy)] + 180.0) / 360.0) * Sun_Width) + Sun_Left;  // longitude -180W to +180E
-                       d1[x,y-2] = (float)VOA_SDBW[x + (yy)];
-      
+                        yy = ((VOA_Ysize - 1) * VOA_Xsize) - yy; // -1 because 0 is the first index 960 to 0
+
+                        y1[y - 2] = (int)(((180 - (VOA_LAT[yy] + 90)) / 180.0) * Sun_WidthY1) + Sun_Top1;  //latitude -90S to +90N
+                        x1[x] = (int)(((VOA_LNG[x + (yy)] + 180.0) / 360.0) * Sun_Width) + Sun_Left;  // longitude -180W to +180E
+                        d1[x, y - 2] = (float)VOA_SDBW[x + (yy)];
+
 
                     } // for x
 
-              } // for y
+                } // for y
 
 
                 z1[0] = -161; // setup contour levels for conrec.cs
@@ -9953,94 +9949,94 @@ RT1:
                 z1[8] = -109;
                 z1[9] = -103;
 
-                
+
 
                 //========================================================================
                 // ke9ns data for voacap Signal DOTS map
 
-                            int[,] VOA_Z = new int[1000, 1000];     // 
+                int[,] VOA_Z = new int[1000, 1000];     // 
 
 
-                            for (int z = 9; z > 0; z--)  // go through each S unit S1 through S9
+                for (int z = 9; z > 0; z--)  // go through each S unit S1 through S9
+                {
+                    int q = 0;
+                    //  Debug.WriteLine("S reading: " + z + " , value: " + (-127 + (z * 6))+" ,Z: "+VOA_Z[10,10] );
+
+                    VOA_Y[z, q] = VOA_X[z, q] = 0;  // clear out first just in case there is no case of that S reading found in the data
+
+                    for (int y = 0; y < VOA_Ysize; y++) // latitude (down to up) (-90 to +90)
+                    {
+
+                        for (int x = 0; x < VOA_Xsize; x++) // long (left to right) -180 to +180
+                        {
+
+                            if ((VOA_Z[x, y] == 0))
                             {
-                                int q = 0;
-                                //  Debug.WriteLine("S reading: " + z + " , value: " + (-127 + (z * 6))+" ,Z: "+VOA_Z[10,10] );
 
-                                VOA_Y[z, q] = VOA_X[z, q] = 0;  // clear out first just in case there is no case of that S reading found in the data
-
-                                for (int y = 0; y < VOA_Ysize; y++) // latitude (down to up) (-90 to +90)
+                                if (VOA_SDBW[x + y * VOA_Ysize] >= (-157 + (z * 6)))  // was -127
                                 {
-
-                                    for (int x = 0; x < VOA_Xsize; x++) // long (left to right) -180 to +180
-                                    {
-
-                                        if ((VOA_Z[x, y] == 0))
-                                        {
-
-                                            if (VOA_SDBW[x + y * VOA_Ysize] >= (-157 + (z * 6)))  // was -127
-                                            {
-                                                VOA_Y[z, q] = (int)(((180 - (VOA_LAT[y * VOA_Ysize] + 90)) / 180.0) * Sun_WidthY1) + Sun_Top1;  //latitude -90S to +90N
-                                                VOA_X[z, q] = (int)(((VOA_LNG[x + (y * VOA_Ysize)] + 180.0) / 360.0) * Sun_Width) + Sun_Left;  // longitude -180W to +180E
+                                    VOA_Y[z, q] = (int)(((180 - (VOA_LAT[y * VOA_Ysize] + 90)) / 180.0) * Sun_WidthY1) + Sun_Top1;  //latitude -90S to +90N
+                                    VOA_X[z, q] = (int)(((VOA_LNG[x + (y * VOA_Ysize)] + 180.0) / 360.0) * Sun_Width) + Sun_Left;  // longitude -180W to +180E
 
 
-                                                VOA_Z[x, y] = 1; // this value is now used, dont use it again
-                                                q++;
+                                    VOA_Z[x, y] = 1; // this value is now used, dont use it again
+                                    q++;
 
-                                                //     Debug.WriteLine("Found: " + z + " , " + q);
+                                    //     Debug.WriteLine("Found: " + z + " , " + q);
 
-                                            }
-                                            else
-                                            {
-                                                VOA_Z[x, y] = 0; // still unused
-                                            }
+                                }
+                                else
+                                {
+                                    VOA_Z[x, y] = 0; // still unused
+                                }
 
-                                        }
-
-
-                                    } // for x
+                            }
 
 
-                                } // for y
-
-                                VOA_Y[z, q] = VOA_X[z, q] = 0;  // clear out last to indicate end of this S reading curve
-
-                            } // for z (S readings)
-
-                            VOA_MyY = (int)(((180 - ((double)udDisplayLat.Value + 90)) / 180.0) * Sun_WidthY1) + Sun_Top1;  //latitude 90N to -90S
-                            VOA_MyX = (int)((((double)udDisplayLong.Value + 180.0) / 360.0) * Sun_Width) + Sun_Left;  // longitude -180W to +180E
+                        } // for x
 
 
-                            Map_Last = Map_Last | 2;    // force update of world map
+                    } // for y
+
+                    VOA_Y[z, q] = VOA_X[z, q] = 0;  // clear out last to indicate end of this S reading curve
+
+                } // for z (S readings)
+
+                VOA_MyY = (int)(((180 - ((double)udDisplayLat.Value + 90)) / 180.0) * Sun_WidthY1) + Sun_Top1;  //latitude 90N to -90S
+                VOA_MyX = (int)((((double)udDisplayLong.Value + 180.0) / 360.0) * Sun_Width) + Sun_Left;  // longitude -180W to +180E
 
 
-                        } // if file exists VOA ke9ns.vg1
-
-                        Conrec.Contour(d1, x1, y1, z1); // create contours for map
-
-                        VOARUN = false; // dont allow this to trigger until its finished
-
-                        Debug.WriteLine("SSS8 ");
-
-                        return;  // finished GOOD
+                Map_Last = Map_Last | 2;    // force update of world map
 
 
-     VOACAP_FINISH:      // jumps here if there was a problem      
+            } // if file exists VOA ke9ns.vg1
 
-                        VOARUN = false; // dont allow this to trigger until its finished
+            Conrec.Contour(d1, x1, y1, z1); // create contours for map
+
+            VOARUN = false; // dont allow this to trigger until its finished
+
+            Debug.WriteLine("SSS8 ");
+
+            return;  // finished GOOD
 
 
-         } // VOACAP thread
+        VOACAP_FINISH:      // jumps here if there was a problem      
 
- 
+            VOARUN = false; // dont allow this to trigger until its finished
+
+
+        } // VOACAP thread
+
+
 
         //================================================================================
         private void checkBoxMUF_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxMUF.Checked == false)
             {
-           
+
                 Map_Last = Map_Last | 2;    // force update of world map
-              
+
             }
             else
             {
@@ -10092,7 +10088,7 @@ RT1:
         // select the power level used by voacap
         private void tbPanPower_Scroll(object sender, EventArgs e)
         {
-            this.toolTip1.SetToolTip(this.tbPanPower, "VOACAP: "+ ((int)tbPanPower.Value).ToString() +" watts" );
+            this.toolTip1.SetToolTip(this.tbPanPower, "VOACAP: " + ((int)tbPanPower.Value).ToString() + " watts");
 
         }
 
@@ -10102,14 +10098,14 @@ RT1:
 
         }
 
-      
+
         private void tbPanPower_MouseUp(object sender, MouseEventArgs e)
         {
             this.toolTip1.SetToolTip(this.tbPanPower, "VOACAP: " + ((int)tbPanPower.Value).ToString() + " watts");
 
             if (checkBoxMUF.Checked == true)
             {
-                
+
                 VOACAP_CHECK(); // rescan a new map since your changing your antenna type
                 Debug.WriteLine("RELEASE MOUSE");
 
@@ -10119,7 +10115,7 @@ RT1:
 
         //======================================================================
 
-       public struct Point3F  // x, y, Z=s
+        public struct Point3F  // x, y, Z=s
         {
             public float X { get; set; }
             public float Y { get; set; }
@@ -10137,8 +10133,8 @@ RT1:
 
         }
 
-    
-       public Point3F[,] SSS = new Point3F[1000,1000];
+
+        public Point3F[,] SSS = new Point3F[1000, 1000];
 
         //======================================================================
         //======================================================================
@@ -10150,7 +10146,7 @@ RT1:
         static Pen GrnPen = new Pen(Color.FromArgb(255, Color.Green), 1.0f); // S7-8
         static Pen BluPen = new Pen(Color.FromArgb(255, Color.Blue), 1.0f); // S9+
 
-    
+
 
         //======================================================================
         private void mnuSpotOptions_Click(object sender, EventArgs e)
@@ -10190,5 +10186,5 @@ RT1:
         public static extern void GetLocalTime(ref SystemTime Time);
     }
 
-       
-    } // powersdr
+
+} // powersdr

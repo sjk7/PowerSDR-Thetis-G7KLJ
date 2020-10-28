@@ -26,50 +26,50 @@
 
 namespace Thetis
 {
-	/// <summary>
-	/// Summary description for Penny.
-	/// </summary>
-	public class Penny
-	{
-		private static Penny theSingleton = null; 
-		
-		public  static Penny getPenny() 
-		{ 
-			lock ( typeof(Penny) ) 
-			{
-				if ( theSingleton == null ) 
-				{ 
-					theSingleton = new Penny(); 
-				} 
-			}
-			return theSingleton; 
-		} 
+    /// <summary>
+    /// Summary description for Penny.
+    /// </summary>
+    public class Penny
+    {
+        private static Penny theSingleton = null;
 
-		private Penny()
-		{		
-		}
+        public static Penny getPenny()
+        {
+            lock (typeof(Penny))
+            {
+                if (theSingleton == null)
+                {
+                    theSingleton = new Penny();
+                }
+            }
+            return theSingleton;
+        }
+
+        private Penny()
+        {
+        }
 
 
-		private byte[] TXABitMasks = new byte[41]; //25
-		private byte[] RXABitMasks = new byte[41];
+        private byte[] TXABitMasks = new byte[41]; //25
+        private byte[] RXABitMasks = new byte[41];
         private byte[] TXBBitMasks = new byte[41];
-        private byte[] RXBBitMasks = new byte[41]; 
+        private byte[] RXBBitMasks = new byte[41];
 
 
-		public void setBandABitMask(Band band, byte mask, bool tx) 
-		{ 
-			int idx = (int)band - (int)Band.B160M; 
-			if ( tx ) 
-			{ 
-				TXABitMasks[idx] = mask;
-			} 
-			else 
-			{ 
-				RXABitMasks[idx] = mask;
-			} 
-			return; 
+        public void setBandABitMask(Band band, byte mask, bool tx)
+        {
+            int idx = (int)band - (int)Band.B160M;
+            if (tx)
+            {
+                TXABitMasks[idx] = mask;
+            }
+            else
+            {
+                RXABitMasks[idx] = mask;
+            }
+            return;
 
-		}
+        }
 
         public void setBandBBitMask(Band band, byte mask, bool tx)
         {
@@ -85,9 +85,9 @@ namespace Thetis
             return;
 
         }
-        
-        public void ExtCtrlEnable(Band band, Band bandb, bool tx, bool enable) 
-		{
+
+        public void ExtCtrlEnable(Band band, Band bandb, bool tx, bool enable)
+        {
             if (!enable)
             {
                 NetworkIO.SetOCBits(0);
@@ -101,17 +101,17 @@ namespace Thetis
         public int RxABitMask = 0xf; // 4x3 split
         public bool SplitPins = false;
         public bool VFOTBX = false;
-		public void UpdateExtCtrl(Band band, Band bandb, bool tx) 
-		{         
+        public void UpdateExtCtrl(Band band, Band bandb, bool tx)
+        {
             int idx = (int)band - (int)Band.B160M;
             int idxb = (int)bandb - (int)Band.B160M;
-			int bits; 
-			if ( (idx < 0 || idx > 40) || (SplitPins && idxb < 0 || SplitPins && idxb > 40) ) //26
-			{ 
-				bits = 0; 
-			} 
-			else 
-			{
+            int bits;
+            if ((idx < 0 || idx > 40) || (SplitPins && idxb < 0 || SplitPins && idxb > 40)) //26
+            {
+                bits = 0;
+            }
+            else
+            {
                 if (SplitPins)
                 {
                     bits = tx ? (TXABitMasks[idx] & RxABitMask) | TXBBitMasks[idxb] : (RXABitMasks[idx] & RxABitMask) | RXBBitMasks[idxb];
@@ -124,9 +124,9 @@ namespace Thetis
                         bits = TXABitMasks[idx];
                     else bits = RXABitMasks[idx];
                 }
-			}
-            System.Console.WriteLine("Bits: " + bits + " Band: " + (int)band + " Band: " + (int)bandb); 
-			NetworkIO.SetOCBits(bits);
-		}
-	}
+            }
+            System.Console.WriteLine("Bits: " + bits + " Band: " + (int)band + " Band: " + (int)bandb);
+            NetworkIO.SetOCBits(bits);
+        }
+    }
 }

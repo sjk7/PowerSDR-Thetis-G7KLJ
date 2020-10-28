@@ -1170,7 +1170,7 @@ namespace Thetis
         public static void EnableVAC1(bool enable)
         {
             bool retval = false;
- 
+
             if (enable)
                 unsafe
                 {
@@ -1181,7 +1181,7 @@ namespace Thetis
                     double out_latency = vac1_latency_manual_out ? latency2_out / 1000.0 : PortAudioForThetis.PA_GetDeviceInfo(output_dev2).defaultLowOutputLatency;
                     double pa_in_latency = vac1_latency_pa_in_manual ? latency_pa_in / 1000.0 : PortAudioForThetis.PA_GetDeviceInfo(input_dev2).defaultLowInputLatency;
                     double pa_out_latency = vac1_latency_pa_out_manual ? latency_pa_out / 1000.0 : PortAudioForThetis.PA_GetDeviceInfo(output_dev2).defaultLowOutputLatency;
-                  //  double pa_out_latency = vac1_latency_pa_out_manual ? latency_pa_out / 1000.0 : outp_dev2.;
+                    //  double pa_out_latency = vac1_latency_pa_out_manual ? latency_pa_out / 1000.0 : outp_dev2.;
 
                     if (vac_output_iq)
                     {
@@ -1212,7 +1212,7 @@ namespace Thetis
                         }
                         else
                         {
-      
+
                             throw new Exception("VAC audio engine failed to start");
                         }
                     }
@@ -1224,10 +1224,10 @@ namespace Thetis
                             pa_msg = "\n\nFailed to start VAC. Audio subsystem reports: " +
                                     PortAudioForThetis.PA_GetErrorText(return_value);
                         }
-                        
+
                         MessageBox.Show("The program is having trouble starting the VAC audio streams.\n" +
                             "Please examine the VAC related settings on the Setup Form -> Audio Tab and try again." + pa_msg,
-                            "VAC Audio Stream Startup Error." ,
+                            "VAC Audio Stream Startup Error.",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error);
                     }
@@ -1349,9 +1349,9 @@ namespace Thetis
             {
                 console.SampleRateTX = 48000; // set tx audio sampling rate  
                 WDSP.SetTXACFIRRun(cmaster.chid(cmaster.inid(1, 0), 0), false);
-                
+
                 if (!setpeak)
-                peakval = 0.4072;
+                    peakval = 0.4072;
 
                 if (!setpeak && Common.RadioModel == HPSDRModel.HERMES)
                 {
@@ -1367,7 +1367,7 @@ namespace Thetis
                     puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), peakval);
                 }
 
-               
+
                 console.psform.PSdefpeak = Convert.ToString(peakval);
             }
             else
@@ -1394,26 +1394,26 @@ namespace Thetis
             return retval;
         }
 
-//        private static void PortAudioErrorMessageBox(PaErrorCode error)
- //       {
-//            if (error < PaErrorCode.NoError) throw PortAudioException.GetException(error);
-//             switch (error)
-//             {
-//                 case PaErrorCode.InvalidDevice:
-//                     string s = "Whoops!  Looks like something has gone wrong in the\n" +
-//                         "Audio section.  Go look in the Setup Form -> Audio Tab to\n" +
-//                         "verify the settings there.";
-//                     if (vac_enabled) s += "  Since VAC is enabled, make sure\n" +
-//                          "you look at those settings as well.";
-//                     MessageBox.Show(s, "Audio Subsystem Error: Invalid Device",
-//                         MessageBoxButtons.OK, MessageBoxIcon.Error);
-//                     break;
-//                 default:
-//                     MessageBox.Show(PortAudio.Pa_GetErrorText(error), "PortAudio Error: " + error,
-//                         MessageBoxButtons.OK, MessageBoxIcon.Error);
-//                     break;
-//             }
-//        }
+        //        private static void PortAudioErrorMessageBox(PaErrorCode error)
+        //       {
+        //            if (error < PaErrorCode.NoError) throw PortAudioException.GetException(error);
+        //             switch (error)
+        //             {
+        //                 case PaErrorCode.InvalidDevice:
+        //                     string s = "Whoops!  Looks like something has gone wrong in the\n" +
+        //                         "Audio section.  Go look in the Setup Form -> Audio Tab to\n" +
+        //                         "verify the settings there.";
+        //                     if (vac_enabled) s += "  Since VAC is enabled, make sure\n" +
+        //                          "you look at those settings as well.";
+        //                     MessageBox.Show(s, "Audio Subsystem Error: Invalid Device",
+        //                         MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                     break;
+        //                 default:
+        //                     MessageBox.Show(PortAudio.Pa_GetErrorText(error), "PortAudio Error: " + error,
+        //                         MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                     break;
+        //             }
+        //        }
 
         #endregion
 

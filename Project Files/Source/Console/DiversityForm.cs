@@ -44,7 +44,6 @@ namespace Thetis
     public class DiversityForm : System.Windows.Forms.Form
     {
         private Point p = new Point(200, 200);
-        private Point last_p;
         private Point last_Phase1 = new Point(100, 250);
         private Point last_Phase2 = new Point(100, 100);
         private double angle;
@@ -145,7 +144,7 @@ namespace Thetis
             radioButtonMerc1_CheckedChanged(this, e);
             radioButtonMerc2_CheckedChanged(this, e);
             WDSP.SetEXTDIVNr(0, 2);
-           // console.Diversity2 = true;
+            // console.Diversity2 = true;
             chkEnableDiversity_CheckedChanged(this, e);
             // create timer for autohide and attach callback
             AutoHideTimer = new System.Timers.Timer();
@@ -278,8 +277,8 @@ namespace Thetis
             // 
             // picRadar
             // 
-            this.picRadar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.picRadar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.picRadar.BackColor = System.Drawing.SystemColors.Control;
             this.picRadar.Location = new System.Drawing.Point(2, 226);
@@ -937,7 +936,7 @@ namespace Thetis
 
         private void picRadar_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
-            int i;
+        
             Graphics g = e.Graphics;
             int size = Math.Min(picRadar.Width, picRadar.Height);
             Pen pen = new Pen(lineColor);
@@ -1348,7 +1347,7 @@ namespace Thetis
                 udFineNull.BackColor = System.Drawing.Color.White;
                 chkLockAngle.BackColor = System.Drawing.SystemColors.Control;
                 if (chkLockR.Checked) udR1.Value = udR.Value;
-               // JanusAudio.SetrefMerc(1);
+                // JanusAudio.SetrefMerc(1);
                 // Audio.RefMerc = 1;
                 //p = PolarToXY((double)udR.Value, -(double)ConvertAngle0ToAngle((double)udAngle0.Value));
                 UpdateDiversity();
@@ -1398,133 +1397,133 @@ namespace Thetis
         private bool updateR2 = true;
         private void udR2_ValueChanged(object sender, EventArgs e)
         {
-          //  if (radioButtonMerc1.Checked)
-           // {
-                if (chkLockR.Checked)
-                {
-                    r_A = locked_r;
-                    udR2.Value = (decimal)locked_r;
-                }
-                udR.Value = udR2.Value;
-                UpdateDiversity();
+            //  if (radioButtonMerc1.Checked)
+            // {
+            if (chkLockR.Checked)
+            {
+                r_A = locked_r;
+                udR2.Value = (decimal)locked_r;
+            }
+            udR.Value = udR2.Value;
+            UpdateDiversity();
 
-                if (updateR2)
+            if (updateR2)
+            {
+                switch (console.RX1Band)
                 {
-                    switch (console.RX1Band)
-                    {
-                        case Band.B160M:
-                            console.DiversityR2Gain160m = udR2.Value;
-                            break;
-                        case Band.B80M:
-                            console.DiversityR2Gain80m = udR2.Value;
-                            break;
-                        case Band.B60M:
-                            console.DiversityR2Gain60m = udR2.Value;
-                            break;
-                        case Band.B40M:
-                            console.DiversityR2Gain40m = udR2.Value;
-                            break;
-                        case Band.B30M:
-                            console.DiversityR2Gain30m = udR2.Value;
-                            break;
-                        case Band.B20M:
-                            console.DiversityR2Gain20m = udR2.Value;
-                            break;
-                        case Band.B17M:
-                            console.DiversityR2Gain17m = udR2.Value;
-                            break;
-                        case Band.B15M:
-                            console.DiversityR2Gain15m = udR2.Value;
-                            break;
-                        case Band.B12M:
-                            console.DiversityR2Gain12m = udR2.Value;
-                            break;
-                        case Band.B10M:
-                            console.DiversityR2Gain10m = udR2.Value;
-                            break;
-                        case Band.B6M:
-                            console.DiversityR2Gain6m = udR2.Value;
-                            break;
-                        case Band.WWV:
-                            console.DiversityR2GainWWV = udR2.Value;
-                            break;
-                        case Band.GEN:
-                            console.DiversityR2GainGEN = udR2.Value;
-                            break;
-                        default:
-                            console.DiversityR2GainXVTR = udR2.Value;
-                            break;
-                    }
+                    case Band.B160M:
+                        console.DiversityR2Gain160m = udR2.Value;
+                        break;
+                    case Band.B80M:
+                        console.DiversityR2Gain80m = udR2.Value;
+                        break;
+                    case Band.B60M:
+                        console.DiversityR2Gain60m = udR2.Value;
+                        break;
+                    case Band.B40M:
+                        console.DiversityR2Gain40m = udR2.Value;
+                        break;
+                    case Band.B30M:
+                        console.DiversityR2Gain30m = udR2.Value;
+                        break;
+                    case Band.B20M:
+                        console.DiversityR2Gain20m = udR2.Value;
+                        break;
+                    case Band.B17M:
+                        console.DiversityR2Gain17m = udR2.Value;
+                        break;
+                    case Band.B15M:
+                        console.DiversityR2Gain15m = udR2.Value;
+                        break;
+                    case Band.B12M:
+                        console.DiversityR2Gain12m = udR2.Value;
+                        break;
+                    case Band.B10M:
+                        console.DiversityR2Gain10m = udR2.Value;
+                        break;
+                    case Band.B6M:
+                        console.DiversityR2Gain6m = udR2.Value;
+                        break;
+                    case Band.WWV:
+                        console.DiversityR2GainWWV = udR2.Value;
+                        break;
+                    case Band.GEN:
+                        console.DiversityR2GainGEN = udR2.Value;
+                        break;
+                    default:
+                        console.DiversityR2GainXVTR = udR2.Value;
+                        break;
                 }
-                updateR2 = true;
+            }
+            updateR2 = true;
 
-          //  }
+            //  }
         }
 
         private bool updateR1 = true;
         private void udR1_ValueChanged(object sender, EventArgs e)
         {
-          //  if (radioButtonMerc2.Checked)
-          //  {
-                if (chkLockR.Checked)
-                {
-                    r_A = locked_r;
-                    udR1.Value = (decimal)locked_r;
-                }
-                udR.Value = udR1.Value;
-                UpdateDiversity();
+            //  if (radioButtonMerc2.Checked)
+            //  {
+            if (chkLockR.Checked)
+            {
+                r_A = locked_r;
+                udR1.Value = (decimal)locked_r;
+            }
+            udR.Value = udR1.Value;
+            UpdateDiversity();
 
-                if (updateR1)
+            if (updateR1)
+            {
+                switch (console.RX1Band)
                 {
-                    switch (console.RX1Band)
-                    {
-                        case Band.B160M:
-                            console.DiversityGain160m = udR1.Value;
-                            break;
-                        case Band.B80M:
-                            console.DiversityGain80m = udR1.Value;
-                            break;
-                        case Band.B60M:
-                            console.DiversityGain60m = udR1.Value;
-                            break;
-                        case Band.B40M:
-                            console.DiversityGain40m = udR1.Value;
-                            break;
-                        case Band.B30M:
-                            console.DiversityGain30m = udR1.Value;
-                            break;
-                        case Band.B20M:
-                            console.DiversityGain20m = udR1.Value;
-                            break;
-                        case Band.B17M:
-                            console.DiversityGain17m = udR1.Value;
-                            break;
-                        case Band.B15M:
-                            console.DiversityGain15m = udR1.Value;
-                            break;
-                        case Band.B12M:
-                            console.DiversityGain12m = udR1.Value;
-                            break;
-                        case Band.B10M:
-                            console.DiversityGain10m = udR1.Value;
-                            break;
-                        case Band.B6M:
-                            console.DiversityGain6m = udR1.Value;
-                            break;
-                        case Band.WWV:
-                            console.DiversityGainWWV = udR1.Value;
-                            break;
-                        case Band.GEN:
-                            console.DiversityGainGEN = udR1.Value;
-                            break;
-                        default:
-                            console.DiversityGainXVTR = udR1.Value;
-                            break;
-                    }
+                    case Band.B160M:
+                        console.DiversityGain160m = udR1.Value;
+                        break;
+                    case Band.B80M:
+                        console.DiversityGain80m = udR1.Value;
+                        break;
+                    case Band.B60M:
+                        console.DiversityGain60m = udR1.Value;
+                        break;
+                    case Band.B40M:
+                        console.DiversityGain40m = udR1.Value;
+                        break;
+                    case Band.B30M:
+                        console.DiversityGain30m = udR1.Value;
+                        break;
+                    case Band.B20M:
+                        console.DiversityGain20m = udR1.Value;
+                        break;
+                    case Band.B17M:
+                        console.DiversityGain17m = udR1.Value;
+                        break;
+                    case Band.B15M:
+                        console.DiversityGain15m = udR1.Value;
+                        break;
+                    case Band.B12M:
+                        console.DiversityGain12m = udR1.Value;
+                        break;
+                    case Band.B10M:
+                        console.DiversityGain10m = udR1.Value;
+                        break;
+                    case Band.B6M:
+                        console.DiversityGain6m = udR1.Value;
+                        break;
+                    case Band.WWV:
+                        console.DiversityGainWWV = udR1.Value;
+                        break;
+                    case Band.GEN:
+                        console.DiversityGainGEN = udR1.Value;
+                        break;
+                    default:
+                        console.DiversityGainXVTR = udR1.Value;
+                        break;
                 }
-                updateR1 = true;
+            }
+            updateR1 = true;
 
-          //  }
+            //  }
         }
 
         public bool DiversityRXRef
@@ -1558,7 +1557,7 @@ namespace Thetis
                     radRxSource1.Checked = true;
                 else
                     radRxSource2.Checked = true;
-        }
+            }
 
             get
             {
@@ -1576,7 +1575,7 @@ namespace Thetis
         {
             set
             {
-                if(radioButtonMerc1.Checked)
+                if (radioButtonMerc1.Checked)
                     udR2.Value = value;
                 else
                     udR1.Value = value;
@@ -1874,14 +1873,14 @@ namespace Thetis
         // check if we want portrait or landscape format. If landscape change form size and panel positions
         private void DiversityForm_Load(object sender, EventArgs e)
         {
-            if(console.SetupForm != null)
+            if (console.SetupForm != null)
             {
-                if(console.SetupForm.AndromedaDiversityFormLandscape)
+                if (console.SetupForm.AndromedaDiversityFormLandscape)
                 {
                     picRadar.Anchor = (AnchorStyles.None);
                     picRadar.Size = new Size(226, 226);
                     this.Size = new Size(750, 280);
-                    picRadar.Location = new Point(470,1);
+                    picRadar.Location = new Point(470, 1);
                 }
             }
         }

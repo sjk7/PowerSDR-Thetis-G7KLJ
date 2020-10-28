@@ -54,7 +54,7 @@ namespace Thetis
 {
     public partial class RAForm : System.Windows.Forms.Form
     {
-        Console console; 
+        Console console;
 
         public RAForm(Console c)
         {
@@ -72,7 +72,7 @@ namespace Thetis
             textBox_file_date_time.Visible = false;
             textBox_file_comment.Visible = false;
         }
-        
+
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -81,7 +81,7 @@ namespace Thetis
             if (disposing)
             {
                 if (components != null)
-                 {
+                {
                     components.Dispose();
                 }
             }
@@ -142,7 +142,7 @@ namespace Thetis
                 textBox_file_comment.Visible = false;
                 construct_header();
                 time0 = Environment.TickCount;
-                sig_level = console.NewMeterData; 
+                sig_level = console.NewMeterData;
                 sig_level2 = console.Rx2MeterData; // initial_sig = sig_level;
                 sig_level_pwr = Math.Pow(10.0, (double)sig_level);
                 sig_level2_pwr = Math.Pow(10.0, (double)sig_level2);
@@ -173,11 +173,11 @@ namespace Thetis
                 labelTS10.ForeColor = System.Drawing.SystemColors.Highlight;
                 labelTS10.Text = "data written to: RA_data.csv";
                 button_readFile.Enabled = true;
-            }              
+            }
         }
 
         private void construct_header()
-        {         
+        {
             write_line_to_file(RA_version);
             write_line_to_file("");
             write_line_to_file(Convert.ToString(DateTime.Now));
@@ -200,10 +200,10 @@ namespace Thetis
 
         private void numericUpDownTS1_ValueChanged(object sender, EventArgs e)
         {
-            max_count = (int) numericUpDown_measurements_per_point.Value;
+            max_count = (int)numericUpDown_measurements_per_point.Value;
         }
 
- 
+
         private void RA_timer_Tick(object sender, EventArgs e)
         {
             RA_data = new byte[30];
@@ -215,423 +215,423 @@ namespace Thetis
             double time_now;
 
             if (RA_count == max_count)
-               {
-                   RA_timer.Enabled = false;
-                   data_points += 1;
-                   textBox_pts_collected.Text = data_points.ToString();
-                   time_now = Environment.TickCount;
-                   time_elapsed = 0.001 * (time_now - time0);   // in seconds
-                   time_string = String.Format(nfi, "{0:F3}", (float) time_elapsed);
-                   sig_level_pwr = sig_level_pwr / (double) RA_count;       // normalize the un-normalized "linear pwr" sum
-                   sig_level2_pwr = sig_level2_pwr / (double) RA_count;
-                   sig_level_avg = (float)Math.Log10(sig_level_pwr);        // convert avg "linear pwr" values back to dBm
-                   sig_level2_avg = (float)Math.Log10(sig_level2_pwr); 
-                   sig_data[data_points] = sig_level_avg;
-                   sig_data2[data_points] = sig_level2_avg;
-                   time_data[data_points] = (float) time_elapsed;
-                   if (sig_level_avg > sig_max)
-                   {
-                       sig_max = sig_level_avg;
-                       rescale = true;
-                   }
-                   if (sig_min > sig_level_avg )
-                   {
-                       sig_min = sig_level_avg;
-                       rescale = true;
-                   }
-                   textBoxTS3.Text = String.Format(nfi, "{0:F1}", (float) time_elapsed);
-                   textBox_Rx1.Text = String.Format(nfi, "{0:F1}", sig_level_avg);
-                   textBox_Rx2.Text = String.Format(nfi, "{0:F1}", sig_level2_avg);
-                   signal_string = String.Format(nfi, "{0:F2}", sig_level_avg);
-                   //signal_string2 = sig_level2_avg.ToString("f2"); 
-                   signal_string2 = String.Format(nfi, "{0:F2}", sig_level2_avg);
-                   line_string = time_string + ", " + signal_string + ", " + signal_string2;
-                   RA_data = StrToByteArray(line_string);
-                   cnt_string = RA_data.Length;
-                   writer.Write(RA_data, 0, cnt_string);
-                   writer.Write(CRLF, 0, 2);
-                   sig_level = console.NewMeterData; 
-                   sig_level2 = console.Rx2MeterData; 
-                   sig_level_pwr = Math.Pow(10.0, (double) sig_level);  // convert dBm to a value proportional to linear power
-                   sig_level2_pwr = Math.Pow(10.0, (double)sig_level2);
-                   RA_count = 1;
+            {
+                RA_timer.Enabled = false;
+                data_points += 1;
+                textBox_pts_collected.Text = data_points.ToString();
+                time_now = Environment.TickCount;
+                time_elapsed = 0.001 * (time_now - time0);   // in seconds
+                time_string = String.Format(nfi, "{0:F3}", (float)time_elapsed);
+                sig_level_pwr = sig_level_pwr / (double)RA_count;       // normalize the un-normalized "linear pwr" sum
+                sig_level2_pwr = sig_level2_pwr / (double)RA_count;
+                sig_level_avg = (float)Math.Log10(sig_level_pwr);        // convert avg "linear pwr" values back to dBm
+                sig_level2_avg = (float)Math.Log10(sig_level2_pwr);
+                sig_data[data_points] = sig_level_avg;
+                sig_data2[data_points] = sig_level2_avg;
+                time_data[data_points] = (float)time_elapsed;
+                if (sig_level_avg > sig_max)
+                {
+                    sig_max = sig_level_avg;
+                    rescale = true;
+                }
+                if (sig_min > sig_level_avg)
+                {
+                    sig_min = sig_level_avg;
+                    rescale = true;
+                }
+                textBoxTS3.Text = String.Format(nfi, "{0:F1}", (float)time_elapsed);
+                textBox_Rx1.Text = String.Format(nfi, "{0:F1}", sig_level_avg);
+                textBox_Rx2.Text = String.Format(nfi, "{0:F1}", sig_level2_avg);
+                signal_string = String.Format(nfi, "{0:F2}", sig_level_avg);
+                //signal_string2 = sig_level2_avg.ToString("f2"); 
+                signal_string2 = String.Format(nfi, "{0:F2}", sig_level2_avg);
+                line_string = time_string + ", " + signal_string + ", " + signal_string2;
+                RA_data = StrToByteArray(line_string);
+                cnt_string = RA_data.Length;
+                writer.Write(RA_data, 0, cnt_string);
+                writer.Write(CRLF, 0, 2);
+                sig_level = console.NewMeterData;
+                sig_level2 = console.Rx2MeterData;
+                sig_level_pwr = Math.Pow(10.0, (double)sig_level);  // convert dBm to a value proportional to linear power
+                sig_level2_pwr = Math.Pow(10.0, (double)sig_level2);
+                RA_count = 1;
 
-                   // update by plotting new graphics display
-                   picRAGraph.Invalidate();
-                   if (RArecordCheckBox.Checked) RA_timer.Enabled = true;  // continue w/data collection
-               }
+                // update by plotting new graphics display
+                picRAGraph.Invalidate();
+                if (RArecordCheckBox.Checked) RA_timer.Enabled = true;  // continue w/data collection
+            }
             else
             {
                 sig_level_pwr += Math.Pow(10.0, (double)console.NewMeterData); // sum "pwr" values to obtain an un-normalized average
                 sig_level2_pwr += Math.Pow(10.0, (double)console.Rx2MeterData);
                 RA_count = RA_count + 1;
-             }       
+            }
         }
 
         private void numericUpDownTS2_ValueChanged(object sender, EventArgs e)
         {
-            RA_timer.Interval = (int) numericUpDown_mSec_between_measurements.Value;
+            RA_timer.Interval = (int)numericUpDown_mSec_between_measurements.Value;
         }
 
         // RA graphics plot
         private void picRAGraph_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
-        {            
+        {
             // capital "X" or "Y" denotes pixel coordinates whereas "x" or "y" in a variable name denotes user coordinates
             int i;
-                Graphics g = e.Graphics;
-                Rectangle rect = new Rectangle(0, 0, picRAGraph.Width, picRAGraph.Height);
-                int size = Math.Min(picRAGraph.Width, picRAGraph.Height);
-                Pen pen = new Pen(Brushes.Black);
-                Pen pen2 = new Pen(Brushes.Yellow);
-                Pen pen3 = new Pen(Brushes.White);
-                Pen pen4 = new Pen(Brushes.LightGray);
-                Pen pen5 = new Pen(Brushes.Red);
-                g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
-                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Bicubic;
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                g.FillRectangle(Brushes.AliceBlue, 0, 0, (float) picRAGraph.Width, (float) picRAGraph.Height);
+            Graphics g = e.Graphics;
+            Rectangle rect = new Rectangle(0, 0, picRAGraph.Width, picRAGraph.Height);
+            int size = Math.Min(picRAGraph.Width, picRAGraph.Height);
+            Pen pen = new Pen(Brushes.Black);
+            Pen pen2 = new Pen(Brushes.Yellow);
+            Pen pen3 = new Pen(Brushes.White);
+            Pen pen4 = new Pen(Brushes.LightGray);
+            Pen pen5 = new Pen(Brushes.Red);
+            g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Bicubic;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            g.FillRectangle(Brushes.AliceBlue, 0, 0, (float)picRAGraph.Width, (float)picRAGraph.Height);
 
-                //draw outside boundary
-                g.DrawRectangle(pen, 0, 0, picRAGraph.Width-1, picRAGraph.Height-1);
+            //draw outside boundary
+            g.DrawRectangle(pen, 0, 0, picRAGraph.Width - 1, picRAGraph.Height - 1);
 
-                //draw and label grid lines
-                //
-                // find corner points of the plot and the y-range and x-range in pixels
+            //draw and label grid lines
+            //
+            // find corner points of the plot and the y-range and x-range in pixels
 
-                Point top_left = new Point(picRAGraph.Left, picRAGraph.Top);
-                Point bottom_left = new Point(picRAGraph.Left, picRAGraph.Bottom);
-                Point top_right = new Point(picRAGraph.Right, picRAGraph.Top);
-                Point bottom_right = new Point(picRAGraph.Right, picRAGraph.Bottom);
-                Point p1 = new Point();
-                Point p2 = new Point();
-                Point p3 = new Point();
-                Point p4 = new Point();
-                int X_left = bottom_left.X;
-                int X_right = bottom_right.X;
-                int Y_top = top_right.Y;
-                int Y_bottom = bottom_right.Y;
-                int n_lines = 0;
-                float display_y_range;
-                float display_x_range;
-                float y_step = 0;
-                float x_step = 0;
-                double y_first_value = 0;
-                double x_first_value = 0;
-                int Y_first = 0;
-                int X_first = 0;
+            Point top_left = new Point(picRAGraph.Left, picRAGraph.Top);
+            Point bottom_left = new Point(picRAGraph.Left, picRAGraph.Bottom);
+            Point top_right = new Point(picRAGraph.Right, picRAGraph.Top);
+            Point bottom_right = new Point(picRAGraph.Right, picRAGraph.Bottom);
+            Point p1 = new Point();
+            Point p2 = new Point();
+            Point p3 = new Point();
+            Point p4 = new Point();
+            int X_left = bottom_left.X;
+            int X_right = bottom_right.X;
+            int Y_top = top_right.Y;
+            int Y_bottom = bottom_right.Y;
+            int n_lines = 0;
+            float display_y_range;
+            float display_x_range;
+            float y_step = 0;
+            float x_step = 0;
+            double y_first_value = 0;
+            double x_first_value = 0;
+            int Y_first = 0;
+            int X_first = 0;
 
-                Font font = new Font("Arial", 10.0f);
-                SolidBrush brush = new SolidBrush(Color.Black);
-                Y_range = Y_bottom - Y_top;
+            Font font = new Font("Arial", 10.0f);
+            SolidBrush brush = new SolidBrush(Color.Black);
+            Y_range = Y_bottom - Y_top;
 
-                if (button_dBm.Checked)     // dBm display mode
+            if (button_dBm.Checked)     // dBm display mode
+            {
+                labelTS12.Text = "                  Signal (dBm)";
+                // rescale plot if necessary
+                if (auto_rescale.Checked)
                 {
-                    labelTS12.Text = "                  Signal (dBm)";
-                    // rescale plot if necessary
-                    if (auto_rescale.Checked)
-                    {
-                        groupBox_scaling.Enabled = false;
+                    groupBox_scaling.Enabled = false;
 
-                        if (rescale)
-                        {
-                            display_y_max = sig_max + 10;
-                            display_y_min = sig_min - 10;
-                        }
-                    }
-                    else
+                    if (rescale)
                     {
-                        groupBox_scaling.Enabled = true;
-                        display_y_max = (float)manual_ymax.Value;
-                        display_y_min = (float)manual_ymin.Value;
+                        display_y_max = sig_max + 10;
+                        display_y_min = sig_min - 10;
                     }
-                    // calculate y position for first horizonal grid line...log mode 
-                    display_y_range = display_y_max - display_y_min;
-                    if (display_y_range > 30)
-                    {
-                        y_first_value = Math.Truncate(display_y_min / 10) * 10;
-                        y_step = 10;
-                    }
-                    else
-                    {
-                        if (display_y_range > 15)
-                        {
-                            y_first_value = Math.Truncate(display_y_min / 5) * 5;
-                            y_step = 5;
-                        }
-                        else
-                        {
-                            y_first_value = Math.Truncate(display_y_min);
-                            y_step = 1;
-                        }
-                    }
-                    n_lines = (int)(Math.Truncate((double)display_y_range / (double)y_step)) + 1;
-                    Y_first = Y_range + (int)(((display_y_min - y_first_value) / display_y_range) * Y_range);
-                }
-                else    // linear display mode   
-                {
-                    //ref_power =  Math.Pow(10, (double) zeroRefAdjust.Value / 10);               // ref power in Watts
-                    ref_power = Math.Pow(10, (double)sig_max / 10);
-                    // convert dBm sig_max to linear value in units of ref_power
-                    s2 = String.Format(nfi, "{0:F1}", (float) ref_power);
-                    labelTS12.Text = "Signal ( x " + s2 + " mW)";
-                    float linear_sig_max = (float)Math.Pow(10, sig_max / 10) / (float)ref_power; // in units of ref_power
-                    float linear_sig_min = (float)Math.Pow(10, sig_min / 10) / (float)ref_power;
-                    // rescale plot if necessary
-                    if (auto_rescale.Checked)
-                    {
-                        groupBox_scaling.Enabled = false;
-
-                        if (rescale)
-                        {
-                            display_y_max = 1.1f * linear_sig_max;
-                            display_y_min = 0;
-                        }
-                    }
-                    else
-                    {
-                        groupBox_scaling.Enabled = true;
-                        display_y_max = (float)manual_ymax.Value;
-                        display_y_min = (float)manual_ymin.Value;
-                    }
-                    if (display_y_max <= 0) display_y_max = 100;
-                    if (display_y_min < 0) display_y_min = 0;
-
-                    // calculate y position for first horizonal grid line and step size between grid lines...linear mode
-                    display_y_range = display_y_max - display_y_min;
-
-                    if (display_y_range > 500)
-                    {
-                        y_first_value = Math.Truncate(display_y_min / 100) * 100;
-                        y_step = 100;
-                    }
-                    else if (display_y_range > 300)
-                    {
-                        y_first_value = Math.Truncate(display_y_min / 50) * 50;
-                        y_step = 50;
-                    }
-                    else if (display_y_range > 200)
-                    {
-                        y_first_value = Math.Truncate(display_y_min / 20) * 20;
-                        y_step = 20;
-                    }
-                    else if (display_y_range > 30)
-                    {
-                        y_first_value = Math.Truncate(display_y_min / 10) * 10;
-                        y_step = 10;
-                    }
-                    else
-                    {
-                        if (display_y_range > 15)
-                        {
-                            y_first_value = Math.Truncate(display_y_min / 5) * 5;
-                            y_step = 5;
-                        }
-                        else
-                        {
-                            y_first_value = Math.Truncate(display_y_min);
-                            y_step = 1;
-                        }
-                    }
-                    n_lines = (int)(Math.Truncate((double)display_y_range / (double)y_step)) + 1;
-                    Y_first = Y_range + (int)(((display_y_min - y_first_value) / display_y_range) * Y_range);
-                }
-                // draw and label horizontal grid lines
-                float y_label = (float)y_first_value;
-                int Y_value;
-                String s;
-                for (i = 0; i < n_lines; i++)
-                {
-                    Y_value = Y_first - (int)(((i * y_step) / (display_y_range)) * Y_range);
-                    p1.X = 0;
-                    p1.Y = Y_value;
-                    p2.X = X_right;
-                    p2.Y = Y_value;
-                    g.DrawLine(pen4, p1, p2);
-                    p1.Y -= (int)(0.027 * Y_range);
-                    s = String.Format(nfi, "{0:F0}", y_label); // y_label.ToString("f0");
-                    g.DrawString(s, font, brush, p1);
-                    y_label += y_step;
-                }
-                    
-            
-                // ******************************************************************************************************
-                // draw and label vertical grid lines
-                // calculate y position for first horizonal grid line and step size between grid lines...linear mode
-                display_x_range = display_x_max - display_x_min;
-                X_range = X_right - X_left;
-
-                if (display_x_range > 40000)
-                {
-                    x_first_value = Math.Truncate(display_x_min / 10000) * 10000;
-                    x_step = 10000;
-
-                }
-                else if (display_x_range > 6000)
-                {
-                    x_first_value = Math.Truncate(display_x_min / 1000) * 1000;
-                    x_step = 1000;
-                }
-
-                else if (display_x_range > 3000)
-                {
-                    x_first_value = Math.Truncate(display_x_min / 500) * 500;
-                    x_step = 500;
-                }
-
-                else if (display_x_range > 1500)
-                {
-                    x_first_value = Math.Truncate(display_x_min / 100) * 100;
-                    x_step = 200;
-                }
-
-                else if (display_x_range > 500)
-                {
-                    x_first_value = Math.Truncate(display_x_min / 100) * 100;
-                    x_step = 100;
-                }
-                else if (display_x_range > 300)
-                {
-                    x_first_value = Math.Truncate(display_x_min / 50) * 50;
-                    x_step = 50;
-                }
-                else if (display_x_range > 200)
-                {
-                    x_first_value = Math.Truncate(display_x_min / 20) * 20;
-                    x_step = 20;
-                }
-                else if (display_x_range > 60)
-                {
-                    x_first_value = Math.Truncate(display_x_min / 10) * 10;
-                    x_step = 10;
                 }
                 else
                 {
-                    if (display_x_range > 15)
+                    groupBox_scaling.Enabled = true;
+                    display_y_max = (float)manual_ymax.Value;
+                    display_y_min = (float)manual_ymin.Value;
+                }
+                // calculate y position for first horizonal grid line...log mode 
+                display_y_range = display_y_max - display_y_min;
+                if (display_y_range > 30)
+                {
+                    y_first_value = Math.Truncate(display_y_min / 10) * 10;
+                    y_step = 10;
+                }
+                else
+                {
+                    if (display_y_range > 15)
                     {
-                        x_first_value = Math.Truncate(display_x_min / 5) * 5;
-                        x_step = 5;
+                        y_first_value = Math.Truncate(display_y_min / 5) * 5;
+                        y_step = 5;
                     }
                     else
                     {
-                        x_first_value = Math.Truncate(display_x_min);
-                        x_step = 1;
+                        y_first_value = Math.Truncate(display_y_min);
+                        y_step = 1;
                     }
                 }
-                n_lines = (int)(Math.Truncate((double)display_x_range / (double)x_step)) + 1;
-                X_first = (int)(((x_first_value - display_x_min) / display_x_range) * X_range);
- 
-            
-            
-                    float x_label = (float) x_first_value;
-                    int X_value;
-                    String s3;
-                    for (i = 0; i < n_lines; i++)
+                n_lines = (int)(Math.Truncate((double)display_y_range / (double)y_step)) + 1;
+                Y_first = Y_range + (int)(((display_y_min - y_first_value) / display_y_range) * Y_range);
+            }
+            else    // linear display mode   
+            {
+                //ref_power =  Math.Pow(10, (double) zeroRefAdjust.Value / 10);               // ref power in Watts
+                ref_power = Math.Pow(10, (double)sig_max / 10);
+                // convert dBm sig_max to linear value in units of ref_power
+                s2 = String.Format(nfi, "{0:F1}", (float)ref_power);
+                labelTS12.Text = "Signal ( x " + s2 + " mW)";
+                float linear_sig_max = (float)Math.Pow(10, sig_max / 10) / (float)ref_power; // in units of ref_power
+                float linear_sig_min = (float)Math.Pow(10, sig_min / 10) / (float)ref_power;
+                // rescale plot if necessary
+                if (auto_rescale.Checked)
+                {
+                    groupBox_scaling.Enabled = false;
+
+                    if (rescale)
                     {
-                        X_value = X_first + (int)(((i * x_step) / (display_x_range)) * X_range);
-                        p1.X = X_value; // 0;
-                        p1.Y = 0;
-                        p2.X = X_value;
-                        p2.Y = Y_bottom;
-                        g.DrawLine(pen4, p1, p2);
-                        p1.X -= (int)(0.015 * X_range);
-                        p1.Y = Y_range - (int)(0.05 * Y_range);
-                        s3 = String.Format(nfi, "{0:F0}", x_label); 
-                        g.DrawString(s3, font, brush, p1);
-                        x_label += x_step;
+                        display_y_max = 1.1f * linear_sig_max;
+                        display_y_min = 0;
                     }
+                }
+                else
+                {
+                    groupBox_scaling.Enabled = true;
+                    display_y_max = (float)manual_ymax.Value;
+                    display_y_min = (float)manual_ymin.Value;
+                }
+                if (display_y_max <= 0) display_y_max = 100;
+                if (display_y_min < 0) display_y_min = 0;
 
-                    // update the corner labels on the display plot
-                    labelTS4.Text = String.Format(nfi, "{0:F1}", display_y_max);
-                    labelTS5.Text = String.Format(nfi, "{0:F1}", display_y_min);
-                    labelTS8.Text = String.Format(nfi, "{0:F0}", display_x_min);
-                    labelTS9.Text = String.Format(nfi, "{0:F0}", display_x_max);
-                    float time = (float)((time_elapsed / 600d) * (X_right - X_left));
-                    float data1 = 0;
-                    float data2 = 0;
-                    float data3 = 0;
-                    float data4 = 0;
+                // calculate y position for first horizonal grid line and step size between grid lines...linear mode
+                display_y_range = display_y_max - display_y_min;
 
-                    // plot the accumulated data
-                    for (i = 1; i <= data_points; i++)
+                if (display_y_range > 500)
+                {
+                    y_first_value = Math.Truncate(display_y_min / 100) * 100;
+                    y_step = 100;
+                }
+                else if (display_y_range > 300)
+                {
+                    y_first_value = Math.Truncate(display_y_min / 50) * 50;
+                    y_step = 50;
+                }
+                else if (display_y_range > 200)
+                {
+                    y_first_value = Math.Truncate(display_y_min / 20) * 20;
+                    y_step = 20;
+                }
+                else if (display_y_range > 30)
+                {
+                    y_first_value = Math.Truncate(display_y_min / 10) * 10;
+                    y_step = 10;
+                }
+                else
+                {
+                    if (display_y_range > 15)
                     {
-                        if (button_dBm.Checked)          // log mode
-                        {
-                            data1 = sig_data[i];
-                            data2 = sig_data[i - 1];
-                            data3 = sig_data2[i];
-                            data4 = sig_data2[i - 1];
-                        }
-                        else                             // linear mode
-                        {
-                            if (sig_data[i] == 0)
-                            {
-                                data1 = 0;
-                                data2 = 0;
-                                data3 = 0;
-                                data4 = 0;
-                            }
-                            else
-                            {
-                                if (sig_data[2] == 0) sig_data[2] = sig_data[i];
-                                if (sig_data2[2] == 0) sig_data2[2] = sig_data2[i];
-                                data1 = 100 * (float)((Math.Pow(10, sig_data[i] / 10)) / ref_power);
-                                data2 = 100 * (float)(Math.Pow(10, sig_data[i - 1] / 10) / ref_power);
-                                data3 = 100 * (float)((Math.Pow(10, sig_data2[i] / 10)) / ref_power);
-                                data4 = 100 * (float)((Math.Pow(10, sig_data2[i - 1] / 10)) / ref_power);
-
-                            }
-                        }
-
-                        p2.Y = (int)(((display_y_max - data1) / (display_y_max - display_y_min)) * Y_range);
-                        p4.Y = (int)(((display_y_max - data3) / (display_y_max - display_y_min)) * Y_range);
-
-                        if (button_linear.Checked)
-                        {
-                            if (manual_ymin.Value < 0) manual_ymin.BackColor = System.Drawing.Color.Yellow;
-                            else manual_ymin.BackColor = System.Drawing.SystemColors.Window;
-
-                            if (manual_ymin.Value < 0 | manual_ymax.Value <= manual_ymin.Value)
-                            {
-                                manual_ymin.BackColor = System.Drawing.Color.Yellow;
-                                manual_ymax.BackColor = System.Drawing.SystemColors.Window;
-                            }
-                            else manual_ymin.BackColor = System.Drawing.SystemColors.Window;
-                        }
-
-                        if (p2.Y >= Y_range) p2.Y = Y_range - 1;
-                        if (p2.Y <= 0) p2.Y = 1;
-                        if (p4.Y >= Y_range) p4.Y = Y_range - 1;
-                        if (p4.Y <= 0) p4.Y = 1;
-                        p2.X = (int)(((time_data[i] - display_x_min)/ (display_x_max - display_x_min) * (X_range)));
-                        p4.X = p2.X;
-                        p1.Y = (int)(((display_y_max - data2) / (display_y_max - display_y_min)) * Y_range);
-                        p3.Y = (int)(((display_y_max - data4) / (display_y_max - display_y_min)) * Y_range);
-                        if (p1.Y > Y_range) p1.Y = Y_range - 1;
-                        if (p1.Y < 0) p1.Y = 1;
-                        if (p3.Y > Y_range) p3.Y = Y_range - 1;
-                        if (p3.Y < 0) p3.Y = 1;
-                        p1.X = (int)(((time_data[i - 1] -  display_x_min) / (display_x_max - display_x_min)) * (X_range));
-                        p3.X = p1.X;
-                        if (radioButton_both.Checked)
-                        {
-                            g.DrawLine(pen, p1, p2);
-                            g.DrawLine(pen5, p3, p4);
-                        }
-                        if (radioButton_Rx1_only.Checked) g.DrawLine(pen, p1, p2);
-                        if (radioButton_Rx2_only.Checked) g.DrawLine(pen5, p3, p4);
+                        y_first_value = Math.Truncate(display_y_min / 5) * 5;
+                        y_step = 5;
                     }
-                    if (data_points >= 1999999)
+                    else
                     {
-                        RA_timer.Enabled = false;
-                        s = "Maximum # data points collected...acquisition halted";
-                        font = new Font("Arial", 18.0f);
-                        brush = new SolidBrush(Color.Red);
-                        Point p = new Point(70, 150);
-                        g.DrawString(s, font, brush, p);
-                        RArecordCheckBox.Checked = false;
+                        y_first_value = Math.Truncate(display_y_min);
+                        y_step = 1;
                     }
-                    rescale = false;
+                }
+                n_lines = (int)(Math.Truncate((double)display_y_range / (double)y_step)) + 1;
+                Y_first = Y_range + (int)(((display_y_min - y_first_value) / display_y_range) * Y_range);
+            }
+            // draw and label horizontal grid lines
+            float y_label = (float)y_first_value;
+            int Y_value;
+            String s;
+            for (i = 0; i < n_lines; i++)
+            {
+                Y_value = Y_first - (int)(((i * y_step) / (display_y_range)) * Y_range);
+                p1.X = 0;
+                p1.Y = Y_value;
+                p2.X = X_right;
+                p2.Y = Y_value;
+                g.DrawLine(pen4, p1, p2);
+                p1.Y -= (int)(0.027 * Y_range);
+                s = String.Format(nfi, "{0:F0}", y_label); // y_label.ToString("f0");
+                g.DrawString(s, font, brush, p1);
+                y_label += y_step;
+            }
+
+
+            // ******************************************************************************************************
+            // draw and label vertical grid lines
+            // calculate y position for first horizonal grid line and step size between grid lines...linear mode
+            display_x_range = display_x_max - display_x_min;
+            X_range = X_right - X_left;
+
+            if (display_x_range > 40000)
+            {
+                x_first_value = Math.Truncate(display_x_min / 10000) * 10000;
+                x_step = 10000;
+
+            }
+            else if (display_x_range > 6000)
+            {
+                x_first_value = Math.Truncate(display_x_min / 1000) * 1000;
+                x_step = 1000;
+            }
+
+            else if (display_x_range > 3000)
+            {
+                x_first_value = Math.Truncate(display_x_min / 500) * 500;
+                x_step = 500;
+            }
+
+            else if (display_x_range > 1500)
+            {
+                x_first_value = Math.Truncate(display_x_min / 100) * 100;
+                x_step = 200;
+            }
+
+            else if (display_x_range > 500)
+            {
+                x_first_value = Math.Truncate(display_x_min / 100) * 100;
+                x_step = 100;
+            }
+            else if (display_x_range > 300)
+            {
+                x_first_value = Math.Truncate(display_x_min / 50) * 50;
+                x_step = 50;
+            }
+            else if (display_x_range > 200)
+            {
+                x_first_value = Math.Truncate(display_x_min / 20) * 20;
+                x_step = 20;
+            }
+            else if (display_x_range > 60)
+            {
+                x_first_value = Math.Truncate(display_x_min / 10) * 10;
+                x_step = 10;
+            }
+            else
+            {
+                if (display_x_range > 15)
+                {
+                    x_first_value = Math.Truncate(display_x_min / 5) * 5;
+                    x_step = 5;
+                }
+                else
+                {
+                    x_first_value = Math.Truncate(display_x_min);
+                    x_step = 1;
+                }
+            }
+            n_lines = (int)(Math.Truncate((double)display_x_range / (double)x_step)) + 1;
+            X_first = (int)(((x_first_value - display_x_min) / display_x_range) * X_range);
+
+
+
+            float x_label = (float)x_first_value;
+            int X_value;
+            String s3;
+            for (i = 0; i < n_lines; i++)
+            {
+                X_value = X_first + (int)(((i * x_step) / (display_x_range)) * X_range);
+                p1.X = X_value; // 0;
+                p1.Y = 0;
+                p2.X = X_value;
+                p2.Y = Y_bottom;
+                g.DrawLine(pen4, p1, p2);
+                p1.X -= (int)(0.015 * X_range);
+                p1.Y = Y_range - (int)(0.05 * Y_range);
+                s3 = String.Format(nfi, "{0:F0}", x_label);
+                g.DrawString(s3, font, brush, p1);
+                x_label += x_step;
+            }
+
+            // update the corner labels on the display plot
+            labelTS4.Text = String.Format(nfi, "{0:F1}", display_y_max);
+            labelTS5.Text = String.Format(nfi, "{0:F1}", display_y_min);
+            labelTS8.Text = String.Format(nfi, "{0:F0}", display_x_min);
+            labelTS9.Text = String.Format(nfi, "{0:F0}", display_x_max);
+            float time = (float)((time_elapsed / 600d) * (X_right - X_left));
+            float data1 = 0;
+            float data2 = 0;
+            float data3 = 0;
+            float data4 = 0;
+
+            // plot the accumulated data
+            for (i = 1; i <= data_points; i++)
+            {
+                if (button_dBm.Checked)          // log mode
+                {
+                    data1 = sig_data[i];
+                    data2 = sig_data[i - 1];
+                    data3 = sig_data2[i];
+                    data4 = sig_data2[i - 1];
+                }
+                else                             // linear mode
+                {
+                    if (sig_data[i] == 0)
+                    {
+                        data1 = 0;
+                        data2 = 0;
+                        data3 = 0;
+                        data4 = 0;
+                    }
+                    else
+                    {
+                        if (sig_data[2] == 0) sig_data[2] = sig_data[i];
+                        if (sig_data2[2] == 0) sig_data2[2] = sig_data2[i];
+                        data1 = 100 * (float)((Math.Pow(10, sig_data[i] / 10)) / ref_power);
+                        data2 = 100 * (float)(Math.Pow(10, sig_data[i - 1] / 10) / ref_power);
+                        data3 = 100 * (float)((Math.Pow(10, sig_data2[i] / 10)) / ref_power);
+                        data4 = 100 * (float)((Math.Pow(10, sig_data2[i - 1] / 10)) / ref_power);
+
+                    }
+                }
+
+                p2.Y = (int)(((display_y_max - data1) / (display_y_max - display_y_min)) * Y_range);
+                p4.Y = (int)(((display_y_max - data3) / (display_y_max - display_y_min)) * Y_range);
+
+                if (button_linear.Checked)
+                {
+                    if (manual_ymin.Value < 0) manual_ymin.BackColor = System.Drawing.Color.Yellow;
+                    else manual_ymin.BackColor = System.Drawing.SystemColors.Window;
+
+                    if (manual_ymin.Value < 0 | manual_ymax.Value <= manual_ymin.Value)
+                    {
+                        manual_ymin.BackColor = System.Drawing.Color.Yellow;
+                        manual_ymax.BackColor = System.Drawing.SystemColors.Window;
+                    }
+                    else manual_ymin.BackColor = System.Drawing.SystemColors.Window;
+                }
+
+                if (p2.Y >= Y_range) p2.Y = Y_range - 1;
+                if (p2.Y <= 0) p2.Y = 1;
+                if (p4.Y >= Y_range) p4.Y = Y_range - 1;
+                if (p4.Y <= 0) p4.Y = 1;
+                p2.X = (int)(((time_data[i] - display_x_min) / (display_x_max - display_x_min) * (X_range)));
+                p4.X = p2.X;
+                p1.Y = (int)(((display_y_max - data2) / (display_y_max - display_y_min)) * Y_range);
+                p3.Y = (int)(((display_y_max - data4) / (display_y_max - display_y_min)) * Y_range);
+                if (p1.Y > Y_range) p1.Y = Y_range - 1;
+                if (p1.Y < 0) p1.Y = 1;
+                if (p3.Y > Y_range) p3.Y = Y_range - 1;
+                if (p3.Y < 0) p3.Y = 1;
+                p1.X = (int)(((time_data[i - 1] - display_x_min) / (display_x_max - display_x_min)) * (X_range));
+                p3.X = p1.X;
+                if (radioButton_both.Checked)
+                {
+                    g.DrawLine(pen, p1, p2);
+                    g.DrawLine(pen5, p3, p4);
+                }
+                if (radioButton_Rx1_only.Checked) g.DrawLine(pen, p1, p2);
+                if (radioButton_Rx2_only.Checked) g.DrawLine(pen5, p3, p4);
+            }
+            if (data_points >= 1999999)
+            {
+                RA_timer.Enabled = false;
+                s = "Maximum # data points collected...acquisition halted";
+                font = new Font("Arial", 18.0f);
+                brush = new SolidBrush(Color.Red);
+                Point p = new Point(70, 150);
+                g.DrawString(s, font, brush, p);
+                RArecordCheckBox.Checked = false;
+            }
+            rescale = false;
         }
 
         private void button_dBm_CheckedChanged(object sender, EventArgs e)
@@ -658,7 +658,7 @@ namespace Thetis
 
         private void button_linear_CheckedChanged(object sender, EventArgs e)
         {
-            s2 = String.Format(nfi, "{0:E1}", (float) ref_power); 
+            s2 = String.Format(nfi, "{0:E1}", (float)ref_power);
             picRAGraph.Invalidate();
         }
 
@@ -693,7 +693,7 @@ namespace Thetis
                 String file = openFileDialog3.FileName;
                 System.IO.StreamReader reader = new System.IO.StreamReader(file);
                 int i_max = 0;
-                var line = reader.ReadLine();                     
+                var line = reader.ReadLine();
                 float mSec;
                 float num_meas;
                 for (int i = 0; i < 8; i++)
@@ -730,24 +730,24 @@ namespace Thetis
                 }
                 reader.Close();
                 data_points = i_max - 1;
-                         labelTS10.Text = "";
-                         labelTS10.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
-                         labelTS10.ForeColor = System.Drawing.SystemColors.Highlight;
-                         textBox_pts_collected.Text = data_points.ToString("f0");
-                         if (data_points > 1) manual_xmax.Value = (decimal)time_data[i_max];
-                         else
-                         {
-                             labelTS10.ForeColor = Color.White;
-                             labelTS10.BackColor = Color.Red;
-                             labelTS10.Text = "NO VALID DATA IN THE FILE";
-                         }
-                         sig_max = -140;
-                         for (int i = 2; i < data_points; i++) 
-                         {
-                             if (sig_data[i] > sig_max & sig_data[i] < 0) sig_max = sig_data[i];
-                             if (sig_data2[i] > sig_max & sig_data2[i] < 0) sig_max = sig_data2[i];
-                         }
-                         picRAGraph.Invalidate();
+                labelTS10.Text = "";
+                labelTS10.BackColor = System.Drawing.SystemColors.InactiveCaptionText;
+                labelTS10.ForeColor = System.Drawing.SystemColors.Highlight;
+                textBox_pts_collected.Text = data_points.ToString("f0");
+                if (data_points > 1) manual_xmax.Value = (decimal)time_data[i_max];
+                else
+                {
+                    labelTS10.ForeColor = Color.White;
+                    labelTS10.BackColor = Color.Red;
+                    labelTS10.Text = "NO VALID DATA IN THE FILE";
+                }
+                sig_max = -140;
+                for (int i = 2; i < data_points; i++)
+                {
+                    if (sig_data[i] > sig_max & sig_data[i] < 0) sig_max = sig_data[i];
+                    if (sig_data2[i] > sig_max & sig_data2[i] < 0) sig_max = sig_data2[i];
+                }
+                picRAGraph.Invalidate();
             }
         }
 
@@ -802,7 +802,7 @@ namespace Thetis
             }
         }
 
-       
+
         private void manual_ymax_ValueChanged(object sender, EventArgs e)
         {
             if (manual_ymax.Value <= manual_ymin.Value) manual_ymax.Value = manual_ymin.Value + 1;

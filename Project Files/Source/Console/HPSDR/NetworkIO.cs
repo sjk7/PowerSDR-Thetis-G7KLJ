@@ -58,7 +58,7 @@ namespace Thetis
             SetOutputPowerFactor(i);
         }
 
-         // get the name of this PC and, using it, the IP address of the first adapter
+        // get the name of this PC and, using it, the IP address of the first adapter
         //static string strHostName = Dns.GetHostName();
         // public static IPAddress[] addr = Dns.GetHostEntry(Dns.GetHostName()).AddressList;
         // get a socket to send and receive on
@@ -86,7 +86,7 @@ namespace Thetis
         public static int initRadio()
         {
             int rc;
-           // System.Console.WriteLine("Static IP: " + Console.getConsole().HPSDRNetworkIPAddr);
+            // System.Console.WriteLine("Static IP: " + Console.getConsole().HPSDRNetworkIPAddr);
             int adapterIndex = adapterSelected - 1;
             IPAddress[] addr = null;
             bool cleanup = false;
@@ -109,6 +109,7 @@ namespace Thetis
 
                 addr = Dns.GetHostAddresses(Dns.GetHostName());
                 cleanup = true;
+                Common.LogException(e);
                 // System.Console.WriteLine("SocketException caught!!!");
                 // System.Console.WriteLine("Source : " + e.Source);
                 // System.Console.WriteLine("Message : " + e.Message);           
@@ -267,7 +268,7 @@ namespace Thetis
                 if (FWCodeVersion < 103)
                 {
                     fwVersionMsg = "Invalid Firmware!\nRequires 10.3 or greater. ";
-                    return -101;                                                                                       
+                    return -101;
                 }
             }
 
@@ -319,7 +320,7 @@ namespace Thetis
             return result;
         }
 
-         unsafe public static int GetDotDashPTT()
+        unsafe public static int GetDotDashPTT()
         {
             int bits = nativeGetDotDashPTT();
             if (legacyDotDashPTT)  // old style dot and ptt overloaded on 0x1 bit, new style dot on 0x4, ptt on 0x1 
@@ -362,9 +363,9 @@ namespace Thetis
             int f_freq;
             f_freq = (int)((f * 1e6) * freq_correction_factor);
             if (f_freq >= 0)
-                if(CurrentRadioProtocol == RadioProtocol.USB)
-                   SetVFOfreq(id, f_freq, tx);                  // sending freq Hz to firmware
-                   else SetVFOfreq(id, Freq2PW(f_freq), tx);   // sending phaseword to firmware
+                if (CurrentRadioProtocol == RadioProtocol.USB)
+                    SetVFOfreq(id, f_freq, tx);                  // sending freq Hz to firmware
+                else SetVFOfreq(id, Freq2PW(f_freq), tx);   // sending phaseword to firmware
         }
 
         public static int Freq2PW(int freq)                     // freq to phaseword conversion
@@ -392,7 +393,7 @@ namespace Thetis
                 high_freq_offset = value;
             }
         }
-     
+
         // Taken from: KISS Konsole
         public static List<NetworkInterface> foundNics = new List<NetworkInterface>();
         public static List<NicProperties> nicProperties = new List<NicProperties>();
@@ -445,7 +446,7 @@ namespace Thetis
                 foundNics.Add(netInterface);
             }
 
- 
+
             System.Console.WriteLine(Network_interfaces);
 
             // display number of adapters on Setup form
@@ -539,7 +540,7 @@ namespace Thetis
                     broadcast = new IPEndPoint(targetIP, DiscoveryPort);
                 else
                     // try directed broadcast address
-                    broadcast = new IPEndPoint(IPAddressExtensions.GetBroadcastAddress(hostPortIPAddress, hostPortMask), DiscoveryPort);                
+                    broadcast = new IPEndPoint(IPAddressExtensions.GetBroadcastAddress(hostPortIPAddress, hostPortMask), DiscoveryPort);
 
                 if (RadioProtocolSelected == RadioProtocol.Auto || RadioProtocolSelected == RadioProtocol.USB)
                     socket.SendTo(DiscoveryPacketP1, broadcast);
@@ -597,7 +598,7 @@ namespace Thetis
 
                         if (((data[0] == 0xef) && // Protocol-USB (P1)
                              (data[1] == 0xfe) &&
-                             (data[2] == 0x2)) || 
+                             (data[2] == 0x2)) ||
                             ((data[0] == 0x0) &&  // Protocol-ETH (P2)
                              (data[1] == 0x0) &&
                              (data[2] == 0x0) &&
@@ -625,7 +626,7 @@ namespace Thetis
                                 // device is NOT on the subnet that this port actually services.  Do NOT add to list!
                                 System.Console.WriteLine("Not on subnet of host adapter! Adapter IP {0}, Adapter mask {1}",
                                     hostPortIPAddress.ToString(), hostPortMask.ToString());
-                            }                         
+                            }
                             else if (MAC.Equals("00-00-00-00-00-00"))
                             {
                                 System.Console.WriteLine("Rejected: contains bogus MAC address of all-zeroes");
@@ -653,7 +654,7 @@ namespace Thetis
                                 // Map P1 device types to P2
                                 if (CurrentRadioProtocol == RadioProtocol.USB)
                                 {
-                                    switch(data[10])
+                                    switch (data[10])
                                     {
                                         case 0:
                                             hpsdrd.deviceType = HPSDRHW.Atlas;

@@ -38,9 +38,6 @@ namespace Thetis
         //   private ArrayList file_list;
         private string wave_folder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\Thetis";
 
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.GroupBoxTS grpPlayback;
-        private System.Windows.Forms.GroupBox grpPlaylist;
         private Button button1;
         private Button button2;
         private Button button3;
@@ -352,7 +349,7 @@ namespace Thetis
 
         private void ScanControl_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private int band_index;
@@ -384,13 +381,13 @@ namespace Thetis
         B13M,
         B11M,
         */
-           
+
             last_band = "160M";
 
             if (last_band.Equals("160M"))
             {
-               
-                    console.band_160m_index = (console.band_160m_index + 1) % console.band_160m_register;
+
+                console.band_160m_index = (console.band_160m_index + 1) % console.band_160m_register;
             }
             last_band = "160M";
 
@@ -416,19 +413,19 @@ namespace Thetis
         //=======================================================================================================================
         private void ScanControl_FormClosing(object sender, FormClosingEventArgs e)
         {
-           
+
             this.Hide();
             e.Cancel = true;
             Common.SaveForm(this, "ScanForm");
             //  console.MemoryList.Save();
 
-           
+
 
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-           // Trace.WriteLine("memory list");
+            // Trace.WriteLine("memory list");
             if (console.MemoryList.List.Count == 0) return; // nothing in the list, exit
             Trace.WriteLine("memory list");
 
@@ -479,7 +476,7 @@ namespace Thetis
             Trace.WriteLine("click    ");
 
             ScanStop = 0; // reset scan
-           
+
             if (SP5_Active == 0)
             {
 
@@ -520,17 +517,17 @@ namespace Thetis
         double step = 0.0001;
         int speed = 50;
 
-      
+
         private /* async */ void SCANNER()
         {
-        
+
             freq1 = freq_Low;
 
             try
-            { 
+            {
                 step = Convert.ToDouble(stepBox.Text) / 1000;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 step = 0.0001; // 1 khz
             }
@@ -554,7 +551,7 @@ namespace Thetis
             {
                 ii = freq_Last;
             }
-             
+
 
             for (; ii < freq_High; ii = ii + step)
             {
@@ -564,34 +561,34 @@ namespace Thetis
                 console.VFOAFreq = ii; // convert to MHZ
 
                 if (ScanStop == 1) break;
-              //  await Task.Delay(speed/10);
+                //  await Task.Delay(speed/10);
 
                 if (ScanStop == 1) break;
-               // await Task.Delay(speed / 10);
+                // await Task.Delay(speed / 10);
 
                 if (ScanStop == 1) break;
-               // await Task.Delay(speed / 10);
+                // await Task.Delay(speed / 10);
 
                 if (ScanStop == 1) break;
-              //  await Task.Delay(speed / 10);
+                //  await Task.Delay(speed / 10);
 
                 if (ScanStop == 1) break;
-               // await Task.Delay(speed / 10);
+                // await Task.Delay(speed / 10);
 
                 if (ScanStop == 1) break;
-               // await Task.Delay(speed / 10);
+                // await Task.Delay(speed / 10);
 
                 if (ScanStop == 1) break;
-              //  await Task.Delay(speed / 10);
+                //  await Task.Delay(speed / 10);
 
                 if (ScanStop == 1) break;
-               // await Task.Delay(speed / 10);
+                // await Task.Delay(speed / 10);
 
                 if (ScanStop == 1) break;
-              //  await Task.Delay(speed / 10);
+                //  await Task.Delay(speed / 10);
 
                 if (ScanStop == 1) break;
-             //   await Task.Delay(speed / 10);
+                //   await Task.Delay(speed / 10);
 
 
                 if (SP5_Active == 0) break;

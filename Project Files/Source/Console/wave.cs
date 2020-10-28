@@ -44,43 +44,43 @@ using System.Windows.Forms;
 
 namespace Thetis
 {
-	public class WaveControl : Form
-	{
-		#region Variable Declaration
+    public class WaveControl : Form
+    {
+        #region Variable Declaration
 
         private static Bitmap ke9ns_bmp;                    // ke9ns add call sign waterfall tx id
-        
+
         private Console console;
-		//private WaveOptions WaveOptions;
+        //private WaveOptions WaveOptions;
         private WaveOptions waveOptionsForm;
-		private ArrayList file_list;
+        private ArrayList file_list;
 
         private string wave_folder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\Thetis";
 
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-		private System.Windows.Forms.CheckBoxTS checkBoxPlay;
-		private System.Windows.Forms.GroupBoxTS groupBox2;
-		public System.Windows.Forms.CheckBoxTS checkBoxRecord;
-		private System.Windows.Forms.GroupBoxTS grpPlayback;
-		private System.Windows.Forms.ButtonTS btnStop;
-		private System.Windows.Forms.CheckBoxTS checkBoxPause;
-		private System.Windows.Forms.ButtonTS btnPrevious;
-		private System.Windows.Forms.ButtonTS btnNext;
-		private System.Windows.Forms.ListBox lstPlaylist;
-		private System.Windows.Forms.ButtonTS btnAdd;
-		private System.Windows.Forms.ButtonTS btnRemove;
-		private System.Windows.Forms.CheckBoxTS checkBoxRandom;
-		private System.Windows.Forms.GroupBox grpPlaylist;
-		private System.Windows.Forms.TextBoxTS txtCurrentFile;
-		private System.Windows.Forms.LabelTS lblCurrentlyPlaying;
-		private System.Windows.Forms.CheckBoxTS checkBoxLoop;
-		private System.Windows.Forms.NumericUpDownTS udPreamp;
-		private System.Windows.Forms.GroupBoxTS groupBoxTS1;
-		private System.Windows.Forms.CheckBoxTS chkQuickRec;
-		private System.Windows.Forms.CheckBoxTS chkQuickPlay;
+        private System.Windows.Forms.CheckBoxTS checkBoxPlay;
+        private System.Windows.Forms.GroupBoxTS groupBox2;
+        public System.Windows.Forms.CheckBoxTS checkBoxRecord;
+        private System.Windows.Forms.GroupBoxTS grpPlayback;
+        private System.Windows.Forms.ButtonTS btnStop;
+        private System.Windows.Forms.CheckBoxTS checkBoxPause;
+        private System.Windows.Forms.ButtonTS btnPrevious;
+        private System.Windows.Forms.ButtonTS btnNext;
+        private System.Windows.Forms.ListBox lstPlaylist;
+        private System.Windows.Forms.ButtonTS btnAdd;
+        private System.Windows.Forms.ButtonTS btnRemove;
+        private System.Windows.Forms.CheckBoxTS checkBoxRandom;
+        private System.Windows.Forms.GroupBox grpPlaylist;
+        private System.Windows.Forms.TextBoxTS txtCurrentFile;
+        private System.Windows.Forms.LabelTS lblCurrentlyPlaying;
+        private System.Windows.Forms.CheckBoxTS checkBoxLoop;
+        private System.Windows.Forms.NumericUpDownTS udPreamp;
+        private System.Windows.Forms.GroupBoxTS groupBoxTS1;
+        private System.Windows.Forms.CheckBoxTS chkQuickRec;
+        private System.Windows.Forms.CheckBoxTS chkQuickPlay;
         private System.Windows.Forms.TrackBar tbPreamp;
 
-		#endregion
+        #endregion
         private LabelTS labelTS1;
         public CheckBoxTS chkBoxMP3;
         public CheckBoxTS chkQuickAudioFolder;
@@ -89,13 +89,12 @@ namespace Thetis
         public CheckBoxTS TXIDBoxTS;
         private MenuStrip menuStripOptions;
         private ToolStripMenuItem optionsToolStripMenuItem;
-        private IContainer components;
 
-		#region Constructor and Destructor
+        #region Constructor and Destructor
 
-		public WaveControl(Console c)
-		{            
-			InitializeComponent();
+        public WaveControl(Console c)
+        {
+            InitializeComponent();
             console = c;
             if (!Directory.Exists(wave_folder))
             {
@@ -105,35 +104,29 @@ namespace Thetis
             // openFileDialog1.InitialDirectory = console.AppDataPath;
             openFileDialog1.InitialDirectory = String.Empty;
             openFileDialog1.InitialDirectory = wave_folder;
-			
-			file_list = new ArrayList();
-			currently_playing = -1;
+
+            file_list = new ArrayList();
+            currently_playing = -1;
             waveOptionsForm = new WaveOptions();
-			this.ActiveControl = btnAdd;
-			Common.RestoreForm(this, "WaveOptions", false);
-		}
+            this.ActiveControl = btnAdd;
+            Common.RestoreForm(this, "WaveOptions", false);
+        }
 
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        protected override void Dispose(bool disposing)
+        {
 
-		#endregion
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #endregion
+
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WaveControl));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.grpPlaylist = new System.Windows.Forms.GroupBox();
@@ -563,39 +556,39 @@ namespace Thetis
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
-		#endregion
+        }
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		private int currently_playing;
-		private int CurrentlyPlaying
-		{
-			get { return currently_playing; }
-			set
-			{
-				if(value > lstPlaylist.Items.Count-1) 
-					value = lstPlaylist.Items.Count-1;
-				
-				currently_playing = value;
-				if(currently_playing == 0)
-					btnPrevious.Enabled = false;
-				else 
-					btnPrevious.Enabled = true;
+        private int currently_playing;
+        private int CurrentlyPlaying
+        {
+            get { return currently_playing; }
+            set
+            {
+                if (value > lstPlaylist.Items.Count - 1)
+                    value = lstPlaylist.Items.Count - 1;
 
-				if(currently_playing == lstPlaylist.Items.Count-1)
-				{
-					if(!checkBoxLoop.Checked)
-						btnNext.Enabled = false;
-				}
-				else
-					btnNext.Enabled = true;
-			}
-		}
+                currently_playing = value;
+                if (currently_playing == 0)
+                    btnPrevious.Enabled = false;
+                else
+                    btnPrevious.Enabled = true;
 
-		#endregion
+                if (currently_playing == lstPlaylist.Items.Count - 1)
+                {
+                    if (!checkBoxLoop.Checked)
+                        btnNext.Enabled = false;
+                }
+                else
+                    btnNext.Enabled = true;
+            }
+        }
 
-		#region Misc Routines
+        #endregion
+
+        #region Misc Routines
 
 
         // ke9ns add pass string from console play button right click
@@ -630,8 +623,8 @@ namespace Thetis
             set
             {
 
-              //  quickmp3SR = waveOptionsForm.comboSampleRate.Text; // save SR value before reducing
-              //  waveOptionsForm.comboSampleRate.Text = "48000"; // reduce file size
+                //  quickmp3SR = waveOptionsForm.comboSampleRate.Text; // save SR value before reducing
+                //  waveOptionsForm.comboSampleRate.Text = "48000"; // reduce file size
             }
         } // RECPLAY2
 
@@ -647,108 +640,108 @@ namespace Thetis
                 waveOptionsForm.radRXPreProcessed.Checked = waveOptionsForm.temp_record;
                 waveOptionsForm.radTXPreProcessed.Checked = waveOptionsForm.temp_record;
 
-               // waveOptionsForm.comboSampleRate.Text = quickmp3SR; // restore file size SR
+                // waveOptionsForm.comboSampleRate.Text = quickmp3SR; // restore file size SR
 
             }
         } // RECPLAY3
 
         private bool OpenWaveFile(string filename, int id)
-		{
-			RIFFChunk riff = null;
-			fmtChunk fmt  = null;
-			dataChunk data_chunk  = null;
+        {
+            RIFFChunk riff = null;
+            fmtChunk fmt = null;
+            dataChunk data_chunk = null;
 
-			if(!File.Exists(filename))
-			{
-				MessageBox.Show("Filename doesn't exist. ("+filename+")",
-					"Bad Filename",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error);
-				if(currently_playing>=0) file_list.RemoveAt(currently_playing); // MW0LGE fix -1 error
-				return false;
-			}
+            if (!File.Exists(filename))
+            {
+                MessageBox.Show("Filename doesn't exist. (" + filename + ")",
+                    "Bad Filename",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                if (currently_playing >= 0) file_list.RemoveAt(currently_playing); // MW0LGE fix -1 error
+                return false;
+            }
 
-			BinaryReader reader = null;
+            BinaryReader reader = null;
 
-			try
-			{
-				reader = new BinaryReader(File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read));
-			}
-			catch(Exception)
-			{
-				MessageBox.Show("File is already open.");
-				return false;
-			}
-            
-            if(reader.BaseStream.Length == 0 ||
+            try
+            {
+                reader = new BinaryReader(File.Open(filename, FileMode.Open, FileAccess.Read, FileShare.Read));
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("File is already open.");
+                return false;
+            }
+
+            if (reader.BaseStream.Length == 0 ||
                 reader.PeekChar() != 'R')
-			{
-				reader.Close();
-				MessageBox.Show("File is not in the correct format.",
-					"Wrong File Format",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error);
-				file_list.RemoveAt(currently_playing);
-				return false;
-			}
+            {
+                reader.Close();
+                MessageBox.Show("File is not in the correct format.",
+                    "Wrong File Format",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                file_list.RemoveAt(currently_playing);
+                return false;
+            }
 
-			while((data_chunk == null ||
-				riff == null || fmt == null) &&
-				reader.BaseStream.Position < reader.BaseStream.Length)
-			{
-				Chunk chunk = Chunk.ReadChunk(ref reader);
-				if(chunk.GetType() == typeof(RIFFChunk))
-					riff = (RIFFChunk)chunk;
-				else if(chunk.GetType() == typeof(fmtChunk))
-					fmt = (fmtChunk)chunk;
-				else if(chunk.GetType() == typeof(dataChunk))
-					data_chunk = (dataChunk)chunk;
-			}
+            while ((data_chunk == null ||
+                riff == null || fmt == null) &&
+                reader.BaseStream.Position < reader.BaseStream.Length)
+            {
+                Chunk chunk = Chunk.ReadChunk(ref reader);
+                if (chunk.GetType() == typeof(RIFFChunk))
+                    riff = (RIFFChunk)chunk;
+                else if (chunk.GetType() == typeof(fmtChunk))
+                    fmt = (fmtChunk)chunk;
+                else if (chunk.GetType() == typeof(dataChunk))
+                    data_chunk = (dataChunk)chunk;
+            }
 
             if (reader.BaseStream.Position == reader.BaseStream.Length)
-			{
-				reader.Close();
-				MessageBox.Show("File is not in the correct format.",
-					"Wrong File Format",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error);
-				file_list.RemoveAt(currently_playing);
-				return false;
-			}
+            {
+                reader.Close();
+                MessageBox.Show("File is not in the correct format.",
+                    "Wrong File Format",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                file_list.RemoveAt(currently_playing);
+                return false;
+            }
 
-			if(riff.riff_type != 0x45564157)
-			{
-				reader.Close();	
-				MessageBox.Show("File is not an RIFF Wave file.",
-					"Wrong file format",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error);
-				file_list.RemoveAt(currently_playing);
-				return false;
-			}
+            if (riff.riff_type != 0x45564157)
+            {
+                reader.Close();
+                MessageBox.Show("File is not an RIFF Wave file.",
+                    "Wrong file format",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                file_list.RemoveAt(currently_playing);
+                return false;
+            }
 
-          /*  if (!CheckSampleRate(fmt.sample_rate) ||
-				(fmt.format == 1 && fmt.sample_rate != Audio.SampleRate1))
-			{
-				reader.Close();	
-				MessageBox.Show("File has the wrong sample rate.",
-					"Wrong Sample Rate",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error);
-				file_list.RemoveAt(currently_playing);
-				return false;
-            } */
+            /*  if (!CheckSampleRate(fmt.sample_rate) ||
+                  (fmt.format == 1 && fmt.sample_rate != Audio.SampleRate1))
+              {
+                  reader.Close();	
+                  MessageBox.Show("File has the wrong sample rate.",
+                      "Wrong Sample Rate",
+                      MessageBoxButtons.OK,
+                      MessageBoxIcon.Error);
+                  file_list.RemoveAt(currently_playing);
+                  return false;
+              } */
 
-			if(fmt.channels != 2)
-			{
-				reader.Close();	
-				MessageBox.Show("Wave File is not stereo.",
-					"Wrong Number of Channels",
-					MessageBoxButtons.OK,
-					MessageBoxIcon.Error);
-				file_list.RemoveAt(currently_playing);
-				return false;
-			}
+            if (fmt.channels != 2)
+            {
+                reader.Close();
+                MessageBox.Show("Wave File is not stereo.",
+                    "Wrong Number of Channels",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                file_list.RemoveAt(currently_playing);
+                return false;
+            }
 
             /*if (!rx2)
             {
@@ -782,131 +775,131 @@ namespace Thetis
                     (int)fmt.bits_per_sample,
                     ref reader);
 
-			return true;
-		}
+            return true;
+        }
 
-		private bool CheckSampleRate(int rate)
-		{
-			bool retval = false;
-			switch(rate)
-			{
-				case 6000:
-				case 12000:
-				case 24000:
-				case 48000:
-				case 96000:
-				case 192000:
+        private bool CheckSampleRate(int rate)
+        {
+            bool retval = false;
+            switch (rate)
+            {
+                case 6000:
+                case 12000:
+                case 24000:
+                case 48000:
+                case 96000:
+                case 192000:
                 case 384000:
-					retval = true; break;
-			}
-			return retval;
-		}
+                    retval = true; break;
+            }
+            return retval;
+        }
 
-		private void UpdatePlaylist()
-		{
-			lstPlaylist.BeginUpdate();
-			lstPlaylist.Items.Clear();
-			int index = lstPlaylist.SelectedIndex;
-			foreach(string s in file_list)
-			{
-				int i = s.LastIndexOf("\\")+1;
-				string file = s.Substring(i, s.IndexOf(".wav")-i);
-				lstPlaylist.Items.Add(file);
-			}
+        private void UpdatePlaylist()
+        {
+            lstPlaylist.BeginUpdate();
+            lstPlaylist.Items.Clear();
+            int index = lstPlaylist.SelectedIndex;
+            foreach (string s in file_list)
+            {
+                int i = s.LastIndexOf("\\") + 1;
+                string file = s.Substring(i, s.IndexOf(".wav") - i);
+                lstPlaylist.Items.Add(file);
+            }
 
-			if(index < 0 && lstPlaylist.Items.Count > 0)
-				lstPlaylist.SelectedIndex = 0;
-			else if(lstPlaylist.Items.Count > index)
-				lstPlaylist.SelectedIndex = index;
-			lstPlaylist.EndUpdate();
+            if (index < 0 && lstPlaylist.Items.Count > 0)
+                lstPlaylist.SelectedIndex = 0;
+            else if (lstPlaylist.Items.Count > index)
+                lstPlaylist.SelectedIndex = index;
+            lstPlaylist.EndUpdate();
 
-			if(lstPlaylist.Items.Count > 0)
-			{
-				checkBoxPlay.Enabled = true;
-				btnRemove.Enabled = true;
-				checkBoxLoop.Enabled = true;
-			}
-			else
-			{
+            if (lstPlaylist.Items.Count > 0)
+            {
+                checkBoxPlay.Enabled = true;
+                btnRemove.Enabled = true;
+                checkBoxLoop.Enabled = true;
+            }
+            else
+            {
 
-				checkBoxPlay.Enabled = false;
-				checkBoxPlay.Checked = false;
-				btnRemove.Enabled = false;
-				checkBoxLoop.Enabled = false;
-			}
+                checkBoxPlay.Enabled = false;
+                checkBoxPlay.Checked = false;
+                btnRemove.Enabled = false;
+                checkBoxLoop.Enabled = false;
+            }
 
-			if(lstPlaylist.Items.Count > 1)
-				checkBoxRandom.Enabled = true;
-			else
-				checkBoxRandom.Enabled = false;				
-		}
+            if (lstPlaylist.Items.Count > 1)
+                checkBoxRandom.Enabled = true;
+            else
+                checkBoxRandom.Enabled = false;
+        }
 
-		public void Next()
-		{
-			if(checkBoxPlay.Checked)
-			{
-				if(btnNext.Enabled)
-					btnNext_Click(this, EventArgs.Empty);
-				else if(checkBoxLoop.Checked && lstPlaylist.Items.Count == 1)
-				{
-					checkBoxPlay_CheckedChanged(this, EventArgs.Empty);
-				}
-				else
-					checkBoxPlay.Checked = false;
-			}
-			//k6jca added code...
-			if (chkQuickPlay.Checked) chkQuickPlay.Checked = false;
-			
-		}
+        public void Next()
+        {
+            if (checkBoxPlay.Checked)
+            {
+                if (btnNext.Enabled)
+                    btnNext_Click(this, EventArgs.Empty);
+                else if (checkBoxLoop.Checked && lstPlaylist.Items.Count == 1)
+                {
+                    checkBoxPlay_CheckedChanged(this, EventArgs.Empty);
+                }
+                else
+                    checkBoxPlay.Checked = false;
+            }
+            //k6jca added code...
+            if (chkQuickPlay.Checked) chkQuickPlay.Checked = false;
 
-		#endregion
+        }
 
-		#region Event Handlers
+        #endregion
 
-		private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			foreach(string s in openFileDialog1.FileNames)
-			{
-				if(!file_list.Contains(s))
-					file_list.Add(s);
-			}
+        #region Event Handlers
 
-			UpdatePlaylist();
-		}
+        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            foreach (string s in openFileDialog1.FileNames)
+            {
+                if (!file_list.Contains(s))
+                    file_list.Add(s);
+            }
 
-        private bool temp_vacbypass_play=false;
-		private void checkBoxPlay_CheckedChanged(object sender, System.EventArgs e)
-		{
-			if(checkBoxPlay.Checked)
-			{
-				string filename = (string)file_list[currently_playing];
-				if(!OpenWaveFile(filename, 0))
-				{
-					checkBoxPlay.Checked = false;
-					currently_playing = -1;
-					UpdatePlaylist();
-					return;
-				}
+            UpdatePlaylist();
+        }
+
+        private bool temp_vacbypass_play = false;
+        private void checkBoxPlay_CheckedChanged(object sender, System.EventArgs e)
+        {
+            if (checkBoxPlay.Checked)
+            {
+                string filename = (string)file_list[currently_playing];
+                if (!OpenWaveFile(filename, 0))
+                {
+                    checkBoxPlay.Checked = false;
+                    currently_playing = -1;
+                    UpdatePlaylist();
+                    return;
+                }
 
                 if (console.RX2Enabled)
                 {
-                    string filename2 = filename+"-rx2";
-                    if(File.Exists(filename2))
+                    string filename2 = filename + "-rx2";
+                    if (File.Exists(filename2))
                         OpenWaveFile(filename2, 1);
                 }
 
-				txtCurrentFile.Text = (string)lstPlaylist.Items[currently_playing];
-				checkBoxPlay.BackColor = console.ButtonSelectedColor;
-				checkBoxPause.Enabled = true;
+                txtCurrentFile.Text = (string)lstPlaylist.Items[currently_playing];
+                checkBoxPlay.BackColor = console.ButtonSelectedColor;
+                checkBoxPause.Enabled = true;
 
                 if (console.BypassVACWhenPlayingRecording)
                 {
                     temp_vacbypass_play = Audio.VACBypass;  //MW0LGE
                     Audio.VACBypass = true;                 //MW0LGE
                 }
-			}
-			else
-			{
+            }
+            else
+            {
                 if (WaveThing.wave_file_reader[0] != null)
                     WaveThing.wave_file_reader[0].Stop();
 
@@ -915,31 +908,31 @@ namespace Thetis
 
                 Thread.Sleep(50); // wait for files to close
 
-				if(checkBoxPause.Checked) checkBoxPause.Checked = false;
-				checkBoxPause.Enabled = false;
-				txtCurrentFile.Text = "";
-				checkBoxPlay.BackColor = SystemColors.Control;
+                if (checkBoxPause.Checked) checkBoxPause.Checked = false;
+                checkBoxPause.Enabled = false;
+                txtCurrentFile.Text = "";
+                checkBoxPlay.BackColor = SystemColors.Control;
 
                 if (console.BypassVACWhenPlayingRecording)
                 {
                     Audio.VACBypass = temp_vacbypass_play;  //MW0LGE
                 }
-			}
+            }
             Audio.WavePlayback = checkBoxPlay.Checked;
-			console.WavePlayback = checkBoxPlay.Checked;			
-		}
+            console.WavePlayback = checkBoxPlay.Checked;
+        }
 
         public static string scheduleName; // ke9ns add for saving file name of recording
         public static string scheduleName1; // ke9ns add for saving file name of recording
         public static string scheduleName2; // ke9ns add for saving file name of recording
 
         private void checkBoxRecord_CheckedChanged(object sender, System.EventArgs e)
-		{
-			if(checkBoxRecord.Checked)
-			{
-				checkBoxRecord.BackColor = console.ButtonSelectedColor;
-				string temp = console.RX1DSPMode.ToString()+" ";
-				temp += console.VFOAFreq.ToString("f6")+"MHz [";
+        {
+            if (checkBoxRecord.Checked)
+            {
+                checkBoxRecord.BackColor = console.ButtonSelectedColor;
+                string temp = console.RX1DSPMode.ToString() + " ";
+                temp += console.VFOAFreq.ToString("f6") + "MHz [";
                 int short_sample_rate = waveOptionsForm.SampleRate / 1000;
                 temp += Audio.BitDepth.ToString() + "bit ";
                 temp += short_sample_rate.ToString() + "k] ";
@@ -951,12 +944,12 @@ namespace Thetis
                 temp = wave_folder + "\\" + temp;
                 scheduleName2 = temp;
                 scheduleName1 = temp + ".mp3"; // ke9ns add 
-                string file_name = temp+".wav";
+                string file_name = temp + ".wav";
                 scheduleName = file_name; // ke9ns add
 
-               // string file_name2 = file_name+"-rx2";				
+                // string file_name2 = file_name+"-rx2";				
                 WaveThing.wave_file_writer[0] = new WaveFileWriter(0, 2, waveOptionsForm.SampleRate, file_name);
- 
+
                 if (console.RX2Enabled)
                 {
                     string temp_rx2 = console.RX2DSPMode.ToString() + " ";
@@ -972,9 +965,9 @@ namespace Thetis
 
                     WaveThing.wave_file_writer[1] = new WaveFileWriter(1, 2, waveOptionsForm.SampleRate, file_name2);
                 }
-			}
-			
-			Audio.WaveRecord = checkBoxRecord.Checked;
+            }
+
+            Audio.WaveRecord = checkBoxRecord.Checked;
 
             if (!checkBoxRecord.Checked)
             {
@@ -984,156 +977,156 @@ namespace Thetis
                     WaveThing.wave_file_writer[1].Stop();
                 }
 
-             	WaveThing.wave_file_writer[0].Stop();
-				checkBoxRecord.BackColor = SystemColors.Control;
-				//MessageBox.Show("The file has been written to the following location:\n"+file_name);
-			}
-		}
+                WaveThing.wave_file_writer[0].Stop();
+                checkBoxRecord.BackColor = SystemColors.Control;
+                //MessageBox.Show("The file has been written to the following location:\n"+file_name);
+            }
+        }
 
-		private void btnAdd_Click(object sender, System.EventArgs e)
-		{
-			openFileDialog1.ShowDialog();
-		}
+        private void btnAdd_Click(object sender, System.EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
+        }
 
-		private void btnRemove_Click(object sender, System.EventArgs e)
-		{
-			if(lstPlaylist.Items.Count == 0 ||
-				lstPlaylist.SelectedIndices.Count == 0) return;
-			
-			ArrayList selections = new ArrayList();
-			
-			foreach(int i in lstPlaylist.SelectedIndices)
-			{
-				if(i == currently_playing && checkBoxPlay.Checked)
-				{
+        private void btnRemove_Click(object sender, System.EventArgs e)
+        {
+            if (lstPlaylist.Items.Count == 0 ||
+                lstPlaylist.SelectedIndices.Count == 0) return;
+
+            ArrayList selections = new ArrayList();
+
+            foreach (int i in lstPlaylist.SelectedIndices)
+            {
+                if (i == currently_playing && checkBoxPlay.Checked)
+                {
                     Application.DoEvents();
-					DialogResult dr = MessageBox.Show(
-						(string)lstPlaylist.Items[i]+
-						" is currently playing.\n"+
-						"Stop playing and remove from Playlist?",
-						"Stop and Remove?",
-						MessageBoxButtons.YesNo,
-						MessageBoxIcon.Question);
+                    DialogResult dr = MessageBox.Show(
+                        (string)lstPlaylist.Items[i] +
+                        " is currently playing.\n" +
+                        "Stop playing and remove from Playlist?",
+                        "Stop and Remove?",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
 
-					if(dr == DialogResult.Yes)
-					{
-						selections.Add(i);
-						checkBoxPlay.Checked = false;
+                    if (dr == DialogResult.Yes)
+                    {
+                        selections.Add(i);
+                        checkBoxPlay.Checked = false;
 
-					}
-				}
-				else
-					selections.Add(i);
-			}
-			
-			selections.Sort();
+                    }
+                }
+                else
+                    selections.Add(i);
+            }
+
+            selections.Sort();
 
             Application.DoEvents();
-			for(int i=selections.Count-1; i>=0; i--)
-				file_list.RemoveAt((int)selections[i]);
-			UpdatePlaylist();
-		}
+            for (int i = selections.Count - 1; i >= 0; i--)
+                file_list.RemoveAt((int)selections[i]);
+            UpdatePlaylist();
+        }
 
-		private void checkBoxLoop_CheckedChanged(object sender, System.EventArgs e)
-		{
-			if(checkBoxLoop.Checked)
-				checkBoxLoop.BackColor = console.ButtonSelectedColor;
-			else
-				checkBoxLoop.BackColor = SystemColors.Control;
-		}
+        private void checkBoxLoop_CheckedChanged(object sender, System.EventArgs e)
+        {
+            if (checkBoxLoop.Checked)
+                checkBoxLoop.BackColor = console.ButtonSelectedColor;
+            else
+                checkBoxLoop.BackColor = SystemColors.Control;
+        }
 
-		private void btnStop_Click(object sender, System.EventArgs e)
-		{
-			checkBoxPlay.Checked = false;
-		}
+        private void btnStop_Click(object sender, System.EventArgs e)
+        {
+            checkBoxPlay.Checked = false;
+        }
 
-		private void checkBoxRandom_CheckedChanged(object sender, System.EventArgs e)
-		{
-			if(checkBoxRandom.Checked)
-				checkBoxRandom.BackColor = console.ButtonSelectedColor;
-			else
-				checkBoxRandom.BackColor = SystemColors.Control;
-		}
+        private void checkBoxRandom_CheckedChanged(object sender, System.EventArgs e)
+        {
+            if (checkBoxRandom.Checked)
+                checkBoxRandom.BackColor = console.ButtonSelectedColor;
+            else
+                checkBoxRandom.BackColor = SystemColors.Control;
+        }
 
-		private void lstPlaylist_SelectedIndexChanged(object sender, System.EventArgs e)
-		{
-			if(lstPlaylist.SelectedIndex < 0)
-			{
-				btnPrevious.Enabled = false;
-				btnNext.Enabled = false;
-				return;
-			}
+        private void lstPlaylist_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            if (lstPlaylist.SelectedIndex < 0)
+            {
+                btnPrevious.Enabled = false;
+                btnNext.Enabled = false;
+                return;
+            }
 
-			if(!checkBoxPlay.Checked)
-			{
-				CurrentlyPlaying = lstPlaylist.SelectedIndex;
-			}
-		}
+            if (!checkBoxPlay.Checked)
+            {
+                CurrentlyPlaying = lstPlaylist.SelectedIndex;
+            }
+        }
 
-		private void btnPrevious_Click(object sender, System.EventArgs e)
-		{
-			if(checkBoxPlay.Checked)
-			{
-				checkBoxPlay.Checked = false;
-				CurrentlyPlaying--;
-				checkBoxPlay.Checked = true;
-			}
-			else
-				lstPlaylist.SelectedIndex--;
-		}
+        private void btnPrevious_Click(object sender, System.EventArgs e)
+        {
+            if (checkBoxPlay.Checked)
+            {
+                checkBoxPlay.Checked = false;
+                CurrentlyPlaying--;
+                checkBoxPlay.Checked = true;
+            }
+            else
+                lstPlaylist.SelectedIndex--;
+        }
 
-		private void btnNext_Click(object sender, System.EventArgs e)
-		{
-			if(checkBoxPlay.Checked)
-			{
-				checkBoxPlay.Checked = false;
-				if(CurrentlyPlaying == lstPlaylist.Items.Count-1)
-				{
-					CurrentlyPlaying = 0;
-				}
-				else CurrentlyPlaying++;
-				checkBoxPlay.Checked = true;
-			}
-			else
-			{
-				int temp = lstPlaylist.SelectedIndex+1;
-				if(temp == lstPlaylist.Items.Count) temp = 0;
-				lstPlaylist.SelectedIndex = -1;
-				lstPlaylist.SelectedIndex = temp;
-			}
-		}
+        private void btnNext_Click(object sender, System.EventArgs e)
+        {
+            if (checkBoxPlay.Checked)
+            {
+                checkBoxPlay.Checked = false;
+                if (CurrentlyPlaying == lstPlaylist.Items.Count - 1)
+                {
+                    CurrentlyPlaying = 0;
+                }
+                else CurrentlyPlaying++;
+                checkBoxPlay.Checked = true;
+            }
+            else
+            {
+                int temp = lstPlaylist.SelectedIndex + 1;
+                if (temp == lstPlaylist.Items.Count) temp = 0;
+                lstPlaylist.SelectedIndex = -1;
+                lstPlaylist.SelectedIndex = temp;
+            }
+        }
 
-		private void WaveControl_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			e.Cancel = true;
-			this.Hide();
-			Common.SaveForm(this, "WaveOptions");
-		}
+        private void WaveControl_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            this.Hide();
+            Common.SaveForm(this, "WaveOptions");
+        }
 
-		private void checkBoxPause_CheckedChanged(object sender, System.EventArgs e)
-		{
-			if(checkBoxPlay.Checked)
+        private void checkBoxPause_CheckedChanged(object sender, System.EventArgs e)
+        {
+            if (checkBoxPlay.Checked)
                 Audio.WavePlayback = !checkBoxPause.Checked;
 
-			if(checkBoxPause.Checked)
-				checkBoxPause.BackColor = console.ButtonSelectedColor;
-			else
-				checkBoxPause.BackColor = SystemColors.Control;
-		}
+            if (checkBoxPause.Checked)
+                checkBoxPause.BackColor = console.ButtonSelectedColor;
+            else
+                checkBoxPause.BackColor = SystemColors.Control;
+        }
 
-		private void lstPlaylist_DoubleClick(object sender, System.EventArgs e)
-		{
-			if(checkBoxPlay.Checked)
-			{
-				CurrentlyPlaying = lstPlaylist.SelectedIndex;
-				checkBoxPlay.Checked = false;
-				checkBoxPlay.Checked = true;
-			}
-			else checkBoxPlay.Checked = true;
-		}
+        private void lstPlaylist_DoubleClick(object sender, System.EventArgs e)
+        {
+            if (checkBoxPlay.Checked)
+            {
+                CurrentlyPlaying = lstPlaylist.SelectedIndex;
+                checkBoxPlay.Checked = false;
+                checkBoxPlay.Checked = true;
+            }
+            else checkBoxPlay.Checked = true;
+        }
 
-		private void mnuWaveOptions_Click(object sender, System.EventArgs e)
-		{
+        private void mnuWaveOptions_Click(object sender, System.EventArgs e)
+        {
             if (waveOptionsForm == null || waveOptionsForm.IsDisposed)
                 waveOptionsForm = new WaveOptions();
 
@@ -1141,84 +1134,84 @@ namespace Thetis
             waveOptionsForm.Focus();
         }
 
-		private void udPreamp_ValueChanged(object sender, System.EventArgs e)
-		{
-			tbPreamp.Value = (int)udPreamp.Value;
-			Audio.WavePreamp = Math.Pow(10.0, (int)udPreamp.Value/20.0); // convert to scalar
-		}
+        private void udPreamp_ValueChanged(object sender, System.EventArgs e)
+        {
+            tbPreamp.Value = (int)udPreamp.Value;
+            Audio.WavePreamp = Math.Pow(10.0, (int)udPreamp.Value / 20.0); // convert to scalar
+        }
 
-		private void udPreamp_LostFocus(object sender, System.EventArgs e)
-		{
-			udPreamp_ValueChanged(sender, e);
-		}
+        private void udPreamp_LostFocus(object sender, System.EventArgs e)
+        {
+            udPreamp_ValueChanged(sender, e);
+        }
 
-		private void tbPreamp_Scroll(object sender, System.EventArgs e)
-		{
-			udPreamp.Value = (decimal)tbPreamp.Value;
-		}
+        private void tbPreamp_Scroll(object sender, System.EventArgs e)
+        {
+            udPreamp.Value = (decimal)tbPreamp.Value;
+        }
 
-		#endregion
+        #endregion
 
-		//k6jca
-		//
-		//  Add two buttons for quick record & play without worrying about
-		//  all of the other stuff...
-		//
-		//  Note that these routines automatically set the TX/RX Pre/Post variables
-		//	to the proper value for recording off the air (and playing back over the air)
-		//	and then return these back to their original values at the end of the invocation
-		//  of these functions.
-		//
-		//	Also - turn off TX EQ (during playback) so that this doesn't modify 
-		//  the playback audio.
-		//
-		//	Record & Playback are always to the same file:  SDRQuickAudio.wav
-		//
-		private bool temp_record = false;
-		private bool temp_play = false;
-		private bool temp_mon = false;
+        //k6jca
+        //
+        //  Add two buttons for quick record & play without worrying about
+        //  all of the other stuff...
+        //
+        //  Note that these routines automatically set the TX/RX Pre/Post variables
+        //	to the proper value for recording off the air (and playing back over the air)
+        //	and then return these back to their original values at the end of the invocation
+        //  of these functions.
+        //
+        //	Also - turn off TX EQ (during playback) so that this doesn't modify 
+        //  the playback audio.
+        //
+        //	Record & Playback are always to the same file:  SDRQuickAudio.wav
+        //
+        private bool temp_record = false;
+        private bool temp_play = false;
+        private bool temp_mon = false;
         private byte temp_pre = 0; // ke9ns add for quickplay function
         private bool temp_txeq = false;
-		private bool temp_cpdr = false;
-		private bool temp_dx = false;
+        private bool temp_cpdr = false;
+        private bool temp_dx = false;
         private bool temp_vacbypass = false; //MW0LGE
         private bool temp_cfc = false;
         private bool temp_phaserot = false;
 
         public static int QAC = 0; // ke9ns add
- 
-		private void chkQuickPlay_CheckedChanged(object sender, System.EventArgs e)
-		{
+
+        private void chkQuickPlay_CheckedChanged(object sender, System.EventArgs e)
+        {
             string file_name; // = console.AppDataPath + "\\SDRQuickAudio.wav";
 
-//             if (chkQuickAudioFolder.Checked == true) // ke9ns add to allow subfolder with different names to play
-//             {
-//                 System.IO.Directory.CreateDirectory(console.AppDataPath + "QuickAudio"); // ke9ns create sub directory
-// 
-//                 if (QPFile != null)
-//                 {
-//                     file_name = QPFile; // ke9ns check file name passed from console play button
-//                 }
-//                 else
-//                 {
-//                     file_name = console.AppDataPath + "QuickAudio" + "\\SDRQuickAudio" + QAC.ToString() + ".wav";
-//                 }
-//             }
-//             else
-//             {
-                file_name = console.AppDataPath + "SDRQuickAudio.wav";
- //           }
+            //             if (chkQuickAudioFolder.Checked == true) // ke9ns add to allow subfolder with different names to play
+            //             {
+            //                 System.IO.Directory.CreateDirectory(console.AppDataPath + "QuickAudio"); // ke9ns create sub directory
+            // 
+            //                 if (QPFile != null)
+            //                 {
+            //                     file_name = QPFile; // ke9ns check file name passed from console play button
+            //                 }
+            //                 else
+            //                 {
+            //                     file_name = console.AppDataPath + "QuickAudio" + "\\SDRQuickAudio" + QAC.ToString() + ".wav";
+            //                 }
+            //             }
+            //             else
+            //             {
+            file_name = console.AppDataPath + "SDRQuickAudio.wav";
+            //           }
 
-			if(chkQuickPlay.Checked)
-			{				
-				temp_txeq = console.TXEQ;
-				console.TXEQ = false;               // set TX Eq temporarily to OFF
+            if (chkQuickPlay.Checked)
+            {
+                temp_txeq = console.TXEQ;
+                console.TXEQ = false;               // set TX Eq temporarily to OFF
 
-				temp_cpdr = console.CPDR;
-				console.CPDR = false;
+                temp_cpdr = console.CPDR;
+                console.CPDR = false;
 
-				temp_dx = console.DX;
-				console.DX = false;
+                temp_dx = console.DX;
+                console.DX = false;
 
                 temp_cfc = console.CFCEnabled;
                 console.CFCEnabled = false;
@@ -1227,10 +1220,10 @@ namespace Thetis
                 console.PhaseRotEnabled = false;
 
                 temp_play = Audio.RecordTXPreProcessed;
-				Audio.RecordTXPreProcessed = true;  // set TRUE temporarily
-				
-				temp_mon = console.MON;
-				console.MON = true;
+                Audio.RecordTXPreProcessed = true;  // set TRUE temporarily
+
+                temp_mon = console.MON;
+                console.MON = true;
 
                 if (console.BypassVACWhenPlayingRecording)
                 {
@@ -1238,34 +1231,34 @@ namespace Thetis
                     Audio.VACBypass = true; //MW0LGE
                 }
 
-				if(!OpenWaveFile(file_name, 0))
-				{
-					chkQuickPlay.Checked = false;
-					console.MON = temp_mon;
-					Audio.RecordTXPreProcessed = temp_play; //return to original state
-					console.TXEQ = temp_txeq;               // set TX Eq back to original state
+                if (!OpenWaveFile(file_name, 0))
+                {
+                    chkQuickPlay.Checked = false;
+                    console.MON = temp_mon;
+                    Audio.RecordTXPreProcessed = temp_play; //return to original state
+                    console.TXEQ = temp_txeq;               // set TX Eq back to original state
                     console.CPDR = temp_cpdr; //MW0LGE
                     console.DX = temp_dx; //MW0LGE
                     console.CFCEnabled = temp_cfc;
                     console.PhaseRotEnabled = temp_phaserot;
 
                     if (console.BypassVACWhenPlayingRecording) Audio.VACBypass = temp_vacbypass; //MW0LGE
-					return;
-				}			
-				chkQuickPlay.BackColor = console.ButtonSelectedColor;
-                
-			}
-			else
-			{
+                    return;
+                }
+                chkQuickPlay.BackColor = console.ButtonSelectedColor;
+
+            }
+            else
+            {
                 if (WaveThing.wave_file_reader[0] != null)
                     WaveThing.wave_file_reader[0].Stop();
-				chkQuickPlay.BackColor = SystemColors.Control;
-				console.QuickPlay = false;
-				console.MON = temp_mon;
-				Audio.RecordTXPreProcessed = temp_play; //return to original state
-				console.TXEQ = temp_txeq;               // set TX Eq back to original state
-				console.CPDR = temp_cpdr;
-				console.DX = temp_dx;
+                chkQuickPlay.BackColor = SystemColors.Control;
+                console.QuickPlay = false;
+                console.MON = temp_mon;
+                Audio.RecordTXPreProcessed = temp_play; //return to original state
+                console.TXEQ = temp_txeq;               // set TX Eq back to original state
+                console.CPDR = temp_cpdr;
+                console.DX = temp_dx;
                 console.CFCEnabled = temp_cfc;
                 console.PhaseRotEnabled = temp_phaserot;
 
@@ -1273,26 +1266,26 @@ namespace Thetis
                 {
                     Audio.VACBypass = temp_vacbypass; //MW0LGE
                 }
-			}
+            }
             Audio.WavePlayback = chkQuickPlay.Checked;
-			console.WavePlayback = chkQuickPlay.Checked;			
-		}
+            console.WavePlayback = chkQuickPlay.Checked;
+        }
 
-      //  public static string quickmp3SR; // ke9ns add
+        //  public static string quickmp3SR; // ke9ns add
 
-       // public static string quickmp3; // ke9ns add
+        // public static string quickmp3; // ke9ns add
         //============================================================================================
         private void chkQuickRec_CheckedChanged(object sender, System.EventArgs e)
         {
             if (chkQuickRec.Checked)
             {
-//                 temp_record = Audio.RecordRXPreProcessed;
-//                 quickmp3SR = waveOptionsForm.comboSampleRate.Text;
-// 
-//                 if (chkBoxMP3.Checked == true)
-//                     waveOptionsForm.comboSampleRate.Text = "48000"; // reduce file size
+                //                 temp_record = Audio.RecordRXPreProcessed;
+                //                 quickmp3SR = waveOptionsForm.comboSampleRate.Text;
+                // 
+                //                 if (chkBoxMP3.Checked == true)
+                //                     waveOptionsForm.comboSampleRate.Text = "48000"; // reduce file size
 
-               // Audio.RecordRXPreProcessed = false;                            //ke9ns add  set this FALSE temporarily
+                // Audio.RecordRXPreProcessed = false;                            //ke9ns add  set this FALSE temporarily
 
                 chkQuickRec.BackColor = console.ButtonSelectedColor;
 
@@ -1300,31 +1293,31 @@ namespace Thetis
 
                 string file_name;
 
-//                 if (chkQuickAudioFolder.Checked == true)
-//                 {
-//                     QAC++;
-//                     System.IO.Directory.CreateDirectory(console.AppDataPath + "QuickAudio"); // ke9ns add create sub directory
-//                     System.IO.Directory.CreateDirectory(console.AppDataPath + "QuickAudioMP3"); // ke9ns add create sub directory
-// 
-//                     file_name = console.AppDataPath + "QuickAudio" + "\\SDRQuickAudio" + QAC.ToString() + ".wav";
-// 
-//                     quickmp3 = console.AppDataPath + "QuickAudioMP3" + "\\SDRQuickAudio" + QAC.ToString() + ".mp3"; // ke9ns add mp3
-// 
-//                     //   Debug.WriteLine("qac" + QAC);
-// 
-//                 }
-//                 else
-//                 {
-// 
-                     file_name = console.AppDataPath + "SDRQuickAudio.wav";
-// 
-//                     quickmp3 = console.AppDataPath + "SDRQuickAudio.mp3"; // ke9ns add mp3
-// 
-//                 }
+                //                 if (chkQuickAudioFolder.Checked == true)
+                //                 {
+                //                     QAC++;
+                //                     System.IO.Directory.CreateDirectory(console.AppDataPath + "QuickAudio"); // ke9ns add create sub directory
+                //                     System.IO.Directory.CreateDirectory(console.AppDataPath + "QuickAudioMP3"); // ke9ns add create sub directory
+                // 
+                //                     file_name = console.AppDataPath + "QuickAudio" + "\\SDRQuickAudio" + QAC.ToString() + ".wav";
+                // 
+                //                     quickmp3 = console.AppDataPath + "QuickAudioMP3" + "\\SDRQuickAudio" + QAC.ToString() + ".mp3"; // ke9ns add mp3
+                // 
+                //                     //   Debug.WriteLine("qac" + QAC);
+                // 
+                //                 }
+                //                 else
+                //                 {
+                // 
+                file_name = console.AppDataPath + "SDRQuickAudio.wav";
+                // 
+                //                     quickmp3 = console.AppDataPath + "SDRQuickAudio.mp3"; // ke9ns add mp3
+                // 
+                //                 }
 
                 WaveThing.wave_file_writer[0] = new WaveFileWriter(0, 2, waveOptionsForm.SampleRate, file_name);
 
-            } 
+            }
 
             Audio.WaveRecord = chkQuickRec.Checked;
 
@@ -1341,46 +1334,46 @@ namespace Thetis
                 //    // MessageBox.Show("The file has been written to the following location:\n"+file_name);
                 //}
 
-//                 Audio.RecordRXPreProcessed = temp_record; //return to original state
-//                 waveOptionsForm.comboSampleRate.Text = quickmp3SR; // restore file size
+                //                 Audio.RecordRXPreProcessed = temp_record; //return to original state
+                //                 waveOptionsForm.comboSampleRate.Text = quickmp3SR; // restore file size
 
                 //---------------------------------------------------------
                 // ke9ns add save an MP3 to go along with the WAV file
-//                 if (chkBoxMP3.Checked == true)
-//                 {
-// 
-//                     try
-//                     {
-//                         //using (var reader = new WaveFileReader(file_name)) // closes reader when done using
-//                         //using (var writer = new LameMP3FileWriter(quickmp3, reader.WaveFormat, LAMEPreset.VBR_90)) // closes writer when done using (90=90% quality variable bit rate)
-//                         //{
-//                         //    reader.CopyTo(writer);
-//                         //}
-//                     }
-//                     catch (Exception)
-//                     {
-// 
-//                     }
-//                     Debug.WriteLine("DONE WITH MP3 CREATION" + quickmp3);
-// 
-//                 }
+                //                 if (chkBoxMP3.Checked == true)
+                //                 {
+                // 
+                //                     try
+                //                     {
+                //                         //using (var reader = new WaveFileReader(file_name)) // closes reader when done using
+                //                         //using (var writer = new LameMP3FileWriter(quickmp3, reader.WaveFormat, LAMEPreset.VBR_90)) // closes writer when done using (90=90% quality variable bit rate)
+                //                         //{
+                //                         //    reader.CopyTo(writer);
+                //                         //}
+                //                     }
+                //                     catch (Exception)
+                //                     {
+                // 
+                //                     }
+                //                     Debug.WriteLine("DONE WITH MP3 CREATION" + quickmp3);
+                // 
+                //                 }
 
             } //   if (!chkQuickRec.Checked)
 
         } //  chkQuickRec_CheckedChanged
 
- 
-		public bool QuickRec
-		{
-			get { return chkQuickRec.Checked; }
-			set	{ chkQuickRec.Checked = value; }
-		}
 
-		public bool QuickPlay
-		{
-			get { return chkQuickPlay.Checked; }
-			set	{ chkQuickPlay.Checked = value; }
-		}
+        public bool QuickRec
+        {
+            get { return chkQuickRec.Checked; }
+            set { chkQuickRec.Checked = value; }
+        }
+
+        public bool QuickPlay
+        {
+            get { return chkQuickPlay.Checked; }
+            set { chkQuickPlay.Checked = value; }
+        }
 
 
         //=========================================================================
@@ -1430,7 +1423,7 @@ namespace Thetis
                 //=========================================================================================
                 //=========================================================================================
 
-             //d   console.TXIDMenuItem.Text = "Transmit";
+                //d   console.TXIDMenuItem.Text = "Transmit";
 
                 //-------------------------------------------------------------------------------
                 // play ke9ns.wav file here
@@ -1486,7 +1479,7 @@ namespace Thetis
                 console.CPDR = temp_cpdr;
                 console.DX = temp_dx;
 
-             //d   console.TXIDMenuItem.Checked = false;  // turn off TX waterfall ID here
+                //d   console.TXIDMenuItem.Checked = false;  // turn off TX waterfall ID here
 
             } //  txidboxts not checked
 
@@ -1708,7 +1701,7 @@ namespace Thetis
                         MessageBoxIcon.Error);
                     TXIDBoxTS.Checked = false;
 
-                  //d  console.TXIDMenuItem.Checked = false;  // turn off TX waterfall ID here
+                    //d  console.TXIDMenuItem.Checked = false;  // turn off TX waterfall ID here
 
                     createBoxTS.Checked = false;  // do only 1 time
 
@@ -2074,240 +2067,240 @@ namespace Thetis
     #region Wave File Header Helper Classes
 
     public class Chunk
-	{
-		public int chunk_id;
+    {
+        public int chunk_id;
 
-		public static Chunk ReadChunk(ref BinaryReader reader)
-		{
-			int data = reader.ReadInt32();
-			if(data == 0x46464952)	// RIFF chunk
-			{
-				RIFFChunk riff = new RIFFChunk();
-				riff.chunk_id = data;
-				riff.file_size = reader.ReadInt32();
-				riff.riff_type = reader.ReadInt32();
-				return riff;
-			}
-			else if(data == 0x20746D66)	// fmt chunk
-			{
-				fmtChunk fmt = new fmtChunk();
-				fmt.chunk_id = data;
-				fmt.chunk_size = reader.ReadInt32();
-				fmt.format = reader.ReadInt16();
-				fmt.channels = reader.ReadInt16();
-				fmt.sample_rate = reader.ReadInt32();
-				fmt.bytes_per_sec = reader.ReadInt32();
-				fmt.block_align = reader.ReadInt16();
-				fmt.bits_per_sample = reader.ReadInt16();
-				return fmt;
-			}
-			else if(data == 0x61746164) // data chunk
-			{
-				dataChunk data_chunk = new dataChunk();
-				data_chunk.chunk_id = data;
-				data_chunk.chunk_size = reader.ReadInt32();
-				return data_chunk;
-			}
-			else
-			{
-				Chunk c = new Chunk();
-				c.chunk_id = data;
-				return c;
-			}
-		}
-	}
+        public static Chunk ReadChunk(ref BinaryReader reader)
+        {
+            int data = reader.ReadInt32();
+            if (data == 0x46464952) // RIFF chunk
+            {
+                RIFFChunk riff = new RIFFChunk();
+                riff.chunk_id = data;
+                riff.file_size = reader.ReadInt32();
+                riff.riff_type = reader.ReadInt32();
+                return riff;
+            }
+            else if (data == 0x20746D66)    // fmt chunk
+            {
+                fmtChunk fmt = new fmtChunk();
+                fmt.chunk_id = data;
+                fmt.chunk_size = reader.ReadInt32();
+                fmt.format = reader.ReadInt16();
+                fmt.channels = reader.ReadInt16();
+                fmt.sample_rate = reader.ReadInt32();
+                fmt.bytes_per_sec = reader.ReadInt32();
+                fmt.block_align = reader.ReadInt16();
+                fmt.bits_per_sample = reader.ReadInt16();
+                return fmt;
+            }
+            else if (data == 0x61746164) // data chunk
+            {
+                dataChunk data_chunk = new dataChunk();
+                data_chunk.chunk_id = data;
+                data_chunk.chunk_size = reader.ReadInt32();
+                return data_chunk;
+            }
+            else
+            {
+                Chunk c = new Chunk();
+                c.chunk_id = data;
+                return c;
+            }
+        }
+    }
 
-	public class RIFFChunk : Chunk
-	{
-		public int file_size;
-		public int riff_type;
-	}
+    public class RIFFChunk : Chunk
+    {
+        public int file_size;
+        public int riff_type;
+    }
 
-	public class fmtChunk : Chunk
-	{
-		public int chunk_size;
-		public short format;
-		public short channels;
-		public int sample_rate;
-		public int bytes_per_sec;
-		public short block_align;
-		public short bits_per_sample;
-	}
+    public class fmtChunk : Chunk
+    {
+        public int chunk_size;
+        public short format;
+        public short channels;
+        public int sample_rate;
+        public int bytes_per_sec;
+        public short block_align;
+        public short bits_per_sample;
+    }
 
-	public class dataChunk : Chunk
-	{
-		public int chunk_size;
-		public int[] data;
-	}
+    public class dataChunk : Chunk
+    {
+        public int chunk_size;
+        public int[] data;
+    }
 
-	#endregion
+    #endregion
 
-	#region WaveFile Class
+    #region WaveFile Class
 
-	public class WaveFile
-	{
-		#region Variable Declaration
+    public class WaveFile
+    {
+        #region Variable Declaration
 
-		private string filename;
-		private int format;
-		private int sample_rate;
-		private int channels;
+        private string filename;
+        private int format;
+        private int sample_rate;
+        private int channels;
         private int bitdepth;
-		private TimeSpan length;
-		private bool valid = false;
+        private TimeSpan length;
+        private bool valid = false;
 
-		#endregion
+        #endregion
 
-		#region Constructor
+        #region Constructor
 
-		public WaveFile(string file)
-		{
-			RIFFChunk riff = null;
-			fmtChunk fmt = null;
-			dataChunk data_chunk  = null;
+        public WaveFile(string file)
+        {
+            RIFFChunk riff = null;
+            fmtChunk fmt = null;
+            dataChunk data_chunk = null;
 
-			filename = file;			
-			if(!File.Exists(filename))
-			{
-				valid = false;
-				return;
-			}
+            filename = file;
+            if (!File.Exists(filename))
+            {
+                valid = false;
+                return;
+            }
 
-			BinaryReader reader = null;
-			try
-			{
-				reader = new BinaryReader(File.Open(filename, FileMode.Open, FileAccess.Read));
-			}
-			catch(Exception)
-			{
-				MessageBox.Show("File is already open.");
-				valid = false;
-				return;
-			}
+            BinaryReader reader = null;
+            try
+            {
+                reader = new BinaryReader(File.Open(filename, FileMode.Open, FileAccess.Read));
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("File is already open.");
+                valid = false;
+                return;
+            }
 
-			while((data_chunk == null ||
-				riff == null || fmt == null) &&
-				reader.PeekChar() != -1)
-			{
-				Chunk chunk = Chunk.ReadChunk(ref reader);
-				if(chunk.GetType() == typeof(RIFFChunk))
-					riff = (RIFFChunk)chunk;
-				else if(chunk.GetType() == typeof(fmtChunk))
-					fmt = (fmtChunk)chunk;
-				else if(chunk.GetType() == typeof(dataChunk))
-					data_chunk = (dataChunk)chunk;
-			}
+            while ((data_chunk == null ||
+                riff == null || fmt == null) &&
+                reader.PeekChar() != -1)
+            {
+                Chunk chunk = Chunk.ReadChunk(ref reader);
+                if (chunk.GetType() == typeof(RIFFChunk))
+                    riff = (RIFFChunk)chunk;
+                else if (chunk.GetType() == typeof(fmtChunk))
+                    fmt = (fmtChunk)chunk;
+                else if (chunk.GetType() == typeof(dataChunk))
+                    data_chunk = (dataChunk)chunk;
+            }
 
-			reader.Close();
+            reader.Close();
 
-			format = fmt.format;
-			sample_rate = fmt.sample_rate;
-			channels = fmt.channels;
+            format = fmt.format;
+            sample_rate = fmt.sample_rate;
+            channels = fmt.channels;
             bitdepth = fmt.bits_per_sample;
 
-			if(fmt.bytes_per_sec == 0)
-			{
-				valid = false;
-				return;
-			}
+            if (fmt.bytes_per_sec == 0)
+            {
+                valid = false;
+                return;
+            }
 
-			length = new TimeSpan(0, 0, data_chunk.data.Length / fmt.bytes_per_sec);
+            length = new TimeSpan(0, 0, data_chunk.data.Length / fmt.bytes_per_sec);
 
-			valid = true;
-		}
+            valid = true;
+        }
 
-		#endregion
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public int Format
-		{
-			get { return format; }
-		}
+        public int Format
+        {
+            get { return format; }
+        }
 
-		public int SampleRate
-		{
-			get { return sample_rate; }
-		}
+        public int SampleRate
+        {
+            get { return sample_rate; }
+        }
 
         public int BitDepth
         {
             get { return bitdepth; }
         }
 
-		public int Channels
-		{
-			get { return channels; }
-		}
+        public int Channels
+        {
+            get { return channels; }
+        }
 
-		public TimeSpan Length
-		{
-			get { return length; }
-		}
+        public TimeSpan Length
+        {
+            get { return length; }
+        }
 
-		public bool Valid
-		{
-			get { return valid; }
-		}
+        public bool Valid
+        {
+            get { return valid; }
+        }
 
-		#endregion
+        #endregion
 
-		#region Misc Routines
+        #region Misc Routines
 
-		public new string ToString()
-		{
-			string s = filename.PadRight(20, ' ');
-			s += length.Hours.ToString("10") + ":" +
-				length.Minutes.ToString("nn") + ":" +
-				length.Seconds.ToString("nn");
-			return s;
-		}
+        public new string ToString()
+        {
+            string s = filename.PadRight(20, ' ');
+            s += length.Hours.ToString("10") + ":" +
+                length.Minutes.ToString("nn") + ":" +
+                length.Seconds.ToString("nn");
+            return s;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 
-	#endregion
+    #endregion
 
-	#region Playlist
+    #region Playlist
 
-	public class Playlist
-	{
-		//ArrayList wave_files;
-		
-		public void Add(WaveFile w)
-		{
-			//wave_files.Add(w);
-		}
+    public class Playlist
+    {
+        //ArrayList wave_files;
 
-		public void Remove(int i)
-		{
-			//wave_files.RemoveAt(i);
-		}
-	}
+        public void Add(WaveFile w)
+        {
+            //wave_files.Add(w);
+        }
 
-	#endregion
+        public void Remove(int i)
+        {
+            //wave_files.RemoveAt(i);
+        }
+    }
 
-	#region Wave File Writer Class
+    #endregion
 
-	unsafe public class WaveFileWriter
-	{
+    #region Wave File Writer Class
+
+    unsafe public class WaveFileWriter
+    {
         private int id;
         private BinaryWriter writer;
-		private bool record;
-		private short channels;
+        private bool record;
+        private short channels;
         private short format_tag;
         private short bit_depth;
-		private int length_counter;
-		private RingBufferFloat rb_l;
-		private RingBufferFloat rb_r;
-		private float[] in_buf_l;
-		private float[] in_buf_r;
-		private float[] out_buf_l;
-		private float[] out_buf_r;
-		private float[] out_buf;
-		private byte[] byte_buf;
-		private const int IN_BLOCK = 2048;
-		private string filename;
+        private int length_counter;
+        private RingBufferFloat rb_l;
+        private RingBufferFloat rb_r;
+        private float[] in_buf_l;
+        private float[] in_buf_r;
+        private float[] out_buf_l;
+        private float[] out_buf_r;
+        private float[] out_buf;
+        private byte[] byte_buf;
+        private const int IN_BLOCK = 2048;
+        private string filename;
 
         unsafe private void* rcvr_resamp_l = null;
         unsafe public void* RcvrResampL
@@ -2332,7 +2325,7 @@ namespace Thetis
         {
             get { return xmtr_resamp_r; }
         }
-        
+
         private int sample_rate;
         public int BaseRate
         {
@@ -2364,8 +2357,8 @@ namespace Thetis
         }
 
         // gets called when a record button is clicked
-		public WaveFileWriter(int wfw_id, short chan, int samp_rate, string file)
-		{
+        public WaveFileWriter(int wfw_id, short chan, int samp_rate, string file)
+        {
             id = wfw_id;
             // get rates and sizes for recording the receiver and recording the transmitter
             // pre/post choices must have been selected in advance of clicking record
@@ -2390,25 +2383,25 @@ namespace Thetis
                 xmtr_rate = cmaster.GetChannelOutputRate(1, 0);
                 xmtr_size = cmaster.GetBuffSize(xmtr_rate);
             }
-            
-			channels = chan;
+
+            channels = chan;
             // sample_rate refers to the rate of the recording
-			sample_rate = samp_rate;
+            sample_rate = samp_rate;
             format_tag = Audio.FormatTag;
             bit_depth = Audio.BitDepth;
 
-			int OUT_BLOCK = (int)Math.Ceiling(IN_BLOCK*(double)sample_rate/(double)Math.Min(rcvr_size, xmtr_size));
-			rb_l = new RingBufferFloat(IN_BLOCK*16);
-			rb_r = new RingBufferFloat(IN_BLOCK*16);
-			in_buf_l = new float[IN_BLOCK];
-			in_buf_r = new float[IN_BLOCK];
-			out_buf_l = new float[OUT_BLOCK];
-			out_buf_r = new float[OUT_BLOCK];
-			out_buf = new float[OUT_BLOCK*2];
-			byte_buf = new byte[OUT_BLOCK*2*4];
-			
-			length_counter = 0;
-			record = true;
+            int OUT_BLOCK = (int)Math.Ceiling(IN_BLOCK * (double)sample_rate / (double)Math.Min(rcvr_size, xmtr_size));
+            rb_l = new RingBufferFloat(IN_BLOCK * 16);
+            rb_r = new RingBufferFloat(IN_BLOCK * 16);
+            in_buf_l = new float[IN_BLOCK];
+            in_buf_r = new float[IN_BLOCK];
+            out_buf_l = new float[OUT_BLOCK];
+            out_buf_r = new float[OUT_BLOCK];
+            out_buf = new float[OUT_BLOCK * 2];
+            byte_buf = new byte[OUT_BLOCK * 2 * 4];
+
+            length_counter = 0;
+            record = true;
             // set up the rcvr and xmtr resamplers here, if they are needed
             if (sample_rate != rcvr_rate)
             {
@@ -2420,7 +2413,7 @@ namespace Thetis
                 xmtr_resamp_l = WDSP.create_resampleFV(xmtr_rate, sample_rate);
                 xmtr_resamp_r = WDSP.create_resampleFV(xmtr_rate, sample_rate);
             }
-			
+
             try
             {
                 writer = new BinaryWriter(File.Open(file, FileMode.Create));
@@ -2430,7 +2423,7 @@ namespace Thetis
                 MessageBox.Show(ex.Message);
             }
 
-			filename = file;
+            filename = file;
 
             Thread t = new Thread(new ThreadStart(ProcessRecordBuffers))
             {
@@ -2439,89 +2432,89 @@ namespace Thetis
                 Priority = ThreadPriority.Normal
             };
             t.Start();
-		}
+        }
 
-		private void ProcessRecordBuffers()
-		{
+        private void ProcessRecordBuffers()
+        {
             WriteWaveHeader(ref writer, channels, sample_rate, format_tag, bit_depth, 0);
             // Debug.WriteLine("Format, bit_depth " + format_tag + " " + bit_depth);
- 
-			while(record == true || rb_l.ReadSpace() > 0)
-			{
-				while(rb_l.ReadSpace() > IN_BLOCK || 
-					(record == false && rb_l.ReadSpace() > 0))
-				{
-					WriteBuffer(ref writer, ref length_counter);
-				}
-				Thread.Sleep(3);
-			}
 
-			writer.Seek(0, SeekOrigin.Begin);
+            while (record == true || rb_l.ReadSpace() > 0)
+            {
+                while (rb_l.ReadSpace() > IN_BLOCK ||
+                    (record == false && rb_l.ReadSpace() > 0))
+                {
+                    WriteBuffer(ref writer, ref length_counter);
+                }
+                Thread.Sleep(3);
+            }
+
+            writer.Seek(0, SeekOrigin.Begin);
             WriteWaveHeader(ref writer, channels, sample_rate, format_tag, bit_depth, length_counter);
-			writer.Flush();
-			writer.Close();
-		}
+            writer.Flush();
+            writer.Close();
+        }
 
-		unsafe public void AddWriteBuffer(float *left, float *right, int nsamps)
-		{
-			rb_l.WritePtr(left,  nsamps);
-			rb_r.WritePtr(right, nsamps);
-			// Debug.WriteLine("ReadSpace: "+rb.ReadSpace());
-		}
+        unsafe public void AddWriteBuffer(float* left, float* right, int nsamps)
+        {
+            rb_l.WritePtr(left, nsamps);
+            rb_r.WritePtr(right, nsamps);
+            // Debug.WriteLine("ReadSpace: "+rb.ReadSpace());
+        }
 
-		public string Stop()
-		{
-			record = false;
-			return filename;
-		}
+        public string Stop()
+        {
+            record = false;
+            return filename;
+        }
 
         public static bool dither = false;
-		private void WriteBuffer(ref BinaryWriter writer, ref int count)
-		{
-			int cnt = rb_l.Read(in_buf_l, IN_BLOCK);
-			rb_r.Read(in_buf_r, IN_BLOCK);
-			int out_cnt = IN_BLOCK;
+        private void WriteBuffer(ref BinaryWriter writer, ref int count)
+        {
+            int cnt = rb_l.Read(in_buf_l, IN_BLOCK);
+            rb_r.Read(in_buf_r, IN_BLOCK);
+            int out_cnt = IN_BLOCK;
 
-			// resample
-			// if(sample_rate != external_rate_base)
-			// {
-			// 	fixed(float* in_ptr = &in_buf_l[0])
-			// 		fixed(float* out_ptr = &out_buf_l[0])
+            // resample
+            // if(sample_rate != external_rate_base)
+            // {
+            // 	fixed(float* in_ptr = &in_buf_l[0])
+            // 		fixed(float* out_ptr = &out_buf_l[0])
             //             WDSP.xresampleFV(in_ptr, out_ptr, cnt, &out_cnt, resamp_l);
-			// 	if(channels > 1)
-			// 	{
-			// 		fixed(float* in_ptr = &in_buf_r[0])
-			// 			fixed(float* out_ptr = &out_buf_r[0])
+            // 	if(channels > 1)
+            // 	{
+            // 		fixed(float* in_ptr = &in_buf_r[0])
+            // 			fixed(float* out_ptr = &out_buf_r[0])
             //                 WDSP.xresampleFV(in_ptr, out_ptr, cnt, &out_cnt, resamp_r);
-			// 	}
-			// }
-			// else
-			// {
-				in_buf_l.CopyTo(out_buf_l, 0);
-				in_buf_r.CopyTo(out_buf_r, 0);
-			// }
+            // 	}
+            // }
+            // else
+            // {
+            in_buf_l.CopyTo(out_buf_l, 0);
+            in_buf_r.CopyTo(out_buf_r, 0);
+            // }
 
-			if(channels > 1)
-			{
+            if (channels > 1)
+            {
                 // interleave samples and clip
-				for(int i=0; i<out_cnt; i++)
-				{
-					out_buf[i*2] = out_buf_l[i];
+                for (int i = 0; i < out_cnt; i++)
+                {
+                    out_buf[i * 2] = out_buf_l[i];
                     if (out_buf[i * 2] > 1.0f) out_buf[i * 2] = 1.0f;
                     else if (out_buf[i * 2] < -1.0f) out_buf[i * 2] = -1.0f;
 
-					out_buf[i*2+1] = out_buf_r[i];
+                    out_buf[i * 2 + 1] = out_buf_r[i];
                     if (out_buf[i * 2 + 1] > 1.0f) out_buf[i * 2 + 1] = 1.0f;
                     else if (out_buf[i * 2 + 1] < -1.0f) out_buf[i * 2 + 1] = -1.0f;
-				}
-			}
-			else
-			{
-				out_buf_l.CopyTo(out_buf, 0);
-			}
+                }
+            }
+            else
+            {
+                out_buf_l.CopyTo(out_buf, 0);
+            }
 
-			int length = out_cnt;
-			if(channels > 1) length *= 2;
+            int length = out_cnt;
+            if (channels > 1) length *= 2;
 
             switch (bit_depth)
             {
@@ -2548,13 +2541,13 @@ namespace Thetis
             int result;
             int intSample;
 
-			for(int i=0; i<length; i++)
-			{
+            for (int i = 0; i < length; i++)
+            {
                 switch (format_tag)
                 {
                     case 3:
                         dither = false;
-				temp = BitConverter.GetBytes(out_buf[i]);
+                        temp = BitConverter.GetBytes(out_buf[i]);
                         break;
                     case 1:
                         if (dither)
@@ -2576,20 +2569,20 @@ namespace Thetis
                 if (!dither)
                 {
 
-				for(int j=0; j<4; j++)
-					byte_buf[i*4+j] = temp[j];
-			}
+                    for (int j = 0; j < 4; j++)
+                        byte_buf[i * 4 + j] = temp[j];
+                }
             }
 
-			writer.Write(byte_buf, 0, out_cnt*2*4);
-			count += out_cnt*2*4;
-		}
+            writer.Write(byte_buf, 0, out_cnt * 2 * 4);
+            count += out_cnt * 2 * 4;
+        }
 
 
         private void Write_24(int length, ref int count, int out_cnt)
         {
-           // byte[] temp = new byte[4];
-           // int result;
+            // byte[] temp = new byte[4];
+            // int result;
             int intSample;
 
             for (int i = 0; i < length; i++)
@@ -2599,11 +2592,11 @@ namespace Thetis
                 byte_buf[i * 3 + 1] = (byte)(((uint)intSample >> 8) & 0xFF);
                 byte_buf[i * 3] = (byte)(intSample & 0xFF);
 
-               /* Convert24(out_buf[i], out result[i]);
-                temp = BitConverter.GetBytes(result[i]);
+                /* Convert24(out_buf[i], out result[i]);
+                 temp = BitConverter.GetBytes(result[i]);
 
-                for (int j = 0; j < 3; j++)
-                    byte_buf[i * 3 + j] = temp[j]; */
+                 for (int j = 0; j < 3; j++)
+                     byte_buf[i * 3 + j] = temp[j]; */
             }
 
             writer.Write(byte_buf, 0, out_cnt * 2 * 3);
@@ -2612,9 +2605,9 @@ namespace Thetis
 
         private void Write_16(int length, ref int count, int out_cnt)
         {
-           // byte[] temp = new byte[2];
-           // short[] result = new short[length];
-           // short result;
+            // byte[] temp = new byte[2];
+            // short[] result = new short[length];
+            // short result;
             int intSample;
 
             for (int i = 0; i < length; i++)
@@ -2623,11 +2616,11 @@ namespace Thetis
                 byte_buf[i * 2 + 1] = (byte)(intSample >> 8);
                 byte_buf[i * 2] = (byte)(intSample & 0xFF);
 
-              /*  Convert(out_buf[i], out result);
-                temp = BitConverter.GetBytes(result);
+                /*  Convert(out_buf[i], out result);
+                  temp = BitConverter.GetBytes(result);
 
-                for (int j = 0; j < 2; j++)
-                    byte_buf[i * 2 + j] = temp[j]; */
+                  for (int j = 0; j < 2; j++)
+                      byte_buf[i * 2 + j] = temp[j]; */
             }
 
             writer.Write(byte_buf, 0, out_cnt * 2 * 2);
@@ -2636,19 +2629,19 @@ namespace Thetis
 
         private void Write_8(int length, ref int count, int out_cnt)
         {
-           // byte[] temp = new byte[1];
+            // byte[] temp = new byte[1];
             //byte[] result = new byte[length]; // 8-bit 
-           // byte result;
+            // byte result;
 
             for (int i = 0; i < length; i++)
             {
                 byte_buf[i] = (byte)(dither8(out_buf[i] * 0x80) + 128); //128.0f) + 128);
 
-              /*  Convert(out_buf[i], out result);
-                temp = BitConverter.GetBytes(result);
+                /*  Convert(out_buf[i], out result);
+                  temp = BitConverter.GetBytes(result);
 
-                for (int j = 0; j < 1; j++)
-                    byte_buf[i * 1 + j] = temp[j];*/
+                  for (int j = 0; j < 1; j++)
+                      byte_buf[i * 1 + j] = temp[j];*/
             }
 
             writer.Write(byte_buf, 0, out_cnt * 2);
@@ -2726,7 +2719,7 @@ namespace Thetis
             }
             else if (sample <= -128.0f)
             {
-                return (sbyte) -128;
+                return (sbyte)-128;
             }
             else
             {
@@ -2755,101 +2748,101 @@ namespace Thetis
         }
 
         private void WriteWaveHeader(ref BinaryWriter writer, short channels, int sample_rate, short format_tag, short bit_depth, int data_length)
-		{
-			writer.Write(0x46464952);								// "RIFF"		-- descriptor chunk ID
-			writer.Write(data_length + 36);							// size of whole file -- 1 for now
-			writer.Write(0x45564157);								// "WAVE"		-- descriptor type
-			writer.Write(0x20746d66);								// "fmt "		-- format chunk ID
-			writer.Write((int)16);									// size of fmt chunk
+        {
+            writer.Write(0x46464952);                               // "RIFF"		-- descriptor chunk ID
+            writer.Write(data_length + 36);                         // size of whole file -- 1 for now
+            writer.Write(0x45564157);                               // "WAVE"		-- descriptor type
+            writer.Write(0x20746d66);                               // "fmt "		-- format chunk ID
+            writer.Write((int)16);									// size of fmt chunk
             writer.Write(format_tag); //(short)1);					// FormatTag	-- 1-PCM 3-IEEE Floats
-			writer.Write(channels);									// wChannels
-			writer.Write(sample_rate);								// dwSamplesPerSec
-			writer.Write((int)(channels*sample_rate*bit_depth/8));	// dwAvgBytesPerSec
-			writer.Write((short)(channels*bit_depth/8));			// wBlockAlign
-			writer.Write(bit_depth);								// wBitsPerSample
-			writer.Write(0x61746164);								// "data" -- data chunk ID
-			writer.Write(data_length);								// chunkSize = length of data
-			writer.Flush();											// write the file
-		}
-	}
+            writer.Write(channels);                                 // wChannels
+            writer.Write(sample_rate);                              // dwSamplesPerSec
+            writer.Write((int)(channels * sample_rate * bit_depth / 8));    // dwAvgBytesPerSec
+            writer.Write((short)(channels * bit_depth / 8));            // wBlockAlign
+            writer.Write(bit_depth);                                // wBitsPerSample
+            writer.Write(0x61746164);                               // "data" -- data chunk ID
+            writer.Write(data_length);                              // chunkSize = length of data
+            writer.Flush();                                         // write the file
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region Wave File Reader Class
+    #region Wave File Reader Class
 
-	unsafe public class WaveFileReader1
-	{
+    unsafe public class WaveFileReader1
+    {
         private int id;
         int rcvr_rate;
         int xmtr_rate;
         int rcvr_size;
         int xmtr_size;
         private WaveControl wave_form;
-		private BinaryReader reader;
-		private int format;
-		private int sample_rate;
-		private int channels;
+        private BinaryReader reader;
+        private int format;
+        private int sample_rate;
+        private int channels;
         private int bitdepth;
-		private bool playback;
-		private RingBufferFloat rb_l;
-		private RingBufferFloat rb_r;
-		private float[] buf_l_in;
-		private float[] buf_r_in;
-		private float[] buf_l_out;
-		private float[] buf_r_out;
-		private int IN_BLOCK;
-		private int OUT_BLOCK;
-		private byte[] io_buf;
-		private int io_buf_size;
-		private bool eof = false;
+        private bool playback;
+        private RingBufferFloat rb_l;
+        private RingBufferFloat rb_r;
+        private float[] buf_l_in;
+        private float[] buf_r_in;
+        private float[] buf_l_out;
+        private float[] buf_r_out;
+        private int IN_BLOCK;
+        private int OUT_BLOCK;
+        private byte[] io_buf;
+        private int io_buf_size;
+        private bool eof = false;
         private int total_samps_written;
         private int total_samps_read;
 
-		unsafe private void* rcvr_resamp_l, rcvr_resamp_r;
+        unsafe private void* rcvr_resamp_l, rcvr_resamp_r;
         unsafe private void* xmtr_resamp_l, xmtr_resamp_r;
 
-		public WaveFileReader1(
+        public WaveFileReader1(
             int wfr_id,
-			WaveControl form,
-			int fmt,
-			int samp_rate,
-			int chan,
+            WaveControl form,
+            int fmt,
+            int samp_rate,
+            int chan,
             int bit_depth,
-			ref BinaryReader binread)
-		{
+            ref BinaryReader binread)
+        {
             id = wfr_id;
             wave_form = form;
-			format = fmt;
-			sample_rate = samp_rate;
-			channels = chan;
+            format = fmt;
+            sample_rate = samp_rate;
+            channels = chan;
             bitdepth = bit_depth;
 
             rcvr_rate = cmaster.GetInputRate(0, id);
-            xmtr_rate = cmaster.GetInputRate(1,  0);
+            xmtr_rate = cmaster.GetInputRate(1, 0);
             int max_rate;
             if (rcvr_rate >= xmtr_rate) max_rate = rcvr_rate;
-            else                        max_rate = xmtr_rate;
+            else max_rate = xmtr_rate;
             rcvr_size = cmaster.GetBuffSize(rcvr_rate);
             xmtr_size = cmaster.GetBuffSize(xmtr_rate);
-			
-			//OUT_BLOCK = 2048;
-			//IN_BLOCK = (int)Math.Floor(OUT_BLOCK*(double)sample_rate/Audio.SampleRate1);
-			//OUT_BLOCK = (int)Math.Ceiling(IN_BLOCK*Audio.SampleRate1/(double)sample_rate);
-			IN_BLOCK = 2048;
-			// OUT_BLOCK = (int)Math.Ceiling(IN_BLOCK*Audio.SampleRate1/(double)sample_rate);
+
+            //OUT_BLOCK = 2048;
+            //IN_BLOCK = (int)Math.Floor(OUT_BLOCK*(double)sample_rate/Audio.SampleRate1);
+            //OUT_BLOCK = (int)Math.Ceiling(IN_BLOCK*Audio.SampleRate1/(double)sample_rate);
+            IN_BLOCK = 2048;
+            // OUT_BLOCK = (int)Math.Ceiling(IN_BLOCK*Audio.SampleRate1/(double)sample_rate);
             OUT_BLOCK = (int)Math.Ceiling(IN_BLOCK * (double)max_rate / (double)sample_rate);
-			rb_l = new RingBufferFloat(16*OUT_BLOCK);
-			rb_r = new RingBufferFloat(16*OUT_BLOCK);
-			buf_l_in = new float[IN_BLOCK];
-			buf_r_in = new float[IN_BLOCK];
-			buf_l_out = new float[OUT_BLOCK];
-			buf_r_out = new float[OUT_BLOCK];
+            rb_l = new RingBufferFloat(16 * OUT_BLOCK);
+            rb_r = new RingBufferFloat(16 * OUT_BLOCK);
+            buf_l_in = new float[IN_BLOCK];
+            buf_r_in = new float[IN_BLOCK];
+            buf_l_out = new float[OUT_BLOCK];
+            buf_r_out = new float[OUT_BLOCK];
 
             switch (format)
             {
                 case 1:
                     switch (bitdepth)
-			        {
+                    {
                         case 32:
                             io_buf_size = IN_BLOCK * 4 * 2;
                             break;
@@ -2857,28 +2850,28 @@ namespace Thetis
                             io_buf_size = IN_BLOCK * 3 * 2;
                             break;
                         case 16:
-				            io_buf_size = IN_BLOCK*2*2;
+                            io_buf_size = IN_BLOCK * 2 * 2;
                             break;
                         case 8:
                             io_buf_size = IN_BLOCK * 2;
                             break;
-			        }
+                    }
                     break;
                 case 3:
                     io_buf_size = IN_BLOCK * 4 * 2;
-                   /* if (sample_rate != Audio.SampleRate1)
-			{
-                        resamp_l = DttSP.NewResamplerF(sample_rate, Audio.SampleRate1);
-                        if (channels > 1) resamp_r = DttSP.NewResamplerF(sample_rate, Audio.SampleRate1);
-                    } */
+                    /* if (sample_rate != Audio.SampleRate1)
+             {
+                         resamp_l = DttSP.NewResamplerF(sample_rate, Audio.SampleRate1);
+                         if (channels > 1) resamp_r = DttSP.NewResamplerF(sample_rate, Audio.SampleRate1);
+                     } */
                     break;
             }
 
-			if(sample_rate != rcvr_rate)
-			{
+            if (sample_rate != rcvr_rate)
+            {
                 rcvr_resamp_l = WDSP.create_resampleFV(sample_rate, rcvr_rate);
                 if (channels > 1) rcvr_resamp_r = WDSP.create_resampleFV(sample_rate, rcvr_rate);
-			}
+            }
 
             if (sample_rate != xmtr_rate)
             {
@@ -2886,10 +2879,10 @@ namespace Thetis
                 if (channels > 1) xmtr_resamp_r = WDSP.create_resampleFV(sample_rate, xmtr_rate);
             }
 
-			io_buf = new byte[io_buf_size];
+            io_buf = new byte[io_buf_size];
 
-			playback = true;
-			reader = binread;
+            playback = true;
+            reader = binread;
 
             Thread t = new Thread(new ThreadStart(ProcessBuffers))
             {
@@ -2898,51 +2891,51 @@ namespace Thetis
                 Priority = ThreadPriority.Normal
             };
             total_samps_written = 0;
-            total_samps_read    = 0;
+            total_samps_read = 0;
             do
             {
                 ReadBuffer(ref reader);
-            } while(rb_l.WriteSpace() > OUT_BLOCK && !eof);
+            } while (rb_l.WriteSpace() > OUT_BLOCK && !eof);
 
-			t.Start();
-		}
+            t.Start();
+        }
 
-		private void ProcessBuffers()
-		{
-			while(playback == true)                             // while we didn't end-of-file the last time through, loop here
-			{				                                    //   'playback' also gets set 'false' if play button is UNchecked
-				while (rb_l.WriteSpace() >= OUT_BLOCK && !eof)  // while there's lots of writespace and we haven't ended the file, loop here
-				{
-					ReadBuffer(ref reader);
-					if(playback == false)
-						goto end;
-				}
+        private void ProcessBuffers()
+        {
+            while (playback == true)                             // while we didn't end-of-file the last time through, loop here
+            {                                                   //   'playback' also gets set 'false' if play button is UNchecked
+                while (rb_l.WriteSpace() >= OUT_BLOCK && !eof)  // while there's lots of writespace and we haven't ended the file, loop here
+                {
+                    ReadBuffer(ref reader);
+                    if (playback == false)
+                        goto end;
+                }
 
-				if(playback == false)
-					goto end;
+                if (playback == false)
+                    goto end;
 
-				Thread.Sleep(10);                               // if we haven't ended the file, but, there was not lots of write space,
-			}	                                                //    wait a while and then try again via the outer loop
+                Thread.Sleep(10);                               // if we haven't ended the file, but, there was not lots of write space,
+            }	                                                //    wait a while and then try again via the outer loop
 
         end:
-			reader.Close();
+            reader.Close();
             //Thread.Sleep(50);
-			//wave_form.Next();
-		}
+            //wave_form.Next();
+        }
 
-		private void ReadBuffer(ref BinaryReader reader)
-		{
-			
-			//Debug.WriteLine("ReadBuffer ("+rb_l.ReadSpace()+")");
-			int i=0, num_reads = IN_BLOCK;
-			int val = reader.Read(io_buf, 0, io_buf_size);  // read byte data into 'io_buf'
+        private void ReadBuffer(ref BinaryReader reader)
+        {
+
+            //Debug.WriteLine("ReadBuffer ("+rb_l.ReadSpace()+")");
+            int i = 0, num_reads = IN_BLOCK;
+            int val = reader.Read(io_buf, 0, io_buf_size);  // read byte data into 'io_buf'
                                                             // note:  io_buf has been sized to hold IN_BLOCK L&R samples
-			if(val < io_buf_size)                           // 'if' there wasn't enough data to fill the buffer
-			{
-				eof = true;                                 // set the END-OF-FILE flag; this is the last time we need to call ReadBuffer(...)
-				switch(format)
-				{
-					case 1:		// ints
+            if (val < io_buf_size)                           // 'if' there wasn't enough data to fill the buffer
+            {
+                eof = true;                                 // set the END-OF-FILE flag; this is the last time we need to call ReadBuffer(...)
+                switch (format)
+                {
+                    case 1:		// ints
                         switch (bitdepth)
                         {
                             case 32:
@@ -2952,24 +2945,24 @@ namespace Thetis
                                 num_reads = val / 6;
                                 break;
                             case 16:
-						        num_reads = val / 4;
-						        break;
+                                num_reads = val / 4;
+                                break;
                             case 8:
                                 num_reads = val / 2;
                                 break;
                         }
                         break;
-					case 3:		// floats
-						num_reads = val / 8;                // 'num_reads' is the number of L&R samples read
-						break;
-				}
-			}
+                    case 3:     // floats
+                        num_reads = val / 8;                // 'num_reads' is the number of L&R samples read
+                        break;
+                }
+            }
 
-			for(; i<num_reads; i++)
-			{
-				switch(format)
-				{
-					case 1:		// ints
+            for (; i < num_reads; i++)
+            {
+                switch (format)
+                {
+                    case 1:		// ints
                         switch (bitdepth)
                         {
                             case 32: // 32-bit signed integer
@@ -3000,32 +2993,32 @@ namespace Thetis
                                                / 8388608.0f;
                                 break;
                             case 16: // 16-bit signed integer
-						buf_l_in[i] = (float)((double)BitConverter.ToInt16(io_buf, i*4) / 32767.0);
-						buf_r_in[i] = (float)((double)BitConverter.ToInt16(io_buf, i*4+2) / 32767.0);
-						break;
+                                buf_l_in[i] = (float)((double)BitConverter.ToInt16(io_buf, i * 4) / 32767.0);
+                                buf_r_in[i] = (float)((double)BitConverter.ToInt16(io_buf, i * 4 + 2) / 32767.0);
+                                break;
                             case 8: // 8-bit unsigned integer 
                                 buf_l_in[i] = ((io_buf[i * 2] & 0xFF) - 128) / 128.0f;
                                 buf_r_in[i] = ((io_buf[i * 2 + 1] & 0xFF) - 128) / 128.0f;
                                 break;
                         }
                         break;
-					case 3:		// floats
-						buf_l_in[i] = BitConverter.ToSingle(io_buf, i*8);       // put samples in 'float' buffers, buf_l_in[] and buf_r_in[]
-						buf_r_in[i] = BitConverter.ToSingle(io_buf, i*8+4);
-						break;
-				}
-			}
+                    case 3:     // floats
+                        buf_l_in[i] = BitConverter.ToSingle(io_buf, i * 8);       // put samples in 'float' buffers, buf_l_in[] and buf_r_in[]
+                        buf_r_in[i] = BitConverter.ToSingle(io_buf, i * 8 + 4);
+                        break;
+                }
+            }
 
-			if(num_reads < IN_BLOCK)                            //'if' there are not 'IN_BLOCK'samples
-			{
-				for(int j=i; j<IN_BLOCK; j++)
-					buf_l_in[j] = buf_r_in[j] = 0.0f;           // pad to 'IN_BLOCK' samples with zeros
+            if (num_reads < IN_BLOCK)                            //'if' there are not 'IN_BLOCK'samples
+            {
+                for (int j = i; j < IN_BLOCK; j++)
+                    buf_l_in[j] = buf_r_in[j] = 0.0f;           // pad to 'IN_BLOCK' samples with zeros
 
-				playback = false;                               // set 'playback' to false; we've done our last read from this file
-				reader.Close();                                 // close the reader
-			}
+                playback = false;                               // set 'playback' to false; we've done our last read from this file
+                reader.Close();                                 // close the reader
+            }
 
-			int out_cnt = IN_BLOCK;
+            int out_cnt = IN_BLOCK;
             if (!Audio.MOX)                                     // 'true' means data is headed for a receiver channel
             {
                 if (sample_rate != rcvr_rate)                   // 'if' we need to resample
@@ -3064,22 +3057,22 @@ namespace Thetis
             }
             //lock (ringLock)
             {
-			    rb_l.Write(buf_l_out, out_cnt);                 // write the 'out_cnt' samples into the ring buffers 'rb_l' and 'rb_r'
-			    if(channels > 1) rb_r.Write(buf_r_out, out_cnt);
-			    else rb_r.Write(buf_l_out, out_cnt);
+                rb_l.Write(buf_l_out, out_cnt);                 // write the 'out_cnt' samples into the ring buffers 'rb_l' and 'rb_r'
+                if (channels > 1) rb_r.Write(buf_r_out, out_cnt);
+                else rb_r.Write(buf_l_out, out_cnt);
                 total_samps_written += out_cnt;                 // sum the total samples written to the ring(s)
             }
-		}
-        
+        }
+
         //private readonly object ringLock = new object();
-		unsafe public void GetPlayBuffer(float *left, float *right)
-		{
-			//Debug.WriteLine("GetPlayBuffer ("+rb_l.ReadSpace()+")");
-			int count = rb_l.ReadSpace();
-			if(count == 0) return;
+        unsafe public void GetPlayBuffer(float* left, float* right)
+        {
+            //Debug.WriteLine("GetPlayBuffer ("+rb_l.ReadSpace()+")");
+            int count = rb_l.ReadSpace();
+            if (count == 0) return;
             int size;
             if (!Audio.MOX) size = rcvr_size;
-            else            size = xmtr_size;
+            else size = xmtr_size;
             if (count > size)
                 count = size;
             //lock (ringLock)
@@ -3088,10 +3081,10 @@ namespace Thetis
                 rb_r.ReadPtr(right, count);
             }
             if (count < size)
-			{
+            {
                 for (int i = count; i < size; i++)
-					left[i] = right[i] = 0.0f;
-			}
+                    left[i] = right[i] = 0.0f;
+            }
             total_samps_read += size;                           // sum the total samples read from the ring(s)
             if (total_samps_read >= total_samps_written)        // check to see if we're done with playback
             {
@@ -3103,22 +3096,22 @@ namespace Thetis
                 };
                 t.Start();
             }
-		}
+        }
 
-		// FIXME: implement interleaved version of Get Play Buffer
+        // FIXME: implement interleaved version of Get Play Buffer
 
         private void NextPlayback()
         {
             Thread.Sleep(50);
             wave_form.Next();
         }
-		
 
-		public void Stop()
-		{
-			playback = false;
-		}
-	}
 
-	#endregion
+        public void Stop()
+        {
+            playback = false;
+        }
+    }
+
+    #endregion
 }

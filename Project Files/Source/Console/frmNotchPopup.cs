@@ -16,7 +16,7 @@ namespace Thetis
 
         public frmNotchPopup()
         {
-            InitializeComponent();           
+            InitializeComponent();
         }
 
         public void Show(MNotch notch, int minWidth, int maxWidth)
@@ -60,27 +60,36 @@ namespace Thetis
             this.Hide();
         }
 
-        public event NotchDeleteHandler NotchDeleteEvent {
-            add {
+        public event NotchDeleteHandler NotchDeleteEvent
+        {
+            add
+            {
                 deleteEvents += value;
             }
-            remove {
+            remove
+            {
                 deleteEvents -= value;
             }
         }
-        public event NotchBWChangeHandler NotchBWChangedEvent {
-            add {
+        public event NotchBWChangeHandler NotchBWChangedEvent
+        {
+            add
+            {
                 bwChangeEvents += value;
             }
-            remove {
+            remove
+            {
                 bwChangeEvents -= value;
             }
         }
-        public event NotchActiveChangedHandler NotchActiveChangedEvent {
-            add {
+        public event NotchActiveChangedHandler NotchActiveChangedEvent
+        {
+            add
+            {
                 activeEvents += value;
             }
-            remove {
+            remove
+            {
                 activeEvents -= value;
             }
         }
@@ -96,7 +105,7 @@ namespace Thetis
         {
             setBW(25);
         }
-       
+
         private void Btn50_Click(object sender, EventArgs e)
         {
             setBW(50);

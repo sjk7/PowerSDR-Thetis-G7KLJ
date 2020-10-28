@@ -1124,8 +1124,6 @@ namespace Thetis
             // draw background
             // g.FillRectangle(display_background_brush, 0, bottom ? H : 0, W, H);
 
-            bool local_mox = false;
-            bool displayduplex = false;
             // if (mox && rx == 1 && !tx_on_vfob) local_mox = true;
             // if (mox && rx == 2 && tx_on_vfob) local_mox = true;
             //if (rx == 1 && tx_on_vfob && mox && !rx2_enabled) local_mox = true;
@@ -1143,9 +1141,11 @@ namespace Thetis
             int f_diff = 0;
             long vfo_hz = _vfo_hz; //cmaster.Getrxa(display_id + 2).RXFreq;// 
 
+            /*/
             if ((CurrentDisplayMode == DisplayMode.PANAFALL && (nreceivers <= 2 && display_duplex)) ||
                 (CurrentDisplayMode == DisplayMode.PANAFALL && nreceivers > 2) ||
                (CurrentDisplayMode == DisplayMode.PANADAPTER && display_duplex)) displayduplex = true;
+            /*/
 
             //if (local_mox && !displayduplex)// || (mox && tx_on_vfob))
             //{
@@ -1747,8 +1747,8 @@ namespace Thetis
             switch (current_region)
             {
                 case FRSRegion.Australia:
-                    band_edge_list = new int[]{ 135700, 137800, 472000, 479000, 1800000, 1875000, 
-                 3500000, 3800000, 7000000, 7300000, 10100000, 10150000, 14000000, 14350000, 18068000, 
+                    band_edge_list = new int[]{ 135700, 137800, 472000, 479000, 1800000, 1875000,
+                 3500000, 3800000, 7000000, 7300000, 10100000, 10150000, 14000000, 14350000, 18068000,
                  18168000, 21000000, 21450000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
                     break;
                 case FRSRegion.UK:
@@ -1757,7 +1757,7 @@ namespace Thetis
                 21000000, 21450000, 24890000, 24990000, 28000000, 29700000, 50000000, 52000000, 144000000, 148000000 };
                     break;
                 case FRSRegion.India:
-                    band_edge_list = new int[]{ 1810000, 1860000, 3500000, 3900000, 7000000, 7200000, 
+                    band_edge_list = new int[]{ 1810000, 1860000, 3500000, 3900000, 7000000, 7200000,
                 10100000, 10150000, 14000000, 14350000, 18068000, 18168000, 21000000, 21450000,
                 24890000, 24990000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
                     break;
@@ -1772,13 +1772,13 @@ namespace Thetis
                 24890000, 24990000, 28000000, 29700000, 50000000, 54000000 };
                     break;
                 case FRSRegion.Japan:
-                    band_edge_list = new int[]{ 135700, 137800, 472000, 479000, 1810000, 1810000, 1907500, 1912500, 
+                    band_edge_list = new int[]{ 135700, 137800, 472000, 479000, 1810000, 1810000, 1907500, 1912500,
                 3500000, 3575000, 3599000, 3612000, 3687000, 3702000, 3716000, 3745000, 3770000, 3791000, 3805000,
                 7000000, 7200000, 10100000, 10150000, 14000000, 14350000, 18068000, 18168000, 21000000, 21450000,
                 24890000, 24990000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
                     break;
                 default:
-                    band_edge_list = new int[]{1800000, 2000000, 3500000, 4000000, 7000000, 7300000, 
+                    band_edge_list = new int[]{1800000, 2000000, 3500000, 4000000, 7000000, 7300000,
                 10100000, 10150000, 14000000, 14350000, 18068000, 18168000, 21000000, 21450000,
                 24890000, 24990000, 28000000, 29700000, 50000000, 54000000, 144000000, 148000000 };
                     break;
@@ -2040,23 +2040,20 @@ namespace Thetis
                 if (points == null || points.Length < W)
                     points = new Point[W];			// array of points to display
             }
-            float slope = 0.0F;						// samples to process per pixel
-            int num_samples = 0;					// number of samples to process
-            int start_sample_index = 0;				// index to begin looking at samples
+
             int Low = 0;// rx_display_low;
             int High = 0;// rx_display_high;
             // int yRange = spectrum_grid_max - spectrum_grid_min;
             float local_max_y = float.MinValue;
-            bool local_mox = false;
-            bool displayduplex = false;
 
             int grid_max = 0;
             int grid_min = 0;
 
+            /*/
             if ((CurrentDisplayMode == DisplayMode.PANAFALL && (nreceivers <= 2 && display_duplex)) ||
                 (CurrentDisplayMode == DisplayMode.PANAFALL && nreceivers > 2) ||
                (CurrentDisplayMode == DisplayMode.PANADAPTER && display_duplex)) displayduplex = true;
-
+            /*/
 
             //    Low = rx_display_low;
             High = high_freq;
@@ -2130,9 +2127,9 @@ namespace Thetis
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Trace.WriteLine(ex);
+               
             }
 
             points = null;
@@ -2154,7 +2151,7 @@ namespace Thetis
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
             }
 
@@ -3296,7 +3293,8 @@ namespace Thetis
         }
 
         private Rectangle waterfallRect;
-        public Rectangle WaterfallRect {
+        public Rectangle WaterfallRect
+        {
             get { return waterfallRect; }
             set { waterfallRect = value; }
         }
@@ -3309,7 +3307,8 @@ namespace Thetis
         }
 
         private Rectangle secScaleWaterfallRect;
-        public Rectangle SecScalePanRect {
+        public Rectangle SecScalePanRect
+        {
             get { return secScaleWaterfallRect; }
             set { secScaleWaterfallRect = value; }
         }
@@ -3444,7 +3443,7 @@ namespace Thetis
             w = Math.Max(1, this.Width);
             h = Math.Max(1, this.Height);
 
-            wbDisplay_buffer = new Bitmap(w, h); 
+            wbDisplay_buffer = new Bitmap(w, h);
         }
 
         private CancellationTokenSource cancelTokenSource;
@@ -3457,7 +3456,7 @@ namespace Thetis
                 cancelTokenSource = null;
             }
 
-           // Halted = true;
+            // Halted = true;
 
         }
 
@@ -3515,19 +3514,19 @@ namespace Thetis
         {
             int flag;
 
-           // UpdateGraphicsBuffer();
+            // UpdateGraphicsBuffer();
 
-          //  while (!Halted)
-          //  {
-                if (!this.DataReady)
-                {
-                    flag = 0;
+            //  while (!Halted)
+            //  {
+            if (!this.DataReady)
+            {
+                flag = 0;
 
-                    fixed (float* ptr = &new_display_data[0])
-                        SpecHPSDRDLL.GetPixels(rx, 0, ptr, ref flag);
+                fixed (float* ptr = &new_display_data[0])
+                    SpecHPSDRDLL.GetPixels(rx, 0, ptr, ref flag);
 
-                    this.DataReady = true;
-                }
+                this.DataReady = true;
+            }
 
             //Thread.Sleep(70);
             Thread.Sleep(16);
@@ -4467,13 +4466,13 @@ namespace Thetis
                     //    }
                     //}
                     break;
-                //case MouseButtons.Middle:
-                //    if (mouse_tune_step)
-                //    {
-                //        if (shift_down) ChangeTuneStepDown();
-                //        else ChangeTuneStepUp();
-                //    }
-                //    break;
+                    //case MouseButtons.Middle:
+                    //    if (mouse_tune_step)
+                    //    {
+                    //        if (shift_down) ChangeTuneStepDown();
+                    //        else ChangeTuneStepUp();
+                    //    }
+                    //    break;
             }
         }
 
@@ -4646,7 +4645,7 @@ namespace Thetis
         {
             if (!init) return;
             int wbid = adc + 32;
-            int clip = 0, span_clip_l = 0, span_clip_h = 0, max_w = 0;
+            int clip = 0, span_clip_l = 0, span_clip_h = 0;
 
             // no spur elimination => only one spur_elim_fft and it's spectrum is not flipped
             int[] flip = { 0 };

@@ -91,7 +91,7 @@ namespace Thetis
                     unsafe { cmaster.LoadRouterControlBit((void*)0, 0, 0, 0); }
                     console.radio.GetDSPTX(0).PSRunCal = false;
                 }
-               // console.EnableDup();
+                // console.EnableDup();
                 if (console.path_Illustrator != null)
                     console.path_Illustrator.pi_Changed();
             }
@@ -198,8 +198,8 @@ namespace Thetis
         private string psdefpeak = "0.2899";
         public string PSdefpeak
         {
-            set 
-            { 
+            set
+            {
                 psdefpeak = value;
                 PSpeak.Text = value;
             }
@@ -208,8 +208,8 @@ namespace Thetis
         #endregion
 
         #region event handlers
-        
-       
+
+
 
         private void PSForm_Load(object sender, EventArgs e)
         {
@@ -267,7 +267,7 @@ namespace Thetis
         //-W2PA Adds capability for CAT control via console
         public void SingleCalrun()
         {
-            btnPSCalibrate_Click(this, EventArgs.Empty); 
+            btnPSCalibrate_Click(this, EventArgs.Empty);
         }
 
         private void btnPSReset_Click(object sender, EventArgs e)
@@ -349,7 +349,7 @@ namespace Thetis
                 lblPSInfo15.Text = puresignal.Info[15].ToString();
             }
 
-            if (autocal_enabled) console.TxtLeftForeColor = Color.Lime; 
+            if (autocal_enabled) console.TxtLeftForeColor = Color.Lime;
 
             if (puresignal.CorrectionsBeingApplied)
             {
@@ -390,7 +390,7 @@ namespace Thetis
             fixed (double* ptr = &GetPSpeakval)
                 puresignal.GetPSMaxTX(txachannel, ptr);
             GetPSpeak.Text = GetPSpeakval.ToString();
-          
+
             // Command State-Machine
             switch (cmdstate)
             {
@@ -905,10 +905,11 @@ namespace Thetis
 
             fixed (int* ptr = &(Info[0]))
                 GetPSInfo(txachannel, ptr);
-        }       
-        public static bool HasInfoChanged 
+        }
+        public static bool HasInfoChanged
         {
-            get {
+            get
+            {
                 bool bChange = false;
                 for (int n = 0; n < 16; n++)
                 {
@@ -921,30 +922,39 @@ namespace Thetis
                 return bChange;
             }
         }
-        public static bool CalibrationAttemptsChanged {
+        public static bool CalibrationAttemptsChanged
+        {
             get { return Info[5] != oldInfo[5]; }
         }
-        public static bool CorrectionsBeingApplied {
+        public static bool CorrectionsBeingApplied
+        {
             get { return Info[14] == 1; }
         }
-        public static int CalibrationCount {
+        public static int CalibrationCount
+        {
             get { return Info[5]; }
         }
-        public static bool Correcting {
+        public static bool Correcting
+        {
             get { return FeedbackLevel > 90; }
         }
-        public static bool NeedToRecalibrate(int nCurrentATTonTX) {
+        public static bool NeedToRecalibrate(int nCurrentATTonTX)
+        {
             //note: for reference (puresignal.Info[4] > 181 || (puresignal.Info[4] <= 128 && console.SetupForm.ATTOnTX > 0))
-             return (FeedbackLevel > 181 || (FeedbackLevel <= 128 && nCurrentATTonTX > 0));            
+            return (FeedbackLevel > 181 || (FeedbackLevel <= 128 && nCurrentATTonTX > 0));
         }
-        public static bool IsFeedbackLevelOK {
+        public static bool IsFeedbackLevelOK
+        {
             get { return FeedbackLevel <= 256; }
         }
-        public static int FeedbackLevel {
+        public static int FeedbackLevel
+        {
             get { return Info[4]; }
         }
-        public static Color FeedbackColourLevel {
-            get {
+        public static Color FeedbackColourLevel
+        {
+            get
+            {
                 if (FeedbackLevel > 181) return Color.Blue;
                 else if (FeedbackLevel > 128) return Color.Lime;
                 else if (FeedbackLevel > 90) return Color.Yellow;
@@ -965,7 +975,8 @@ namespace Thetis
             LSTAYON,
             LTURNON
         };
-        public static EngineState State {
+        public static EngineState State
+        {
             get { return (EngineState)Info[15]; }
         }
         //--

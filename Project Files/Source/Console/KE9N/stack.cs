@@ -123,7 +123,7 @@ namespace Thetis
             // 
             // textBox1
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox1.BackColor = System.Drawing.Color.LightYellow;
             this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
@@ -364,30 +364,30 @@ namespace Thetis
 
 
             int value;
-            
-                                    if (int.TryParse(console.regBox1.Text, out value))
-                                    {
 
-                                        if (value > 0)
-                                        {
-                                            textBox1.SelectionStart = (value - 1) * 31;       // start of each bandstack line
-                                            textBox1.SelectionLength = 31;                    // length of each bandstack line
-                                            Debug.WriteLine("Value "+value);
-                                         }
-                                        else
-                                        {
-                                            textBox1.SelectionStart = 0;
-                                            textBox1.SelectionLength = 31;
-                                        }
+            if (int.TryParse(console.regBox1.Text, out value))
+            {
 
-                                    }
-                                    else
-                                    {
-                                        Debug.WriteLine("no value");
-                                        textBox1.SelectionStart = 0;
-                                        textBox1.SelectionLength = 31;
-                                    }
-                        
+                if (value > 0)
+                {
+                    textBox1.SelectionStart = (value - 1) * 31;       // start of each bandstack line
+                    textBox1.SelectionLength = 31;                    // length of each bandstack line
+                    Debug.WriteLine("Value " + value);
+                }
+                else
+                {
+                    textBox1.SelectionStart = 0;
+                    textBox1.SelectionLength = 31;
+                }
+
+            }
+            else
+            {
+                Debug.WriteLine("no value");
+                textBox1.SelectionStart = 0;
+                textBox1.SelectionLength = 31;
+            }
+
         } // bandstackupdate
 
 
@@ -807,7 +807,7 @@ namespace Thetis
 
 
                 // bubble sort
-                for (int d = 0; d < index; )
+                for (int d = 0; d < index;)
                 {
 
                     for (int f = index - 1; f > d; f--)  // check end of list first and work back to front

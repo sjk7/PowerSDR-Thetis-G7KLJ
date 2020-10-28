@@ -21,7 +21,7 @@ namespace Thetis
         private Size console_basis_size = new Size(100, 100);
         private Size gr_display_size_basis = new Size(100, 100);
         private Size pic_display_size_basis = new Size(100, 100);
-       // rxaControls rxControls;
+        // rxaControls rxControls;
 
         public rxa(int i)
         {
@@ -40,12 +40,12 @@ namespace Thetis
             gr_display_size_basis = this.panelPanDisplay.Size;
             pic_display_size_basis = this.panDisplay.Size;
 
-          //  rxControls = new rxaControls(fwid);
+            //  rxControls = new rxaControls(fwid);
             //dockPanel.ShowDocumentIcon = false;
             //dockPanel.Theme = vS2012LightTheme1;
-          //  rxControls.Show(dockPanel, DockState.DockRightAutoHide);
+            //  rxControls.Show(dockPanel, DockState.DockRightAutoHide);
             //int width = dockPanel.GetDockWindowSize(DockState.DockRight);
-         }
+        }
 
         private void create_rxa()
         {
@@ -72,12 +72,12 @@ namespace Thetis
             udRXAMode_ValueChanged(this, e);
             panDisplay.initAnalyzer();
             udRXAFreq_ValueChanged(this, e);
-       }
+        }
 
         public long RXFreq
         {
             get { return (long)((double)udRXAFreq.Value * 1e6); }
-            set 
+            set
             {
                 udRXAFreq.Value = (decimal)(value * 1e-6);
             }
@@ -86,7 +86,7 @@ namespace Thetis
         private void udRXAFreq_ValueChanged(object sender, EventArgs e)
         {
             NetworkIO.SetVFOfreq(fwid, NetworkIO.Freq2PW((int)(1000000.0 * (double)udRXAFreq.Value)), 0); // sending phaseword to firmware         
-            panDisplay.VFOHz = RXFreq; 
+            panDisplay.VFOHz = RXFreq;
         }
 
         private void udRXAAGCGain_ValueChanged(object sender, EventArgs e)

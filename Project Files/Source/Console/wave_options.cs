@@ -30,22 +30,22 @@ using System.Windows.Forms;
 
 namespace Thetis
 {
-	/// <summary>
-	/// Summary description for WaveOptions.
-	/// </summary>
-	public class WaveOptions : Form
-	{
-		#region Variable Declaration
+    /// <summary>
+    /// Summary description for WaveOptions.
+    /// </summary>
+    public class WaveOptions : Form
+    {
+        #region Variable Declaration
 
-		private System.Windows.Forms.GroupBoxTS grpReceive;
-		public System.Windows.Forms.RadioButtonTS radRXPreProcessed;
-		private System.Windows.Forms.GroupBoxTS groupBox1;
-		private System.Windows.Forms.ToolTip toolTip1;
-		private System.Windows.Forms.RadioButtonTS radRXPostProcessed;
-		private System.Windows.Forms.RadioButtonTS radTXPostProcessed;
-		public System.Windows.Forms.RadioButtonTS radTXPreProcessed;
-		private System.Windows.Forms.GroupBoxTS grpAudioSampleRate1;
-		public System.Windows.Forms.ComboBoxTS comboSampleRate;
+        private System.Windows.Forms.GroupBoxTS grpReceive;
+        public System.Windows.Forms.RadioButtonTS radRXPreProcessed;
+        private System.Windows.Forms.GroupBoxTS groupBox1;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.RadioButtonTS radRXPostProcessed;
+        private System.Windows.Forms.RadioButtonTS radTXPostProcessed;
+        public System.Windows.Forms.RadioButtonTS radTXPreProcessed;
+        private System.Windows.Forms.GroupBoxTS grpAudioSampleRate1;
+        public System.Windows.Forms.ComboBoxTS comboSampleRate;
         private GroupBoxTS grpBitDepth;
         private RadioButtonTS radBitDepth8PCM;
         private RadioButtonTS radBitDepth16PCM;
@@ -55,21 +55,21 @@ namespace Thetis
         private GroupBoxTS grpWaveDither;
         private CheckBoxTS chkWaveDither;
         private NumericUpDownTS udWaveDitherBits;
-		private System.ComponentModel.IContainer components;
+        private System.ComponentModel.IContainer components;
 
-		#endregion
+        #endregion
 
-		#region Constructor and Destructor
+        #region Constructor and Destructor
 
-		public WaveOptions()
-		{
-			//
-			// Required for Windows Form Designer support
-			//
+        public WaveOptions()
+        {
+            //
+            // Required for Windows Form Designer support
+            //
             InitializeComponent();
-            if (comboSampleRate.Text == "") 
-			comboSampleRate.Text = "48000";
-			Common.RestoreForm(this, "WaveOptions", false);
+            if (comboSampleRate.Text == "")
+                comboSampleRate.Text = "48000";
+            Common.RestoreForm(this, "WaveOptions", false);
 
             radRXPreProcessed_CheckedChanged(this, System.EventArgs.Empty);
             radRXPostProcessed_CheckedChanged(this, System.EventArgs.Empty);
@@ -81,32 +81,32 @@ namespace Thetis
             radBitDepth16PCM_CheckedChanged(this, System.EventArgs.Empty);
             radBitDepth8PCM_CheckedChanged(this, System.EventArgs.Empty);
             chkWaveDither_CheckedChanged(this, System.EventArgs.Empty);
-		}
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#endregion
+        #endregion
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WaveOptions));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -374,15 +374,15 @@ namespace Thetis
             this.grpReceive.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public int SampleRate
-		{
-			get { return int.Parse(comboSampleRate.Text); }
-		}
+        public int SampleRate
+        {
+            get { return int.Parse(comboSampleRate.Text); }
+        }
         public bool temp_record; // ke9ns add save the status of pre to put back when done
         //-------------------------------------------------------------------------------
         // ke9ns add  to force audio into POST mode (for quick audio and TX waterfall ID and scheduler)
@@ -404,50 +404,50 @@ namespace Thetis
 
         }
 
-		#endregion
+        #endregion
 
-		#region Event Handler
+        #region Event Handler
 
-		private void WaveOptions_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			this.Hide();
-			e.Cancel = true;
-			Common.SaveForm(this, "WaveOptions");
-		}
+        private void WaveOptions_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
+            Common.SaveForm(this, "WaveOptions");
+        }
 
-		private void radRXPreProcessed_CheckedChanged(object sender, System.EventArgs e)
-		{
-			if(radRXPreProcessed.Checked)
-			{
-				Audio.RecordRXPreProcessed = true;
-			}
-		}
+        private void radRXPreProcessed_CheckedChanged(object sender, System.EventArgs e)
+        {
+            if (radRXPreProcessed.Checked)
+            {
+                Audio.RecordRXPreProcessed = true;
+            }
+        }
 
-		private void radRXPostProcessed_CheckedChanged(object sender, System.EventArgs e)
-		{
-			if(radRXPostProcessed.Checked)
-			{
-				Audio.RecordRXPreProcessed = false;
-			}
-		}
+        private void radRXPostProcessed_CheckedChanged(object sender, System.EventArgs e)
+        {
+            if (radRXPostProcessed.Checked)
+            {
+                Audio.RecordRXPreProcessed = false;
+            }
+        }
 
-		private void radTXPreProcessed_CheckedChanged(object sender, System.EventArgs e)
-		{
-			if(radTXPreProcessed.Checked)
-			{
-				Audio.RecordTXPreProcessed = true;
-			}
-		}
+        private void radTXPreProcessed_CheckedChanged(object sender, System.EventArgs e)
+        {
+            if (radTXPreProcessed.Checked)
+            {
+                Audio.RecordTXPreProcessed = true;
+            }
+        }
 
-		private void radTXPostProcessed_CheckedChanged(object sender, System.EventArgs e)
-		{
-			if(radTXPostProcessed.Checked)
-			{
-				Audio.RecordTXPreProcessed = false;
-			}
-		}
+        private void radTXPostProcessed_CheckedChanged(object sender, System.EventArgs e)
+        {
+            if (radTXPostProcessed.Checked)
+            {
+                Audio.RecordTXPreProcessed = false;
+            }
+        }
 
-		#endregion
+        #endregion
 
 
         private void radBitDepthIEEE_CheckedChanged(object sender, System.EventArgs e)
@@ -502,5 +502,5 @@ namespace Thetis
             else
                 WaveFileWriter.dither = false;
         }
-	}
+    }
 }

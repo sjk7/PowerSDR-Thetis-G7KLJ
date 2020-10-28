@@ -36,67 +36,69 @@ using System.Threading;
 
 namespace Thetis
 {
-	public class HiPerfTimer
-	{
-		[DllImport("Kernel32.dll")]
-		private static extern bool QueryPerformanceCounter(
-			out long lpPerformanceCount);
+    public class HiPerfTimer
+    {
+        [DllImport("Kernel32.dll")]
+        private static extern bool QueryPerformanceCounter(
+            out long lpPerformanceCount);
 
-		[DllImport("Kernel32.dll")]
-		private static extern bool QueryPerformanceFrequency(
-			out long lpFrequency);
+        [DllImport("Kernel32.dll")]
+        private static extern bool QueryPerformanceFrequency(
+            out long lpFrequency);
 
-		private long startTime, stopTime, elapsedTime;
-		private long freq;
+        private long startTime, stopTime, elapsedTime;
+        private long freq;
 
-		// Constructor
-		public HiPerfTimer()
-		{
-			startTime = 0;
-			stopTime  = 0;
+        // Constructor
+        public HiPerfTimer()
+        {
+            startTime = 0;
+            stopTime = 0;
             elapsedTime = 0;
 
             if (QueryPerformanceFrequency(out freq) == false)
-			{
-				// high-performance counter not supported
-				throw new Exception();
-			}
-		}
+            {
+                // high-performance counter not supported
+                throw new Exception();
+            }
+        }
 
-		// Start the timer
-		public void Start()
-		{
-			// let the waiting threads do their work - start on fresh timeslice
-			Thread.Sleep(0);
+        // Start the timer
+        public void Start()
+        {
+            // let the waiting threads do their work - start on fresh timeslice
+            Thread.Sleep(0);
 
-			QueryPerformanceCounter(out startTime);
-		}
+            QueryPerformanceCounter(out startTime);
+        }
 
-		// Stop the timer
-		public void Stop()
-		{
-			QueryPerformanceCounter(out stopTime);
-		}
+        // Stop the timer
+        public void Stop()
+        {
+            QueryPerformanceCounter(out stopTime);
+        }
 
-		// Returns the duration of the timer (in seconds)
-		public double Duration
-		{
-			get
-			{
-				return (double)(stopTime - startTime) / (double) freq;
-			}
-		}
+        // Returns the duration of the timer (in seconds)
+        public double Duration
+        {
+            get
+            {
+                return (double)(stopTime - startTime) / (double)freq;
+            }
+        }
 
-		public double DurationMsec
-		{
-			get
-			{
-				return (1000.0)*(double)((stopTime - startTime)) / (double) freq;
-			}
-		}
+        public double DurationMsec
+        {
+            get
+            {
+                return (1000.0) * (double)((stopTime - startTime)) / (double)freq;
+            }
+        }
 
-        public double Elapsed {
-            get {
+        public double Elapsed
+        {
+            get
+            {
                 QueryPerformanceCounter(out elapsedTime);
                 return (double)(elapsedTime - startTime) / (double)freq;
             }
@@ -107,18 +109,20 @@ namespace Thetis
             Start();
         }
 
-        public double ElapsedMsec {
-            get {
+        public double ElapsedMsec
+        {
+            get
+            {
                 QueryPerformanceCounter(out elapsedTime);
                 return (1000.0) * (double)((elapsedTime - startTime)) / (double)freq;
             }
         }
 
         public long GetFreq()
-		{
-			long freq = 0;
-			QueryPerformanceFrequency(out freq);
-			return freq;
-		}
-	}
+        {
+            long freq = 0;
+            QueryPerformanceFrequency(out freq);
+            return freq;
+        }
+    }
 }

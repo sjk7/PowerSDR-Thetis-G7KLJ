@@ -71,7 +71,7 @@ namespace Thetis
 
         }
 
-     
+
 
         //=========================================================================================
         //=========================================================================================
@@ -80,11 +80,11 @@ namespace Thetis
         //=========================================================================================
         public void HttpServer1()
         {
-          
+
             try
             {
-              //  m_listener = new TcpListener(IPAddress.Any, console.HTTP_PORT);
-              
+                //  m_listener = new TcpListener(IPAddress.Any, console.HTTP_PORT);
+
             }
             catch (Exception e)
             {
@@ -94,7 +94,7 @@ namespace Thetis
 
             }
 
-         
+
             Console.m_terminated = false;
 
             Thread t = new Thread(new ThreadStart(TCPSERVER))
@@ -133,16 +133,16 @@ namespace Thetis
 
             while (!Console.m_terminated)
             {
-    
+
                 try
                 {
-                      TcpClient tempClient = getHandler(m_listener.AcceptTcpClient());
+                    TcpClient tempClient = getHandler(m_listener.AcceptTcpClient());
 
-                 //   TcpClient client = m_listener.AcceptTcpClient();
-                 //   string ip = ((IPEndPoint)m_listener.Server.LocalEndPoint).Address.ToString();
-                //    TcpClient tempClient = getHandler(client);
+                    //   TcpClient client = m_listener.AcceptTcpClient();
+                    //   string ip = ((IPEndPoint)m_listener.Server.LocalEndPoint).Address.ToString();
+                    //    TcpClient tempClient = getHandler(client);
 
-                    if ( TcpType != 0)
+                    if (TcpType != 0)
                     {
                         if (TcpType == 1)
                         {
@@ -174,7 +174,7 @@ namespace Thetis
                         break;
                     }
 
-                   
+
                 }
 
                 Thread.Sleep(50);
@@ -198,7 +198,7 @@ namespace Thetis
             try
             {
                 if (m_listener != null)
-                m_listener.Stop(); // try and close the getcontext thread
+                    m_listener.Stop(); // try and close the getcontext thread
 
             }
             catch (Exception e)
@@ -225,7 +225,7 @@ namespace Thetis
                 case RequestType.GET_HTML_INDEX_PAGE: //  WebPageRequest(tempClient);
                     TcpType = 2;
                     return tcpClient;
-                 case RequestType.UNKNOWN: //  UnknownRequest(tempClient);
+                case RequestType.UNKNOWN: //  UnknownRequest(tempClient);
                     TcpType = 3;
                     return tcpClient;
             }
@@ -284,32 +284,32 @@ namespace Thetis
 
             else if (RequestUri.CompareTo("/") == 0)
             {
-              // return RequestType.GET_IMAGE;
+                // return RequestType.GET_IMAGE;
 
-             return RequestType.GET_HTML_INDEX_PAGE;
+                return RequestType.GET_HTML_INDEX_PAGE;
             }
 
             return RequestType.UNKNOWN;
 
         } // private static RequestType getType(TcpClient tcpClient)
 
-      
+
         //=========================================================================================
         //=========================================================================================
         //=========================================================================================
         //=========================================================================================
         //=========================================================================================
         //=========================================================================================
-         
+
         public void ImageRequest(TcpClient m_tcpClient)
         {
-                     
+
             if (m_tcpClient == null) return;
 
             Debug.WriteLine("IMAGEREQUEST1");
 
             byte[] imageArray = getImage();
-                     
+
             if (imageArray == null)
             {
                 string CodeStr = "500 " + ((System.Net.HttpStatusCode)500).ToString();
@@ -327,7 +327,7 @@ namespace Thetis
 
             //  "<meta http-equiv= \"refresh\" content= \"500\" > \r\n" +
 
-            string responseHeaders =   "HTTP/1.1 200 The file is coming right up!\r\n" +
+            string responseHeaders = "HTTP/1.1 200 The file is coming right up!\r\n" +
                                      "Server: MyOwnServer\r\n" +
                                     "Content-Length: " + imageArray.Length + "\r\n" +
                                     "Content-Type: image/jpeg\r\n" +
@@ -335,7 +335,7 @@ namespace Thetis
                                     "\r\n";
 
 
-          
+
             byte[] headerArray = Encoding.ASCII.GetBytes(responseHeaders);
 
             NetworkStream stream = m_tcpClient.GetStream();
@@ -348,13 +348,13 @@ namespace Thetis
 
 
         } // ImageRequest()
-          
-          //=========================================================================================
-          //=========================================================================================
-          //=========================================================================================
-          //=========================================================================================
-          //=========================================================================================
-          //=========================================================================================
+
+        //=========================================================================================
+        //=========================================================================================
+        //=========================================================================================
+        //=========================================================================================
+        //=========================================================================================
+        //=========================================================================================
 
         public void UnknownRequest(TcpClient m_tcpClient)
         {
@@ -428,7 +428,7 @@ namespace Thetis
         {
             //  return "200"; // ************** Darrin,need add property "Refreh time in ms" and get data from his
             return console.HTTP_REFRESH.ToString();
-            
+
         }
 
         //=========================================================================================
@@ -446,57 +446,57 @@ namespace Thetis
 
             bitmap = new Bitmap(console.picDisplay.Width, console.picDisplay.Height); // ke9ns set bitmap size to size of picDisplay since it gets resized with your screen
             console.picDisplay.DrawToBitmap(bitmap, console.picDisplay.ClientRectangle); // ke9ns grab picDisplay and convert to bitmap
-            
+
             using (memstream = new MemoryStream())
             {
                 bitmap.Save(memstream, ImageFormat.Jpeg);
                 picDisplayOutput = memstream.ToArray();
             }
-      
+
             return picDisplayOutput;
-          
+
         } // getImage()
 
 
-/*     // ke9ns if you want to save image as a file and then read file
-        private byte[] getImage()
-        {
+        /*     // ke9ns if you want to save image as a file and then read file
+                private byte[] getImage()
+                {
 
-            bitmap = new Bitmap(console.picDisplay.Width, console.picDisplay.Height); // ke9ns set bitmap size to size of picDisplay since it gets resized with your screen
-            console.picDisplay.DrawToBitmap(bitmap, console.picDisplay.ClientRectangle); // ke9ns grab picDisplay and convert to bitmap
-            bitmap.Save(console.AppDataPath + "picDisplay.jpg", ImageFormat.Jpeg); // ke9ns save image into database folder
-          
-            FileInfo picDisplayFile = new FileInfo(console.AppDataPath + "picDisplay.jpg");
-            FileStream picDisplayStream = new FileStream(console.AppDataPath + "picDisplay.jpg", FileMode.Open, FileAccess.Read); // open file  stream 
-            BinaryReader picDisplayReader = new BinaryReader(picDisplayStream); // open stream for binary reading
+                    bitmap = new Bitmap(console.picDisplay.Width, console.picDisplay.Height); // ke9ns set bitmap size to size of picDisplay since it gets resized with your screen
+                    console.picDisplay.DrawToBitmap(bitmap, console.picDisplay.ClientRectangle); // ke9ns grab picDisplay and convert to bitmap
+                    bitmap.Save(console.AppDataPath + "picDisplay.jpg", ImageFormat.Jpeg); // ke9ns save image into database folder
 
-            picDisplayOutput = picDisplayReader.ReadBytes((int)picDisplayFile.Length); // create array of bytes to transmit
+                    FileInfo picDisplayFile = new FileInfo(console.AppDataPath + "picDisplay.jpg");
+                    FileStream picDisplayStream = new FileStream(console.AppDataPath + "picDisplay.jpg", FileMode.Open, FileAccess.Read); // open file  stream 
+                    BinaryReader picDisplayReader = new BinaryReader(picDisplayStream); // open stream for binary reading
 
-            picDisplayReader.Close();
-            picDisplayStream.Close();
-                       
-            return picDisplayOutput;
+                    picDisplayOutput = picDisplayReader.ReadBytes((int)picDisplayFile.Length); // create array of bytes to transmit
+
+                    picDisplayReader.Close();
+                    picDisplayStream.Close();
+
+                    return picDisplayOutput;
 
 
-        } // getImage()
+                } // getImage()
 
-    */
+            */
         //=========================================================================================
         //=========================================================================================
         //=========================================================================================
         //=========================================================================================
         //=========================================================================================
         private static void SendError(TcpClient Client, int Code)
-    {
-        string CodeStr = Code.ToString() + " " + ((HttpStatusCode)Code).ToString();
-        string Html = "<html><body><h1>" + CodeStr + "</h1></body></html>";
-        string Str = "HTTP/1.1 " + CodeStr + "\nContent-type: text/html\nContent-Length:" + Html.Length.ToString() + "\n\n" + Html;
-        byte[] Buffer = Encoding.ASCII.GetBytes(Str);
-        Client.GetStream().Write(Buffer, 0, Buffer.Length);
-        Client.Close();
-    }
+        {
+            string CodeStr = Code.ToString() + " " + ((HttpStatusCode)Code).ToString();
+            string Html = "<html><body><h1>" + CodeStr + "</h1></body></html>";
+            string Str = "HTTP/1.1 " + CodeStr + "\nContent-type: text/html\nContent-Length:" + Html.Length.ToString() + "\n\n" + Html;
+            byte[] Buffer = Encoding.ASCII.GetBytes(Str);
+            Client.GetStream().Write(Buffer, 0, Buffer.Length);
+            Client.Close();
+        }
 
-} // class http
+    } // class http
 
 
 } // namespace powersdr

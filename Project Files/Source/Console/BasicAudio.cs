@@ -20,11 +20,14 @@ namespace Thetis
         private event LoadComplededEventHandler loadCompleted;
         public delegate void LoadComplededEventHandler(bool bLoadedOk);
 
-        public event LoadComplededEventHandler LoadCompletedEvent {
-            add {
+        public event LoadComplededEventHandler LoadCompletedEvent
+        {
+            add
+            {
                 loadCompleted += value;
             }
-            remove {
+            remove
+            {
                 loadCompleted -= value;
             }
         }
@@ -33,7 +36,7 @@ namespace Thetis
         {
             m_objPlayer = new SoundPlayer();
             m_objPlayer.LoadCompleted += new AsyncCompletedEventHandler(player_LoadCompleted);
-            m_objPlayer.SoundLocationChanged += new EventHandler(player_LocationChanged);            
+            m_objPlayer.SoundLocationChanged += new EventHandler(player_LocationChanged);
         }
         private void player_LocationChanged(object sender, EventArgs e)
         {
@@ -46,11 +49,13 @@ namespace Thetis
             loadCompleted?.Invoke(m_bOkToPlay);
         }
 
-        public bool IsReady {
+        public bool IsReady
+        {
             get { return m_bOkToPlay; }
             set { }
         }
-        public string SoundFile {
+        public string SoundFile
+        {
             get { return m_objPlayer.SoundLocation; }
             set { }
         }
@@ -70,15 +75,17 @@ namespace Thetis
             {
                 m_bLoading = false;
                 loadCompleted?.Invoke(false);
+                Common.LogException(ex);
             }
             catch (TimeoutException ex)
             {
                 m_bLoading = false;
                 loadCompleted?.Invoke(false);
+                Common.LogException(ex);
             }
         }
         public void Play()
-        {            
+        {
             if (!m_bOkToPlay) return;
 
             if (m_objThread == null || !m_objThread.IsAlive)

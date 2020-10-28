@@ -330,7 +330,7 @@ namespace Thetis
             this.Hide();
             IsVisible = false;
             e.Cancel = true;
-//            Common.SaveForm(this, "AndromedaEditForm");
+            //            Common.SaveForm(this, "AndromedaEditForm");
         }
 
         private void AndromedaEditForm_Activated(object sender, EventArgs e)
@@ -493,7 +493,7 @@ namespace Thetis
         {
             foreach (DataGridViewRow row in dgv.Rows)
             {
-                row.HeaderCell.Value = ((row.Index/8) + 1).ToString();
+                row.HeaderCell.Value = ((row.Index / 8) + 1).ToString();
             }
         }
 
@@ -502,7 +502,7 @@ namespace Thetis
         // parameter is encoder number (0-19)
         public void SetEncoderNumber(int Encoder)
         {
-            if(Encoder < NumEncoders)
+            if (Encoder < NumEncoders)
                 EncoderDataGridView.CurrentCell = EncoderDataGridView[1, Encoder];
         }
 
@@ -533,7 +533,7 @@ namespace Thetis
         private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int Index = tabControl1.SelectedIndex;
-            switch(Index)                                       // switch based on tab number
+            switch (Index)                                       // switch based on tab number
             {
                 case 0:                 // encoders
                     DisplayRowNumbers(EncoderDataGridView);
@@ -582,7 +582,7 @@ namespace Thetis
             // now try to renumber the links to other menus
             CellCount = UserData.Tables[4].Rows.Count;
             NewMenuCount = CellCount / 8;
-            for (Cntr=0; Cntr < CellCount; Cntr++)
+            for (Cntr = 0; Cntr < CellCount; Cntr++)
             {
                 MenuLink = (int)UserData.Tables[4].Rows[Cntr]["Menu Number"];
                 if (MenuLink > NewMenuCount)
@@ -601,16 +601,15 @@ namespace Thetis
             int Row;
             int MenuEnumValue;
             int Column = e.ColumnIndex;
-            int CombooValuesRow;                    // row number in the combo box possible values
             int ComboValuesCount;
             int Cntr;
 
-            if(Column == 0)
+            if (Column == 0)
             {
                 Row = e.RowIndex;
                 MenuEnumValue = (int)MenuDataGridView.Rows[Row].Cells[Column].Value;
                 ComboValuesCount = StringData.Tables["Pushbutton Combo Strings"].Rows.Count;
-                for(Cntr=0; Cntr < ComboValuesCount; Cntr++)
+                for (Cntr = 0; Cntr < ComboValuesCount; Cntr++)
                 {
                     if ((int)StringData.Tables["Pushbutton Combo Strings"].Rows[Cntr]["ActionId"] == MenuEnumValue)
                         UserData.Tables[4].Rows[Row]["Menu Text"] = StringData.Tables["Pushbutton Combo Strings"].Rows[Cntr]["MenuText"];
@@ -626,8 +625,6 @@ namespace Thetis
             int Index;                          // current pointer position in table
             int StartRow;                       // start row number to delete
             int Cntr;
-            int CellCount;                      // number of rows in table
-            int NewMenuCount;                      // number of menus after delete
             int MenuLink;
             int CurrentRowCount;
             DataRow NewRow;
@@ -642,7 +639,7 @@ namespace Thetis
             // otherwise use add to add them at the end
             if (StartRow < CurrentRowCount)
             {
-                for(Cntr=0; Cntr < 8; Cntr++)
+                for (Cntr = 0; Cntr < 8; Cntr++)
                 {
                     NewRow = UserData.Tables[4].NewRow();
                     NewRow["Menu button Number"] = 0;

@@ -33,68 +33,68 @@ namespace Thetis
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
-	/// <summary>
-	/// Summary description for EQForm.
-	/// </summary>
-	public class EQForm : System.Windows.Forms.Form
-	{
-		#region Variable Declaration
+    /// <summary>
+    /// Summary description for EQForm.
+    /// </summary>
+    public class EQForm : System.Windows.Forms.Form
+    {
+        #region Variable Declaration
 
-		private Console console;
-		private System.Windows.Forms.GroupBoxTS grpRXEQ;
-		private System.Windows.Forms.GroupBoxTS grpTXEQ;
-		private System.Windows.Forms.TrackBarTS tbRXEQ1;
-		private System.Windows.Forms.TrackBarTS tbRXEQ2;
-		private System.Windows.Forms.TrackBarTS tbRXEQ3;
-		private System.Windows.Forms.TrackBarTS tbTXEQ2;
-		private System.Windows.Forms.TrackBarTS tbTXEQ0;
-		private System.Windows.Forms.TrackBarTS tbTXEQ1;
-		private System.Windows.Forms.LabelTS lblRXEQ0dB;
-		private System.Windows.Forms.LabelTS lblTXEQ0dB;
-		private System.Windows.Forms.LabelTS lblRXEQ1;
-		private System.Windows.Forms.LabelTS lblRXEQ2;
+        private Console console;
+        private System.Windows.Forms.GroupBoxTS grpRXEQ;
+        private System.Windows.Forms.GroupBoxTS grpTXEQ;
+        private System.Windows.Forms.TrackBarTS tbRXEQ1;
+        private System.Windows.Forms.TrackBarTS tbRXEQ2;
+        private System.Windows.Forms.TrackBarTS tbRXEQ3;
+        private System.Windows.Forms.TrackBarTS tbTXEQ2;
+        private System.Windows.Forms.TrackBarTS tbTXEQ0;
+        private System.Windows.Forms.TrackBarTS tbTXEQ1;
+        private System.Windows.Forms.LabelTS lblRXEQ0dB;
+        private System.Windows.Forms.LabelTS lblTXEQ0dB;
+        private System.Windows.Forms.LabelTS lblRXEQ1;
+        private System.Windows.Forms.LabelTS lblRXEQ2;
         private System.Windows.Forms.LabelTS lblRXEQ3;
-		private System.Windows.Forms.LabelTS lblRXEQPreamp;
-		private System.Windows.Forms.LabelTS lblTXEQPreamp;
-		private System.Windows.Forms.CheckBoxTS chkTXEQEnabled;
-		private System.Windows.Forms.TrackBarTS tbRXEQPreamp;
-		private System.Windows.Forms.TrackBarTS tbTXEQPre;
-		private System.Windows.Forms.CheckBoxTS chkRXEQEnabled;
+        private System.Windows.Forms.LabelTS lblRXEQPreamp;
+        private System.Windows.Forms.LabelTS lblTXEQPreamp;
+        private System.Windows.Forms.CheckBoxTS chkTXEQEnabled;
+        private System.Windows.Forms.TrackBarTS tbRXEQPreamp;
+        private System.Windows.Forms.TrackBarTS tbTXEQPre;
+        private System.Windows.Forms.CheckBoxTS chkRXEQEnabled;
         private System.Windows.Forms.PictureBox picRXEQ;
-		private System.Windows.Forms.ButtonTS btnRXEQReset;
-		private System.Windows.Forms.LabelTS lblRXEQ15db;
-		private System.Windows.Forms.LabelTS lblTXEQ15db;
-		private System.Windows.Forms.LabelTS lblRXEQminus12db;
-		private System.Windows.Forms.LabelTS lblTXEQminus12db;
+        private System.Windows.Forms.ButtonTS btnRXEQReset;
+        private System.Windows.Forms.LabelTS lblRXEQ15db;
+        private System.Windows.Forms.LabelTS lblTXEQ15db;
+        private System.Windows.Forms.LabelTS lblRXEQminus12db;
+        private System.Windows.Forms.LabelTS lblTXEQminus12db;
         private System.Windows.Forms.ToolTip toolTip1;
-		private System.Windows.Forms.TrackBarTS tbRXEQ4;
-		private System.Windows.Forms.TrackBarTS tbRXEQ5;
-		private System.Windows.Forms.TrackBarTS tbRXEQ6;
-		private System.Windows.Forms.TrackBarTS tbRXEQ7;
-		private System.Windows.Forms.TrackBarTS tbRXEQ8;
-		private System.Windows.Forms.TrackBarTS tbRXEQ9;
-		private System.Windows.Forms.TrackBarTS tbRXEQ10;
-		private System.Windows.Forms.LabelTS lblRXEQ15db2;
-		private System.Windows.Forms.LabelTS lblRXEQ0dB2;
-		private System.Windows.Forms.LabelTS lblRXEQminus12db2;
-		private System.Windows.Forms.LabelTS lblTXEQ15db2;
-		private System.Windows.Forms.LabelTS lblTXEQ0dB2;
-		private System.Windows.Forms.LabelTS lblTXEQminus12db2;
-		private System.Windows.Forms.RadioButtonTS rad3Band;
-		private System.Windows.Forms.RadioButtonTS rad10Band;
-		private System.Windows.Forms.TrackBarTS tbTXEQ3;
-		private System.Windows.Forms.TrackBarTS tbTXEQ4;
-		private System.Windows.Forms.TrackBarTS tbTXEQ5;
-		private System.Windows.Forms.TrackBarTS tbTXEQ6;
-		private System.Windows.Forms.TrackBarTS tbTXEQ7;
-		private System.Windows.Forms.TrackBarTS tbTXEQ8;
-		private System.Windows.Forms.TrackBarTS tbTXEQ9;
-		private System.Windows.Forms.LabelTS lblRXEQ4;
-		private System.Windows.Forms.LabelTS lblRXEQ5;
-		private System.Windows.Forms.LabelTS lblRXEQ6;
-		private System.Windows.Forms.LabelTS lblRXEQ7;
-		private System.Windows.Forms.LabelTS lblRXEQ8;
-		private System.Windows.Forms.LabelTS lblRXEQ9;
+        private System.Windows.Forms.TrackBarTS tbRXEQ4;
+        private System.Windows.Forms.TrackBarTS tbRXEQ5;
+        private System.Windows.Forms.TrackBarTS tbRXEQ6;
+        private System.Windows.Forms.TrackBarTS tbRXEQ7;
+        private System.Windows.Forms.TrackBarTS tbRXEQ8;
+        private System.Windows.Forms.TrackBarTS tbRXEQ9;
+        private System.Windows.Forms.TrackBarTS tbRXEQ10;
+        private System.Windows.Forms.LabelTS lblRXEQ15db2;
+        private System.Windows.Forms.LabelTS lblRXEQ0dB2;
+        private System.Windows.Forms.LabelTS lblRXEQminus12db2;
+        private System.Windows.Forms.LabelTS lblTXEQ15db2;
+        private System.Windows.Forms.LabelTS lblTXEQ0dB2;
+        private System.Windows.Forms.LabelTS lblTXEQminus12db2;
+        private System.Windows.Forms.RadioButtonTS rad3Band;
+        private System.Windows.Forms.RadioButtonTS rad10Band;
+        private System.Windows.Forms.TrackBarTS tbTXEQ3;
+        private System.Windows.Forms.TrackBarTS tbTXEQ4;
+        private System.Windows.Forms.TrackBarTS tbTXEQ5;
+        private System.Windows.Forms.TrackBarTS tbTXEQ6;
+        private System.Windows.Forms.TrackBarTS tbTXEQ7;
+        private System.Windows.Forms.TrackBarTS tbTXEQ8;
+        private System.Windows.Forms.TrackBarTS tbTXEQ9;
+        private System.Windows.Forms.LabelTS lblRXEQ4;
+        private System.Windows.Forms.LabelTS lblRXEQ5;
+        private System.Windows.Forms.LabelTS lblRXEQ6;
+        private System.Windows.Forms.LabelTS lblRXEQ7;
+        private System.Windows.Forms.LabelTS lblRXEQ8;
+        private System.Windows.Forms.LabelTS lblRXEQ9;
         private System.Windows.Forms.LabelTS lblRXEQ10;
         private LabelTS lblCFCFreq;
         private NumericUpDownTS udTXEQ9;
@@ -107,50 +107,50 @@ namespace Thetis
         private NumericUpDownTS udTXEQ2;
         private NumericUpDownTS udTXEQ1;
         private NumericUpDownTS udTXEQ0;
-		private System.ComponentModel.IContainer components;
-		
-		#endregion
+        private System.ComponentModel.IContainer components;
 
-		#region Constructor and Destructor
+        #endregion
 
-		public EQForm(Console c)
-		{
-			//
-			// Required for Windows Form Designer support
-			//
-			InitializeComponent();
-			console = c;
-			Common.RestoreForm(this, "EQForm", false);
-            
-			tbRXEQ_Scroll(this, EventArgs.Empty);
-			//tbTXEQ_Scroll(this, EventArgs.Empty);
+        #region Constructor and Destructor
+
+        public EQForm(Console c)
+        {
+            //
+            // Required for Windows Form Designer support
+            //
+            InitializeComponent();
+            console = c;
+            Common.RestoreForm(this, "EQForm", false);
+
+            tbRXEQ_Scroll(this, EventArgs.Empty);
+            //tbTXEQ_Scroll(this, EventArgs.Empty);
             rad10Band_CheckedChanged(this, EventArgs.Empty);
-		}
+        }
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		protected override void Dispose( bool disposing )
-		{
-			if( disposing )
-			{
-				if(components != null)
-				{
-					components.Dispose();
-				}
-			}
-			base.Dispose( disposing );
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
 
-		#endregion
+        #endregion
 
-		#region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EQForm));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -1301,102 +1301,102 @@ namespace Thetis
             ((System.ComponentModel.ISupportInitialize)(this.tbTXEQPre)).EndInit();
             this.ResumeLayout(false);
 
-		}
-		#endregion
+        }
+        #endregion
 
-		#region Properties
+        #region Properties
 
-		public int NumBands
-		{
-			get 
-			{
-				if(rad3Band.Checked) return 3;
-				else return 10;
-			}
-			set
-			{
-				switch(value)
-				{
-					case 3: rad3Band.Checked = true; break;
-					case 10: rad10Band.Checked = true; break;
-				}
-			}
-		}
+        public int NumBands
+        {
+            get
+            {
+                if (rad3Band.Checked) return 3;
+                else return 10;
+            }
+            set
+            {
+                switch (value)
+                {
+                    case 3: rad3Band.Checked = true; break;
+                    case 10: rad10Band.Checked = true; break;
+                }
+            }
+        }
 
-		public int[] RXEQ
-		{
-			get
-			{
-				if(rad3Band.Checked)
-				{
-					int[] eq = new int[4];
-					eq[0] = tbRXEQPreamp.Value;
-					eq[1] = tbRXEQ1.Value;
-					eq[2] = tbRXEQ5.Value;
-					eq[3] = tbRXEQ9.Value;
-					return eq;
-				}
-				else //if(rad10Band.Checked)
-				{
-					int[] eq = new int[11];
-					eq[0] = tbRXEQPreamp.Value;
-					eq[1] = tbRXEQ1.Value;
-					eq[2] = tbRXEQ2.Value;
-					eq[3] = tbRXEQ3.Value;
-					eq[4] = tbRXEQ4.Value;
-					eq[5] = tbRXEQ5.Value;
-					eq[6] = tbRXEQ6.Value;
-					eq[7] = tbRXEQ7.Value;
-					eq[8] = tbRXEQ8.Value;
-					eq[9] = tbRXEQ9.Value;
-					eq[10] = tbRXEQ10.Value;
-					return eq;
-				}
-			}
+        public int[] RXEQ
+        {
+            get
+            {
+                if (rad3Band.Checked)
+                {
+                    int[] eq = new int[4];
+                    eq[0] = tbRXEQPreamp.Value;
+                    eq[1] = tbRXEQ1.Value;
+                    eq[2] = tbRXEQ5.Value;
+                    eq[3] = tbRXEQ9.Value;
+                    return eq;
+                }
+                else //if(rad10Band.Checked)
+                {
+                    int[] eq = new int[11];
+                    eq[0] = tbRXEQPreamp.Value;
+                    eq[1] = tbRXEQ1.Value;
+                    eq[2] = tbRXEQ2.Value;
+                    eq[3] = tbRXEQ3.Value;
+                    eq[4] = tbRXEQ4.Value;
+                    eq[5] = tbRXEQ5.Value;
+                    eq[6] = tbRXEQ6.Value;
+                    eq[7] = tbRXEQ7.Value;
+                    eq[8] = tbRXEQ8.Value;
+                    eq[9] = tbRXEQ9.Value;
+                    eq[10] = tbRXEQ10.Value;
+                    return eq;
+                }
+            }
 
-			set
-			{
-				if(rad3Band.Checked)
-				{
-					if(value.Length < 4) 
-					{
-						MessageBox.Show("Error setting RX EQ");
-						return;
-					}
-					tbRXEQPreamp.Value = Math.Max(tbRXEQPreamp.Minimum, Math.Min(tbRXEQPreamp.Maximum, value[0]));
-					tbRXEQ1.Value = Math.Max(tbRXEQ1.Minimum, Math.Min(tbRXEQ1.Maximum, value[1]));
-					tbRXEQ5.Value = Math.Max(tbRXEQ5.Minimum, Math.Min(tbRXEQ5.Maximum, value[2]));
-					tbRXEQ9.Value = Math.Max(tbRXEQ9.Minimum, Math.Min(tbRXEQ9.Maximum, value[3]));					
-				}
-				else if(rad10Band.Checked)
-				{
-					if(value.Length < 11)
-					{
-						MessageBox.Show("Error setting RX EQ");
-						return; 
-					}
-					tbRXEQPreamp.Value = Math.Max(tbRXEQPreamp.Minimum, Math.Min(tbRXEQPreamp.Maximum, value[0]));
-					tbRXEQ1.Value = Math.Max(tbRXEQ1.Minimum, Math.Min(tbRXEQ1.Maximum, value[1]));
-					tbRXEQ2.Value = Math.Max(tbRXEQ2.Minimum, Math.Min(tbRXEQ2.Maximum, value[2]));
-					tbRXEQ3.Value = Math.Max(tbRXEQ3.Minimum, Math.Min(tbRXEQ3.Maximum, value[3]));	
-					tbRXEQ4.Value = Math.Max(tbRXEQ4.Minimum, Math.Min(tbRXEQ4.Maximum, value[4]));	
-					tbRXEQ5.Value = Math.Max(tbRXEQ5.Minimum, Math.Min(tbRXEQ5.Maximum, value[5]));	
-					tbRXEQ6.Value = Math.Max(tbRXEQ6.Minimum, Math.Min(tbRXEQ6.Maximum, value[6]));	
-					tbRXEQ7.Value = Math.Max(tbRXEQ7.Minimum, Math.Min(tbRXEQ7.Maximum, value[7]));	
-					tbRXEQ8.Value = Math.Max(tbRXEQ8.Minimum, Math.Min(tbRXEQ8.Maximum, value[8]));	
-					tbRXEQ9.Value = Math.Max(tbRXEQ9.Minimum, Math.Min(tbRXEQ9.Maximum, value[9]));	
-					tbRXEQ10.Value = Math.Max(tbRXEQ10.Minimum, Math.Min(tbRXEQ10.Maximum, value[10]));	
-				}
+            set
+            {
+                if (rad3Band.Checked)
+                {
+                    if (value.Length < 4)
+                    {
+                        MessageBox.Show("Error setting RX EQ");
+                        return;
+                    }
+                    tbRXEQPreamp.Value = Math.Max(tbRXEQPreamp.Minimum, Math.Min(tbRXEQPreamp.Maximum, value[0]));
+                    tbRXEQ1.Value = Math.Max(tbRXEQ1.Minimum, Math.Min(tbRXEQ1.Maximum, value[1]));
+                    tbRXEQ5.Value = Math.Max(tbRXEQ5.Minimum, Math.Min(tbRXEQ5.Maximum, value[2]));
+                    tbRXEQ9.Value = Math.Max(tbRXEQ9.Minimum, Math.Min(tbRXEQ9.Maximum, value[3]));
+                }
+                else if (rad10Band.Checked)
+                {
+                    if (value.Length < 11)
+                    {
+                        MessageBox.Show("Error setting RX EQ");
+                        return;
+                    }
+                    tbRXEQPreamp.Value = Math.Max(tbRXEQPreamp.Minimum, Math.Min(tbRXEQPreamp.Maximum, value[0]));
+                    tbRXEQ1.Value = Math.Max(tbRXEQ1.Minimum, Math.Min(tbRXEQ1.Maximum, value[1]));
+                    tbRXEQ2.Value = Math.Max(tbRXEQ2.Minimum, Math.Min(tbRXEQ2.Maximum, value[2]));
+                    tbRXEQ3.Value = Math.Max(tbRXEQ3.Minimum, Math.Min(tbRXEQ3.Maximum, value[3]));
+                    tbRXEQ4.Value = Math.Max(tbRXEQ4.Minimum, Math.Min(tbRXEQ4.Maximum, value[4]));
+                    tbRXEQ5.Value = Math.Max(tbRXEQ5.Minimum, Math.Min(tbRXEQ5.Maximum, value[5]));
+                    tbRXEQ6.Value = Math.Max(tbRXEQ6.Minimum, Math.Min(tbRXEQ6.Maximum, value[6]));
+                    tbRXEQ7.Value = Math.Max(tbRXEQ7.Minimum, Math.Min(tbRXEQ7.Maximum, value[7]));
+                    tbRXEQ8.Value = Math.Max(tbRXEQ8.Minimum, Math.Min(tbRXEQ8.Maximum, value[8]));
+                    tbRXEQ9.Value = Math.Max(tbRXEQ9.Minimum, Math.Min(tbRXEQ9.Maximum, value[9]));
+                    tbRXEQ10.Value = Math.Max(tbRXEQ10.Minimum, Math.Min(tbRXEQ10.Maximum, value[10]));
+                }
 
-				picRXEQ.Invalidate();
-				tbRXEQ_Scroll(this, EventArgs.Empty);
-			}
-		}
+                picRXEQ.Invalidate();
+                tbRXEQ_Scroll(this, EventArgs.Empty);
+            }
+        }
 
-		public int[] TXEQ
-		{
-			get 
-			{
+        public int[] TXEQ
+        {
+            get
+            {
                 //if(rad3Band.Checked)
                 //{
                 //    int[] eq = new int[4];
@@ -1408,34 +1408,34 @@ namespace Thetis
                 //}
                 //else //if(rad10Band.Checked)
                 //{
-					int[] eq = new int[21];
-                    eq[0]  = tbTXEQPre.Value;
-                    eq[1]  = tbTXEQ0.Value;
-                    eq[2]  = tbTXEQ1.Value;
-                    eq[3]  = tbTXEQ2.Value;
-                    eq[4]  = tbTXEQ3.Value;
-                    eq[5]  = tbTXEQ4.Value;
-                    eq[6]  = tbTXEQ5.Value;
-                    eq[7]  = tbTXEQ6.Value;
-                    eq[8]  = tbTXEQ7.Value;
-                    eq[9]  = tbTXEQ8.Value;
-                    eq[10] = tbTXEQ9.Value;
+                int[] eq = new int[21];
+                eq[0] = tbTXEQPre.Value;
+                eq[1] = tbTXEQ0.Value;
+                eq[2] = tbTXEQ1.Value;
+                eq[3] = tbTXEQ2.Value;
+                eq[4] = tbTXEQ3.Value;
+                eq[5] = tbTXEQ4.Value;
+                eq[6] = tbTXEQ5.Value;
+                eq[7] = tbTXEQ6.Value;
+                eq[8] = tbTXEQ7.Value;
+                eq[9] = tbTXEQ8.Value;
+                eq[10] = tbTXEQ9.Value;
 
-                    eq[11] = (int)udTXEQ0.Value;
-                    eq[12] = (int)udTXEQ1.Value;
-                    eq[13] = (int)udTXEQ2.Value;
-                    eq[14] = (int)udTXEQ3.Value;
-                    eq[15] = (int)udTXEQ4.Value;
-                    eq[16] = (int)udTXEQ5.Value;
-                    eq[17] = (int)udTXEQ6.Value;
-                    eq[18] = (int)udTXEQ7.Value;
-                    eq[19] = (int)udTXEQ8.Value;
-                    eq[20] = (int)udTXEQ9.Value;
-                    return eq;
+                eq[11] = (int)udTXEQ0.Value;
+                eq[12] = (int)udTXEQ1.Value;
+                eq[13] = (int)udTXEQ2.Value;
+                eq[14] = (int)udTXEQ3.Value;
+                eq[15] = (int)udTXEQ4.Value;
+                eq[16] = (int)udTXEQ5.Value;
+                eq[17] = (int)udTXEQ6.Value;
+                eq[18] = (int)udTXEQ7.Value;
+                eq[19] = (int)udTXEQ8.Value;
+                eq[20] = (int)udTXEQ9.Value;
+                return eq;
                 //}
-			}
-			set
-			{
+            }
+            set
+            {
                 //if(rad3Band.Checked)
                 //{
                 //    if(value.Length < 4)
@@ -1478,65 +1478,65 @@ namespace Thetis
                 udTXEQ8.Value = Math.Max(udTXEQ8.Minimum, Math.Min(udTXEQ8.Maximum, value[19]));
                 udTXEQ9.Value = Math.Max(udTXEQ9.Minimum, Math.Min(udTXEQ9.Maximum, value[20]));
                 //}
-				//picTXEQ.Invalidate();
-				//tbTXEQ_Scroll(this, EventArgs.Empty);
-			}
-		}
+                //picTXEQ.Invalidate();
+                //tbTXEQ_Scroll(this, EventArgs.Empty);
+            }
+        }
 
-		public bool RXEQEnabled
-		{
-			get
-			{
-				if(chkRXEQEnabled != null) return chkRXEQEnabled.Checked;
-				else return false;
-			}
-			set
-			{
-				if(chkRXEQEnabled != null) chkRXEQEnabled.Checked = value;
-			}
-		}
+        public bool RXEQEnabled
+        {
+            get
+            {
+                if (chkRXEQEnabled != null) return chkRXEQEnabled.Checked;
+                else return false;
+            }
+            set
+            {
+                if (chkRXEQEnabled != null) chkRXEQEnabled.Checked = value;
+            }
+        }
 
-		public bool TXEQEnabled
-		{
-			get
-			{
-				if(chkTXEQEnabled != null) return chkTXEQEnabled.Checked;
-				else return false;
-			}
-			set 
-			{
-				if(chkTXEQEnabled != null) chkTXEQEnabled.Checked = value;
-			}
-		}
+        public bool TXEQEnabled
+        {
+            get
+            {
+                if (chkTXEQEnabled != null) return chkTXEQEnabled.Checked;
+                else return false;
+            }
+            set
+            {
+                if (chkTXEQEnabled != null) chkTXEQEnabled.Checked = value;
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region Event Handlers
+        #region Event Handlers
 
-		private void EQForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-		{
-			this.Hide();
-			e.Cancel = true;
-			Common.SaveForm(this, "EQForm");
-		}
+        private void EQForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.Hide();
+            e.Cancel = true;
+            Common.SaveForm(this, "EQForm");
+        }
 
-		private void tbRXEQ_Scroll(object sender, System.EventArgs e)
-		{
-			int[] rxeq = RXEQ;
-			if(rad3Band.Checked)
-			{
-				console.radio.GetDSPRX(0, 0).RXEQ3 = rxeq;
-				console.radio.GetDSPRX(0, 1).RXEQ3 = rxeq;
-				console.radio.GetDSPRX(1, 0).RXEQ3 = rxeq;
-			}
-			else
-			{
-				console.radio.GetDSPRX(0, 0).RXEQ10 = rxeq;
-				console.radio.GetDSPRX(0, 1).RXEQ10 = rxeq;
-				console.radio.GetDSPRX(1, 0).RXEQ10 = rxeq;
-			}
-			picRXEQ.Invalidate();
-		}
+        private void tbRXEQ_Scroll(object sender, System.EventArgs e)
+        {
+            int[] rxeq = RXEQ;
+            if (rad3Band.Checked)
+            {
+                console.radio.GetDSPRX(0, 0).RXEQ3 = rxeq;
+                console.radio.GetDSPRX(0, 1).RXEQ3 = rxeq;
+                console.radio.GetDSPRX(1, 0).RXEQ3 = rxeq;
+            }
+            else
+            {
+                console.radio.GetDSPRX(0, 0).RXEQ10 = rxeq;
+                console.radio.GetDSPRX(0, 1).RXEQ10 = rxeq;
+                console.radio.GetDSPRX(1, 0).RXEQ10 = rxeq;
+            }
+            picRXEQ.Invalidate();
+        }
 
         //private void tbTXEQ_Scroll(object sender, System.EventArgs e)
         //{
@@ -1552,27 +1552,27 @@ namespace Thetis
         //    picTXEQ.Invalidate();
         //}
 
-		private void picRXEQ_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
-		{
-			int[] rxeq = RXEQ;
-			if(!chkRXEQEnabled.Checked)
-			{
-				for(int i=0; i<rxeq.Length; i++)
-					rxeq[i] = 0;
-			}
+        private void picRXEQ_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+        {
+            int[] rxeq = RXEQ;
+            if (!chkRXEQEnabled.Checked)
+            {
+                for (int i = 0; i < rxeq.Length; i++)
+                    rxeq[i] = 0;
+            }
 
-			Point[] points = new Point[rxeq.Length-1];
-			for(int i=1; i<rxeq.Length; i++)
-			{
-				points[i-1].X = (int)((i-1)*picRXEQ.Width/(float)(rxeq.Length-2));
-				points[i-1].Y = picRXEQ.Height/2 - (int)(rxeq[i]*(picRXEQ.Height-6)/2/15.0f +
-					tbRXEQPreamp.Value * 3 / 15.0f);
-			}
+            Point[] points = new Point[rxeq.Length - 1];
+            for (int i = 1; i < rxeq.Length; i++)
+            {
+                points[i - 1].X = (int)((i - 1) * picRXEQ.Width / (float)(rxeq.Length - 2));
+                points[i - 1].Y = picRXEQ.Height / 2 - (int)(rxeq[i] * (picRXEQ.Height - 6) / 2 / 15.0f +
+                    tbRXEQPreamp.Value * 3 / 15.0f);
+            }
 
-			e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-			e.Graphics.FillRectangle(new SolidBrush(Color.Black), 0, 0, picRXEQ.Width, picRXEQ.Height);
-			e.Graphics.DrawLines(new Pen(Color.LightGreen), points);
-		}
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.FillRectangle(new SolidBrush(Color.Black), 0, 0, picRXEQ.Width, picRXEQ.Height);
+            e.Graphics.DrawLines(new Pen(Color.LightGreen), points);
+        }
 
         //private void picTXEQ_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         //{
@@ -1596,40 +1596,40 @@ namespace Thetis
         //    e.Graphics.DrawLines(new Pen(Color.LightGreen), points);
         //}
 
-		private void chkRXEQEnabled_CheckedChanged(object sender, System.EventArgs e)
-		{
-			console.radio.GetDSPRX(0, 0).RXEQOn = chkRXEQEnabled.Checked;
-			picRXEQ.Invalidate();
-			console.RXEQ = chkRXEQEnabled.Checked;
-		}
+        private void chkRXEQEnabled_CheckedChanged(object sender, System.EventArgs e)
+        {
+            console.radio.GetDSPRX(0, 0).RXEQOn = chkRXEQEnabled.Checked;
+            picRXEQ.Invalidate();
+            console.RXEQ = chkRXEQEnabled.Checked;
+        }
 
-		private void chkTXEQEnabled_CheckedChanged(object sender, System.EventArgs e)
-		{
-			console.radio.GetDSPTX(0).TXEQOn = chkTXEQEnabled.Checked;
-			//picTXEQ.Invalidate();
-			console.TXEQ = chkTXEQEnabled.Checked;
-		}
+        private void chkTXEQEnabled_CheckedChanged(object sender, System.EventArgs e)
+        {
+            console.radio.GetDSPTX(0).TXEQOn = chkTXEQEnabled.Checked;
+            //picTXEQ.Invalidate();
+            console.TXEQ = chkTXEQEnabled.Checked;
+        }
 
-		private void btnRXEQReset_Click(object sender, System.EventArgs e)
-		{
-			DialogResult dr = MessageBox.Show(
-				"Are you sure you want to reset the Receive Equalizer\n"+
-				"to flat (zero)?",
-				"Are you sure?",
-				MessageBoxButtons.YesNo,
-				MessageBoxIcon.Question);
-			
-			if(dr == DialogResult.No)
-				return;
+        private void btnRXEQReset_Click(object sender, System.EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show(
+                "Are you sure you want to reset the Receive Equalizer\n" +
+                "to flat (zero)?",
+                "Are you sure?",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
 
-			foreach(Control c in grpRXEQ.Controls)
-			{
-				if(c.GetType() == typeof(TrackBarTS))
-					((TrackBarTS)c).Value = 0;
-			}
+            if (dr == DialogResult.No)
+                return;
 
-			tbRXEQ_Scroll(this, EventArgs.Empty);
-		}
+            foreach (Control c in grpRXEQ.Controls)
+            {
+                if (c.GetType() == typeof(TrackBarTS))
+                    ((TrackBarTS)c).Value = 0;
+            }
+
+            tbRXEQ_Scroll(this, EventArgs.Empty);
+        }
 
         //private void btnTXEQReset_Click(object sender, System.EventArgs e)
         //{
@@ -1639,7 +1639,7 @@ namespace Thetis
         //        "Are you sure?",
         //        MessageBoxButtons.YesNo,
         //        MessageBoxIcon.Question);
-			
+
         //    if(dr == DialogResult.No)
         //        return;
 
@@ -1652,36 +1652,36 @@ namespace Thetis
         //    //tbTXEQ_Scroll(this, EventArgs.Empty);
         //}
 
-		private void rad3Band_CheckedChanged(object sender, System.EventArgs e)
-		{
-			if(rad3Band.Checked)
-			{
-				lblRXEQ2.Visible = false;
-				lblRXEQ3.Visible = false;
-				lblRXEQ4.Visible = false;
-				lblRXEQ6.Visible = false;
-				lblRXEQ7.Visible = false;
-				lblRXEQ8.Visible = false;
-				lblRXEQ10.Visible = false;
+        private void rad3Band_CheckedChanged(object sender, System.EventArgs e)
+        {
+            if (rad3Band.Checked)
+            {
+                lblRXEQ2.Visible = false;
+                lblRXEQ3.Visible = false;
+                lblRXEQ4.Visible = false;
+                lblRXEQ6.Visible = false;
+                lblRXEQ7.Visible = false;
+                lblRXEQ8.Visible = false;
+                lblRXEQ10.Visible = false;
 
-				tbRXEQ2.Visible = false;
-				tbRXEQ3.Visible = false;
-				tbRXEQ4.Visible = false;
-				tbRXEQ6.Visible = false;
-				tbRXEQ7.Visible = false;
-				tbRXEQ8.Visible = false;
-				tbRXEQ10.Visible = false;
+                tbRXEQ2.Visible = false;
+                tbRXEQ3.Visible = false;
+                tbRXEQ4.Visible = false;
+                tbRXEQ6.Visible = false;
+                tbRXEQ7.Visible = false;
+                tbRXEQ8.Visible = false;
+                tbRXEQ10.Visible = false;
 
-				lblRXEQ1.Text = "Low";
-				lblRXEQ5.Text = "Mid";
-				lblRXEQ9.Text = "High";
+                lblRXEQ1.Text = "Low";
+                lblRXEQ5.Text = "Mid";
+                lblRXEQ9.Text = "High";
 
-				toolTip1.SetToolTip(lblRXEQ1, "0-400Hz");
-				toolTip1.SetToolTip(tbRXEQ1, "0-400Hz");
-				toolTip1.SetToolTip(lblRXEQ5, "400-1500Hz");
-				toolTip1.SetToolTip(tbRXEQ5, "400-1500Hz");
-				toolTip1.SetToolTip(lblRXEQ9, "1500-6000Hz");
-				toolTip1.SetToolTip(tbRXEQ9, "1500-6000Hz");
+                toolTip1.SetToolTip(lblRXEQ1, "0-400Hz");
+                toolTip1.SetToolTip(tbRXEQ1, "0-400Hz");
+                toolTip1.SetToolTip(lblRXEQ5, "400-1500Hz");
+                toolTip1.SetToolTip(tbRXEQ5, "400-1500Hz");
+                toolTip1.SetToolTip(lblRXEQ9, "1500-6000Hz");
+                toolTip1.SetToolTip(tbRXEQ9, "1500-6000Hz");
 
                 //lblTXEQ2.Visible = false;
                 //lblTXEQ3.Visible = false;
@@ -1710,50 +1710,50 @@ namespace Thetis
                 //toolTip1.SetToolTip(lblTXEQ9, "1500-6000Hz");
                 //toolTip1.SetToolTip(tbTXEQ9, "1500-6000Hz");
 
-				RXEQ = console.radio.GetDSPRX(0, 0).RXEQ3;
-				//TXEQ = console.radio.GetDSPTX(0).TXEQ3;
+                RXEQ = console.radio.GetDSPRX(0, 0).RXEQ3;
+                //TXEQ = console.radio.GetDSPTX(0).TXEQ3;
 
-				tbRXEQ_Scroll(this, EventArgs.Empty);
-				//tbTXEQ_Scroll(this, EventArgs.Empty);
+                tbRXEQ_Scroll(this, EventArgs.Empty);
+                //tbTXEQ_Scroll(this, EventArgs.Empty);
 
-				picRXEQ.Invalidate();
-				//picTXEQ.Invalidate();
-		
-				console.radio.GetDSPRX(0, 0).RXEQNumBands = 3;
-				//console.radio.GetDSPTX(0).TXEQNumBands = 3;
-			}
-		}
+                picRXEQ.Invalidate();
+                //picTXEQ.Invalidate();
 
-		private void rad10Band_CheckedChanged(object sender, System.EventArgs e)
-		{
-			if(rad10Band.Checked)
-			{
-				lblRXEQ2.Visible = true;
-				lblRXEQ3.Visible = true;
-				lblRXEQ4.Visible = true;
-				lblRXEQ6.Visible = true;
-				lblRXEQ7.Visible = true;
-				lblRXEQ8.Visible = true;
-				lblRXEQ10.Visible = true;
+                console.radio.GetDSPRX(0, 0).RXEQNumBands = 3;
+                //console.radio.GetDSPTX(0).TXEQNumBands = 3;
+            }
+        }
 
-				tbRXEQ2.Visible = true;
-				tbRXEQ3.Visible = true;
-				tbRXEQ4.Visible = true;
-				tbRXEQ6.Visible = true;
-				tbRXEQ7.Visible = true;
-				tbRXEQ8.Visible = true;
-				tbRXEQ10.Visible = true;
+        private void rad10Band_CheckedChanged(object sender, System.EventArgs e)
+        {
+            if (rad10Band.Checked)
+            {
+                lblRXEQ2.Visible = true;
+                lblRXEQ3.Visible = true;
+                lblRXEQ4.Visible = true;
+                lblRXEQ6.Visible = true;
+                lblRXEQ7.Visible = true;
+                lblRXEQ8.Visible = true;
+                lblRXEQ10.Visible = true;
 
-				lblRXEQ1.Text = "32";
-				lblRXEQ5.Text = "500";
-				lblRXEQ9.Text = "8K";
+                tbRXEQ2.Visible = true;
+                tbRXEQ3.Visible = true;
+                tbRXEQ4.Visible = true;
+                tbRXEQ6.Visible = true;
+                tbRXEQ7.Visible = true;
+                tbRXEQ8.Visible = true;
+                tbRXEQ10.Visible = true;
 
-				toolTip1.SetToolTip(lblRXEQ1, "");
-				toolTip1.SetToolTip(tbRXEQ1, "");
-				toolTip1.SetToolTip(lblRXEQ5, "");
-				toolTip1.SetToolTip(tbRXEQ5, "");
-				toolTip1.SetToolTip(lblRXEQ9, "");
-				toolTip1.SetToolTip(tbRXEQ9, "");
+                lblRXEQ1.Text = "32";
+                lblRXEQ5.Text = "500";
+                lblRXEQ9.Text = "8K";
+
+                toolTip1.SetToolTip(lblRXEQ1, "");
+                toolTip1.SetToolTip(tbRXEQ1, "");
+                toolTip1.SetToolTip(lblRXEQ5, "");
+                toolTip1.SetToolTip(tbRXEQ5, "");
+                toolTip1.SetToolTip(lblRXEQ9, "");
+                toolTip1.SetToolTip(tbRXEQ9, "");
 
                 //lblTXEQ2.Visible = true;
                 //lblTXEQ3.Visible = true;
@@ -1782,56 +1782,56 @@ namespace Thetis
                 //toolTip1.SetToolTip(lblTXEQ9, "");
                 //toolTip1.SetToolTip(tbTXEQ9, "");
 
-				RXEQ = console.radio.GetDSPRX(0, 0).RXEQ10;
-				//TXEQ = console.radio.GetDSPTX(0).TXEQ10;
+                RXEQ = console.radio.GetDSPRX(0, 0).RXEQ10;
+                //TXEQ = console.radio.GetDSPTX(0).TXEQ10;
 
-				tbRXEQ_Scroll(this, EventArgs.Empty);
-				//tbTXEQ_Scroll(this, EventArgs.Empty);
+                tbRXEQ_Scroll(this, EventArgs.Empty);
+                //tbTXEQ_Scroll(this, EventArgs.Empty);
 
-				picRXEQ.Invalidate();
-				//picTXEQ.Invalidate();	
-			
-				console.radio.GetDSPRX(0, 0).RXEQNumBands = 10;
-				//console.radio.GetDSPTX(0).TXEQNumBands = 10;
-			}
-		}
+                picRXEQ.Invalidate();
+                //picTXEQ.Invalidate();	
+
+                console.radio.GetDSPRX(0, 0).RXEQNumBands = 10;
+                //console.radio.GetDSPTX(0).TXEQNumBands = 10;
+            }
+        }
 
         public void setTXEQProfile(object sender, EventArgs e)
         {
             const int nfreqs = 10;
             double[] F = new double[nfreqs + 1];
             double[] G = new double[nfreqs + 1];
-            F[0]  = 0.0;
-            F[1]  = (double)udTXEQ0.Value;
-            F[2]  = (double)udTXEQ1.Value;
-            F[3]  = (double)udTXEQ2.Value;
-            F[4]  = (double)udTXEQ3.Value;
-            F[5]  = (double)udTXEQ4.Value;
-            F[6]  = (double)udTXEQ5.Value;
-            F[7]  = (double)udTXEQ6.Value;
-            F[8]  = (double)udTXEQ7.Value;
-            F[9]  = (double)udTXEQ8.Value;
+            F[0] = 0.0;
+            F[1] = (double)udTXEQ0.Value;
+            F[2] = (double)udTXEQ1.Value;
+            F[3] = (double)udTXEQ2.Value;
+            F[4] = (double)udTXEQ3.Value;
+            F[5] = (double)udTXEQ4.Value;
+            F[6] = (double)udTXEQ5.Value;
+            F[7] = (double)udTXEQ6.Value;
+            F[8] = (double)udTXEQ7.Value;
+            F[9] = (double)udTXEQ8.Value;
             F[10] = (double)udTXEQ9.Value;
-            G[0]  = (double)tbTXEQPre.Value;
-            G[1]  = (double)tbTXEQ0.Value;
-            G[2]  = (double)tbTXEQ1.Value;
-            G[3]  = (double)tbTXEQ2.Value;
-            G[4]  = (double)tbTXEQ3.Value;
-            G[5]  = (double)tbTXEQ4.Value;
-            G[6]  = (double)tbTXEQ5.Value;
-            G[7]  = (double)tbTXEQ6.Value;
-            G[8]  = (double)tbTXEQ7.Value;
-            G[9]  = (double)tbTXEQ8.Value;
+            G[0] = (double)tbTXEQPre.Value;
+            G[1] = (double)tbTXEQ0.Value;
+            G[2] = (double)tbTXEQ1.Value;
+            G[3] = (double)tbTXEQ2.Value;
+            G[4] = (double)tbTXEQ3.Value;
+            G[5] = (double)tbTXEQ4.Value;
+            G[6] = (double)tbTXEQ5.Value;
+            G[7] = (double)tbTXEQ6.Value;
+            G[8] = (double)tbTXEQ7.Value;
+            G[9] = (double)tbTXEQ8.Value;
             G[10] = (double)tbTXEQ9.Value;
             unsafe
             {
                 fixed (double* Fptr = &F[0], Gptr = &G[0])
                 {
-                   WDSP.SetTXAEQProfile(WDSP.id(1, 0), nfreqs, Fptr, Gptr);
+                    WDSP.SetTXAEQProfile(WDSP.id(1, 0), nfreqs, Fptr, Gptr);
                 }
             }
         }
 
-		#endregion		
-	}
+        #endregion
+    }
 }

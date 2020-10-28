@@ -43,6 +43,7 @@ namespace Thetis
     /// </summary>
     public class Skin
     {
+
         #region Private Variables
 
         private enum ImageState
@@ -61,14 +62,12 @@ namespace Thetis
         private static string path;
         private const string pic_file_ext = ".png";
 
-        private static Console m_objConsole;
-
         private static string app_data_path = "";
 
         public static string GetAppDataPath()
         {
             Debug.Assert(app_data_path.Length > 0);
-            return app_data_path; 
+            return app_data_path;
         }
         public static void SetAppDataPath(string value)
         { app_data_path = value; }
@@ -76,10 +75,7 @@ namespace Thetis
         #endregion
 
         #region Main
-        public static void SetConsole(Console objConsole)
-        {
-            m_objConsole = objConsole;
-        }
+
 
         /// <summary>
         /// Saves a forms appearance including properties of the form and its controls to xml.
@@ -97,7 +93,7 @@ namespace Thetis
             writer.WriteStartElement("Form");
 
             SaveForm(f, writer);
-            
+
             writer.WriteStartElement("Controls");
 
             foreach (Control c in f.Controls)
@@ -106,7 +102,7 @@ namespace Thetis
             writer.WriteEndElement();
             writer.WriteEndElement();
             writer.WriteEndDocument();
-            writer.Close();    
+            writer.Close();
         }
 
         /// <summary>
@@ -121,20 +117,32 @@ namespace Thetis
             path = p + "\\" + name;
             Skin.name = name;
 
-           // f.BackgroundImage = File.Exists(path + "\\" + f.Name + "\\" + f.Name + pic_file_ext) ? Image.FromFile(path + "\\" + f.Name + "\\" + f.Name + pic_file_ext) : null;
-
-            if (File.Exists(path + "\\" + f.Name + "\\" + f.Name + pic_file_ext))
+            // f.BackgroundImage = File.Exists(path + "\\" + f.Name + "\\" + f.Name + pic_file_ext) ? Image.FromFile(path + "\\" + f.Name + "\\" + f.Name + pic_file_ext) : null;
+            var path1 = path + "\\" + f.Name + "\\" + f.Name + pic_file_ext;
+            var path2 = path + "\\" + "Console" + "\\" + "Console" + pic_file_ext;
+            if (File.Exists(path1))
             {
-                f.BackgroundImage = Image.FromFile(path + "\\" + f.Name + "\\" + f.Name + pic_file_ext);
+                f.BackgroundImage = Image.FromFile(path1);
             }
-            else if (File.Exists(path + "\\" + "Console" + "\\" + "Console" + pic_file_ext))
+            else if (File.Exists(path2))
             {
-                f.BackgroundImage = Image.FromFile(path + "\\" + "Console" + "\\" + "Console" + pic_file_ext);
+                f.BackgroundImage = Image.FromFile(path2);
             }
             else f.BackgroundImage = null;
 
-            foreach (Control c in f.Controls) // load in images
+            foreach (Control c in f.Controls)
+            {
+
+                if (c == Thetis.Common.Console.picSMeter)
+                {
+                    System.Diagnostics.Debug.WriteLine(c.Name);
+                }
+                if (c.Name.Contains("Analog"))
+                {
+                    System.Diagnostics.Debug.WriteLine(c.Name);
+                }
                 ReadImages(c);
+            }
 
             if (!File.Exists(path + "\\" + name + ".xml"))
             {
@@ -391,7 +399,7 @@ namespace Thetis
             temp = c as CheckBox;
             if (temp != null)
             {
-                if(((CheckBox)c).Appearance == Appearance.Button)
+                if (((CheckBox)c).Appearance == Appearance.Button)
                     SetupCheckBoxImages((CheckBox)c);
                 return;
             }
@@ -413,6 +421,7 @@ namespace Thetis
             temp = c as PictureBox;
             if (temp != null)
             {
+
                 SetBackgroundImage((PictureBox)c);
                 return;
             }
@@ -434,11 +443,11 @@ namespace Thetis
 
         private static void SaveForm(Form ctrl, XmlTextWriter writer)
         {
-            writer.WriteElementString("Name", ctrl.Name);            
+            writer.WriteElementString("Name", ctrl.Name);
             writer.WriteElementString("BackColor", ctrl.BackColor.Name);
             writer.WriteElementString("BackgroundImageLayout", ctrl.BackgroundImageLayout.ToString());
             SaveFont(ctrl.Font, writer);
-            writer.WriteElementString("ForeColor", ctrl.ForeColor.Name);           
+            writer.WriteElementString("ForeColor", ctrl.ForeColor.Name);
             SaveSize(ctrl.Size, writer);
             writer.WriteElementString("Text", ctrl.Text);
             writer.WriteElementString("TransparencyKey", ctrl.TransparencyKey.Name);
@@ -474,9 +483,9 @@ namespace Thetis
                     case "Text":
                         ctrl.Text = node.InnerText;
                         break;
-                    /*case "TransparencyKey":
-                        ctrl.TransparencyKey = StringToColor(node.InnerText);
-                        break;*/
+                        /*case "TransparencyKey":
+                            ctrl.TransparencyKey = StringToColor(node.InnerText);
+                            break;*/
                 }
             }
         }
@@ -539,7 +548,7 @@ namespace Thetis
         #region Panel
 
         private static void SavePanel(Panel ctrl, XmlTextWriter writer)
-        {            
+        {
             writer.WriteElementString("Type", "Panel");
             writer.WriteElementString("BackColor", ctrl.BackColor.Name);
             writer.WriteElementString("BackGroundImageLayout", ctrl.BackgroundImageLayout.ToString());
@@ -590,7 +599,7 @@ namespace Thetis
             writer.WriteElementString("BackColor", ctrl.BackColor.Name);
             writer.WriteElementString("BackGroundImageLayout", ctrl.BackgroundImageLayout.ToString());
             SaveFlatAppearance(ctrl.FlatAppearance, writer);
-            writer.WriteElementString("FlatStyle", ctrl.FlatStyle.ToString());            
+            writer.WriteElementString("FlatStyle", ctrl.FlatStyle.ToString());
             SaveFont(ctrl.Font, writer);
             writer.WriteElementString("ForeColor", ctrl.ForeColor.Name);
             SaveLocation(ctrl.Location, writer);
@@ -619,7 +628,7 @@ namespace Thetis
                         ctrl.BackgroundImageLayout = (ImageLayout)Enum.Parse(typeof(ImageLayout), node.InnerText);
                         break;
                     case "FlatAppearance":
-                        foreach(XmlNode x in node.ChildNodes)
+                        foreach (XmlNode x in node.ChildNodes)
                         {
                             switch (x.LocalName)
                             {
@@ -666,7 +675,7 @@ namespace Thetis
             ctrl.ImageList.ColorDepth = ColorDepth.Depth32Bit;
 
             // load images into image list property
-           // string s = path + "\\" + ctrl.TopLevelControl.Name + "\\" + ctrl.Name + "-";
+            // string s = path + "\\" + ctrl.TopLevelControl.Name + "\\" + ctrl.Name + "-";
             for (int i = 0; i < 8; i++)
             {
                 if (File.Exists(path + "\\" + ctrl.TopLevelControl.Name + "\\" + ctrl.Name + "-" + i.ToString() + pic_file_ext))
@@ -851,7 +860,7 @@ namespace Thetis
 
             // load images into image list property
             //string s = path + "\\" + ctrl.TopLevelControl.Name + "\\" + ctrl.Name + "-";
-            for(int i=0; i<8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 if (File.Exists(path + "\\" + ctrl.TopLevelControl.Name + "\\" + ctrl.Name + "-" + i.ToString() + pic_file_ext))
                     ctrl.ImageList.Images.Add(((ImageState)i).ToString(), Image.FromFile(path + "\\" + ctrl.TopLevelControl.Name + "\\" + ctrl.Name + "-" + i.ToString() + pic_file_ext));
@@ -890,7 +899,7 @@ namespace Thetis
             {
                 state = ctrl.Checked ? ImageState.DisabledDown : ImageState.DisabledUp;
             }
-            else if (ctrl.Focused && 
+            else if (ctrl.Focused &&
                 ctrl.ImageList.Images.IndexOfKey(ImageState.FocusedDown.ToString()) >= 0 &&
                 ctrl.ImageList.Images.IndexOfKey(ImageState.FocusedUp.ToString()) >= 0)
             {
@@ -923,7 +932,7 @@ namespace Thetis
             ctrl.BackgroundImage = ctrl.ImageList.Images[index];
         }
 
-#endregion
+        #endregion
 
         #region ComboBox
 
@@ -1234,7 +1243,7 @@ namespace Thetis
             ctrl.ImageList.ColorDepth = ColorDepth.Depth32Bit;
 
             // load images into image list property
-           // string s = path + "\\" + ctrl.TopLevelControl.Name + "\\" + ctrl.Name + "-";
+            // string s = path + "\\" + ctrl.TopLevelControl.Name + "\\" + ctrl.Name + "-";
             for (int i = 0; i < 8; i++)
             {
                 if (File.Exists(path + "\\" + ctrl.TopLevelControl.Name + "\\" + ctrl.Name + "-" + i.ToString() + pic_file_ext))
@@ -1421,7 +1430,7 @@ namespace Thetis
         private static void SetupPrettyTrackBarImages(PrettyTrackBar ctrl)
         {
             // load images
-           // string s = path + "\\" + ctrl.TopLevelControl.Name + "\\" + ctrl.Name + "-";
+            // string s = path + "\\" + ctrl.TopLevelControl.Name + "\\" + ctrl.Name + "-";
 
             if (File.Exists(path + "\\" + ctrl.TopLevelControl.Name + "\\" + ctrl.Name + "-" + "back" + pic_file_ext))
             {
@@ -1442,12 +1451,12 @@ namespace Thetis
                 ctrl.HeadImage = Image.FromFile(path + "\\" + ctrl.TopLevelControl.Name + "\\" + ctrl.Name + "-" + "head" + pic_file_ext);
             }
             else if (File.Exists(path + "\\" + "Console" + "\\" + ctrl.Name + "-" + "head" + pic_file_ext))
-            {             
+            {
                 ctrl.HeadImage = Image.FromFile(path + "\\" + "Console" + "\\" + ctrl.Name + "-" + "head" + pic_file_ext);
             }
             else ctrl.HeadImage = null;
 
-           // ctrl.HeadImage = File.Exists(s + "head" + pic_file_ext) ? Image.FromFile(s + "head" + pic_file_ext) : null;
+            // ctrl.HeadImage = File.Exists(s + "head" + pic_file_ext) ? Image.FromFile(s + "head" + pic_file_ext) : null;
 
             ctrl.Invalidate();
         }
@@ -1567,28 +1576,47 @@ namespace Thetis
         private static Color StringToColor(string s)
         {
             Color c = Color.FromName(s);
-            if(!c.IsKnownColor)
+            if (!c.IsKnownColor)
                 c = Color.FromArgb(int.Parse(s, NumberStyles.HexNumber));
             return c;
         }
 
+
         private static void SetBackgroundImage(Control c)
         {
-            Image objImg; // = File.Exists(path + "\\" + c.TopLevelControl.Name + "\\" + c.Name + pic_file_ext) ? Image.FromFile(path + "\\" + c.TopLevelControl.Name + "\\" + c.Name + pic_file_ext) : null;
+            Image objImg = null; // = File.Exists(path + "\\" + c.TopLevelControl.Name + "\\" + c.Name + pic_file_ext) ? Image.FromFile(path + "\\" + c.TopLevelControl.Name + "\\" + c.Name + pic_file_ext) : null;
+            var path1 = path + "\\" + c.TopLevelControl.Name + "\\" + c.Name + pic_file_ext;
+            var path2 = path + "\\" + "Console" + "\\" + c.Name + pic_file_ext;
 
-            if (File.Exists(path + "\\" + c.TopLevelControl.Name + "\\" + c.Name + pic_file_ext))
+            if (File.Exists(path1))
             {
-                objImg = Image.FromFile(path + "\\" + c.TopLevelControl.Name + "\\" + c.Name + pic_file_ext);
+                objImg = Image.FromFile(path1);
             }
-            else if (File.Exists(path + "\\" + "Console" + "\\" + c.Name + pic_file_ext))
+            else if (File.Exists(path2))
             {
-                objImg = Image.FromFile(path + "\\" + "Console" + "\\" + c.Name + pic_file_ext);
+                objImg = Image.FromFile(path2);
             }
-            else objImg = null;
+            else if (c == Thetis.Common.Console.picSMeter)
+            {
+                var smeterpath = path + "\\" + c.TopLevelControl.Name + "\\" +
+                        "NewVFOAnalogSignalGauge" + ".jpg";
 
+                if (File.Exists(smeterpath))
+                {
+                    objImg = Image.FromFile(smeterpath);
+                }
+                c.BackgroundImage = objImg;
+
+            }
+            else
+            {
+
+                objImg = null;
+
+            }
             if (c.Name.Equals("picDisplay")) // special case
             {
-                m_objConsole.PicDisplayBackgroundImage = objImg;
+                Common.Console.PicDisplayBackgroundImage = objImg;
             }
             else
             {

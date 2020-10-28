@@ -73,11 +73,14 @@ namespace Thetis
             e.Cancel = true;
         }
 
-        public event ClearButtonHandler ClearButtonEvent {
-            add {
+        public event ClearButtonHandler ClearButtonEvent
+        {
+            add
+            {
                 clearButtonEvents += value;
             }
-            remove {
+            remove
+            {
                 clearButtonEvents -= value;
             }
         }
@@ -118,7 +121,7 @@ namespace Thetis
 
             groupDumpCap.Enabled = bExists;
             if (bExists) groupDumpCap.Text = "DumpCap [FOUND]";
-                else groupDumpCap.Text = "DumpCap [NOT FOUND]";
+            else groupDumpCap.Text = "DumpCap [NOT FOUND]";
 
             // default always off
             chkDumpCapEnabled.Checked = false;
@@ -159,7 +162,8 @@ namespace Thetis
 
         }
 
-        public bool StatusBarWarningOnNegativeOnly {
+        public bool StatusBarWarningOnNegativeOnly
+        {
             get { return chkStatusBarWarningNegativeOnly.Checked; }
             set { chkStatusBarWarningNegativeOnly.Checked = value; }
         }

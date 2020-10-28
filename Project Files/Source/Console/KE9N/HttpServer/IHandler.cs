@@ -32,7 +32,7 @@ namespace HttpServer
 
         protected void sendAnswer(byte[] data)
         {
-            if(m_tcpClient == null) return;
+            if (m_tcpClient == null) return;
 
             NetworkStream stream = m_tcpClient.GetStream();
             stream.ReadTimeout = 10;
@@ -40,7 +40,7 @@ namespace HttpServer
             {
                 if (stream.CanWrite)
                 {
-                    stream.Write(data, 0, data.Length);                  
+                    stream.Write(data, 0, data.Length);
                 }
             }
             catch (System.Exception e)

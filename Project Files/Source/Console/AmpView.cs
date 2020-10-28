@@ -23,14 +23,14 @@ namespace Thetis
         const int max_ints = 16;
         const int max_samps = 4096;
         const int np = 512;
-        double[] x  = new double[max_samps];
+        double[] x = new double[max_samps];
         double[] ym = new double[max_samps];
         double[] yc = new double[max_samps];
         double[] ys = new double[max_samps];
         double[] cm = new double[4 * max_ints];
         double[] cc = new double[4 * max_ints];
         double[] cs = new double[4 * max_ints];
-        double[] t  = new double[max_ints + 1];
+        double[] t = new double[max_ints + 1];
         int skip = 1;
         bool showgain = false;
         private static Object intslock = new Object();
@@ -39,7 +39,7 @@ namespace Thetis
         {
             PSForm.ampv.ClientSize = new System.Drawing.Size(560, 445); //
             Common.RestoreForm(this, "AmpView", false);
-            hx  = GCHandle.Alloc(x,  GCHandleType.Pinned);
+            hx = GCHandle.Alloc(x, GCHandleType.Pinned);
             hym = GCHandle.Alloc(ym, GCHandleType.Pinned);
             hyc = GCHandle.Alloc(yc, GCHandleType.Pinned);
             hys = GCHandle.Alloc(ys, GCHandleType.Pinned);
@@ -143,13 +143,13 @@ namespace Thetis
                 Application.ExitThread();
             }
             disp_setup();
-            puresignal.GetPSDisp(WDSP.id(1, 0), 
+            puresignal.GetPSDisp(WDSP.id(1, 0),
                 hx.AddrOfPinnedObject(),
                 hym.AddrOfPinnedObject(),
                 hyc.AddrOfPinnedObject(),
                 hys.AddrOfPinnedObject(),
-                hcm.AddrOfPinnedObject(), 
-                hcc.AddrOfPinnedObject(), 
+                hcm.AddrOfPinnedObject(),
+                hcc.AddrOfPinnedObject(),
                 hcs.AddrOfPinnedObject());
             lock (intslock)
             {

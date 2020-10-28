@@ -1136,6 +1136,7 @@
             this.tbAndromedaEncoderSlider = new System.Windows.Forms.TrackBarTS();
             this.lblAndromedaEncoderSlider = new System.Windows.Forms.LabelTS();
             this.lblATUTuneLabel = new System.Windows.Forms.LabelTS();
+            this.picSMeter = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udFilterHigh)).BeginInit();
@@ -1233,6 +1234,7 @@
             this.grpMultimeterMenus.SuspendLayout();
             this.panelAndromedaMisc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbAndromedaEncoderSlider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSMeter)).BeginInit();
             this.SuspendLayout();
             // 
             // timer_cpu_meter
@@ -6310,6 +6312,7 @@
             this.panelDisplay.Controls.Add(this.txtOverload);
             this.panelDisplay.Controls.Add(this.radDisplayZoom4x);
             this.panelDisplay.Controls.Add(this.radDisplayZoom2x);
+            this.panelDisplay.Controls.Add(this.picSMeter);
             this.panelDisplay.Controls.Add(this.radDisplayZoom1x);
             this.panelDisplay.Controls.Add(this.radDisplayZoom05);
             this.panelDisplay.Controls.Add(this.ptbDisplayZoom);
@@ -7198,6 +7201,14 @@
             this.lblATUTuneLabel.ForeColor = System.Drawing.Color.White;
             this.lblATUTuneLabel.Name = "lblATUTuneLabel";
             // 
+            // picSMeter
+            // 
+            this.picSMeter.BackColor = System.Drawing.Color.Black;
+            this.picSMeter.BackgroundImage = global::Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
+            resources.ApplyResources(this.picSMeter, "picSMeter");
+            this.picSMeter.Name = "picSMeter";
+            this.picSMeter.TabStop = false;
+            // 
             // Console
             // 
             resources.ApplyResources(this, "$this");
@@ -7370,6 +7381,7 @@
             this.grpMultimeterMenus.ResumeLayout(false);
             this.panelAndromedaMisc.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbAndromedaEncoderSlider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSMeter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -7493,5 +7505,6 @@
         private ToolStripMenuItem toolStripMenuItem19;
         private ToolStripMenuItem toolStripMenuItem18;
         private ToolStripStatusLabel toolStripStatusLabelAndromedaMulti;
+        public PictureBox picSMeter;
     }
 }

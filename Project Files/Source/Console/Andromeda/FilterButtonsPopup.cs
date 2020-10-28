@@ -390,7 +390,7 @@ namespace Thetis
             radBtn10.Text = Filters[(int)currentMode].GetName(Filter.F10);
             radBtn11.Text = Filters[(int)currentMode].GetName(Filter.VAR1);
             radBtn12.Text = Filters[(int)currentMode].GetName(Filter.VAR2);
-            if(console.ShowRX1)
+            if (console.ShowRX1)
             {
                 radBtn8.Text = Filters[(int)currentMode].GetName(Filter.F8);
                 radBtn9.Text = Filters[(int)currentMode].GetName(Filter.F9);
@@ -411,7 +411,7 @@ namespace Thetis
             //
             // now click the currently selected filter
             //
-            switch(currentFilter)
+            switch (currentFilter)
             {
                 case Filter.F1:
                     radBtn1.Checked = true;

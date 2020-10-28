@@ -102,7 +102,7 @@ namespace Thetis
             InitializeComponent();
             console = c;
             // create timer for autohide and attach callback
-            AutoHideTimer = new System.Timers.Timer(); 
+            AutoHideTimer = new System.Timers.Timer();
             AutoHideTimer.Elapsed += new ElapsedEventHandler(Callback);
             AutoHideTimer.Enabled = false;
 
@@ -993,7 +993,7 @@ namespace Thetis
                     tbRX1Atten.Value = value;
                 else
                     tbRX1Atten.Value = tbRX2Atten.Maximum;
-                }
+            }
         }
 
         public int RX2Atten
@@ -1397,7 +1397,7 @@ namespace Thetis
 
         private void ChkRX2VAC_CheckedChanged(object sender, EventArgs e)
         {
-            if(console.SetupForm != null)
+            if (console.SetupForm != null)
                 console.SetupForm.VAC2Enable = chkRX2VAC.Checked;
         }
 
@@ -1432,7 +1432,7 @@ namespace Thetis
 
         // method called by console encoder event. Provides option of auto-show and auto-hide
         // if form was not shown, mark it as opened by an encoder event
-        
+
         public void FormEncoderEvent()
         {
             if (!this.Visible)
@@ -1441,7 +1441,7 @@ namespace Thetis
                 this.Show();
             }
             // set timer if form is auto shown
-            if(FormAutoShown)
+            if (FormAutoShown)
             {
                 AutoHideTimer.Enabled = false;
                 AutoHideTimer.AutoReset = false;                    // just one callback

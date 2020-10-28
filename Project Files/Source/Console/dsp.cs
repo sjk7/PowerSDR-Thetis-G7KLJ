@@ -30,7 +30,7 @@ namespace Thetis
     using System.Runtime.InteropServices;
 
     unsafe class WDSP
-	{
+    {
 
         #region WDSP method definitions
 
@@ -80,7 +80,7 @@ namespace Thetis
         public static extern void SetTXAMode(int channel, DSPMode mode);
 
         [DllImport("wdsp.dll", EntryPoint = "fexchange0", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void fexchange0 (int channel, double* Cin, double* Cout, int* error);
+        public static extern void fexchange0(int channel, double* Cin, double* Cout, int* error);
 
         [DllImport("wdsp.dll", EntryPoint = "fexchange2", CallingConvention = CallingConvention.Cdecl)]
         public static extern void fexchange2(int channel, float* Iin, float* Qin, float* Iout, float* Qout, int* error);
@@ -459,7 +459,7 @@ namespace Thetis
 
         [DllImport("wdsp.dll", EntryPoint = "SetTXAPostGenSweepRate", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SetTXAPostGenSweepRate(int channel, double rate);
-        
+
         [DllImport("wdsp.dll", EntryPoint = "GetWDSPVersion", CallingConvention = CallingConvention.Cdecl)]
         public static extern int GetWDSPVersion();
 
@@ -469,16 +469,16 @@ namespace Thetis
         public static extern void create_divEXT(int id, int run, int nr, int size);
 
         [DllImport("wdsp.dll", EntryPoint = "destroy_divEXT", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void destroy_divEXT (int id);
+        public static extern void destroy_divEXT(int id);
 
         [DllImport("wdsp.dll", EntryPoint = "SetEXTDIVRun", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SetEXTDIVRun(int id, int run);
 
         [DllImport("wdsp.dll", EntryPoint = "SetEXTDIVNr", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SetEXTDIVNr (int id, int nr);
+        public static extern void SetEXTDIVNr(int id, int nr);
 
         [DllImport("wdsp.dll", EntryPoint = "SetEXTDIVOutput", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SetEXTDIVOutput (int id, int output);
+        public static extern void SetEXTDIVOutput(int id, int output);
 
         [DllImport("wdsp.dll", EntryPoint = "SetEXTDIVRotate", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SetEXTDIVRotate(int id, int nr, double* Irotate, double* Qrotate);
@@ -501,7 +501,7 @@ namespace Thetis
         public static extern void SetEERAMIQ(int id, bool amiq);
 
         [DllImport("ChannelMaster.dll", EntryPoint = "SetEERMgain", CallingConvention = CallingConvention.Cdecl)]
-        public static extern void SetEERMgain (int id, double gain);
+        public static extern void SetEERMgain(int id, double gain);
 
         [DllImport("ChannelMaster.dll", EntryPoint = "SetEERPgain", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SetEERPgain(int id, double gain);
@@ -719,48 +719,48 @@ namespace Thetis
             switch (2 * thread + subrx)
             {
                 case 0:
-                    return  0;	        // rx0, subrx0
+                    return 0;	        // rx0, subrx0
                 case 1:
-                    return  1;	        // rx0, subrx1
+                    return 1;	        // rx0, subrx1
                 case 2:
                     return cmaster.CMsubrcvr * cmaster.CMrcvr;	// txa
                 case 3:
                     return cmaster.CMsubrcvr * cmaster.CMrcvr;	// txa
                 case 4:
-                    return  2;	        // rx1, subrx0
+                    return 2;	        // rx1, subrx0
                 case 5:
-                    return  3;	        // rx1, subrx1
+                    return 3;	        // rx1, subrx1
                 default:
                     return -1;	        // error
             }
         }
 
-        public static float CalculateRXMeter (uint thread, uint subrx, MeterType MT)
+        public static float CalculateRXMeter(uint thread, uint subrx, MeterType MT)
         {
-	        int channel = id(thread, subrx);
-	        double val;
-	        switch (MT)
-	        {
-	        case MeterType.SIGNAL_STRENGTH:
-		        val = GetRXAMeter (channel, rxaMeterType.RXA_S_PK);
-		        break;
-	        case MeterType.AVG_SIGNAL_STRENGTH:
-                val = GetRXAMeter(channel, rxaMeterType.RXA_S_AV);
-		        break;
-	        case MeterType.ADC_REAL:
-                val = GetRXAMeter(channel, rxaMeterType.RXA_ADC_PK);
-		        break;
-	        case MeterType.ADC_IMAG:
-                val = GetRXAMeter(channel, rxaMeterType.RXA_ADC_PK);
-		        break;
-	        case MeterType.AGC_GAIN:
-                val = GetRXAMeter(channel, rxaMeterType.RXA_AGC_GAIN);
-		        break;
-	        default:
-		        val = -400.0;
-		        break;
-	        }
-	        return (float)val;
+            int channel = id(thread, subrx);
+            double val;
+            switch (MT)
+            {
+                case MeterType.SIGNAL_STRENGTH:
+                    val = GetRXAMeter(channel, rxaMeterType.RXA_S_PK);
+                    break;
+                case MeterType.AVG_SIGNAL_STRENGTH:
+                    val = GetRXAMeter(channel, rxaMeterType.RXA_S_AV);
+                    break;
+                case MeterType.ADC_REAL:
+                    val = GetRXAMeter(channel, rxaMeterType.RXA_ADC_PK);
+                    break;
+                case MeterType.ADC_IMAG:
+                    val = GetRXAMeter(channel, rxaMeterType.RXA_ADC_PK);
+                    break;
+                case MeterType.AGC_GAIN:
+                    val = GetRXAMeter(channel, rxaMeterType.RXA_AGC_GAIN);
+                    break;
+                default:
+                    val = -400.0;
+                    break;
+            }
+            return (float)val;
         }
 
         private static double alcgain = 3.0;
@@ -768,73 +768,73 @@ namespace Thetis
         {
             get { return alcgain; }
             set
-            { 
+            {
                 alcgain = value;
             }
         }
 
-        public static float CalculateTXMeter (uint thread, MeterType MT)
+        public static float CalculateTXMeter(uint thread, MeterType MT)
         {
             int channel = cmaster.CMsubrcvr * cmaster.CMrcvr;   // txachannel
-	        double val;
-	        switch (MT)
-	        {
-	        case MeterType.MIC:
+            double val;
+            switch (MT)
+            {
+                case MeterType.MIC:
                     val = GetTXAMeter(channel, txaMeterType.TXA_MIC_AV);
-		        break;
-	        case MeterType.PWR:
-                val = GetTXAMeter(channel, txaMeterType.TXA_OUT_PK);
-		        break;
-	        case MeterType.ALC:
-                val = GetTXAMeter(channel, txaMeterType.TXA_ALC_AV);
-		        break;
-	        case MeterType.EQ:
-                val = GetTXAMeter(channel, txaMeterType.TXA_EQ_AV);
-		        break;
-	        case MeterType.LEVELER:
-                val = GetTXAMeter(channel, txaMeterType.TXA_LVLR_AV);
-		        break;
-	        case MeterType.COMP:
-                val = GetTXAMeter(channel, txaMeterType.TXA_COMP_AV);
-		        break;
-	        case MeterType.CPDR:
-                val = GetTXAMeter(channel, txaMeterType.TXA_COMP_AV);
-		        break;
-	        case MeterType.ALC_G:
-                val = GetTXAMeter(channel, txaMeterType.TXA_ALC_GAIN) + alcgain;
-		        break;
-	        case MeterType.LVL_G:
-                val = GetTXAMeter(channel, txaMeterType.TXA_LVLR_GAIN);
-		        break;
-	        case MeterType.MIC_PK:
-                val = GetTXAMeter(channel, txaMeterType.TXA_MIC_PK);
-		        break;
-	        case MeterType.ALC_PK:
-                val = GetTXAMeter(channel, txaMeterType.TXA_ALC_PK);
-		        break;
-	        case MeterType.EQ_PK:
-                val = GetTXAMeter(channel, txaMeterType.TXA_EQ_PK);
-		        break;
-	        case MeterType.LEVELER_PK:
-                val = GetTXAMeter(channel, txaMeterType.TXA_LVLR_PK);
-		        break;
-	        case MeterType.COMP_PK:
-                val = GetTXAMeter(channel, txaMeterType.TXA_COMP_PK);
-		        break;
-	        case MeterType.CPDR_PK:
-                val = GetTXAMeter(channel, txaMeterType.TXA_COMP_PK);
-		        break;
-            case MeterType.CFC_PK:
-                val = GetTXAMeter(channel, txaMeterType.TXA_CFC_PK);
-                break;
-            case MeterType.CFC_G:
-                val = GetTXAMeter(channel, txaMeterType.TXA_CFC_GAIN);
-                break;
-	        default:
-		        val = -400.0;
-		        break;
-	        }
-	        return -(float)val;
+                    break;
+                case MeterType.PWR:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_OUT_PK);
+                    break;
+                case MeterType.ALC:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_ALC_AV);
+                    break;
+                case MeterType.EQ:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_EQ_AV);
+                    break;
+                case MeterType.LEVELER:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_LVLR_AV);
+                    break;
+                case MeterType.COMP:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_COMP_AV);
+                    break;
+                case MeterType.CPDR:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_COMP_AV);
+                    break;
+                case MeterType.ALC_G:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_ALC_GAIN) + alcgain;
+                    break;
+                case MeterType.LVL_G:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_LVLR_GAIN);
+                    break;
+                case MeterType.MIC_PK:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_MIC_PK);
+                    break;
+                case MeterType.ALC_PK:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_ALC_PK);
+                    break;
+                case MeterType.EQ_PK:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_EQ_PK);
+                    break;
+                case MeterType.LEVELER_PK:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_LVLR_PK);
+                    break;
+                case MeterType.COMP_PK:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_COMP_PK);
+                    break;
+                case MeterType.CPDR_PK:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_COMP_PK);
+                    break;
+                case MeterType.CFC_PK:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_CFC_PK);
+                    break;
+                case MeterType.CFC_G:
+                    val = GetTXAMeter(channel, txaMeterType.TXA_CFC_GAIN);
+                    break;
+                default:
+                    val = -400.0;
+                    break;
+            }
+            return -(float)val;
         }
 
         #endregion

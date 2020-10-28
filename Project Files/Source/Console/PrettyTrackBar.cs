@@ -399,7 +399,7 @@ namespace Thetis
         {
             if (e.Delta >= 120 && this.Value + large_change <= this.Maximum)
             {
-                Value += large_change; 
+                Value += large_change;
                 OnScroll(this, EventArgs.Empty);
             }
             else if (e.Delta <= -120 && this.Value - large_change >= this.Minimum)

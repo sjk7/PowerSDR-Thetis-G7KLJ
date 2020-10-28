@@ -371,7 +371,7 @@ namespace Thetis
             if ((idx < ARIESANTARRAYSIZE) && (idx >= 0))
             {
                 Antenna = AntennaArrayByBand[idx];
-                if(Antenna != TXAntennaSent)
+                if (Antenna != TXAntennaSent)
                 {
                     toolStripStatusLabelTXAnt.Text = "Tx Ant " + Antenna.ToString();
                     TXAntennaSent = Antenna;
@@ -383,7 +383,7 @@ namespace Thetis
         // this is now displayed as 2 characters, so existing names have to be remapped
         private void DisplayAriesRXAntenna()
         {
-            int Antenna;
+
             Band CurrentBand;
             string AntString = "RX";
             CurrentBand = RX1Band;
@@ -420,7 +420,7 @@ namespace Thetis
                     }
                 else
                     AntString = "Rx Ant " + RXAntennaArrayByBand[idx].ToString();
-                if(AntString != RXAntennaSentString)
+                if (AntString != RXAntennaSentString)
                 {
                     toolStripStatusLabelRXAnt.Text = AntString;
                     RXAntennaSentString = AntString;
@@ -462,7 +462,7 @@ namespace Thetis
             {
                 // change antenna only if TX band == RX band
                 // step by the current TX antenna
-                if (SetupForm != null) 
+                if (SetupForm != null)
                     SetupForm.SetTXAntenna(Ant, TXBand);
             }
         }
@@ -474,7 +474,7 @@ namespace Thetis
             {
                 // change antenna only if TX band == RX band
                 // step by the current TX antenna
-                if (SetupForm != null) 
+                if (SetupForm != null)
                     SetupForm.SetRXAntenna(Ant, RX1Band);
             }
         }

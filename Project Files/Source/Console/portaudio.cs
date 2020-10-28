@@ -46,8 +46,8 @@ namespace Thetis
     public class PortAudioForThetis
     {
         #region Constants
-        
- 
+
+
 
         #endregion
 
@@ -86,7 +86,7 @@ namespace Thetis
 
             public int structVersion;
             public int type;
-           // [MarshalAs(UnmanagedType.LPStr)]
+            // [MarshalAs(UnmanagedType.LPStr)]
             //public string name;
             private readonly IntPtr _name;
             public int deviceCount;
@@ -110,8 +110,8 @@ namespace Thetis
 
             public int structVersion;
             private IntPtr _name;
-           // [MarshalAs(UnmanagedType.LPStr)]
-           // public string name;
+            // [MarshalAs(UnmanagedType.LPStr)]
+            // public string name;
             public PaHostApiIndex hostApi;
             public int maxInputChannels;
             public int maxOutputChannels;
@@ -132,7 +132,7 @@ namespace Thetis
             public void* hostApiSpecificStreamInfo;
         }
 
-      
+
         [StructLayout(LayoutKind.Sequential)]
         public struct PaStreamInfo
         {

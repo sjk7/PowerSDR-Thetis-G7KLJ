@@ -37,7 +37,7 @@ namespace Thetis
         public static extern void CmdRx();
 
         [DllImport("ChannelMaster.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern int getOOO();     
+        public static extern int getOOO();
 
         [DllImport("ChannelMaster.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool getSeqInDelta(bool bInit, int rx, int[] deltas, StringBuilder dateTimeStamp, out uint received_seqnum, out uint last_seqnum);
@@ -83,7 +83,7 @@ namespace Thetis
 
         [DllImport("ChannelMaster.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SetAlex2HPFBits(int bits);
-       
+
         [DllImport("ChannelMaster.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SetBPF2Gnd(int bits);
 
@@ -293,7 +293,7 @@ namespace Thetis
 
         [DllImport("ChannelMaster.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SetMKIIBPF(int bpf);
-        
+
         [DllImport("ChannelMaster.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SetRxADC(int n);
 

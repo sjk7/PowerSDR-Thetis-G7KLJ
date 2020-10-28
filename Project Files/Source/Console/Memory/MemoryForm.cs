@@ -49,7 +49,7 @@ namespace Thetis
         private Console console;
         public WaveControl WaveForm;                       // ke9ns    communication with the waveform (i.e. allows audio to be played from console.cs)
 
-      
+
         #endregion
 
         #region Constructor
@@ -90,11 +90,11 @@ namespace Thetis
 
             dataGridView1.DataSource = console.MemoryList.List; // ke9ns get list of memories from memorylist.cs is where the file is opened and saved
 
-            dataGridView1.RowHeadersWidthSizeMode =  DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
 
-            dataGridView1.ColumnHeadersHeightSizeMode =  DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 
-            dataGridView1.AutoSizeColumnsMode =   DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToDeleteRows = false;
@@ -102,7 +102,7 @@ namespace Thetis
 
             // Create ComboBox Column
             // DSPMode
-            DataGridViewComboBoxColumn comboboxColumnDSPMode = new DataGridViewComboBoxColumn();            
+            DataGridViewComboBoxColumn comboboxColumnDSPMode = new DataGridViewComboBoxColumn();
             comboboxColumnDSPMode.DataPropertyName = "DSPMode";
             comboboxColumnDSPMode.Name = "DSPMode";
             comboboxColumnDSPMode.HeaderText = "DSP Mode";
@@ -114,7 +114,7 @@ namespace Thetis
             comboboxColumnTuneStep.Name = "TuneStep";
             comboboxColumnTuneStep.HeaderText = "Tune Step";
             comboboxColumnTuneStep.ValueType = typeof(string);
-            
+
             // RPT repeater mode
             DataGridViewComboBoxColumn comboboxColumnRPTR = new DataGridViewComboBoxColumn();
             comboboxColumnRPTR.DataPropertyName = "RPTR";
@@ -127,7 +127,7 @@ namespace Thetis
             comboboxColumnCTCSS.DataPropertyName = "CTCSSFreq";
             comboboxColumnCTCSS.Name = "CTCSSFreq";
             comboboxColumnCTCSS.HeaderText = "CTCSS Freq";
-            comboboxColumnCTCSS.ValueType = typeof(double);            
+            comboboxColumnCTCSS.ValueType = typeof(double);
 
             // Dev
             DataGridViewComboBoxColumn comboboxColumnDeviation = new DataGridViewComboBoxColumn();
@@ -149,7 +149,7 @@ namespace Thetis
             comboboxColumnAGCMode.Name = "AGCMode";
             comboboxColumnAGCMode.HeaderText = "AGC Mode";
             comboboxColumnAGCMode.ValueType = typeof(AGCMode);
-            
+
 
             // populate combobox items -- type is important here!
             comboboxColumnDSPMode.Items.Add(DSPMode.LSB);
@@ -184,7 +184,7 @@ namespace Thetis
                 comboboxColumnFilter.Items.Add((Filter)i);
 
             for (int i = 0; i < (int)AGCMode.LAST; i++)
-                comboboxColumnAGCMode.Items.Add((AGCMode)i);  
+                comboboxColumnAGCMode.Items.Add((AGCMode)i);
 
 
             // Remove the default DSPMode column (remember index first), and add new combobox column
@@ -201,7 +201,7 @@ namespace Thetis
             dataGridView1.Columns.Insert(index, comboboxColumnRPTR);
 
 
-            
+
             index = dataGridView1.Columns["CTCSSFreq"].Index;
             dataGridView1.Columns.Remove("CTCSSFreq");
             dataGridView1.Columns.Insert(index, comboboxColumnCTCSS);
@@ -290,16 +290,16 @@ namespace Thetis
         private void dataGridView1_DragEnter(object sender, DragEventArgs e)
         {
 
-          //  Trace.WriteLine("Dragenter");
-           
+            //  Trace.WriteLine("Dragenter");
+
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) // ke9ns check for file dragdrop
             {
-              
+
                 e.Effect = DragDropEffects.Copy;
                 e.Effect = DragDropEffects.All;
 
                 filename = (string[])e.Data.GetData(DataFormats.FileDrop);
-     
+
                 URLTEXT = filename[0]; // grab file name
 
                 return;
@@ -308,9 +308,9 @@ namespace Thetis
 
             droppedUrl = ReadURL(e.Data); // ke9ns check for URL e.data is the data received during the drag/drop
 
-            if ((droppedUrl != null) && ( droppedUrl.Trim().Length != 0))
+            if ((droppedUrl != null) && (droppedUrl.Trim().Length != 0))
             {
-               //  Trace.WriteLine("dragdrop URL>" + droppedUrl);
+                //  Trace.WriteLine("dragdrop URL>" + droppedUrl);
                 URLTEXT = droppedUrl;
                 e.Effect = DragDropEffects.Link; // must activate the EFFECT before the _dragdrop will work
             }
@@ -323,14 +323,14 @@ namespace Thetis
         } //   Trace.WriteLine("Dragover");
 
 
-         //==============================================================================================
+        //==============================================================================================
         //ke9ns add ONCE DRAGENTER VALIDATES YOUR URL, YOU RELEASE YOUR MOUSE OVER THE WINDOW AND COMMENT FIELD IS UPDATED WITH THE URL
         private void dataGridView1_DragDrop(object sender, DragEventArgs e)
         {
-        //    Trace.WriteLine("datagrid drag and drop");
-       
-                dataGridView1["comments",RIndex].Value = URLTEXT;
-  
+            //    Trace.WriteLine("datagrid drag and drop");
+
+            dataGridView1["comments", RIndex].Value = URLTEXT;
+
         } // dataGridView1_DragDrop
 
 
@@ -340,18 +340,18 @@ namespace Thetis
         {
 
             MouseEventArgs me = (MouseEventArgs)e;
-         
+
             if (me.Button == System.Windows.Forms.MouseButtons.Right)
             {
-  
+
                 try
                 {
-                  
+
                     System.Diagnostics.Process.Start((string)dataGridView1["comments", RIndex].Value);   // System.Diagnostics.Process.Start("http://www.microsoft.com");
                 }
                 catch
                 {
-                    
+
                 }
 
 
@@ -375,10 +375,10 @@ namespace Thetis
         // ke9ns add COMES HERE AFTER YOU CLICK ON A FIELD BOX TO DETERMINE WHICH ROW YOU ARE WORKING IN
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-        //    Trace.WriteLine("cell click");
+            //    Trace.WriteLine("cell click");
 
-       //     Trace.WriteLine("Cell Name " + dataGridView1.Columns[e.ColumnIndex].Name);  // this causes fault if you click in the far left column
-       //    Trace.WriteLine("Call Value " + dataGridView1[e.ColumnIndex, e.RowIndex].Value); // 
+            //     Trace.WriteLine("Cell Name " + dataGridView1.Columns[e.ColumnIndex].Name);  // this causes fault if you click in the far left column
+            //    Trace.WriteLine("Call Value " + dataGridView1[e.ColumnIndex, e.RowIndex].Value); // 
 
             RIndex = e.RowIndex; // last row you clicked on 
                                  //   CIndex = e.ColumnIndex; // last column you clicked on 
@@ -391,14 +391,14 @@ namespace Thetis
         //============================================================================================================================================
         void dataGridView1_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-     
+
             // handle floating point fields
             if (dataGridView1.Columns[e.ColumnIndex].Name == "RXFreq" ||
                 dataGridView1.Columns[e.ColumnIndex].Name == "TXFreq" ||
                 dataGridView1.Columns[e.ColumnIndex].Name == "RPTROffset")
             {
-                double temp; 
-                if(!double.TryParse((string)e.FormattedValue, out temp))  dataGridView1[e.ColumnIndex, e.RowIndex].Value = 0.0;
+                double temp;
+                if (!double.TryParse((string)e.FormattedValue, out temp)) dataGridView1[e.ColumnIndex, e.RowIndex].Value = 0.0;
                 return;
             }
 
@@ -409,7 +409,7 @@ namespace Thetis
                 dataGridView1.Columns[e.ColumnIndex].Name == "AGCT")
             {
                 int temp;
-                if (!int.TryParse((string)e.FormattedValue, out temp))   dataGridView1[e.ColumnIndex, e.RowIndex].Value = 0;
+                if (!int.TryParse((string)e.FormattedValue, out temp)) dataGridView1[e.ColumnIndex, e.RowIndex].Value = 0;
                 return;
             }
 
@@ -447,8 +447,8 @@ namespace Thetis
 
             if (droppedUrl != null && droppedUrl.Trim().Length != 0)
             {
-                  URLTEXT = droppedUrl;
-             
+                URLTEXT = droppedUrl;
+
                 e.Effect = DragDropEffects.Link; // got a URL so activate the drop event when mouse button released
             }
             else
@@ -460,22 +460,22 @@ namespace Thetis
 
         } //MemoryRecordAdd_DragEnter
 
-     
+
 
         //=========================================================================================================================================
         // Ke9ns add YOUR URL (after being VERIFIED) YOU LET GO THE LEFT MOUSE BUTTON TO DROP ONTO THE ADD BUTTON
         private void MemoryRecordAdd_DragDrop(object sender, DragEventArgs e)
         {
-                    
-                string mem_name = Convert.ToString(console.VFOAFreq);   //W4TME
 
-                // ke9ns Below URLTEXT goes where normally the comment goes with a ""
+            string mem_name = Convert.ToString(console.VFOAFreq);   //W4TME
+
+            // ke9ns Below URLTEXT goes where normally the comment goes with a ""
 
             console.MemoryList.List.Add(new MemoryRecord("", console.VFOAFreq, mem_name, console.RX1DSPMode, true, console.TuneStepList[console.TuneStepIndex].Name,
                 console.CurrentFMTXMode, console.FMTXOffsetMHz, console.radio.GetDSPTX(0).CTCSSFlag, console.radio.GetDSPTX(0).CTCSSFreqHz, console.PWR,
                 (int)console.radio.GetDSPTX(0).TXFMDeviation, console.VFOSplit, console.TXFreq, console.RX1Filter, console.RX1FilterLow,
                 console.RX1FilterHigh, URLTEXT, console.radio.GetDSPRX(0, 0).RXAGCMode, console.RF,
-                DateTime.Now, ScheduleOn.Checked,(int)ScheduleDurationTime.Value, ScheduleRepeat.Checked, ScheduleRecord.Checked, ScheduleRepeatm.Checked, (int)ScheduleExtra.Value
+                DateTime.Now, ScheduleOn.Checked, (int)ScheduleDurationTime.Value, ScheduleRepeat.Checked, ScheduleRecord.Checked, ScheduleRepeatm.Checked, (int)ScheduleExtra.Value
 
                 ));
 
@@ -490,7 +490,7 @@ namespace Thetis
         } // MemoryRecordAdd_DragDrop
 
 
-     
+
 
         //=========================================================================================================================================
         // Ke9ns  this is the ADD button
@@ -580,7 +580,7 @@ namespace Thetis
 
             if (dataGridView1.SelectedRows.Count > 0)
             {
-                for (int i = 0; i < dataGridView1.SelectedRows.Count; ) // no i++ because the selected rows count gets decremented
+                for (int i = 0; i < dataGridView1.SelectedRows.Count;) // no i++ because the selected rows count gets decremented
                     console.MemoryList.List.Remove(console.MemoryList.List[dataGridView1.SelectedRows[i].Index]);
             }
             else // no rows selected, use current cell
@@ -590,7 +590,7 @@ namespace Thetis
 
             Common.SaveForm(this, "MemoryForm");    // w4tme
             console.MemoryList.Save();              // w4tme 
-           
+
         } // delete memory
 
 
@@ -616,9 +616,9 @@ namespace Thetis
 
             console.changeComboFMMemory(index); // ke9ns this will call recallmemory in console 
 
-            Debug.WriteLine("INDEX clicked "+index);
-           
-          //  Debug.WriteLine("INDEX clicked " + dataGridView1.);
+            Debug.WriteLine("INDEX clicked " + index);
+
+            //  Debug.WriteLine("INDEX clicked " + dataGridView1.);
 
             if (chkMemoryFormClose.Checked) // ke9ns this saves position of memory form window on your screen when you closed it.
             {
@@ -650,7 +650,7 @@ namespace Thetis
         #endregion
 
 
-    
+
 
 
 
@@ -674,18 +674,18 @@ namespace Thetis
         // ke9ns look for URL or file
         private string ReadURL(IDataObject data)  // try reading as unicode URL  (data comes from the e.data of the drag/drop operation and is supposed to contain a URL or FILE
         {
-           // try unicode first then ascii
+            // try unicode first then ascii
             string unicodetest = Readurl(data, _unicodeUrlDataFormatName, _unicodeUrlEncoding); // _unicodeUrlDataFormatName = "UniformResourceLocatorW"; Encoding _unicodeUrlEncoding = Encoding.Unicode;
 
-            if (unicodetest != null) 
+            if (unicodetest != null)
             {
                 return unicodetest;   // Unicode URL found from the data 
             }
-               
+
             return Readurl(data, _asciiUrlDataFormatName, _asciiUrlEncoding); // ASCII URL found _asciiUrlDataFormatName = "UniformResourceLocator";   Encoding _asciiUrlEncoding = Encoding.ASCII
 
         } // UNICODE & ASCII testing
-        
+
         //==================================================================================================
         private string Readurl(IDataObject data, string urlDataFormatName, Encoding urlEncoding)    // try reading as ASCII URL
         {
@@ -708,16 +708,16 @@ namespace Thetis
                     url = reader.ReadToEnd();  // Read the URL from the data
                 }
             }
-           
+
             return url.TrimEnd('\0');  // URLs in drag/drop data are often padded with null characters so remove these
 
         } // ASCII URL
 
-      
+
         //==================================================================================================
         private static bool DoesDragDropDataContainUrl1(IDataObject data, string urlDataFormatName)
         {
-            
+
             return (data != null) && (data.GetDataPresent(urlDataFormatName)); // return true = yes URL or file is in specified format
 
         }
@@ -748,7 +748,7 @@ namespace Thetis
                 dataGridView1["Duration", RIndex].Value = ScheduleDurationTime.Value; // ke9ns add put schedule start duration in selected in field box
                 console.MemoryList.Save();
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
@@ -767,7 +767,7 @@ namespace Thetis
 
             try
             {
-                 dataGridView1["Repeating", RIndex].Value = ScheduleRepeat.Checked; // ke9ns add put schedule start duration in selected in field box
+                dataGridView1["Repeating", RIndex].Value = ScheduleRepeat.Checked; // ke9ns add put schedule start duration in selected in field box
 
                 if ((ScheduleRepeat.Checked == false) && (ScheduleRepeatm.Checked == false))
                 {
@@ -797,7 +797,7 @@ namespace Thetis
 
             try
             {
-               
+
                 dataGridView1["Repeatingm", RIndex].Value = ScheduleRepeatm.Checked; // ke9ns add put schedule start duration in selected in field box
 
                 if ((ScheduleRepeat.Checked == false) && (ScheduleRepeatm.Checked == false))
@@ -842,14 +842,14 @@ namespace Thetis
         {
             try
             {
-               
+
                 if (ScheduleOn.Checked == false)
                 {
                     if (DurationCount > 1)
                     {
                         LASTUTC = UTCNEW;
                         DurationCount = 1; // to turn things off immediatly if you toggle on/off into off
-                        
+
                     }
                 }
 
@@ -935,7 +935,7 @@ namespace Thetis
 
             MemComments.Text = (string)dataGridView1["comments", RIndex].Value; // ke9ns add put comments selected in field box
 
-           
+
             MemGroup.Text = (string)dataGridView1["Group", RIndex].Value;
             MemName.Text = (string)dataGridView1["Name", RIndex].Value;
 
@@ -948,7 +948,7 @@ namespace Thetis
             {
 
                 ScheduleStartDate.ValueChanged -= new System.EventHandler(ScheduleStartDate_ValueChanged);  // ke9ns turn off checkchanged temporarily    // ke9ns turn off valuechanged temporarily 
-              
+
                 ScheduleStartDate.Value = (DateTime)dataGridView1["StartDate", RIndex].Value; // ke9ns add put schedule start date in selected in field box
                 ScheduleStartTime.Value = (DateTime)dataGridView1["StartDate", RIndex].Value; // ke9ns add put schedule start date in selected in field box
 
@@ -1009,7 +1009,7 @@ namespace Thetis
         {
             Debug.WriteLine("SCHEDULER==========================================");
 
-            for (;;)
+            for (; ; )
             {
                 UTCD = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);
                 FD = UTCD.ToString("HHmm");
@@ -1020,15 +1020,15 @@ namespace Thetis
 
                     if ((UTCNEW != LASTUTC) && (dataGridView1.Rows.Count > 0)) // check 1 time per minute
                     {
-                       
+
                         LASTUTC = UTCNEW;
 
-                       
+
                         if (DurationCount > 1) // check audio recording start/stop
                         {
 
                             DurationCount--;
-                           
+
                             ScheduleRemain.Text = DurationCount.ToString();
 
                             Debug.WriteLine("Audio countdown" + DurationCount);
@@ -1067,9 +1067,9 @@ namespace Thetis
                                 poweroff = 0; // reset flag
                             }
 
-                          
-                         //   Audio.RecordRXPreProcessed = temp_record; //return to original state
-                         //   WaveOptions.comboSampleRate.Text = quickmp3SR; // restore file size
+
+                            //   Audio.RecordRXPreProcessed = temp_record; //return to original state
+                            //   WaveOptions.comboSampleRate.Text = quickmp3SR; // restore file size
 
 
                         } // duration==1
@@ -1085,7 +1085,7 @@ namespace Thetis
                             if (((bool)dataGridView1["Repeating", aa].Value == true) || ((bool)dataGridView1["Repeatingm", aa].Value == true)) // check only memories that the schedule is enabled
                             {
 
-                              //  Debug.WriteLine("Date and Time " + dataGridView1["StartDate", aa].Value);
+                                //  Debug.WriteLine("Date and Time " + dataGridView1["StartDate", aa].Value);
 
                                 DateTime temp1 = (DateTime)dataGridView1["StartDate", aa].Value; // save date and time for checking
 
@@ -1094,7 +1094,7 @@ namespace Thetis
                                 // ke9ns check if Memory repeats every week 
                                 if ((bool)dataGridView1["Repeating", aa].Value == true) // check every week
                                 {
-                                    Debug.WriteLine("Weekly Enabled current day: " + DateTime.Now.DayOfWeek + " Day recorded: "+temp1.DayOfWeek);
+                                    Debug.WriteLine("Weekly Enabled current day: " + DateTime.Now.DayOfWeek + " Day recorded: " + temp1.DayOfWeek);
 
                                     if (DateTime.Now.DayOfWeek == temp1.DayOfWeek)
                                     {
@@ -1120,7 +1120,7 @@ namespace Thetis
                                         int totalmonthweeks = 0;
                                         int originalweek = 0;
 
-                                        for (int x=1;x < 32;x++) // find what week your day of the week was in to check for repeats
+                                        for (int x = 1; x < 32; x++) // find what week your day of the week was in to check for repeats
                                         {
                                             try
                                             {
@@ -1140,14 +1140,14 @@ namespace Thetis
                                                     } //if (temp2.Day == temp1.Day)
 
                                                 } //if (temp2.DayOfWeek == temp1.DayOfWeek) 
-                                          
+
                                             }
-                                            catch(Exception) // exceeded days of month
+                                            catch (Exception) // exceeded days of month
                                             {
                                                 Debug.WriteLine("End of Month before 31 days.");
                                                 break;
                                             }
-       
+
                                         } // for x loop through entire month
 
                                         Debug.WriteLine("End of Month found # of weeks of the scheduled day: " + totalmonthweeks);
@@ -1201,7 +1201,7 @@ namespace Thetis
                                         //---------------------------------------------------------------------------------------------------------
                                         //---------------------------------------------------------------------------------------------------------
                                         // now check the if today is the matching week for the original schedule day of week (monday) (1st,2nd,3rd, or last week)
-                                       
+
                                         if (originalweek == 10) // looking for last week of the current month
                                         {
                                             if (totalcurrentmonthweeks == 3) // only 3 weeks in current month
@@ -1209,7 +1209,7 @@ namespace Thetis
                                                 if (week[3] == DateTime.Now.Day) // if last week of this month matches the current Day#
                                                 {
                                                     Debug.WriteLine("LAST(3rd) WEEK OF THE MONTH MATCHES GOOD " + DateTime.Now.Day);
-                                                   daycheck = 1; // matches the day of week
+                                                    daycheck = 1; // matches the day of week
                                                 }
                                             }
                                             else
@@ -1239,7 +1239,7 @@ namespace Thetis
                                             }
                                             else
                                             {
-                                                Debug.WriteLine("Second WEEK OF THE MONTH MATCHES BAD " + DateTime.Now.Day + " week[2] "+week[2]);
+                                                Debug.WriteLine("Second WEEK OF THE MONTH MATCHES BAD " + DateTime.Now.Day + " week[2] " + week[2]);
                                             }
                                         }
                                         else if (originalweek == 3)
@@ -1270,7 +1270,7 @@ namespace Thetis
                                 if ((temp1.Date == DateTime.Now.Date) || (daycheck == 1)) // check for Schedule DATE matchup
                                 {
                                     Debug.WriteLine("DATE Match " + temp1.Date);
-                               
+
                                     if ((temp1.TimeOfDay.Hours == DateTime.Now.TimeOfDay.Hours) && (temp1.TimeOfDay.Minutes == DateTime.Now.TimeOfDay.Minutes))
                                     {
 
@@ -1320,14 +1320,14 @@ namespace Thetis
 
                                                 ScheduleRecord.ForeColor = Color.Red;
                                                 ScheduleRemain.ForeColor = Color.Red;
-    
+
                                                 console.REC1 = true; // red sign over Wave menu item
 
                                             } // Recording ON
                                             else
                                             {
                                                 AutoClosingMessageBox.Show("Scheduled Frequency Change has occured\n", "Scheduled Frequency change", 4000);
-                                                
+
                                             }
 
                                             // check for audio recording
@@ -1360,7 +1360,7 @@ namespace Thetis
                     } //wait time to increment by 1 minute before checking
 
                 } // try
-                catch(Exception)
+                catch (Exception)
                 {
                     // thread not ready yet since database doesnt contain schedule data yet
                     Debug.WriteLine("Thread not ready3===============");
@@ -1379,7 +1379,7 @@ namespace Thetis
 
         } // thread SCHEDULER() 
 
-     
+
         private string wave_folder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\Thetis";
 
         private void buttonTS1_Click(object sender, EventArgs e)
@@ -1389,17 +1389,17 @@ namespace Thetis
 
             System.Diagnostics.Process.Start("explorer.exe", argument);
 
-          //  Debug.WriteLine("WaveControl.scheduleName " + WaveControl.scheduleName);
-          //  WaveToMP3(WaveControl.scheduleName, WaveControl.scheduleName1, 128);
-          //  Debug.WriteLine("WaveControl.scheduleNameMP3 " + WaveControl.scheduleName1);
+            //  Debug.WriteLine("WaveControl.scheduleName " + WaveControl.scheduleName);
+            //  WaveToMP3(WaveControl.scheduleName, WaveControl.scheduleName1, 128);
+            //  Debug.WriteLine("WaveControl.scheduleNameMP3 " + WaveControl.scheduleName1);
 
         }
 
         // ke9ns add  NOT USED AT THE MOMENT
         public static void WaveToMP3(string waveFileName, string mp3FileName, int bitRate = 128)
         {
-           // using (var reader = new WaveFileReader(waveFileName))
-           // using (var writer = new LameMP3FileWriter(mp3FileName, reader.WaveFormat, LAMEPreset.VBR_90))
+            // using (var reader = new WaveFileReader(waveFileName))
+            // using (var writer = new LameMP3FileWriter(mp3FileName, reader.WaveFormat, LAMEPreset.VBR_90))
             //    reader.CopyTo(writer);
         }
 
@@ -1410,13 +1410,13 @@ namespace Thetis
         {
             try
             {
-               // using (var reader = new WaveFileReader(WaveControl.scheduleName)) // closes reader when done using
-               // using (var writer = new LameMP3FileWriter(WaveControl.scheduleName1, reader.WaveFormat, LAMEPreset.VBR_90)) // closes writer when done using
+                // using (var reader = new WaveFileReader(WaveControl.scheduleName)) // closes reader when done using
+                // using (var writer = new LameMP3FileWriter(WaveControl.scheduleName1, reader.WaveFormat, LAMEPreset.VBR_90)) // closes writer when done using
                 {
-                //    reader.CopyTo(writer);
+                    //    reader.CopyTo(writer);
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
@@ -1424,7 +1424,7 @@ namespace Thetis
 
             try
             {
-               
+
                 System.IO.File.Delete(WaveControl.scheduleName);
 
                 Debug.WriteLine("DEL the WAV FILE" + WaveControl.scheduleName);
@@ -1439,26 +1439,26 @@ namespace Thetis
         } // MP3 conversion thread. ends when conversion from wav to mp3 is done.
 
 
-       //  MemoryStream ms = new MemoryStream();
-       // ke9ns add
+        //  MemoryStream ms = new MemoryStream();
+        // ke9ns add
         public static void ConvertWavStreamToMp3File(ref MemoryStream ms, string savetofilename)
         {
             //rewind to beginning of stream
-          //  ms.Seek(0, SeekOrigin.Begin);
+            //  ms.Seek(0, SeekOrigin.Begin);
 
-         //   using (var retMs = new MemoryStream())
-           // using (var rdr = new WaveFileReader(ms))
-           // using (var wtr = new LameMP3FileWriter(savetofilename, rdr.WaveFormat, LAMEPreset.VBR_90))
-          //  {
-           //     rdr.CopyTo(wtr);
-           // }
+            //   using (var retMs = new MemoryStream())
+            // using (var rdr = new WaveFileReader(ms))
+            // using (var wtr = new LameMP3FileWriter(savetofilename, rdr.WaveFormat, LAMEPreset.VBR_90))
+            //  {
+            //     rdr.CopyTo(wtr);
+            // }
         }
-    
 
-       
-     
-        
-        
+
+
+
+
+
 
 
 
@@ -1494,7 +1494,7 @@ namespace Thetis
             static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
         } // AutoClosingMessageBox
 
-      
+
     } // memoryform
 
-    } // powerSDR
+} // powerSDR

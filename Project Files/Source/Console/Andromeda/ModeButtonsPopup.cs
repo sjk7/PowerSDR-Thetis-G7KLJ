@@ -414,12 +414,12 @@ namespace Thetis
                     break;
             }
         }
-            #endregion
+        #endregion
 
-            #region Event Handlers
-            #endregion
+        #region Event Handlers
+        #endregion
 
-            private void btnClose_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -433,7 +433,7 @@ namespace Thetis
 
         private void ModeButtonsPopup_Activated(object sender, EventArgs e)
         {
-                RepopulateForm();
+            RepopulateForm();
         }
 
         private void radBtn1_Click(object sender, EventArgs e)

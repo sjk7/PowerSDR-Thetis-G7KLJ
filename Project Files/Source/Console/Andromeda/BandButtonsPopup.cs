@@ -428,7 +428,7 @@ namespace Thetis
             {
                 this.Text = "set RX1 Band";
                 currentBand = console.RX1Band;
-                switch(currentBandGroup)
+                switch (currentBandGroup)
                 {
                     case 0:                             // HF
                         radBtn1.Text = "160";
@@ -631,13 +631,13 @@ namespace Thetis
             //
             // now click the currently selected filter
             //
-//            switch (currentBand)
-//            {
-//                case Filter.F1:
-//                    radBtn1.Checked = true;
-//                   break;
+            //            switch (currentBand)
+            //            {
+            //                case Filter.F1:
+            //                    radBtn1.Checked = true;
+            //                   break;
 
-//            }
+            //            }
         }
 
 

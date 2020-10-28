@@ -31,18 +31,18 @@ using System.Drawing;
 
 namespace Thetis
 {
-	public class UI
-	{		
-		// Use of Invoke routines is required when accessing UI controls from
-		// a thread other than the one that created them.
+    public class UI
+    {
+        // Use of Invoke routines is required when accessing UI controls from
+        // a thread other than the one that created them.
 
-		public delegate void SetCtrlDel(Control c, object val);
+        public delegate void SetCtrlDel(Control c, object val);
 
-		public static void SetPanel(Control c, object val)
-		{
-			Panel p = (Panel)c;
-			Color clr = (Color)val;
-			p.BackColor = clr;
-		}
-	}
+        public static void SetPanel(Control c, object val)
+        {
+            Panel p = (Panel)c;
+            Color clr = (Color)val;
+            p.BackColor = clr;
+        }
+    }
 }

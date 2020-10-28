@@ -59,7 +59,7 @@ namespace Thetis
         private CheckBoxTS chkRX2Avg;
         private CheckBoxTS chkRX2Peak;
         private System.ComponentModel.IContainer components = null;
-        
+
         #endregion
 
 
