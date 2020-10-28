@@ -51,8 +51,7 @@ void mix_main(void* pargs) {
 }
 
 void start_mixthread(AAMIX a) {
-    HANDLE handle = (HANDLE)_beginthread(mix_main, 0, (void*)a);
-    // SetThreadPriority (handle, THREAD_PRIORITY_HIGHEST);
+    _beginthread(mix_main, 0, (void*)a);
 }
 
 enum _slew { BEGIN = 0, DELAYUP, UPSLEW, ON, DELAYDOWN, DOWNSLEW, ZERO, OFF };

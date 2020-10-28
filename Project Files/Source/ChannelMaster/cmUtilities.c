@@ -8,7 +8,7 @@ PORT void print_cmbuff_parameters(const char* filename, int id) {
     CMB a = pcm->pcbuff[id];
     FILE* file = fopen(filename, "a");
     fprintf(file, "id                 = %d\n", id);
-    fprintf(file, "accept             = %d\n", a->accept);
+    fprintf(file, "accept             = %ld\n", a->accept);
     fprintf(file, "max_insize         = %d\n", a->max_in_size);
     fprintf(file, "outsize            = %d\n", a->r1_outsize);
     fprintf(file, "\n");

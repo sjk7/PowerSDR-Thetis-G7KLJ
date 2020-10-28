@@ -371,7 +371,9 @@ namespace Thetis
             string PSPeak = Common.GetSavedPSPeakValue();
             if (PSPeak.Length > 0)
             {
-                puresignal.SetPSHWPeak(txch, Double.Parse(PSPeak));
+                double pspeak = 0;
+                if (Double.TryParse(PSPeak, out pspeak))
+                puresignal.SetPSHWPeak(txch, pspeak);
             }
             else
             {

@@ -1350,10 +1350,12 @@ namespace Thetis
                 console.SampleRateTX = 48000; // set tx audio sampling rate  
                 WDSP.SetTXACFIRRun(cmaster.chid(cmaster.inid(1, 0), 0), false);
                 
+                if (!setpeak)
                 peakval = 0.4072;
+
                 if (!setpeak && Common.RadioModel == HPSDRModel.HERMES)
                 {
-                    peakval = 0.2899;
+                    peakval = 0.243290600682013;
                     puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), peakval);
                     setpeak = true;
 
