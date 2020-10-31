@@ -146,7 +146,9 @@ namespace Thetis
 
         #region Function Definitions
 
+#pragma warning disable CS0414 // The field 'PortAudioForThetis.PaNoError' is assigned but its value is never used
         static readonly int PaNoError = 0;
+#pragma warning restore CS0414 // The field 'PortAudioForThetis.PaNoError' is assigned but its value is never used
         [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_GetVersion", CallingConvention = CallingConvention.Cdecl)]
         public static extern int PA_GetVersion();
 

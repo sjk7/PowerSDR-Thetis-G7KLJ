@@ -14,7 +14,7 @@
         private System.Windows.Forms.GroupBoxTS grpVFOA;
         private System.Windows.Forms.GroupBoxTS grpVFOB;
         private System.Windows.Forms.TextBoxTS txtVFOBBand;
-        private System.Windows.Forms.CheckBoxTS chkPower;
+        public System.Windows.Forms.CheckBoxTS chkPower;
         private System.Windows.Forms.LabelTS lblCPUMeter;
         private System.Windows.Forms.ComboBoxTS comboDisplayMode;
         private System.Windows.Forms.NumericUpDownTS udFilterLow;
@@ -1136,6 +1136,7 @@
             this.tbAndromedaEncoderSlider = new System.Windows.Forms.TrackBarTS();
             this.lblAndromedaEncoderSlider = new System.Windows.Forms.LabelTS();
             this.lblATUTuneLabel = new System.Windows.Forms.LabelTS();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.picSMeter = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterWidth)).BeginInit();
@@ -1234,6 +1235,7 @@
             this.grpMultimeterMenus.SuspendLayout();
             this.panelAndromedaMisc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbAndromedaEncoderSlider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picSMeter)).BeginInit();
             this.SuspendLayout();
             // 
@@ -5354,7 +5356,7 @@
             resources.ApplyResources(this.btnAndrBar8, "btnAndrBar8");
             this.btnAndrBar8.Name = "btnAndrBar8";
             this.btnAndrBar8.UseVisualStyleBackColor = false;
-            this.btnAndrBar8.Click += new System.EventHandler(this.btnAndrBar8_Click);
+  
             // 
             // btnAndrBar7
             // 
@@ -5362,7 +5364,7 @@
             resources.ApplyResources(this.btnAndrBar7, "btnAndrBar7");
             this.btnAndrBar7.Name = "btnAndrBar7";
             this.btnAndrBar7.UseVisualStyleBackColor = false;
-            this.btnAndrBar7.Click += new System.EventHandler(this.btnAndrBar7_Click);
+
             // 
             // btnAndrBar6
             // 
@@ -5370,7 +5372,7 @@
             resources.ApplyResources(this.btnAndrBar6, "btnAndrBar6");
             this.btnAndrBar6.Name = "btnAndrBar6";
             this.btnAndrBar6.UseVisualStyleBackColor = false;
-            this.btnAndrBar6.Click += new System.EventHandler(this.btnAndrBar6_Click);
+
             // 
             // btnAndrBar5
             // 
@@ -5378,7 +5380,7 @@
             resources.ApplyResources(this.btnAndrBar5, "btnAndrBar5");
             this.btnAndrBar5.Name = "btnAndrBar5";
             this.btnAndrBar5.UseVisualStyleBackColor = false;
-            this.btnAndrBar5.Click += new System.EventHandler(this.btnAndrBar5_Click);
+ 
             // 
             // btnAndrBar4
             // 
@@ -5386,7 +5388,7 @@
             resources.ApplyResources(this.btnAndrBar4, "btnAndrBar4");
             this.btnAndrBar4.Name = "btnAndrBar4";
             this.btnAndrBar4.UseVisualStyleBackColor = false;
-            this.btnAndrBar4.Click += new System.EventHandler(this.btnAndrBar4_Click);
+ 
             // 
             // btnAndrBar3
             // 
@@ -5394,7 +5396,7 @@
             resources.ApplyResources(this.btnAndrBar3, "btnAndrBar3");
             this.btnAndrBar3.Name = "btnAndrBar3";
             this.btnAndrBar3.UseVisualStyleBackColor = false;
-            this.btnAndrBar3.Click += new System.EventHandler(this.btnAndrBar3_Click);
+
             // 
             // btnAndrBar2
             // 
@@ -5402,7 +5404,7 @@
             resources.ApplyResources(this.btnAndrBar2, "btnAndrBar2");
             this.btnAndrBar2.Name = "btnAndrBar2";
             this.btnAndrBar2.UseVisualStyleBackColor = false;
-            this.btnAndrBar2.Click += new System.EventHandler(this.btnAndrBar2_Click);
+
             // 
             // btnAndrBar1
             // 
@@ -5410,7 +5412,7 @@
             resources.ApplyResources(this.btnAndrBar1, "btnAndrBar1");
             this.btnAndrBar1.Name = "btnAndrBar1";
             this.btnAndrBar1.UseVisualStyleBackColor = false;
-            this.btnAndrBar1.Click += new System.EventHandler(this.btnAndrBar1_Click);
+
             // 
             // panelVFOLabels
             // 
@@ -6312,7 +6314,6 @@
             this.panelDisplay.Controls.Add(this.txtOverload);
             this.panelDisplay.Controls.Add(this.radDisplayZoom4x);
             this.panelDisplay.Controls.Add(this.radDisplayZoom2x);
-            this.panelDisplay.Controls.Add(this.picSMeter);
             this.panelDisplay.Controls.Add(this.radDisplayZoom1x);
             this.panelDisplay.Controls.Add(this.radDisplayZoom05);
             this.panelDisplay.Controls.Add(this.ptbDisplayZoom);
@@ -6391,7 +6392,6 @@
             this.picDisplay.Cursor = System.Windows.Forms.Cursors.Cross;
             this.picDisplay.Name = "picDisplay";
             this.picDisplay.TabStop = false;
-            this.picDisplay.Click += new System.EventHandler(this.picDisplay_Click);
             this.picDisplay.Paint += new System.Windows.Forms.PaintEventHandler(this.picDisplay_Paint);
             this.picDisplay.DoubleClick += new System.EventHandler(this.picDisplay_DoubleClick);
             this.picDisplay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseDown);
@@ -7201,11 +7201,17 @@
             this.lblATUTuneLabel.ForeColor = System.Drawing.Color.White;
             this.lblATUTuneLabel.Name = "lblATUTuneLabel";
             // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
             // picSMeter
             // 
             this.picSMeter.BackColor = System.Drawing.Color.Black;
             this.picSMeter.BackgroundImage = global::Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
             resources.ApplyResources(this.picSMeter, "picSMeter");
+            this.picSMeter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picSMeter.Name = "picSMeter";
             this.picSMeter.TabStop = false;
             // 
@@ -7214,6 +7220,7 @@
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.Controls.Add(this.picSMeter);
             this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.grpMultimeter);
             this.Controls.Add(this.panelFilter);
@@ -7381,6 +7388,7 @@
             this.grpMultimeterMenus.ResumeLayout(false);
             this.panelAndromedaMisc.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbAndromedaEncoderSlider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picSMeter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -7505,6 +7513,7 @@
         private ToolStripMenuItem toolStripMenuItem19;
         private ToolStripMenuItem toolStripMenuItem18;
         private ToolStripStatusLabel toolStripStatusLabelAndromedaMulti;
+        private System.IO.FileSystemWatcher fileSystemWatcher1;
         public PictureBox picSMeter;
     }
 }

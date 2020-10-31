@@ -2607,6 +2607,7 @@ namespace Thetis
             // MW0LGE
             // this now draws the grid for either panadapter or waterfall, pass in a bool to pick
             //
+
             DisplayLabelAlignment label_align = display_label_align;
             bool local_mox = false;
             bool displayduplex = isRxDuplex(rx);

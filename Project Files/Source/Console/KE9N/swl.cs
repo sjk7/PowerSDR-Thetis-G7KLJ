@@ -56,7 +56,9 @@ namespace Thetis
         private RichTextBox richTextBox1;
         private Button button2;
         private RichTextBox richTextBox2;
+#pragma warning disable CS0649 // Field 'SwlControl.components' is never assigned to, and will always have its default value null
         private IContainer components;
+#pragma warning restore CS0649 // Field 'SwlControl.components' is never assigned to, and will always have its default value null
 
         //   public DXMemList dxmemlist;
 

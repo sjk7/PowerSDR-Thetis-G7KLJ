@@ -49,7 +49,7 @@ namespace Thetis
             set { txachannel = value; }
         }
 
-        private static Thetis.Console console;
+        public static Thetis.Console console;
 
 
         public static string PSPeakValueFilePath()

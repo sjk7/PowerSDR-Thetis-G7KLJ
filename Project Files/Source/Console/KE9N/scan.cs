@@ -56,7 +56,9 @@ namespace Thetis
         private Label label4;
         private Label label5;
         private CheckBoxTS chkAlwaysOnTop;
+#pragma warning disable CS0649 // Field 'ScanControl.components' is never assigned to, and will always have its default value null
         private IContainer components;
+#pragma warning restore CS0649 // Field 'ScanControl.components' is never assigned to, and will always have its default value null
 
 
         #region Constructor and Destructor

@@ -53,14 +53,22 @@ namespace Thetis
         //   private ArrayList file_list;
         private string wave_folder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\Thetis";
 
+#pragma warning disable CS0169 // The field 'StackControl.openFileDialog1' is never used
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+#pragma warning restore CS0169 // The field 'StackControl.openFileDialog1' is never used
+#pragma warning disable CS0169 // The field 'StackControl.grpPlayback' is never used
         private System.Windows.Forms.GroupBoxTS grpPlayback;
+#pragma warning restore CS0169 // The field 'StackControl.grpPlayback' is never used
+#pragma warning disable CS0169 // The field 'StackControl.grpPlaylist' is never used
         private System.Windows.Forms.GroupBox grpPlaylist;
+#pragma warning restore CS0169 // The field 'StackControl.grpPlaylist' is never used
         private TextBox textBox3;
         private CheckBoxTS chkAlwaysOnTop;
         public TextBox textBox1;
         private Button buttonSort;
+#pragma warning disable CS0649 // Field 'StackControl.components' is never assigned to, and will always have its default value null
         private IContainer components;
+#pragma warning restore CS0649 // Field 'StackControl.components' is never assigned to, and will always have its default value null
 
         //   public DXMemList dxmemlist;
 
@@ -229,7 +237,9 @@ namespace Thetis
         int ZoomFactor;
         double CenterFreq;
 
+#pragma warning disable CS0169 // The field 'StackControl.locker' is never used
         string locker;
+#pragma warning restore CS0169 // The field 'StackControl.locker' is never used
 
         double[] freq1 = new double[20];
         string[] filter1 = new string[20];

@@ -64,7 +64,7 @@ namespace Thetis
 
     namespace PowerSDR
     {
-        // public partial class AGauge { };
+        // public partial class SMeter { };
     }
 
     public partial class Console : Form
@@ -72,7 +72,7 @@ namespace Thetis
         public string NewVFO_background_image = null;
         public int MAX_FPS = 144;
 
-        public Thetis.PowerSDR.AGauge NewVFOSignalGauge;
+        public Thetis.PowerSDR.SMeter NewVFOSignalGauge;
         //==================================================================================
         //==================================================================================
         // ke9ns add (copied from cwx precision multimedia msec timer)
@@ -724,6 +724,7 @@ namespace Thetis
             Common.Console = this;
 
 
+
             //MW0LGE
             // Problems with CultureInfo.
             // MemoryPanel and Spot system changes CultureInfo on their own threads, problem with this is that the culture change is now not limited just in that thread, if they
@@ -1198,6 +1199,11 @@ namespace Thetis
             }
 
             Splash.CloseForm();
+  
+
+            this.picSMeter.DoubleClick += new System.EventHandler(this.picSMeter_DoubleClick);
+            this.picSMeter.Paint += new System.Windows.Forms.PaintEventHandler(this.picSMeter_Paint);
+            this.Click += new System.EventHandler(this.form_Click);
         }
 
         public bool IsSetupFormNull
@@ -1402,7 +1408,9 @@ namespace Thetis
                 {
                     Application.Exit();
                 }
-                else Application.Run(theConsole);
+                else
+
+                    Application.Run(theConsole);
             }
             catch (Exception ex)
             {
@@ -1511,10 +1519,11 @@ namespace Thetis
         private void InitConsole()
         {
 
-            NewVFOSignalGauge = new PowerSDR.AGauge(this);
-            NewVFOSignalGauge.GaugeTarget = picSMeter;
+            NewVFOSignalGauge = new PowerSDR.SMeter(this, 0, picSMeter);
+          
             NewVFOSignalGauge.Width = picSMeter.Width;
             NewVFOSignalGauge.Height = picSMeter.Height;
+
             NewVFOSignalGauge.booting = false;
 
             m_frmNotchPopup = new frmNotchPopup();
@@ -16650,8 +16659,12 @@ namespace Thetis
         // jump here from either a TXIDMenu click or from WaveForm TXIDBoxTS update
         //============================================================================ 
         //============================================================================ 
+#pragma warning disable CS0414 // The field 'Console.vac1' is assigned but its value is never used
         private static byte vac1 = 0;
+#pragma warning restore CS0414 // The field 'Console.vac1' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'Console.Txfh' is assigned but its value is never used
         private static int Txfh = 0;
+#pragma warning restore CS0414 // The field 'Console.Txfh' is assigned but its value is never used
         private void TXIDMenuItem_CheckedChanged(object sender, EventArgs e)
         {
             /*
@@ -24455,7 +24468,9 @@ namespace Thetis
             psform.SingleCalrun();
         }
 
+#pragma warning disable CS0414 // The field 'Console.cat_breakin_status' is assigned but its value is never used
         private int cat_breakin_status = 0;
+#pragma warning restore CS0414 // The field 'Console.cat_breakin_status' is assigned but its value is never used
         public int CATBreakIn
         {
             get
@@ -24474,7 +24489,9 @@ namespace Thetis
             }
         }
 
+#pragma warning disable CS0414 // The field 'Console.cat_qsk_breakin_status' is assigned but its value is never used
         private int cat_qsk_breakin_status = 0;
+#pragma warning restore CS0414 // The field 'Console.cat_qsk_breakin_status' is assigned but its value is never used
         public int CATQSKBreakIn
         {
             get
@@ -28103,7 +28120,7 @@ namespace Thetis
 
         public bool PowerOn
         {
-            get { NewVFOSignalGauge.PowerIsOn = chkPower.Checked; return chkPower.Checked; }
+            get { return chkPower.Checked; }
             set { chkPower.Checked = value; }
         }
 
@@ -32046,6 +32063,98 @@ namespace Thetis
         private List<float> m_RX2SignalPixels_X = new List<float>();
         private Pen m_SignalHistoryColourPen = new Pen(Color.LimeGreen);
 
+        // This is for the analog s-meter
+        private float calcSMeterValue(float dbm)
+        {
+
+            /*/
+             * 
+            output = num.ToString("f1") + " dBm";
+            new_meter_data = num;
+
+            num_tmp = num + 127.0f;
+            if (num <= -73.0f && num >= -127.0f)
+            {
+                num_tmp = num_tmp / 6;
+            }
+            else if (num > -13.0f)
+            {
+                num_tmp = NewVFOSignalGauge.MaxValue;
+            }
+            else if (num > -73.0f)
+            {
+                num_tmp = -(-73.0f - num) / 6.6f + 9;
+            }
+            /*/
+            float s_meter_value = (float)dbm + 127.0f;
+            int mynum = (int)Math.Abs(dbm);
+
+            if (s_meter_value <= 0)
+            {
+                s_meter_value = NewVFOSignalGauge.MinValue;
+            }
+            else
+            {
+                if (mynum >= 125f)
+                {
+                    s_meter_value = 6.7f;
+                }
+                else if (mynum >= 120.0f )
+                {
+                    s_meter_value = s_meter_value / 2.3f;
+                }
+                else if (mynum >= 110.0f)
+                {
+                    s_meter_value = s_meter_value / 2.3f;
+                }
+                else if (mynum >= 100)
+                {
+                    s_meter_value = s_meter_value / 3.1f;
+                }
+                else if (mynum >= 90)
+                {
+                    s_meter_value = s_meter_value / 3.9f;
+                }
+                else if (mynum >= 80)
+                {
+                    s_meter_value = s_meter_value / 4.45f;
+                }
+                else if (mynum >= 70.0f)
+                {
+                    // -73 is s9
+                    s_meter_value = s_meter_value / 4.85f;
+                }
+                else if (mynum >= 60)
+                {
+                    s_meter_value = (float)-(-73.0f - dbm) / 6.6f + 8.8f;
+                }
+                else if (mynum >= 55.0f )
+                {
+                    s_meter_value = (float)-(-73.0f - dbm) / 6.6f + 8.4f;
+                }
+                else if (mynum >= 45.0f)
+                {
+                    s_meter_value = (float)-(-73.0f - dbm) / 6.6f + 7.8f;
+                }
+                else if (mynum >= 35.0f)
+                {
+                    s_meter_value = (float)-(-73.0f - dbm) / 6.6f + 7.3f;
+                }
+                else if (mynum >= 25.0f)
+                {
+                    s_meter_value = (float)-(-73.0f - dbm) / 6.6f + 6.7f;
+                }
+                else
+                {
+                    // big strong sigs:
+                    s_meter_value = NewVFOSignalGauge.MaxValue;
+                }
+
+            }
+
+            return s_meter_value;
+        }
+
         private void picMultiMeterDigital_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
         {
             int H = picMultiMeterDigital.ClientSize.Height;
@@ -32055,6 +32164,7 @@ namespace Thetis
             int pixel_x;// = 0;
             int pixel_x_swr;// = 0;
             string output = "";
+            float s_meter_value = 0;
 
             if (meter_data_ready)
             {
@@ -32074,6 +32184,15 @@ namespace Thetis
                     num = avg_num = current_meter_data * 0.8 + avg_num * 0.2; // fast rise
                 else
                     num = avg_num = current_meter_data * 0.2 + avg_num * 0.8; // slow decay
+
+                num = -120f;
+                if (picSMeter.Visible)
+                s_meter_value = calcSMeterValue((float)num);
+               
+                picSMeter.Invalidate();
+                if (m_frmSMeter != null){
+                    m_frmSMeter.Invalidate();
+                }
             }
 
             switch (current_meter_display_mode)
@@ -32274,6 +32393,15 @@ namespace Thetis
                     break;
             }
 
+            if (picSMeter.Visible)
+            {
+                // NewVFOSignalGauge.Value = s_meter_value;
+                if (m_frmSMeter != null)
+                {
+                    m_frmSMeter.Value = s_meter_value;
+                }
+
+            }
             meter_timer.Stop();
 
             string format = "f0";
@@ -33201,6 +33329,7 @@ namespace Thetis
         private async void UpdateMultimeter()
         {
             meter_timer.Start();
+            picSMeter.Refresh();
             while (chkPower.Checked)
             {
                 if (!meter_data_ready)
@@ -33223,11 +33352,12 @@ namespace Thetis
                                  rx1PreampOffset +
                                  rx1_xvtr_gain_offset +
                                  rx1_6m_gain_offset;
-
                                 new_meter_data = num;
 
+
+                                
                                 // test MW0LGE
-                                //MultiMeter.Meter.MeterRXValue = num;
+                                // MultiMeter.Meter.MeterRXValue = num;
 
                                 break;
                             case MeterRXMode.SIGNAL_AVERAGE:
@@ -33377,7 +33507,9 @@ namespace Thetis
                     }
                     meter_data_ready = true;
                     picMultiMeterDigital.Invalidate();
+                    
                 }
+
 
                 await Task.Delay(Math.Min(meter_delay, meter_dig_delay));
             }
@@ -34451,7 +34583,7 @@ namespace Thetis
                 }
                 */
 
-        void HandleXml(string str)
+            void HandleXml(string str)
         {
             // int textCount = 0;
             // bool valid_data = true;
@@ -40574,7 +40706,9 @@ namespace Thetis
             UpdatePreamps();
         }
 
+#pragma warning disable CS0169 // The field 'Console.tuned_freq' is never used
         private static double tuned_freq;
+#pragma warning restore CS0169 // The field 'Console.tuned_freq' is never used
         private void txtVFOAFreq_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
             string separator = System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
@@ -41722,8 +41856,12 @@ namespace Thetis
         private bool tx1_grid_adjust = false;
         private bool tx2_grid_adjust = false;
         private bool gridmaxadjust = false;
+#pragma warning disable CS0414 // The field 'Console.wfmaxadjust' is assigned but its value is never used
         private bool wfmaxadjust = false;
+#pragma warning restore CS0414 // The field 'Console.wfmaxadjust' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'Console.wfminadjust' is assigned but its value is never used
         private bool wfminadjust = false;
+#pragma warning restore CS0414 // The field 'Console.wfminadjust' is assigned but its value is never used
         private bool gridminmaxadjust = false;
 
         private Point grid_minmax_drag_start_point = new Point(0, 0);
@@ -43830,6 +43968,46 @@ namespace Thetis
             if (sender.GetType() == typeof(PrettyTrackBar))
             {
                 ptbDisplayPan.Focus();
+            }
+        }
+
+        private void form_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private frmSMeter m_frmSMeter = null;
+        private void picSMeter_DoubleClick(object sender, EventArgs e)
+        {
+            MouseEventArgs me = (MouseEventArgs)e;
+            if (me.Button == MouseButtons.Left)
+            {
+                if (m_frmSMeter == null || m_frmSMeter.IsDisposed)
+                {
+                    m_frmSMeter = new frmSMeter();
+                    m_frmSMeter.StartPosition = FormStartPosition.CenterParent;
+
+                    
+                }
+
+                m_frmSMeter.Show();
+                m_frmSMeter.WindowState = FormWindowState.Normal;
+                m_frmSMeter.BringToFront();
+            }
+        }
+
+        private void picSMeter_Paint(object sender, PaintEventArgs e)
+        {
+            try
+            {
+
+                NewVFOSignalGauge.PaintGauge(e);
+                            
+            }
+            catch (Exception ex)
+            {
+                Debug.Assert(false);
+                Debug.Write(ex.ToString());
             }
         }
 
@@ -50526,29 +50704,62 @@ namespace Thetis
         private void SizeAndPositionAnalogSMeter()
         {
 
-            var gap = this.panelBandHF.Top - grpMultimeter.Bottom;
-
-            if (gap >= 88)
+            var gap = this.panelBandHF.Top - grpMultimeterMenus.Bottom;
+            picSMeter.Visible = false;
+            return;
+            /*/
+            if (gap >= 0)
             {
+                /*/
                 // goes under grpMultiMeterMenus
-                var border = 1;
-                var ypos = this.grpMultimeterMenus.Bottom + border;
-                this.picSMeter.Top = ypos;
-                picSMeter.Width = panelBandHF.Width;
-                picSMeter.Visible = true;
+                var top = this.grpMultimeterMenus.Bottom;
+                // this.picSMeter.Top = top;
+                picSMeter.Left = grpMultimeterMenus.Left;
+                picSMeter.Top = top;
+                 picSMeter.Visible = true;
+                picSMeter.Width = 240;//grpMultimeterMenus.Width;
+                picSMeter.Height = 133;
+                picSMeter.Left = grpMultimeterMenus.Right - picSMeter.Width;
+
                 picSMeter.BringToFront();
+                /*/
+
+                bool bottom = false;
+                if (bottom)
+                {
+                    // bottom left of display:
+                    picSMeter.Left = panelSoundControls.Left;
+                    picSMeter.Top = ptbSquelch.Top + ptbSquelch.Height + (int)((float)Height * 0.1f);
+                }
+                else
+                {
+                    picSMeter.Width = Width / 5;
+                    picSMeter.Left = panelDisplay.Right - (picSMeter.Width + 10);
+                    picSMeter.Top = panelDisplay.Top + (int)( 0.054 * (float)panelDisplay.Height);
+                }
+
+                if (NewVFOSignalGauge != null)
+                {
+                    NewVFOSignalGauge.Width = picSMeter.Width;
+                    NewVFOSignalGauge.Height = picSMeter.Height;
+                    picSMeter.Visible = true;
+                    NewVFOSignalGauge.Value = NewVFOSignalGauge.MaxValue / 2;
+                    NewVFOSignalGauge.BringToFront();
+                }
+
+
             }
             else
             {
                 picSMeter.Visible = false;
             }
+            /*/
+
         }
 
         private void Console_Resize(object sender, System.EventArgs e)
         {
             updateResolutionStatusBarText();
-
-            //this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
 
             if (this.WindowState == FormWindowState.Minimized)
                 return;
@@ -50565,9 +50776,7 @@ namespace Thetis
                 else return;
             }
 
-            SizeAndPositionAnalogSMeter();
-
-
+           
             if (this.Width < console_basis_size.Width && !this.collapsedDisplay)
             {
                 this.Width = console_basis_size.Width;
@@ -50620,6 +50829,7 @@ namespace Thetis
 
             ResizeConsole(h_delta, v_delta);
             pause_DisplayThread = false;
+            SizeAndPositionAnalogSMeter();
         }
 
         private void comboRX2AGC_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -51103,8 +51313,12 @@ namespace Thetis
             }
         }
 
+#pragma warning disable CS0414 // The field 'Console.TDxButtonState' is assigned but its value is never used
         private static bool TDxButtonState = false;
+#pragma warning restore CS0414 // The field 'Console.TDxButtonState' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'Console.TDxCurrentVFO' is assigned but its value is never used
         private static bool TDxCurrentVFO = false; //VFOA
+#pragma warning restore CS0414 // The field 'Console.TDxCurrentVFO' is assigned but its value is never used
 
         private void timer_navigate_Tick(object sender, System.EventArgs e)
         {
@@ -56978,9 +57192,10 @@ namespace Thetis
 
         }
 
-        private void picDisplay_Click(object sender, EventArgs e)
+ 
+        private void panelButtonBar_Layout(object sender, LayoutEventArgs e)
         {
-
+            UpdateButtonBarButtons();
         }
     }
 
@@ -57018,6 +57233,8 @@ namespace Thetis
             _semaphoreSlim.Release();
         }
     }
+
+
 
 }
 

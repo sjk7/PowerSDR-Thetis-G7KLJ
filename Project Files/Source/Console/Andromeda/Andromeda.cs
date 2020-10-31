@@ -594,7 +594,9 @@ namespace Thetis
         // G8NJJ: handlers for Ganymeda 500W PA protection
         #region GANYMEDE amplifier protection
 
+#pragma warning disable CS0414 // The field 'Console.GanymedeTripState' is assigned but its value is never used
         private int GanymedeTripState = 0;                      // amplifier trip
+#pragma warning restore CS0414 // The field 'Console.GanymedeTripState' is assigned but its value is never used
 
         // for now, put message in SETUP Apollo with current amplifier state
         // ideally when it has been tripped we should remove PTT too.
@@ -1644,47 +1646,8 @@ namespace Thetis
 
         //
         // andromeda button bar button event handlers
-        //
-        private void btnAndrBar1_Click(object sender, EventArgs e)
-        {
-            ExecuteButtonBarPress(1);
-        }
-
-        private void btnAndrBar2_Click(object sender, EventArgs e)
-        {
-            ExecuteButtonBarPress(2);
-        }
-
-        private void btnAndrBar3_Click(object sender, EventArgs e)
-        {
-            ExecuteButtonBarPress(3);
-        }
-
-        private void btnAndrBar4_Click(object sender, EventArgs e)
-        {
-            ExecuteButtonBarPress(4);
-        }
-
-        private void btnAndrBar5_Click(object sender, EventArgs e)
-        {
-            ExecuteButtonBarPress(5);
-        }
-
-        private void btnAndrBar6_Click(object sender, EventArgs e)
-        {
-            ExecuteButtonBarPress(6);
-        }
-
-        private void btnAndrBar7_Click(object sender, EventArgs e)
-        {
-            ExecuteButtonBarPress(7);
-        }
-
-        private void btnAndrBar8_Click(object sender, EventArgs e)
-        {
-            ExecuteButtonBarPress(8);
-        }
-
+        // G7KLJ: MOVED to console as Form Designer keeps trashing the project by adding them in there!
+      
         //
         // handle a rotational step from a front panel encoder, sent by CAT command
         // encoder = 0-19; steps = number of turns; +ve = clockwise
@@ -1885,42 +1848,42 @@ namespace Thetis
                         {
                             case 0:                    // softkey 1
                             case 11:
-                                btnAndrBar1_Click(null, null);
+                                //btnAndrBar1_Click(null, null);
                                 break;
 
                             case 1:                    // softkey 2
                             case 12:
-                                btnAndrBar2_Click(null, null);
+                                //btnAndrBar2_Click(null, null);
                                 break;
 
                             case 2:                    // softkey 3
                             case 13:
-                                btnAndrBar3_Click(null, null);
+                                //btnAndrBar3_Click(null, null);
                                 break;
 
                             case 3:                    // softkey 4
                             case 14:
-                                btnAndrBar4_Click(null, null);
+                                //btnAndrBar4_Click(null, null);
                                 break;
 
                             case 4:                    // softkey 5
                             case 15:
-                                btnAndrBar5_Click(null, null);
+                               // btnAndrBar5_Click(null, null);
                                 break;
 
                             case 5:                    // softkey 6
                             case 16:
-                                btnAndrBar6_Click(null, null);
+                               // btnAndrBar6_Click(null, null);
                                 break;
 
                             case 6:                    // softkey 7
                             case 17:
-                                btnAndrBar7_Click(null, null);
+                              //  btnAndrBar7_Click(null, null);
                                 break;
 
                             case 7:                    // softkey 8
                             case 18:
-                                btnAndrBar8_Click(null, null);
+                              //  btnAndrBar8_Click(null, null);
                                 break;
                         }
                     }
@@ -3683,10 +3646,6 @@ namespace Thetis
         }
 
 
-        private void panelButtonBar_Layout(object sender, LayoutEventArgs e)
-        {
-            UpdateButtonBarButtons();
-        }
 
         #endregion
 

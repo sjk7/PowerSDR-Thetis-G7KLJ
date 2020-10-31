@@ -1599,7 +1599,7 @@ namespace Thetis
             else if (c == Thetis.Common.Console.picSMeter)
             {
                 var smeterpath = path + "\\" + c.TopLevelControl.Name + "\\" +
-                        "NewVFOAnalogSignalGauge" + ".jpg";
+                        "OldVFOAnalogSignalGauge" + ".jpg";
 
                 if (File.Exists(smeterpath))
                 {

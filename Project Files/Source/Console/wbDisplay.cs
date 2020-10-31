@@ -189,10 +189,18 @@ namespace Thetis
             set { filterRect = value; }
         }
 
+#pragma warning disable CS0169 // The field 'wbDisplay.filterLeft' is never used
         private int filterLeft;
+#pragma warning restore CS0169 // The field 'wbDisplay.filterLeft' is never used
+#pragma warning disable CS0169 // The field 'wbDisplay.filterRight' is never used
         private int filterRight;
+#pragma warning restore CS0169 // The field 'wbDisplay.filterRight' is never used
+#pragma warning disable CS0169 // The field 'wbDisplay.filterTop' is never used
         private int filterTop;
+#pragma warning restore CS0169 // The field 'wbDisplay.filterTop' is never used
+#pragma warning disable CS0169 // The field 'wbDisplay.filterBottom' is never used
         private int filterBottom;
+#pragma warning restore CS0169 // The field 'wbDisplay.filterBottom' is never used
 
         //Color notch_on_color = Color.DarkGreen;
         //Color notch_highlight_color = Color.Chartreuse;
@@ -1113,7 +1121,9 @@ namespace Thetis
         // Drawing Routines
         // ======================================================
 
+#pragma warning disable CS0414 // The field 'wbDisplay.zoom_height' is assigned but its value is never used
         float zoom_height = 1.5f;   // Should be > 1.  H = H/zoom_height
+#pragma warning restore CS0414 // The field 'wbDisplay.zoom_height' is assigned but its value is never used
         unsafe private void DrawWideBandGrid(Graphics g, int rx)
         {
             int W = panRect.Width;
@@ -3359,24 +3369,46 @@ namespace Thetis
             // panadapter_bmp = new Bitmap(panRect.Width, panRect.Height, PixelFormat.Format24bppRgb);	// initialize waterfall display
         }
 
+#pragma warning disable CS0414 // The field 'wbDisplay.snapMouse' is assigned but its value is never used
         private int snapMouse = 3;
+#pragma warning restore CS0414 // The field 'wbDisplay.snapMouse' is assigned but its value is never used
         public DisplayRegion mouseRegion;
 
+#pragma warning disable CS0414 // The field 'wbDisplay.rx1_low_filter_drag' is assigned but its value is never used
         private bool rx1_low_filter_drag = false;
+#pragma warning restore CS0414 // The field 'wbDisplay.rx1_low_filter_drag' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'wbDisplay.rx1_high_filter_drag' is assigned but its value is never used
         private bool rx1_high_filter_drag = false;
+#pragma warning restore CS0414 // The field 'wbDisplay.rx1_high_filter_drag' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'wbDisplay.rx1_whole_filter_drag' is assigned but its value is never used
         private bool rx1_whole_filter_drag = false;
+#pragma warning restore CS0414 // The field 'wbDisplay.rx1_whole_filter_drag' is assigned but its value is never used
         private bool rx1_sub_drag = false;
         private bool rx1_spectrum_drag = false;
 
+#pragma warning disable CS0414 // The field 'wbDisplay.whole_filter_start_x' is assigned but its value is never used
         private int whole_filter_start_x = 0;
+#pragma warning restore CS0414 // The field 'wbDisplay.whole_filter_start_x' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'wbDisplay.whole_filter_start_low' is assigned but its value is never used
         private int whole_filter_start_low = 0;
+#pragma warning restore CS0414 // The field 'wbDisplay.whole_filter_start_low' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'wbDisplay.whole_filter_start_high' is assigned but its value is never used
         private int whole_filter_start_high = 0;
+#pragma warning restore CS0414 // The field 'wbDisplay.whole_filter_start_high' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'wbDisplay.sub_drag_last_x' is assigned but its value is never used
         private int sub_drag_last_x = 0;
+#pragma warning restore CS0414 // The field 'wbDisplay.sub_drag_last_x' is assigned but its value is never used
         private int spectrum_drag_last_x = 0;
+#pragma warning disable CS0414 // The field 'wbDisplay.sub_drag_start_freq' is assigned but its value is never used
         private double sub_drag_start_freq = 0.0;
+#pragma warning restore CS0414 // The field 'wbDisplay.sub_drag_start_freq' is assigned but its value is never used
 
+#pragma warning disable CS0414 // The field 'wbDisplay.rx1_click_tune_drag' is assigned but its value is never used
         private bool rx1_click_tune_drag = false;
+#pragma warning restore CS0414 // The field 'wbDisplay.rx1_click_tune_drag' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'wbDisplay.rx2_click_tune_drag' is assigned but its value is never used
         private bool rx2_click_tune_drag = false;
+#pragma warning restore CS0414 // The field 'wbDisplay.rx2_click_tune_drag' is assigned but its value is never used
 
         private Point grid_minmax_drag_start_point = new Point(0, 0);
         //  private int grid_minmax_drag_max_delta_x = 0;
@@ -3387,10 +3419,16 @@ namespace Thetis
         private bool moveX = false;
         private bool moveY = false;
 
+#pragma warning disable CS0414 // The field 'wbDisplay.rx1_grid_adjust' is assigned but its value is never used
         private bool rx1_grid_adjust = false;
+#pragma warning restore CS0414 // The field 'wbDisplay.rx1_grid_adjust' is assigned but its value is never used
         private bool gridmaxadjust = false;
+#pragma warning disable CS0414 // The field 'wbDisplay.wfmaxadjust' is assigned but its value is never used
         private bool wfmaxadjust = false;
+#pragma warning restore CS0414 // The field 'wbDisplay.wfmaxadjust' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'wbDisplay.wfminadjust' is assigned but its value is never used
         private bool wfminadjust = false;
+#pragma warning restore CS0414 // The field 'wbDisplay.wfminadjust' is assigned but its value is never used
         private bool gridminmaxadjust = false;
 
         private void getRegion(Point p)
@@ -3462,7 +3500,9 @@ namespace Thetis
 
         private object m_objBufferLock = new object();
 
+#pragma warning disable CS0169 // The field 'wbDisplay.draw_display_thread' is never used
         private Thread draw_display_thread;
+#pragma warning restore CS0169 // The field 'wbDisplay.draw_display_thread' is never used
         public void StartDisplay(int rx)
         {
             //Halted = false;
@@ -3508,7 +3548,9 @@ namespace Thetis
 
         }
 
+#pragma warning disable CS0414 // The field 'wbDisplay.Halted' is assigned but its value is never used
         bool Halted = false;
+#pragma warning restore CS0414 // The field 'wbDisplay.Halted' is assigned but its value is never used
         static readonly object wbMonitor = new object();
         unsafe private void RunDisplay(int rx)
         {

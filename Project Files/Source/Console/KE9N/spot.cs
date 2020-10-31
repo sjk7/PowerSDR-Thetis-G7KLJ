@@ -247,7 +247,9 @@ namespace Thetis
         public CheckBoxTS checkBoxMUF;
         public CheckBoxTS chkBoxAnt;
         public TrackBarTS tbPanPower;
+#pragma warning disable CS0169 // The field 'SpotControl.wdsp' is never used
         private WDSP wdsp;
+#pragma warning restore CS0169 // The field 'SpotControl.wdsp' is never used
 
         #region Constructor and Destructor
 
@@ -2400,7 +2402,9 @@ namespace Thetis
 
         private bool pause = false; // true = pause dx spot window update.
 
+#pragma warning disable CS0414 // The field 'SpotControl.Flag8' is assigned but its value is never used
         private static byte Flag8 = 0; // 1= DX_Index value changed due to spot age cut, 
+#pragma warning restore CS0414 // The field 'SpotControl.Flag8' is assigned but its value is never used
 
         //====================================================================================================
         //====================================================================================================
@@ -4747,7 +4751,9 @@ namespace Thetis
 
 
 
+#pragma warning disable CS0414 // The field 'SpotControl.skin1' is assigned but its value is never used
         private static Image skin1 = null; // temp holder for orignal skin image in picdisplay
+#pragma warning restore CS0414 // The field 'SpotControl.skin1' is assigned but its value is never used
 
         //=========================================================================================
         private void chkSUN_CheckedChanged(object sender, EventArgs e)
@@ -8293,7 +8299,9 @@ namespace Thetis
 
         public int WWVThreshold = 0; // the trip point where the PCM BCD data stream from WWV determines a 1 or 0
 
+#pragma warning disable CS0414 // The field 'SpotControl.above_count' is assigned but its value is never used
         int above_count = 0;
+#pragma warning restore CS0414 // The field 'SpotControl.above_count' is assigned but its value is never used
         int below_count = 0; // counter for how many times you got new data and it was below the threshold
 
         int[] storage = new int[200];
@@ -9239,8 +9247,12 @@ namespace Thetis
 
 
 
+#pragma warning disable CS0414 // The field 'SpotControl.sPrev' is assigned but its value is never used
         double sPrev = 0.0;
+#pragma warning restore CS0414 // The field 'SpotControl.sPrev' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'SpotControl.sPrev2' is assigned but its value is never used
         double sPrev2 = 0.0;
+#pragma warning restore CS0414 // The field 'SpotControl.sPrev2' is assigned but its value is never used
 
         double normalizedfreq = 0.0;
         public double Coeff = 0.0;
@@ -9496,7 +9508,9 @@ namespace Thetis
         string Last_VOALAT;  // used to see if you need to update the voacap map or not
         string Last_VOALNG;
         string Last_MHZ;
+#pragma warning disable CS0649 // Field 'SpotControl.Last_SSN' is never assigned to, and will always have its default value null
         string Last_SSN;
+#pragma warning restore CS0649 // Field 'SpotControl.Last_SSN' is never assigned to, and will always have its default value null
         string Last_MONTH;
         string Last_DAY;
         string Last_HOUR;

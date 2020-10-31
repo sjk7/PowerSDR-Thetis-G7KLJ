@@ -34,8 +34,16 @@ namespace Thetis
         private static bool singlecalON = false;
         private static bool restoreON = false;
         private static bool OFF = true;
+#pragma warning disable CS0414 // The field 'PSForm.oldCalCount' is assigned but its value is never used
         private int oldCalCount = 0;
+#pragma warning restore CS0414 // The field 'PSForm.oldCalCount' is assigned but its value is never used
+#pragma warning disable CS0169 // The field 'PSForm.red' is never used
+#pragma warning disable CS0169 // The field 'PSForm.blue' is never used
+#pragma warning disable CS0169 // The field 'PSForm.green' is never used
         private int red, green, blue;
+#pragma warning restore CS0169 // The field 'PSForm.green' is never used
+#pragma warning restore CS0169 // The field 'PSForm.blue' is never used
+#pragma warning restore CS0169 // The field 'PSForm.red' is never used
         private int aastate = 0;
         private static double PShwpeak;
         private static double GetPSpeakval;

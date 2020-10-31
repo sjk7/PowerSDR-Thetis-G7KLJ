@@ -1167,10 +1167,14 @@ namespace Thetis
         //
         //	Record & Playback are always to the same file:  SDRQuickAudio.wav
         //
+#pragma warning disable CS0414 // The field 'WaveControl.temp_record' is assigned but its value is never used
         private bool temp_record = false;
+#pragma warning restore CS0414 // The field 'WaveControl.temp_record' is assigned but its value is never used
         private bool temp_play = false;
         private bool temp_mon = false;
+#pragma warning disable CS0414 // The field 'WaveControl.temp_pre' is assigned but its value is never used
         private byte temp_pre = 0; // ke9ns add for quickplay function
+#pragma warning restore CS0414 // The field 'WaveControl.temp_pre' is assigned but its value is never used
         private bool temp_txeq = false;
         private bool temp_cpdr = false;
         private bool temp_dx = false;

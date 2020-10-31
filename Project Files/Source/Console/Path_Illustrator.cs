@@ -22,7 +22,9 @@ namespace Thetis
         private bool bool_ANAN_100D_PA_rev15 = false;
         private bool bool_ANAN_100D_PA_rev24 = false;
         private bool bool_rx = false;
+#pragma warning disable CS0414 // The field 'Path_Illustrator.bool_ALEX_manual' is assigned but its value is never used
         private bool bool_ALEX_manual = false;
+#pragma warning restore CS0414 // The field 'Path_Illustrator.bool_ALEX_manual' is assigned but its value is never used
         private bool bool_ANT1 = false;
         private bool bool_ANT1_TX = false;
         private bool bool_ANT2 = false;

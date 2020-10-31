@@ -1,5 +1,5 @@
 ﻿//=================================================================
-// AGauge.cs
+// SMeter.cs
 //=================================================================
 //
 // Copyright (C)2011-2013 YT7PWR Goran Radivojevic
@@ -32,20 +32,32 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
 #if DirectX
-using SlimDX;
-using SlimDX.Direct3D9;
-using SlimDX.Windows;
+using SharpDX;
+using SharpDX.Direct3D11;
+using SharpDX.Windows;
 using System.Threading;
 #endif
 
-namespace PowerSDR
+namespace Thetis.PowerSDR
 {
-    public class AGauge : Control
+
+
+
+    public class SMeter : Control
     {
+
+        protected override void OnResize(EventArgs e)
+
+        {
+            var oldW = Width;
+            base.OnResize(e);
+
+         }
         #region variable
+        // Thetis.PowerSDR.FilterButterworth lpf;
 
 #if DirectX
-        public SlimDX.Direct3D9.Device device = null;
+        public SharpDX.Direct3D11.Device device = null;
         private Texture BackgroundTexture = null;
         private Sprite sprite = null;
         private Rectangle texture_size;
@@ -56,13 +68,13 @@ namespace PowerSDR
         private delegate void DebugCallbackFunction(string name);
         public bool debug = false;
         public bool booting = false;
-        public Thetis.Console console;
-        public Int32 m_BaseArcStart = 230;
-        public Int32 m_BaseArcSweep = 77;
+        private Int32 baseArcStart = 230;
+        private Int32 baseArcSweep = 77;
         private Single m_value = 0;
         public Int32 m_NeedleRadius = 160;
+        // NOTE: original size in GSDR was 240*133
         private Point m_Center = new Point(120, 180);
-//        private Boolean drawGaugeBackground = true;
+        //        private Boolean drawGaugeBackground = true;
         public Bitmap gaugeBitmap;
 
         #endregion
@@ -77,13 +89,9 @@ namespace PowerSDR
             set { directx_render_type = value; }
         }
 #endif
-        public enum DisplayEngine
-        {
-            GDI_PLUS = 0,
-            DIRECT_X,
-        }
-        private DisplayEngine display_engine = DisplayEngine.GDI_PLUS;
-        public DisplayEngine displayEngine
+
+        private Thetis.DisplayEngine display_engine = Thetis.DisplayEngine.GDI_PLUS;
+        public Thetis.DisplayEngine displayEngine
         {
             get { return display_engine; }
             set { display_engine = value; }
@@ -96,7 +104,7 @@ namespace PowerSDR
             set { gauge_target = value; }
         }
 
-        private Single m_MinValue = 0;
+        private Single m_MinValue = 0f;
         public Single MinValue
         {
             get
@@ -113,21 +121,14 @@ namespace PowerSDR
             }
         }
 
-        private Single m_MaxValue = 18;
+        private Single m_MaxValue = 1000.0f;
         public Single MaxValue
         {
             get
             {
                 return m_MaxValue;
             }
-            set
-            {
-                if ((m_MaxValue != value)
-                && (value > m_MinValue))
-                {
-                    m_MaxValue = value;
-                }
-            }
+
         }
 
         public Point Center
@@ -145,6 +146,7 @@ namespace PowerSDR
             }
         }
 
+
         public Single Value
         {
             get
@@ -153,45 +155,57 @@ namespace PowerSDR
             }
             set
             {
-                if (m_value != value)
-                {
-                    m_value = Math.Min(Math.Max(value, m_MinValue), m_MaxValue);
-                }
+
+                // lpf.Update(value);
+                //if (value)
+                //{
+                // float minDisplayValue = 17;
+                m_value = value;
+                // m_value = Math.Min(Math.Max(value, m_MinValue), m_MaxValue);
+                //}
             }
         }
 
-        private int agauge_width = 0;
-        public int AGaugeWidth
+        public int BaseArcStart
         {
-            get { return agauge_width; }
-            set { agauge_width = value; }
+            get { return baseArcStart; }
+            set { this.baseArcStart = value; }
         }
 
-        private int agauge_height = 0;
-        public int AGaugeHeight
+        public int BaseArcSweep
         {
-            get { return agauge_height; }
-            set { agauge_height = value; }
+            get { return baseArcSweep; }
+
+            set
+            {
+                baseArcSweep = value;
+            }
         }
+
 
         #endregion
 
         #region constructor
 
-        public AGauge(Thetis.Console c)
-        {
 
+        int m_id;
+        public SMeter(Thetis.Console c, int id, Control target)
+        {
+            m_id = id;
+            this.GaugeTarget = target;
             float dpi = this.CreateGraphics().DpiX;
             float ratio = dpi / 96.0f;
             string font_name = this.Font.Name;
             float size = (float)(8.25 / ratio);
             System.Drawing.Font new_font = new System.Drawing.Font(font_name, size);
             this.Font = new_font;
-            gaugeBitmap = new Bitmap(console.picAGauge.Width, console.picAGauge.Height, PixelFormat.Format24bppRgb);
+            gaugeBitmap = new Bitmap(Thetis.Properties.Resources.OLDAnalogSignalGauge);
             this.PerformLayout();
+            float sq = (float)Math.Sqrt(2);
+            //lpf = new FilterButterworth(10, 50,FilterButterworth.PassType.Lowpass, sq);
         }
 
-        ~AGauge()
+        ~SMeter()
         {
 
         }
@@ -301,7 +315,7 @@ namespace PowerSDR
 
                     if (debug && !console.ConsoleClosing)
                         console.Invoke(new DebugCallbackFunction(console.DebugCallback),
-                            "Init AGauge error!\n" + ex.ToString());
+                            "Init SMeter error!\n" + ex.ToString());
 
                     return false;
                 }
@@ -343,6 +357,7 @@ namespace PowerSDR
                     Single brushAngle = (Int32)(m_BaseArcStart + (m_value - m_MinValue) * m_BaseArcSweep /
                         (m_MaxValue - m_MinValue)) % 360;
                     Double needleAngle = brushAngle * Math.PI / 180;
+         Center = new Point(0, 0);
                     verts1[0].X = (float)(Center.X + m_NeedleRadius / 4 * Math.Cos(needleAngle));
                     verts1[0].Y = (float)(Center.Y + m_NeedleRadius / 4 * Math.Sin(needleAngle));
                     verts1[1].X = (float)(Center.X + m_NeedleRadius * Math.Cos(needleAngle));
@@ -385,33 +400,81 @@ namespace PowerSDR
 #endif
 
         #endregion
+        private const bool AutoSizeDisplay = true;
+
+        private double m_NeedleWidth = 2;
+        double NeedleWidth() { return m_NeedleWidth; }
 
         #region GDI+
 
+        PointF[] points = new PointF[3];
+
         public void PaintGauge(PaintEventArgs pe)
         {
+            int idx = m_id;
+            #region AutoSize
+            Single centerFactor = 1;
+            var center = Center;
+
+
+            if (AutoSizeDisplay)
+            {
+                // NOTE: original size in GSDR was 240*133
+                double widthFactor = ((1.0 / (double)(2 * Center.X)) * (double)Size.Width);
+                double heightFactor = 1; // ((1.0 / (double)(2 * Center.Y)) * (double)Size.Height);
+                centerFactor = (float)Math.Min(widthFactor, heightFactor);
+                //center = new Point((int)(center.X * widthFactor), (int)(center.Y * heightFactor));
+                // ^^ that code puts the needle centre right AT the centre of the display vertically;
+                // We don't want that: we imagine the S-Meter movement is just "out of shot": so,
+                // down the bottom somewhere:
+                center = new Point((int)(center.X * widthFactor), (int)(Height)); // origin right at the bottom, always, but horizontally centred.
+
+            }
+            #endregion
             try
             {
-                if (display_engine == DisplayEngine.GDI_PLUS || !console.PowerOn)
+                if (display_engine == DisplayEngine.GDI_PLUS || !Common.console.chkPower.Checked)
                 {
-                    PointF[] points = new PointF[3];
-                    //gaugeBitmap = new Bitmap(pe.ClipRectangle.Width, pe.ClipRectangle.Height, pe.Graphics);
+
                     Graphics g = pe.Graphics;
                     g.SmoothingMode = SmoothingMode.AntiAlias;
                     g.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
                     g.DrawImage(gaugeBitmap, 0, 0, pe.ClipRectangle.Width, pe.ClipRectangle.Height);
-
-                    Single brushAngle = (Int32)(m_BaseArcStart + (m_value - m_MinValue) * m_BaseArcSweep /
+                    
+                    Single brushAngle = (Int32)(BaseArcStart + (m_value - m_MinValue) * BaseArcSweep /
                         (m_MaxValue - m_MinValue)) % 360;
                     Double needleAngle = brushAngle * Math.PI / 180;
+
                     points[0].X = (float)(Center.X + m_NeedleRadius / 4 * Math.Cos(needleAngle));
                     points[0].Y = (float)(Center.Y + m_NeedleRadius / 4 * Math.Sin(needleAngle));
+
                     points[1].X = (float)(Center.X + m_NeedleRadius * Math.Cos(needleAngle));
                     points[1].Y = (float)(Center.Y + m_NeedleRadius * Math.Sin(needleAngle));
 
-                    pe.Graphics.DrawLine(new Pen(Color.Red, 3.0f), Center.X, Center.Y, points[0].X, points[0].Y);
-                    pe.Graphics.DrawLine(new Pen(Color.Red, 3.0f), Center.X, Center.Y, points[1].X, points[1].Y);
+                    pe.Graphics.DrawLine(new Pen(Color.Red, 2f), Center.X, Center.Y, points[0].X, points[0].Y);
+                    pe.Graphics.DrawLine(new Pen(Color.Red, 2f), Center.X, Center.Y, points[1].X, points[1].Y);
+                    
+                    /*/
+                    Single brushAngle = (Int32)(BaseArcStart + (m_value - m_MinValue) * BaseArcSweep / (m_MaxValue - m_MinValue)) % 360;
+                    if (brushAngle < 0) brushAngle += 360;
+                    Double needleAngle = brushAngle * Math.PI / 180;
+
+                    int needleWidth = (int)(m_NeedleWidth * centerFactor);
+                    int needleRadius = (int)(m_NeedleRadius * centerFactor);
+
+                    Point startPoint = new Point((Int32)(center.X - needleRadius / 8 * Math.Cos(needleAngle)),
+                                                (Int32)(center.Y - needleRadius / 8 * Math.Sin(needleAngle)));
+                    Point endPoint = new Point((Int32)(center.X + needleRadius * Math.Cos(needleAngle)),
+                                             (Int32)(center.Y + needleRadius * Math.Sin(needleAngle)));
+
+                    // fixme: no NEWS in ere!
+                    using (var pnLine = new Pen(Color.Red, needleWidth))
+                    {
+                        g.DrawLine(pnLine, center.X, center.Y, endPoint.X, endPoint.Y);
+                        g.DrawLine(pnLine, center.X, center.Y, startPoint.X, startPoint.Y);
+                    }
+                    /*/
                 }
             }
             catch (Exception ex)

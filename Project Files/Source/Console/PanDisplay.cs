@@ -1101,7 +1101,9 @@ namespace Thetis
         // Drawing Routines
         // ======================================================
 
+#pragma warning disable CS0414 // The field 'PanDisplay.zoom_height' is assigned but its value is never used
         float zoom_height = 1.5f;   // Should be > 1.  H = H/zoom_height
+#pragma warning restore CS0414 // The field 'PanDisplay.zoom_height' is assigned but its value is never used
         unsafe private void DrawPanadapterGrid(Graphics g, int rx)
         {
             int W = panRect.Width;
@@ -3424,21 +3426,41 @@ namespace Thetis
         private int snapMouse = 3;
         private DisplayRegion mouseRegion;
 
+#pragma warning disable CS0414 // The field 'PanDisplay.rx1_low_filter_drag' is assigned but its value is never used
         private bool rx1_low_filter_drag = false;
+#pragma warning restore CS0414 // The field 'PanDisplay.rx1_low_filter_drag' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'PanDisplay.rx1_high_filter_drag' is assigned but its value is never used
         private bool rx1_high_filter_drag = false;
+#pragma warning restore CS0414 // The field 'PanDisplay.rx1_high_filter_drag' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'PanDisplay.rx1_whole_filter_drag' is assigned but its value is never used
         private bool rx1_whole_filter_drag = false;
+#pragma warning restore CS0414 // The field 'PanDisplay.rx1_whole_filter_drag' is assigned but its value is never used
         private bool rx1_sub_drag = false;
         private bool rx1_spectrum_drag = false;
 
+#pragma warning disable CS0414 // The field 'PanDisplay.whole_filter_start_x' is assigned but its value is never used
         private int whole_filter_start_x = 0;
+#pragma warning restore CS0414 // The field 'PanDisplay.whole_filter_start_x' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'PanDisplay.whole_filter_start_low' is assigned but its value is never used
         private int whole_filter_start_low = 0;
+#pragma warning restore CS0414 // The field 'PanDisplay.whole_filter_start_low' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'PanDisplay.whole_filter_start_high' is assigned but its value is never used
         private int whole_filter_start_high = 0;
+#pragma warning restore CS0414 // The field 'PanDisplay.whole_filter_start_high' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'PanDisplay.sub_drag_last_x' is assigned but its value is never used
         private int sub_drag_last_x = 0;
+#pragma warning restore CS0414 // The field 'PanDisplay.sub_drag_last_x' is assigned but its value is never used
         private int spectrum_drag_last_x = 0;
+#pragma warning disable CS0414 // The field 'PanDisplay.sub_drag_start_freq' is assigned but its value is never used
         private double sub_drag_start_freq = 0.0;
+#pragma warning restore CS0414 // The field 'PanDisplay.sub_drag_start_freq' is assigned but its value is never used
 
+#pragma warning disable CS0414 // The field 'PanDisplay.rx1_click_tune_drag' is assigned but its value is never used
         private bool rx1_click_tune_drag = false;
+#pragma warning restore CS0414 // The field 'PanDisplay.rx1_click_tune_drag' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'PanDisplay.rx2_click_tune_drag' is assigned but its value is never used
         private bool rx2_click_tune_drag = false;
+#pragma warning restore CS0414 // The field 'PanDisplay.rx2_click_tune_drag' is assigned but its value is never used
 
         private Point grid_minmax_drag_start_point = new Point(0, 0);
         //  private int grid_minmax_drag_max_delta_x = 0;
@@ -3449,10 +3471,16 @@ namespace Thetis
         private bool moveX = false;
         private bool moveY = false;
 
+#pragma warning disable CS0414 // The field 'PanDisplay.rx1_grid_adjust' is assigned but its value is never used
         private bool rx1_grid_adjust = false;
+#pragma warning restore CS0414 // The field 'PanDisplay.rx1_grid_adjust' is assigned but its value is never used
         private bool gridmaxadjust = false;
+#pragma warning disable CS0414 // The field 'PanDisplay.wfmaxadjust' is assigned but its value is never used
         private bool wfmaxadjust = false;
+#pragma warning restore CS0414 // The field 'PanDisplay.wfmaxadjust' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'PanDisplay.wfminadjust' is assigned but its value is never used
         private bool wfminadjust = false;
+#pragma warning restore CS0414 // The field 'PanDisplay.wfminadjust' is assigned but its value is never used
         private bool gridminmaxadjust = false;
 
         private void getRegion(Point p)
@@ -4552,7 +4580,9 @@ namespace Thetis
             }
         }
 
+#pragma warning disable CS0414 // The field 'PanDisplay.avm' is assigned but its value is never used
         private int avm = 0;
+#pragma warning restore CS0414 // The field 'PanDisplay.avm' is assigned but its value is never used
         private bool average_on = true;				// true if the Average button is depressed
         public bool AverageOn                           // set from Average button
         {
