@@ -7,7 +7,7 @@
     <ProjectGuid>{831AEB2F-CA78-4057-85D7-32B4816ED6AE}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>hpsdr5-64.ico</ApplicationIcon>
+    <ApplicationIcon>hpsdr4-64.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>Thetis</AssemblyName>
@@ -552,6 +552,7 @@
     <Compile Include="xvtr.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Content Include="hpsdr4-64.ico" />
     <Content Include="PA19.dll" />
     <None Include="Resources\OLDAnalogSignalGauge.JPG" />
     <Content Include="Resources\screen4.png" />
