@@ -26,6 +26,8 @@ warren@wpratt.com
 */
 
 #include "cmcomm.h"
+#include "pa_win_wasapi.h"
+#include "pa_win_wdmks.h"
 
 __declspec(align(16)) IVAC pvac[MAX_EXT_VACS];
 
@@ -178,8 +180,53 @@ PORT int StartAudioIVAC(int id) {
     a->outParam.suggestedLatency = a->pa_out_latency;
     a->outParam.sampleFormat = paFloat64;
 
-    
+    /*/
+       Pa_OpenStream:
+
+        To set desired Share Mode (Exclusive/Shared) you must supply
+        PaWasapiStreamInfo with flags paWinWasapiExclusive set through member of
+        PaStreamParameters::hostApiSpecificStreamInfo structure.
+    /*/
+    const PaHostApiInfo* hinf = Pa_GetHostApiInfo(a->host_api_index);
+    PaWasapiStreamInfo w = {0};
+    PaWinWDMKSInfo x = {0};
+
+    if (strcmp(hinf->name, "Windows WASAPI") == 0) {
+
+        
+        w.threadPriority = eThreadPriorityProAudio;
+        if (a->exclusive) {
+            w.flags = (paWinWasapiExclusive | paWinWasapiThreadPriority);
+        }
+        
+        w.hostApiType = paWASAPI;
+        w.size = sizeof(PaWasapiStreamInfo);
+        w.version = 1;
+
+        a->inParam.hostApiSpecificStreamInfo = &w;
+        a->outParam.hostApiSpecificStreamInfo = &w;
+    } else if (
+        strcmp(hinf->name, "Windows WDM-KS") == 0){
+      
+        x.version = 1;
+        x.hostApiType = paWDMKS;
+        x.size = sizeof(PaWinWDMKSInfo);
+	    x.flags = paWinWDMKSOverrideFramesize;
+        a->inParam.hostApiSpecificStreamInfo = &x;
+        a->outParam.hostApiSpecificStreamInfo = &x;
+
+	} else {
+        a->inParam.hostApiSpecificStreamInfo = NULL;
+        a->outParam.hostApiSpecificStreamInfo = NULL;
+	}
+
+	
+
+
     #pragma warning(disable : 4312)
+
+       volatile       PaWasapiStreamInfo* outputStreamInfo
+        = (PaWasapiStreamInfo*)a->outParam.hostApiSpecificStreamInfo;
 
 
     error = Pa_OpenStream(&a->Stream, &a->inParam, &a->outParam, a->vac_rate,
@@ -187,6 +234,7 @@ PORT int StartAudioIVAC(int id) {
         0, CallbackIVAC,
         (void*)id); // pass 'id' as userData
 
+    
 #pragma warning(default : 4312)
 
     if (error != paNoError) return error;
@@ -194,6 +242,9 @@ PORT int StartAudioIVAC(int id) {
     error = Pa_StartStream(a->Stream);
 
     if (error != paNoError) return error;
+
+	const PaStreamInfo* inf = Pa_GetStreamInfo(a->Stream);
+
 
     return paNoError;
 }
@@ -369,6 +420,16 @@ PORT void SetIVACPAInLatency(int id, double lat, int reset) {
     if (a->pa_in_latency != lat) {
         a->pa_in_latency = lat;
     }
+}
+
+PORT void SetIVACExclusive(int id, int excl) {
+    IVAC a = pvac[id];
+    a->exclusive = excl;
+}
+
+PORT int GetIVACExclusive(int id) {
+    IVAC a = pvac[id];
+    return a->exclusive;
 }
 
 PORT void SetIVACPAOutLatency(int id, double lat, int reset) {

@@ -29,7 +29,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -263,6 +263,7 @@
     <ClInclude Include="obbuffs.h" />
     <ClInclude Include="pipe.h" />
     <ClInclude Include="pro.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="ring.h" />
     <ClInclude Include="router.h" />
     <ClInclude Include="sync.h" />
@@ -310,6 +311,9 @@
     <ProjectReference Include="..\wdsp\wdsp.vcxproj">
       <Project>{6dbdf457-8e84-4dff-b1e4-a9177d15d89f}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ChannelMaster.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1349,6 +1349,8 @@
             this.tcAudio = new System.Windows.Forms.TabControl();
             this.tpVAC = new System.Windows.Forms.TabPage();
             this.chkBypassVACPlayingRecording = new System.Windows.Forms.CheckBoxTS();
+            this.grpAudioSampleRate2 = new System.Windows.Forms.GroupBoxTS();
+            this.comboAudioSampleRate2 = new System.Windows.Forms.ComboBoxTS();
             this.grpVAC1monitor = new System.Windows.Forms.GroupBoxTS();
             this.udVAC1_Force2 = new System.Windows.Forms.NumericUpDownTS();
             this.chkVAC1_Force2 = new System.Windows.Forms.CheckBoxTS();
@@ -1400,11 +1402,10 @@
             this.udAudioLatency2_Out = new System.Windows.Forms.NumericUpDownTS();
             this.chkAudioLatencyManual2 = new System.Windows.Forms.CheckBoxTS();
             this.udAudioLatency2 = new System.Windows.Forms.NumericUpDownTS();
-            this.grpAudioSampleRate2 = new System.Windows.Forms.GroupBoxTS();
-            this.comboAudioSampleRate2 = new System.Windows.Forms.ComboBoxTS();
             this.grpAudioBuffer2 = new System.Windows.Forms.GroupBoxTS();
             this.comboAudioBuffer2 = new System.Windows.Forms.ComboBoxTS();
             this.grpAudioDetails2 = new System.Windows.Forms.GroupBoxTS();
+            this.chkExclusive = new System.Windows.Forms.CheckBox();
             this.lblAudioOutput2 = new System.Windows.Forms.LabelTS();
             this.comboAudioOutput2 = new System.Windows.Forms.ComboBoxTS();
             this.lblAudioInput2 = new System.Windows.Forms.LabelTS();
@@ -3566,6 +3567,7 @@
             this.tpAudio.SuspendLayout();
             this.tcAudio.SuspendLayout();
             this.tpVAC.SuspendLayout();
+            this.grpAudioSampleRate2.SuspendLayout();
             this.grpVAC1monitor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udVAC1_Force2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udVAC1_Force)).BeginInit();
@@ -3580,7 +3582,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.udAudioLatencyPAIn)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udAudioLatency2_Out)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udAudioLatency2)).BeginInit();
-            this.grpAudioSampleRate2.SuspendLayout();
             this.grpAudioBuffer2.SuspendLayout();
             this.grpAudioDetails2.SuspendLayout();
             this.tpVAC2.SuspendLayout();
@@ -22479,6 +22480,38 @@
             this.chkBypassVACPlayingRecording.UseVisualStyleBackColor = true;
             this.chkBypassVACPlayingRecording.CheckedChanged += new System.EventHandler(this.chkBypassVACPlayingRecording_CheckedChanged);
             // 
+            // grpAudioSampleRate2
+            // 
+            this.grpAudioSampleRate2.Controls.Add(this.comboAudioSampleRate2);
+            this.grpAudioSampleRate2.Location = new System.Drawing.Point(347, 90);
+            this.grpAudioSampleRate2.Name = "grpAudioSampleRate2";
+            this.grpAudioSampleRate2.Size = new System.Drawing.Size(96, 56);
+            this.grpAudioSampleRate2.TabIndex = 66;
+            this.grpAudioSampleRate2.TabStop = false;
+            this.grpAudioSampleRate2.Text = "Sample Rate";
+            // 
+            // comboAudioSampleRate2
+            // 
+            this.comboAudioSampleRate2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboAudioSampleRate2.DropDownWidth = 64;
+            this.comboAudioSampleRate2.Items.AddRange(new object[] {
+            "6000",
+            "8000",
+            "11025",
+            "12000",
+            "24000",
+            "22050",
+            "44100",
+            "48000",
+            "96000",
+            "192000"});
+            this.comboAudioSampleRate2.Location = new System.Drawing.Point(16, 24);
+            this.comboAudioSampleRate2.Name = "comboAudioSampleRate2";
+            this.comboAudioSampleRate2.Size = new System.Drawing.Size(64, 21);
+            this.comboAudioSampleRate2.TabIndex = 60;
+            this.toolTip1.SetToolTip(this.comboAudioSampleRate2, "Samples per second.  Set to match the third party software program.");
+            this.comboAudioSampleRate2.SelectedIndexChanged += new System.EventHandler(this.comboAudioSampleRate2_SelectedIndexChanged);
+            // 
             // grpVAC1monitor
             // 
             this.grpVAC1monitor.Controls.Add(this.udVAC1_Force2);
@@ -22861,7 +22894,7 @@
             // grpAudioVACAutoEnable
             // 
             this.grpAudioVACAutoEnable.Controls.Add(this.chkAudioVACAutoEnable);
-            this.grpAudioVACAutoEnable.Location = new System.Drawing.Point(8, 138);
+            this.grpAudioVACAutoEnable.Location = new System.Drawing.Point(8, 220);
             this.grpAudioVACAutoEnable.Name = "grpAudioVACAutoEnable";
             this.grpAudioVACAutoEnable.Size = new System.Drawing.Size(224, 56);
             this.grpAudioVACAutoEnable.TabIndex = 74;
@@ -23234,38 +23267,6 @@
             this.udAudioLatency2.ValueChanged += new System.EventHandler(this.udAudioLatency2_ValueChanged);
             this.udAudioLatency2.LostFocus += new System.EventHandler(this.udAudioLatency2_LostFocus);
             // 
-            // grpAudioSampleRate2
-            // 
-            this.grpAudioSampleRate2.Controls.Add(this.comboAudioSampleRate2);
-            this.grpAudioSampleRate2.Location = new System.Drawing.Point(347, 90);
-            this.grpAudioSampleRate2.Name = "grpAudioSampleRate2";
-            this.grpAudioSampleRate2.Size = new System.Drawing.Size(96, 56);
-            this.grpAudioSampleRate2.TabIndex = 66;
-            this.grpAudioSampleRate2.TabStop = false;
-            this.grpAudioSampleRate2.Text = "Sample Rate";
-            // 
-            // comboAudioSampleRate2
-            // 
-            this.comboAudioSampleRate2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboAudioSampleRate2.DropDownWidth = 64;
-            this.comboAudioSampleRate2.Items.AddRange(new object[] {
-            "6000",
-            "8000",
-            "11025",
-            "12000",
-            "24000",
-            "22050",
-            "44100",
-            "48000",
-            "96000",
-            "192000"});
-            this.comboAudioSampleRate2.Location = new System.Drawing.Point(16, 24);
-            this.comboAudioSampleRate2.Name = "comboAudioSampleRate2";
-            this.comboAudioSampleRate2.Size = new System.Drawing.Size(64, 21);
-            this.comboAudioSampleRate2.TabIndex = 60;
-            this.toolTip1.SetToolTip(this.comboAudioSampleRate2, "Samples per second.  Set to match the third party software program.");
-            this.comboAudioSampleRate2.SelectedIndexChanged += new System.EventHandler(this.comboAudioSampleRate2_SelectedIndexChanged);
-            // 
             // grpAudioBuffer2
             // 
             this.grpAudioBuffer2.Controls.Add(this.comboAudioBuffer2);
@@ -23286,7 +23287,9 @@
             "256",
             "512",
             "1024",
-            "2048"});
+            "2048",
+            "4096",
+            "8192"});
             this.comboAudioBuffer2.Location = new System.Drawing.Point(16, 24);
             this.comboAudioBuffer2.Name = "comboAudioBuffer2";
             this.comboAudioBuffer2.Size = new System.Drawing.Size(56, 21);
@@ -23296,6 +23299,7 @@
             // 
             // grpAudioDetails2
             // 
+            this.grpAudioDetails2.Controls.Add(this.chkExclusive);
             this.grpAudioDetails2.Controls.Add(this.lblAudioOutput2);
             this.grpAudioDetails2.Controls.Add(this.comboAudioOutput2);
             this.grpAudioDetails2.Controls.Add(this.lblAudioInput2);
@@ -23304,10 +23308,22 @@
             this.grpAudioDetails2.Controls.Add(this.comboAudioDriver2);
             this.grpAudioDetails2.Location = new System.Drawing.Point(8, 28);
             this.grpAudioDetails2.Name = "grpAudioDetails2";
-            this.grpAudioDetails2.Size = new System.Drawing.Size(333, 100);
+            this.grpAudioDetails2.Size = new System.Drawing.Size(333, 149);
             this.grpAudioDetails2.TabIndex = 35;
             this.grpAudioDetails2.TabStop = false;
             this.grpAudioDetails2.Text = "Virtual Audio Cable Setup";
+            // 
+            // chkExclusive
+            // 
+            this.chkExclusive.AutoSize = true;
+            this.chkExclusive.Location = new System.Drawing.Point(56, 110);
+            this.chkExclusive.Name = "chkExclusive";
+            this.chkExclusive.Size = new System.Drawing.Size(164, 17);
+            this.chkExclusive.TabIndex = 36;
+            this.chkExclusive.Text = "Exclusive (non-sharing) mode";
+            this.toolTip1.SetToolTip(this.chkExclusive, resources.GetString("chkExclusive.ToolTip"));
+            this.chkExclusive.UseVisualStyleBackColor = true;
+            this.chkExclusive.CheckedChanged += new System.EventHandler(this.chkExclusive_CheckedChanged);
             // 
             // lblAudioOutput2
             // 
@@ -55328,6 +55344,7 @@
             this.tpAudio.ResumeLayout(false);
             this.tcAudio.ResumeLayout(false);
             this.tpVAC.ResumeLayout(false);
+            this.grpAudioSampleRate2.ResumeLayout(false);
             this.grpVAC1monitor.ResumeLayout(false);
             this.grpVAC1monitor.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udVAC1_Force2)).EndInit();
@@ -55344,9 +55361,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.udAudioLatencyPAIn)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udAudioLatency2_Out)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udAudioLatency2)).EndInit();
-            this.grpAudioSampleRate2.ResumeLayout(false);
             this.grpAudioBuffer2.ResumeLayout(false);
             this.grpAudioDetails2.ResumeLayout(false);
+            this.grpAudioDetails2.PerformLayout();
             this.tpVAC2.ResumeLayout(false);
             this.grpVAC2monitor.ResumeLayout(false);
             this.grpVAC2monitor.PerformLayout();
@@ -59503,5 +59520,6 @@
         private RadioButtonTS radP1DDC0ADC0;
         private TabPage tpADC;
         private Label label1;
+        private CheckBox chkExclusive;
     }
 }

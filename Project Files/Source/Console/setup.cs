@@ -6425,6 +6425,20 @@ namespace Thetis
         private void comboAudioInput2_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             if (comboAudioInput2.SelectedIndex < 0) return;
+            bool output_is_valid = comboAudioOutput2.SelectedIndex >= 0;
+            if (!output_is_valid) 
+                return;
+
+            if (comboAudioOutput2.Text.Length == 0)
+            {
+                output_is_valid = false;
+            }
+
+            if (!output_is_valid)
+            {
+                return; // prevent bogus messages during API change
+            }
+
 
             int old_input = Audio.Input2;
             int new_input = ((PADeviceInfo)comboAudioInput2.SelectedItem).Index;
@@ -19539,6 +19553,30 @@ namespace Thetis
             radP1DDC4ADC0.Checked = true;
             radP1DDC5ADC0.Checked = true;
             radP1DDC6ADC0.Checked = true;
+        }
+
+        private void chkExclusive_CheckedChanged(object sender, EventArgs e)
+        {
+            bool newval = chkExclusive.Checked;
+            bool oldval = ivac.GetIVACExclusive(0) != 0;
+
+            
+
+            if (newval != oldval) {
+                if (console.PowerOn && chkAudioEnableVAC.Checked && !initializing)
+                {
+                    // console.PowerOn = false;
+                    // Thread.Sleep(100);
+                    Audio.EnableVAC1(false);
+                }
+                ivac.SetIVACExclusive(0, newval ? 1 : 0);      
+            }
+
+            if (initializing) return;
+            if (console.PowerOn)
+                Audio.EnableVAC1(true);
+
+
         }
     }
 

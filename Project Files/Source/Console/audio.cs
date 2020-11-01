@@ -1166,7 +1166,15 @@ namespace Thetis
         //    return a;
         //}
 
+        public static void EnableVAC1Exclusive(bool ex)
+        {
+            ivac.SetIVACExclusive(0, ex ? 1 : 0);
+        }
 
+        public static bool GetVAC1Exclusive()
+        {
+            return ivac.GetIVACExclusive(0) != 0;
+        }
         public static void EnableVAC1(bool enable)
         {
             bool retval = false;
@@ -1177,10 +1185,12 @@ namespace Thetis
                     int num_chan = 1;
                     int sample_rate = sample_rate2;
                     int block_size = block_size_vac;
-                    double in_latency = vac1_latency_manual ? latency2 / 1000.0 : PortAudioForThetis.PA_GetDeviceInfo(input_dev2).defaultLowInputLatency;
-                    double out_latency = vac1_latency_manual_out ? latency2_out / 1000.0 : PortAudioForThetis.PA_GetDeviceInfo(output_dev2).defaultLowOutputLatency;
-                    double pa_in_latency = vac1_latency_pa_in_manual ? latency_pa_in / 1000.0 : PortAudioForThetis.PA_GetDeviceInfo(input_dev2).defaultLowInputLatency;
-                    double pa_out_latency = vac1_latency_pa_out_manual ? latency_pa_out / 1000.0 : PortAudioForThetis.PA_GetDeviceInfo(output_dev2).defaultLowOutputLatency;
+                    var indevinfo = PortAudioForThetis.PA_GetDeviceInfo(input_dev2);
+                    var outdevinfo = PortAudioForThetis.PA_GetDeviceInfo(output_dev2);
+                    double in_latency = vac1_latency_manual ? latency2 / 1000.0 : indevinfo.defaultLowInputLatency;
+                    double out_latency = vac1_latency_manual_out ? latency2_out / 1000.0 :outdevinfo.defaultLowOutputLatency;
+                    double pa_in_latency = vac1_latency_pa_in_manual ? latency_pa_in / 1000.0 : indevinfo.defaultLowInputLatency;
+                    double pa_out_latency = vac1_latency_pa_out_manual ? latency_pa_out / 1000.0 : outdevinfo.defaultLowOutputLatency;
                     //  double pa_out_latency = vac1_latency_pa_out_manual ? latency_pa_out / 1000.0 : outp_dev2.;
 
                     if (vac_output_iq)
@@ -1223,6 +1233,12 @@ namespace Thetis
                         {
                             pa_msg = "\n\nFailed to start VAC. Audio subsystem reports: " +
                                     PortAudioForThetis.PA_GetErrorText(return_value);
+
+                            if ((PortAudioForThetis.PaErrorCode)(return_value) == PortAudioForThetis.PaErrorCode.paInvalidSampleRate)
+                            {
+                                //pa_msg += "\n" + "Suggested sample rate (for input) is: " + PortAudioForThetis.PA_GetDeviceInfo(input_dev2).defaultSampleRate
+                                //    + "\n" + "Suggested sample rate (for output) is: " + PortAudioForThetis.PA_GetDeviceInfo(output_dev2).defaultSampleRate;
+                            }
                         }
 
                         MessageBox.Show("The program is having trouble starting the VAC audio streams.\n" +

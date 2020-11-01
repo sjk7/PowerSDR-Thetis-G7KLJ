@@ -1,0 +1,37 @@
+Low-latency monitor/tx settings
+
+Setup, Audio, VAC1 (not implemented on VAC2 yet)
+
+Driver:		Windows WASAPI
+Input: 		Your input device (preferably the same one as the output device)
+Output:		Your output device (preferably the same one as input device)
+
+Exclusive:	Checked. NOTE: this setting is currently not saved between sessions!
+Buffer Size: 	As low as you can get away with, without audio 'artifacts'
+Sample Rate:	MUST match the *native* samplerate of your sound card.
+
+With careful settings, I have managed a total latency of 40ms. YMMV, depending
+on your system / drivers installed, etc/
+
+IMPORTANT:
+
+Buffer Latency(ms)
+Set ALL to manual and buffer sizes to zero
+
+IMPORTANT AGAIN:
+VAC1 Monitor:	Tick 'Force' in both boxes, and ensure 1.00000 is entered ito both
+		numeric boxes.
+
+In Windows:
+		Control Panel, Hardware and Sound/Sound/ Manage Audio Devices
+		Set the highest sample rate available for your device.
+
+		Do this by clicking 'Properties' for the device(s) you use
+		(remember both 'Playback' AND 'Recording') then go to the
+		Advanced tab and set the format to the highest sample rate.
+
+		If using two different in/out devices, the sample rate, bit depth
+		and channel mode should be IDENTICAL across the two devices.
+		Exclusive mode bypasses a lot of stuff, lowering the latency, but
+		this means that NO resampling or matching of audio takes place. This
+		is why they must be the same!

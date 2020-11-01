@@ -1039,6 +1039,8 @@ PaError Pa_OpenStream(PaStream** stream,
     PaStreamParameters hostApiInputParameters, hostApiOutputParameters;
     PaStreamParameters *hostApiInputParametersPtr, *hostApiOutputParametersPtr;
 
+
+
 #ifdef PA_LOG_API_CALLS
     PA_LOGAPI_ENTER_PARAMS("Pa_OpenStream");
     PA_LOGAPI(("\tPaStream** stream: 0x%p\n", stream));

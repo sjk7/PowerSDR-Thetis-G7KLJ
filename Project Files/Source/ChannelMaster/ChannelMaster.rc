@@ -1,6 +1,6 @@
 // Microsoft Visual C++ generated resource script.
 //
-#include "resource1.h"
+#include "resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 1 TEXTINCLUDE 
 BEGIN
-    "resource1.h\0"
+    "resource.h\0"
 END
 
 2 TEXTINCLUDE 
@@ -61,7 +61,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 100,0,0,3
+ FILEVERSION 1,0,0,3
  PRODUCTVERSION 1,0,0,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
@@ -79,11 +79,11 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "TODO: <Company name>"
             VALUE "FileDescription", "TODO: <File description>"
-            VALUE "FileVersion", "100.0.0.3"
-            VALUE "InternalName", "wdsp.dll"
+            VALUE "FileVersion", "1.0.0.3"
+            VALUE "InternalName", "ChannelM.dll"
             VALUE "LegalCopyright", "Copyright (C) 2020"
-            VALUE "OriginalFilename", "wdsp.dll"
-            VALUE "ProductName", "wdsp for Thetis (G7KLJ branch)"
+            VALUE "OriginalFilename", "ChannelM.dll"
+            VALUE "ProductName", "TODO: <Product name>"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END

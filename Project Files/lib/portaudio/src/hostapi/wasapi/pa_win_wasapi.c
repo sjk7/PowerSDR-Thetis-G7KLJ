@@ -3117,12 +3117,20 @@ static PaError IsStreamParamsValid(struct PaUtilHostApiRepresentation* hostApi,
             PaWasapiStreamInfo* outputStreamInfo
                 = (PaWasapiStreamInfo*)
                       outputParameters->hostApiSpecificStreamInfo;
-            if ((outputStreamInfo->size != sizeof(PaWasapiStreamInfo))
-                || (outputStreamInfo->version != 1)
-                || (outputStreamInfo->hostApiType != paWASAPI)) {
+
+            if (outputStreamInfo->size != sizeof(PaWasapiStreamInfo)) {
+                return paIncompatibleHostApiSpecificStreamInfo;
+            }
+
+            if (outputStreamInfo->hostApiType != paWASAPI)
+                return paIncompatibleHostApiSpecificStreamInfo;
+
+            if (outputStreamInfo->version != 1) {
                 return paIncompatibleHostApiSpecificStreamInfo;
             }
         }
+    
+
 
         return paNoError;
     }

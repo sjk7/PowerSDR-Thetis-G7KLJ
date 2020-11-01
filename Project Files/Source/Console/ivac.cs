@@ -54,6 +54,13 @@
         [DllImport("ChannelMaster.dll", EntryPoint = "SetIVAChostAPIindex", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SetIVAChostAPIindex(int id, int index);
 
+        [DllImport("ChannelMaster.dll", EntryPoint = "SetIVACExclusive", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void SetIVACExclusive (int id, int e);
+
+        [DllImport("ChannelMaster.dll", EntryPoint = "GetIVACExclusive", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int GetIVACExclusive(int id);
+
+
         [DllImport("ChannelMaster.dll", EntryPoint = "SetIVACinputDEVindex", CallingConvention = CallingConvention.Cdecl)]
         public static extern void SetIVACinputDEVindex(int id, int index);
 

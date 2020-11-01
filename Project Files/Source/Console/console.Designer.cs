@@ -5356,7 +5356,6 @@
             resources.ApplyResources(this.btnAndrBar8, "btnAndrBar8");
             this.btnAndrBar8.Name = "btnAndrBar8";
             this.btnAndrBar8.UseVisualStyleBackColor = false;
-  
             // 
             // btnAndrBar7
             // 
@@ -5364,7 +5363,6 @@
             resources.ApplyResources(this.btnAndrBar7, "btnAndrBar7");
             this.btnAndrBar7.Name = "btnAndrBar7";
             this.btnAndrBar7.UseVisualStyleBackColor = false;
-
             // 
             // btnAndrBar6
             // 
@@ -5372,7 +5370,6 @@
             resources.ApplyResources(this.btnAndrBar6, "btnAndrBar6");
             this.btnAndrBar6.Name = "btnAndrBar6";
             this.btnAndrBar6.UseVisualStyleBackColor = false;
-
             // 
             // btnAndrBar5
             // 
@@ -5380,7 +5377,6 @@
             resources.ApplyResources(this.btnAndrBar5, "btnAndrBar5");
             this.btnAndrBar5.Name = "btnAndrBar5";
             this.btnAndrBar5.UseVisualStyleBackColor = false;
- 
             // 
             // btnAndrBar4
             // 
@@ -5388,7 +5384,6 @@
             resources.ApplyResources(this.btnAndrBar4, "btnAndrBar4");
             this.btnAndrBar4.Name = "btnAndrBar4";
             this.btnAndrBar4.UseVisualStyleBackColor = false;
- 
             // 
             // btnAndrBar3
             // 
@@ -5396,7 +5391,6 @@
             resources.ApplyResources(this.btnAndrBar3, "btnAndrBar3");
             this.btnAndrBar3.Name = "btnAndrBar3";
             this.btnAndrBar3.UseVisualStyleBackColor = false;
-
             // 
             // btnAndrBar2
             // 
@@ -5404,7 +5398,6 @@
             resources.ApplyResources(this.btnAndrBar2, "btnAndrBar2");
             this.btnAndrBar2.Name = "btnAndrBar2";
             this.btnAndrBar2.UseVisualStyleBackColor = false;
-
             // 
             // btnAndrBar1
             // 
@@ -5412,7 +5405,6 @@
             resources.ApplyResources(this.btnAndrBar1, "btnAndrBar1");
             this.btnAndrBar1.Name = "btnAndrBar1";
             this.btnAndrBar1.UseVisualStyleBackColor = false;
-
             // 
             // panelVFOLabels
             // 

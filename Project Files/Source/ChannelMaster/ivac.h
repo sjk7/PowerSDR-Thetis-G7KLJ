@@ -78,6 +78,7 @@ typedef struct _ivac {
     double INfvar; // var value when forced for rmatchIN
     int OUTforce; // force var ratio for rmatchOUT
     double OUTfvar; // var value when forced for rmatchOUT
+    int exclusive;
 } ivac, *IVAC;
 
 void combinebuff(int n, double* a, double* combined);
@@ -115,5 +116,10 @@ extern __declspec(dllexport) void SetIVACmicSize(int id, int size);
 extern __declspec(dllexport) void SetIVACmicRate(int id, int rate);
 extern __declspec(dllexport) void SetIVACaudioRate(int id, int rate);
 extern __declspec(dllexport) void SetIVACaudioSize(int id, int size);
+
+
+PORT void  SetIVACExclusive(int id, int excl);
+PORT int GetIVACExclusive(int id);
+
 
 #endif

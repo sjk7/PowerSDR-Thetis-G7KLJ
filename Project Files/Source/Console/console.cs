@@ -1222,7 +1222,9 @@ namespace Thetis
                     if (IsSetupFormNull)
                     {
                         Debug.Print("__setup form new()__");
+                        
                         m_frmSetupForm = new Setup(this);
+                        m_frmSetupForm.Owner = this;
                     }
                     return m_frmSetupForm;
                 }
@@ -2135,6 +2137,7 @@ namespace Thetis
         public void ExitConsole()
         {
             if (failed) return;
+            
             if (n1mm_udp_client != null)
                 n1mm_udp_client.Close();
 
@@ -32185,7 +32188,7 @@ namespace Thetis
                 else
                     num = avg_num = current_meter_data * 0.2 + avg_num * 0.8; // slow decay
 
-                num = -120f;
+                // num = -120f;
                 if (picSMeter.Visible)
                 s_meter_value = calcSMeterValue((float)num);
                
@@ -37712,6 +37715,10 @@ namespace Thetis
         {
             //this.Hide(); 
             // Audio.callback_return = 2;
+            if (m_frmSetupForm != null)
+            {
+                m_frmSetupForm.Owner = null; // else it dies with us and he wants to save settings, etc
+            }
             CATEnabled = false;
             AndromedaCATEnabled = false;
             AriesCATEnabled = false;
@@ -52174,6 +52181,8 @@ namespace Thetis
         private void setupToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetupForm.Show();
+            // SetupForm.TopMost = true; <-- Don't do this, else messageboxes are buried with no way to accept them!
+            SetupForm.BringToFront();
             SetupForm.Focus();
             SetFocusMaster(false);
         }
