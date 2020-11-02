@@ -48,6 +48,7 @@ struct _ch
 	double tslewup;
 	double tdelaydown;
 	double tslewdown;
+    HANDLE thread_quit_event;
 	int bfo;					// 'block_for_output', block fexchange until output is available
 	volatile long flushflag;
 	struct	//io buffers

@@ -113,12 +113,17 @@ static inline HANDLE prioritise_thread_max() {
         assert(ok);
 
     } else {
+        //assert("Why did setting thread priority fail?" == 0);
         const DWORD dw = GetLastError();
         if (dw == 1552) { // the specified thread is already joining a task
-
+            assert(0);
         } else {
             SetThreadPriority(
                 GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL);
+            fprintf(stderr,
+                "I don't like this, falling back to "
+                "THREAD_PRIORITY_TIME_CRITICAL");
+            fflush(stderr);
         }
     }
     return hTask;
@@ -128,6 +133,7 @@ static inline BOOL prioritise_thread_cleanup(HANDLE h) {
     BOOL ret = AvRevertMmThreadCharacteristics(h);
     if (ret == 0) {
         DWORD dw = GetLastError();
+        assert(0);
         fprintf(stderr,
             "Failed to clean up thread priority, with error code: %ld\n",
             (int)dw);

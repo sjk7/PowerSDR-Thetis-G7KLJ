@@ -739,7 +739,11 @@ DWORD WINAPI sendProtocol1Samples(LPVOID n) {
     pbuffs[1] = prn->outIQbufp;
 
     while (io_keep_running != 0) {
-        WaitForMultipleObjects(2, prn->hsendEventHandles, TRUE, INFINITE);
+        // G7KLJ: this thread never died due to an infinite wait here
+        DWORD dwWait = WaitForMultipleObjects(2, prn->hsendEventHandles, TRUE, 250);
+        if (dwWait == WAIT_TIMEOUT) {
+            continue;
+        }
         // if ((nddc == 2) || (nddc == 4))
         {
             for (i = 0; i < 4 * 63;
@@ -773,6 +777,6 @@ DWORD WINAPI sendProtocol1Samples(LPVOID n) {
 
 
       if (hpri && hpri != INVALID_HANDLE_VALUE) prioritise_thread_cleanup(hpri);
-    _endthread();
+
     return 0;
 }

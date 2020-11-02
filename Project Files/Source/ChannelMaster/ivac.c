@@ -32,6 +32,8 @@ warren@wpratt.com
 __declspec(align(16)) IVAC pvac[MAX_EXT_VACS];
 
 void create_resamps(IVAC a) {
+    a->MMThreadApiHandle = 0;
+    a->exclusive = 0;
     a->INringsize = (int)(2 * a->mic_rate * a->in_latency); // FROM VAC to mic
     a->OUTringsize
         = (int)(2 * a->vac_rate * a->out_latency); // TO VAC from rx audio
@@ -142,14 +144,34 @@ void xvac_out(int id, int nsamples,
     // if (id == 0) WriteAudio (120.0, 48000, a->audio_size, buff, 3);
 }
 
+void StreamFinishedCallback(void* userData) {
+
+    int id = (int)userData;
+    IVAC a = pvac[id];
+    if (a->have_set_thread_priority == 1) {
+        prioritise_thread_cleanup(a->MMThreadApiHandle);
+        a->have_set_thread_priority = 0;
+        a->MMThreadApiHandle = 0;
+    }
+
+}
+
 int CallbackIVAC(const void* input, void* output, unsigned long frameCount,
     const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags,
     void* userData) {
 
-#pragma warning(disable : 4311)
+   #pragma warning(disable : 4311)
     int id = (int)userData;
 #pragma warning(default : 4311)
     IVAC a = pvac[id];
+    if (a->have_set_thread_priority == -1) {
+        a->have_set_thread_priority = 10;
+        a->MMThreadApiHandle = prioritise_thread_max();
+        if (a->MMThreadApiHandle)
+            a->have_set_thread_priority = 1;
+        else
+            a->have_set_thread_priority = 0;
+    }
     double* out_ptr = (double*)output;
     double* in_ptr = (double*)input;
     (void)timeInfo;
@@ -220,21 +242,25 @@ PORT int StartAudioIVAC(int id) {
         a->outParam.hostApiSpecificStreamInfo = NULL;
 	}
 
-	
-
-
     #pragma warning(disable : 4312)
-
-       volatile       PaWasapiStreamInfo* outputStreamInfo
-        = (PaWasapiStreamInfo*)a->outParam.hostApiSpecificStreamInfo;
-
-
+   
     error = Pa_OpenStream(&a->Stream, &a->inParam, &a->outParam, a->vac_rate,
         a->vac_size, // paFramesPerBufferUnspecified,
         0, CallbackIVAC,
         (void*)id); // pass 'id' as userData
 
-    
+        if (error == 0) {
+        error = Pa_SetStreamFinishedCallback(a->Stream, StreamFinishedCallback);
+
+        assert(error == 0);
+        if (error == 0) {
+            a->have_set_thread_priority
+                = -1; // go ahead and set the priority on the next call to the
+                      // callback
+        } else {
+            a->have_set_thread_priority = 0;
+        }
+    }
 #pragma warning(default : 4312)
 
     if (error != paNoError) return error;
@@ -243,9 +269,7 @@ PORT int StartAudioIVAC(int id) {
 
     if (error != paNoError) return error;
 
-	const PaStreamInfo* inf = Pa_GetStreamInfo(a->Stream);
-
-
+	//const PaStreamInfo* inf = Pa_GetStreamInfo(a->Stream);
     return paNoError;
 }
 

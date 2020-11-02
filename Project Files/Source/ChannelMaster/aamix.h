@@ -106,7 +106,8 @@ extern void* create_aamix (
 
 extern void destroy_aamix (void* ptr, int id);
 
-extern void xaamix (AAMIX a);
+// G7KLJ: now returns int to signal when thread should be cleaned up (see notes in implementation)
+extern int xaamix (AAMIX a);
 
 extern void xMixAudio (void* ptr, int id, int stream, double* data);
 

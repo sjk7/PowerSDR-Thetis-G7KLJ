@@ -81,9 +81,8 @@ namespace RawInput_dll
         // ReSharper disable UnusedField.Compiler
         public Int32 DbccSize;
         public BroadcastDeviceType BroadcastDeviceType;
-        public Int32 DbccReserved;
         public Guid DbccClassguid;
-        public char DbccName;
+
         // ReSharper restore NotAccessedField.Global
         // ReSharper restore UnusedField.Compiler
     }

@@ -249,6 +249,7 @@ void destroy_xmtr()
 void create_cmaster()
 {
 	int i, j;
+    
 	for (i = 0; i < pcm->cmSTREAM; i++)
 	{
 		InitializeCriticalSectionAndSpinCount(&pcm->update[i], 2500);	// 'update' critical section

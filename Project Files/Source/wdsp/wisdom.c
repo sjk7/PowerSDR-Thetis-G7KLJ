@@ -55,20 +55,20 @@ PORT void WDSPwisdom(char* directory) {
             fprintf(stdout, "Planning COMPLEX FORWARD  FFT size %d\n", psize);
             fflush(stdout);
             tplan = fftw_plan_dft_1d(psize, (fftw_complex*)fftin,
-                (fftw_complex*)fftout, FFTW_FORWARD, FFTW_PATIENT);
+                (fftw_complex*)fftout, FFTW_FORWARD, MY_PATIENCE);
             fftw_execute(tplan);
             fftw_destroy_plan(tplan);
             fprintf(stdout, "Planning COMPLEX BACKWARD FFT size %d\n", psize);
             fflush(stdout);
             tplan = fftw_plan_dft_1d(psize, (fftw_complex*)fftin,
-                (fftw_complex*)fftout, FFTW_BACKWARD, FFTW_PATIENT);
+                (fftw_complex*)fftout, FFTW_BACKWARD, MY_PATIENCE);
             fftw_execute(tplan);
             fftw_destroy_plan(tplan);
             fprintf(
                 stdout, "Planning COMPLEX BACKWARD FFT size %d\n", psize + 1);
             fflush(stdout);
             tplan = fftw_plan_dft_1d(psize + 1, (fftw_complex*)fftin,
-                (fftw_complex*)fftout, FFTW_BACKWARD, FFTW_PATIENT);
+                (fftw_complex*)fftout, FFTW_BACKWARD, MY_PATIENCE);
             fftw_execute(tplan);
             fftw_destroy_plan(tplan);
             psize *= 2;
@@ -80,14 +80,14 @@ PORT void WDSPwisdom(char* directory) {
                     stdout, "Planning COMPLEX FORWARD  FFT size %d\n", psize);
                 fflush(stdout);
                 tplan = fftw_plan_dft_1d(psize, (fftw_complex*)fftin,
-                    (fftw_complex*)fftout, FFTW_FORWARD, FFTW_PATIENT);
+                    (fftw_complex*)fftout, FFTW_FORWARD, MY_PATIENCE);
                 fftw_execute(tplan);
                 fftw_destroy_plan(tplan);
             }
             fprintf(stdout, "Planning REAL    FORWARD  FFT size %d\n", psize);
             fflush(stdout);
             tplan = fftw_plan_dft_r2c_1d(
-                psize, fftin, (fftw_complex*)fftout, FFTW_PATIENT);
+                psize, fftin, (fftw_complex*)fftout, MY_PATIENCE);
             fftw_execute(tplan);
             fftw_destroy_plan(tplan);
             psize *= 2;

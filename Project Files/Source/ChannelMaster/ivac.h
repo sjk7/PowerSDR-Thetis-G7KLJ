@@ -78,7 +78,9 @@ typedef struct _ivac {
     double INfvar; // var value when forced for rmatchIN
     int OUTforce; // force var ratio for rmatchOUT
     double OUTfvar; // var value when forced for rmatchOUT
-    int exclusive;
+    int exclusive;  // G7KLJ: Use output device in exclusive mode. Helps low latency performance
+    HANDLE MMThreadApiHandle; // G7KLJ handle to store state for thread cleanup. Portaudio works so much better with super-high thread priority ("Pro Audio")
+    volatile int have_set_thread_priority;
 } ivac, *IVAC;
 
 void combinebuff(int n, double* a, double* combined);

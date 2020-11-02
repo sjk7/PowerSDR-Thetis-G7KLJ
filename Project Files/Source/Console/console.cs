@@ -37447,8 +37447,11 @@ namespace Thetis
                     if (chkDisplayPeak.Checked)
                         chkDisplayPeak.BackColor = button_selected_color;
                     //  btnZeroBeat.Enabled = chkDisplayAVG.Checked;
-                    radio.GetDSPRX(0, 0).SpectrumPreFilter = true;
-                    radio.GetDSPRX(1, 0).SpectrumPreFilter = true;
+                    if (radio != null)
+                    {
+                        radio.GetDSPRX(0, 0).SpectrumPreFilter = true;
+                        radio.GetDSPRX(1, 0).SpectrumPreFilter = true;
+                    }
                     break;
                 case DisplayMode.PANASCOPE:
                     chkDisplayAVG.Enabled = true;
@@ -50717,7 +50720,7 @@ namespace Thetis
             /*/
             if (gap >= 0)
             {
-                /*/
+                
                 // goes under grpMultiMeterMenus
                 var top = this.grpMultimeterMenus.Bottom;
                 // this.picSMeter.Top = top;
@@ -50729,7 +50732,7 @@ namespace Thetis
                 picSMeter.Left = grpMultimeterMenus.Right - picSMeter.Width;
 
                 picSMeter.BringToFront();
-                /*/
+                
 
                 bool bottom = false;
                 if (bottom)
@@ -50753,9 +50756,10 @@ namespace Thetis
                     NewVFOSignalGauge.Value = NewVFOSignalGauge.MaxValue / 2;
                     NewVFOSignalGauge.BringToFront();
                 }
+           
 
 
-            }
+        }
             else
             {
                 picSMeter.Visible = false;

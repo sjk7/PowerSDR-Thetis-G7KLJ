@@ -346,8 +346,8 @@ int IOThreadStop(void);
 int StartReadThread(void);
 void StopReadThread(void);
 __declspec(dllexport) int SendStartToMetis(void);
-int io_keep_running;
-int IOThreadRunning; // non zero if IOThread is running
+volatile int io_keep_running;
+volatile int IOThreadRunning; // non zero if IOThread is running
 int XmitBit;
 unsigned char ControlBytesIn[5];
 int HaveSync;

@@ -121,11 +121,12 @@ PORT void OutBound(int id, int nsamples, double* in) {
     }
 }
 
-void obdata(int id, double* out) {
+int obdata(int id, double* out) {
     int first, second;
     OBB a = obp.pdbuff[id];
-    if (!_InterlockedAnd(&a->run, 1)) 
-        _endthread();
+    if (!_InterlockedAnd(&a->run, 1)) {
+        return -1;
+    }
     
     
     if (a->r1_outsize > (a->r1_active_buffsize - a->r1_outidx)) {
@@ -139,6 +140,8 @@ void obdata(int id, double* out) {
     memcpy(out + 2 * first, a->r1_baseptr, second * sizeof(complex));
     if ((a->r1_outidx += a->r1_outsize) >= a->r1_active_buffsize)
         a->r1_outidx -= a->r1_active_buffsize;
+
+    return NOERROR;
 }
 
 
@@ -153,16 +156,22 @@ void ob_main(void* pargs) {
     OBB a = obp.pdbuff[id];
 
     while (_InterlockedAnd(&a->run, 1)) {
-        WaitForSingleObject(a->Sem_BuffReady, INFINITE);
+        DWORD dwWait = WaitForSingleObject(a->Sem_BuffReady, 500);
+        if (dwWait == WAIT_TIMEOUT) {
+            continue;
+        }
+
         EnterCriticalSection(&a->csOUT);
         LeaveCriticalSection(&a->csOUT);
-        obdata(id, a->out);
+        if (obdata(id, a->out) < 0) {
+            break;
+        }
         sendOutbound(id, a->out);
         // if (id == 0) WriteAudio(15.0, 48000, 126, a->out, 3);
     }
 
       if (hpri && hpri != INVALID_HANDLE_VALUE) prioritise_thread_cleanup(hpri);
-    _endthread();
+
 }
 
 void SetOBRingOutsize(int id, int size) {

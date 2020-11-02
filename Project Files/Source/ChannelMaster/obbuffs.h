@@ -77,7 +77,8 @@ extern void flush_obbuffs(int id);
 
 extern __declspec(dllexport) void OutBound(int id, int nsamples, double* in);
 
-extern void obdata(int id, double* out);
+// returns -1 if thread should quit, NOERROR otherwise
+extern int obdata(int id, double* out);
 
 extern void ob_main(void* pargs);
 

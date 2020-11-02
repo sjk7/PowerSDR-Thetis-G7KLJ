@@ -150,14 +150,17 @@ void cm_main(void* pargs) {
     CMB a = pcm->pdbuff[id];
 
     while (_InterlockedAnd(&a->run, 1)) {
-        WaitForSingleObject(a->Sem_BuffReady, INFINITE);
+        DWORD dwWait = WaitForSingleObject(a->Sem_BuffReady, 500);
+        if (dwWait == WAIT_TIMEOUT) {
+            continue;
+        }
         cmdata(id, pcm->in[id]);
         xcmaster(id);
     }
 
     if (hpri)
     prioritise_thread_cleanup(hpri);
-    _endthread();
+
 }
 
 void SetCMRingOutsize(int id, int size) {

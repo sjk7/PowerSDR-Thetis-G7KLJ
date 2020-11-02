@@ -26,12 +26,16 @@ warren@wpratt.com
 
 #include "comm.h"
 
-void main(void* pargs) {
+// G7KLJ: it is not a good idea to cal functions main() : renamed!
+void main_fun(void* pargs) {
     HANDLE hpri = prioritise_thread_max();
 
     int channel = (int)pargs;
     while (_InterlockedAnd(&ch[channel].run, 1)) {
-        WaitForSingleObject(ch[channel].iob.pd->Sem_BuffReady, INFINITE);
+        DWORD dwWait = WaitForSingleObject(ch[channel].iob.pd->Sem_BuffReady, 400);
+        if (dwWait == WAIT_TIMEOUT) {
+            continue;
+        }
         EnterCriticalSection(&ch[channel].csDSP);
         if (!_InterlockedAnd(&ch[channel].iob.pd->exec_bypass, 1)) {
             switch (ch[channel].type) {
@@ -55,8 +59,9 @@ void main(void* pargs) {
     
     if (hpri && hpri != INVALID_HANDLE_VALUE)
     prioritise_thread_cleanup(hpri);
-
-    _endthread();
+    
+    if (ch[channel].thread_quit_event)
+    SetEvent(ch[channel].thread_quit_event);
 
 }
 

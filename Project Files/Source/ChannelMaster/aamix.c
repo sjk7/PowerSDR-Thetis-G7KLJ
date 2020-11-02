@@ -33,25 +33,37 @@ __declspec(align(16)) AAMIX
 
 
 
-
 void mix_main(void* pargs) {
     HANDLE hpri = prioritise_thread_max();
 
     AAMIX a = (AAMIX)pargs;
 
     while (_InterlockedAnd(&a->run, 1)) {
-        WaitForMultipleObjects(a->nactive, a->Aready, TRUE, INFINITE);
-        xaamix(a);
+        DWORD dwWait = WaitForMultipleObjects(a->nactive, a->Aready, TRUE, 500);
+
+        if (xaamix(a) < 0) {
+            break;
+            
+        }
+        if (dwWait == WAIT_TIMEOUT) {
+            continue;
+        }
         (*a->Outbound)(a->outbound_id, a->outsize, a->out);
         // WriteAudio (30.0, 48000, a->outsize, a->out, 3);
     }
 
       if (hpri && hpri != INVALID_HANDLE_VALUE) prioritise_thread_cleanup(hpri);
-    _endthread();
+
+}
+
+// G7KLJ:
+// added to ensure correct prioritise_thread_max cleanup;
+void mix_main_proxy(void* pargs) {
+    mix_main(pargs);
 }
 
 void start_mixthread(AAMIX a) {
-    _beginthread(mix_main, 0, (void*)a);
+    _beginthread(mix_main_proxy, 0, (void*)a);
 }
 
 enum _slew { BEGIN = 0, DELAYUP, UPSLEW, ON, DELAYDOWN, DOWNSLEW, ZERO, OFF };
@@ -361,7 +373,10 @@ void downslew(AAMIX a) {
 }
 
 // pulls data from audio rings and mixes with output
-void xaamix(AAMIX a) {
+// G7KLJ: we now return < 0 to end the thread gracefully,
+// otherwise the Pro Audio thread priority API does not get cleaned up when the thread exits,
+// and we end up with below optimum priority when the resources run out (usually the second time the radio is started).
+int xaamix(AAMIX a) {
     int i, j;
     int what, mask, idx;
 
@@ -369,7 +384,10 @@ void xaamix(AAMIX a) {
 
     if (!_InterlockedAnd(&a->run, 1)) {
         LeaveCriticalSection(&a->cs_out);
-        _endthread();
+        //_endthread();
+        // no endthread! doesn't clean up after itself!
+        return -1;
+
     }
     memset(a->out, 0, a->outsize * sizeof(complex));
     what = _InterlockedAnd(&a->what, 0xffffffff)
@@ -397,6 +415,7 @@ void xaamix(AAMIX a) {
     
     // if (got_lock)
     LeaveCriticalSection(&a->cs_out); // 26117: releasing unheld lock
+    return NOERROR;
 }
 
 void flush_mix_ring(AAMIX a, int stream) {
@@ -559,7 +578,9 @@ PORT void SetAAudioMixVolume(void* ptr, int id, double volume) {
         a = (AAMIX)ptr;
     EnterCriticalSection(&a->cs_out);
     a->volume = volume;
-    for (i = 0; i < 32; i++) a->tvol[i] = a->volume * a->vol[i];
+    for (i = 0; i < 32; i++) {
+        a->tvol[i] = a->volume * a->vol[i];
+    }
     LeaveCriticalSection(&a->cs_out);
 }
 
