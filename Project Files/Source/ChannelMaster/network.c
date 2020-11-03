@@ -1079,7 +1079,7 @@ void WriteUDPFrame(int id, char* bufp, int buflen) {
 
 DWORD last_send_time = 0;
 int sendPacket(SOCKET sock, char* data, int length, int port) {
-    int ret;
+    int ret = 0;
     struct sockaddr_in dest = {0};
     DWORD timeEnter = timeGetTime();
     DWORD time_between = 0;
@@ -1097,8 +1097,32 @@ int sendPacket(SOCKET sock, char* data, int length, int port) {
     dest.sin_family = AF_INET;
     dest.sin_addr.s_addr = MetisAddr;
     DWORD d1 = timeGetTime();
-    ret = sendto(sock, data, length, 0, (SOCKADDR*)&dest, sizeof(dest));
-    assert(ret == sizeof(dest));
+
+    int sent = 0;
+    DWORD sock_error = 0;
+
+        
+    while (sent < length) {
+        ret = sendto(sock, data, length, 0, (SOCKADDR*)&dest, sizeof(dest));
+        if (ret == -1) {
+            sock_error = WSAGetLastError();
+            if (sock_error == WSAEWOULDBLOCK) {
+                Sleep(1);
+                continue;
+            } else {
+                assert(sock_error == 0);
+            }
+        } else {
+            if (ret == 0) {
+                // other end disconnected
+                Sleep(10);
+                break;
+            }
+            sent += ret;
+        }
+    }
+    
+    assert(sent == length);
     DWORD d2 = timeGetTime();
     DWORD took = d2 - d1;
     if (took > 10) {
@@ -1109,9 +1133,9 @@ int sendPacket(SOCKET sock, char* data, int length, int port) {
     
     DWORD done = timeGetTime();
     DWORD all = done - timeEnter;
-    DWORD sent = done - timeStart;
+    DWORD sent_time = done - timeStart;
 
-    if (all > 1 || sent > 1) {
+    if (all > 1 || sent_time > 1) {
         printf("Long time to send: %ld %ld\n", (int)all, (int)sent);
     }
 

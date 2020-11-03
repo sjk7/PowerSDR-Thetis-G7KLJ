@@ -5301,9 +5301,9 @@
             // 
             resources.ApplyResources(this.panelRX2RF, "panelRX2RF");
             this.panelRX2RF.BackColor = System.Drawing.Color.Transparent;
+            this.panelRX2RF.Controls.Add(this.picSMeter);
             this.panelRX2RF.Controls.Add(this.ptbRX2RF);
             this.panelRX2RF.Controls.Add(this.lblRX2RF);
-            this.panelRX2RF.Controls.Add(this.picSMeter);
             this.panelRX2RF.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.panelRX2RF.Name = "panelRX2RF";
             // 
