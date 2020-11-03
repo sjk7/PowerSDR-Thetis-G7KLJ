@@ -53,6 +53,7 @@ typedef struct _seqLogSnapshot {
 } _seqLogSnapshot_t;
 
 typedef struct CACHE_ALIGN _radionet {
+   volatile DWORD last_time_signalled;
     double** RxBuff;
     double* RxReadBufp;
     double* TxReadBufp;
@@ -408,6 +409,7 @@ void WriteMainLoop(char* bufp);
 void MetisReadThreadMainLoop(void);
 DWORD WINAPI sendProtocol1Samples(LPVOID n);
 int MetisReadDirect(unsigned char* bufp);
+int MetisReadDirectPOLL(unsigned char* bufp);
 int MetisWriteFrame(int endpoint, char* bufp);
 void ForceCandCFrame(int);
 extern __declspec(dllexport) int SendStopToMetis();

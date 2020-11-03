@@ -24,7 +24,7 @@
 #endif
 
 #ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
+// #define WIN32_LEAN_AND_MEAN <-- No timeGetTime()!!
 #endif
 
 #include <assert.h>
@@ -33,6 +33,7 @@
 
 #pragma comment(lib, "IPHLPAPI.lib")
 #pragma comment(lib, "ws2_32.lib")
+#pragma comment(lib, "winmm.lib")
 
 #define OBSOLETE (0)
 #define BUFLEN 1444
@@ -984,6 +985,7 @@ void CmdTx() { // port 1026
         sendPacket(listenSock, packetbuf, sizeof(packetbuf), 1026);
 }
 
+DWORD last_time_signalled = 0;
 void sendOutbound(int id, double* out) {
     int i;
     short temp;
@@ -1026,14 +1028,14 @@ void sendOutbound(int id, double* out) {
         if (id == 1) {
             memcpy(prn->outIQbufp, out, sizeof(complex) * 126);
             ReleaseSemaphore(prn->hsendIQSem, 1, 0);
+          
             WaitForSingleObject(prn->hobbuffsRun[0], INFINITE);
         } else {
-            if (id == 0) {
-                dump_to_file((void*)prn->outLRbufp, sizeof(complex) * 128);
-            }
 
             memcpy(prn->outLRbufp, out, sizeof(complex) * 126);
+            prn->last_time_signalled = timeGetTime();
             ReleaseSemaphore(prn->hsendLRSem, 1, 0);
+            
             WaitForSingleObject(prn->hobbuffsRun[1], INFINITE);
         }
     }
@@ -1075,21 +1077,54 @@ void WriteUDPFrame(int id, char* bufp, int buflen) {
     }
 }
 
+DWORD last_send_time = 0;
 int sendPacket(SOCKET sock, char* data, int length, int port) {
     int ret;
     struct sockaddr_in dest = {0};
+    DWORD timeEnter = timeGetTime();
+    DWORD time_between = 0;
+    if (last_send_time) {
+        time_between = timeGetTime() - last_send_time;
+        if (time_between > 10) {
+            printf("Long time between sends: %ld\n", (int)time_between);
+        }
+    }
 
     EnterCriticalSection(&prn->sndpkt);
+    
+    DWORD timeStart = timeGetTime();
     dest.sin_port = htons((u_short)port);
     dest.sin_family = AF_INET;
     dest.sin_addr.s_addr = MetisAddr;
+    DWORD d1 = timeGetTime();
     ret = sendto(sock, data, length, 0, (SOCKADDR*)&dest, sizeof(dest));
+    assert(ret == sizeof(dest));
+    DWORD d2 = timeGetTime();
+    DWORD took = d2 - d1;
+    if (took > 10) {
+        printf("sendto took ages: %ld\n", (int)d2 - d1);
+    }
+
+    assert(ret = sizeof(dest)); // for non-blocking experiments.
+    
+    DWORD done = timeGetTime();
+    DWORD all = done - timeEnter;
+    DWORD sent = done - timeStart;
+
+    if (all > 1 || sent > 1) {
+        printf("Long time to send: %ld %ld\n", (int)all, (int)sent);
+    }
+
+    
     LeaveCriticalSection(&prn->sndpkt);
+
+
 
     if (ret == SOCKET_ERROR) {
         wprintf(L"sendto failed with error:%d\n", WSAGetLastError());
     }
 
+    last_send_time = timeGetTime();
     return ret;
 }
 

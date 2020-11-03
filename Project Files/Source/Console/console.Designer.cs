@@ -915,6 +915,8 @@
             this.toolStripStatusLabel_UTCTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_Date = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_LocalTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
+            this.picSMeter = new System.Windows.Forms.PictureBox();
             this.grpMultimeter = new System.Windows.Forms.GroupBoxTS();
             this.pnlResizeMeter = new System.Windows.Forms.PanelTS();
             this.picMultiMeterDigital = new System.Windows.Forms.PictureBox();
@@ -1136,8 +1138,6 @@
             this.tbAndromedaEncoderSlider = new System.Windows.Forms.TrackBarTS();
             this.lblAndromedaEncoderSlider = new System.Windows.Forms.LabelTS();
             this.lblATUTuneLabel = new System.Windows.Forms.LabelTS();
-            this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.picSMeter = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udFilterHigh)).BeginInit();
@@ -1180,6 +1180,8 @@
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRX2Squelch)).BeginInit();
             this.statusStripMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSMeter)).BeginInit();
             this.grpMultimeter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picMultiMeterDigital)).BeginInit();
             this.panelFilter.SuspendLayout();
@@ -1235,8 +1237,6 @@
             this.grpMultimeterMenus.SuspendLayout();
             this.panelAndromedaMisc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbAndromedaEncoderSlider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSMeter)).BeginInit();
             this.SuspendLayout();
             // 
             // timer_cpu_meter
@@ -5092,6 +5092,20 @@
             this.toolStripStatusLabel_LocalTime.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.toolStripStatusLabel_LocalTime.Name = "toolStripStatusLabel_LocalTime";
             // 
+            // fileSystemWatcher1
+            // 
+            this.fileSystemWatcher1.EnableRaisingEvents = true;
+            this.fileSystemWatcher1.SynchronizingObject = this;
+            // 
+            // picSMeter
+            // 
+            this.picSMeter.BackColor = System.Drawing.Color.Black;
+            this.picSMeter.BackgroundImage = global::Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
+            resources.ApplyResources(this.picSMeter, "picSMeter");
+            this.picSMeter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picSMeter.Name = "picSMeter";
+            this.picSMeter.TabStop = false;
+            // 
             // grpMultimeter
             // 
             this.grpMultimeter.BackColor = System.Drawing.Color.Transparent;
@@ -5289,6 +5303,7 @@
             this.panelRX2RF.BackColor = System.Drawing.Color.Transparent;
             this.panelRX2RF.Controls.Add(this.ptbRX2RF);
             this.panelRX2RF.Controls.Add(this.lblRX2RF);
+            this.panelRX2RF.Controls.Add(this.picSMeter);
             this.panelRX2RF.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.panelRX2RF.Name = "panelRX2RF";
             // 
@@ -7193,26 +7208,11 @@
             this.lblATUTuneLabel.ForeColor = System.Drawing.Color.White;
             this.lblATUTuneLabel.Name = "lblATUTuneLabel";
             // 
-            // fileSystemWatcher1
-            // 
-            this.fileSystemWatcher1.EnableRaisingEvents = true;
-            this.fileSystemWatcher1.SynchronizingObject = this;
-            // 
-            // picSMeter
-            // 
-            this.picSMeter.BackColor = System.Drawing.Color.Black;
-            this.picSMeter.BackgroundImage = global::Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
-            resources.ApplyResources(this.picSMeter, "picSMeter");
-            this.picSMeter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picSMeter.Name = "picSMeter";
-            this.picSMeter.TabStop = false;
-            // 
             // Console
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.Controls.Add(this.picSMeter);
             this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.grpMultimeter);
             this.Controls.Add(this.panelFilter);
@@ -7315,6 +7315,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.picRX2Squelch)).EndInit();
             this.statusStripMain.ResumeLayout(false);
             this.statusStripMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSMeter)).EndInit();
             this.grpMultimeter.ResumeLayout(false);
             this.grpMultimeter.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picMultiMeterDigital)).EndInit();
@@ -7380,8 +7382,6 @@
             this.grpMultimeterMenus.ResumeLayout(false);
             this.panelAndromedaMisc.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbAndromedaEncoderSlider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSMeter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

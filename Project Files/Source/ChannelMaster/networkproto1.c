@@ -136,6 +136,104 @@ void ForceCandCFrame(int count) {
 
 static DWORD tid = 0;
 
+int MetisReadDirectPOLL(unsigned char* bufp) {
+    struct indgram {
+        unsigned char readbuf[1074];
+    } inpacket;
+
+
+    struct sockaddr_in fromaddr;
+    int fromlen;
+    int rc = 0;
+    unsigned int endpoint;
+    unsigned int seqnum;
+    unsigned char* seqbytep = (unsigned char*)&seqnum;
+    fromlen = sizeof(fromaddr);
+    DWORD startEnter = timeGetTime();
+    DWORD done = startEnter;
+    int loops = 0;
+    int yields = 0;
+
+    // trying a tight loop to see if it helps relay chatter
+    while (io_keep_running && rc != 1032){ 
+        rc = recvfrom(listenSock, (char*)&inpacket, sizeof(inpacket), 0,
+        (struct sockaddr*)&fromaddr, &fromlen);
+
+        if (rc < 0) {
+            if (rc == -1) // SOCKET_ERROR
+            {
+                errno = WSAGetLastError();
+                if (errno == WSAEWOULDBLOCK) {
+                    // SwitchToThread(); // yield
+                    loops++;
+                    if (loops % 100 == 0) {
+                        Sleep(1);
+                        yields++;
+                    }
+                    continue;
+                }
+            }
+            assert(0);
+            return rc;
+        } else if (rc > 0) {
+            done = timeGetTime();
+        }
+    }
+
+    /* check frame is from who we expect */
+    if (rc == 1032) { /* looks like a data frame */
+        if ((inpacket.readbuf[0] == 0xef) && (inpacket.readbuf[1] == 0xfe)
+            && (inpacket.readbuf[2] == 0x01)) {
+            endpoint = (unsigned int)inpacket.readbuf[3];
+            seqbytep[3] = inpacket.readbuf[4];
+            seqbytep[2] = inpacket.readbuf[5];
+            seqbytep[1] = inpacket.readbuf[6];
+            seqbytep[0] = inpacket.readbuf[7];
+
+            if (endpoint == 6) {
+                if ((inpacket.readbuf[8] == 0x7f)
+                    && (inpacket.readbuf[9] == 0x7f)
+                    && (inpacket.readbuf[10] == 0x7f)) {
+                    HaveSync = 1;
+                } else {
+                    HaveSync = 0;
+                    printf("MRD: sync error on frame %d\n", seqnum);
+                }
+                memcpy(bufp, inpacket.readbuf + 8, 1024);
+                xpro(prop, seqnum, bufp); // resequence out of order packets
+                if (seqnum != (1 + MetisLastRecvSeq)) {
+                    SeqError += 1;
+                }
+                MetisLastRecvSeq = seqnum;
+
+                // LeaveCriticalSection(&prn->rcvpktp1);
+                #define DEBUG_METIS_READ 1
+
+#if (defined _DEBUG || defined DEBUG || defined DEBUG_METIS_READ)
+                DWORD took = done - startEnter;
+                DWORD total = timeGetTime() - startEnter;
+                if (took > 10 || total > 10) {
+                    fprintf(stderr,
+                        "Waited a long time for MetisReadDirect: took: %ld, "
+                        "total: %ld ms\n. Looped: %ld. Yielded: %ld times.\n",
+                        (int)took, (int)total, (int) loops, (int)yields);
+                }
+#endif
+                return 1024;
+            } else {
+                printf("MRD: ignoring data for ep %d\n", endpoint);
+            }
+        } else {
+            printf("MRD: ignoring right sized frame bad header! %d\n", rc);
+        }
+    } else {
+        printf("MRD: ignoring short frame size=%d\n", rc);
+    }
+
+    // LeaveCriticalSection(&prn->rcvpktp1);
+    return 0;
+}
+
 int MetisReadDirect(unsigned char* bufp) {
     struct indgram {
         unsigned char readbuf[1074];
@@ -254,7 +352,7 @@ int MetisWriteFrame(int endpoint, char* bufp) {
 // this is the main thread that reads data
 DWORD WINAPI MetisReadThreadMain(LPVOID n) {
     HANDLE hpri = prioritise_thread_max();
-
+    //SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL);
     io_keep_running = 1;
     IOThreadRunning = 1;
 
@@ -268,7 +366,7 @@ DWORD WINAPI MetisReadThreadMain(LPVOID n) {
     printf("MetisReadThread dies...\n");
     fflush(stdout);
 
-      if (hpri && hpri != INVALID_HANDLE_VALUE) prioritise_thread_cleanup(hpri);
+    if (hpri && hpri != INVALID_HANDLE_VALUE) prioritise_thread_cleanup(hpri);
 
     return 0;
 }
@@ -302,7 +400,15 @@ void MetisReadThreadMainLoop(void) {
     fflush(stdout);
     BOOL first_read = TRUE;
 
+    #define POLL_INSTEAD
+
+    #ifdef POLL_INSTEAD
+        u_long mode = 1; // 1 to enable non-blocking socket
+        ioctlsocket(listenSock, FIONBIO, &mode);
+    #endif
+
     while (io_keep_running != 0) {
+        #ifndef POLL_INSTEAD
         WSAWaitForMultipleEvents(
             1, &prn->hDataEvent, FALSE, WSA_INFINITE, FALSE);
         if (io_keep_running == 0) break; // must check after blocking call.
@@ -318,8 +424,12 @@ void MetisReadThreadMainLoop(void) {
                     prn->wsaProcessEvents.iErrorCode[FD_READ_BIT]);
                 break;
             }
-
             MetisReadDirect(FPGAReadBufp);
+        #else
+            MetisReadDirectPOLL(FPGAReadBufp);
+
+        #endif
+            
 
             if (io_keep_running == 0) break;
 
@@ -441,7 +551,7 @@ void MetisReadThreadMainLoop(void) {
             }
         }
     }
-}
+
 
 void WriteMainLoop(char* bufp) {
     // now attempt to TX if there is a frame of data to send
@@ -718,7 +828,7 @@ void WriteMainLoop(char* bufp) {
 
     // now add the data for the two USB frames
     memcpy(
-        FPGAWriteBufp + 8, bufp, sizeof(char) * 8 * 63); // add LRIQ to frame 1
+        FPGAWriteBufp + 8, bufp, sizeof(char) * 8 * 63); // add LRIQ to frame 1recf
     memcpy(FPGAWriteBufp + 520, bufp + 504,
         sizeof(char) * 8 * 63); // add LRIQ to frame 2
 
@@ -739,10 +849,19 @@ DWORD WINAPI sendProtocol1Samples(LPVOID n) {
     pbuffs[1] = prn->outIQbufp;
 
     while (io_keep_running != 0) {
+        DWORD dw1 = timeGetTime();
         // G7KLJ: this thread never died due to an infinite wait here
         DWORD dwWait = WaitForMultipleObjects(2, prn->hsendEventHandles, TRUE, 250);
+        DWORD dw2 = timeGetTime();
         if (dwWait == WAIT_TIMEOUT) {
             continue;
+        }
+
+        DWORD waited = dw2 - dw1;
+        if (waited > 10) {
+            volatile DWORD since_signalled = timeGetTime() - prn->last_time_signalled;
+            printf("waited ages for send event handles: %ld ms. Was signalled %ld ms ago.\n", (int)waited,
+                (int)since_signalled);
         }
         // if ((nddc == 2) || (nddc == 4))
         {

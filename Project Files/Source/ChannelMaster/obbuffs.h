@@ -62,6 +62,7 @@ typedef struct _obb {
     volatile long accept; // flag indicating whether accepting input data
     HANDLE Sem_BuffReady; // count = number of output-sized buffers queued for
                           // processing
+    DWORD sem_buff_flagged_when; // help debug timing issues
     CRITICAL_SECTION csOUT; // used to block output while parameters are updated
                             // or buffers flushed
     CRITICAL_SECTION csIN; // used to block input while parameters are updated

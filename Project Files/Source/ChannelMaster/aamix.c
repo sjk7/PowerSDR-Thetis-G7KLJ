@@ -393,6 +393,7 @@ int xaamix(AAMIX a) {
     what = _InterlockedAnd(&a->what, 0xffffffff)
         & _InterlockedAnd(&a->active, 0xffffffff);
     i = 0;
+   
     while (what != 0) {
         mask = 1 << i;
         if ((mask & what) != 0) {
@@ -413,8 +414,8 @@ int xaamix(AAMIX a) {
     if (_InterlockedAnd(&a->slew.uflag, 1)) upslew(a);
     if (_InterlockedAnd(&a->slew.dflag, 1)) downslew(a);
     
-    // if (got_lock)
-    LeaveCriticalSection(&a->cs_out); // 26117: releasing unheld lock
+
+    LeaveCriticalSection(&a->cs_out); 
     return NOERROR;
 }
 

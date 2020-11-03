@@ -6426,19 +6426,12 @@ namespace Thetis
         {
             if (comboAudioInput2.SelectedIndex < 0) return;
             bool output_is_valid = comboAudioOutput2.SelectedIndex >= 0;
-            if (!output_is_valid) 
-                return;
+
 
             if (comboAudioOutput2.Text.Length == 0)
             {
                 output_is_valid = false;
             }
-
-            if (!output_is_valid)
-            {
-                return; // prevent bogus messages during API change
-            }
-
 
             int old_input = Audio.Input2;
             int new_input = ((PADeviceInfo)comboAudioInput2.SelectedItem).Index;
@@ -6454,7 +6447,7 @@ namespace Thetis
             console.AudioInputIndex2 = new_input;
             Audio.Input2 = new_input;
 
-            if (power && chkAudioEnableVAC.Checked && old_input != new_input)
+            if (power && chkAudioEnableVAC.Checked && old_input != new_input && output_is_valid)
             {
                 // console.PowerOn = true;
                 Audio.EnableVAC1(false);

@@ -305,7 +305,7 @@ namespace Thetis
 
 
         // number of software receivers
-        private static int cmRCVR = 5;
+        private static int cmRCVR = 2;
         public static int CMrcvr
         {
             get { return cmRCVR; }

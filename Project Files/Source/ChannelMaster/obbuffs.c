@@ -98,6 +98,7 @@ PORT void OutBound(int id, int nsamples, double* in) {
     int n;
     int first, second;
     OBB a = obp.pebuff[id];
+    DWORD d1 = timeGetTime();
     if (_InterlockedAnd(&a->accept, 1)) {
         EnterCriticalSection(&a->csIN);
         if (nsamples > (a->r1_active_buffsize - a->r1_inidx)) {
@@ -112,7 +113,14 @@ PORT void OutBound(int id, int nsamples, double* in) {
 
         if ((a->r1_unqueuedsamps += nsamples) >= a->r1_outsize) {
             n = a->r1_unqueuedsamps / a->r1_outsize;
+            DWORD d2 = timeGetTime();
+            volatile DWORD took = d2 - d1;
+            if (took > 10) {
+                printf("took ages: %ld\n", (int) took);
+            }
+            a->sem_buff_flagged_when = timeGetTime();
             ReleaseSemaphore(a->Sem_BuffReady, n, 0);
+            
             a->r1_unqueuedsamps -= n * a->r1_outsize;
         }
         if ((a->r1_inidx += nsamples) >= a->r1_active_buffsize)
@@ -146,6 +154,7 @@ int obdata(int id, double* out) {
 
 
 
+
 void ob_main(void* pargs) {
    HANDLE hpri = prioritise_thread_max();
 
@@ -154,13 +163,22 @@ void ob_main(void* pargs) {
 #pragma warning(default : 4311)
 
     OBB a = obp.pdbuff[id];
+    
 
     while (_InterlockedAnd(&a->run, 1)) {
+        DWORD dw1 = timeGetTime();
         DWORD dwWait = WaitForSingleObject(a->Sem_BuffReady, 500);
         if (dwWait == WAIT_TIMEOUT) {
             continue;
         }
-
+        #ifdef DEBUG_TIMINGS
+        DWORD dw2 = timeGetTime();
+        volatile DWORD took = dw2 - dw1;
+        if (took > 10) {
+            volatile DWORD since_flagged = dw2 - a->sem_buff_flagged_when;
+            printf("Took ages waiting for Sem_BuffReady %ld\n", (int)took);
+        }
+        #endif
         EnterCriticalSection(&a->csOUT);
         LeaveCriticalSection(&a->csOUT);
         if (obdata(id, a->out) < 0) {

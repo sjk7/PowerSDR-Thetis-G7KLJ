@@ -24,6 +24,13 @@ warren@wpratt.com
 
 */
 
+#if defined(DEBUG) || defined(_DEBUG)
+#define DEBUG_TIMINGS
+#endif
+
+#define DEBUG_TIMINGS 
+// fixme
+
 typedef double SAMPLETYPE;
 
 #ifndef MY_PATIENCE
@@ -116,7 +123,7 @@ static inline HANDLE prioritise_thread_max() {
         //assert("Why did setting thread priority fail?" == 0);
         const DWORD dw = GetLastError();
         if (dw == 1552) { // the specified thread is already joining a task
-            assert(0);
+            //assert(0);
         } else {
             SetThreadPriority(
                 GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL);

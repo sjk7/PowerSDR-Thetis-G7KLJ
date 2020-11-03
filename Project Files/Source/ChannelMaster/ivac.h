@@ -110,6 +110,7 @@ extern __declspec(dllexport) void create_ivac(int id, int run,
     int vac_size // VAC buffer size
 );
 
+PORT void SetIVACMonVolume(int id, double volume);
 extern void SetIVACtxmonRate(int id, int rate);
 extern void SetIVACtxmonSize(int id, int size);
 extern __declspec(dllexport) void SetIVACiqSizeAndRate(

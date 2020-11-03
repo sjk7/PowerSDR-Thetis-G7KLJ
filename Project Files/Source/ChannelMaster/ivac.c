@@ -111,6 +111,7 @@ PORT void destroy_ivac(int id) {
 
 PORT void xvacIN(int id, double* in_tx, int bypass) {
     // used for MIC data to TX
+    // might be a clue where to record audio from in wave recorder, since it doesn't work with vac!
     IVAC a = pvac[id];
     if (a->run)
         if (!a->vac_bypass && !bypass) {
@@ -146,6 +147,7 @@ void xvac_out(int id, int nsamples,
 
 void StreamFinishedCallback(void* userData) {
 
+    #pragma warning(disable : 4311)
     int id = (int)userData;
     IVAC a = pvac[id];
     if (a->have_set_thread_priority == 1) {
@@ -153,6 +155,8 @@ void StreamFinishedCallback(void* userData) {
         a->have_set_thread_priority = 0;
         a->MMThreadApiHandle = 0;
     }
+
+     #pragma warning(default : 4311)
 
 }
 
@@ -471,7 +475,9 @@ PORT void SetIVACvox(int id, int vox) {
 
 PORT void SetIVACmox(int id, int mox) {
     IVAC a = pvac[id];
+
     a->mox = mox;
+    
     if (!a->mox) {
         SetAAudioMixWhat(a->mixer, 0, 1, 0);
         SetAAudioMixWhat(a->mixer, 0, 0, 1);
@@ -486,17 +492,43 @@ PORT void SetIVACmox(int id, int mox) {
 
 PORT void SetIVACmon(int id, int mon) {
     IVAC a = pvac[id];
+   
     a->mon = mon;
+
     if (!a->mox) {
         SetAAudioMixWhat(a->mixer, 0, 1, 0);
         SetAAudioMixWhat(a->mixer, 0, 0, 1);
-    } else if (a->mon) {
+    } else if (mon) {
         SetAAudioMixWhat(a->mixer, 0, 0, 0);
         SetAAudioMixWhat(a->mixer, 0, 1, 1);
     } else {
         SetAAudioMixWhat(a->mixer, 0, 0, 0);
         SetAAudioMixWhat(a->mixer, 0, 1, 0);
     }
+}
+
+PORT void SetIVACMonVolume(int id, double vol) {
+    
+    if (id == -1) {
+        // overall monitor gain
+        IVAC pa = pvac[0];
+        AAMIX a = (AAMIX)pa->mixer;
+        a->volume = vol;
+        for (int i = 0; i < 32; ++i) {
+            a->tvol[i] = vol * a->vol[i];
+        }
+        return;
+    }
+    // tx mon only:
+    IVAC pa = pvac[id];
+    assert(pa->mixer);
+    AAMIX a = (AAMIX)pa->mixer;
+
+    EnterCriticalSection(&a->cs_out);
+    const int mon_index = 1;
+    a->tvol[mon_index] = vol * a->vol[mon_index];
+    LeaveCriticalSection(&a->cs_out);
+
 }
 
 PORT void SetIVACpreamp(int id, double preamp) {

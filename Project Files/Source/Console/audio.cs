@@ -229,6 +229,19 @@ namespace Thetis
             {
                 monitor_volume = value;
                 cmaster.CMSetAudioVolume(value);
+                // G7KLJ bugfix: tx mon volume was not working on VAC!
+                if (console.VACEnabled)
+                {
+                    if (console.MOX)
+                    {
+                        ivac.SetIVACMonVolume(0, value);
+                    }
+                    else
+                    {
+                        // overall gain:
+                        ivac.SetIVACMonVolume(-1, value);
+                    }
+                }
             }
         }
 
