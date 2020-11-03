@@ -24,7 +24,7 @@ The author can be reached by email at
 warren@wpratt.com
 
 */
-
+#include <stdint.h>
 #include "cmcomm.h"
 #include "pa_win_wasapi.h"
 #include "pa_win_wdmks.h"
@@ -122,8 +122,29 @@ PORT void xvacIN(int id, double* in_tx, int bypass) {
             xrmatchOUT(a->rmatchIN, a->bitbucket);
 }
 
+#ifdef DEBUG_TIMINGS
+static DWORD last_times[32];
+static uint32_t times_ctr = 0;
+static uint32_t fails = 0;
+#endif
 PORT void xvacOUT(int id, int stream, double* data) {
     IVAC a = pvac[id];
+
+    #ifdef DEBUG_TIMINGS
+    if (times_ctr++ > 5000) {
+        DWORD since = timeGetTime() - last_times[stream];
+        if (since > 10) {
+            fails++;
+            if (fails > 10) {
+
+                fprintf(stderr,
+                    "xvacOUT: long time between calls, for stream: %ld, took: %ld ms.\n",
+                    stream, (int)since);
+            }
+        }
+    }
+    #endif
+ 
     // receiver input data (iq_type) -> stream = 0
     // receiver output data (audio)  -> stream = 1
     // transmitter output data (mon) -> stream = 2
@@ -136,6 +157,9 @@ PORT void xvacOUT(int id, int stream, double* data) {
         } else if (stream == 0)
             xrmatchIN(a->rmatchOUT, data); // i-q data from RX stream
     }
+#ifdef DEBUG_TIMINGS
+    last_times[stream] = timeGetTime();
+    #endif
 }
 
 void xvac_out(int id, int nsamples,

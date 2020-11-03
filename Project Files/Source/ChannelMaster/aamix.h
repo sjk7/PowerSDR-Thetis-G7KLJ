@@ -29,34 +29,48 @@ warren@wpratt.com
 
 #include "resample.h"
 
+#ifndef MAX_POSSIBLE_MIXER_INPUTS
+#define MAX_POSSIBLE_MIXER_INPUTS 32
+#endif
 
 typedef struct _aamix
 {
 	int id;										// id of this aamixer
-	int outbound_id;							// id to use in the Outbound() call
+	volatile int outbound_id;							// id to use in the Outbound() call
 	volatile long run;							// thread runs when set to 1
-	volatile long accept[32];					// ring accepts data when set to 1
+    volatile long
+        accept[MAX_POSSIBLE_MIXER_INPUTS]; // ring accepts data when set to 1
 	int ringinsize;								// input size to rings, complex samples
 	int outsize;								// size to output, complex samples
 	int ninputs;								// number of inputs, assumed to be consecutive beginning at 0
 	int rsize;									// total size of a ring, complex samples
-	double* ring[32];							// ring buffers
+    double* ring[MAX_POSSIBLE_MIXER_INPUTS]; // ring buffers
 	double* out;								// pointer to output buffer
 	volatile long active;						// one bit per active (data flowing) input
-	int nactive;								// number of active inputs
+	volatile int nactive;								// number of active inputs
 	volatile long what;							// one bit per item to mix
-	double vol [32];							// volume scaling per input
-	double tvol[32];							// final volume scaling
+    double vol[MAX_POSSIBLE_MIXER_INPUTS]; // volume scaling per input
+    double tvol[MAX_POSSIBLE_MIXER_INPUTS]; // final volume scaling
 	double volume;								// master volume scaling
-	int inidx [32];								// input  indexes of rings, complex samples
-	int outidx[32];								// output indexes of rings, complex samples
-	int unqueuedsamps[32];						// for each ring, number of complex samples not yet released for mixing
-	HANDLE Ready[32];							// semaphore handles, one per possible input
-	HANDLE Aready[32];							// semaphore handles for active inputs
-	CRITICAL_SECTION cs_in[32];					// cs to protect input process
+    int inidx[MAX_POSSIBLE_MIXER_INPUTS]; // input  indexes of rings, complex
+                                          // samples
+    int outidx[MAX_POSSIBLE_MIXER_INPUTS]; // output indexes of rings, complex
+                                           // samples
+    int unqueuedsamps[MAX_POSSIBLE_MIXER_INPUTS]; // for each ring, number of
+                                                  // complex samples not yet
+                                                  // released for mixing
+    HANDLE Ready[MAX_POSSIBLE_MIXER_INPUTS]; // semaphore handles, one per
+                                             // possible input
+    HANDLE Aready[MAX_POSSIBLE_MIXER_INPUTS]; // semaphore handles for active
+                                              // inputs
+    volatile DWORD
+        when_ready_flagged[MAX_POSSIBLE_MIXER_INPUTS]; // debug timing helper,
+                                                       // G7KLJ
+    CRITICAL_SECTION
+        cs_in[MAX_POSSIBLE_MIXER_INPUTS]; // cs to protect input process
 	CRITICAL_SECTION cs_out;					// cs to protect output process
-	RESAMPLE rsmp[32];							// array of resampler pointers
-	int inrate[32];								// sample rates of the inputs
+        RESAMPLE rsmp[MAX_POSSIBLE_MIXER_INPUTS]; // array of resampler pointers
+    int inrate[MAX_POSSIBLE_MIXER_INPUTS]; // sample rates of the inputs
 	int outrate;								// sample rate of the output
 	double* resampbuff[32];						// buffers for resampler outputs
 	void (*Outbound)(int id, int nsamples, double* buff);	// function to call with output data

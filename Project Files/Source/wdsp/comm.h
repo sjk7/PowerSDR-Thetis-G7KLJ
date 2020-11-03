@@ -24,12 +24,7 @@ warren@wpratt.com
 
 */
 
-#if defined(DEBUG) || defined(_DEBUG)
-#define DEBUG_TIMINGS
-#endif
-
-#define DEBUG_TIMINGS 
-// fixme
+#include "../ChannelMaster/debug_flags.h"
 
 typedef double SAMPLETYPE;
 

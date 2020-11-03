@@ -86,7 +86,10 @@ PORT int SendStopToMetis() {
 
     starting_seq = MetisLastRecvSeq;
     for (i = 0; i < 5; i++) {
-        sendPacket(listenSock, (char*)&outpacket, sizeof(outpacket), 1024);
+        if (sendPacket(listenSock, (char*)&outpacket, sizeof(outpacket), 1024)
+            == -1) {
+            return -1;
+        }
         Sleep(10);
         if (MetisLastRecvSeq == starting_seq) {
             break;
@@ -136,11 +139,20 @@ void ForceCandCFrame(int count) {
 
 static DWORD tid = 0;
 
+#ifdef DEBUG_TIMINGS
+volatile static int longest_wait = 0;
+volatile static unsigned int reads = 0;
+volatile DWORD time_when_start = 0;
+#endif
+
 int MetisReadDirectPOLL(unsigned char* bufp) {
     struct indgram {
         unsigned char readbuf[1074];
     } inpacket;
 
+    #ifdef DEBUG_TIMINGS
+    if (time_when_start == 0) time_when_start = timeGetTime();
+    #endif
 
     struct sockaddr_in fromaddr;
     int fromlen;
@@ -207,17 +219,33 @@ int MetisReadDirectPOLL(unsigned char* bufp) {
                 MetisLastRecvSeq = seqnum;
 
                 // LeaveCriticalSection(&prn->rcvpktp1);
-                #define DEBUG_METIS_READ 1
+                
 
-#if (defined _DEBUG || defined DEBUG || defined DEBUG_METIS_READ)
+#if (defined _DEBUG || defined DEBUG || defined DEBUG_TIMINGS)
                 DWORD took = done - startEnter;
                 DWORD total = timeGetTime() - startEnter;
-                if (took > 10 || total > 10) {
+                if (reads++ > 20 && (took > 10 || total > 10)) {
+                    if (took > (DWORD)longest_wait ) 
+                    {
+                            longest_wait = took;
+                        fprintf(stderr,
+                            "This is the LONGEST metis read wait: %ld ms.\n",
+                            (int)longest_wait);
+                    }
                     fprintf(stderr,
                         "Waited a long time for MetisReadDirect: took: %ld, "
-                        "total: %ld ms\n. Looped: %ld. Yielded: %ld times.\n",
+                        "total: %ld ms.\nLooped: %ld. Yielded: %ld times.\n",
                         (int)took, (int)total, (int) loops, (int)yields);
+                    DWORD time_since_start = timeGetTime() - time_when_start;
+                    double sec_since_start = (double)time_since_start / 1000.0;
+                    volatile double reads_sec = (double)reads / sec_since_start;
+                    if (reads > 1000) {
+                        int ireads_per_sec = (int)reads;
+                        fprintf(stderr, "---------Average reads per sec: %ld. Secs running: %f----------\n",
+                            ireads_per_sec, sec_since_start);
+                    }
                 }
+
 #endif
                 return 1024;
             } else {
@@ -265,6 +293,7 @@ int MetisReadDirect(unsigned char* bufp) {
         errno = WSAGetLastError();
         if (errno == WSAEWOULDBLOCK || errno == WSAEMSGSIZE) {
             printf("Error code %d: recvfrom() : %s\n", errno, strerror(errno));
+            assert(0);
             fflush(stdout);
             Sleep(0);
             return 0;
@@ -382,6 +411,8 @@ void twist(int nsamples, int stream0, int stream1, int port) {
     xrouter(0, 0, port, 2 * nsamples, prn->RxReadBufp);
 }
 
+ #define POLL_INSTEAD
+
 void MetisReadThreadMainLoop(void) {
     mic_decimation_count = 0;
     SeqError = 0;
@@ -394,13 +425,15 @@ void MetisReadThreadMainLoop(void) {
     fflush(stdout);
 
     prn->hDataEvent = WSACreateEvent();
+    #ifndef POLL_INSTEAD
     WSAEventSelect(listenSock, prn->hDataEvent, FD_READ);
+    #endif
     PrintTimeHack();
     printf("- MetisReadThreadMainLoop()\n");
     fflush(stdout);
     BOOL first_read = TRUE;
 
-    #define POLL_INSTEAD
+   
 
     #ifdef POLL_INSTEAD
         u_long mode = 1; // 1 to enable non-blocking socket

@@ -25,29 +25,98 @@ warren@wpratt.com
 */
 
 #include "cmcomm.h"
+#include <stdint.h> // uint64_t
 
 #define MAX_EXT_AAMIX (4) // maximum number of AAMIXs called from outside wdsp
 __declspec(align(16)) AAMIX
     paamix[MAX_EXT_AAMIX]; // array of pointers for AAMIXs used EXTERNAL to wdsp
 
 
+#define MAX_POSS_MIXER_INPUTS 32
+typedef struct flagged_info_type {
+    volatile DWORD since_flagged_longest;
+    unsigned long num_handles;
+    volatile DWORD longest_ago;
+    volatile int longest_ago_index;
+    volatile int shortest_ago_index;
+    volatile DWORD shortest_ago;
+    volatile DWORD times_ago[MAX_POSS_MIXER_INPUTS];
+    volatile DWORD when_signalled[MAX_POSS_MIXER_INPUTS];
+    volatile int mixer_id;
+}flagged_info_t;
 
+static flagged_info_t sort_when_inputs_flagged(AAMIX a) {
+ 
+    DWORD temp_shortest_ago = 10000;
+    DWORD temp_ago = 0;
+    flagged_info_t retval = {0};
+    retval.mixer_id = a->id;
+    retval.num_handles = MAX_POSS_MIXER_INPUTS;
+    // sort these buggers
+    for (unsigned int i = 0; i < retval.num_handles; ++i) {
 
+        if (a->when_ready_flagged[i]) {
+
+            volatile DWORD ago = timeGetTime() - a->when_ready_flagged[i];
+            retval.times_ago[i] = ago;
+            retval.when_signalled[i] = a->when_ready_flagged[i];
+            if (ago >= temp_ago) {
+                retval.longest_ago = ago;
+                temp_ago = ago;
+                retval.longest_ago_index = i;
+            }
+            if (ago <= temp_shortest_ago) {
+                retval.shortest_ago = ago;
+                temp_shortest_ago = ago;
+                retval.shortest_ago_index = i;
+            }
+        }
+    }
+
+    return retval;
+}
+
+static volatile uint32_t ctr = 0;
 void mix_main(void* pargs) {
     HANDLE hpri = prioritise_thread_max();
 
     AAMIX a = (AAMIX)pargs;
 
+    ctr = 0;
     while (_InterlockedAnd(&a->run, 1)) {
+#ifdef DEBUG_TIMINGS
+        DWORD dw1 = timeGetTime();
+#endif
         DWORD dwWait = WaitForMultipleObjects(a->nactive, a->Aready, TRUE, 500);
-
+            
         if (xaamix(a) < 0) {
             break;
-            
         }
         if (dwWait == WAIT_TIMEOUT) {
             continue;
         }
+
+ #ifdef DEBUG_TIMINGS
+        DWORD dw2 = timeGetTime();
+        volatile DWORD took = dw2 - dw1;
+        if (took > 10 && ctr++ > 50) {
+            printf("***********************\nAnother hold-up! %ld ms.\n********************\n\n", (int)took);
+            volatile flagged_info_t fi = sort_when_inputs_flagged(a);
+            assert(fi.shortest_ago_index >= 0 && fi.longest_ago_index >= 0);
+            printf("Was held up waiting for input for mixer with id: %ld, with index: %ld\n",
+                fi.mixer_id,
+                (int)fi.shortest_ago_index);
+            printf("INFO: The earliest input was flagged %ld ms ago,\nmeaning "
+                   "the difference between flagged times is: %ld [idx %ld] - %ld [idx %ld] \n", 
+                (int)fi.longest_ago, (int)(fi.shortest_ago - fi.longest_ago), fi.shortest_ago_index,
+                fi.shortest_ago_index,
+                fi.longest_ago_index);
+            fflush(stdout);
+            assert(fi.longest_ago_index >= 0 && fi.shortest_ago_index >= 0);
+        }
+#endif
+
+        
         (*a->Outbound)(a->outbound_id, a->outsize, a->out);
         // WriteAudio (30.0, 48000, a->outsize, a->out, 3);
     }
@@ -157,7 +226,15 @@ void* create_aamix(int id, int outbound_id, int ringinsize, int outsize,
         a->Ready[i] = CreateSemaphore(0, 0, 1000, 0);
         InitializeCriticalSectionAndSpinCount(&a->cs_in[i], 2500);
         if (_InterlockedAnd(&a->active, 0xffffffff) & (1 << i)) {
-            a->Aready[a->nactive++] = a->Ready[i];
+
+            int idx = a->nactive++;
+        
+#ifdef DEBUG_TIMINGS
+
+            a->when_ready_flagged[idx] = timeGetTime();
+#endif
+            
+            a->Aready[idx] = a->Ready[i];
             InterlockedBitTestAndSet(&a->accept[i], 0);
         } else
             InterlockedBitTestAndReset(&a->accept[i], 0);
@@ -216,10 +293,29 @@ void destroy_aamix(void* ptr, int id) {
 }
 
 // loads data from a buffer into an audio mixer ring
+#ifdef DEBUG_TIMINGS
+static DWORD last_times[32];
+static uint32_t times_ctr = 0;
+#endif
+
 void xMixAudio(void* ptr, int id, int stream, double* data) {
+    
+    DWORD time_enter = timeGetTime();
     int first, second, n;
-    double* indata;
-    AAMIX a;
+    double* indata = 0;
+    AAMIX a = 0;
+
+    #ifdef DEBUG_TIMINGS
+    if (last_times[stream] && times_ctr++ > 5000) {
+        DWORD since = time_enter - last_times[stream];
+        if (since > 10 && since < 1000) {
+            fprintf(stderr,
+                "xMixAudio: long time %ld ms between calls, after being called %ld times, for stream %ld\n",
+                (int)since, times_ctr, stream);
+        }
+    }
+    #endif
+
     if (ptr == 0)
         a = paamix[id];
     else
@@ -245,13 +341,21 @@ void xMixAudio(void* ptr, int id, int stream, double* data) {
 
         if ((a->unqueuedsamps[stream] += a->ringinsize) >= a->outsize) {
             n = a->unqueuedsamps[stream] / a->outsize;
+            #ifdef DEBUG_TIMINGS
+                a->when_ready_flagged[stream] = timeGetTime();
+            #endif
             ReleaseSemaphore(a->Ready[stream], n, 0);
             a->unqueuedsamps[stream] -= n * a->outsize;
         }
         if ((a->inidx[stream] += a->ringinsize) >= a->rsize)
             a->inidx[stream] -= a->rsize;
         LeaveCriticalSection(&a->cs_in[stream]);
+        #ifdef DEBUG_TIMINGS
+        last_times[stream] = timeGetTime();
+        #endif
     }
+
+    
 }
 
 void upslew(AAMIX a) {
@@ -449,10 +553,13 @@ void close_mixer(AAMIX a) {
         &a->cs_out); // block the mixer thread at the beginning of xaamix()
     Sleep(25); // wait for thread to arrive at the top of the main() loop
     InterlockedBitTestAndReset(&a->run, 0); // set a trap for the mixer thread
-    for (i = 0; i < a->ninputs; i++)
+    for (i = 0; i < a->ninputs; i++) {
+
         ReleaseSemaphore(
             a->Ready[i], 1, 0); // be sure the mixer thread can pass
                                 // WaitForMultipleObjects in main()
+    }
+
     LeaveCriticalSection(
         &a->cs_out); // let the thread pass to the trap in xaamix()
     Sleep(2); // wait for the mixer thread to die
@@ -515,7 +622,12 @@ PORT void SetAAudioMixState(void* ptr, int id, int stream, int state) {
         a->nactive = 0;
         for (i = 0; i < a->ninputs; i++)
             if (_InterlockedAnd(&a->active, 0xffffffff) & (1 << i)) {
-                a->Aready[a->nactive++] = a->Ready[i];
+                int idx = a->nactive++;
+#ifdef DEBUG_TIMINGS
+
+                a->when_ready_flagged[idx] = timeGetTime();
+#endif
+                a->Aready[idx] = a->Ready[i];
                 InterlockedBitTestAndSet(&a->accept[i], 0);
             } else
                 InterlockedBitTestAndReset(&a->accept[i], 0);
@@ -550,7 +662,12 @@ PORT void SetAAudioMixStates(void* ptr, int id, int streams, int states) {
         a->nactive = 0;
         for (i = 0; i < a->ninputs; i++)
             if (_InterlockedAnd(&a->active, 0xffffffff) & (1 << i)) {
-                a->Aready[a->nactive++] = a->Ready[i];
+                int myactive = a->nactive++;
+#ifdef DEBUG_TIMINGS
+
+                a->when_ready_flagged[myactive] = timeGetTime();
+#endif
+                a->Aready[myactive] = a->Ready[i];
                 InterlockedBitTestAndSet(&a->accept[i], 0);
             } else
                 InterlockedBitTestAndReset(&a->accept[i], 0);

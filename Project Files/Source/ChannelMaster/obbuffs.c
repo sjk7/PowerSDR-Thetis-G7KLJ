@@ -94,10 +94,18 @@ void flush_obbuffs(int id) {
         ;
 }
 
+DWORD last_outbound_time = 0;
 PORT void OutBound(int id, int nsamples, double* in) {
     int n;
     int first, second;
     OBB a = obp.pebuff[id];
+
+    if (last_outbound_time) {
+        volatile DWORD took = timeGetTime() - last_outbound_time;
+        if (took > 10) {
+            printf("What's the hold-up? %ld\n", (int)took);
+        }
+    }
     DWORD d1 = timeGetTime();
     if (_InterlockedAnd(&a->accept, 1)) {
         EnterCriticalSection(&a->csIN);
@@ -127,6 +135,7 @@ PORT void OutBound(int id, int nsamples, double* in) {
             a->r1_inidx -= a->r1_active_buffsize;
         LeaveCriticalSection(&a->csIN);
     }
+    last_outbound_time = timeGetTime();
 }
 
 int obdata(int id, double* out) {
@@ -171,14 +180,16 @@ void ob_main(void* pargs) {
         if (dwWait == WAIT_TIMEOUT) {
             continue;
         }
-        #ifdef DEBUG_TIMINGS
+        
+#ifdef DEBUG_TIMINGS
         DWORD dw2 = timeGetTime();
         volatile DWORD took = dw2 - dw1;
         if (took > 10) {
             volatile DWORD since_flagged = dw2 - a->sem_buff_flagged_when;
-            printf("Took ages waiting for Sem_BuffReady %ld\n", (int)took);
+            printf("Took ages waiting for Sem_BuffReady %ld ms. It was flagged %ld ms ago.\n", (int)took, (int)since_flagged);
         }
-        #endif
+        
+#endif
         EnterCriticalSection(&a->csOUT);
         LeaveCriticalSection(&a->csOUT);
         if (obdata(id, a->out) < 0) {

@@ -24,6 +24,7 @@ warren@wpratt.com
 
 */
 #pragma warning(disable:4312) // 'type cast': conversion from 'int' to 'void *' of greater size. NUISANCE! G7KLJ
+
 #include <Windows.h>
 #include <process.h>
 #include <intrin.h>
@@ -48,36 +49,7 @@ warren@wpratt.com
 #include "vox.h"
 #include "znob.h"
 #include "znobII.h"
+#include "debug_flags.h"
 
-#ifdef _DEBUG
-#define _DEBUG_TO_FILE
-#endif
-static inline void dump_to_file(void* data, size_t sz) {
-#ifdef _DEBUG_TO_FILE
 
-    static FILE* fp = NULL;
-    if (fp == NULL) {
-        fp = fopen("test.raw", "wb");
-    }
 
-    assert(fp);
-    size_t wrote = fwrite(data, 1, sz, fp);
-    assert(wrote == sz);
-
-#endif
-}
-
-static inline void dump_to_file2(void* data, size_t sz) {
-#ifdef _DEBUG_TO_FILE
-
-    static FILE* fp = NULL;
-    if (fp == NULL) {
-        fp = fopen("test2.raw", "wb");
-    }
-
-    assert(fp);
-    size_t wrote = fwrite(data, 1, sz, fp);
-    assert(wrote == sz);
-
-#endif
-}

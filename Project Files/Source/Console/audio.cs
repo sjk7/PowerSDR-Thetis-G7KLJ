@@ -872,6 +872,18 @@ namespace Thetis
                 {
                     cmaster.SetAAudioMixWhat((void*)0, 0, 0, !mute_rx1);
                     cmaster.SetAAudioMixWhat((void*)0, 0, 1, !mute_rx1);
+                    if (console.VACEnabled)
+                    {
+                        if (value)
+                        {
+                            ivac.SetIVACMonVolume(-1, 0);
+                        }
+                        else
+                        {
+                            
+                            ivac.SetIVACMonVolume(-1, MonitorVolume);
+                        }
+                    }
                 }
             }
         }

@@ -86,7 +86,7 @@
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\channelmaster\</IntDir>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -109,7 +109,7 @@
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <CompileAs>CompileAsC</CompileAs>
       <AdditionalOptions>/D_ATL_XP_TARGETING /FS %(AdditionalOptions)</AdditionalOptions>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -117,10 +117,11 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <OutputFile>$(OutDir)ChannelMaster.dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\</AdditionalLibraryDirectories>
       <AdditionalDependencies>winmm.lib;wdsp.lib;portaudioforThetis.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(OutDir)$(ProjectName).dll" "$(PROJECTDIR)../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(ProjectName).dll";</Command>
@@ -152,7 +153,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <OutputFile>$(OutDir)ChannelMaster.dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\</AdditionalLibraryDirectories>
       <AdditionalDependencies>winmm.lib;wdsp.lib;PortAudioForThetis.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -178,7 +179,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_WINDOWS;_USRDLL;CHANNELMASTER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\wdsp;.;../../lib/portaudio/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <CompileAs>CompileAsC</CompileAs>
@@ -196,6 +197,7 @@
       <OutputFile>$(OutDir)ChannelMaster.dll</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\;</AdditionalLibraryDirectories>
       <AdditionalDependencies>winmm.lib;wdsp.lib;portAudioForThetis.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
@@ -256,6 +258,7 @@
     <ClInclude Include="cmbuffs.h" />
     <ClInclude Include="cmcomm.h" />
     <ClInclude Include="cmsetup.h" />
+    <ClInclude Include="debug_flags.h" />
     <ClInclude Include="ilv.h" />
     <ClInclude Include="ivac.h" />
     <ClInclude Include="nanotimer.h" />
@@ -314,6 +317,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ChannelMaster.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

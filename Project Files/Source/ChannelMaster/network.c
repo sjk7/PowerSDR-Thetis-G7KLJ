@@ -115,10 +115,10 @@ PORT int nativeInitMetis(
     MetisAddr = inet_addr(netaddr);
     fflush(stdout);
 
-    sndbufsize = 0xfa000;
+    sndbufsize = 0xfa000 * 16;
     setsockopt(listenSock, SOL_SOCKET, SO_SNDBUF, (const char*)&sndbufsize,
         sizeof(int));
-    sndbufsize = 0x10000;
+    sndbufsize = 0x10000 * 16;
     setsockopt(listenSock, SOL_SOCKET, SO_RCVBUF, (const char*)&sndbufsize,
         sizeof(int));
 
@@ -296,6 +296,7 @@ int ReadUDPFrame(unsigned char* bufp) {
         if (errno == WSAEWOULDBLOCK || errno == WSAEMSGSIZE) {
             printf("Error code %d: recvfrom() : %s\n", errno, strerror(errno));
             fflush(stdout);
+            assert(0);
         }
         return nrecv;
     }
@@ -1110,7 +1111,11 @@ int sendPacket(SOCKET sock, char* data, int length, int port) {
                 Sleep(1);
                 continue;
             } else {
-                assert(sock_error == 0);
+                if (sock_error != 0) {
+                    LeaveCriticalSection(&prn->sndpkt);
+                    return ret;
+                }
+               
             }
         } else {
             if (ret == 0) {
@@ -1187,8 +1192,12 @@ int IOThreadStop() {
     (void)tid;
     SetEvent(prn->hDataEvent); // make sure main thread can wake up. Fixes
                                // deadlock when app closed.
-    WaitForSingleObject(prn->hReadThreadMain, INFINITE);
-
+    DWORD dwWait = WaitForSingleObject(prn->hReadThreadMain, 30000);
+    if (dwWait == WAIT_TIMEOUT) {
+        // meh, at least you didnt lock up forever
+        fprintf(stderr, "IOThreadStop() forcing closure.\n");
+        assert(0);
+    }
     CloseHandle(prn->hReadThreadMain);
     CloseHandle(prn->hReadThreadInitSem);
     CloseHandle(prn->hWriteThreadMain);

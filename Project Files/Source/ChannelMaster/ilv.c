@@ -54,10 +54,15 @@ void destroy_ilv (ILV a)
 	_aligned_free (a);
 }
 
+
+
 void xilv (ILV a, double** data)
 {
 	int i, j, k;
 	int what, mask;
+	#ifdef DEBUG_TIMINGS
+    DWORD dw = timeGetTime();
+	#endif
 	if (_InterlockedAnd(&a->run, 1))
 	{
 		k = 0;
@@ -86,6 +91,16 @@ void xilv (ILV a, double** data)
 			memcpy(a->outbuff, data[0], a->insize * sizeof(complex));
 	}
 	(*a->Outbound)(a->obid, k, a->outbuff);
+	
+#ifdef DEBUG_TIMINGS
+	DWORD dw2 = timeGetTime();
+	DWORD took = dw2 - dw;
+    if (took > 10) {
+        printf("xilv took a long time: %ld ms.\n", (int)took);
+	}
+#endif
+
+
 }
 
 /********************************************************************************************************

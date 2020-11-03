@@ -310,7 +310,10 @@ void destroy_cmaster()
 PORT
 void xcmaster (int stream)
 {
-	int error;
+	int error = 0;
+	#ifdef DEBUG_TIMINGS
+    DWORD dw = timeGetTime();
+	#endif
 	EnterCriticalSection (&pcm->update[stream]);
 	switch (stype (stream))
 	{
@@ -354,6 +357,13 @@ void xcmaster (int stream)
 		break;
 	}
 	LeaveCriticalSection (&pcm->update[stream]);
+#ifdef DEBUG_TIMINGS
+    DWORD dw2 = timeGetTime();
+    DWORD took = dw2 - dw2;
+    if (took > 10) {
+		printf("xcmaster held up, took: %ld ms.\n", (int)took);
+    }
+#endif
 }
 
 PORT

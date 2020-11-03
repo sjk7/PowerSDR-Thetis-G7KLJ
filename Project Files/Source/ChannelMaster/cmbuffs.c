@@ -109,6 +109,7 @@ PORT void Inbound(int id, int nsamples, double* in) {
 
         if ((a->r1_unqueuedsamps += nsamples) >= a->r1_outsize) {
             n = a->r1_unqueuedsamps / a->r1_outsize;
+            a->when_sembuffready = timeGetTime();
             ReleaseSemaphore(a->Sem_BuffReady, n, 0);
             a->r1_unqueuedsamps -= n * a->r1_outsize;
         }
@@ -139,6 +140,9 @@ void cmdata(int id, double* out) {
         a->r1_outidx -= a->r1_active_buffsize;
     LeaveCriticalSection(&a->csOUT);
 }
+#ifdef DEBUG_TIMINGS
+static unsigned int  times_ctr = 0;
+#endif
 
 void cm_main(void* pargs) {
     HANDLE hpri = prioritise_thread_max();
@@ -149,11 +153,34 @@ void cm_main(void* pargs) {
 #pragma warning(default: 4311)
     CMB a = pcm->pdbuff[id];
 
+    #ifdef DEBUG_TIMINGS
+    if (times_ctr == 0) {
+        a->when_sembuffready = 0;
+    }
+    #endif
+
     while (_InterlockedAnd(&a->run, 1)) {
+        #ifdef DEBUG_TIMINGS
+        DWORD dwstartwait = timeGetTime();
+        #endif
         DWORD dwWait = WaitForSingleObject(a->Sem_BuffReady, 500);
         if (dwWait == WAIT_TIMEOUT) {
             continue;
         }
+
+#ifdef DEBUG_TIMINGS
+        DWORD dwendwait = timeGetTime();
+        DWORD took = dwendwait - dwstartwait;
+        if (took > 10 && times_ctr++ > 50) {
+            DWORD how_long_ready = dwendwait - a->when_sembuffready;
+            fprintf(stderr, "cm_main: long time between calls: %ld ms, for id %ld\n",
+                (int)took, id);
+            fprintf(stderr, "cm_main: time since Sem_BuffReady signalled: %ld ms.\n",
+                (int)how_long_ready);
+            fflush(stderr);
+        }
+#endif
+
         cmdata(id, pcm->in[id]);
         xcmaster(id);
     }

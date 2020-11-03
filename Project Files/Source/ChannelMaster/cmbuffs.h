@@ -48,6 +48,7 @@ typedef struct _cmb
 	HANDLE Sem_BuffReady;						// count = number of output-sized buffers queued for processing
 	CRITICAL_SECTION csOUT;						// used to block output while parameters are updated or buffers flushed
 	CRITICAL_SECTION csIN;						// used to block input while parameters are updated or buffers flushed
+    volatile DWORD when_sembuffready;					// G7KLJ: debug timing info
 } cmb, *CMB;
 
 extern void create_cmbuffs (int id, int accept, int max_insize, int max_outsize, int outsize);
