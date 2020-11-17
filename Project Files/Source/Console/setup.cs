@@ -45,6 +45,8 @@ namespace Thetis
     using System.IO.Ports;
     using RawInput_dll;
 
+
+
     public partial class Setup : Form
     {
         #region Variable Declaration
@@ -59,6 +61,13 @@ namespace Thetis
         private string RXAntChk3Name;                   // radio dependent name for 3rd check box
 
         #endregion
+
+        public bool refreshing = false;
+
+        public bool VAC1isExclusive()
+        {
+            return chkExclusive.Checked;
+        }
 
         #region Constructor and Destructor
 
@@ -1534,7 +1543,7 @@ namespace Thetis
             udDSPNBLead_ValueChanged(this, e);
             udDSPNBLag_ValueChanged(this, e);
             comboMeterType_SelectedIndexChanged(this, e);
-            
+
             comboAppSkin_SelectedIndexChanged(this, e);
             chkDisablePicDisplayBackgroundImage_CheckedChanged(this, e);
 
@@ -6360,6 +6369,8 @@ namespace Thetis
         private void comboAudioDriver2_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             if (comboAudioDriver2.SelectedIndex < 0) return;
+            if (refreshing) return;
+
 
             int old_driver = Audio.Host2;
             int new_driver = ((PADeviceInfo)comboAudioDriver2.SelectedItem).Index;
@@ -6425,6 +6436,7 @@ namespace Thetis
         private void comboAudioInput2_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             if (comboAudioInput2.SelectedIndex < 0) return;
+            if (refreshing) return;
             bool output_is_valid = comboAudioOutput2.SelectedIndex >= 0;
 
 
@@ -6484,6 +6496,7 @@ namespace Thetis
         private void comboAudioOutput2_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             if (comboAudioOutput2.SelectedIndex < 0) return;
+            if (refreshing) return;
 
             int old_output = Audio.Output2;
             int new_output = ((PADeviceInfo)comboAudioOutput2.SelectedItem).Index;
@@ -6941,6 +6954,8 @@ namespace Thetis
                 //Thread.Sleep(100);
                 Audio.VACEnabled = chkAudioEnableVAC.Checked;
             }
+
+            Audio.EnableVAC1Exclusive (chkExclusive.Checked);
         }
 
         private void comboAudioBuffer3_SelectedIndexChanged(object sender, System.EventArgs e)
@@ -19553,16 +19568,17 @@ namespace Thetis
             bool newval = chkExclusive.Checked;
             bool oldval = ivac.GetIVACExclusive(0) != 0;
 
-            
 
-            if (newval != oldval) {
+
+            if (newval != oldval)
+            {
                 if (console.PowerOn && chkAudioEnableVAC.Checked && !initializing)
                 {
                     // console.PowerOn = false;
                     // Thread.Sleep(100);
                     Audio.EnableVAC1(false);
                 }
-                ivac.SetIVACExclusive(0, newval ? 1 : 0);      
+                ivac.SetIVACExclusive(0, newval ? 1 : 0);
             }
 
             if (initializing) return;
@@ -19571,6 +19587,113 @@ namespace Thetis
 
 
         }
+
+        public struct vacinfo
+        {
+            public string api;
+            public string input;
+            public string output;
+            public bool exclusive;
+        };
+
+
+        public enum ApplyVACFlags
+        {
+            API = 1,
+            Input = 2,
+            Output = 4,
+            Excl = 8,
+            All = API | Input | Output | Excl
+               
+        };
+
+        public vacinfo currentVacSettings()
+        {
+            vacinfo ret = new vacinfo { };
+            ret.api = comboAudioDriver2.Text;
+            ret.input = comboAudioInput2.Text;
+            ret.output = comboAudioOutput2.Text;
+            ret.exclusive = chkExclusive.Checked;
+            return ret;
+        }
+
+        public void applyVACSettings(vacinfo info, ApplyVACFlags flags = ApplyVACFlags.All)
+        {
+            try
+            {
+                var idx = -1;
+
+                if (flags.HasFlag(ApplyVACFlags.API))
+                {
+                    idx = comboAudioDriver2.FindString(info.api);
+                    if (idx >= 0)
+                    {
+                        comboAudioDriver2.Text = info.api;
+                        comboAudioDriver2.SelectedIndex = idx;
+                    }
+                    else
+                    {
+                        comboAudioDriver2.SelectedIndex = 0;
+                    }
+                }
+
+
+                if (flags.HasFlag(ApplyVACFlags.Input))
+                {
+                    idx = comboAudioInput2.FindString(info.input);
+                    if (idx >= 0)
+                    {
+                        comboAudioInput2.Text = info.input;
+                        comboAudioInput2.SelectedIndex = idx;
+                    }
+                    else
+                    {
+                        comboAudioInput2.SelectedIndex = 0;
+                    }
+                }
+
+
+                if (flags.HasFlag(ApplyVACFlags.Output)) { 
+                    idx = comboAudioOutput2.FindString(info.output);
+                    if (idx >= 0)
+                    {
+                        comboAudioOutput2.Text = info.output;
+                        comboAudioOutput2.SelectedIndex = idx;
+                    }
+                    else
+                    {
+                        comboAudioOutput2.SelectedIndex = 0;
+                    }
+                }   
+
+                if ( flags.HasFlag(ApplyVACFlags.Excl) )
+                {
+                    chkExclusive.Checked = info.exclusive;
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong when attempting to restore current settings\n\n" +
+                            e.ToString(),
+                            "Re-Applying current VAC settings Failed",
+                            MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnVAC1Refresh_Click(object sender, EventArgs e)
+        {
+            var info = this.currentVacSettings();
+            refreshing = true;
+            GetHosts();
+            // set the selected index now, else GetDevices2() fails!
+            applyVACSettings(info, ApplyVACFlags.API);
+            GetDevices2();
+            refreshing = false;
+            applyVACSettings(info);
+        }
+
     }
 
     #region PADeviceInfo Helper Class

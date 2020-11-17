@@ -61,7 +61,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,6
+ FILEVERSION 1,0,0,8
  PRODUCTVERSION 1,0,0,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
@@ -79,7 +79,7 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "OpenHPSDR (G7KLJ)"
             VALUE "FileDescription", "SDR Radio Audio DLL"
-            VALUE "FileVersion", "1.0.0.6"
+            VALUE "FileVersion", "1.0.0.8"
             VALUE "InternalName", "ChannelM.dll"
             VALUE "LegalCopyright", "Copyright (C) 2020"
             VALUE "OriginalFilename", "ChannelM.dll"

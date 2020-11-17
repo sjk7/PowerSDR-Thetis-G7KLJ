@@ -1405,7 +1405,8 @@
             this.grpAudioBuffer2 = new System.Windows.Forms.GroupBoxTS();
             this.comboAudioBuffer2 = new System.Windows.Forms.ComboBoxTS();
             this.grpAudioDetails2 = new System.Windows.Forms.GroupBoxTS();
-            this.chkExclusive = new System.Windows.Forms.CheckBox();
+            this.chkExclusive = new System.Windows.Forms.CheckBoxTS();
+            this.btnVAC1Refresh = new System.Windows.Forms.ButtonTS();
             this.lblAudioOutput2 = new System.Windows.Forms.LabelTS();
             this.comboAudioOutput2 = new System.Windows.Forms.ComboBoxTS();
             this.lblAudioInput2 = new System.Windows.Forms.LabelTS();
@@ -22470,10 +22471,11 @@
             // 
             // chkBypassVACPlayingRecording
             // 
+            this.chkBypassVACPlayingRecording.AutoSize = true;
             this.chkBypassVACPlayingRecording.Image = null;
             this.chkBypassVACPlayingRecording.Location = new System.Drawing.Point(242, 260);
             this.chkBypassVACPlayingRecording.Name = "chkBypassVACPlayingRecording";
-            this.chkBypassVACPlayingRecording.Size = new System.Drawing.Size(271, 16);
+            this.chkBypassVACPlayingRecording.Size = new System.Drawing.Size(192, 17);
             this.chkBypassVACPlayingRecording.TabIndex = 84;
             this.chkBypassVACPlayingRecording.Text = "Bypass VAC for recording playback";
             this.toolTip1.SetToolTip(this.chkBypassVACPlayingRecording, "If you are using VAC enable this to be able to play recordings");
@@ -22514,6 +22516,7 @@
             // 
             // grpVAC1monitor
             // 
+            this.grpVAC1monitor.AutoSize = true;
             this.grpVAC1monitor.Controls.Add(this.udVAC1_Force2);
             this.grpVAC1monitor.Controls.Add(this.chkVAC1_Force2);
             this.grpVAC1monitor.Controls.Add(this.lblVAC1_FROMVAC);
@@ -22534,7 +22537,7 @@
             this.grpVAC1monitor.Controls.Add(this.lblVAC1overflows);
             this.grpVAC1monitor.Location = new System.Drawing.Point(8, 302);
             this.grpVAC1monitor.Name = "grpVAC1monitor";
-            this.grpVAC1monitor.Size = new System.Drawing.Size(413, 99);
+            this.grpVAC1monitor.Size = new System.Drawing.Size(413, 107);
             this.grpVAC1monitor.TabIndex = 83;
             this.grpVAC1monitor.TabStop = false;
             this.grpVAC1monitor.Text = "VAC1 Monitor";
@@ -22797,10 +22800,11 @@
             // 
             // chkMOXAllowBypass
             // 
+            this.chkMOXAllowBypass.AutoSize = true;
             this.chkMOXAllowBypass.Image = null;
             this.chkMOXAllowBypass.Location = new System.Drawing.Point(242, 240);
             this.chkMOXAllowBypass.Name = "chkMOXAllowBypass";
-            this.chkMOXAllowBypass.Size = new System.Drawing.Size(288, 16);
+            this.chkMOXAllowBypass.Size = new System.Drawing.Size(242, 17);
             this.chkMOXAllowBypass.TabIndex = 82;
             this.chkMOXAllowBypass.Text = "Allow MOX to override/bypass VAC for Phone";
             this.toolTip1.SetToolTip(this.chkMOXAllowBypass, "Using the MOX control will override the PTT input to allow for easy phone operati" +
@@ -22809,10 +22813,11 @@
             // 
             // chkSPACEAllowBypass
             // 
+            this.chkSPACEAllowBypass.AutoSize = true;
             this.chkSPACEAllowBypass.Image = null;
             this.chkSPACEAllowBypass.Location = new System.Drawing.Point(242, 220);
             this.chkSPACEAllowBypass.Name = "chkSPACEAllowBypass";
-            this.chkSPACEAllowBypass.Size = new System.Drawing.Size(288, 16);
+            this.chkSPACEAllowBypass.Size = new System.Drawing.Size(253, 17);
             this.chkSPACEAllowBypass.TabIndex = 81;
             this.chkSPACEAllowBypass.Text = "Allow SPACE to override/bypass VAC for Phone";
             this.toolTip1.SetToolTip(this.chkSPACEAllowBypass, "Using theSPACE BAR will override the PTT input to allow for easy phone operation " +
@@ -22868,7 +22873,7 @@
             // 
             this.chkVACCombine.Enabled = false;
             this.chkVACCombine.Image = null;
-            this.chkVACCombine.Location = new System.Drawing.Point(447, 106);
+            this.chkVACCombine.Location = new System.Drawing.Point(449, 108);
             this.chkVACCombine.Name = "chkVACCombine";
             this.chkVACCombine.Size = new System.Drawing.Size(104, 40);
             this.chkVACCombine.TabIndex = 76;
@@ -22879,12 +22884,13 @@
             // 
             // chkVACAllowBypass
             // 
+            this.chkVACAllowBypass.AutoSize = true;
             this.chkVACAllowBypass.Checked = true;
             this.chkVACAllowBypass.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkVACAllowBypass.Image = null;
             this.chkVACAllowBypass.Location = new System.Drawing.Point(242, 200);
             this.chkVACAllowBypass.Name = "chkVACAllowBypass";
-            this.chkVACAllowBypass.Size = new System.Drawing.Size(288, 16);
+            this.chkVACAllowBypass.Size = new System.Drawing.Size(239, 17);
             this.chkVACAllowBypass.TabIndex = 75;
             this.chkVACAllowBypass.Text = "Allow PTT to override/bypass VAC for Phone";
             this.toolTip1.SetToolTip(this.chkVACAllowBypass, "Using the hardware PTT inputs will override the PTT input to allow for easy phone" +
@@ -23292,7 +23298,7 @@
             "8192"});
             this.comboAudioBuffer2.Location = new System.Drawing.Point(16, 24);
             this.comboAudioBuffer2.Name = "comboAudioBuffer2";
-            this.comboAudioBuffer2.Size = new System.Drawing.Size(56, 21);
+            this.comboAudioBuffer2.Size = new System.Drawing.Size(64, 21);
             this.comboAudioBuffer2.TabIndex = 58;
             this.toolTip1.SetToolTip(this.comboAudioBuffer2, "Samples per buffer.");
             this.comboAudioBuffer2.SelectedIndexChanged += new System.EventHandler(this.comboAudioBuffer2_SelectedIndexChanged);
@@ -23300,6 +23306,7 @@
             // grpAudioDetails2
             // 
             this.grpAudioDetails2.Controls.Add(this.chkExclusive);
+            this.grpAudioDetails2.Controls.Add(this.btnVAC1Refresh);
             this.grpAudioDetails2.Controls.Add(this.lblAudioOutput2);
             this.grpAudioDetails2.Controls.Add(this.comboAudioOutput2);
             this.grpAudioDetails2.Controls.Add(this.lblAudioInput2);
@@ -23308,7 +23315,7 @@
             this.grpAudioDetails2.Controls.Add(this.comboAudioDriver2);
             this.grpAudioDetails2.Location = new System.Drawing.Point(8, 28);
             this.grpAudioDetails2.Name = "grpAudioDetails2";
-            this.grpAudioDetails2.Size = new System.Drawing.Size(333, 149);
+            this.grpAudioDetails2.Size = new System.Drawing.Size(333, 166);
             this.grpAudioDetails2.TabIndex = 35;
             this.grpAudioDetails2.TabStop = false;
             this.grpAudioDetails2.Text = "Virtual Audio Cable Setup";
@@ -23316,14 +23323,27 @@
             // chkExclusive
             // 
             this.chkExclusive.AutoSize = true;
-            this.chkExclusive.Location = new System.Drawing.Point(56, 110);
+            this.chkExclusive.Image = null;
+            this.chkExclusive.Location = new System.Drawing.Point(56, 103);
             this.chkExclusive.Name = "chkExclusive";
-            this.chkExclusive.Size = new System.Drawing.Size(164, 17);
-            this.chkExclusive.TabIndex = 36;
-            this.chkExclusive.Text = "Exclusive (non-sharing) mode";
-            this.toolTip1.SetToolTip(this.chkExclusive, resources.GetString("chkExclusive.ToolTip"));
+            this.chkExclusive.Size = new System.Drawing.Size(178, 17);
+            this.chkExclusive.TabIndex = 38;
+            this.chkExclusive.Text = "Open Device in &Exclusive Mode";
             this.chkExclusive.UseVisualStyleBackColor = true;
             this.chkExclusive.CheckedChanged += new System.EventHandler(this.chkExclusive_CheckedChanged);
+            // 
+            // btnVAC1Refresh
+            // 
+            this.btnVAC1Refresh.AutoSize = true;
+            this.btnVAC1Refresh.Image = null;
+            this.btnVAC1Refresh.Location = new System.Drawing.Point(56, 126);
+            this.btnVAC1Refresh.Name = "btnVAC1Refresh";
+            this.btnVAC1Refresh.Size = new System.Drawing.Size(94, 27);
+            this.btnVAC1Refresh.TabIndex = 37;
+            this.btnVAC1Refresh.Text = "&Refresh devices";
+            this.toolTip1.SetToolTip(this.btnVAC1Refresh, "Click me to re-scan the computer for changed or new VAC devices");
+            this.btnVAC1Refresh.UseVisualStyleBackColor = true;
+            this.btnVAC1Refresh.Click += new System.EventHandler(this.btnVAC1Refresh_Click);
             // 
             // lblAudioOutput2
             // 
@@ -55344,6 +55364,7 @@
             this.tpAudio.ResumeLayout(false);
             this.tcAudio.ResumeLayout(false);
             this.tpVAC.ResumeLayout(false);
+            this.tpVAC.PerformLayout();
             this.grpAudioSampleRate2.ResumeLayout(false);
             this.grpVAC1monitor.ResumeLayout(false);
             this.grpVAC1monitor.PerformLayout();
@@ -59520,6 +59541,7 @@
         private RadioButtonTS radP1DDC0ADC0;
         private TabPage tpADC;
         private Label label1;
-        private CheckBox chkExclusive;
+        private ButtonTS btnVAC1Refresh;
+        private CheckBoxTS chkExclusive;
     }
 }

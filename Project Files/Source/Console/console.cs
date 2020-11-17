@@ -28162,6 +28162,10 @@ namespace Thetis
             set
             {
                 vac_enabled = value;
+                if (m_frmSetupForm != null)
+                {
+                    Audio.EnableVAC1Exclusive(m_frmSetupForm.VAC1isExclusive());
+                }
                 Audio.VACEnabled = value;
                 if (chkVAC1 != null) chkVAC1.Checked = value;
             }
@@ -36776,7 +36780,10 @@ namespace Thetis
                 Audio.CurrentAudioState1 = Audio.AudioState.DTTSP;
                 // Audio.callback_return = 0;
 
-                if (vac_enabled) VACEnabled = true;  //Don't trigger StopAudioIVAC if the VACs aren't needed now
+                if (vac_enabled)
+                {
+                    VACEnabled = true;  //Don't trigger StopAudioIVAC if the VACs aren't needed now
+                }
                 if (vac2_enabled) VAC2Enabled = true;
 
                 Thread.Sleep(100); // wait for hardware to settle before starting audio (possible sample rate change)

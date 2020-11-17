@@ -33,7 +33,7 @@ __declspec(align(16)) IVAC pvac[MAX_EXT_VACS];
 
 void create_resamps(IVAC a) {
     a->MMThreadApiHandle = 0;
-    a->exclusive = 0;
+    // a->exclusive = 0; <-- overriding checkbox setting!
     a->INringsize = (int)(2 * a->mic_rate * a->in_latency); // FROM VAC to mic
     a->OUTringsize
         = (int)(2 * a->vac_rate * a->out_latency); // TO VAC from rx audio
@@ -193,7 +193,7 @@ int CallbackIVAC(const void* input, void* output, unsigned long frameCount,
 #pragma warning(default : 4311)
     IVAC a = pvac[id];
     if (a->have_set_thread_priority == -1) {
-        a->have_set_thread_priority = 10;
+         a->have_set_thread_priority = 10;
         a->MMThreadApiHandle = prioritise_thread_max();
         if (a->MMThreadApiHandle)
             a->have_set_thread_priority = 1;
@@ -241,7 +241,7 @@ PORT int StartAudioIVAC(int id) {
     PaWasapiStreamInfo w = {0};
     PaWinWDMKSInfo x = {0};
 
-    if (strcmp(hinf->name, "Windows WASAPI") == 0) {
+    if (hinf->type == paWASAPI) {
 
         
         w.threadPriority = eThreadPriorityProAudio;
@@ -255,8 +255,7 @@ PORT int StartAudioIVAC(int id) {
 
         a->inParam.hostApiSpecificStreamInfo = &w;
         a->outParam.hostApiSpecificStreamInfo = &w;
-    } else if (
-        strcmp(hinf->name, "Windows WDM-KS") == 0){
+    } else if (hinf->type == paWDMKS){
       
         x.version = 1;
         x.hostApiType = paWDMKS;
@@ -282,9 +281,15 @@ PORT int StartAudioIVAC(int id) {
 
         assert(error == 0);
         if (error == 0) {
-            a->have_set_thread_priority
-                = -1; // go ahead and set the priority on the next call to the
-                      // callback
+            if (hinf->type != paWASAPI) {
+
+                a->have_set_thread_priority
+                    = -1; // go ahead and set the priority on the next call to
+                          // the callback
+            } else {
+                // we don't do this for WASAPI, since portaudio does it for us.
+                a->have_set_thread_priority = 0;
+            }
         } else {
             a->have_set_thread_priority = 0;
         }

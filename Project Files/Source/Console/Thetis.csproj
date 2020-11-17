@@ -553,7 +553,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Content Include="hpsdr4-64.ico" />
-    <Content Include="PA19.dll" />
     <None Include="Resources\OLDAnalogSignalGauge.JPG" />
     <Content Include="Resources\screen4.png" />
     <None Include="Resources\openhpsdrnotastall.bmp" />

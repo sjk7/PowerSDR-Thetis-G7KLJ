@@ -31,6 +31,7 @@
 #include "network.h"
 #include <Iphlpapi.h>
 
+
 #pragma comment(lib, "IPHLPAPI.lib")
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "winmm.lib")
@@ -85,8 +86,8 @@ PORT int nativeInitMetis(
     IPAddr SrcIp = 0; /* default for src ip */
     ULONG MacAddr[2]; /* for 6-byte hardware addresses */
     ULONG PhysAddrLen = 6; /* default to length of six bytes */
-    int rc;
-    int sndbufsize;
+    int rc = 0;
+
     struct sockaddr_in local = {0};
 
     RadioProtocol = protocol;
@@ -104,23 +105,39 @@ PORT int nativeInitMetis(
     local.sin_family = AF_INET;
     local.sin_addr.s_addr = inet_addr(localaddr);
 
-    if ((listenSock = socket(AF_INET, SOCK_DGRAM, 0)) == INVALID_SOCKET) {
-        printf("createSocket Error: socket failed %ld\n", WSAGetLastError());
+
+    #ifdef RIO_SOCK_USED
+    InitialiseWinsock();
+    listenSock = socket(AF_INET, SOCK_DGRAM, 0); 
+    #else
+    listenSock = WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, 0);
+#endif
+    
+    if (listenSock == INVALID_SOCKET){    
+    printf("createSocket Error: socket failed %ld\n", WSAGetLastError());
         WSACleanup();
         return INVALID_SOCKET;
     }
 
     // bind to the local address
-    bind(listenSock, (SOCKADDR*)&local, sizeof(local));
+    //int bound = bind(listenSock, (SOCKADDR*)&local, sizeof(local));
+    int bound = bind(listenSock, (struct sockaddr*)(&local), sizeof(local));
+    assert(bound == 0);
     MetisAddr = inet_addr(netaddr);
     fflush(stdout);
 
+    #ifndef RIO_SOCK_USED
+    int sndbufsize = 0;
     sndbufsize = 0xfa000 * 16;
     setsockopt(listenSock, SOL_SOCKET, SO_SNDBUF, (const char*)&sndbufsize,
         sizeof(int));
     sndbufsize = 0x10000 * 16;
     setsockopt(listenSock, SOL_SOCKET, SO_RCVBUF, (const char*)&sndbufsize,
         sizeof(int));
+    #else
+    SetSocketRecvBufferToMaximum(listenSock);
+    SetSocketSendBufferToMaximum(listenSock);
+    #endif
 
     DestIp = inet_addr(netaddr);
 
@@ -1101,14 +1118,40 @@ int sendPacket(SOCKET sock, char* data, int length, int port) {
 
     int sent = 0;
     DWORD sock_error = 0;
+    char* mydata = data;
 
-        
+    #ifdef RIO_SOCK_USED
+    WSABUF buf;
+    buf.buf = (char*)data;
+    buf.len = length;
+    DWORD bytesSent = 0;
+    DWORD flags = 0;
+    #endif
+
+    int slept = 0;
+
     while (sent < length) {
-        ret = sendto(sock, data, length, 0, (SOCKADDR*)&dest, sizeof(dest));
+        #ifdef RIO_SOCK_USEDD // nah, WSASendTo always blocks: not what we want!
+        //WSARecv(listenSock, &buf, 1, &bytesRecvd, &flags, 0, 0);
+        ret = WSASendTo(listenSock, &buf, 1, &bytesSent, flags,
+            (SOCKADDR*)&dest, sizeof(dest) ,0, 0);
+        if (ret == 0) {
+            sent += bytesSent;
+        }
+
+        #else
+        ret = sendto(sock, mydata, length, 0, (SOCKADDR*)&dest, sizeof(dest));
+        if (ret == 0) {
+            sent += ret;
+        }
+        #endif
         if (ret == -1) {
             sock_error = WSAGetLastError();
             if (sock_error == WSAEWOULDBLOCK) {
-                Sleep(1);
+                slept++;
+                if (slept % 100 == 0) {
+                    Sleep(1);
+                }
                 continue;
             } else {
                 if (sock_error != 0) {
@@ -1123,16 +1166,20 @@ int sendPacket(SOCKET sock, char* data, int length, int port) {
                 Sleep(10);
                 break;
             }
+            
             sent += ret;
+            mydata += ret;
         }
     }
     
     assert(sent == length);
-    DWORD d2 = timeGetTime();
-    DWORD took = d2 - d1;
+    #ifdef DEBUG_TIMINGS
+    volatile DWORD d2 = timeGetTime();
+    volatile DWORD took = d2 - d1;
     if (took > 10) {
-        printf("sendto took ages: %ld\n", (int)d2 - d1);
+        fprintf(stderr, "sendto took ages: %ld\n", (int)d2 - d1);
     }
+    #endif
 
     assert(ret = sizeof(dest)); // for non-blocking experiments.
     

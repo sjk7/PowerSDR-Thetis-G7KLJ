@@ -166,17 +166,38 @@ int MetisReadDirectPOLL(unsigned char* bufp) {
     int loops = 0;
     int yields = 0;
 
+    #ifdef RIO_SOCK_USEDD
+    WSABUF buf;
+
+    buf.buf = (char*)&inpacket;
+    buf.len = sizeof(inpacket);
+
+    DWORD bytesRecvd = 0;
+    DWORD flags = 0;
+    #else
+    char* buf = (char*)&inpacket;
+    int buflen = sizeof(inpacket);
+    #endif
+
+    
+
     // trying a tight loop to see if it helps relay chatter
     while (io_keep_running && rc != 1032){ 
-        rc = recvfrom(listenSock, (char*)&inpacket, sizeof(inpacket), 0,
+        #ifndef RIO_SOCK_USEDD // nah, WSA.. blocks
+        rc = recvfrom(listenSock, (char*)buf, buflen, 0,
         (struct sockaddr*)&fromaddr, &fromlen);
+        #else
+        rc = WSARecv(listenSock, &buf, 1, &bytesRecvd, &flags, 0, 0);
+        if (rc == 0) {
+            rc = bytesRecvd;
+        }
+        #endif
 
         if (rc < 0) {
             if (rc == -1) // SOCKET_ERROR
             {
-                errno = WSAGetLastError();
-                if (errno == WSAEWOULDBLOCK) {
-                    // SwitchToThread(); // yield
+                int e = WSAGetLastError();
+                if (e == WSAEWOULDBLOCK) {
                     loops++;
                     if (loops % 100 == 0) {
                         Sleep(1);
@@ -188,6 +209,13 @@ int MetisReadDirectPOLL(unsigned char* bufp) {
             assert(0);
             return rc;
         } else if (rc > 0) {
+            #ifdef RIO_SOCK_USEDD
+            buf.buf += rc;
+            buf.len -= rc;
+            #else
+            buf += rc;
+            buflen -= rc;
+            #endif
             done = timeGetTime();
         }
     }
