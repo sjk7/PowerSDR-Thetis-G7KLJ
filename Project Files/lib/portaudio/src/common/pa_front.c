@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*
  * $Id$
  * Portable Audio I/O Library Multi-Host API front end
@@ -172,7 +175,8 @@ static void TerminateHostApis(void) {
     /* terminate in reverse order from initialization */
     PA_DEBUG(("TerminateHostApis in \n"));
 
-    while (hostApisCount_ > 0) {
+    assert(hostApis_);
+    while (hostApisCount_ > 0 && hostApis_) {
         --hostApisCount_;
         hostApis_[hostApisCount_]->Terminate(hostApis_[hostApisCount_]);
     }

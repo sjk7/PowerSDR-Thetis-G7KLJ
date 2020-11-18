@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*
  * $Id$
  * Portable Audio I/O Library DirectSound implementation
@@ -1703,12 +1706,12 @@ static HRESULT InitOutputBuffer( PaWinDsStream *stream, PaWinDsDeviceInfo *devic
                 sampleFormat, PaWin_SampleFormatToLinearWaveFormatTag( sampleFormat ),
                 nFrameRate, channelMask );
 
-    if( IDirectSoundBuffer_SetFormat( stream->pDirectSoundPrimaryBuffer, (WAVEFORMATEX*)&waveFormat) != DS_OK )
+    if( IDirectSoundBuffer_SetFormat( stream->pDirectSoundPrimaryBuffer, (WAVEFORMATEX*)&waveFormat) != DS_OK ) //-V641 //-V1027
     {
         PaWin_InitializeWaveFormatEx( &waveFormat, nChannels, sampleFormat, 
                 PaWin_SampleFormatToLinearWaveFormatTag( sampleFormat ), nFrameRate );
 
-        if((result = IDirectSoundBuffer_SetFormat( stream->pDirectSoundPrimaryBuffer, (WAVEFORMATEX*)&waveFormat)) != DS_OK)
+        if((result = IDirectSoundBuffer_SetFormat( stream->pDirectSoundPrimaryBuffer, (WAVEFORMATEX*)&waveFormat)) != DS_OK) //-V1027
             goto error;
     }
 
@@ -1718,7 +1721,7 @@ static HRESULT InitOutputBuffer( PaWinDsStream *stream, PaWinDsDeviceInfo *devic
     secondaryDesc.dwSize = sizeof(DSBUFFERDESC);
     secondaryDesc.dwFlags = DSBCAPS_GLOBALFOCUS | DSBCAPS_GETCURRENTPOSITION2;
     secondaryDesc.dwBufferBytes = bytesPerBuffer;
-    secondaryDesc.lpwfxFormat = (WAVEFORMATEX*)&waveFormat; /* waveFormat contains whatever format was negotiated for the primary buffer above */
+    secondaryDesc.lpwfxFormat = (WAVEFORMATEX*)&waveFormat; /* waveFormat contains whatever format was negotiated for the primary buffer above */ //-V1027
     // Create the secondary buffer
     if ((result = IDirectSound_CreateSoundBuffer( stream->pDirectSound,
                   &secondaryDesc, &stream->pDirectSoundOutputBuffer, NULL)) != DS_OK)
@@ -2919,8 +2922,8 @@ static PaError StartStream( PaStream *s )
 {
     PaError          result = paNoError;
     PaWinDsStream   *stream = (PaWinDsStream*)s;
-    HRESULT          hr;
-        
+    HRESULT hr = S_OK;
+            
     stream->callbackResult = paContinue;
     PaUtil_ResetBufferProcessor( &stream->bufferProcessor );
     
@@ -3259,10 +3262,10 @@ static signed long GetStreamReadAvailable( PaStream* s )
 /***********************************************************************************/
 static signed long GetStreamWriteAvailable( PaStream* s )
 {
-    PaWinDsStream *stream = (PaWinDsStream*)s;
+    PaWinDsStream *streamm = (PaWinDsStream*)s;
 
     /* suppress unused variable warnings */
-    (void) stream;
+    (void) streamm;
     
     /* IMPLEMENT ME, see portaudio.h for required behavior*/
 

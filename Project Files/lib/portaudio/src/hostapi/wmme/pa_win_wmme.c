@@ -1,3 +1,7 @@
+
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*
  * $Id$
  * pa_win_wmme.c
@@ -84,6 +88,7 @@
     Events (when necessary) inside the ReadStream() and WriteStream() functions.
 */
 
+#include <float.h> // DBL_EPSILON
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
@@ -541,7 +546,7 @@ static PaError QueryInputWaveFormatEx( int deviceId, WAVEFORMATEX *waveFormatEx 
         case MMSYSERR_NOERROR:
             return paNoError;
         case MMSYSERR_ALLOCATED:    /* Specified resource is already allocated. */
-            return paDeviceUnavailable;
+            return paDeviceUnavailable; //-V1037
         case MMSYSERR_NODRIVER:	    /* No device driver is present. */
             return paDeviceUnavailable;
         case MMSYSERR_NOMEM:	    /* Unable to allocate or lock memory. */
@@ -567,7 +572,7 @@ static PaError QueryOutputWaveFormatEx( int deviceId, WAVEFORMATEX *waveFormatEx
         case MMSYSERR_NOERROR:
             return paNoError;
         case MMSYSERR_ALLOCATED:    /* Specified resource is already allocated. */
-            return paDeviceUnavailable;
+            return paDeviceUnavailable; //-V1037
         case MMSYSERR_NODRIVER:	    /* No device driver is present. */
             return paDeviceUnavailable;
         case MMSYSERR_NOMEM:	    /* Unable to allocate or lock memory. */
@@ -602,21 +607,21 @@ static PaError QueryFormatSupported( PaDeviceInfo *deviceInfo,
     
         /* attempt bypass querying the device for linear formats */
 
-        if( sampleRate == 11025.0
+        if( fabs(sampleRate - 11025.0) < DBL_EPSILON
             && ( (channels == 1 && (winMmeDeviceInfo->dwFormats & WAVE_FORMAT_1M16))
                 || (channels == 2 && (winMmeDeviceInfo->dwFormats & WAVE_FORMAT_1S16)) ) ){
 
             return paNoError;
         }
 
-        if( sampleRate == 22050.0
+        if( fabs(sampleRate - 22050.0) < DBL_EPSILON
             && ( (channels == 1 && (winMmeDeviceInfo->dwFormats & WAVE_FORMAT_2M16))
                 || (channels == 2 && (winMmeDeviceInfo->dwFormats & WAVE_FORMAT_2S16)) ) ){
 
             return paNoError;
         }
 
-        if( sampleRate == 44100.0
+        if( fabs(sampleRate - 44100.0) < DBL_EPSILON
             && ( (channels == 1 && (winMmeDeviceInfo->dwFormats & WAVE_FORMAT_4M16))
                 || (channels == 2 && (winMmeDeviceInfo->dwFormats & WAVE_FORMAT_4S16)) ) ){
 
@@ -1508,7 +1513,7 @@ static PaError SelectHostBufferSizeFramesAndHostBufferCount(
     *hostBufferCount = ComputeHostBufferCountForFixedBufferSizeFrames(
             suggestedLatencyFrames, *hostBufferSizeFrames, minimumBufferCount );
 
-    if( *hostBufferSizeFrames >= userFramesPerBuffer )
+    if( *hostBufferSizeFrames >= userFramesPerBuffer ) //-V1051
     {
         /*
             If there are too many host buffers we would like to coalesce 

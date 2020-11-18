@@ -1,3 +1,8 @@
+// This is an independent project of an individual developer. Dear PVS-Studio,
+// please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java:
+// http://www.viva64.com
 #include <windows.h>
 #include "iasiodrv.h"
 #include "asiolist.h"
@@ -97,7 +102,13 @@ static LPASIODRVSTRUCT newDrvStruct(
                         cr = RegQueryValueEx(hksub, ASIODRV_DESC, 0, &datatype,
                             (LPBYTE)databuf, &datasize);
                         if (cr == ERROR_SUCCESS) {
-                            strcpy(lpdrv->drvname, databuf);
+                            memset(lpdrv->drvname, 0, 128);
+                            size_t len = strlen(databuf) + 1;
+                            if (len > 128) {
+                                len = 127;
+                            }
+                            memcpy(lpdrv->drvname, databuf, len);
+
                         } else
                             strcpy(lpdrv->drvname, keyname);
                     }

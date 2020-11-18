@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  firmin.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -121,7 +124,7 @@ void setFreqs_firmin(FIRMIN a, double f_low, double f_high) {
  *																										*
  ********************************************************************************************************/
 
-plan_firopt(FIROPT a) {
+void plan_firopt(FIROPT a) {
     // must call for change in 'nc', 'size', 'out'
     int i;
     a->nfor = a->nc / a->size;
@@ -147,7 +150,7 @@ plan_firopt(FIROPT a) {
         (fftw_complex*)a->out, FFTW_BACKWARD, FFTW_PATIENT);
 }
 
-calc_firopt(FIROPT a) {
+void calc_firopt(FIROPT a) {
     // call for change in frequency, rate, wintype, gain
     // must also call after a call to plan_firopt()
     int i;
@@ -274,7 +277,7 @@ void setFreqs_firopt(FIROPT a, double f_low, double f_high) {
  *																										*
  ********************************************************************************************************/
 
-plan_fircore(FIRCORE a) {
+void plan_fircore(FIRCORE a) {
     // must call for change in 'nc', 'size', 'out'
     int i;
     a->nfor = a->nc / a->size;
@@ -310,7 +313,7 @@ plan_fircore(FIRCORE a) {
     a->masks_ready = 0;
 }
 
-calc_fircore(FIRCORE a, int flip) {
+void calc_fircore(FIRCORE a, int flip) {
     // call for change in frequency, rate, wintype, gain
     // must also call after a call to plan_firopt()
     int i;

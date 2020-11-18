@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  dexp.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -169,14 +172,14 @@ void decalc_filter (DEXP a)
 	decalc_delring (a->scdring);
 }
 
-calc_antivox(DEXP a)
+void calc_antivox(DEXP a)
 {
 	a->antivox_mult = exp(-1.0 / (a->antivox_rate * a->antivox_tau));
 	a->antivox_onemmult = 1.0 - a->antivox_mult;
 	a->antivox_data = (double *) malloc0 (a->antivox_size * sizeof (complex));
 }
 
-decalc_antivox(DEXP a)
+void decalc_antivox(DEXP a)
 {
 	_aligned_free (a->antivox_data);
 }

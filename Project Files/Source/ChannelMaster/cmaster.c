@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  cmaster.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -359,7 +362,7 @@ void xcmaster (int stream)
 	LeaveCriticalSection (&pcm->update[stream]);
 #ifdef DEBUG_TIMINGS
     DWORD dw2 = timeGetTime();
-    DWORD took = dw2 - dw2;
+    DWORD took = dw - dw2;
     if (took > 10) {
 		printf("xcmaster held up, took: %ld ms.\n", (int)took);
     }

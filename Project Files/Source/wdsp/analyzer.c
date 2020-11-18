@@ -1,3 +1,7 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 /*  analyzer.c
 
 This file is part of a program that implements a Spectrum Analyzer
@@ -577,16 +581,21 @@ DWORD WINAPI spectra(void* pargs) {
                 a->IQO_idx[ss][LO] -= a->bsize;
         }
 
+        /*/
         if (a->stop) {
             InterlockedDecrement(a->pnum_threads);
             return 0;
         }
+        /*/ // <-- PVS-Studio: always false
         fftw_execute(a->plan[ss][LO]);
     }
+
+    /*/
     if (a->stop) {
         InterlockedDecrement(a->pnum_threads);
         return 0;
     }
+    /*/ // <-- PVS-STUDIO always false
 
     EnterCriticalSection(&(a->EliminateSection[ss]));
     if ((ss >= a->begin_ss) && (ss <= a->end_ss)) eliminate(disp, ss, LO);
@@ -641,16 +650,17 @@ DWORD WINAPI Cspectra(void* pargs) {
                 a->IQO_idx[ss][LO] -= a->bsize;
         }
 
-        if (a->stop) {
-            InterlockedDecrement(a->pnum_threads);
-            return 0;
-        }
+       // if (a->stop) {
+       //     InterlockedDecrement(a->pnum_threads);
+       //     return 0;
+       // } // <-- PVS-STUDIO always false
         fftw_execute(a->Cplan[ss][LO]);
     }
-    if (a->stop) {
-        InterlockedDecrement(a->pnum_threads);
-        return 0;
-    }
+
+    //if (a->stop) {
+    //    InterlockedDecrement(a->pnum_threads);
+    //    return 0;
+    //} // <-- PVS-STUDIO always false
 
     if (InterlockedBitTestAndReset(&(a->snap[ss][LO]), 0)) {
         memcpy((char*)(a->snap_buff[ss][LO]),

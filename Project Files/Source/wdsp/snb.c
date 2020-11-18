@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  snb.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -639,7 +642,8 @@ PORT void SetRXASNBAOutputBandwidth (int channel, double flow, double fhigh)
 {
 	SNBA a;
 	RESAMPLE d;
-	double f_low, f_high;
+    double f_low = 0;
+    double f_high = 0;
 	EnterCriticalSection (&ch[channel].csDSP);
 	a = rxa[channel].snba.p;
 	d = a->outresamp;

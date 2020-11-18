@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  pro.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -50,7 +53,7 @@ PRO create_pro (
 	a->pbuff = (unsigned char **) calloc (a->npacks, sizeof (unsigned char *));
     for (i = 0; i < a->npacks; i++) {
         if (a->pbuff)
-        a->pbuff[i] = a->pbuffs + i * a->psize;
+        a->pbuff[i] = a->pbuffs + i * a->psize; //-V769
     }
 	a->sbuff = (unsigned int *)calloc(a->npacks, sizeof(unsigned int));
 	a->mask = a->npacks - 1;

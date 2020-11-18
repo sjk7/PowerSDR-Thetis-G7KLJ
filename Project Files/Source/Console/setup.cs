@@ -19684,14 +19684,26 @@ namespace Thetis
 
         private void btnVAC1Refresh_Click(object sender, EventArgs e)
         {
+            var old_state = console.PowerOn;
+            console.PowerOn = false;
             var info = this.currentVacSettings();
             refreshing = true;
+            var result = PortAudioForThetis.PA_Terminate();
+            Debug.Assert((PortAudioForThetis.PaErrorCode)result == PortAudioForThetis.PaErrorCode.paNoError);
+            var result2 = PortAudioForThetis.PA_Initialize();
+            Debug.Assert((PortAudioForThetis.PaErrorCode)result2 == PortAudioForThetis.PaErrorCode.paNoError);
+
             GetHosts();
             // set the selected index now, else GetDevices2() fails!
             applyVACSettings(info, ApplyVACFlags.API);
             GetDevices2();
             refreshing = false;
             applyVACSettings(info);
+
+            if (old_state)
+            {
+                console.PowerOn = true;
+            }
         }
 
     }

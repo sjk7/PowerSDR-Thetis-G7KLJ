@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*
  * Portable Audio I/O Library WASAPI implementation
  * Copyright (c) 2006-2010 David Viens
@@ -517,7 +520,7 @@ typedef struct {
 
 // ------------------------------------------------------------------------------------------
 /* PaWasapiAudioClientParams - audio client parameters */
-typedef struct PaWasapiAudioClientParams {
+typedef struct PaWasapiAudioClientParams { //-V802
     PaWasapiDeviceInfo* device_info;
     PaStreamParameters stream_params;
     PaWasapiStreamInfo wasapi_params;
@@ -1073,9 +1076,7 @@ static UINT32 AlignFramesPerBuffer(UINT32 nFrames, UINT32 nSamplesPerSec,
 
     nFrames = frame_bytes / nBlockAlign;
     packets = frame_bytes / HDA_PACKET_SIZE;
-
-    frame_bytes = packets * HDA_PACKET_SIZE;
-    nFrames = frame_bytes / nBlockAlign;
+   // frame_bytes = packets * HDA_PACKET_SIZE;
 
     return nFrames;
 
@@ -1135,9 +1136,9 @@ static BOOL SetupAVRT() {
     _GetProc(pAvSetMmThreadPriority, FAvSetMmThreadPriority,
         "AvSetMmThreadPriority");
 
-    return pAvRtCreateThreadOrderingGroup && pAvRtDeleteThreadOrderingGroup
-        && pAvRtWaitOnThreadOrderingGroup && pAvSetMmThreadCharacteristics
-        && pAvRevertMmThreadCharacteristics && pAvSetMmThreadPriority;
+    return pAvRtCreateThreadOrderingGroup && pAvRtDeleteThreadOrderingGroup //-V560
+        && pAvRtWaitOnThreadOrderingGroup && pAvSetMmThreadCharacteristics //-V560
+        && pAvRevertMmThreadCharacteristics && pAvSetMmThreadPriority; //-V560
 }
 #endif
 
@@ -2537,6 +2538,10 @@ static PaError UpdateDeviceList() {
     // Release WASAPI internal device info list
     ReleaseWasapiDeviceInfoList(paWasapi);
 
+    if (!hostApi) {
+        assert(0);
+        return paInternalError;
+    }
     // Release external device info list
     if (hostApi->deviceInfos != NULL) {
         for (i = 0; i < hostApi->info.deviceCount; ++i) {
@@ -2999,11 +3004,8 @@ static PaError GetClosestFormat(IAudioClient* client, double sampleRate,
         return paFormatIsSupported;
     } else if (sharedClosestMatch != NULL) {
         WORD bitsPerSample;
-
-        if (sharedClosestMatch->wFormatTag == WAVE_FORMAT_EXTENSIBLE)
-            memcpy(outWavex, sharedClosestMatch, sizeof(WAVEFORMATEXTENSIBLE));
-        else
-            memcpy(outWavex, sharedClosestMatch, sizeof(WAVEFORMATEX));
+        memset(sharedClosestMatch, 0, sizeof(WAVEFORMATEX));
+         memcpy(outWavex, sharedClosestMatch, sizeof(WAVEFORMATEX)); //-V512
 
         CoTaskMemFree(sharedClosestMatch);
         sharedClosestMatch = NULL;
@@ -3317,6 +3319,9 @@ static HRESULT CreateAudioClient(PaWasapiStream* pStream,
     PaWasapiSubStream* pSub, BOOL output, PaError* pa_error) {
     PaError error;
     HRESULT hr;
+    assert(pSub);
+    if (!pSub) return E_POINTER;
+
     const PaWasapiDeviceInfo* pInfo = pSub->params.device_info;
     const PaStreamParameters* params = &pSub->params.stream_params;
     const double sampleRate = pSub->params.sample_rate;
@@ -3986,7 +3991,7 @@ static PaError OpenStream(struct PaUtilHostApiRepresentation* hostApi,
         // Create ring buffer for blocking mode (It is needed because we fetch
         // Input packets, not frames, and thus we have to save partial packet if
         // such remains unread)
-        if (stream->in.params.blocking == TRUE) {
+        if (stream->in.params.blocking != FALSE) {
             UINT32 bufferFrames
                 = ALIGN_NEXT_POW2((stream->in.framesPerHostCallback
                                       / WASAPI_PACKETS_PER_INPUT_BUFFER)
@@ -4310,7 +4315,10 @@ HRESULT UnmarshalSubStreamComPointers(PaWasapiSubStream* substream) {
         GetAudioClientIID(), (LPVOID*)&substream->clientProc);
     substream->clientStream = NULL;
     if (hResult != S_OK) {
-        hFirstBadResult = (hFirstBadResult == S_OK) ? hResult : hFirstBadResult;
+
+        // hFirstBadResult = (hFirstBadResult == S_OK) ? hResult : hFirstBadResult;
+        // ^^ PVS: hFirstBadResult == 0 always true
+        hFirstBadResult = (hResult == S_OK) ? hResult : hFirstBadResult;
     }
 
     return hFirstBadResult;
@@ -4336,7 +4344,7 @@ HRESULT UnmarshalStreamComPointers(PaWasapiStream* stream) {
         hResult = UnmarshalSubStreamComPointers(&stream->in);
         if (hResult != S_OK) {
             hFirstBadResult
-                = (hFirstBadResult == S_OK) ? hResult : hFirstBadResult;
+                = (hResult == S_OK) ? hResult : hFirstBadResult;
         }
 
         // IAudioCaptureClient
@@ -4345,7 +4353,7 @@ HRESULT UnmarshalStreamComPointers(PaWasapiStream* stream) {
         stream->captureClientStream = NULL;
         if (hResult != S_OK) {
             hFirstBadResult
-                = (hFirstBadResult == S_OK) ? hResult : hFirstBadResult;
+                = (hResult == S_OK) ? hResult : hFirstBadResult;
         }
     }
 
@@ -4363,7 +4371,7 @@ HRESULT UnmarshalStreamComPointers(PaWasapiStream* stream) {
         stream->renderClientStream = NULL;
         if (hResult != S_OK) {
             hFirstBadResult
-                = (hFirstBadResult == S_OK) ? hResult : hFirstBadResult;
+                = (hResult == S_OK) ? hResult : hFirstBadResult;
         }
     }
 
@@ -5126,7 +5134,7 @@ static void WaspiHostProcessingLoop(void* inputBuffer, long inputFrames,
     } else if (callbackResult == paAbort) {
         // stop stream
         SetEvent(stream->hCloseRequest);
-    } else {
+    } else { //-V523
         // stop stream
         SetEvent(stream->hCloseRequest);
     }
@@ -5826,7 +5834,7 @@ static void FinishComPointers(
     ReleaseUnmarshaledComPointers(stream);
 
     // Cleanup COM for this thread
-    if (threadComInitialized == TRUE) CoUninitialize();
+    if (threadComInitialized != FALSE) CoUninitialize();
 }
 
 // ------------------------------------------------------------------------------------------
@@ -6077,7 +6085,7 @@ static UINT32 ConfigureLoopSleepTimeAndScheduler(
 
     // WASAPI input packets tend to expire very easily, let's limit sleep time
     // to 2 milliseconds for all cases. Please propose better solution if any
-    if (sleepTimeIn > 2) sleepTimeIn = 2;
+    if (sleepTimeIn > 2) sleepTimeIn = 2; //-V1051
 
     sleepTime = GetSleepTime(stream, sleepTimeIn, sleepTimeOut, userFramesOut);
 

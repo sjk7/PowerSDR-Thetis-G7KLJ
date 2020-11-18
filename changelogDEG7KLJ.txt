@@ -1,5 +1,18 @@
 Fixed:
 
+18/11/2020:
+Added 'Refresh' button to VAC1 so you don't have to restart Thetis when, say, a new USB device is
+plugged in. Note: You must manually push the button. There is currently no 'auto refresh' performed;
+although there is no reason it could not be added later.
+
+[note: all tagged with 'PVS' if you need to find them in the code.]
+Ran static analysis checks on PortAudioForThesis. Applied many fixes.
+Ran static analysis checks on WDSP. Applied many fixes. 
+
+
+
+----------------------------------------------
+October 2020:
 Thetis hangs forever (deadlock) when trying to close application (especially when audio / network in trouble)
 
 ----------------------------------------------

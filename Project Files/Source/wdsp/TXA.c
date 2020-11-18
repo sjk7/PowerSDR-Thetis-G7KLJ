@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  TXA.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -903,7 +906,7 @@ void TXASetupBPFilters (int channel)
 *																										*
 ********************************************************************************************************/
 
-PORT
+void PORT
 TXASetNC (int channel, int nc)
 {
 	int oldstate = SetChannelState (channel, 0, 1);
@@ -914,7 +917,7 @@ TXASetNC (int channel, int nc)
 	SetChannelState (channel, oldstate, 0);
 }
 
-PORT
+void PORT
 TXASetMP (int channel, int mp)
 {
 	SetTXABandpassMP			(channel, mp);

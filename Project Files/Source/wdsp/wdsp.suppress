@@ -1,0 +1,122 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="SuppressVersion">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CurrentVersion" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="wdsp">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="FileName" type="xs:string" default="" />
+                <xs:element name="ErrorCode" type="xs:string" default="" />
+                <xs:element name="Message" type="xs:string" default="" />
+                <xs:element name="CodePrev" type="xs:unsignedInt" default="0" />
+                <xs:element name="CodeCurrent" type="xs:unsignedInt" default="0" />
+                <xs:element name="CodeNext" type="xs:unsignedInt" default="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//wdsp" />
+        <xs:field xpath="FileName" />
+        <xs:field xpath="ErrorCode" />
+        <xs:field xpath="Message" />
+        <xs:field xpath="CodePrev" />
+        <xs:field xpath="CodeCurrent" />
+        <xs:field xpath="CodeNext" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <SuppressVersion>
+    <CurrentVersion>2</CurrentVersion>
+  </SuppressVersion>
+  <wdsp>
+    <FileName>ammod.c</FileName>
+    <ErrorCode>V1042</ErrorCode>
+    <Message>This file is marked with copyleft license, which requires you to open the derived source code.</Message>
+    <CodePrev>2961679379</CodePrev>
+    <CodeCurrent>3701763227</CodeCurrent>
+    <CodeNext>2616389202</CodeNext>
+  </wdsp>
+  <wdsp>
+    <FileName>comm.h</FileName>
+    <ErrorCode>V677</ErrorCode>
+    <Message>Custom declaration of a standard '_complex' type. The system header file should be used: #include &lt;MATH.H&gt;.</Message>
+    <CodePrev>717517</CodePrev>
+    <CodeCurrent>774798769</CodeCurrent>
+    <CodeNext>8076</CodeNext>
+  </wdsp>
+  <wdsp>
+    <FileName>analyzer.c</FileName>
+    <ErrorCode>V665</ErrorCode>
+    <Message>Possibly, the usage of '#pragma warning(default: X)' is incorrect in this context. The '#pragma warning(push/pop)' should be used instead. Check lines: _, _.</Message>
+    <CodePrev>166029461</CodePrev>
+    <CodeCurrent>2093656343</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </wdsp>
+  <wdsp>
+    <FileName>analyzer.c</FileName>
+    <ErrorCode>V665</ErrorCode>
+    <Message>Possibly, the usage of '#pragma warning(default: X)' is incorrect in this context. The '#pragma warning(push/pop)' should be used instead. Check lines: _, _.</Message>
+    <CodePrev>166029461</CodePrev>
+    <CodeCurrent>2093656343</CodeCurrent>
+    <CodeNext>3893001</CodeNext>
+  </wdsp>
+  <wdsp>
+    <FileName>cfcomp.c</FileName>
+    <ErrorCode>V781</ErrorCode>
+    <Message>The value of the 'j' index is checked after it was used. Perhaps there is a mistake in program logic.</Message>
+    <CodePrev>13672229</CodePrev>
+    <CodeCurrent>395453058</CodeCurrent>
+    <CodeNext>407890044</CodeNext>
+  </wdsp>
+  <wdsp>
+    <FileName>nbp.c</FileName>
+    <ErrorCode>V636</ErrorCode>
+    <Message>The 'a-&gt;nc / _' expression was implicitly cast from 'int' type to 'double' type. Consider utilizing an explicit type cast to avoid the loss of a fractional part. An example: double A = (double)(X) / Y;.</Message>
+    <CodePrev>2086</CodePrev>
+    <CodeCurrent>4161030990</CodeCurrent>
+    <CodeNext>2337</CodeNext>
+  </wdsp>
+  <wdsp>
+    <FileName>nbp.c</FileName>
+    <ErrorCode>V636</ErrorCode>
+    <Message>The 'a-&gt;nc / _' expression was implicitly cast from 'int' type to 'double' type. Consider utilizing an explicit type cast to avoid the loss of a fractional part. An example: double A = (double)(X) / Y;.</Message>
+    <CodePrev>2084</CodePrev>
+    <CodeCurrent>4161030986</CodeCurrent>
+    <CodeNext>2337</CodeNext>
+  </wdsp>
+  <wdsp>
+    <FileName>nobII.c</FileName>
+    <ErrorCode>V521</ErrorCode>
+    <Message>Such expressions using the ',' operator are dangerous. Make sure the expression 'tidx, _' is correct.</Message>
+    <CodePrev>1395704266</CodePrev>
+    <CodeCurrent>3955886945</CodeCurrent>
+    <CodeNext>3989441381</CodeNext>
+  </wdsp>
+  <wdsp>
+    <FileName>iobuffs.c</FileName>
+    <ErrorCode>V1019</ErrorCode>
+    <Message>Compound assignment expression 'a-&gt;r__unqueuedsamps += a-&gt;r__insize' is used inside condition.</Message>
+    <CodePrev>971791</CodePrev>
+    <CodeCurrent>2470720056</CodeCurrent>
+    <CodeNext>123</CodeNext>
+  </wdsp>
+  <wdsp>
+    <FileName>snb.c</FileName>
+    <ErrorCode>V781</ErrorCode>
+    <Message>The value of the 'i' index is checked after it was used. Perhaps there is a mistake in program logic.</Message>
+    <CodePrev>45889</CodePrev>
+    <CodeCurrent>2782849014</CodeCurrent>
+    <CodeNext>10431955</CodeNext>
+  </wdsp>
+</NewDataSet>

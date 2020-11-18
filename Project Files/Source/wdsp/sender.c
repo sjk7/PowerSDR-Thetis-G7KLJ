@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  sender.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -26,12 +29,12 @@ warren@wpratt.com
 
 #include "comm.h"
 
-calc_sender (SENDER a)
+void calc_sender (SENDER a)
 {
 	a->out = (double *) malloc0 (a->size * sizeof (complex));
 }
 
-decalc_sender (SENDER a)
+void decalc_sender (SENDER a)
 {
 	_aligned_free (a->out);
 }

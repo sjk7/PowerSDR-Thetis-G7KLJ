@@ -1,0 +1,98 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="SuppressVersion">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="CurrentVersion" type="xs:int" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="ChannelMaster">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="FileName" type="xs:string" default="" />
+                <xs:element name="ErrorCode" type="xs:string" default="" />
+                <xs:element name="Message" type="xs:string" default="" />
+                <xs:element name="CodePrev" type="xs:unsignedInt" default="0" />
+                <xs:element name="CodeCurrent" type="xs:unsignedInt" default="0" />
+                <xs:element name="CodeNext" type="xs:unsignedInt" default="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+        <xs:selector xpath=".//ChannelMaster" />
+        <xs:field xpath="FileName" />
+        <xs:field xpath="ErrorCode" />
+        <xs:field xpath="Message" />
+        <xs:field xpath="CodePrev" />
+        <xs:field xpath="CodeCurrent" />
+        <xs:field xpath="CodeNext" />
+      </xs:unique>
+    </xs:element>
+  </xs:schema>
+  <SuppressVersion>
+    <CurrentVersion>2</CurrentVersion>
+  </SuppressVersion>
+  <ChannelMaster>
+    <FileName>comm.h</FileName>
+    <ErrorCode>V677</ErrorCode>
+    <Message>Custom declaration of a standard '_complex' type. The system header file should be used: #include &lt;MATH.H&gt;.</Message>
+    <CodePrev>717517</CodePrev>
+    <CodeCurrent>774798769</CodeCurrent>
+    <CodeNext>8076</CodeNext>
+  </ChannelMaster>
+  <ChannelMaster>
+    <FileName>eq.h</FileName>
+    <ErrorCode>V802</ErrorCode>
+    <Message>On _-bit platform, structure size can be reduced from _ to _ bytes by rearranging the fields according to their sizes in decreasing order.</Message>
+    <CodePrev>6057630</CodePrev>
+    <CodeCurrent>123</CodeCurrent>
+    <CodeNext>4707</CodeNext>
+  </ChannelMaster>
+  <ChannelMaster>
+    <FileName>nbp.h</FileName>
+    <ErrorCode>V802</ErrorCode>
+    <Message>On _-bit platform, structure size can be reduced from _ to _ bytes by rearranging the fields according to their sizes in decreasing order.</Message>
+    <CodePrev>96922290</CodePrev>
+    <CodeCurrent>123</CodeCurrent>
+    <CodeNext>610131</CodeNext>
+  </ChannelMaster>
+  <ChannelMaster>
+    <FileName>portaudio.h</FileName>
+    <ErrorCode>V802</ErrorCode>
+    <Message>On _-bit platform, structure size can be reduced from _ to _ bytes by rearranging the fields according to their sizes in decreasing order.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>927959667</CodeCurrent>
+    <CodeNext>1410128321</CodeNext>
+  </ChannelMaster>
+  <ChannelMaster>
+    <FileName>obbuffs.h</FileName>
+    <ErrorCode>V677</ErrorCode>
+    <Message>Custom declaration of a standard '_complex' type. The system header file should be used: #include &lt;MATH.H&gt;.</Message>
+    <CodePrev>0</CodePrev>
+    <CodeCurrent>774798769</CodeCurrent>
+    <CodeNext>8076</CodeNext>
+  </ChannelMaster>
+  <ChannelMaster>
+    <FileName>netInterface.c</FileName>
+    <ErrorCode>V522</ErrorCode>
+    <Message>There might be dereferencing of a potential null pointer 'prn-&gt;RxBuff'. Check lines: _, _.</Message>
+    <CodePrev>20126635</CodePrev>
+    <CodeCurrent>2465006715</CodeCurrent>
+    <CodeNext>2890462045</CodeNext>
+  </ChannelMaster>
+  <ChannelMaster>
+    <FileName>obbuffs.c</FileName>
+    <ErrorCode>V522</ErrorCode>
+    <Message>There might be dereferencing of a potential null pointer 'a'. Check lines: _, _.</Message>
+    <CodePrev>1042016835</CodePrev>
+    <CodeCurrent>29663</CodeCurrent>
+    <CodeNext>7341739</CodeNext>
+  </ChannelMaster>
+</NewDataSet>

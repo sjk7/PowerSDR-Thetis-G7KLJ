@@ -23,6 +23,7 @@ The author can be reached by email at
 warren@wpratt.com
 
 */
+#include <float.h>// DBL_EPSILON & friends. G7KLJ
 
 #include "../ChannelMaster/debug_flags.h"
 

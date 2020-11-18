@@ -260,6 +260,7 @@ PaHostApiIndex Pa_GetDefaultHostApi(void);
  @see PaHostApiInfo
 */
 typedef enum PaHostApiTypeId {
+    paHostTypeIDError = -1,
     paInDevelopment = 0, /* use while developing support for a new host API */
     paDirectSound = 1,
     paMME = 2,

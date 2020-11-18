@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  obbuffs.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -43,6 +46,8 @@ void start_obthread(int id) {
 
 void create_obbuffs(int id, int accept, int max_insize, int outsize) {
     OBB a = (OBB)calloc(1, sizeof(obb));
+    assert(a);
+
     obp.pcbuff[id] = obp.pdbuff[id] = obp.pebuff[id] = obp.pfbuff[id] = a;
     a->id = id;
     a->accept = accept;

@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  nobII.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -221,7 +224,7 @@ void xnob (NOB a)
 									if (++tidx >= a->dline_size) tidx -= a->dline_size;
 								}
 								j = 1;
-								len = 0;
+								// len = 0; PVS-STUDIO: assigned same value
 								lidx = tidx;
 								while (j <= a->adv_slew_count + a->adv_count && len == 0)
 								{
@@ -326,7 +329,7 @@ void xnob (NOB a)
 								else
 								{
 									a->state = 6;
-									a->time = 0;
+									// a->time = 0; PVS: assiged same value
 									a->blank_count += a->adv_count + a->filterlen;
 								}
 							}

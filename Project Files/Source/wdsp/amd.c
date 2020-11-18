@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  amd.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -102,7 +105,7 @@ void flush_amd(AMD a) {
 
 void xamd(AMD a) {
     int i;
-    double audio;
+    double audio = 0;
     double vco[2];
     double corr[2];
     double det;
@@ -203,7 +206,7 @@ void xamd(AMD a) {
                     a->out_buff[2 * i + 0] = audio;
                     a->out_buff[2 * i + 1] = audio;
 
-                    if ((corr[0] == 0.0) && (corr[1] == 0.0)) corr[0] = 1.0;
+                    if (fabs(corr[0]- corr[1]) < DBL_EPSILON) corr[0] = 1.0;
                     det = atan2(corr[1], corr[0]);
                     del_out = a->fil_out;
                     a->omega += a->g2 * det;

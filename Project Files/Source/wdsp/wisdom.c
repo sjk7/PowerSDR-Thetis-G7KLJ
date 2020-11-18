@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  wisdom.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -75,7 +78,7 @@ PORT void WDSPwisdom(char* directory) {
         }
         psize = 64;
         while (psize <= MAX_WISDOM_SIZE_DISPLAY) {
-            if (psize > MAX_WISDOM_SIZE_FILTER) {
+           // if (psize > MAX_WISDOM_SIZE_FILTER) { <-- PVS: always false
                 fprintf(
                     stdout, "Planning COMPLEX FORWARD  FFT size %d\n", psize);
                 fflush(stdout);
@@ -83,7 +86,7 @@ PORT void WDSPwisdom(char* directory) {
                     (fftw_complex*)fftout, FFTW_FORWARD, MY_PATIENCE);
                 fftw_execute(tplan);
                 fftw_destroy_plan(tplan);
-            }
+            //}
             fprintf(stdout, "Planning REAL    FORWARD  FFT size %d\n", psize);
             fflush(stdout);
             tplan = fftw_plan_dft_r2c_1d(

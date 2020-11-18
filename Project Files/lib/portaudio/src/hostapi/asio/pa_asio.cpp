@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*
  * $Id: pa_asio.cpp 1890 2013-05-02 01:06:01Z rbencina $
  * Portable Audio I/O Library for ASIO Drivers
@@ -84,6 +87,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
+#include <float.h> // DBL_EPSILON
 //#include <values.h>
 #include <new>
 
@@ -1215,7 +1219,7 @@ PaError PaAsio_Initialize( PaUtilHostApiRepresentation **hostApi, PaHostApiIndex
     {
         asioHostApi->asioDrivers = new AsioDrivers(); /* invokes CoInitialize(0) in AsioDriverList::AsioDriverList */
     } 
-    catch (std::bad_alloc)
+    catch (std::bad_alloc&)
     {
         asioHostApi->asioDrivers = 0;
     }
@@ -1962,7 +1966,7 @@ static PaError ValidateAndSetSampleRate( double sampleRate )
     }
     PA_DEBUG(("ASIOGetSampleRate:%f\n",oldRate));
 
-    if (oldRate != sampleRate){
+    if (fabs(oldRate- sampleRate) > DBL_EPSILON){
         /* Set sample rate */
 
         PA_DEBUG(("before ASIOSetSampleRate(%f)\n",sampleRate));

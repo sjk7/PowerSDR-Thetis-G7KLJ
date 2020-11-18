@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 #include <string.h>
 #include "asiodrivers.h"
 
@@ -9,7 +12,7 @@ bool loadAsioDriver(char *name)
 {
 	if(!asioDrivers)
 		asioDrivers = new AsioDrivers();
-	if(asioDrivers)
+	if(asioDrivers) //-V668
 		return asioDrivers->loadDriver(name);
 	return false;
 }
@@ -90,6 +93,7 @@ extern IASIO* theAsioDriver;
 AsioDrivers::AsioDrivers() : AsioDriverList()
 {
 	curIndex = -1;
+    connID = -1;
 }
 
 AsioDrivers::~AsioDrivers()

@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*
  * $Id$
  * Portable Audio I/O Library skeleton implementation
@@ -620,7 +623,7 @@ static void ExampleHostProcessingLoop( void *inputBuffer, void *outputBuffer, vo
             stream->streamRepresentation.streamFinishedCallback( stream->streamRepresentation.userData );
     }
     else
-    {
+    { //-V523
         /* User callback has asked us to stop with paComplete or other non-zero value */
 
         /* IMPLEMENT ME - finish playback once currently queued audio has completed  */
@@ -687,7 +690,7 @@ static PaError StopStream( PaStream *s )
 }
 
 
-static PaError AbortStream( PaStream *s )
+static PaError AbortStream( PaStream *s ) //-V524
 {
     PaError result = paNoError;
     PaSkeletonStream *stream = (PaSkeletonStream*)s;
@@ -714,7 +717,7 @@ static PaError IsStreamStopped( PaStream *s )
 }
 
 
-static PaError IsStreamActive( PaStream *s )
+static PaError IsStreamActive( PaStream *s ) //-V524
 {
     PaSkeletonStream *stream = (PaSkeletonStream*)s;
 

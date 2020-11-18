@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  fir.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -182,7 +185,8 @@ double* fir_bandpass(int N, double f_low, double f_high, double samplerate,
     double delta = PI / m;
     double cosphi;
     double posi, posj;
-    double sinc, window, coef;
+    double sinc, coef;
+    double window = 0;
 
     if (N & 1) {
         switch (rtype) {

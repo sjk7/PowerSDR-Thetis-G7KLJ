@@ -1,3 +1,7 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 #ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -78,10 +82,10 @@ PORT void WriteAudio(
                             + indata[2 * i + 1] * indata[2 * i + 1]));
                     break;
                 case 3: // complex samples (stereo)
-                    if (data && data[audiocount+1])
+                    if (data[audiocount+1])
                     data[audiocount++] = (int)(conv * indata[2 * i + 0]);
                     
-                    if (data && data[audiocount + 1])
+                    if ( data[audiocount + 1])
                     data[audiocount++] = (int)(conv * indata[2 * i + 1]);
                     break;
             }

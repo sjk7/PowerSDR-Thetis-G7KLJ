@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*
  * network.c
  * Copyright (C) 2015-2020 Doug Wigley (W5WC)
@@ -1156,6 +1159,8 @@ int sendPacket(SOCKET sock, char* data, int length, int port) {
             } else {
                 if (sock_error != 0) {
                     LeaveCriticalSection(&prn->sndpkt);
+                    assert(0);
+                     wprintf(L"sendto failed with error:%d\n", sock_error);
                     return ret;
                 }
                
@@ -1193,12 +1198,6 @@ int sendPacket(SOCKET sock, char* data, int length, int port) {
 
     
     LeaveCriticalSection(&prn->sndpkt);
-
-
-
-    if (ret == SOCKET_ERROR) {
-        wprintf(L"sendto failed with error:%d\n", WSAGetLastError());
-    }
 
     last_send_time = timeGetTime();
     return ret;

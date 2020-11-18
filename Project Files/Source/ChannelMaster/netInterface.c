@@ -1,3 +1,6 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*
  * netinterface.c
  * Copyright (C) 2006,2007  Bill Tracey (bill@ejwt.com) (KD5TFD)
@@ -916,13 +919,16 @@ PORT void LRAudioSwap(int swap) {
 }
 
 PORT void create_rnet() {
-    int i;
+    int i = 0;
+    
 
     prn = (RADIONET)malloc(sizeof(radionet));
     if (prn) {
         prn->RxBuff = (double**)calloc(8, sizeof(double*));
-        for (int i = 0; i < 8; i++)
+        assert(prn->RxBuff);
+        for (int i = 0; i < 8; i++) {
             prn->RxBuff[i] = (double*)calloc(64, 2 * sizeof(double));
+        }
         prn->RxReadBufp = (double*)calloc(1, 2 * sizeof(double) * 240);
         prn->TxReadBufp = (double*)calloc(1, 2 * sizeof(double) * 720);
         prn->ReadBufp = (unsigned char*)calloc(1, sizeof(unsigned char) * 1444);
@@ -1059,6 +1065,8 @@ PORT void create_rnet() {
         (void)InitializeCriticalSectionAndSpinCount(&prn->seqErrors, 0);
 
         SendpOutbound(OutBound);
+    } else {
+        assert(0);
     }
 }
 

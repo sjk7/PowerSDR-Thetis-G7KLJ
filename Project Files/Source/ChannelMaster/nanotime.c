@@ -1,3 +1,7 @@
+// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 /*
  * JanusAudio.dll - Support library for HPSDR.org's Janus/Ozy Audio card
  * Copyright (C) 2006,2007  Bill Tracey (bill@ejwt.com) (KD5TFD)
