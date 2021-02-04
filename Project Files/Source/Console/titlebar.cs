@@ -37,6 +37,20 @@ namespace Thetis
     {
         public const string BUILD_NAME = "";
         public const string BUILDER = "(G7KLJ BRANCH compiled on";
+        private static DateTime m_whenStarted = DateTime.Now;
+
+        TitleBar()
+        {
+            m_whenStarted = DateTime.Now;
+        }
+
+        public static string UpTime()
+        {
+            var runtime = DateTime.Now - Process.GetCurrentProcess().StartTime;
+            string ret = runtime.ToString(@"hh\:mm\:ss");
+            return ret;
+        
+        }
 
         public static DateTime BuildDate()
         {
@@ -62,9 +76,21 @@ namespace Thetis
                 s += " " + BUILDER;
                 s += " " + BuildDate();
                 s += ")";
+            
                 m_sTitleString = s;
             }
+
             return m_sTitleString;
+        }
+
+        public static string GetStringPlusUptime()
+        {
+
+            String retval = m_sTitleString;
+            retval += "    [UPTIME: ";
+            retval += UpTime();
+            retval += "]";
+            return retval;
         }
     }
 }

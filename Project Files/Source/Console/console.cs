@@ -76,6 +76,7 @@ namespace Thetis
         public int MAX_FPS = 144;
 
         public Thetis.PowerSDR.SMeter NewVFOSignalGauge;
+        public System.Timers.Timer m_uptimeTimer;
         //==================================================================================
         //==================================================================================
         // ke9ns add (copied from cwx precision multimedia msec timer)
@@ -1208,6 +1209,7 @@ namespace Thetis
             this.picSMeter.Paint += new System.Windows.Forms.PaintEventHandler(this.picSMeter_Paint);
             this.Click += new System.EventHandler(this.form_Click);
         }
+
 
         public bool IsSetupFormNull
         {
@@ -33338,6 +33340,7 @@ namespace Thetis
         private HiPerfTimer meter_timer = new HiPerfTimer();
         private async void UpdateMultimeter()
         {
+            
             meter_timer.Start();
             picSMeter.Refresh();
             while (chkPower.Checked)
@@ -35175,6 +35178,8 @@ namespace Thetis
             // qso timer
             updateQSOTimerStatusbar();
             updateQSOTimer();
+            this.Text = TitleBar.GetStringPlusUptime();
+
             // end qso timer
         }
 
@@ -57219,6 +57224,11 @@ namespace Thetis
         private void panelButtonBar_Layout(object sender, LayoutEventArgs e)
         {
             UpdateButtonBarButtons();
+        }
+
+        private void txtVFOBBand_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

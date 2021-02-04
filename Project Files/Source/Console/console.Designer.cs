@@ -6685,6 +6685,7 @@
             this.txtVFOBBand.ForeColor = System.Drawing.Color.Green;
             this.txtVFOBBand.Name = "txtVFOBBand";
             this.txtVFOBBand.ReadOnly = true;
+            this.txtVFOBBand.Click += new System.EventHandler(this.txtVFOBBand_Click);
             this.txtVFOBBand.GotFocus += new System.EventHandler(this.HideFocus);
             // 
             // txtVFOBLSD
