@@ -252,7 +252,7 @@ int MetisReadDirectPOLL(unsigned char* bufp) {
                 // LeaveCriticalSection(&prn->rcvpktp1);
                 
 
-#if (defined _DEBUG || defined DEBUG || defined DEBUG_TIMINGS)
+#if (defined _DEBUG && defined DEBUG_TIMINGS)
                 DWORD took = done - startEnter;
                 DWORD total = timeGetTime() - startEnter;
                 if (reads++ > 20 && (took > 10 || total > 10)) {

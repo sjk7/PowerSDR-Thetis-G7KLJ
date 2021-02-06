@@ -446,6 +446,8 @@ namespace Thetis
                             iSecondsLeft);
                 }
             }
+
+            
         }
 
         // Paint the portion of the panel invalidated during the tick event.

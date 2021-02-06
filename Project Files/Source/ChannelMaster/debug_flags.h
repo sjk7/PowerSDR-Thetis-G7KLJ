@@ -16,8 +16,8 @@
 
 #ifndef DEBUG_TIMINGS
 #if defined(DEBUG) || defined(_DEBUG) || !defined(_WIN64)
-#define DEBUG_TIMINGS
-MY_LOG("timings are on -- code may be slow. Luv G7KLJ xx")
+//#define DEBUG_TIMINGS
+//MY_LOG("timings are on -- code may be slow. Luv G7KLJ xx")
 #endif
 
 #endif

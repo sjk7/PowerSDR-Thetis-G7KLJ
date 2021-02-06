@@ -133,10 +133,10 @@ namespace Thetis
             foreach (Control c in f.Controls)
             {
 
-                if (c == Thetis.Common.Console.picSMeter)
-                {
-                    System.Diagnostics.Debug.WriteLine(c.Name);
-                }
+                //if (c == Thetis.Common.Console.picSMeter)
+                //{
+                 //   System.Diagnostics.Debug.WriteLine(c.Name);
+                //}
                 if (c.Name.Contains("Analog"))
                 {
                     System.Diagnostics.Debug.WriteLine(c.Name);
@@ -1596,6 +1596,7 @@ namespace Thetis
             {
                 objImg = Image.FromFile(path2);
             }
+            /*/
             else if (c == Thetis.Common.Console.picSMeter)
             {
                 var smeterpath = path + "\\" + c.TopLevelControl.Name + "\\" +
@@ -1608,6 +1609,7 @@ namespace Thetis
                 c.BackgroundImage = objImg;
 
             }
+            /*/
             else
             {
 

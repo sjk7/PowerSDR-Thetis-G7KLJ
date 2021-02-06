@@ -916,7 +916,6 @@
             this.toolStripStatusLabel_Date = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_LocalTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.picSMeter = new System.Windows.Forms.PictureBox();
             this.grpMultimeter = new System.Windows.Forms.GroupBoxTS();
             this.pnlResizeMeter = new System.Windows.Forms.PanelTS();
             this.picMultiMeterDigital = new System.Windows.Forms.PictureBox();
@@ -1138,6 +1137,7 @@
             this.tbAndromedaEncoderSlider = new System.Windows.Forms.TrackBarTS();
             this.lblAndromedaEncoderSlider = new System.Windows.Forms.LabelTS();
             this.lblATUTuneLabel = new System.Windows.Forms.LabelTS();
+            this.PrettySMeter = new LBSoft.IndustrialCtrls.Meters.LBAnalogMeter();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udFilterHigh)).BeginInit();
@@ -1181,7 +1181,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picRX2Squelch)).BeginInit();
             this.statusStripMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSMeter)).BeginInit();
             this.grpMultimeter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picMultiMeterDigital)).BeginInit();
             this.panelFilter.SuspendLayout();
@@ -5097,15 +5096,6 @@
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // picSMeter
-            // 
-            this.picSMeter.BackColor = System.Drawing.Color.Black;
-            this.picSMeter.BackgroundImage = global::Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
-            resources.ApplyResources(this.picSMeter, "picSMeter");
-            this.picSMeter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picSMeter.Name = "picSMeter";
-            this.picSMeter.TabStop = false;
-            // 
             // grpMultimeter
             // 
             this.grpMultimeter.BackColor = System.Drawing.Color.Transparent;
@@ -5301,7 +5291,6 @@
             // 
             resources.ApplyResources(this.panelRX2RF, "panelRX2RF");
             this.panelRX2RF.BackColor = System.Drawing.Color.Transparent;
-            this.panelRX2RF.Controls.Add(this.picSMeter);
             this.panelRX2RF.Controls.Add(this.ptbRX2RF);
             this.panelRX2RF.Controls.Add(this.lblRX2RF);
             this.panelRX2RF.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -6318,6 +6307,7 @@
             // 
             resources.ApplyResources(this.panelDisplay, "panelDisplay");
             this.panelDisplay.BackColor = System.Drawing.Color.Transparent;
+            this.panelDisplay.Controls.Add(this.PrettySMeter);
             this.panelDisplay.Controls.Add(this.txtOverload);
             this.panelDisplay.Controls.Add(this.radDisplayZoom4x);
             this.panelDisplay.Controls.Add(this.radDisplayZoom2x);
@@ -6662,6 +6652,7 @@
             this.lblRX2ModeBigLabel.BackColor = System.Drawing.Color.Black;
             this.lblRX2ModeBigLabel.ForeColor = System.Drawing.Color.DarkOrange;
             this.lblRX2ModeBigLabel.Name = "lblRX2ModeBigLabel";
+            this.lblRX2ModeBigLabel.Click += new System.EventHandler(this.lblRX2ModeBigLabel_Click);
             // 
             // lblRX2APF
             // 
@@ -6686,6 +6677,7 @@
             this.txtVFOBBand.Name = "txtVFOBBand";
             this.txtVFOBBand.ReadOnly = true;
             this.txtVFOBBand.Click += new System.EventHandler(this.txtVFOBBand_Click);
+            this.txtVFOBBand.TextChanged += new System.EventHandler(this.txtVFOBBand_TextChanged);
             this.txtVFOBBand.GotFocus += new System.EventHandler(this.HideFocus);
             // 
             // txtVFOBLSD
@@ -7209,6 +7201,22 @@
             this.lblATUTuneLabel.ForeColor = System.Drawing.Color.White;
             this.lblATUTuneLabel.Name = "lblATUTuneLabel";
             // 
+            // PrettySMeter
+            // 
+            this.PrettySMeter.BodyColor = System.Drawing.Color.Red;
+            resources.ApplyResources(this.PrettySMeter, "PrettySMeter");
+            this.PrettySMeter.MaxValue = 1000D;
+            this.PrettySMeter.MeterStyle = LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.AnalogMeterStyle.Circular;
+            this.PrettySMeter.MinValue = 0D;
+            this.PrettySMeter.Name = "PrettySMeter";
+            this.PrettySMeter.NeedleColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(103)))), ((int)(((byte)(3)))));
+            this.PrettySMeter.Renderer = null;
+            this.PrettySMeter.ScaleColor = System.Drawing.Color.White;
+            this.PrettySMeter.ScaleDivisions = 10;
+            this.PrettySMeter.ScaleSubDivisions = 10;
+            this.PrettySMeter.Value = 0D;
+            this.PrettySMeter.ViewGlass = false;
+            // 
             // Console
             // 
             resources.ApplyResources(this, "$this");
@@ -7317,7 +7325,6 @@
             this.statusStripMain.ResumeLayout(false);
             this.statusStripMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picSMeter)).EndInit();
             this.grpMultimeter.ResumeLayout(false);
             this.grpMultimeter.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picMultiMeterDigital)).EndInit();
@@ -7507,6 +7514,6 @@
         private ToolStripMenuItem toolStripMenuItem18;
         private ToolStripStatusLabel toolStripStatusLabelAndromedaMulti;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
-        public PictureBox picSMeter;
+        private LBSoft.IndustrialCtrls.Meters.LBAnalogMeter PrettySMeter;
     }
 }

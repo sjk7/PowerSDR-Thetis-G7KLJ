@@ -207,6 +207,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LBIndustrialCtrls">
+      <HintPath>..\..\lib\AnalogMeter_src\LBIndustrialCtrls\bin\x86\Debug\LBIndustrialCtrls.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="SharpDX">
       <HintPath>..\..\lib\SharpDX\SharpDX.dll</HintPath>

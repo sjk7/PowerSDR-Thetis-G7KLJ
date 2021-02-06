@@ -76,7 +76,7 @@ namespace Thetis
         public int MAX_FPS = 144;
 
         public Thetis.PowerSDR.SMeter NewVFOSignalGauge;
-        public System.Timers.Timer m_uptimeTimer;
+        // public System.Timers.Timer m_uptimeTimer;
         //==================================================================================
         //==================================================================================
         // ke9ns add (copied from cwx precision multimedia msec timer)
@@ -1203,10 +1203,10 @@ namespace Thetis
             }
 
             Splash.CloseForm();
-  
 
-            this.picSMeter.DoubleClick += new System.EventHandler(this.picSMeter_DoubleClick);
-            this.picSMeter.Paint += new System.Windows.Forms.PaintEventHandler(this.picSMeter_Paint);
+
+            //this.picSMeter.DoubleClick += new System.EventHandler(this.picSMeter_DoubleClick);
+            //this.picSMeter.Paint += new System.Windows.Forms.PaintEventHandler(this.picSMeter_Paint);
             this.Click += new System.EventHandler(this.form_Click);
         }
 
@@ -1227,7 +1227,7 @@ namespace Thetis
                     if (IsSetupFormNull)
                     {
                         Debug.Print("__setup form new()__");
-                        
+
                         m_frmSetupForm = new Setup(this);
                         m_frmSetupForm.Owner = this;
                     }
@@ -1526,12 +1526,12 @@ namespace Thetis
         private void InitConsole()
         {
 
-            NewVFOSignalGauge = new PowerSDR.SMeter(this, 0, picSMeter);
-          
-            NewVFOSignalGauge.Width = picSMeter.Width;
-            NewVFOSignalGauge.Height = picSMeter.Height;
+            //NewVFOSignalGauge = new PowerSDR.SMeter(this, 0, picSMeter);
 
-            NewVFOSignalGauge.booting = false;
+           // NewVFOSignalGauge.Width = picSMeter.Width;
+            //NewVFOSignalGauge.Height = picSMeter.Height;
+
+           // NewVFOSignalGauge.booting = false;
 
             m_frmNotchPopup = new frmNotchPopup();
             m_frmNotchPopup.NotchDeleteEvent += onNotchDelete;
@@ -2142,7 +2142,7 @@ namespace Thetis
         public void ExitConsole()
         {
             if (failed) return;
-            
+
             if (n1mm_udp_client != null)
                 n1mm_udp_client.Close();
 
@@ -15019,17 +15019,48 @@ namespace Thetis
             catch { }
         }
 
+        DateTime m_stopwatch_start;
         public void UpdateVFOBFreq(string freq)
         {	// only do this routine if there are six digits after the decimal point.
-            m_dVFOBFreq = freqFromString(freq);
-            txtVFOBFreq.Text = freq;
-            txtVFOBMSD.Text = freq;
+            if (this.m_vfoBMode == VfoBMode.VFO)
+            {
+                m_dVFOBFreq = freqFromString(freq);
+                txtVFOBFreq.Text = freq;
+                txtVFOBMSD.Text = freq;
 
-            string temp = freq;
-            int index = temp.IndexOf(separator) + 4;
-            txtVFOBLSD.Text = temp.Remove(0, index);
-            if (KWAutoInformation)
-                BroadcastFreqChange("B", freq);
+                string temp = freq;
+                int index = temp.IndexOf(separator) + 4;
+                txtVFOBLSD.Text = temp.Remove(0, index);
+                if (KWAutoInformation)
+                    BroadcastFreqChange("B", freq);
+            }
+            else if (this.m_vfoBMode == VfoBMode.CLOCK)
+            {
+                lblRX2ModeBigLabel.AutoSize = false;
+                lblRX2ModeBigLabel.Size = txtVFOBFreq.Size;
+                txtVFOBFreq.Text = "";
+                txtVFOBMSD.Text = "";
+                lblRX2ModeBigLabel.BringToFront();
+                if (lblRX2ModeBigLabel.Right > grpVFOB.Width)
+                    CentreControlInGroupBox(grpVFOB, lblRX2ModeBigLabel);
+                lblRX2ModeBigLabel.Visible = true;
+                DateTimeFormatInfo formatInfo = CultureInfo.CurrentUICulture.DateTimeFormat;
+                lblRX2ModeBigLabel.Text = DateTime.Now.ToString(formatInfo);
+            }else if (this.m_vfoBMode == VfoBMode.TIMER)
+            {
+                lblRX2ModeBigLabel.AutoSize = false;
+                lblRX2ModeBigLabel.Size = txtVFOBFreq.Size;
+                txtVFOBFreq.Text = "";
+                txtVFOBMSD.Text = "";
+                lblRX2ModeBigLabel.BringToFront();
+                if (lblRX2ModeBigLabel.Right > grpVFOB.Width)
+                    CentreControlInGroupBox(grpVFOB, lblRX2ModeBigLabel);
+                lblRX2ModeBigLabel.Visible = true;
+                DateTimeFormatInfo formatInfo = CultureInfo.CurrentUICulture.DateTimeFormat;
+                var tmr = DateTime.Now - m_stopwatch_start;
+                string ret = tmr.ToString(@"hh\:mm\:ss");
+                lblRX2ModeBigLabel.Text = ret;
+            }
         }
 
         public void CalcDisplayFreq()
@@ -32111,7 +32142,7 @@ namespace Thetis
                 {
                     s_meter_value = 6.7f;
                 }
-                else if (mynum >= 120.0f )
+                else if (mynum >= 120.0f)
                 {
                     s_meter_value = s_meter_value / 2.3f;
                 }
@@ -32140,7 +32171,7 @@ namespace Thetis
                 {
                     s_meter_value = (float)-(-73.0f - dbm) / 6.6f + 8.8f;
                 }
-                else if (mynum >= 55.0f )
+                else if (mynum >= 55.0f)
                 {
                     s_meter_value = (float)-(-73.0f - dbm) / 6.6f + 8.4f;
                 }
@@ -32198,11 +32229,12 @@ namespace Thetis
                     num = avg_num = current_meter_data * 0.2 + avg_num * 0.8; // slow decay
 
                 // num = -120f;
-                if (picSMeter.Visible)
-                s_meter_value = calcSMeterValue((float)num);
-               
-                picSMeter.Invalidate();
-                if (m_frmSMeter != null){
+                //if (picSMeter.Visible)
+                //    s_meter_value = calcSMeterValue((float)num);
+
+                //picSMeter.Invalidate();
+                if (m_frmSMeter != null)
+                {
                     m_frmSMeter.Invalidate();
                 }
             }
@@ -32405,15 +32437,15 @@ namespace Thetis
                     break;
             }
 
-            if (picSMeter.Visible)
-            {
+            //if (picSMeter.Visible)
+            //{
                 // NewVFOSignalGauge.Value = s_meter_value;
-                if (m_frmSMeter != null)
-                {
-                    m_frmSMeter.Value = s_meter_value;
-                }
+               // if (m_frmSMeter != null)
+             //   {
+             //       m_frmSMeter.Value = s_meter_value;
+             //   }
 
-            }
+            //}
             meter_timer.Stop();
 
             string format = "f0";
@@ -33340,9 +33372,9 @@ namespace Thetis
         private HiPerfTimer meter_timer = new HiPerfTimer();
         private async void UpdateMultimeter()
         {
-            
+
             meter_timer.Start();
-            picSMeter.Refresh();
+            //picSMeter.Refresh();
             while (chkPower.Checked)
             {
                 if (!meter_data_ready)
@@ -33368,7 +33400,7 @@ namespace Thetis
                                 new_meter_data = num;
 
 
-                                
+
                                 // test MW0LGE
                                 // MultiMeter.Meter.MeterRXValue = num;
 
@@ -33520,7 +33552,7 @@ namespace Thetis
                     }
                     meter_data_ready = true;
                     picMultiMeterDigital.Invalidate();
-                    
+
                 }
 
 
@@ -34596,7 +34628,7 @@ namespace Thetis
                 }
                 */
 
-            void HandleXml(string str)
+        void HandleXml(string str)
         {
             // int textCount = 0;
             // bool valid_data = true;
@@ -35179,7 +35211,10 @@ namespace Thetis
             updateQSOTimerStatusbar();
             updateQSOTimer();
             this.Text = TitleBar.GetStringPlusUptime();
-
+            if (m_vfoBMode != VfoBMode.VFO) {
+                this.UpdateVFOBFreq("0.0000");
+            }
+            SizeAndPositionAnalogSMeter();
             // end qso timer
         }
 
@@ -38055,7 +38090,11 @@ namespace Thetis
                     Audio.MonitorVolume = 0.0;
                     TXAF = ptbAF.Value;
                 }
-                else Audio.MonitorVolume = ptbAF.Value / 100.0;
+                else
+                {
+                    if (!chkMUT.Checked)
+                    Audio.MonitorVolume = ptbAF.Value / 100.0;
+                }
             }
 
             if ((!MOX && !Audio.MOX) ||
@@ -38629,7 +38668,7 @@ namespace Thetis
 
             if (tx)                          // change to TX mode
             {
-                DisableAllModes();      //Disallow mode changes in transmit mode               
+                // DisableAllModes();      //Disallow mode changes in transmit mode               
             }
             else                            // change to RX mode
             {
@@ -38637,6 +38676,8 @@ namespace Thetis
                 {
                     EnableAllModes();    //Re-enable mode changes in receive mode                     
                 }
+
+                Audio.MuteRX1 = chkMUT.Checked;
             }
 
 
@@ -44012,7 +44053,7 @@ namespace Thetis
                     m_frmSMeter = new frmSMeter();
                     m_frmSMeter.StartPosition = FormStartPosition.CenterParent;
 
-                    
+
                 }
 
                 m_frmSMeter.Show();
@@ -44027,7 +44068,7 @@ namespace Thetis
             {
 
                 NewVFOSignalGauge.PaintGauge(e);
-                            
+
             }
             catch (Exception ex)
             {
@@ -50730,7 +50771,9 @@ namespace Thetis
         {
 
             var gap = this.panelBandHF.Top - grpMultimeterMenus.Bottom;
-            picSMeter.Visible = false;
+            PrettySMeter.Top = picDisplay.Top;
+            PrettySMeter.Left = picDisplay.Width- PrettySMeter.Left;
+            //picSMeter.Visible = false;
             return;
             /*/
             if (gap >= 0)
@@ -50802,7 +50845,7 @@ namespace Thetis
                 else return;
             }
 
-           
+
             if (this.Width < console_basis_size.Width && !this.collapsedDisplay)
             {
                 this.Width = console_basis_size.Width;
@@ -57220,15 +57263,98 @@ namespace Thetis
 
         }
 
- 
+
         private void panelButtonBar_Layout(object sender, LayoutEventArgs e)
         {
             UpdateButtonBarButtons();
         }
+        private void CentreControlInGroupBox(GroupBox theGroupBox, Control theControl)
+        {
+            // Find the centre point of the Group Box
+            int groupBoxCentreWidth = theGroupBox.Width / 2;
+            int groupBoxCentreHeight = theGroupBox.Height / 2;
+
+            // Find the centre point of the Control to be positioned/added
+            int controlCentreWidth = theControl.Width / 2;
+            int controlCentreHeight = theControl.Height / 2;
+
+            // Set the Control to be at the centre of the Group Box by
+            // off-setting the Controls Left/Top from the Group Box centre
+            theControl.Left = groupBoxCentreWidth - controlCentreWidth;
+            theControl.Top = groupBoxCentreHeight - controlCentreHeight;
+
+            // Set the Anchor to be None to make sure the control remains
+            // centred after re-sizing of the form
+            theControl.Anchor = AnchorStyles.None;
+        }
+
+        private enum VfoBMode
+        {
+            VFO, CLOCK, TIMER
+        }
+
+        VfoBMode m_vfoBMode = VfoBMode.VFO;
+
+        private void toggle_vfo_b_mode()
+        {
+            if (chkRX2.CheckState == CheckState.Checked)
+            {
+                    m_vfoBMode = VfoBMode.TIMER;
+            }
+
+            foreach (Control c in this.grpVFOB.Controls)
+            {
+                    c.Hide();
+            }
+            
+            if (m_vfoBMode == VfoBMode.VFO)
+            {
+                m_vfoBMode = VfoBMode.CLOCK;
+                lblRX2ModeBigLabel.TextAlign = ContentAlignment.MiddleCenter;
+                CentreControlInGroupBox(grpVFOB, lblRX2ModeBigLabel);
+                
+                this.grpVFOB.Text = "Local Time";
+            }
+            else if (m_vfoBMode == VfoBMode.CLOCK)
+            {
+                m_vfoBMode = VfoBMode.TIMER;
+                m_stopwatch_start = DateTime.Now;
+                lblRX2ModeBigLabel.TextAlign = ContentAlignment.MiddleCenter;
+                this.grpVFOB.Text = "Timer";
+                CentreControlInGroupBox(grpVFOB, lblRX2ModeBigLabel);
+            }
+            else
+            {
+                this.grpVFOB.Text = "VFO B";
+                m_vfoBMode = VfoBMode.VFO;
+                foreach (Control c in this.grpVFOB.Controls)
+                {
+                        c.Show();
+                }
+                lblRX2ModeBigLabel.Size = (lblModeBigLabel.Size);
+                lblRX2ModeBigLabel.SendToBack();
+                setSmallRX2ModeFilterLabels();
+            }
+            lblRX2ModeBigLabel.Show();
+        }
 
         private void txtVFOBBand_Click(object sender, EventArgs e)
         {
+            toggle_vfo_b_mode();
+            if (chkRX2.CheckState != CheckState.Checked) { 
+                var freq = 0;
+                UpdateVFOBFreq(freq.ToString("f6"));
+            }
+        }
 
+        private void txtVFOBBand_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblRX2ModeBigLabel_Click(object sender, EventArgs e)
+        {
+            toggle_vfo_b_mode();
         }
     }
 

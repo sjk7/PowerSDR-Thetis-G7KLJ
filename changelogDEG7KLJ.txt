@@ -52,6 +52,9 @@ In RX, master AF really is the master gain: changes volume overall.
 In TX, master AF affects how loud the TX monitor is.
 Mute button now works with VAC.
 
+05/02/2021
+Mute button not 'remembering' it's muted after transmission made - fixed.
+Left click VFOB to use that screen area for other things if VFOB not in use.
 
 
 
