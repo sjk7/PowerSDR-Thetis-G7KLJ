@@ -54,11 +54,11 @@ namespace LBSoft.IndustrialCtrls.Meters
 		protected LBAnalogMeterRenderer	defaultRenderer;
 		#endregion
 		
-		#region Costructors
+		#region Constructors
 		public LBAnalogMeter()
 		{
 			// Initialization
-			InitializeComponent();
+			// InitializeComponent();
 			
 			// Properties initialization
 			this.bodyColor = Color.Red;
@@ -69,7 +69,7 @@ namespace LBSoft.IndustrialCtrls.Meters
 			this.startAngle = 225;
 			this.endAngle = 315;
 			this.minValue = 0;
-			this.maxValue = 1;
+			this.maxValue = 1000;
 			this.currValue = 0;
 			this.scaleDivisions = 10;
 			this.scaleSubDivisions = 10;
@@ -191,6 +191,15 @@ namespace LBSoft.IndustrialCtrls.Meters
 				Invalidate();
 			}
 		}
+        public double Max
+        {
+            get { return maxValue; }
+            set { maxValue = value;
+                Invalidate();
+            }
+        }
+
+
 		
         public void setValue(float newVal)
         {

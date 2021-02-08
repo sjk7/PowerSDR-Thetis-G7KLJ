@@ -1,3 +1,6 @@
+Language: CSharp
+# Use 100 columns for C#.
+ColumnLimit: 100
 ---
 Language:        Cpp
 # BasedOnStyle:  Visual Studio

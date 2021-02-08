@@ -207,9 +207,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LBIndustrialCtrls">
-      <HintPath>..\..\lib\AnalogMeter_src\LBIndustrialCtrls\bin\x86\Debug\LBIndustrialCtrls.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="SharpDX">
       <HintPath>..\..\lib\SharpDX\SharpDX.dll</HintPath>
@@ -235,6 +232,7 @@
       <Name>System</Name>
     </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -254,15 +252,18 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AGauge.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="AmpView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="AmpView.Designer.cs">
       <DependentUpon>AmpView.cs</DependentUpon>
     </Compile>
+    <Compile Include="AnalogSMeter\ColorMng.cs" />
+    <Compile Include="AnalogSMeter\LBAnalogMeter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AnalogSMeter\MathFunc.cs" />
+    <Compile Include="AnalogSMeter\MeterRenderer.cs" />
     <Compile Include="Andromeda\AndromedaEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -298,10 +299,10 @@
     <Compile Include="frmSeqLog.designer.cs">
       <DependentUpon>frmSeqLog.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmSMeter.cs">
+    <Compile Include="AnalogSMeter\frmSMeter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmSMeter.Designer.cs">
+    <Compile Include="AnalogSMeter\frmSMeter.Designer.cs">
       <DependentUpon>frmSMeter.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
@@ -309,6 +310,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="ShutdownForm.cs">
       <SubType>Form</SubType>
@@ -556,6 +562,10 @@
       <SubType>Form</SubType>
     </Compile>
     <Content Include="hpsdr4-64.ico" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\OLDAnalogSignalGauge.JPG" />
     <Content Include="Resources\screen4.png" />
     <None Include="Resources\openhpsdrnotastall.bmp" />
@@ -588,7 +598,7 @@
     <EmbeddedResource Include="frmSeqLog.resx">
       <DependentUpon>frmSeqLog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmSMeter.resx">
+    <EmbeddedResource Include="AnalogSMeter\frmSMeter.resx">
       <DependentUpon>frmSMeter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KE9N\scan.resx">

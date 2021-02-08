@@ -6307,7 +6307,6 @@
             // 
             resources.ApplyResources(this.panelDisplay, "panelDisplay");
             this.panelDisplay.BackColor = System.Drawing.Color.Transparent;
-            this.panelDisplay.Controls.Add(this.PrettySMeter);
             this.panelDisplay.Controls.Add(this.txtOverload);
             this.panelDisplay.Controls.Add(this.radDisplayZoom4x);
             this.panelDisplay.Controls.Add(this.radDisplayZoom2x);
@@ -7205,23 +7204,27 @@
             // 
             this.PrettySMeter.BodyColor = System.Drawing.Color.Red;
             resources.ApplyResources(this.PrettySMeter, "PrettySMeter");
+            this.PrettySMeter.Max = 1000D;
             this.PrettySMeter.MaxValue = 1000D;
             this.PrettySMeter.MeterStyle = LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.AnalogMeterStyle.Circular;
             this.PrettySMeter.MinValue = 0D;
             this.PrettySMeter.Name = "PrettySMeter";
-            this.PrettySMeter.NeedleColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(103)))), ((int)(((byte)(3)))));
+            this.PrettySMeter.NeedleColor = System.Drawing.Color.Yellow;
             this.PrettySMeter.Renderer = null;
             this.PrettySMeter.ScaleColor = System.Drawing.Color.White;
             this.PrettySMeter.ScaleDivisions = 10;
             this.PrettySMeter.ScaleSubDivisions = 10;
             this.PrettySMeter.Value = 0D;
-            this.PrettySMeter.ViewGlass = false;
+            this.PrettySMeter.ViewGlass = true;
+            this.PrettySMeter.ValueChanged += new System.EventHandler(this.PrettySMeter_ValueChanged_1);
+            this.PrettySMeter.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PrettySMeter_MouseUp);
             // 
             // Console
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.Controls.Add(this.PrettySMeter);
             this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.grpMultimeter);
             this.Controls.Add(this.panelFilter);

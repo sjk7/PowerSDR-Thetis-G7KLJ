@@ -80,6 +80,7 @@ namespace Thetis
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.LabelTS lblStatus;
         private System.Windows.Forms.Panel pnlStatus;
+        private LabelTS labelTS1;
         private System.ComponentModel.IContainer components;
 
         #endregion
@@ -120,6 +121,7 @@ namespace Thetis
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblTimeRemaining = new System.Windows.Forms.LabelTS();
             this.lblStatus = new System.Windows.Forms.LabelTS();
+            this.labelTS1 = new System.Windows.Forms.LabelTS();
             this.SuspendLayout();
             // 
             // pnlStatus
@@ -143,11 +145,11 @@ namespace Thetis
             this.lblTimeRemaining.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTimeRemaining.ForeColor = System.Drawing.Color.Blue;
             this.lblTimeRemaining.Image = null;
-            this.lblTimeRemaining.Location = new System.Drawing.Point(289, 57);
+            this.lblTimeRemaining.Location = new System.Drawing.Point(518, 368);
             this.lblTimeRemaining.Name = "lblTimeRemaining";
             this.lblTimeRemaining.Size = new System.Drawing.Size(89, 16);
             this.lblTimeRemaining.TabIndex = 1;
-            this.lblTimeRemaining.Text = "Time";
+            this.lblTimeRemaining.Text = "Starting ...";
             this.lblTimeRemaining.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblStatus
@@ -163,6 +165,19 @@ namespace Thetis
             this.lblStatus.Text = "Status";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // labelTS1
+            // 
+            this.labelTS1.BackColor = System.Drawing.Color.Transparent;
+            this.labelTS1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTS1.ForeColor = System.Drawing.Color.Blue;
+            this.labelTS1.Image = null;
+            this.labelTS1.Location = new System.Drawing.Point(317, 46);
+            this.labelTS1.Name = "labelTS1";
+            this.labelTS1.Size = new System.Drawing.Size(89, 16);
+            this.labelTS1.TabIndex = 3;
+            this.labelTS1.Text = "De G7KLJ";
+            this.labelTS1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Splash
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -170,6 +185,7 @@ namespace Thetis
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(677, 416);
+            this.Controls.Add(this.labelTS1);
             this.Controls.Add(this.lblTimeRemaining);
             this.Controls.Add(this.pnlStatus);
             this.Controls.Add(this.lblStatus);
