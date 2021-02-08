@@ -58,5 +58,17 @@ namespace Thetis.Properties {
                 this["BigSMeterOpen"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SMeterBackgroundImg {
+            get {
+                return ((int)(this["SMeterBackgroundImg"]));
+            }
+            set {
+                this["SMeterBackgroundImg"] = value;
+            }
+        }
     }
 }

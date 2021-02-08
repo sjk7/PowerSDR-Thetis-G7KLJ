@@ -386,8 +386,8 @@ public partial class Console : Form {
 
   public double[] FM_deviation_array = { 5000, 2500 };
 
-  // private bool shift_down;							// used to modify tuning
-  // rate
+  // private bool shift_down;							// used to modify
+  // tuning rate
   // // MW0LGE scrap this, now use m_bShiftKeyDown
   private bool calibrating; // true if running a calibration routine
   private bool manual_mox;  // True if the MOX button was clicked on (not PTT)
@@ -11547,8 +11547,9 @@ public partial class Console : Form {
     //			double v_out = 0;
     //			if(v_det >= 1.6)
     //				v_out =
-    //(-0.241259304*v_det+12.07915098)*v_det*PABandOffset(CurrentBand); 			else if(v_det
-    //> 0.35) v_out = (1/Math.Pow(v_det, 2)+11.3025111)*v_det*PABandOffset(CurrentBand); return
+    //(-0.241259304*v_det+12.07915098)*v_det*PABandOffset(CurrentBand); 			else
+    // if(v_det > 0.35) v_out = (1/Math.Pow(v_det, 2)+11.3025111)*v_det*PABandOffset(CurrentBand);
+    // return
     // v_out;
   }
 
@@ -31785,7 +31786,8 @@ public partial class Console : Form {
     }
 
     if (Properties.Settings.Default.BigSMeterOpen && m_frmSMeter == null) {
-      m_frmSMeter = new frmSMeter();
+      m_frmSMeter = new frmSMeter(this.PrettySMeter.Bounds, this);
+
       m_frmSMeter.Show();
       m_frmSMeter.BringToFront();
     }
@@ -42795,7 +42797,7 @@ public partial class Console : Form {
     int current_width = (int)udFilterHigh.Value - (int)udFilterLow.Value;
     int current_center = (int)udFilterLow.Value + (current_width / 2);
     //			Debug.WriteLine("w: " + current_width + " center: " + current_center + "
-    //vfo:
+    // vfo:
     //"
     //+ VFOAFreq);
 
@@ -43037,7 +43039,7 @@ public partial class Console : Form {
   private void mnuEQ_Click(object sender, System.EventArgs e) {
     if (EQForm == null || EQForm.IsDisposed)
       EQForm = new EQForm(this);
-    EQForm.Show();
+    EQForm.Show(this);
     EQForm.Focus();
   }
 
@@ -46034,18 +46036,34 @@ public partial class Console : Form {
     }
   }
 
-  // bool done_console_basis = false;
   int dpi = 0;
   SizeF base_size = new SizeF(0, 0);
   bool dpi_resize_done = false;
-  // bool set_min_size = false;
+
+  public string CurrentSkinsFolder() {
+    return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+           "\\OpenHPSDR\\Skins\\" + CurrentSkin;
+  }
+  public Image PrettySMeterSkin() {
+    var folder = CurrentSkinsFolder() + "\\Console";
+    if (Directory.Exists(folder)) {
+      if (File.Exists(folder + "\\PrettySMeter.jpg")) {
+        return Image.FromFile(folder + "\\PrettySMeter.jpg");
+      }
+    }
+
+    return null;
+  }
 
   private void SizeAndPositionAnalogSMeter() {
 
     var gap = this.panelBandHF.Top - grpMultimeterMenus.Bottom;
+    PrettySMeter.ToggleBackGroundImage(Thetis.Properties.Settings.Default.SMeterBackgroundImg);
 
     if (gap >= 100) {
-
+      if (PrettySMeter.m_console == null) {
+        PrettySMeter.m_console = this;
+      }
       // goes under grpMultiMeterMenus
       var top = this.grpMultimeterMenus.Bottom;
       // this.picSMeter.Top = top;
@@ -47423,7 +47441,7 @@ public partial class Console : Form {
   private void equalizerToolStripMenuItem_Click(object sender, EventArgs e) {
     if (EQForm == null || EQForm.IsDisposed)
       EQForm = new EQForm(this);
-    EQForm.Show();
+    EQForm.Show(this);
     EQForm.Focus();
   }
 
@@ -52175,20 +52193,56 @@ public partial class Console : Form {
 
   private void PrettySMeter_MouseUp(object sender, MouseEventArgs e) {
     if (e.Button == MouseButtons.Right) {
-      if (this.m_frmSMeter == null || m_frmSMeter.IsDisposed) {
-        m_frmSMeter = new frmSMeter();
-      }
-
-      m_frmSMeter.Value = (float)PrettySMeter.Value;
-      m_frmSMeter.Show();
-      m_frmSMeter.BringToFront();
-      Properties.Settings.Default.BigSMeterOpen = true;
+      ShowBigSMeter();
     }
+  }
+
+  private void ShowBigSMeter() {
+    if (this.m_frmSMeter == null || m_frmSMeter.IsDisposed) {
+      m_frmSMeter = new frmSMeter(PrettySMeter.Bounds, this);
+    }
+
+    m_frmSMeter.Value = (float)PrettySMeter.Value;
+    m_frmSMeter.Show();
+    m_frmSMeter.BringToFront();
+    Properties.Settings.Default.BigSMeterOpen = true;
   }
 
   private void PrettySMeter_ValueChanged_1(object sender, EventArgs e) {
     if (m_frmSMeter != null)
       m_frmSMeter.Value = ((float)PrettySMeter.Value);
+  }
+
+  private void txtMultiText_MouseUp(object sender, MouseEventArgs e) {
+    if (e.Button == MouseButtons.Right) {
+      ShowBigSMeter();
+    }
+  }
+
+  private void picMultiMeterDigital_MouseUp(object sender, MouseEventArgs e) {
+    if (e.Button == MouseButtons.Right) {
+      ShowBigSMeter();
+    }
+  }
+
+  private void picMultiMeterDigital_Click(object sender, EventArgs e) {
+    var mye = (MouseEventArgs)e;
+    if (mye.Button == MouseButtons.Right) {
+      ShowBigSMeter();
+    }
+  }
+
+  private void mnuBigSMeter_Click(object sender, EventArgs e) { ShowBigSMeter(); }
+
+  public void ShowSetup() {}
+  private void calibrateSMeterToolStripMenuItem_Click(object sender, EventArgs e) {
+
+    SetupForm.Show();
+    SetupForm.WindowState = FormWindowState.Normal;
+    SetupForm.BringToFront();
+    SetupForm.ShowSetupTab(Setup.SetupTab.SMeter_Calib_Tab);
+
+    SetupForm.Focus();
   }
 }
 

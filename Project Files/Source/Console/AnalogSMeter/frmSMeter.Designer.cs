@@ -29,12 +29,49 @@ namespace Thetis
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSMeter));
+            this.mnuBigSMeter = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.chooseBackgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.originalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.blueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BigSMeter = new LBSoft.IndustrialCtrls.Meters.LBAnalogMeter();
+            this.mnuBigSMeter.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // mnuBigSMeter
+            // 
+            this.mnuBigSMeter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.chooseBackgroundToolStripMenuItem});
+            this.mnuBigSMeter.Name = "mnuBigSMeter";
+            this.mnuBigSMeter.Size = new System.Drawing.Size(182, 26);
+            // 
+            // chooseBackgroundToolStripMenuItem
+            // 
+            this.chooseBackgroundToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.originalToolStripMenuItem,
+            this.blueToolStripMenuItem});
+            this.chooseBackgroundToolStripMenuItem.Name = "chooseBackgroundToolStripMenuItem";
+            this.chooseBackgroundToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.chooseBackgroundToolStripMenuItem.Text = "Choose Background";
+            // 
+            // originalToolStripMenuItem
+            // 
+            this.originalToolStripMenuItem.Name = "originalToolStripMenuItem";
+            this.originalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.originalToolStripMenuItem.Text = "Original";
+            this.originalToolStripMenuItem.Click += new System.EventHandler(this.originalToolStripMenuItem_Click);
+            // 
+            // blueToolStripMenuItem
+            // 
+            this.blueToolStripMenuItem.Name = "blueToolStripMenuItem";
+            this.blueToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.blueToolStripMenuItem.Text = "Blue";
+            this.blueToolStripMenuItem.Click += new System.EventHandler(this.blueToolStripMenuItem_Click);
             // 
             // BigSMeter
             // 
+            this.BigSMeter.BackgroundImage = global::Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
             this.BigSMeter.BodyColor = System.Drawing.Color.Red;
             this.BigSMeter.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BigSMeter.Location = new System.Drawing.Point(0, 0);
@@ -51,7 +88,10 @@ namespace Thetis
             this.BigSMeter.Size = new System.Drawing.Size(800, 450);
             this.BigSMeter.TabIndex = 147;
             this.BigSMeter.Value = 0D;
-            this.BigSMeter.ViewGlass = true;
+            this.BigSMeter.ViewGlass = false;
+            this.BigSMeter.BackGndImgChanged += new System.EventHandler(this.BigSMeter_BackGndImgChanged);
+            this.BigSMeter.Load += new System.EventHandler(this.BigSMeter_Load);
+            this.BigSMeter.MouseClick += new System.Windows.Forms.MouseEventHandler(this.BigSMeter_MouseClick);
             // 
             // frmSMeter
             // 
@@ -62,6 +102,8 @@ namespace Thetis
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmSMeter";
             this.Text = "G7KLJ PowerSDR S Meter Window";
+            this.Load += new System.EventHandler(this.frmSMeter_Load);
+            this.mnuBigSMeter.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -69,5 +111,9 @@ namespace Thetis
         #endregion
 
         private LBSoft.IndustrialCtrls.Meters.LBAnalogMeter BigSMeter;
+        private System.Windows.Forms.ContextMenuStrip mnuBigSMeter;
+        private System.Windows.Forms.ToolStripMenuItem chooseBackgroundToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem originalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem blueToolStripMenuItem;
     }
 }

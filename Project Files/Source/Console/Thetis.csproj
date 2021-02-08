@@ -580,6 +580,9 @@
     <None Include="Resources\screen.png" />
     <None Include="Resources\warning4.png" />
     <None Include="Resources\zap.png" />
+    <EmbeddedResource Include="AnalogSMeter\LBAnalogMeter.resx">
+      <DependentUpon>LBAnalogMeter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Andromeda\AndromedaEditForm.resx">
       <DependentUpon>AndromedaEditForm.cs</DependentUpon>
     </EmbeddedResource>

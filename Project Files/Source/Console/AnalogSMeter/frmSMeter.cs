@@ -14,12 +14,31 @@ using Thetis.Properties;
 namespace Thetis {
 public partial class frmSMeter : Form {
   private bool windowInitialized = false;
-  public frmSMeter() {
+  private Thetis.Console m_console;
+
+  public Thetis.Console console {
+    get { return m_console; }
+
+    set {
+      m_console = value;
+      this.BigSMeter.m_console = value;
+    }
+  }
+
+  public frmSMeter(System.Drawing.Rectangle initPosition, Console the_console) {
     InitializeComponent();
     // this is the default
+    console = the_console;
     this.WindowState = FormWindowState.Normal;
     this.StartPosition = FormStartPosition.WindowsDefaultBounds;
+    // Properties.Settings.Default.Reset();
 
+    if (Settings.Default.WindowPosition == Rectangle.Empty) {
+      initPosition.Height += (int)((float)initPosition.Height / (float)0.7);
+      initPosition.Width *= 2;
+      initPosition.X -= initPosition.Width * 2;
+      Settings.Default.WindowPosition = initPosition;
+    }
     // check if the saved bounds are nonzero and visible on any screen
     if (Settings.Default.WindowPosition != Rectangle.Empty &&
         IsVisibleOnAnyScreen(Settings.Default.WindowPosition)) {
@@ -38,6 +57,11 @@ public partial class frmSMeter : Form {
     }
     windowInitialized = true;
     Settings.Default.BigSMeterOpen = true;
+    if (Settings.Default.SMeterBackgroundImg == 0) {
+      this.BigSMeter.ToggleBackGroundImage(0);
+    } else {
+      this.BigSMeter.ToggleBackGroundImage(1);
+    }
     Settings.Default.Save();
     this.TopMost = true;
   }
@@ -101,6 +125,30 @@ public partial class frmSMeter : Form {
   public double Value {
     get => this.BigSMeter.Value;
     set => this.BigSMeter.Value = value;
+  }
+
+  private void BigSMeter_Load(object sender, EventArgs e) {}
+
+  private void frmSMeter_Load(object sender, EventArgs e) {}
+
+  private void originalToolStripMenuItem_Click(object sender, EventArgs e) {
+    BigSMeter.ToggleBackGroundImage(0);
+  }
+
+  private void blueToolStripMenuItem_Click(object sender, EventArgs e) {
+    BigSMeter.ToggleBackGroundImage(1);
+  }
+
+  private void BigSMeter_BackGndImgChanged(object sender, EventArgs e) {
+    if (m_console != null) {
+      m_console.PrettySMeter.ToggleBackGroundImage(Settings.Default.SMeterBackgroundImg);
+    }
+  }
+
+  private void BigSMeter_MouseClick(object sender, MouseEventArgs e) {
+    if (e.Button == MouseButtons.Right) {
+      this.mnuBigSMeter.Show(Cursor.Position);
+    }
   }
 }
 }
