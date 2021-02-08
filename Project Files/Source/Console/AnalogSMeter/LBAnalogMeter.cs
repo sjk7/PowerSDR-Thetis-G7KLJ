@@ -370,26 +370,27 @@ namespace LBSoft.IndustrialCtrls.Meters {
         Image skinpic = m_console.PrettySMeterSkin();
         if (skinpic != null) {
           renderer.BackGroundCustomImage = skinpic;
-        }
-      } else {
-
-        if (which == 1 || which == 0) {
-          Settings.Default.SMeterBackgroundImg = which;
-          if (which == 1) {
-            renderer.BackGroundCustomImage = Thetis.Properties.Resources.OLDAnalogSignalGauge;
-          } else {
-            renderer.BackGroundCustomImage = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
-          }
-        } else {
-          if (cur == 0) {
-            Settings.Default.SMeterBackgroundImg = 1;
-            renderer.BackGroundCustomImage = Thetis.Properties.Resources.OLDAnalogSignalGauge;
-          } else {
-            Settings.Default.SMeterBackgroundImg = 0;
-            renderer.BackGroundCustomImage = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
-          }
+          goto done;
         }
       }
+
+      if (which == 1 || which == 0) {
+        Settings.Default.SMeterBackgroundImg = which;
+        if (which == 1) {
+          renderer.BackGroundCustomImage = Thetis.Properties.Resources.OLDAnalogSignalGauge;
+        } else {
+          renderer.BackGroundCustomImage = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
+        }
+      } else {
+        if (cur == 0) {
+          Settings.Default.SMeterBackgroundImg = 1;
+          renderer.BackGroundCustomImage = Thetis.Properties.Resources.OLDAnalogSignalGauge;
+        } else {
+          Settings.Default.SMeterBackgroundImg = 0;
+          renderer.BackGroundCustomImage = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
+        }
+      }
+    done:
 
       Settings.Default.Save();
       Invalidate();
