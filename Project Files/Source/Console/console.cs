@@ -46048,7 +46048,11 @@ public partial class Console : Form {
     var folder = CurrentSkinsFolder() + "\\Console";
     if (Directory.Exists(folder)) {
       if (File.Exists(folder + "\\PrettySMeter.jpg")) {
-        return Image.FromFile(folder + "\\PrettySMeter.jpg");
+        Image img;
+        using (var bmpTemp = new Bitmap(folder + "\\PrettySMeter.jpg")) {
+          img = new Bitmap(bmpTemp);
+          return img;
+        }
       }
     }
 
