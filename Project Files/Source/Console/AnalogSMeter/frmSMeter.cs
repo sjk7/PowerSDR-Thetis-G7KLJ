@@ -31,7 +31,13 @@ public partial class frmSMeter : Form {
     console = the_console;
     this.WindowState = FormWindowState.Normal;
     this.StartPosition = FormStartPosition.WindowsDefaultBounds;
+    this.Owner = the_console;
+
     // Properties.Settings.Default.Reset();
+
+    // this.ControlBox = false;
+    // this.Text = String.Empty;
+    this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 
     if (Settings.Default.WindowPosition == Rectangle.Empty) {
       initPosition.Height += (int)((float)initPosition.Height / (float)0.7);
@@ -63,7 +69,10 @@ public partial class frmSMeter : Form {
       this.BigSMeter.ToggleBackGroundImage(1);
     }
     Settings.Default.Save();
-    this.TopMost = true;
+    if (Settings.Default.TopMost)
+      this.TopMost = true;
+
+    this.alwaysOnTopToolStripMenuItem.Checked = this.TopMost;
   }
 
   private bool IsVisibleOnAnyScreen(Rectangle rect) {
@@ -118,7 +127,7 @@ public partial class frmSMeter : Form {
       Settings.Default.WindowState = FormWindowState.Normal;
       break;
     }
-    Settings.Default.BigSMeterOpen = false;
+
     Settings.Default.Save();
   }
 
@@ -148,7 +157,87 @@ public partial class frmSMeter : Form {
   private void BigSMeter_MouseClick(object sender, MouseEventArgs e) {
     if (e.Button == MouseButtons.Right) {
       this.mnuBigSMeter.Show(Cursor.Position);
+      this.alwaysOnTopToolStripMenuItem.Checked = this.TopMost;
     }
+  }
+  private Point MouseDownLocation;
+
+  private void BigSMeter_MouseDown(object sender, MouseEventArgs e) {
+    if (e.Button == System.Windows.Forms.MouseButtons.Left) {
+      MouseDownLocation = e.Location;
+    }
+  }
+
+  private void BigSMeter_MouseMove(object sender, MouseEventArgs e) {
+    if (e.Button == System.Windows.Forms.MouseButtons.Left) {
+      Left = e.X + Left - MouseDownLocation.X;
+      Top = e.Y + Top - MouseDownLocation.Y;
+    }
+  }
+
+  private void BigSMeter_DoubleClick(object sender, EventArgs e) {
+    if (this.WindowState == FormWindowState.Maximized)
+      this.WindowState = FormWindowState.Normal;
+    else if (this.WindowState == FormWindowState.Minimized)
+      this.WindowState = FormWindowState.Normal;
+    else
+      this.WindowState = FormWindowState.Maximized;
+  }
+
+  int Mx;
+  int My;
+  int Sw;
+  int Sh;
+  bool mov;
+
+  private void Grip_MouseDown(object sender, MouseEventArgs e) {
+    mov = true;
+    My = MousePosition.Y;
+    Mx = MousePosition.X;
+    Sw = Width;
+    Sh = Height;
+    Cursor = Cursors.Hand;
+  }
+
+  private void Grip_MouseMove(object sender, MouseEventArgs e) {
+    if (mov == true) {
+      Width = MousePosition.X - Mx + Sw;
+      Height = MousePosition.Y - My + Sh;
+    }
+  }
+
+  private void Grip_MouseEnter(object sender, EventArgs e) {}
+
+  private void Grip_MouseLeave(object sender, EventArgs e) {}
+
+  private void Grip_MouseUp(object sender, MouseEventArgs e) {
+    mov = false;
+    Cursor = Cursors.Default;
+  }
+
+  private void normalToolStripMenuItem_Click(object sender, EventArgs e) {
+    this.WindowState = FormWindowState.Normal;
+  }
+
+  private void minimizedToolStripMenuItem_Click(object sender, EventArgs e) {
+    this.WindowState = FormWindowState.Minimized;
+  }
+
+  private void maximizedToolStripMenuItem_Click(object sender, EventArgs e) {
+    this.WindowState = FormWindowState.Maximized;
+  }
+
+  private void alwaysOnTopToolStripMenuItem_Click(object sender, EventArgs e) {
+    Settings.Default.TopMost = !Settings.Default.TopMost;
+    Settings.Default.Save();
+    this.alwaysOnTopToolStripMenuItem.Checked = this.TopMost;
+    this.TopMost = Settings.Default.TopMost;
+  }
+
+  private void doNotShowBigSMeterToolStripMenuItem_Click(object sender, EventArgs e) {
+    Settings.Default.BigSMeterOpen = false;
+    Settings.Default.Save();
+    this.Close();
   }
 }
 }

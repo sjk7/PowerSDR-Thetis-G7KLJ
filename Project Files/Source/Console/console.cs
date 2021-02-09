@@ -31785,7 +31785,8 @@ public partial class Console : Form {
       this.UpdateVFOBFreq("0.0000");
     }
 
-    if (Properties.Settings.Default.BigSMeterOpen && m_frmSMeter == null) {
+    bool big = Properties.Settings.Default.BigSMeterOpen;
+    if (big && m_frmSMeter == null) {
       m_frmSMeter = new frmSMeter(this.PrettySMeter.Bounds, this);
 
       m_frmSMeter.Show();
@@ -43467,8 +43468,8 @@ public partial class Console : Form {
         txtDisplayPeakOffset.Location = new Point(txt_display_peak_offset_basis.X + h_delta,
                                                   txt_display_peak_offset_basis.Y + v_delta);
 
-        panelDisplay.Size =
-            new Size(gr_display_size_basis.Width + h_delta, gr_display_size_basis.Height + v_delta);
+        var wid = (gr_display_size_basis.Width + h_delta); //; - (Width * 0.2);
+        panelDisplay.Size = new Size((int)wid, gr_display_size_basis.Height + v_delta);
         picDisplay.Size = new Size(pic_display_size_basis.Width + h_delta,
                                    pic_display_size_basis.Height + v_delta);
         txtOverload.Size =
@@ -43602,6 +43603,8 @@ public partial class Console : Form {
     txt_display_peak_power_basis = this.txtDisplayPeakPower.Location;
     txt_display_peak_offset_basis = this.txtDisplayPeakOffset.Location;
     lbl_display_zoom_basis = this.lblDisplayZoom.Location;
+
+    // klj
 
     gr_display_size_basis = this.panelDisplay.Size;
     pic_display_size_basis = this.picDisplay.Size;
@@ -47867,8 +47870,8 @@ public partial class Console : Form {
         new Point(gr_VFOA_basis_location.X + (h_delta / 4), gr_VFOA_basis_location.Y);
     grpVFOB.Location =
         new Point(gr_VFOB_basis_location.X + h_delta - (h_delta / 4), gr_VFOB_basis_location.Y);
-    // grpVFOBetween.Location = gr_vfobetween_basis_location;
-    // grpMultimeter.Size = gr_multi_meter_size_basis;  //MW0LGE
+
+    //  picDisplay.Width = picDisplay.left
     picMultiMeterDigital.Parent = grpMultimeter;
     // picMultiMeterDigital.Size = pic_multi_meter_size_basis;  //MW0LGE
     picMultiMeterDigital.Location = pic_multi_meter_digital_basis;
@@ -52210,6 +52213,8 @@ public partial class Console : Form {
     m_frmSMeter.Show();
     m_frmSMeter.BringToFront();
     Properties.Settings.Default.BigSMeterOpen = true;
+    if (m_frmSMeter.WindowState == FormWindowState.Minimized)
+      m_frmSMeter.WindowState = FormWindowState.Normal;
   }
 
   private void PrettySMeter_ValueChanged_1(object sender, EventArgs e) {
