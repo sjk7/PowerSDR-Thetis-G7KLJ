@@ -7301,6 +7301,7 @@ partial class Console {
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Console";
             this.Closing += new System.ComponentModel.CancelEventHandler(this.Console_Closing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Console_FormClosing);
             this.Shown += new System.EventHandler(this.Console_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Console_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Console_KeyPress);

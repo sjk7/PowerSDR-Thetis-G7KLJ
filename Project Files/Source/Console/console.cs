@@ -1462,6 +1462,7 @@ public partial class Console : Form {
     m_frmSeqLog.ClearButtonEvent += onClearButton;
 
     psform = new PSForm(this);
+    psform.Owner = this;
     booting = true;
     Thread.Sleep(100);
     UpdateBandStackRegisters();
@@ -46047,6 +46048,10 @@ public partial class Console : Form {
     return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
            "\\OpenHPSDR\\Skins\\" + CurrentSkin;
   }
+
+  public string PrettySMeterSkinPath() {
+    return CurrentSkinsFolder() + "\\Console\\PrettySMeter.jpg";
+  }
   public Image PrettySMeterSkin() {
     var folder = CurrentSkinsFolder() + "\\Console";
     if (Directory.Exists(folder)) {
@@ -50038,6 +50043,8 @@ public partial class Console : Form {
     psform.Dispose();
     if (psform.IsDisposed)
       psform = new PSForm(this);
+
+    psform.Owner = this;
     psform.Show();
     psform.Focus();
   }
@@ -52252,6 +52259,16 @@ public partial class Console : Form {
     SetupForm.ShowSetupTab(Setup.SetupTab.SMeter_Calib_Tab);
 
     SetupForm.Focus();
+  }
+
+  private void Console_FormClosing(object sender, FormClosingEventArgs e) {
+    timer_clock.Enabled = false; // else it loads the SMeter again!
+    if (m_frmSMeter != null) {
+      m_frmSMeter.Close();
+      m_frmSMeter = null;
+    }
+
+    e.Cancel = false;
   }
 }
 

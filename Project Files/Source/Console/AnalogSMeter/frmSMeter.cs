@@ -72,6 +72,11 @@ public partial class frmSMeter : Form {
     if (Settings.Default.TopMost)
       this.TopMost = true;
 
+    if (TopMost)
+      this.Owner = null;
+    else
+      this.Owner = console;
+
     this.alwaysOnTopToolStripMenuItem.Checked = this.TopMost;
   }
 
@@ -158,6 +163,15 @@ public partial class frmSMeter : Form {
     if (e.Button == MouseButtons.Right) {
       this.mnuBigSMeter.Show(Cursor.Position);
       this.alwaysOnTopToolStripMenuItem.Checked = this.TopMost;
+      if (console.PrettySMeterSkin() != null) {
+        this.originalToolStripMenuItem.Enabled = false;
+        this.blueToolStripMenuItem.Enabled = false;
+        this.whyCantIChooseTheBackgroundToolStripMenuItem.Enabled = true;
+      } else {
+        this.originalToolStripMenuItem.Enabled = true;
+        this.blueToolStripMenuItem.Enabled = true;
+        this.whyCantIChooseTheBackgroundToolStripMenuItem.Enabled = false;
+      }
     }
   }
   private Point MouseDownLocation;
@@ -232,12 +246,26 @@ public partial class frmSMeter : Form {
     Settings.Default.Save();
     this.alwaysOnTopToolStripMenuItem.Checked = this.TopMost;
     this.TopMost = Settings.Default.TopMost;
+    if (this.TopMost)
+      this.Owner = null;
+    else
+      this.Owner = console;
   }
 
   private void doNotShowBigSMeterToolStripMenuItem_Click(object sender, EventArgs e) {
     Settings.Default.BigSMeterOpen = false;
     Settings.Default.Save();
     this.Close();
+  }
+
+  private void whyCantIChooseTheBackgroundToolStripMenuItem_Click(object sender, EventArgs e) {
+    string msg1 =
+        "You can't change the background image because you have a skin installed for the Pretty S Meter background, at:";
+    msg1 += "\n\n";
+    msg1 += console.PrettySMeterSkinPath();
+    msg1 += "\n\n";
+    msg1 += "You must first rename or move this file, then restart this application.";
+    MessageBox.Show(msg1, "Pretty S-Meter Message");
   }
 }
 }

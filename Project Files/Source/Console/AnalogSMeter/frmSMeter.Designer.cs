@@ -35,14 +35,15 @@ namespace Thetis
             this.chooseBackgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.originalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.blueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.BigSMeter = new LBSoft.IndustrialCtrls.Meters.LBAnalogMeter();
-            this.Grip = new System.Windows.Forms.PictureBox();
             this.windowStateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.normalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minimizedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.maximizedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.alwaysOnTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.doNotShowBigSMeterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.BigSMeter = new LBSoft.IndustrialCtrls.Meters.LBAnalogMeter();
+            this.Grip = new System.Windows.Forms.PictureBox();
+            this.whyCantIChooseTheBackgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBigSMeter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Grip)).BeginInit();
             this.SuspendLayout();
@@ -58,6 +59,7 @@ namespace Thetis
             // chooseBackgroundToolStripMenuItem
             // 
             this.chooseBackgroundToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.whyCantIChooseTheBackgroundToolStripMenuItem,
             this.originalToolStripMenuItem,
             this.blueToolStripMenuItem});
             this.chooseBackgroundToolStripMenuItem.Name = "chooseBackgroundToolStripMenuItem";
@@ -67,16 +69,63 @@ namespace Thetis
             // originalToolStripMenuItem
             // 
             this.originalToolStripMenuItem.Name = "originalToolStripMenuItem";
-            this.originalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.originalToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
             this.originalToolStripMenuItem.Text = "Original";
             this.originalToolStripMenuItem.Click += new System.EventHandler(this.originalToolStripMenuItem_Click);
             // 
             // blueToolStripMenuItem
             // 
             this.blueToolStripMenuItem.Name = "blueToolStripMenuItem";
-            this.blueToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.blueToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
             this.blueToolStripMenuItem.Text = "Blue";
             this.blueToolStripMenuItem.Click += new System.EventHandler(this.blueToolStripMenuItem_Click);
+            // 
+            // windowStateToolStripMenuItem
+            // 
+            this.windowStateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.normalToolStripMenuItem,
+            this.minimizedToolStripMenuItem,
+            this.maximizedToolStripMenuItem,
+            this.alwaysOnTopToolStripMenuItem,
+            this.doNotShowBigSMeterToolStripMenuItem});
+            this.windowStateToolStripMenuItem.Name = "windowStateToolStripMenuItem";
+            this.windowStateToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.windowStateToolStripMenuItem.Text = "Window State";
+            // 
+            // normalToolStripMenuItem
+            // 
+            this.normalToolStripMenuItem.Name = "normalToolStripMenuItem";
+            this.normalToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.normalToolStripMenuItem.Text = "Normal";
+            this.normalToolStripMenuItem.Click += new System.EventHandler(this.normalToolStripMenuItem_Click);
+            // 
+            // minimizedToolStripMenuItem
+            // 
+            this.minimizedToolStripMenuItem.Name = "minimizedToolStripMenuItem";
+            this.minimizedToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.minimizedToolStripMenuItem.Text = "Minimized";
+            this.minimizedToolStripMenuItem.Click += new System.EventHandler(this.minimizedToolStripMenuItem_Click);
+            // 
+            // maximizedToolStripMenuItem
+            // 
+            this.maximizedToolStripMenuItem.Name = "maximizedToolStripMenuItem";
+            this.maximizedToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.maximizedToolStripMenuItem.Text = "Maximized";
+            this.maximizedToolStripMenuItem.Click += new System.EventHandler(this.maximizedToolStripMenuItem_Click);
+            // 
+            // alwaysOnTopToolStripMenuItem
+            // 
+            this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
+            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.alwaysOnTopToolStripMenuItem.Text = "Always On Top";
+            this.alwaysOnTopToolStripMenuItem.Click += new System.EventHandler(this.alwaysOnTopToolStripMenuItem_Click);
+            // 
+            // doNotShowBigSMeterToolStripMenuItem
+            // 
+            this.doNotShowBigSMeterToolStripMenuItem.Name = "doNotShowBigSMeterToolStripMenuItem";
+            this.doNotShowBigSMeterToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.doNotShowBigSMeterToolStripMenuItem.Text = "Do Not Show Big S-Meter";
+            this.doNotShowBigSMeterToolStripMenuItem.Click += new System.EventHandler(this.doNotShowBigSMeterToolStripMenuItem_Click);
             // 
             // BigSMeter
             // 
@@ -122,52 +171,12 @@ namespace Thetis
             this.Grip.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Grip_MouseMove);
             this.Grip.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Grip_MouseUp);
             // 
-            // windowStateToolStripMenuItem
+            // whyCantIChooseTheBackgroundToolStripMenuItem
             // 
-            this.windowStateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.normalToolStripMenuItem,
-            this.minimizedToolStripMenuItem,
-            this.maximizedToolStripMenuItem,
-            this.alwaysOnTopToolStripMenuItem,
-            this.doNotShowBigSMeterToolStripMenuItem});
-            this.windowStateToolStripMenuItem.Name = "windowStateToolStripMenuItem";
-            this.windowStateToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.windowStateToolStripMenuItem.Text = "Window State";
-            // 
-            // normalToolStripMenuItem
-            // 
-            this.normalToolStripMenuItem.Name = "normalToolStripMenuItem";
-            this.normalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.normalToolStripMenuItem.Text = "Normal";
-            this.normalToolStripMenuItem.Click += new System.EventHandler(this.normalToolStripMenuItem_Click);
-            // 
-            // minimizedToolStripMenuItem
-            // 
-            this.minimizedToolStripMenuItem.Name = "minimizedToolStripMenuItem";
-            this.minimizedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.minimizedToolStripMenuItem.Text = "Minimized";
-            this.minimizedToolStripMenuItem.Click += new System.EventHandler(this.minimizedToolStripMenuItem_Click);
-            // 
-            // maximizedToolStripMenuItem
-            // 
-            this.maximizedToolStripMenuItem.Name = "maximizedToolStripMenuItem";
-            this.maximizedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.maximizedToolStripMenuItem.Text = "Maximized";
-            this.maximizedToolStripMenuItem.Click += new System.EventHandler(this.maximizedToolStripMenuItem_Click);
-            // 
-            // alwaysOnTopToolStripMenuItem
-            // 
-            this.alwaysOnTopToolStripMenuItem.Name = "alwaysOnTopToolStripMenuItem";
-            this.alwaysOnTopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.alwaysOnTopToolStripMenuItem.Text = "Always On Top";
-            this.alwaysOnTopToolStripMenuItem.Click += new System.EventHandler(this.alwaysOnTopToolStripMenuItem_Click);
-            // 
-            // doNotShowBigSMeterToolStripMenuItem
-            // 
-            this.doNotShowBigSMeterToolStripMenuItem.Name = "doNotShowBigSMeterToolStripMenuItem";
-            this.doNotShowBigSMeterToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.doNotShowBigSMeterToolStripMenuItem.Text = "Do Not Show Big S-Meter";
-            this.doNotShowBigSMeterToolStripMenuItem.Click += new System.EventHandler(this.doNotShowBigSMeterToolStripMenuItem_Click);
+            this.whyCantIChooseTheBackgroundToolStripMenuItem.Name = "whyCantIChooseTheBackgroundToolStripMenuItem";
+            this.whyCantIChooseTheBackgroundToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
+            this.whyCantIChooseTheBackgroundToolStripMenuItem.Text = "Why Can\'t I choose the background?";
+            this.whyCantIChooseTheBackgroundToolStripMenuItem.Click += new System.EventHandler(this.whyCantIChooseTheBackgroundToolStripMenuItem_Click);
             // 
             // frmSMeter
             // 
@@ -200,5 +209,6 @@ namespace Thetis
         private System.Windows.Forms.ToolStripMenuItem maximizedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem alwaysOnTopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem doNotShowBigSMeterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem whyCantIChooseTheBackgroundToolStripMenuItem;
     }
 }

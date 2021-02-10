@@ -107,6 +107,7 @@ namespace Thetis
         private NumericUpDownTS udTXEQ2;
         private NumericUpDownTS udTXEQ1;
         private NumericUpDownTS udTXEQ0;
+        private ButtonTS btnTXEQReset;
         private System.ComponentModel.IContainer components;
 
         #endregion
@@ -189,6 +190,7 @@ namespace Thetis
             this.lblRXEQ0dB = new System.Windows.Forms.LabelTS();
             this.lblRXEQminus12db = new System.Windows.Forms.LabelTS();
             this.grpTXEQ = new System.Windows.Forms.GroupBoxTS();
+            this.btnTXEQReset = new System.Windows.Forms.ButtonTS();
             this.lblCFCFreq = new System.Windows.Forms.LabelTS();
             this.udTXEQ9 = new System.Windows.Forms.NumericUpDownTS();
             this.udTXEQ8 = new System.Windows.Forms.NumericUpDownTS();
@@ -689,6 +691,7 @@ namespace Thetis
             // 
             // grpTXEQ
             // 
+            this.grpTXEQ.Controls.Add(this.btnTXEQReset);
             this.grpTXEQ.Controls.Add(this.lblCFCFreq);
             this.grpTXEQ.Controls.Add(this.udTXEQ9);
             this.grpTXEQ.Controls.Add(this.udTXEQ8);
@@ -725,6 +728,17 @@ namespace Thetis
             this.grpTXEQ.TabIndex = 1;
             this.grpTXEQ.TabStop = false;
             this.grpTXEQ.Text = "Transmit Equalizer";
+            // 
+            // btnTXEQReset
+            // 
+            this.btnTXEQReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTXEQReset.Image = null;
+            this.btnTXEQReset.Location = new System.Drawing.Point(478, 14);
+            this.btnTXEQReset.Name = "btnTXEQReset";
+            this.btnTXEQReset.Size = new System.Drawing.Size(42, 20);
+            this.btnTXEQReset.TabIndex = 160;
+            this.btnTXEQReset.Text = "Reset";
+            this.btnTXEQReset.Click += new System.EventHandler(this.btnTXEQReset_Click);
             // 
             // lblCFCFreq
             // 
@@ -1259,7 +1273,9 @@ namespace Thetis
             this.Controls.Add(this.rad3Band);
             this.Controls.Add(this.grpRXEQ);
             this.Controls.Add(this.grpTXEQ);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "EQForm";
             this.Text = "Equalizer Settings";
             this.Closing += new System.ComponentModel.CancelEventHandler(this.EQForm_Closing);
@@ -1520,22 +1536,18 @@ namespace Thetis
             Common.SaveForm(this, "EQForm");
         }
 
-        private void tbRXEQ_Scroll(object sender, System.EventArgs e)
-        {
-            int[] rxeq = RXEQ;
-            if (rad3Band.Checked)
-            {
-                console.radio.GetDSPRX(0, 0).RXEQ3 = rxeq;
-                console.radio.GetDSPRX(0, 1).RXEQ3 = rxeq;
-                console.radio.GetDSPRX(1, 0).RXEQ3 = rxeq;
-            }
-            else
-            {
-                console.radio.GetDSPRX(0, 0).RXEQ10 = rxeq;
-                console.radio.GetDSPRX(0, 1).RXEQ10 = rxeq;
-                console.radio.GetDSPRX(1, 0).RXEQ10 = rxeq;
-            }
-            picRXEQ.Invalidate();
+        private void tbRXEQ_Scroll(object sender, System.EventArgs e) {
+          int[] rxeq = RXEQ;
+          if (rad3Band.Checked) {
+            console.radio.GetDSPRX(0, 0).RXEQ3 = rxeq;
+            console.radio.GetDSPRX(0, 1).RXEQ3 = rxeq;
+            console.radio.GetDSPRX(1, 0).RXEQ3 = rxeq;
+          } else {
+            console.radio.GetDSPRX(0, 0).RXEQ10 = rxeq;
+            console.radio.GetDSPRX(0, 1).RXEQ10 = rxeq;
+            console.radio.GetDSPRX(1, 0).RXEQ10 = rxeq;
+          }
+          picRXEQ.Invalidate();
         }
 
         //private void tbTXEQ_Scroll(object sender, System.EventArgs e)
@@ -1833,5 +1845,26 @@ namespace Thetis
         }
 
         #endregion
+
+        private void btnTXEQReset_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show(
+    "Are you sure you want to reset the TX Equalizer\n" +
+    "to flat (zero)?",
+    "Are you sure?",
+    MessageBoxButtons.YesNo,
+    MessageBoxIcon.Question);
+
+            if (dr == DialogResult.No)
+                return;
+
+            foreach (Control c in grpTXEQ.Controls)
+            {
+                if (c.GetType() == typeof(TrackBarTS))
+                    ((TrackBarTS)c).Value = 0;
+            }
+
+            // tbTXEQ_Scroll(this, EventArgs.Empty);
+        }
     }
 }

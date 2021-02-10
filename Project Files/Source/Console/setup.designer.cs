@@ -2081,6 +2081,7 @@
             this.udSCFLowCut = new System.Windows.Forms.NumericUpDownTS();
             this.chkSCFEnable = new System.Windows.Forms.CheckBoxTS();
             this.tpDSPCFC = new System.Windows.Forms.TabPage();
+            this.btnResetCFC = new System.Windows.Forms.ButtonTS();
             this.lblCFCPEG = new System.Windows.Forms.LabelTS();
             this.lblCFCPEG15 = new System.Windows.Forms.LabelTS();
             this.lblCFCPEG0 = new System.Windows.Forms.LabelTS();
@@ -33701,6 +33702,7 @@
             // tpDSPCFC
             // 
             this.tpDSPCFC.BackColor = System.Drawing.SystemColors.Control;
+            this.tpDSPCFC.Controls.Add(this.btnResetCFC);
             this.tpDSPCFC.Controls.Add(this.lblCFCPEG);
             this.tpDSPCFC.Controls.Add(this.lblCFCPEG15);
             this.tpDSPCFC.Controls.Add(this.lblCFCPEG0);
@@ -33755,6 +33757,18 @@
             this.tpDSPCFC.Size = new System.Drawing.Size(724, 414);
             this.tpDSPCFC.TabIndex = 12;
             this.tpDSPCFC.Text = "CFC";
+            // 
+            // btnResetCFC
+            // 
+            this.btnResetCFC.Image = null;
+            this.btnResetCFC.Location = new System.Drawing.Point(34, 238);
+            this.btnResetCFC.Name = "btnResetCFC";
+            this.btnResetCFC.Size = new System.Drawing.Size(96, 23);
+            this.btnResetCFC.TabIndex = 175;
+            this.btnResetCFC.Text = "Reset All";
+            this.toolTip1.SetToolTip(this.btnResetCFC, "Copies the current database to the desktop and resets to the defaults (after rest" +
+        "arting)");
+            this.btnResetCFC.Click += new System.EventHandler(this.btnResetCFC_Click);
             // 
             // lblCFCPEG
             // 
@@ -33961,6 +33975,7 @@
             this.tbCFCPRECOMP.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCPRECOMP.Size = new System.Drawing.Size(20, 128);
             this.tbCFCPRECOMP.TabIndex = 165;
+            this.tbCFCPRECOMP.Tag = "1";
             this.tbCFCPRECOMP.Scroll += new System.EventHandler(this.tbCFCPRECOMP_Scroll);
             // 
             // lblCFCEQPOST
@@ -34481,6 +34496,7 @@
             this.tbCFC9.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC9.Size = new System.Drawing.Size(20, 128);
             this.tbCFC9.TabIndex = 134;
+            this.tbCFC9.Tag = "1";
             this.tbCFC9.Value = 5;
             this.tbCFC9.Scroll += new System.EventHandler(this.setCFCProfile);
             // 
@@ -34494,6 +34510,7 @@
             this.tbCFC6.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC6.Size = new System.Drawing.Size(20, 128);
             this.tbCFC6.TabIndex = 131;
+            this.tbCFC6.Tag = "1";
             this.tbCFC6.Value = 5;
             this.tbCFC6.Scroll += new System.EventHandler(this.setCFCProfile);
             // 
@@ -34507,6 +34524,7 @@
             this.tbCFC7.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC7.Size = new System.Drawing.Size(20, 128);
             this.tbCFC7.TabIndex = 132;
+            this.tbCFC7.Tag = "1";
             this.tbCFC7.Value = 5;
             this.tbCFC7.Scroll += new System.EventHandler(this.setCFCProfile);
             // 
@@ -34520,6 +34538,7 @@
             this.tbCFC8.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC8.Size = new System.Drawing.Size(20, 128);
             this.tbCFC8.TabIndex = 133;
+            this.tbCFC8.Tag = "1";
             this.tbCFC8.Value = 5;
             this.tbCFC8.Scroll += new System.EventHandler(this.setCFCProfile);
             // 
@@ -34533,6 +34552,7 @@
             this.tbCFC3.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC3.Size = new System.Drawing.Size(20, 128);
             this.tbCFC3.TabIndex = 128;
+            this.tbCFC3.Tag = "1";
             this.tbCFC3.Value = 5;
             this.tbCFC3.Scroll += new System.EventHandler(this.setCFCProfile);
             // 
@@ -34546,6 +34566,7 @@
             this.tbCFC4.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC4.Size = new System.Drawing.Size(20, 128);
             this.tbCFC4.TabIndex = 129;
+            this.tbCFC4.Tag = "1";
             this.tbCFC4.Value = 5;
             this.tbCFC4.Scroll += new System.EventHandler(this.setCFCProfile);
             // 
@@ -34559,6 +34580,7 @@
             this.tbCFC5.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC5.Size = new System.Drawing.Size(20, 128);
             this.tbCFC5.TabIndex = 130;
+            this.tbCFC5.Tag = "1";
             this.tbCFC5.Value = 5;
             this.tbCFC5.Scroll += new System.EventHandler(this.setCFCProfile);
             // 
@@ -34572,6 +34594,7 @@
             this.tbCFC0.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC0.Size = new System.Drawing.Size(20, 128);
             this.tbCFC0.TabIndex = 125;
+            this.tbCFC0.Tag = "1";
             this.tbCFC0.Value = 5;
             this.tbCFC0.Scroll += new System.EventHandler(this.setCFCProfile);
             // 
@@ -34585,6 +34608,7 @@
             this.tbCFC1.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC1.Size = new System.Drawing.Size(20, 128);
             this.tbCFC1.TabIndex = 126;
+            this.tbCFC1.Tag = "1";
             this.tbCFC1.Value = 5;
             this.tbCFC1.Scroll += new System.EventHandler(this.setCFCProfile);
             // 
@@ -34598,6 +34622,7 @@
             this.tbCFC2.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC2.Size = new System.Drawing.Size(20, 128);
             this.tbCFC2.TabIndex = 127;
+            this.tbCFC2.Tag = "1";
             this.tbCFC2.Value = 5;
             this.tbCFC2.Scroll += new System.EventHandler(this.setCFCProfile);
             // 
@@ -55075,6 +55100,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.MinimizeBox = false;
             this.Name = "Setup";
             this.Text = "Setup";
             this.Closing += new System.ComponentModel.CancelEventHandler(this.Setup_Closing);
@@ -59543,5 +59569,6 @@
         private Label label1;
         private ButtonTS btnVAC1Refresh;
         private CheckBoxTS chkExclusive;
+        private ButtonTS btnResetCFC;
     }
 }

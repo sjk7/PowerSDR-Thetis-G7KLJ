@@ -18127,6 +18127,25 @@ public partial class Setup : Form {
       console.PowerOn = true;
     }
   }
+
+  private void btnResetCFC_Click(object sender, EventArgs e) {
+    DialogResult dr =
+        MessageBox.Show("Are you sure you want to reset the CFC controls\n" + "to flat (zero)?",
+                        "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+    if (dr == DialogResult.No)
+      return;
+
+    foreach (Control c in tpDSPCFC.Controls) {
+      if (c.GetType() == typeof(TrackBarTS)) {
+        var ct = (TrackBarTS)c;
+        if (ct.Minimum >= 0)
+          ct.Value = (ct.Maximum - ct.Minimum) / 2;
+        else
+          ct.Value = (ct.Minimum + ct.Maximum) / 2;
+      }
+    }
+  }
 }
 
 #region PADeviceInfo Helper Class
