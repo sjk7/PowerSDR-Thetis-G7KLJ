@@ -569,6 +569,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Resources\OLDAnalogSignalGauge.JPG" />
+    <None Include="Resources\OLDVFOAnalogSignalGauge.JPG" />
     <Content Include="Resources\screen4.png" />
     <None Include="Resources\openhpsdrnotastall.bmp" />
     <None Include="Resources\openhpsdrnotastall.png" />

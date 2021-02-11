@@ -52239,6 +52239,11 @@ public partial class Console : Form {
 
     e.Cancel = false;
   }
+
+  private void lblRec_Paint(object sender, PaintEventArgs e) {
+    ControlPaint.DrawBorder(e.Graphics, lblRec.DisplayRectangle, Color.DarkGray,
+                            ButtonBorderStyle.Solid);
+  }
 }
 
 public class DigiMode {
