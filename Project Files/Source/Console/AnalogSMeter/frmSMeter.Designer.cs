@@ -33,8 +33,10 @@ namespace Thetis
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSMeter));
             this.mnuBigSMeter = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.chooseBackgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.whyCantIChooseTheBackgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.originalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.blueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.youKnowWhenYouveBeenTangodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowStateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.normalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minimizedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,7 +45,6 @@ namespace Thetis
             this.doNotShowBigSMeterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BigSMeter = new LBSoft.IndustrialCtrls.Meters.LBAnalogMeter();
             this.Grip = new System.Windows.Forms.PictureBox();
-            this.whyCantIChooseTheBackgroundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBigSMeter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Grip)).BeginInit();
             this.SuspendLayout();
@@ -54,31 +55,46 @@ namespace Thetis
             this.chooseBackgroundToolStripMenuItem,
             this.windowStateToolStripMenuItem});
             this.mnuBigSMeter.Name = "mnuBigSMeter";
-            this.mnuBigSMeter.Size = new System.Drawing.Size(182, 70);
+            this.mnuBigSMeter.Size = new System.Drawing.Size(182, 48);
             // 
             // chooseBackgroundToolStripMenuItem
             // 
             this.chooseBackgroundToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.whyCantIChooseTheBackgroundToolStripMenuItem,
             this.originalToolStripMenuItem,
-            this.blueToolStripMenuItem});
+            this.blueToolStripMenuItem,
+            this.youKnowWhenYouveBeenTangodToolStripMenuItem});
             this.chooseBackgroundToolStripMenuItem.Name = "chooseBackgroundToolStripMenuItem";
             this.chooseBackgroundToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.chooseBackgroundToolStripMenuItem.Text = "Choose Background";
             // 
+            // whyCantIChooseTheBackgroundToolStripMenuItem
+            // 
+            this.whyCantIChooseTheBackgroundToolStripMenuItem.Name = "whyCantIChooseTheBackgroundToolStripMenuItem";
+            this.whyCantIChooseTheBackgroundToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.whyCantIChooseTheBackgroundToolStripMenuItem.Text = "Why Can\'t I choose the background?";
+            this.whyCantIChooseTheBackgroundToolStripMenuItem.Click += new System.EventHandler(this.whyCantIChooseTheBackgroundToolStripMenuItem_Click);
+            // 
             // originalToolStripMenuItem
             // 
             this.originalToolStripMenuItem.Name = "originalToolStripMenuItem";
-            this.originalToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
+            this.originalToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.originalToolStripMenuItem.Text = "Original";
             this.originalToolStripMenuItem.Click += new System.EventHandler(this.originalToolStripMenuItem_Click);
             // 
             // blueToolStripMenuItem
             // 
             this.blueToolStripMenuItem.Name = "blueToolStripMenuItem";
-            this.blueToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
+            this.blueToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.blueToolStripMenuItem.Text = "Blue";
             this.blueToolStripMenuItem.Click += new System.EventHandler(this.blueToolStripMenuItem_Click);
+            // 
+            // youKnowWhenYouveBeenTangodToolStripMenuItem
+            // 
+            this.youKnowWhenYouveBeenTangodToolStripMenuItem.Name = "youKnowWhenYouveBeenTangodToolStripMenuItem";
+            this.youKnowWhenYouveBeenTangodToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.youKnowWhenYouveBeenTangodToolStripMenuItem.Text = "You know when you\'ve been Tango\'d!";
+            this.youKnowWhenYouveBeenTangodToolStripMenuItem.Click += new System.EventHandler(this.youKnowWhenYouveBeenTangodToolStripMenuItem_Click);
             // 
             // windowStateToolStripMenuItem
             // 
@@ -147,7 +163,7 @@ namespace Thetis
             this.BigSMeter.Size = new System.Drawing.Size(800, 450);
             this.BigSMeter.TabIndex = 147;
             this.BigSMeter.Value = 0D;
-            this.BigSMeter.ViewGlass = true;
+            this.BigSMeter.ViewGlass = false;
             this.BigSMeter.BackGndImgChanged += new System.EventHandler(this.BigSMeter_BackGndImgChanged);
             this.BigSMeter.Load += new System.EventHandler(this.BigSMeter_Load);
             this.BigSMeter.DoubleClick += new System.EventHandler(this.BigSMeter_DoubleClick);
@@ -171,13 +187,6 @@ namespace Thetis
             this.Grip.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Grip_MouseMove);
             this.Grip.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Grip_MouseUp);
             // 
-            // whyCantIChooseTheBackgroundToolStripMenuItem
-            // 
-            this.whyCantIChooseTheBackgroundToolStripMenuItem.Name = "whyCantIChooseTheBackgroundToolStripMenuItem";
-            this.whyCantIChooseTheBackgroundToolStripMenuItem.Size = new System.Drawing.Size(268, 22);
-            this.whyCantIChooseTheBackgroundToolStripMenuItem.Text = "Why Can\'t I choose the background?";
-            this.whyCantIChooseTheBackgroundToolStripMenuItem.Click += new System.EventHandler(this.whyCantIChooseTheBackgroundToolStripMenuItem_Click);
-            // 
             // frmSMeter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -185,6 +194,7 @@ namespace Thetis
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.Grip);
             this.Controls.Add(this.BigSMeter);
+            this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmSMeter";
             this.Text = "G7KLJ PowerSDR S Meter Window";
@@ -210,5 +220,6 @@ namespace Thetis
         private System.Windows.Forms.ToolStripMenuItem alwaysOnTopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem doNotShowBigSMeterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem whyCantIChooseTheBackgroundToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem youKnowWhenYouveBeenTangodToolStripMenuItem;
     }
 }

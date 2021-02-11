@@ -374,20 +374,25 @@ namespace LBSoft.IndustrialCtrls.Meters {
         }
       }
 
-      if (which == 1 || which == 0) {
+      if (which >= 0) {
         Settings.Default.SMeterBackgroundImg = which;
         if (which == 1) {
           renderer.BackGroundCustomImage = Thetis.Properties.Resources.OLDAnalogSignalGauge;
-        } else {
+        } else if (which == 0) {
           renderer.BackGroundCustomImage = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
+        } else {
+          renderer.BackGroundCustomImage = Thetis.Properties.Resources.SMeterTango;
         }
       } else {
         if (cur == 0) {
           Settings.Default.SMeterBackgroundImg = 1;
-          renderer.BackGroundCustomImage = Thetis.Properties.Resources.OLDAnalogSignalGauge;
+          renderer.BackGroundCustomImage = Resources.OLDAnalogSignalGauge;
+        } else if (cur == 1) {
+          Settings.Default.SMeterBackgroundImg = 2;
+          renderer.BackGroundCustomImage = Resources.SMeterTango;
         } else {
           Settings.Default.SMeterBackgroundImg = 0;
-          renderer.BackGroundCustomImage = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
+          renderer.BackGroundCustomImage = Resources.NewVFOAnalogSignalGauge;
         }
       }
     done:

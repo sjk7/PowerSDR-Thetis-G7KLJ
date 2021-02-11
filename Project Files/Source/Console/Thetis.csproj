@@ -562,6 +562,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Content Include="hpsdr4-64.ico" />
+    <None Include="Resources\SMeterTango.jpg" />
+    <None Include="Resources\SMeterOrange.bmp" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -37,7 +37,10 @@ public partial class frmSMeter : Form {
 
     // this.ControlBox = false;
     // this.Text = String.Empty;
-    this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+    // this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+    Text = string.Empty;
+    ControlBox = false;
+    FormBorderStyle = FormBorderStyle.SizableToolWindow;
 
     if (Settings.Default.WindowPosition == Rectangle.Empty) {
       initPosition.Height += (int)((float)initPosition.Height / (float)0.7);
@@ -56,18 +59,15 @@ public partial class frmSMeter : Form {
       this.WindowState = Settings.Default.WindowState;
     } else {
       // this resets the upper left corner of the window to windows standards
-      this.StartPosition = FormStartPosition.WindowsDefaultLocation;
+      StartPosition = FormStartPosition.WindowsDefaultLocation;
 
       // we can still apply the saved size
       Size = Settings.Default.WindowPosition.Size;
     }
     windowInitialized = true;
     Settings.Default.BigSMeterOpen = true;
-    if (Settings.Default.SMeterBackgroundImg == 0) {
-      this.BigSMeter.ToggleBackGroundImage(0);
-    } else {
-      this.BigSMeter.ToggleBackGroundImage(1);
-    }
+    BigSMeter.ToggleBackGroundImage(Settings.Default.SMeterBackgroundImg);
+
     Settings.Default.Save();
     if (Settings.Default.TopMost)
       this.TopMost = true;
@@ -151,6 +151,10 @@ public partial class frmSMeter : Form {
 
   private void blueToolStripMenuItem_Click(object sender, EventArgs e) {
     BigSMeter.ToggleBackGroundImage(1);
+  }
+
+  private void youKnowWhenYouveBeenTangodToolStripMenuItem_Click(object sender, EventArgs e) {
+    BigSMeter.ToggleBackGroundImage(2);
   }
 
   private void BigSMeter_BackGndImgChanged(object sender, EventArgs e) {

@@ -1353,9 +1353,10 @@ public partial class Console : Form {
       }
       if (theConsole.resetForAutoMerge) {
         Application.Exit();
-      } else
+      } else {
 
         Application.Run(theConsole);
+      }
     } catch (Exception ex) {
       string msg = ex.Message + "\n\n" + ex.StackTrace.ToString();
       if (ex.InnerException != null)
