@@ -43330,6 +43330,7 @@ public partial class Console : Form {
     Display.SplitDisplay = chkSplitDisplay.Checked;
   }
 
+  private DateTime m_quick_start_time;
   private void ckQuickPlay_CheckedChanged(object sender, System.EventArgs e) {
     // if (!mox)
     //  {
@@ -43340,9 +43341,12 @@ public partial class Console : Form {
     if (ckQuickPlay.Checked) {
       WaveForm.QuickPlay = true;
       ckQuickPlay.BackColor = button_selected_color;
+      lblRec.Visible = true;
+      m_quick_start_time = DateTime.Now;
     } else {
       WaveForm.QuickPlay = false;
       ckQuickPlay.BackColor = SystemColors.Control;
+      lblRec.Visible = false;
     }
     ckQuickRec.Enabled = !ckQuickPlay.Checked;
   }
@@ -43352,9 +43356,12 @@ public partial class Console : Form {
       WaveForm.QuickRec = true;
       ckQuickPlay.Enabled = true;
       ckQuickRec.BackColor = button_selected_color;
+      lblRec.Visible = true;
+      m_quick_start_time = DateTime.Now;
     } else {
       WaveForm.QuickRec = false;
       ckQuickRec.BackColor = SystemColors.Control;
+      lblRec.Visible = false;
     }
     ckQuickPlay.Enabled = !ckQuickRec.Checked;
   }
@@ -46614,75 +46621,36 @@ public partial class Console : Form {
 #pragma warning restore CS0414 // The field 'Console.TDxCurrentVFO' is assigned but its value is
                                // never used
 
+  int ticker = 0;
   private void timer_navigate_Tick(object sender, System.EventArgs e) {
-    /*  if (TDxSensor == null)
-          return;
-      TDxInput.Vector3D t = TDxSensor.Translation;
-      TDxInput.AngleAxis r = TDxSensor.Rotation;
-      TDxDevice.Keyboard.IsKeyDown(1);
-      double del;
-      int val;
-
-      if (TDxDevice.Keyboard.IsKeyDown(1)) //Button 1 assignment
-      {
-          TDxButtonState = true;
+    if (ckQuickRec.Checked) {
+      var t = DateTime.Now - m_quick_start_time;
+      var s = t.ToString(@"hh\:mm\:ss\.fff");
+      lblRec.Text = s;
+      if (ticker % 5 == 0) {
+        ticker = 0;
+        if (lblRec.ForeColor == Color.White) {
+          lblRec.ForeColor = Color.Red;
+        } else {
+          lblRec.ForeColor = Color.White;
+        }
       }
-      else if (TDxButtonState)
-      {
-          TDxButtonState = false;
-          //click
-          TDxCurrentVFO = !TDxCurrentVFO;
+    } else if (ckQuickPlay.Checked) {
+      var t = DateTime.Now - m_quick_start_time;
+      var s = t.ToString(@"hh\:mm\:ss\.fff");
+      lblRec.Text = s;
+      if (ticker % 5 == 0) {
+        ticker = 0;
+        if (lblRec.ForeColor == Color.White) {
+          lblRec.ForeColor = Color.LightGreen;
+        } else {
+          lblRec.ForeColor = Color.White;
+        }
       }
-
-      if (spacenav_controlvfos)
-      {
-          del = Math.Exp(r.Angle / 10.0) - 1.0;
-          if (del >= 0.1)
-          {
-              del *= -Math.Sign(r.Y) / 1000000.0;
-#if false
-              if(current_click_tune_mode == ClickTuneMode.VFOB && scroll_vfob_on_split)
-                  VFOBFreq += del;
-              else
-#endif
-              if (TDxCurrentVFO)
-                  VFOBFreq += del;
-              else
-                  VFOAFreq += del;
-          }
-      }
-      if (spacenav_flypanadapter)
-      {
-          if (Math.Abs(t.Z) > 1.0)
-          {
-              val = ptbDisplayZoom.Value;
-              val += Convert.ToInt32(t.Z);
-              val = Math.Min(ptbDisplayZoom.Maximum, val);
-              val = Math.Max(ptbDisplayZoom.Minimum, val);
-              ptbDisplayZoom.Value = val;
-              ptbDisplayZoom_Scroll(this, EventArgs.Empty);
-              //btnDisplayPanCenter_Click(this, EventArgs.Empty);
-          }
-          if (Math.Abs(t.X) > 1.0)
-          {
-              val = ptbDisplayPan.Value;
-              val += Convert.ToInt32(t.X);
-              val = Math.Min(ptbDisplayPan.Maximum, val);
-              val = Math.Max(ptbDisplayPan.Minimum, val);
-              ptbDisplayPan.Value = val;
-              CalcDisplayFreq();
-              //if(ptbDisplayPan.Focused) btnHidden.Focus();
-          }
-          if (Math.Abs(t.Y) > 1.0)
-          {
-              val = ptbFilterWidth.Value;
-              val += Convert.ToInt32(t.Y);
-              val = Math.Min(ptbFilterWidth.Maximum, val);
-              val = Math.Max(ptbFilterWidth.Minimum, val);
-              ptbFilterWidth.Value = val;
-              ptbFilterWidth_Scroll(this.ptbFilterWidth, EventArgs.Empty);
-          }
-      }*/
+    } else {
+      lblRec.Visible = false;
+    }
+    ticker++;
   }
 
   // public void PressKeyboardButton(Keys keyCode)
@@ -52298,5 +52266,4 @@ public class AsyncLock : IDisposable {
 
   public void Dispose() { _semaphoreSlim.Release(); }
 }
-
 }

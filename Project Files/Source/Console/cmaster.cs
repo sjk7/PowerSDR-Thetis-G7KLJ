@@ -1164,7 +1164,6 @@ unsafe class RecordWave {
   float[] rtemp = new float[2048];
   // 'wrecord()' is called by ChannelMaster.dll
 
-  static System.IO.BinaryWriter writer;
   unsafe public void wrecord(int state, int pos, double *data) {
     if (run && (condx == state)) // if run && (!MOX and calling with receive data, or, MOX and
                                  // calling with transmit data)
