@@ -11,6 +11,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using LBSoft.IndustrialCtrls.Utils;
+using System.IO;
 
 namespace LBSoft.IndustrialCtrls.Meters {
   /// <summary>
@@ -23,10 +24,20 @@ namespace LBSoft.IndustrialCtrls.Meters {
     /// </summary>
     private LBAnalogMeter meter = null;
 
-    private Image m_Img = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
+    protected Bitmap m_Img = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
+
     public Image BackGroundCustomImage {
       get => m_Img;
-      set { m_Img = value; }
+      set {
+        // converting background image to particular format, which is meant to be
+        // the most efficient in GDI+
+        m_Img = new Bitmap(value.Width, value.Height,
+                           System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+
+        using (Graphics gr = Graphics.FromImage(m_Img)) {
+          gr.DrawImage(value, new Rectangle(0, 0, m_Img.Width, m_Img.Height));
+        }
+      }
     }
 #endregion
 
@@ -120,21 +131,14 @@ namespace LBSoft.IndustrialCtrls.Meters {
     public override bool DrawBackground(Graphics gr, RectangleF rc) {
       if (this.AnalogMeter == null)
         return false;
-      // Image img = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
-      Image img = this.BackGroundCustomImage;
-      var point = new Point(0, 0);
-      gr.SmoothingMode = SmoothingMode.HighQuality;
-      gr.DrawImage(img, AnalogMeter.DisplayRectangle);
-      /*/
-      Color c = this.AnalogMeter.Parent.BackColor;
-      SolidBrush br = new SolidBrush ( c );
-      Pen pen = new Pen ( c );
 
-      Rectangle _rcTmp = new Rectangle(0, 0, this.AnalogMeter.Width, this.AnalogMeter.Height );
+      gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Bilinear;
+      // gr.SmoothingMode = SmoothingMode.HighSpeed;
+      // gr.PixelOffsetMode = PixelOffsetMode.HighSpeed;
+      // gr.CompositingQuality = CompositingQuality.HighSpeed;
 
-      gr.DrawRectangle ( pen, _rcTmp );
-      gr.FillRectangle ( br, rc );
-      /*/
+      gr.DrawImage(m_Img, AnalogMeter.DisplayRectangle);
+
       return true;
     }
 

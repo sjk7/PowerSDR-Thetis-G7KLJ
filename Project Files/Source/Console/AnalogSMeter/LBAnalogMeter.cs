@@ -21,6 +21,8 @@ namespace LBSoft.IndustrialCtrls.Meters {
   /// </summary>
   public partial class LBAnalogMeter : UserControl {
     public event EventHandler ValueChanged;
+    public event EventHandler MaxValueChanged;
+    public event EventHandler MinValueChanged;
     public event EventHandler BackGndImgChanged;
 
     public class BackGndChanged : EventArgs {
@@ -62,7 +64,10 @@ namespace LBSoft.IndustrialCtrls.Meters {
     private ToolStripMenuItem version2ToolStripMenuItem;
     protected LBAnalogMeterRenderer defaultRenderer;
 #endregion
+    public enum BackGroundChoices { Skin = -1, Default = 0, Blue = 1, Tango = 2 }
 
+    BackGroundChoices m_backGroundChoice;
+    public BackGroundChoices CurrentBackGroundChoice() { return m_backGroundChoice; }
 #region Constructors
     public LBAnalogMeter() {
       // Initialization
@@ -84,7 +89,7 @@ namespace LBSoft.IndustrialCtrls.Meters {
       this.renderer = null;
 
       // Set the styles for drawing
-      this.SetStyle(ControlStyles.DoubleBuffer, true);
+      SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
       this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
       this.SetStyle(ControlStyles.UserPaint, true);
 
@@ -146,6 +151,7 @@ namespace LBSoft.IndustrialCtrls.Meters {
     public double Value {
       get { return currValue; }
       set {
+
         double val = value;
         if (val > maxValue)
           val = maxValue;
@@ -155,16 +161,18 @@ namespace LBSoft.IndustrialCtrls.Meters {
 
         ValueEvent e = new ValueEvent();
         e.currentVal = (float)val;
-
-        this.ValueChanged?.Invoke(this, e);
         currValue = val;
         Invalidate();
+        this.ValueChanged?.Invoke(this, e);
       }
     }
+
+    ValueEvent dummy_event_data = new ValueEvent();
     public double Max {
       get { return maxValue; }
       set {
         maxValue = value;
+        this.MaxValueChanged?.Invoke(this, dummy_event_data);
         Invalidate();
       }
     }
@@ -175,16 +183,24 @@ namespace LBSoft.IndustrialCtrls.Meters {
     public double MinValue {
       get { return minValue; }
       set {
+        var oldValue = minValue;
+
         minValue = value;
-        Invalidate();
+        this.MinValueChanged?.Invoke(this, dummy_event_data);
+        if (minValue != oldValue)
+          Invalidate();
       }
     }
 
     [Category("Behavior"), Description("Maximum value of the data")] public double MaxValue {
       get { return maxValue; }
       set {
+        var oldMax = maxValue;
         maxValue = value;
-        Invalidate();
+        this.MaxValueChanged?.Invoke(this, dummy_event_data);
+        if (oldMax != value) {
+          Invalidate();
+        }
       }
     }
 
@@ -370,6 +386,7 @@ namespace LBSoft.IndustrialCtrls.Meters {
         Image skinpic = m_console.PrettySMeterSkin();
         if (skinpic != null) {
           renderer.BackGroundCustomImage = skinpic;
+          m_backGroundChoice = BackGroundChoices.Skin;
           goto done;
         }
       }
@@ -378,21 +395,27 @@ namespace LBSoft.IndustrialCtrls.Meters {
         Settings.Default.SMeterBackgroundImg = which;
         if (which == 1) {
           renderer.BackGroundCustomImage = Thetis.Properties.Resources.OLDAnalogSignalGauge;
+          m_backGroundChoice = BackGroundChoices.Default;
         } else if (which == 0) {
           renderer.BackGroundCustomImage = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
+          m_backGroundChoice = BackGroundChoices.Default;
         } else {
           renderer.BackGroundCustomImage = Thetis.Properties.Resources.SMeterTango;
+          m_backGroundChoice = BackGroundChoices.Tango;
         }
       } else {
         if (cur == 0) {
           Settings.Default.SMeterBackgroundImg = 1;
           renderer.BackGroundCustomImage = Resources.OLDAnalogSignalGauge;
+          m_backGroundChoice = BackGroundChoices.Blue;
         } else if (cur == 1) {
           Settings.Default.SMeterBackgroundImg = 2;
           renderer.BackGroundCustomImage = Resources.SMeterTango;
+          m_backGroundChoice = BackGroundChoices.Tango;
         } else {
           Settings.Default.SMeterBackgroundImg = 0;
           renderer.BackGroundCustomImage = Resources.NewVFOAnalogSignalGauge;
+          m_backGroundChoice = BackGroundChoices.Default;
         }
       }
     done:

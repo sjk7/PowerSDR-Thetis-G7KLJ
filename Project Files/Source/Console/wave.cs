@@ -2108,6 +2108,7 @@ unsafe public class WaveFileWriter {
   private BinaryWriter writer;
   private bool record;
   private short channels;
+  public bool recordMp3 = true;
   private short format_tag;
   private short bit_depth;
   private UInt32
@@ -2122,6 +2123,8 @@ unsafe public class WaveFileWriter {
   private byte[] byte_buf;
   private const int IN_BLOCK = 2048;
   private string filename;
+
+  WaveFileWriter() {}
 
   unsafe private void *rcvr_resamp_l = null;
   unsafe public void *RcvrResampL {
@@ -2250,9 +2253,19 @@ unsafe public class WaveFileWriter {
   }
 
   unsafe public void AddWriteBuffer(float *left, float *right, int nsamps) {
-    rb_l.WritePtr(left, nsamps);
-    rb_r.WritePtr(right, nsamps);
-    // Debug.WriteLine("ReadSpace: "+rb.ReadSpace());
+
+    if (!this.recordMp3) {
+      rb_l.WritePtr(left, nsamps);
+      rb_r.WritePtr(right, nsamps);
+    } else {
+      byte[] buffer = new byte[8192];
+      var nbytes = nsamps * sizeof(float);
+      // System.Runtime.InteropServices.Marshal.Copy(new IntPtr(left), buffer, 0, nbytes);
+      //_audioWriter.Write(buffer, 0, nsamps * sizeof(float));
+      // NAudio.Wave.MediaFoundationEncoder.EncodeToMp3(
+      //    new NAudio.Wave.RawSourceWaveStream(_audioStream, _audioWriter.WaveFormat), "Test.mp3",
+      //    320000);
+    }
   }
 
   public string Stop() {

@@ -40,6 +40,7 @@
 using Midi2Cat.Data; //-W2PA Necessary for Behringer MIDI changes
 
 namespace Thetis {
+using LBSoft.IndustrialCtrls.Meters;
 
 // using ProjectCeilidh.PortAudio.Native;
 // using System.Speech.Synthesis;
@@ -105,6 +106,9 @@ public partial class Console : Form {
   // Gets timer capabilities.
   [DllImport("winmm.dll")]
   private static extern int timeGetDevCaps(ref TimerCaps caps, int sizeOfTimerCaps);
+
+  [DllImport("winmm.dll")]
+  private static extern int timeGetTime();
 
   // Creates and starts the timer.
   [DllImport("winmm.dll")]
@@ -354,13 +358,14 @@ public partial class Console : Form {
   private bool[] diversity_rx1_ref_by_band;
   private bool[] diversity_rx2_ref_by_band;
 
-  private bool rx1_above30;
-  private bool rx2_above30;
-  private bool meter_data_ready;        // used to synchronize the new DSP data with the multimeter
-  private float new_meter_data;         // new data for the multimeter from the DSP
-  private float current_meter_data;     // current data for the multimeter
-  private int meter_peak_count;         // Counter for peak hold on multimeter
-  private int meter_peak_value;         // Value for peak hold on multimeter
+  private bool rx1_above30MHz;
+  private bool rx2_above30MHz;
+  private bool meter_data_ready;    // used to synchronize the new DSP data with the multimeter
+  private float new_meter_data;     // new data for the multimeter from the DSP
+  private float current_meter_data; // current data for the multimeter
+  private int meter_peak_count;     // Counter for peak hold on multimeter
+  private int meter_peak_value;     // Value for peak hold on multimeter
+  private double m_smeter_display_dbm;
   private float[] meter_text_history;   // Array used to output the peak power over a period of time
   private int meter_text_history_index; // index used with above variable to do peak power
   private float new_swrmeter_data;      // new data for the multimeter from the DSP
@@ -26845,10 +26850,10 @@ public partial class Console : Form {
     bool bAbove30;
     if (rx == 1) {
       rxMode = current_meter_rx_mode;
-      bAbove30 = rx1_above30;
+      bAbove30 = rx1_above30MHz;
     } else {
       rxMode = rx2_meter_mode;
-      bAbove30 = rx2_above30;
+      bAbove30 = rx2_above30MHz;
     }
 
     if (!mox || rx == 2) // rx2 can not tx
@@ -28113,662 +28118,6 @@ public partial class Console : Form {
     }
   }
 
-  // private double handleOriginalMeter(int RXnumber, Graphics g, int H, int W)
-  //{
-  //    // handle the ORIGINAL meter
-  //    // pass in 1 or 2 as RXnumber
-  //    // graphics object, and height/width of pic control that takes the output
-  //    // returns the current meter data
-  //    double num  = 0;
-  //    int pixel_x = 0;
-  //    bool bAbove = false;
-  //    bool bReady = false;
-  //    MeterRXMode metRXMode = MeterRXMode.LAST; // set to something impossible
-  //    MeterTXMode metTXMode = MeterTXMode.LAST;
-
-  //    switch (RXnumber)
-  //    {
-  //        case 1:
-  //            bReady = meter_data_ready;
-  //            if (bReady)
-  //            {
-  //                current_meter_data = new_meter_data;
-  //                meter_data_ready = false;
-  //            }
-  //            num = current_meter_data;
-  //            metRXMode = current_meter_rx_mode;
-  //            metTXMode = current_meter_tx_mode;
-  //            bAbove = rx1_above30;
-  //            break;
-  //        case 2:
-  //            bReady = rx2_meter_data_ready;
-  //            {
-  //                rx2_meter_current_data = rx2_meter_new_data;
-  //                rx2_meter_data_ready = false;
-  //            }
-  //            num = rx2_meter_current_data;
-  //            metRXMode = rx2_meter_mode;
-  //            bAbove = rx2_above30;
-  //            break;
-  //    }
-
-  //    if (!mox || RXnumber==2)  // will not run the else for rx2 (which cant tx)
-  //    {
-  //        switch (metRXMode)
-  //        {
-  //            case MeterRXMode.SIGNAL_STRENGTH:
-  //            case MeterRXMode.SIGNAL_AVERAGE:
-  //                switch ((int)g.DpiX)
-  //                {
-  //                    case 96:
-  //                        double s;
-  //                        if (bAbove)
-  //                        {
-  //                            if (collapsedDisplay)
-  //                            {
-  //                                s = (num + 147) / 6;
-  //                                if (s <= 9.0F)
-  //                                    pixel_x = (int)((s * 15) + 2);
-  //                                else
-  //                                {
-  //                                    double over_s9 = num + 93;
-  //                                    pixel_x = 138 + (int)(over_s9 * 2.10);
-  //                                }
-  //                            }
-  //                            else
-  //                            {
-  //                                s = (num + 147) / 6;
-  //                                if (s <= 9.0F)
-  //                                    pixel_x = (int)((s * 7.5) + 2);
-  //                                else
-  //                                {
-  //                                    double over_s9 = num + 93;
-  //                                    pixel_x = 69 + (int)(over_s9 * 1.05);
-  //                                }
-  //                            }
-  //                        }
-  //                        else
-  //                        {
-  //                            if (collapsedDisplay)
-  //                            {
-  //                                s = (num + 127) / 6;
-  //                                if (s <= 9.0F)
-  //                                    pixel_x = (int)((s * 15) + 2);
-  //                                else
-  //                                {
-  //                                    double over_s9 = num + 73;
-  //                                    pixel_x = 138 + (int)(over_s9 * 2.10);
-  //                                }
-  //                            }
-  //                            else
-  //                            {
-  //                                s = (num + 127) / 6;
-  //                                if (s <= 9.0F)
-  //                                    pixel_x = (int)((s * 7.5) + 2);
-  //                                else
-  //                                {
-  //                                    double over_s9 = num + 73;
-  //                                    pixel_x = 69 + (int)(over_s9 * 1.05);
-  //                                }
-  //                            }
-  //                        }
-  //                        break;
-  //                    case 120:
-  //                        if (num <= -97.0f)
-  //                            pixel_x = (int)(0 + (num + 100.0) / 3.0 * 10);
-  //                        else if (num <= -91.0f)
-  //                            pixel_x = (int)(10 + (num + 97.0) / 6.0 * 17);
-  //                        else if (num <= -85.0f)
-  //                            pixel_x = (int)(27 + (num + 91.0) / 6.0 * 16);
-  //                        else if (num <= -79.0f)
-  //                            pixel_x = (int)(43 + (num + 85.0) / 6.0 * 17);
-  //                        else if (num <= -73.0f)
-  //                            pixel_x = (int)(60 + (num + 79.0) / 6.0 * 16);
-  //                        else if (num <= -53.0f)
-  //                            pixel_x = (int)(76 + (num + 73.0) / 20.0 * 24);
-  //                        else if (num <= -33.0f)
-  //                            pixel_x = (int)(100 + (num + 53.0) / 20.0 * 24);
-  //                        else if (num <= -13.0f)
-  //                            pixel_x = (int)(124 + (num + 33.0) / 20.0 * 24);
-  //                        else
-  //                            pixel_x = (int)(148 + (num + 13.0) / 20.0 * 19);
-  //                        break;
-  //                }
-  //                break;
-  //            case MeterRXMode.ADC_L:
-  //            case MeterRXMode.ADC_R:
-  //                switch ((int)g.DpiX)
-  //                {
-  //                    case 96:
-  //                        if (collapsedDisplay)
-  //                            pixel_x = (int)(((num + 100) * 2.4) + 24);
-  //                        else pixel_x = (int)(((num + 100) * 1.2) + 12);
-  //                        break;
-  //                    case 120:
-  //                        if (num <= -100.0f)
-  //                            pixel_x = (int)(0 + (num + 110.0) / 10.0 * 14);
-  //                        else if (num <= -80.0f)
-  //                            pixel_x = (int)(14 + (num + 100.0) / 20.0 * 27);
-  //                        else if (num <= -60.0f)
-  //                            pixel_x = (int)(41 + (num + 80.0) / 20.0 * 28);
-  //                        else if (num <= -40.0f)
-  //                            pixel_x = (int)(69 + (num + 60.0) / 20.0 * 28);
-  //                        else if (num <= -20.0f)
-  //                            pixel_x = (int)(97 + (num + 40.0) / 20.0 * 27);
-  //                        else if (num <= 0.0f)
-  //                            pixel_x = (int)(124 + (num + 20.0) / 20.0 * 24);
-  //                        else
-  //                            pixel_x = (int)(148 + (num - 0.0) / 10.0 * 19);
-  //                        break;
-  //                }
-  //                break;
-  //            case MeterRXMode.OFF:
-  //                break;
-  //        }
-  //    }
-  //    else
-  //    {
-  //        MeterTXMode mode = current_meter_tx_mode;
-  //        if (chkTUN.Checked) mode = tune_meter_tx_mode;
-  //        switch (mode)
-  //        {
-  //            case MeterTXMode.MIC:
-  //            case MeterTXMode.EQ:
-  //            case MeterTXMode.LEVELER:
-  //            case MeterTXMode.CFC_PK:
-  //            case MeterTXMode.COMP:
-  //            case MeterTXMode.ALC:
-  //                //num += 3.0;  // number no longer has fudge factor added in the wdsp, must be
-  //                remove switch ((int)g.DpiX)
-  //                {
-  //                    case 96:
-  //                        if (collapsedDisplay)
-  //                        {
-  //                            if (num <= -20.0f)
-  //                                pixel_x = (int)(0 + (num + 25.0) / 5.0 * 18);
-  //                            else if (num <= -10.0f)
-  //                                pixel_x = (int)(18 + (num + 20.0) / 10.0 * 54);
-  //                            else if (num <= -5.0f)
-  //                                pixel_x = (int)(72 + (num + 10.0) / 5.0 * 54);
-  //                            else if (num <= 0.0f)
-  //                                pixel_x = (int)(126 + (num + 5.0) / 5.0 * 48);
-  //                            else if (num <= 4.0f)
-  //                                pixel_x = (int)(174 + (num - 0.0) / 4.0 * 30);
-  //                            else if (num <= 8.0f)
-  //                                pixel_x = (int)(204 + (num - 4.0) / 4.0 * 30);
-  //                            else if (num <= 12.0f)
-  //                                pixel_x = (int)(234 + (num - 8.0) / 4.0 * 30);
-  //                            else
-  //                                pixel_x = (int)(264 + (num - 12.0) / 0.5 * 16);
-  //                        }
-  //                        else
-  //                        {
-  //                            if (num <= -20.0f)
-  //                                pixel_x = (int)(0 + (num + 25.0) / 5.0 * 9);
-  //                            else if (num <= -10.0f)
-  //                                pixel_x = (int)(9 + (num + 20.0) / 10.0 * 27);
-  //                            else if (num <= -5.0f)
-  //                                pixel_x = (int)(36 + (num + 10.0) / 5.0 * 27);
-  //                            else if (num <= 0.0f)
-  //                                pixel_x = (int)(63 + (num + 5.0) / 5.0 * 24);
-  //                            else if (num <= 4.0f)
-  //                                pixel_x = (int)(87 + (num - 0.0) / 4.0 * 15);
-  //                            else if (num <= 8.0f)
-  //                                pixel_x = (int)(102 + (num - 4.0) / 4.0 * 15);
-  //                            else if (num <= 12.0f)
-  //                                pixel_x = (int)(117 + (num - 8.0) / 4.0 * 15);
-  //                            else
-  //                                pixel_x = (int)(132 + (num - 12.0) / 0.5 * 8);
-  //                        }
-  //                        break;
-  //                    case 120:
-  //                        if (num <= -20.0f)
-  //                            pixel_x = (int)(0 + (num + 25.0) / 5.0 * 10);
-  //                        else if (num <= -10.0f)
-  //                            pixel_x = (int)(10 + (num + 20.0) / 10.0 * 30);
-  //                        else if (num <= -5.0f)
-  //                            pixel_x = (int)(40 + (num + 10.0) / 5.0 * 30);
-  //                        else if (num <= 0.0f)
-  //                            pixel_x = (int)(70 + (num + 5.0) / 5.0 * 27);
-  //                        else if (num <= 4.0f)
-  //                            pixel_x = (int)(97 + (num - 0.0) / 4.0 * 17);
-  //                        else if (num <= 8.0f)
-  //                            pixel_x = (int)(114 + (num - 4.0) / 4.0 * 17);
-  //                        else if (num <= 12.0f)
-  //                            pixel_x = (int)(131 + (num - 8.0) / 4.0 * 17);
-  //                        else
-  //                            pixel_x = (int)(148 + (num - 12.0) / 0.5 * 23);
-  //                        break;
-  //                }
-  //                break;
-  //            case MeterTXMode.ALC_GROUP: //MW0LGE ignore the fixed pixel method
-  //                if (num > 0.0) // high area - alc compression
-  //                {
-  //                    double spacing = (W * 0.5 - 2.0 - 3.0) / 5.0;
-  //                    pixel_x = (int)((double)W * 0.5) + (int)(num / 5.0 * spacing);
-  //                }
-  //                else // alc only (sub 0db or less)
-  //                {
-  //                    pixel_x = (int)((num + 30.0) / 30.0 * (W * 0.5 - 1.0));
-  //                }
-  //                break;
-  //            case MeterTXMode.FORWARD_POWER:
-  //            case MeterTXMode.REVERSE_POWER:
-  //                // if (!alexpresent && !apollopresent)
-  //                // num *= 1000;
-
-  //                switch ((int)g.DpiX)
-  //                {
-  //                    case 96:
-  //                        if (collapsedDisplay)
-  //                        {
-  //                            if (anan10present || anan10Epresent)
-  //                            {
-  //                                if (num <= 1.0f)
-  //                                    pixel_x = (int)(0 + num * 16);
-  //                                else if (num <= 5.0f)
-  //                                    pixel_x = (int)(16 + (num - 1) / 4 * 48);
-  //                                else if (num <= 10.0f)
-  //                                    pixel_x = (int)(64 + (num - 5) / 5 * 48);
-  //                                else if (num <= 15.0f)
-  //                                    pixel_x = (int)(112 + (num - 10) / 5 * 48);
-  //                                else if (num <= 20.0f)
-  //                                    pixel_x = (int)(160 + (num - 15) / 5 * 48);
-  //                                else if (num <= 25.0f)
-  //                                    pixel_x = (int)(208 + (num - 20) / 5 * 48);
-  //                                else
-  //                                    pixel_x = (int)(256 + (num - 25) / 5 * 32);
-  //                            }
-  //                            else if (apollopresent)
-  //                            {
-  //                                if (num <= 1.0f)
-  //                                    pixel_x = (int)(0 + num * 16);
-  //                                else if (num <= 5.0f)
-  //                                    pixel_x = (int)(16 + (num - 1) / 4 * 48);
-  //                                else if (num <= 10.0f)
-  //                                    pixel_x = (int)(64 + (num - 5) / 5 * 48);
-  //                                else if (num <= 15.0f)
-  //                                    pixel_x = (int)(112 + (num - 10) / 5 * 48);
-  //                                else if (num <= 30.0f)
-  //                                    pixel_x = (int)(160 + (num - 15) / 15 * 48);
-  //                                else if (num <= 50.0f)
-  //                                    pixel_x = (int)(208 + (num - 30) / 20 * 48);
-  //                                else
-  //                                    pixel_x = (int)(256 + (num - 50) / 50 * 32);
-  //                            }
-  //                            else if (anan8000dpresent && tx_xvtr_index < 0)
-  //                            {
-  //                                if (num <= 1.0f)
-  //                                    pixel_x = (int)(0 + num * 16);
-  //                                else if (num <= 5.0f)
-  //                                    pixel_x = (int)(16 + (num - 1) / 4 * 48);
-  //                                else if (num <= 10.0f)
-  //                                    pixel_x = (int)(64 + (num - 5) / 5 * 48);
-  //                                else if (num <= 50.0f)
-  //                                    pixel_x = (int)(112 + (num - 10) / 40 * 48);
-  //                                else if (num <= 100.0f)
-  //                                    pixel_x = (int)(160 + (num - 50) / 50 * 48);
-  //                                else if (num <= 200.0f)
-  //                                    pixel_x = (int)(200 + (num - 100) / 20 * 48);
-  //                                else
-  //                                    pixel_x = (int)(256 + (num - 120) / 20 * 32);
-  //                            }
-  //                            else if (alexpresent && !anan8000dpresent)
-  //                            {
-  //                                if (num <= 1.0f)
-  //                                    pixel_x = (int)(0 + num * 16);
-  //                                else if (num <= 5.0f)
-  //                                    pixel_x = (int)(16 + (num - 1) / 4 * 48);
-  //                                else if (num <= 10.0f)
-  //                                    pixel_x = (int)(64 + (num - 5) / 5 * 48);
-  //                                else if (num <= 50.0f)
-  //                                    pixel_x = (int)(112 + (num - 10) / 40 * 48);
-  //                                else if (num <= 100.0f)
-  //                                    pixel_x = (int)(160 + (num - 50) / 50 * 48);
-  //                                else if (num <= 208.0f)
-  //                                    pixel_x = (int)(208 + (num - 100) / 20 * 48);
-  //                                else
-  //                                    pixel_x = (int)(256 + (num - 120) / 20 * 32);
-  //                            }
-  //                            else
-  //                            {
-  //                                if (num <= 25.0f)
-  //                                    pixel_x = (int)(0 + (num - 0.0) / 25.0 * 16);
-  //                                else if (num <= 50.0f)
-  //                                    pixel_x = (int)(16 + (num - 25.0) / 25.0 * 31);
-  //                                else if (num <= 100.0f)
-  //                                    pixel_x = (int)(31 + (num - 50.0) / 50.0 * 31);
-  //                                else if (num <= 200.0f)
-  //                                    pixel_x = (int)(62 + (num - 100.0) / 100.0 * 64);
-  //                                else if (num <= 500.0f)
-  //                                    pixel_x = (int)(126 + (num - 200.0) / 300.0 * 48);
-  //                                else if (num <= 600.0f)
-  //                                    pixel_x = (int)(174 + (num - 500.0) / 100.0 * 30);
-  //                                else if (num <= 700.0f)
-  //                                    pixel_x = (int)(204 + (num - 600.0) / 100.0 * 30);
-  //                                else if (num <= 800.0f)
-  //                                    pixel_x = (int)(234 + (num - 700.0) / 100.0 * 30);
-  //                                else
-  //                                    pixel_x = (int)(264 + (num - 800.0) / 100.0 * 16);
-  //                            }
-  //                        }
-  //                        else
-  //                        {
-  //                            if (anan10present || anan10Epresent)
-  //                            {
-  //                                if (num <= 1.0f)
-  //                                    pixel_x = (int)(0 + num * 2);
-  //                                else if (num <= 5.0f)
-  //                                    pixel_x = (int)(2 + (num - 1) / 4 * 24);
-  //                                else if (num <= 10.0f)
-  //                                    pixel_x = (int)(26 + (num - 5) / 5 * 24);
-  //                                else if (num <= 15.0f)
-  //                                    pixel_x = (int)(50 + (num - 10) / 5 * 24);
-  //                                else if (num <= 20.0f)
-  //                                    pixel_x = (int)(74 + (num - 15) / 5 * 24);
-  //                                else if (num <= 25.0f)
-  //                                    pixel_x = (int)(98 + (num - 20) / 5 * 24);
-  //                                else
-  //                                    pixel_x = (int)(122 + (num - 25) / 5 * 16);
-  //                            }
-  //                            else if (apollopresent)
-  //                            {
-  //                                if (num <= 1.0f)
-  //                                    pixel_x = (int)(0 + num * 2);
-  //                                else if (num <= 5.0f)
-  //                                    pixel_x = (int)(2 + (num - 1) / 4 * 24);
-  //                                else if (num <= 10.0f)
-  //                                    pixel_x = (int)(26 + (num - 5) / 5 * 24);
-  //                                else if (num <= 15.0f)
-  //                                    pixel_x = (int)(50 + (num - 10) / 5 * 24);
-  //                                else if (num <= 30.0f)
-  //                                    pixel_x = (int)(74 + (num - 15) / 15 * 24);
-  //                                else if (num <= 50.0f)
-  //                                    pixel_x = (int)(98 + (num - 30) / 20 * 24);
-  //                                else
-  //                                    pixel_x = (int)(122 + (num - 50) / 50 * 16);
-  //                            }
-  //                            else if (anan8000dpresent && tx_xvtr_index < 0)
-  //                            {
-  //                                if (num <= 5.0f)
-  //                                    pixel_x = (int)(0 + num * 2);
-  //                                else if (num <= 10.0f)
-  //                                    pixel_x = (int)(2 + (num - 1) / 4 * 24);
-  //                                else if (num <= 20.0f)
-  //                                    pixel_x = (int)(26 + (num - 10) / 5 * 24);
-  //                                else if (num <= 100.0f)
-  //                                    pixel_x = (int)(50 + (num - 20) / 40 * 24);
-  //                                else if (num <= 200.0f)
-  //                                    pixel_x = (int)(74 + (num - 100) / 50 * 24);
-  //                                else if (num <= 250.0f)
-  //                                    pixel_x = (int)(98 + (num - 200) / 20 * 24);
-  //                                else
-  //                                    pixel_x = (int)(122 + (num - 250) / 20 * 16);
-  //                            }
-  //                            else if (alexpresent && !anan8000dpresent)
-  //                            {
-  //                                if (num <= 1.0f)
-  //                                    pixel_x = (int)(0 + num * 2);
-  //                                else if (num <= 5.0f)
-  //                                    pixel_x = (int)(2 + (num - 1) / 4 * 24);
-  //                                else if (num <= 10.0f)
-  //                                    pixel_x = (int)(26 + (num - 5) / 5 * 24);
-  //                                else if (num <= 50.0f)
-  //                                    pixel_x = (int)(50 + (num - 10) / 40 * 24);
-  //                                else if (num <= 100.0f)
-  //                                    pixel_x = (int)(74 + (num - 50) / 50 * 24);
-  //                                else if (num <= 120.0f)
-  //                                    pixel_x = (int)(98 + (num - 100) / 20 * 24);
-  //                                else
-  //                                    pixel_x = (int)(122 + (num - 120) / 20 * 16);
-  //                            }
-  //                            else
-  //                            {
-  //                                if (num <= 100.0f)
-  //                                    pixel_x = (int)(0 + (num - 0.0) / 100.0 * 31);
-  //                                else if (num <= 200.0f)
-  //                                    pixel_x = (int)(31 + (num - 100.0) / 100.0 * 32);
-  //                                else if (num <= 500.0f)
-  //                                    pixel_x = (int)(63 + (num - 200.0) / 300.0 * 24);
-  //                                else if (num <= 600.0f)
-  //                                    pixel_x = (int)(87 + (num - 500.0) / 100.0 * 15);
-  //                                else if (num <= 700.0f)
-  //                                    pixel_x = (int)(102 + (num - 600.0) / 100.0 * 15);
-  //                                else if (num <= 800.0f)
-  //                                    pixel_x = (int)(117 + (num - 700.0) / 100.0 * 15);
-  //                                else
-  //                                    pixel_x = (int)(132 + (num - 800.0) / 100.0 * 8);
-  //                            }
-  //                        }
-  //                        break;
-
-  //                    case 120:
-  //                        if (num <= 1.0f)
-  //                            pixel_x = (int)(0 + num * 3);
-  //                        else if (num <= 5.0f)
-  //                            pixel_x = (int)(3 + (num - 1) / 4 * 26);
-  //                        else if (num <= 10.0f)
-  //                            pixel_x = (int)(29 + (num - 5) / 5 * 26);
-  //                        else if (num <= 50.0f)
-  //                            pixel_x = (int)(55 + (num - 10) / 40 * 27);
-  //                        else if (num <= 100.0f)
-  //                            pixel_x = (int)(82 + (num - 50) / 50 * 28);
-  //                        else if (num <= 120.0f)
-  //                            pixel_x = (int)(110 + (num - 100) / 20 * 27);
-  //                        else
-  //                            pixel_x = (int)(137 + (num - 120) / 20 * 30);
-  //                        break;
-  //                }
-  //                break;
-  //            case MeterTXMode.SWR:
-  //                switch ((int)g.DpiX)
-  //                {
-  //                    case 96:
-  //                        if (collapsedDisplay)
-  //                        {
-  //                            if (double.IsInfinity(num))
-  //                                pixel_x = 200;
-  //                            else if (num <= 1.0f)
-  //                                pixel_x = (int)(0 + num * 6);
-  //                            else if (num <= 1.5f)
-  //                                pixel_x = (int)(6 + (num - 1.0) / 0.5 * 54);
-  //                            else if (num <= 2.0f)
-  //                                pixel_x = (int)(60 + (num - 1.5) / 0.5 * 40);
-  //                            else if (num <= 3.0f)
-  //                                pixel_x = (int)(100 + (num - 2.0) / 1.0 * 42);
-  //                            else if (num <= 5.0f)
-  //                                pixel_x = (int)(142 + (num - 3.0) / 2.0 * 42);
-  //                            else if (num <= 10.0f)
-  //                                pixel_x = (int)(184 + (num - 5.0) / 5.0 * 42);
-  //                            else
-  //                                pixel_x = (int)(226 + (num - 10.0) / 15.0 * 52);
-  //                        }
-  //                        else
-  //                        {
-  //                            if (double.IsInfinity(num))
-  //                                pixel_x = 200;
-  //                            else if (num <= 1.0f)
-  //                                pixel_x = (int)(0 + num * 3);
-  //                            else if (num <= 1.5f)
-  //                                pixel_x = (int)(3 + (num - 1.0) / 0.5 * 27);
-  //                            else if (num <= 2.0f)
-  //                                pixel_x = (int)(30 + (num - 1.5) / 0.5 * 20);
-  //                            else if (num <= 3.0f)
-  //                                pixel_x = (int)(50 + (num - 2.0) / 1.0 * 21);
-  //                            else if (num <= 5.0f)
-  //                                pixel_x = (int)(71 + (num - 3.0) / 2.0 * 21);
-  //                            else if (num <= 10.0f)
-  //                                pixel_x = (int)(92 + (num - 5.0) / 5.0 * 21);
-  //                            else
-  //                                pixel_x = (int)(113 + (num - 10.0) / 15.0 * 26);
-  //                        }
-  //                        break;
-  //                    case 120:
-  //                        if (double.IsInfinity(num))
-  //                            pixel_x = 200;
-  //                        else if (num <= 1.0f)
-  //                            pixel_x = (int)(0 + num * 3);
-  //                        else if (num <= 1.5f)
-  //                            pixel_x = (int)(3 + (num - 1.0) / 0.5 * 31);
-  //                        else if (num <= 2.0f)
-  //                            pixel_x = (int)(34 + (num - 1.5) / 0.5 * 22);
-  //                        else if (num <= 3.0f)
-  //                            pixel_x = (int)(56 + (num - 2.0) / 1.0 * 22);
-  //                        else if (num <= 5.0f)
-  //                            pixel_x = (int)(78 + (num - 3.0) / 2.0 * 23);
-  //                        else if (num <= 10.0f)
-  //                            pixel_x = (int)(101 + (num - 5.0) / 5.0 * 23);
-  //                        else
-  //                            pixel_x = (int)(124 + (num - 10.0) / 15.0 * 43);
-  //                        break;
-  //                }
-  //                break;
-  //            case MeterTXMode.SWR_POWER:
-  //                break;
-  //            case MeterTXMode.ALC_G:
-  //            case MeterTXMode.LVL_G:
-  //            case MeterTXMode.CFC_G:
-  //                switch ((int)g.DpiX)
-  //                {
-  //                    case 96:
-  //                        if (collapsedDisplay)
-  //                        {
-  //                            if (num <= 0.0f)
-  //                                pixel_x = 6;
-  //                            else if (num <= 5.0f)
-  //                                pixel_x = (int)(6 + (num - 0.0) / 5.0 * 56);
-  //                            else if (num <= 10.0f)
-  //                                pixel_x = (int)(62 + (num - 5.0) / 5.0 * 58);
-  //                            else if (num <= 15.0f)
-  //                                pixel_x = (int)(120 + (num - 10.0) / 5.0 * 60);
-  //                            else if (num <= 20.0f)
-  //                                pixel_x = (int)(180 + (num - 15.0) / 5.0 * 62);
-  //                            else
-  //                                pixel_x = (int)(242 + (num - 20.0) / 5.0 * 58);
-  //                        }
-  //                        else
-  //                        {
-  //                            if (num <= 0.0f)
-  //                                pixel_x = 3;
-  //                            else if (num <= 5.0f)
-  //                                pixel_x = (int)(3 + (num - 0.0) / 5.0 * 28);
-  //                            else if (num <= 10.0f)
-  //                                pixel_x = (int)(31 + (num - 5.0) / 5.0 * 29);
-  //                            else if (num <= 15.0f)
-  //                                pixel_x = (int)(60 + (num - 10.0) / 5.0 * 30);
-  //                            else if (num <= 20.0f)
-  //                                pixel_x = (int)(90 + (num - 15.0) / 5.0 * 31);
-  //                            else
-  //                                pixel_x = (int)(121 + (num - 20.0) / 5.0 * 29);
-  //                        }
-  //                        break;
-  //                    case 120:
-  //                        if (num <= 0.0f)
-  //                            pixel_x = 3;
-  //                        else if (num <= 5.0f)
-  //                            pixel_x = (int)(3 + (num - 0.0) / 5.0 * 31);
-  //                        else if (num <= 10.0f)
-  //                            pixel_x = (int)(34 + (num - 5.0) / 5.0 * 33);
-  //                        else if (num <= 15.0f)
-  //                            pixel_x = (int)(77 + (num - 10.0) / 5.0 * 33);
-  //                        else if (num <= 20.0f)
-  //                            pixel_x = (int)(110 + (num - 15.0) / 5.0 * 35);
-  //                        else
-  //                            pixel_x = (int)(145 + (num - 20.0) / 5.0 * 32);
-  //                        break;
-  //                }
-  //                break;
-  //            case MeterTXMode.OFF:
-  //                break;
-  //        }
-  //    }
-
-  //    switch ((int)g.DpiX)
-  //    {
-  //        case 96:
-  //            if (!collapsedDisplay)
-  //            {
-  //                if (pixel_x > 139) pixel_x = 139;
-  //                pixel_x = (int)(((double)pixel_x / 139) * W);  // MW0LGE proportional green bar
-  //                over total width
-  //            }
-  //            break;
-  //        case 120:
-  //            if (pixel_x > 167) pixel_x = 167;
-  //            pixel_x = (int)(((double)pixel_x / 167.0f) * W);  // MW0LGE proportional green bar
-  //            over total width break;
-  //    }
-
-  //    if ((!mox && metRXMode != MeterRXMode.OFF) ||
-  //        (mox && metTXMode != MeterTXMode.OFF) )
-  //    {
-  //        if (pixel_x <= 0) pixel_x = 1;
-
-  //        // MW0LGE reworked size/heights
-  //        using (LinearGradientBrush brush = new LinearGradientBrush(new Rectangle(0, 0, pixel_x,
-  //        H - 10),
-  //            meter_left_color, meter_right_color, LinearGradientMode.Horizontal))
-
-  //            g.FillRectangle(brush, 0, 0, pixel_x, H - 10);
-
-  //        g.FillRectangle(meter_background_pen.Brush, 0, H - 10, W, H);
-
-  //        for (int i = 0; i < (W / 8) - 6; i++)
-  //            g.DrawLine(meter_background_pen, 6 + i * 8, 0, 6 + i * 8, H - 10);
-
-  //        g.DrawLine(Pens.Red, pixel_x, 0, pixel_x, H - 10);
-  //        g.FillRectangle(meter_background_pen.Brush, pixel_x + 1, 0, W - pixel_x, H - 10);
-
-  //        switch (RXnumber)
-  //        {
-  //            case 1:
-  //                if (pixel_x >= meter_peak_value)
-  //                {
-  //                    meter_peak_count = 0;
-  //                    meter_peak_value = pixel_x;
-  //                }
-  //                else
-  //                {
-  //                    if (meter_peak_count++ >= multimeter_peak_hold_samples)
-  //                    {
-  //                        meter_peak_count = 0;
-  //                        meter_peak_value = pixel_x;
-  //                    }
-  //                    else
-  //                    {
-  //                        g.DrawLine(Pens.Red, meter_peak_value, 0, meter_peak_value, H - 10);
-  //                        g.DrawLine(Pens.Red, meter_peak_value - 1, 0, meter_peak_value - 1, H -
-  //                        10);
-  //                    }
-  //                }
-  //                break;
-  //            case 2:
-  //                if (pixel_x >= rx2_meter_peak_value)
-  //                {
-  //                    rx2_meter_peak_count = 0;
-  //                    rx2_meter_peak_value = pixel_x;
-  //                }
-  //                else
-  //                {
-  //                    if (rx2_meter_peak_count++ >= multimeter_peak_hold_samples)
-  //                    {
-  //                        rx2_meter_peak_count = 0;
-  //                        rx2_meter_peak_value = pixel_x;
-  //                    }
-  //                    else
-  //                    {
-  //                        g.DrawLine(Pens.Red, rx2_meter_peak_value, 0, rx2_meter_peak_value, H -
-  //                        10); g.DrawLine(Pens.Red, rx2_meter_peak_value - 1, 0,
-  //                        rx2_meter_peak_value - 1, H - 10);
-  //                    }
-  //                }
-  //                break;
-  //        }
-  //    }
-
-  //    return num;
-  //}
-
   private double getUVfromDBM(double dbm) {
     // return uV (rms) from dBm (50 ohms)
     return Math.Sqrt(Math.Pow(10, dbm / 10) * 50 * 1e-3) * 1e6;
@@ -28778,9 +28127,9 @@ public partial class Console : Form {
     bool bAbove30;
 
     if (nRX == 2) {
-      bAbove30 = rx2_above30;
+      bAbove30 = rx2_above30MHz;
     } else {
-      bAbove30 = rx1_above30;
+      bAbove30 = rx1_above30MHz;
     }
 
     if (bAbove30) {
@@ -28907,25 +28256,6 @@ public partial class Console : Form {
   // This is for the analog s-meter
   private float calcSMeterValue(float dbm) {
 
-    /*/
-     *
-    output = num.ToString("f1") + " dBm";
-    new_meter_data = num;
-
-    num_tmp = num + 127.0f;
-    if (num <= -73.0f && num >= -127.0f)
-    {
-        num_tmp = num_tmp / 6;
-    }
-    else if (num > -13.0f)
-    {
-        num_tmp = NewVFOSignalGauge.MaxValue;
-    }
-    else if (num > -73.0f)
-    {
-        num_tmp = -(-73.0f - num) / 6.6f + 9;
-    }
-    /*/
     float s_meter_value = (float)dbm + 127.0f;
     int mynum = (int)Math.Abs(dbm);
 
@@ -28938,68 +28268,6 @@ public partial class Console : Form {
       }
       return val;
     }
-
-    /*/
-     * else
-    {
-        if (mynum >= 125f)
-        {
-            s_meter_value = 6.7f;
-        }
-        else if (mynum >= 120.0f)
-        {
-            s_meter_value = s_meter_value / 2.3f;
-        }
-        else if (mynum >= 110.0f)
-        {
-            s_meter_value = s_meter_value / 2.3f;
-        }
-        else if (mynum >= 100)
-        {
-            s_meter_value = s_meter_value / 3.1f;
-        }
-        else if (mynum >= 90)
-        {
-            s_meter_value = s_meter_value / 3.9f;
-        }
-        else if (mynum >= 80)
-        {
-            s_meter_value = s_meter_value / 4.45f;
-        }
-        else if (mynum >= 70.0f)
-        {
-            // -73 is s9
-            s_meter_value = s_meter_value / 4.85f;
-        }
-        else if (mynum >= 60)
-        {
-            s_meter_value = (float)-(-73.0f - dbm) / 6.6f + 8.8f;
-        }
-        else if (mynum >= 55.0f)
-        {
-            s_meter_value = (float)-(-73.0f - dbm) / 6.6f + 8.4f;
-        }
-        else if (mynum >= 45.0f)
-        {
-            s_meter_value = (float)-(-73.0f - dbm) / 6.6f + 7.8f;
-        }
-        else if (mynum >= 35.0f)
-        {
-            s_meter_value = (float)-(-73.0f - dbm) / 6.6f + 7.3f;
-        }
-        else if (mynum >= 25.0f)
-        {
-            s_meter_value = (float)-(-73.0f - dbm) / 6.6f + 6.7f;
-        }
-        else
-        {
-            // big strong sigs:
-            s_meter_value = NewVFOSignalGauge.MaxValue;
-        }
-
-
-    }
-     /*/
     return s_meter_value;
   }
 
@@ -29011,7 +28279,6 @@ public partial class Console : Form {
     int pixel_x;     // = 0;
     int pixel_x_swr; // = 0;
     string output = "";
-    float s_meter_value = 0;
 
     if (meter_data_ready) {
       current_meter_data = new_meter_data;
@@ -29028,9 +28295,9 @@ public partial class Console : Form {
         num = avg_num = current_meter_data * 0.8 + avg_num * 0.2; // fast rise
       else
         num = avg_num = current_meter_data * 0.2 + avg_num * 0.8; // slow decay
-
-      // num = -120f;
     }
+
+    m_smeter_display_dbm = num;
 
     switch (current_meter_display_mode) {
     case MultiMeterDisplayMode.Original:
@@ -29162,43 +28429,7 @@ public partial class Console : Form {
           g.FillRectangle(m_SignalHistoryColourPen.Brush, fMin, 0, fMax - fMin, H);
           //
         }
-        if (!mox) {
-          s_meter_value = calcSMeterValue((float)num);
-        } else {
-          s_meter_value = (float)(num * 100.0f);
-          if (current_meter_tx_mode == MeterTXMode.SWR) {
-            s_meter_value *= 1.7f;
-          } else {
-            s_meter_value /= 1.5f;
-          }
-        }
-        var meter_abs = 6000 - Math.Abs(s_meter_value);
-        if (current_meter_tx_mode == MeterTXMode.MIC) {
 
-          s_meter_value = meter_abs / 10.0f;
-        } else if (current_meter_tx_mode == MeterTXMode.LEVELER ||
-                   current_meter_tx_mode == MeterTXMode.LVL_G) {
-          if (mox) {
-            double dB = num;
-
-            double v = Math.Pow(10, dB / 20);
-            s_meter_value = (float)((float)PrettySMeter.MaxValue * (float)v);
-            if (current_meter_tx_mode == MeterTXMode.LVL_G) {
-              v = Math.Pow(20, dB / 20);
-              s_meter_value = (float)num * (float)90;
-            }
-            s_meter_value /= 2;
-          }
-        } else if (current_meter_tx_mode == MeterTXMode.ALC ||
-                   current_meter_tx_mode == MeterTXMode.ALC_GROUP) {
-          double dB = num;
-          dB = Math.Abs(num);
-          var v = Math.Pow(10, dB / 20);
-          s_meter_value = (float)PrettySMeter.MaxValue / (float)v;
-          s_meter_value /= 2;
-        }
-
-        PrettySMeter.Value = s_meter_value;
         g.DrawLine(line_dark_pen, pixel_x - 1, 0, pixel_x - 1, H); // left side
         g.DrawLine(line_pen, pixel_x, 0, pixel_x, H);              // center line
         g.DrawLine(line_dark_pen, pixel_x + 1, 0, pixel_x + 1, H); // right side
@@ -29213,8 +28444,8 @@ public partial class Console : Form {
         pixel_x = Math.Min(W - 3, pixel_x);
         pixel_x_swr = Math.Max(0, pixel_x_swr);
         pixel_x_swr = Math.Min(W - 3, pixel_x_swr);
-        Debug.Print(pixel_x.ToString());
-        Debug.Print(pixel_x_swr.ToString());
+        // Debug.Print(pixel_x.ToString());
+        // Debug.Print(pixel_x_swr.ToString());
         line_dark_pen.Color =
             Color.FromArgb((edge_avg_color.R + edge_meter_background_color.R) / 2,
                            (edge_avg_color.G + edge_meter_background_color.G) / 2,
@@ -30121,9 +29352,12 @@ public partial class Console : Form {
   }
 
   private HiPerfTimer meter_timer = new HiPerfTimer();
+
+  // Called on it's own thread, with limited priority
   private async void UpdateMultimeter() {
 
     meter_timer.Start();
+
     // picSMeter.Refresh();
     while (chkPower.Checked) {
       if (!meter_data_ready) {
@@ -30143,9 +29377,6 @@ public partial class Console : Form {
             num = num + rx1_meter_cal_offset + rx1PreampOffset + rx1_xvtr_gain_offset +
                   rx1_6m_gain_offset;
             new_meter_data = num;
-
-            // test MW0LGE
-            // MultiMeter.Meter.MeterRXValue = num;
 
             break;
           case MeterRXMode.SIGNAL_AVERAGE:
@@ -33151,6 +32382,7 @@ public partial class Console : Form {
 
   private bool DataFlowing = false;
   private byte[] id_bytes = new byte[1];
+
   private void chkPower_CheckedChanged(object sender, System.EventArgs e) {
     if (chkPower.Checked) {
       chkPower.BackColor = button_selected_color;
@@ -33213,7 +32445,7 @@ public partial class Console : Form {
 
       if (multimeter_thread == null || !multimeter_thread.IsAlive) {
         multimeter_thread = new Thread(new ThreadStart(UpdateMultimeter)) {
-          Name = "Multimeter Thread", Priority = ThreadPriority.Lowest, IsBackground = true
+          Name = "Multimeter Thread", Priority = ThreadPriority.BelowNormal, IsBackground = true
         };
         multimeter_thread.Start();
       }
@@ -36251,7 +35483,7 @@ public partial class Console : Form {
       freq = m_dVFOAFreq;
     }
 
-    rx1_above30 = (freq > 30.0);
+    rx1_above30MHz = (freq > 30.0);
 
     if (!click_tune_display || update_centerfreq) // || initializing) !!!! - G3OQD - !!!!
     {
@@ -37123,7 +36355,7 @@ public partial class Console : Form {
       freq = m_dVFOBFreq;
     }
 
-    rx2_above30 = (freq > 30.0);
+    rx2_above30MHz = (freq > 30.0);
 
     if (current_hpsdr_model == HPSDRModel.ANAN7000D ||
         current_hpsdr_model == HPSDRModel.ANAN8000D) {
@@ -52243,6 +51475,139 @@ public partial class Console : Form {
   private void lblRec_Paint(object sender, PaintEventArgs e) {
     ControlPaint.DrawBorder(e.Graphics, lblRec.DisplayRectangle, Color.DarkGray,
                             ButtonBorderStyle.Solid);
+  }
+
+  void sMeterPower(LBAnalogMeter.BackGroundChoices bkg, double val) {
+    PrettySMeter.MinValue = 0;
+    switch (CurrentHPSDRModel) {
+
+    case HPSDRModel.ANAN100D:
+
+      if (bkg == LBAnalogMeter.BackGroundChoices.Tango) {
+        PrettySMeter.MaxValue = 250 * 100;
+      } else {
+        PrettySMeter.MaxValue = 150 * 100;
+      }
+
+      break;
+    case HPSDRModel.HERMES:
+
+      if (bkg == LBAnalogMeter.BackGroundChoices.Tango) {
+        PrettySMeter.MaxValue = 25 * 100;
+      } else {
+        PrettySMeter.MaxValue = 15 * 100;
+      }
+      break;
+    default:
+      PrettySMeter.MaxValue = 15 * 100;
+      break;
+    }
+
+    var fudge = 0.95;
+    if (bkg == LBAnalogMeter.BackGroundChoices.Tango) {
+      fudge = 0.8;
+    }
+    PrettySMeter.MaxValue = PrettySMeter.MaxValue * fudge;
+    PrettySMeter.Value = calfwdpower;
+
+    PrettySMeter.Value = val;
+  }
+
+  void sMeterRx() {
+    const double SNINE = 73;
+    double dbm = m_smeter_display_dbm; // + (0.03 * (140 - m_smeter_display_dbm));
+    double dbm_rel_s9 = Math.Abs(dbm) - SNINE;
+    double val = 0;
+    if (dbm > -SNINE) {
+      val = dbm;
+    } else {
+      val = dbm - (0.3 * dbm_rel_s9);
+    }
+
+    PrettySMeter.MaxValue = 0;
+    PrettySMeter.MinValue = -150;
+    last_smeter_display_dbm = m_smeter_display_dbm;
+    PrettySMeter.Value = val;
+  }
+
+  void sMeterMic() {
+    // arranged so 0dB of mic data is right on s9, since
+    // none of the analog meters I have found actually
+    // have a scale for micdb. s9 just "looks right"
+    PrettySMeter.MinValue = -150;
+    PrettySMeter.MaxValue = 0;
+    PrettySMeter.Value = new_meter_data - 73; // this is directly in db
+  }
+
+  void sMeterSWR(LBAnalogMeter.BackGroundChoices bkg, double val) {
+    // val is a float representing SWR, multiplied by 100.
+    PrettySMeter.MinValue = 0;
+    PrettySMeter.MaxValue = 800;
+    PrettySMeter.Value = val;
+  }
+
+  // Every 50mS, update pretty SMeter
+  double last_smeter_display_dbm;
+  private void tmrPrettySMeter_Tick(object sender, EventArgs e) {
+    // Debug.Print(m_smeter_display_dbm.ToString());
+    if (!this.PowerOn) {
+      PrettySMeter.Value = PrettySMeter.MinValue;
+      return;
+    }
+    bool rx_mode = !mox;
+    var bkgChoice = PrettySMeter.CurrentBackGroundChoice();
+    double val = 0;
+    if (rx_mode) {
+      sMeterRx();
+    } else {
+      // tx mode
+
+      MeterTXMode mode = CurrentMeterTXMode;
+      switch (mode) {
+      case MeterTXMode.MIC:
+      case MeterTXMode.EQ:
+      case MeterTXMode.LEVELER:
+      case MeterTXMode.CFC_PK:
+        sMeterMic();
+        break;
+      case MeterTXMode.FORWARD_POWER:
+        val = calfwdpower * 100;
+        sMeterPower(bkgChoice, val);
+        break;
+      case MeterTXMode.REVERSE_POWER:
+        val = new_meter_data * 100;
+        sMeterPower(bkgChoice, val);
+        break;
+
+      case MeterTXMode.SWR_POWER:
+        val = new_swrmeter_data * 100;
+        sMeterSWR(bkgChoice, val);
+        break;
+      case MeterTXMode.SWR:
+        val = new_meter_data * 100;
+        sMeterSWR(bkgChoice, val);
+        break;
+      case MeterTXMode.LVL_G:
+        val = new_meter_data * 10;
+        PrettySMeter.MinValue = 0;
+        if (bkgChoice == LBAnalogMeter.BackGroundChoices.Blue)
+          PrettySMeter.MaxValue = 240;
+        else
+          PrettySMeter.MaxValue = 225;
+        PrettySMeter.Value = val;
+        break;
+      }
+    }
+  }
+
+  private void PrettySMeter_MaxValueChanged(object sender, EventArgs e) {
+    if (m_frmSMeter != null)
+      m_frmSMeter.BigSMeter.MaxValue = PrettySMeter.MaxValue;
+  }
+
+  private void PrettySMeter_MinValueChanged(object sender, EventArgs e) {
+    if (m_frmSMeter != null)
+      m_frmSMeter.BigSMeter.MinValue = PrettySMeter.MinValue;
   }
 }
 

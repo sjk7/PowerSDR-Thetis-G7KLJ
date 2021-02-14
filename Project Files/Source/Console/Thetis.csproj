@@ -208,6 +208,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Registry.4.7.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX">
       <HintPath>..\..\lib\SharpDX\SharpDX.dll</HintPath>
     </Reference>
@@ -241,6 +244,12 @@
     </Reference>
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Security.AccessControl, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.7.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms">
       <Name>System.Windows.Forms</Name>
@@ -562,6 +571,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Content Include="hpsdr4-64.ico" />
+    <None Include="packages.config" />
     <None Include="Resources\SMeterTango.jpg" />
     <None Include="Resources\SMeterOrange.bmp" />
     <None Include="Properties\Settings.settings">
@@ -570,6 +580,7 @@
     </None>
     <None Include="Resources\OLDAnalogSignalGauge.JPG" />
     <None Include="Resources\OLDVFOAnalogSignalGauge.JPG" />
+    <None Include="Resources\PPM.jpg" />
     <Content Include="Resources\screen4.png" />
     <None Include="Resources\openhpsdrnotastall.bmp" />
     <None Include="Resources\openhpsdrnotastall.png" />

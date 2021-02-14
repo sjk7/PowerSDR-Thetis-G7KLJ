@@ -1,34 +1,30 @@
 ﻿
-namespace Thetis
-{
-    partial class frmSMeter
-    {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+namespace Thetis {
+partial class frmSMeter {
+  /// <summary>
+  /// Required designer variable.
+  /// </summary>
+  private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+  /// <summary>
+  /// Clean up any resources being used.
+  /// </summary>
+  /// <param name="disposing">true if managed resources should be disposed; otherwise,
+  /// false.</param>
+  protected override void Dispose(bool disposing) {
+    if (disposing && (components != null)) {
+      components.Dispose();
+    }
+    base.Dispose(disposing);
+  }
 
-        #region Windows Form Designer generated code
+#region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
+  /// <summary>
+  /// Required method for Designer support - do not modify
+  /// the contents of this method with the code editor.
+  /// </summary>
+  private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSMeter));
             this.mnuBigSMeter = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -155,7 +151,7 @@ namespace Thetis
             this.BigSMeter.MeterStyle = LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.AnalogMeterStyle.Circular;
             this.BigSMeter.MinValue = 0D;
             this.BigSMeter.Name = "BigSMeter";
-            this.BigSMeter.NeedleColor = System.Drawing.Color.Yellow;
+            this.BigSMeter.NeedleColor = System.Drawing.Color.DarkGoldenrod;
             this.BigSMeter.Renderer = null;
             this.BigSMeter.ScaleColor = System.Drawing.Color.White;
             this.BigSMeter.ScaleDivisions = 10;
@@ -203,23 +199,23 @@ namespace Thetis
             ((System.ComponentModel.ISupportInitialize)(this.Grip)).EndInit();
             this.ResumeLayout(false);
 
-        }
+  }
 
-        #endregion
+#endregion
 
-        private LBSoft.IndustrialCtrls.Meters.LBAnalogMeter BigSMeter;
-        private System.Windows.Forms.ContextMenuStrip mnuBigSMeter;
-        private System.Windows.Forms.ToolStripMenuItem chooseBackgroundToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem originalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem blueToolStripMenuItem;
-        private System.Windows.Forms.PictureBox Grip;
-        private System.Windows.Forms.ToolStripMenuItem windowStateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem normalToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem minimizedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem maximizedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem alwaysOnTopToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem doNotShowBigSMeterToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem whyCantIChooseTheBackgroundToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem youKnowWhenYouveBeenTangodToolStripMenuItem;
-    }
+  public LBSoft.IndustrialCtrls.Meters.LBAnalogMeter BigSMeter;
+  private System.Windows.Forms.ContextMenuStrip mnuBigSMeter;
+  private System.Windows.Forms.ToolStripMenuItem chooseBackgroundToolStripMenuItem;
+  private System.Windows.Forms.ToolStripMenuItem originalToolStripMenuItem;
+  private System.Windows.Forms.ToolStripMenuItem blueToolStripMenuItem;
+  private System.Windows.Forms.PictureBox Grip;
+  private System.Windows.Forms.ToolStripMenuItem windowStateToolStripMenuItem;
+  private System.Windows.Forms.ToolStripMenuItem normalToolStripMenuItem;
+  private System.Windows.Forms.ToolStripMenuItem minimizedToolStripMenuItem;
+  private System.Windows.Forms.ToolStripMenuItem maximizedToolStripMenuItem;
+  private System.Windows.Forms.ToolStripMenuItem alwaysOnTopToolStripMenuItem;
+  private System.Windows.Forms.ToolStripMenuItem doNotShowBigSMeterToolStripMenuItem;
+  private System.Windows.Forms.ToolStripMenuItem whyCantIChooseTheBackgroundToolStripMenuItem;
+  private System.Windows.Forms.ToolStripMenuItem youKnowWhenYouveBeenTangodToolStripMenuItem;
+}
 }
