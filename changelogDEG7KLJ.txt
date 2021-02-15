@@ -1,5 +1,11 @@
 Fixed:
 
+
+15/02/2021:
+Rx audio volume does not obey audio slider setting when powered on. Fixed.
+
+
+
 18/11/2020:
 Added 'Refresh' button to VAC1 so you don't have to restart Thetis when, say, a new USB device is
 plugged in. Note: You must manually push the button. There is currently no 'auto refresh' performed;

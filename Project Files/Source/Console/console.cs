@@ -185,7 +185,7 @@ public partial class Console : Form {
   private bool calibration_running = false;
   private bool displaydidit = false;
   public Mutex calibration_mutex = new Mutex();
-
+  private PrettySMeterHelpers m_PrettySMeterHelpers;
   public Http httpFile;                // ke9ns add
   public HttpServer httpServer = null; // rn3kk add
 
@@ -1175,7 +1175,7 @@ public partial class Console : Form {
     }
 
     Splash.CloseForm();
-
+    m_PrettySMeterHelpers = new PrettySMeterHelpers(this);
     // this.picSMeter.DoubleClick += new System.EventHandler(this.picSMeter_DoubleClick);
     // this.picSMeter.Paint += new System.Windows.Forms.PaintEventHandler(this.picSMeter_Paint);
     this.Click += new System.EventHandler(this.form_Click);
@@ -31021,21 +31021,11 @@ public partial class Console : Form {
     bool big = Properties.Settings.Default.BigSMeterOpen;
     if (big && m_frmSMeter == null) {
       m_frmSMeter = new frmSMeter(this.PrettySMeter.Bounds, this);
-
+      m_PrettySMeterHelpers.frmSMeter = m_frmSMeter;
       m_frmSMeter.Show();
       m_frmSMeter.BringToFront();
     }
-    // SizeAndPositionAnalogSMeter();
-    // end qso timer
   }
-
-  // private void DelayedDisplayReset()
-  //{
-  //    Thread.Sleep((int)((double)block_size1 / (double)sample_rate_rx1 * 1000.0));
-  //    Display.ResetRX1DisplayAverage();
-  //    Display.ResetRX1DisplayPeak();
-  //}
-
   private bool tx_cal = false;
   public bool TXCal {
     get { return tx_cal; }
@@ -32528,6 +32518,11 @@ public partial class Console : Form {
       if (!rx_only) {
         chkMOX.Enabled = true;
         chkTUN.Enabled = true;
+
+        if (!chkMUT.Checked)
+          Audio.MonitorVolume = ptbAF.Value / 100.0;
+        else
+          Audio.MonitorVolume = 0; // muted
       }
       chkVFOLock.Enabled = true;
       chkVFOBLock.Enabled = true;
@@ -34365,6 +34360,9 @@ public partial class Console : Form {
     else
       UIMOXChangedFalse();
     AndromedaIndicatorCheck(EIndicatorActions.eINMOX, false, tx);
+    if (m_PrettySMeterHelpers != null) {
+      m_PrettySMeterHelpers.moxChanged(chkMOX.Checked);
+    }
   }
 
   private void chkMOX_Click(object sender, System.EventArgs e) {
@@ -34414,6 +34412,10 @@ public partial class Console : Form {
 
       if (!mox) {
         ResetMultiMeterPeak();
+      }
+
+      if (m_PrettySMeterHelpers != null) {
+        m_PrettySMeterHelpers.rxMeterModeChanged(mode);
       }
     }
 
@@ -34480,6 +34482,9 @@ public partial class Console : Form {
         SetupForm.TuneMeterTXMode = mode;
     }
     current_meter_tx_mode = mode;
+    if (m_PrettySMeterHelpers != null) {
+      m_PrettySMeterHelpers.txMeterModeChanged(mode);
+    }
 
     if (mox) {
       ResetMultiMeterPeak();
@@ -51415,6 +51420,7 @@ public partial class Console : Form {
   private void ShowBigSMeter() {
     if (this.m_frmSMeter == null || m_frmSMeter.IsDisposed) {
       m_frmSMeter = new frmSMeter(PrettySMeter.Bounds, this);
+      m_PrettySMeterHelpers.frmSMeter = m_frmSMeter;
     }
 
     m_frmSMeter.Value = (float)PrettySMeter.Value;
@@ -51481,6 +51487,7 @@ public partial class Console : Form {
     PrettySMeter.MinValue = 0;
     switch (CurrentHPSDRModel) {
 
+    case HPSDRModel.ANAN100:
     case HPSDRModel.ANAN100D:
 
       if (bkg == LBAnalogMeter.BackGroundChoices.Tango) {
@@ -51491,7 +51498,8 @@ public partial class Console : Form {
 
       break;
     case HPSDRModel.HERMES:
-
+    case HPSDRModel.ANAN10:
+    case HPSDRModel.ANAN10E:
       if (bkg == LBAnalogMeter.BackGroundChoices.Tango) {
         PrettySMeter.MaxValue = 25 * 100;
       } else {
@@ -51515,7 +51523,7 @@ public partial class Console : Form {
 
   void sMeterRx() {
     const double SNINE = 73;
-    double dbm = m_smeter_display_dbm; // + (0.03 * (140 - m_smeter_display_dbm));
+    double dbm = m_smeter_display_dbm;
     double dbm_rel_s9 = Math.Abs(dbm) - SNINE;
     double val = 0;
     if (dbm > -SNINE) {
@@ -51534,6 +51542,7 @@ public partial class Console : Form {
     // arranged so 0dB of mic data is right on s9, since
     // none of the analog meters I have found actually
     // have a scale for micdb. s9 just "looks right"
+    PrettySMeter.BackgroundImage = Thetis.Properties.Resources.PPM;
     PrettySMeter.MinValue = -150;
     PrettySMeter.MaxValue = 0;
     PrettySMeter.Value = new_meter_data - 73; // this is directly in db

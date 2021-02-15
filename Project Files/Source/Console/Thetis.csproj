@@ -272,6 +272,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="AnalogSMeter\MathFunc.cs" />
+    <Compile Include="AnalogSMeter\metering_helpers.cs" />
     <Compile Include="AnalogSMeter\MeterRenderer.cs" />
     <Compile Include="Andromeda\AndromedaEditForm.cs">
       <SubType>Form</SubType>
@@ -315,6 +316,7 @@
       <DependentUpon>frmSMeter.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="AnalogSMeter\PrettySMeterHelpers.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

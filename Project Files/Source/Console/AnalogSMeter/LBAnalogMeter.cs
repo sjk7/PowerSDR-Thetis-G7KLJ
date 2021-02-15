@@ -68,6 +68,7 @@ namespace LBSoft.IndustrialCtrls.Meters {
 
     BackGroundChoices m_backGroundChoice;
     public BackGroundChoices CurrentBackGroundChoice() { return m_backGroundChoice; }
+
 #region Constructors
     public LBAnalogMeter() {
       // Initialization
@@ -374,6 +375,29 @@ namespace LBSoft.IndustrialCtrls.Meters {
       this.ResumeLayout(false);
     }
     public Thetis.Console m_console;
+
+    private Image m_bio;
+    public override Image BackgroundImage {
+      get { return m_bio; }
+      set {
+        // converting background image to particular format, which is meant to be
+        // the most efficient in GDI+
+        Bitmap bmp = new Bitmap(value.Width, value.Height,
+                                System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+
+        using (Graphics gr = Graphics.FromImage(bmp)) {
+          gr.DrawImage(value, new Rectangle(0, 0, this.Width, this.Height));
+        }
+        m_bio = value;
+        if (defaultRenderer != null) {
+          defaultRenderer.BackGroundCustomImage = m_bio;
+          if (m_console != null) {
+            m_console.PrettySMeter.defaultRenderer.BackGroundCustomImage =
+                renderer.BackGroundCustomImage;
+          }
+        }
+      }
+    }
 
     public void ToggleBackGroundImage(int which = -1) {
 
