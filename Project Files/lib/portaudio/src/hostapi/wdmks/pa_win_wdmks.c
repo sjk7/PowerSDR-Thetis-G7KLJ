@@ -2956,7 +2956,10 @@ PaWinWdmFilter** BuildFilterList(
 
             newFilter = FilterNew(streamingType, devInfoData.DevInst,
                 devInterfaceDetails->DevicePath, friendlyName, &result);
+
+            if (!wcsstr(friendlyName, L"MIDI"))
             assert(newFilter);
+            
             if (!newFilter) {
                 return NULL;
             }
