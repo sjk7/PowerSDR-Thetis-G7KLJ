@@ -1159,7 +1159,7 @@ int sendPacket(SOCKET sock, char* data, int length, int port) {
             } else {
                 if (sock_error != 0) {
                     LeaveCriticalSection(&prn->sndpkt);
-                    assert(0);
+                    //assert(0);
                      wprintf(L"sendto failed with error:%d\n", sock_error);
                     return ret;
                 }

@@ -427,7 +427,11 @@ namespace Thetis
                 cmaster.CMSetTXAPanelGain1(WDSP.id(1, 0));
                 cmaster.CMSetAntiVoxSourceWhat();
                 if (console.PowerOn)
+                {
                     EnableVAC1(value);
+                }
+
+                
             }
             get { return vac_enabled; }
         }
@@ -440,7 +444,9 @@ namespace Thetis
                 vac2_enabled = value;
                 cmaster.CMSetAntiVoxSourceWhat();
                 if (console.PowerOn)
+                {
                     EnableVAC2(value);
+                  }
             }
             get { return vac2_enabled; }
         }
@@ -1200,13 +1206,26 @@ namespace Thetis
         {
             return ivac.GetIVACExclusive(0) != 0;
         }
+
+
+
+        public struct VACStatus
+        {
+            public bool state;
+            public String status;
+        };
+
+        public static VACStatus[] Status = new VACStatus[2];
         public static void EnableVAC1(bool enable)
         {
-            bool retval = false;
+
+            string pa_msg = "";
 
             if (enable)
                 unsafe
                 {
+                    Status[0].state = true;
+                    Status[0].status = "";
                     int num_chan = 1;
                     int sample_rate = sample_rate2;
                     int block_size = block_size_vac;
@@ -1240,20 +1259,27 @@ namespace Thetis
                     try
                     {
                         return_value = ivac.StartAudioIVAC(0);
-                        retval = return_value == Convert.ToInt32(PortAudioForThetis.PaErrorCode.paNoError);
+                        bool retval = return_value == Convert.ToInt32(PortAudioForThetis.PaErrorCode.paNoError);
+                        if (!retval)
+                        {
+                            pa_msg = "\n\nFailed to start VAC. Audio subsystem reports: " +
+                            PortAudioForThetis.PA_GetErrorText(return_value);
+                        }
                         if (retval && console.PowerOn)
                         {
                             ivac.SetIVACrun(0, 1);
                         }
                         else
                         {
+                            Status[0].status = pa_msg;
+                            Status[0].state = false;
 
                             throw new Exception("VAC audio engine failed to start");
                         }
                     }
                     catch (Exception)
                     {
-                        string pa_msg = "";
+                        
                         if (return_value != 0)
                         {
                             pa_msg = "\n\nFailed to start VAC. Audio subsystem reports: " +
@@ -1265,6 +1291,8 @@ namespace Thetis
                                 //    + "\n" + "Suggested sample rate (for output) is: " + PortAudioForThetis.PA_GetDeviceInfo(output_dev2).defaultSampleRate;
                             }
                         }
+                        Status[0].status = pa_msg;
+                        Status[0].state = false;
 
                         MessageBox.Show("The program is having trouble starting the VAC audio streams.\n" +
                             "Please examine the VAC related settings on the Setup Form -> Audio Tab and try again." + pa_msg,
@@ -1277,6 +1305,8 @@ namespace Thetis
             {
                 ivac.SetIVACrun(0, 0);
                 ivac.StopAudioIVAC(0);
+                Status[0].status = "";
+                Status[0].state = false;
             }
 
         }
@@ -1284,10 +1314,13 @@ namespace Thetis
         public static void EnableVAC2(bool enable)
         {
             bool retval = false;
+       
 
             if (enable)
                 unsafe
                 {
+                    Status[1].state = true;
+                    Status[1].status = "";
                     int num_chan = 1;
                     int sample_rate = sample_rate3;
                     int block_size = block_size_vac2;
@@ -1325,7 +1358,9 @@ namespace Thetis
                     }
                     catch (Exception)
                     {
-                        MessageBox.Show("The program is having trouble starting the VAC audio streams.\n" +
+                        Status[0].state = false;
+                        Status[0].status = "Failed to start VAC2";
+                        MessageBox.Show("The program is having trouble starting the VAC2 audio streams.\n" +
                             "Please examine the VAC related settings on the Setup Form -> Audio Tab and try again.",
                             "VAC2 Audio Stream Startup Error",
                             MessageBoxButtons.OK,
@@ -1336,6 +1371,8 @@ namespace Thetis
             {
                 ivac.SetIVACrun(1, 0);
                 ivac.StopAudioIVAC(1);
+                Status[0].state = false;
+                Status[0].status = "";
             }
 
         }

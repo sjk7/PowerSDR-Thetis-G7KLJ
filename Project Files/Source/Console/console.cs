@@ -32689,15 +32689,44 @@ public partial class Console : Form {
             }
 
             Audio.CurrentAudioState1 = Audio.AudioState.DTTSP;
-            // Audio.callback_return = 0;
+                // Audio.callback_return = 0;
 
+                bool vac_was_wanted = false;
+                bool vac2_was_wanted = false;
             if (vac_enabled) {
+                    vac_was_wanted = true;
                 VACEnabled = true; // Don't trigger StopAudioIVAC if the VACs
                                    // aren't needed now
             }
-            if (vac2_enabled) VAC2Enabled = true;
+                if (vac2_enabled)
+                {
+                    VAC2Enabled = true;
+                }
 
-            Thread.Sleep(100); // wait for hardware to settle before starting
+                if (vac_was_wanted)
+                {
+                    if (!Audio.Status[0].state)
+                    {
+
+                        chkPower.Checked = false;
+                        SetupForm.ShowSetupTab(Setup.SetupTab.VAC1_Tab);
+                        SetupForm.Show();
+                        return;
+                    }
+                }
+
+                if (vac2_was_wanted)
+                {
+                    if (!Audio.Status[1].state)
+                    {
+                        chkPower.Checked = false;
+                        SetupForm.ShowSetupTab(Setup.SetupTab.VAC2_Tab);
+                        SetupForm.Show();
+                        return;
+                    }
+                }
+
+                Thread.Sleep(100); // wait for hardware to settle before starting
                                // audio (possible sample rate change)
             psform.ForcePS();
 
