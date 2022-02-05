@@ -77,6 +77,83 @@ public partial class Console : Form {
     public string NewVFO_background_image = null;
     public int MAX_FPS = 144;
 
+    private void doResize() {
+        updateResolutionStatusBarText();
+
+        if (this.WindowState == FormWindowState.Minimized) return;
+        pause_DisplayThread = true;
+        if (dpi == 0) dpi = (int)picDisplay.CreateGraphics().DpiX;
+        if (dpi > 96 && !dpi_resize_done) {
+            if (base_size.Width == 0) base_size = this.AutoScaleDimensions;
+
+            if (this.AutoScaleDimensions != base_size)
+                dpi_resize_done = true;
+            else
+                return;
+        }
+
+        if (this.Width < console_basis_size.Width && !this.collapsedDisplay) {
+            this.Width = console_basis_size.Width;
+            return;
+        }
+
+        // MW0LGE
+        // modified so that window can not be shrunk too much so that rx2
+        // becomes hidden this is all ignored if collapseddisplay is shown we
+        // dont need to do anything special for collapsed view as
+        // console_basis_size is modified by RX2 button
+        if (!this.collapsedDisplay) {
+            //                if (chkRX2.Checked)
+            //                {
+            //                    if (this.Height < console_basis_size.Height +
+            //                    (panelRX2Filter.Height + 8))
+            //                    {
+            //                        this.Height = console_basis_size.Height +
+            //                        (panelRX2Filter.Height + 8); return;
+            //                    }
+            //                }
+            /*else*/
+            if (this.Height < console_basis_size.Height) {
+                this.Height = console_basis_size.Height;
+                return;
+            }
+        }
+
+        int h_delta = this.Width - console_basis_size.Width;
+        int v_delta = Math.Max(this.Height - console_basis_size.Height, 0);
+
+        if (!IsSetupFormNull) {
+            if (this.collapsedDisplay) {
+                this.SetupForm.CollapsedWidth = this.Width;
+                this.SetupForm.CollapsedHeight = this.Height;
+            } else {
+                if (this.SetupForm.CollapsedWidth == 0)
+                    this.SetupForm.CollapsedWidth = console_basis_size.Width;
+                if (this.SetupForm.CollapsedHeight == 0)
+                    this.SetupForm.CollapsedHeight
+                        = (current_hpsdr_model == HPSDRModel.HPSDR
+                              || current_hpsdr_model == HPSDRModel.HERMES)
+                        ? console_basis_size.Height
+                            - (panelRX2Filter.Height + 8)
+                        : console_basis_size.Height;
+            }
+        }
+
+        ResizeConsole(h_delta, v_delta);
+        pause_DisplayThread = false;
+        SizeAndPositionAnalogSMeter();
+    }
+
+    private void ResizeComplete(Object sender, EventArgs e) {
+        doResize();
+        ResumeDrawing(this);
+    }
+    private void ResizeStart(Object sender, EventArgs e) {
+        SuspendDrawing(this);
+    }
+
+    private void LayoutChanged(Object sender, EventArgs e) { doResize(); }
+
     // public System.Timers.Timer m_uptimeTimer;
     //==================================================================================
     //==================================================================================
@@ -865,7 +942,7 @@ public partial class Console : Form {
 
         string autoMergeFileName = AppDataPath
             + "databaseToMerge.xml"; //-W2PA A legacy database candidate for
-                                     //automatic merging
+                                     // automatic merging
 
         if (File.Exists(db_file_name)) {
             if (Keyboard.IsKeyDown(Keys.LShiftKey)
@@ -962,7 +1039,7 @@ public partial class Console : Form {
                             autoMergeFileName)) // Back-level DB detected
                     {
                         //-W2PA Automatically reset, shut down, and import the
-                        //old database file if possible
+                        // old database file if possible
 
                         if (File.Exists(
                                 autoMergeFileName)) // We have already reset and
@@ -970,7 +1047,7 @@ public partial class Console : Form {
                                                     // merge
                         {
                             //-W2PA Import carefully, allowing use of DB files
-                            //created by previous versions so as
+                            // created by previous versions so as
                             // to retain settings and options
                             if (DB.ImportAndMergeDatabase(
                                     autoMergeFileName, AppDataPath)) {
@@ -1053,6 +1130,9 @@ public partial class Console : Form {
             = new GlobalMouseHandler(); // capture mouse up event
         gmh.MouseUp += new MouseMovedEvent(gmh_MouseUp);
         Application.AddMessageFilter(gmh);
+        this.ResizeEnd += new EventHandler(this.ResizeComplete);
+        this.ResizeBegin += new EventHandler(this.ResizeStart);
+        this.Layout += new LayoutEventHandler(this.LayoutChanged);
 
         foreach (PanelTS control in this.Controls.OfType<PanelTS>()) {
             foreach (TextBoxTS c in control.Controls.OfType<TextBoxTS>()) {
@@ -1122,7 +1202,8 @@ public partial class Console : Form {
         break_in_timer = new HiPerfTimer();
 
         Midi2Cat = new Midi2CatCommands(this);
-
+        bool db = this.DoubleBuffered;
+        this.DoubleBuffered = true;
         // resize events are caused by this
         if (RX2Enabled) {
             this.MinimumSize = new Size(this.MinimumSize.Width,
@@ -1251,10 +1332,9 @@ public partial class Console : Form {
 
         Splash.CloseForm();
         m_PrettySMeterHelpers = new PrettySMeterHelpers(this);
-        // this.picSMeter.DoubleClick += new
-        // System.EventHandler(this.picSMeter_DoubleClick); this.picSMeter.Paint
-        // += new System.Windows.Forms.PaintEventHandler(this.picSMeter_Paint);
+
         this.Click += new System.EventHandler(this.form_Click);
+        this.doResize();
     }
 
     public bool IsSetupFormNull {
@@ -2841,8 +2921,8 @@ public partial class Console : Form {
                                                         // NumericUpDown
                             numericupdown_list.Add(c2);
                         else if (c2.GetType()
-                            == typeof(
-                                RadioButtonTS)) // the control is a RadioButton
+                            == typeof(RadioButtonTS)) // the control is a
+                                                      // RadioButton
                             radiobutton_list.Add(c2);
                         else if (c2.GetType()
                             == typeof(TextBoxTS)) // the control is a TextBox
@@ -2864,19 +2944,19 @@ public partial class Console : Form {
                         == typeof(ComboBoxTS)) // the control is a ComboBox
                         combobox_list.Add(c);
                     else if (c.GetType()
-                        == typeof(
-                            NumericUpDownTS)) // the control is a NumericUpDown
+                        == typeof(NumericUpDownTS)) // the control is a
+                                                    // NumericUpDown
                         numericupdown_list.Add(c);
                     else if (c.GetType()
-                        == typeof(
-                            RadioButtonTS)) // the control is a RadioButton
+                        == typeof(RadioButtonTS)) // the control is a
+                                                  // RadioButton
                         radiobutton_list.Add(c);
                     else if (c.GetType()
                         == typeof(TextBoxTS)) // the control is a TextBox
                         textbox_list.Add(c);
                     else if (c.GetType()
-                        == typeof(
-                            TrackBarTS)) // the control is a TrackBar (slider)
+                        == typeof(TrackBarTS)) // the control is a TrackBar
+                                               // (slider)
                         trackbar_list.Add(c);
                     else if (c.GetType() == typeof(PrettyTrackBar))
                         prettytrackbar_list.Add(c);
@@ -3943,7 +4023,7 @@ public partial class Console : Form {
                     if (numVals
                         == (int)HPSDRModel
                                .LAST) //-W2PA  The number of rig types in the
-                                      //imported DB
+                                      // imported DB
                                       // matches the number in this version
                     {
                         for (int i = 0; i < (int)HPSDRModel.LAST; i++) {
@@ -3951,7 +4031,7 @@ public partial class Console : Form {
                                 = float.Parse(list[i]);
                         }
                     } //-W2PA  else the number has changed so don't import,
-                      //leave the defaults alone
+                      // leave the defaults alone
                     ;
                     break;
 
@@ -3962,7 +4042,7 @@ public partial class Console : Form {
                     if (numVals
                         == (int)HPSDRModel
                                .LAST) //-W2PA  The number of rig types in the
-                                      //imported DB
+                                      // imported DB
                                       // matches the number in this version
                     {
                         for (int i = 0; i < (int)HPSDRModel.LAST; i++) {
@@ -3970,7 +4050,7 @@ public partial class Console : Form {
                                 = float.Parse(list[i]);
                         }
                     } //-W2PA  else the number has changed so don't import,
-                      //leave the defaults alone
+                      // leave the defaults alone
                     ;
                     break;
             }
@@ -11336,7 +11416,7 @@ public partial class Console : Form {
         //			if(v_det >= 1.6)
         //				v_out =
         //(-0.241259304*v_det+12.07915098)*v_det*PABandOffset(CurrentBand);
-        //else
+        // else
         // if(v_det > 0.35) v_out = (1/Math.Pow(v_det,
         // 2)+11.3025111)*v_det*PABandOffset(CurrentBand); return v_out;
     }
@@ -14714,7 +14794,7 @@ public partial class Console : Form {
         // MouseEventArgs me = (MouseEventArgs)e;
 
         ////  callsignTextBox.ShortcutsEnabled = false; // added to eliminate
-        ///the contextmenu from
+        /// the contextmenu from
         /// popping up
 
         // if (me.Button == System.Windows.Forms.MouseButtons.Right) // right
@@ -16796,8 +16876,9 @@ public partial class Console : Form {
         // SetupForm.Polyphase = polyphase;					// restore polyphase
 
         //			Debug.WriteLine("multimeter_cal_offset:
-        //"+multimeter_cal_offset); 			Debug.WriteLine("display_cal_offset:
-        //"+display_cal_offset); 			MessageBox.Show("multimeter_cal_offset:
+        //"+multimeter_cal_offset);
+        // Debug.WriteLine("display_cal_offset:
+        //"+display_cal_offset); MessageBox.Show("multimeter_cal_offset:
         //"+multimeter_cal_offset.ToString()+"\n"+ "display_cal_offset:
         //"+display_cal_offset.ToString());
 
@@ -17090,7 +17171,7 @@ public partial class Console : Form {
 
         //			Debug.WriteLine("rx1_meter_cal_offset:
         //"+rx1_meter_cal_offset); 			Debug.WriteLine("display_cal_offset:
-        //"+display_cal_offset); 			MessageBox.Show("rx1_meter_cal_offset:
+        //"+display_cal_offset); MessageBox.Show("rx1_meter_cal_offset:
         //"+rx1_meter_cal_offset.ToString()+"\n"+ "display_cal_offset:
         //"+display_cal_offset.ToString());
 
@@ -19453,8 +19534,8 @@ public partial class Console : Form {
                         = false; // don't need to disable, was already disabled
             } else // re-enable it if it had been disabled
                 if (non_CW_mode_breakin_disabled) {
-                non_CW_mode_breakin_disabled = false;
-            }
+                    non_CW_mode_breakin_disabled = false;
+                }
         }
     }
 
@@ -21603,7 +21684,7 @@ public partial class Console : Form {
     }
 
     //-W2PA Added three new functions to make CAT functions match behavior of
-    //equivalent console
+    // equivalent console
     // functions.
     //   i.e. not just copy frequency alone
     public void CATVFOAtoB() { btnVFOAtoB_Click(this, EventArgs.Empty); }
@@ -21780,7 +21861,7 @@ public partial class Console : Form {
     public void CATTuneStepDown() { ChangeTuneStepDown(); }
 
     //-W2PA This specifies the number of MIDI messages that cause a single tune
-    //step increment
+    // step increment
     // It is useful when using coarse increments, such as 100kHz, and wanting
     // more wheel rotation for each one so that tuning isn't so critical.
     // Midi2Cat support functions follow.
@@ -22951,7 +23032,7 @@ public partial class Console : Form {
                 ScanForm.highFBox.Text = ScanControl.freq_High.ToString("f6");
 
                 //==============================================================
-                //ke9ns end
+                // ke9ns end
             }
             DisplayAriesRXAntenna();
         }
@@ -23070,7 +23151,7 @@ public partial class Console : Form {
             // comboRX2Band.Text = BandToString(rx2_band);
 
             //// G8NJJ attempt to get CAT command to set the band, not just
-            ///update the combo (the _changed
+            /// update the combo (the _changed
             /// event doesn't trigger) / comboRX2Band.SelectedItem =
             /// BandToString(rx2_band);
             // comboRX2Band_SelectedIndexChanged(this, EventArgs.Empty);
@@ -23089,7 +23170,7 @@ public partial class Console : Form {
                 lo_band = BandByFreq(XVTRForm.TranslateFreq(VFOBFreq),
                     rx2_xvtr_index, false, current_region,
                     false); //-1, false, current_region, false);  //MW0LGE use
-                            //rx2_xvtr_index
+                            // rx2_xvtr_index
                             // MW0LGE this was changed in RX1Band but not here
 
             if (!initializing && rx2_preamp_mode > PreampMode.FIRST) {
@@ -31047,7 +31128,7 @@ public partial class Console : Form {
                     // antenna for the 8000 model if (swrprotection && alex_fwd
                     // > 10.0f && (alex_fwd - alex_rev) < 1.0f)
                     //-W2PA Changed to allow 35w - some amplifier tuners need
-                    //about 30w to reliably start
+                    // about 30w to reliably start
                     // working
                     if (swrprotection && alex_fwd > 35.0f
                         && (alex_fwd - alex_rev) < 1.0f
@@ -31965,8 +32046,8 @@ public partial class Console : Form {
                     break;
                 case Keys.N: chkANF.Checked = !chkANF.Checked; break;
                 case Keys.P:
-                    RX1PreampMode = (PreampMode)(
-                        ((int)rx1_preamp_mode + 1) % (int)PreampMode.LAST);
+                    RX1PreampMode = (PreampMode)(((int)rx1_preamp_mode + 1)
+                        % (int)PreampMode.LAST);
                     break;
                 case Keys.R:
                     if (ptbRF.Value != ptbRF.Maximum) {
@@ -35785,7 +35866,7 @@ public partial class Console : Form {
             } else {
                 if (!rx1_spectrum_tune_drag) {
                     //-W2PA If we tune beyond the display limits, re-center or
-                    //scroll display, and keep going.
+                    // scroll display, and keep going.
                     // Original code above just stops tuning at edges.
                     if (((-rx1_osc) - Lmargin) < (Ldisp - freqJumpThresh)
                         || ((-rx1_osc) + Hmargin)
@@ -35799,21 +35880,21 @@ public partial class Console : Form {
                         if (((-rx1_osc) - Lmargin)
                             < Ldisp) // scroll the spectrum display smoothly at
                                      // the edge and keep going
-                    {
-                        double adjustFreq = Ldisp - ((-rx1_osc) - Lmargin)
-                            + 1; // adjust by 1 more so that we dont fall back
-                                 // in here with some rounding error
-                        center_frequency -= adjustFreq * 1e-6;
-                        rx1_osc += adjustFreq;
-                        bChanged = true;
-                    } else if (((-rx1_osc) + Hmargin) > Hdisp) {
-                        double adjustFreq = ((-rx1_osc) + Hmargin) - Hdisp
-                            + 1; // adjust by 1 more so that we dont fall back
-                                 // in here with some rounding error
-                        center_frequency += adjustFreq * 1e-6;
-                        rx1_osc -= adjustFreq;
-                        bChanged = true;
-                    }
+                        {
+                            double adjustFreq = Ldisp - ((-rx1_osc) - Lmargin)
+                                + 1; // adjust by 1 more so that we dont fall
+                                     // back in here with some rounding error
+                            center_frequency -= adjustFreq * 1e-6;
+                            rx1_osc += adjustFreq;
+                            bChanged = true;
+                        } else if (((-rx1_osc) + Hmargin) > Hdisp) {
+                            double adjustFreq = ((-rx1_osc) + Hmargin) - Hdisp
+                                + 1; // adjust by 1 more so that we dont fall
+                                     // back in here with some rounding error
+                            center_frequency += adjustFreq * 1e-6;
+                            rx1_osc -= adjustFreq;
+                            bChanged = true;
+                        }
                 }
             }
 
@@ -36241,7 +36322,7 @@ public partial class Console : Form {
                 if (!click_tune_display) FWCDDSFreq = rx_freq; // update rx freq
 
                 if (click_tune_display) //&& rx1_spectrum_tune_drag) //-W2PA
-                                        //This was preventing proper
+                                        // This was preventing proper
                                         // receiver adjustment
                 {
                     if (rx1_xvtr_index >= 0)
@@ -36251,7 +36332,7 @@ public partial class Console : Form {
                         // MW0LGE fix to stop multiple sets of FWCDDSFreq
                         double tmp = center_frequency;
                         switch (RX1DSPMode) //-W2PA Account for offset when in
-                                            //CW modes.
+                                            // CW modes.
                         {
                             case DSPMode.CWL:
                                 // FWCDDSFreq += CWPitch * 1.0e-6;
@@ -36688,7 +36769,7 @@ public partial class Console : Form {
             } else {
                 if (!rx2_spectrum_tune_drag) {
                     //-W2PA If we tune beyond the display limits, re-center or
-                    //scroll display, and keep going.
+                    // scroll display, and keep going.
                     // Original code above just stops tuning at edges.
                     if (((-rx2_osc) - Lmargin) < (Ldisp - freqJumpThresh)
                         || ((-rx2_osc) + Hmargin)
@@ -36702,21 +36783,21 @@ public partial class Console : Form {
                         if (((-rx2_osc) - Lmargin)
                             < Ldisp) // scroll the spectrum display smoothly at
                                      // the edge and keep going
-                    {
-                        double adjustFreq = Ldisp - ((-rx2_osc) - Lmargin)
-                            + 1; // adjust by 1 more so that we dont fall back
-                                 // in here with some rounding error
-                        center_rx2_frequency -= adjustFreq * 1.0e-6;
-                        rx2_osc += adjustFreq;
-                        bChanged = true;
-                    } else if (((-rx2_osc) + Hmargin) > Hdisp) {
-                        double adjustFreq = ((-rx2_osc) + Hmargin) - Hdisp
-                            + 1; // adjust by 1 more so that we dont fall back
-                                 // in here with some rounding error
-                        center_rx2_frequency += adjustFreq * 1.0e-6;
-                        rx2_osc -= adjustFreq;
-                        bChanged = true;
-                    }
+                        {
+                            double adjustFreq = Ldisp - ((-rx2_osc) - Lmargin)
+                                + 1; // adjust by 1 more so that we dont fall
+                                     // back in here with some rounding error
+                            center_rx2_frequency -= adjustFreq * 1.0e-6;
+                            rx2_osc += adjustFreq;
+                            bChanged = true;
+                        } else if (((-rx2_osc) + Hmargin) > Hdisp) {
+                            double adjustFreq = ((-rx2_osc) + Hmargin) - Hdisp
+                                + 1; // adjust by 1 more so that we dont fall
+                                     // back in here with some rounding error
+                            center_rx2_frequency += adjustFreq * 1.0e-6;
+                            rx2_osc -= adjustFreq;
+                            bChanged = true;
+                        }
                 }
             }
 
@@ -36791,7 +36872,7 @@ public partial class Console : Form {
         if (rx2_enabled) {
             if (!stereo_diversity) {
                 //-W2PA Freeze display unless we are zoomed in too far to fit
-                //the passband
+                // the passband
                 if ((click_tune_rx2_display)
                     && (passbandWidth < (dispWidth * (1.0 - 2.0 * dispMargin)))
                     && ((Display.CurrentDisplayModeBottom
@@ -38339,8 +38420,7 @@ public partial class Console : Form {
                     if (bDragRX1Filter || bDragRX2Filter) {
                         if (/*!click_tune_display && !click_tune_rx2_display
                                &&*/
-                                current_click_tune_mode
-                                == ClickTuneMode.Off
+                            current_click_tune_mode == ClickTuneMode.Off
                             && picDisplay.Cursor != Cursors.Hand
                             && next_cursor != Cursors.SizeNS
                             && next_cursor != Cursors.VSplit) {
@@ -39700,7 +39780,7 @@ public partial class Console : Form {
 
         if ((ClickTuneDisplay && zoomingIn)
             && bCentre) //-W2PA Force centering display when zooming in with
-                        //CTUN on, to keep the vfo
+                        // CTUN on, to keep the vfo
                         // within the display
         {
             center_frequency = VFOAFreq;
@@ -41001,10 +41081,11 @@ public partial class Console : Form {
         {
             if (qsk_in_CW)
                 chkQSK.CheckState
-                    = CheckState.Indeterminate; // chkQSK_CheckStateChanged(this,
-                                                // EventArgs.Empty);
-                                                // //chkQSK.CheckState =
-                                                // CheckState.Indeterminate;
+                    = CheckState
+                          .Indeterminate; // chkQSK_CheckStateChanged(this,
+                                          // EventArgs.Empty);
+                                          // //chkQSK.CheckState =
+                                          // CheckState.Indeterminate;
         }
         // end of QSK-related code ---------------------------------------
 
@@ -41495,8 +41576,8 @@ public partial class Console : Form {
         radio.GetDSPRX(0, 0).SetRXFilter(low, high); // select new filters
         udFilterLow.Value = low; // display new low value
         udFilterHigh.Value = high; // display new high value
-        // if (redraw) Display.DrawBackground();			// draw new background for
-        // updated filter values
+        // if (redraw) Display.DrawBackground();			// draw new
+        // background for updated filter values
 
         // store the last IF Shift applied for use next time
         if (rx1_filter == Filter.VAR1)
@@ -41726,7 +41807,7 @@ public partial class Console : Form {
     }
 
     //-W2PA Remember the width when the Width slider last hit the image limit.
-    //Used by
+    // Used by
     // ptbFilterWidth_Scroll.
     private int var1WdithAtLimit = 0;
     private int Var1WidthAtLimit {
@@ -41801,7 +41882,7 @@ public partial class Console : Form {
                     beyondLimit = true;
                 } else {
                     //-W2PA Stop shifting the passband when it hits the image
-                    //limit, while allowing width to
+                    // limit, while allowing width to
                     // continue to increa
                     if (!beyondLimit) {
                         if ((current_center + new_bw / 2)
@@ -41852,7 +41933,7 @@ public partial class Console : Form {
                     beyondLimit = true;
                 } else {
                     //-W2PA Stop shifting the passband when it hits the image
-                    //limit, while allowing width to
+                    // limit, while allowing width to
                     // continue to increa
                     if (!beyondLimit) {
                         if ((current_center - new_bw / 2)
@@ -42255,7 +42336,7 @@ public partial class Console : Form {
 #endif
 
         //	if(fwc_init && (current_model == Model.FLEX5000 || current_model ==
-        //Model.FLEX3000))
+        // Model.FLEX3000))
         //	{
         if (chkVFOSplit.Checked || full_duplex)
             txtVFOBFreq_LostFocus(this, EventArgs.Empty);
@@ -42355,10 +42436,10 @@ public partial class Console : Form {
 
     private void setRIT_LEDs() {
         //-W2PA Update LEDs on Behringer MIDI controller, within limits of +/-
-        //2kHz.  Beyond that range
+        // 2kHz.  Beyond that range
         // the extreme L or R LED remains lit.
         int IT_MIDIminimum = -2000; //-W2PA Change these two values to enable a
-                                    //broader range for the LEDs
+                                    // broader range for the LEDs
         int IT_MIDImaximum
             = 2000; //      But when you do so, it makes them change more
                     //      gradually, i.e. it takes more turns
@@ -42383,9 +42464,9 @@ public partial class Console : Form {
 
     private void setXIT_LEDs() {
         //-W2PA Update LEDs on Behringer MIDI controller, within limits of +/-
-        //2kHz
+        // 2kHz
         int IT_MIDIminimum = -2000; //-W2PA Change these two values to enable a
-                                    //broader range for the LEDs
+                                    // broader range for the LEDs
         int IT_MIDImaximum
             = 2000; //      But when you do so, it makes them change more
                     //      gradually, i.e. it takes more turns
@@ -42580,7 +42661,7 @@ public partial class Console : Form {
         int current_width = (int)udFilterHigh.Value - (int)udFilterLow.Value;
         int current_center = (int)udFilterLow.Value + (current_width / 2);
         //			Debug.WriteLine("w: " + current_width + " center: " +
-        //current_center + "
+        // current_center + "
         // vfo:
         //"
         //+ VFOAFreq);
@@ -42611,8 +42692,8 @@ public partial class Console : Form {
             new_lo = new_center - (current_width / 2);
             new_hi = new_center + (current_width / 2);
         }
-        //			Debug.WriteLine("new vfo: " + new_vfo + " lo: " + new_lo + " hi:
-        //" + new_hi
+        //			Debug.WriteLine("new vfo: " + new_vfo + " lo: " + new_lo + "
+        // hi: " + new_hi
         //);
         if (VFOAFreq > new_vfo) // need to change this in the right order!
         {
@@ -45926,72 +46007,7 @@ public partial class Console : Form {
         }
     }
 
-    private void Console_Resize(object sender, System.EventArgs e) {
-        updateResolutionStatusBarText();
-
-        if (this.WindowState == FormWindowState.Minimized) return;
-        pause_DisplayThread = true;
-        if (dpi == 0) dpi = (int)picDisplay.CreateGraphics().DpiX;
-        if (dpi > 96 && !dpi_resize_done) {
-            if (base_size.Width == 0) base_size = this.AutoScaleDimensions;
-
-            if (this.AutoScaleDimensions != base_size)
-                dpi_resize_done = true;
-            else
-                return;
-        }
-
-        if (this.Width < console_basis_size.Width && !this.collapsedDisplay) {
-            this.Width = console_basis_size.Width;
-            return;
-        }
-
-        // MW0LGE
-        // modified so that window can not be shrunk too much so that rx2
-        // becomes hidden this is all ignored if collapseddisplay is shown we
-        // dont need to do anything special for collapsed view as
-        // console_basis_size is modified by RX2 button
-        if (!this.collapsedDisplay) {
-            //                if (chkRX2.Checked)
-            //                {
-            //                    if (this.Height < console_basis_size.Height +
-            //                    (panelRX2Filter.Height + 8))
-            //                    {
-            //                        this.Height = console_basis_size.Height +
-            //                        (panelRX2Filter.Height + 8); return;
-            //                    }
-            //                }
-            /*else*/
-            if (this.Height < console_basis_size.Height) {
-                this.Height = console_basis_size.Height;
-                return;
-            }
-        }
-
-        int h_delta = this.Width - console_basis_size.Width;
-        int v_delta = Math.Max(this.Height - console_basis_size.Height, 0);
-
-        if (!IsSetupFormNull) {
-            if (this.collapsedDisplay) {
-                this.SetupForm.CollapsedWidth = this.Width;
-                this.SetupForm.CollapsedHeight = this.Height;
-            } else {
-                if (this.SetupForm.CollapsedWidth == 0)
-                    this.SetupForm.CollapsedWidth = console_basis_size.Width;
-                if (this.SetupForm.CollapsedHeight == 0)
-                    this.SetupForm.CollapsedHeight
-                        = (current_hpsdr_model == HPSDRModel.HPSDR
-                              || current_hpsdr_model == HPSDRModel.HERMES)
-                        ? console_basis_size.Height
-                            - (panelRX2Filter.Height + 8)
-                        : console_basis_size.Height;
-            }
-        }
-
-        ResizeConsole(h_delta, v_delta);
-        pause_DisplayThread = false;
-        SizeAndPositionAnalogSMeter();
-    }
+    private void Console_Resize(object sender, System.EventArgs e) {}
 
     private void comboRX2AGC_SelectedIndexChanged(
         object sender, System.EventArgs e) {
@@ -47707,8 +47723,8 @@ public partial class Console : Form {
 
         ////MW0LGE
         ////need to make loaction of grpMultimeter just after right side of vfoB
-        ///group /meter will now fill to the right of VFOB /size /4 as based off
-        ///VFOB
+        /// group /meter will now fill to the right of VFOB /size /4 as based
+        /// off VFOB
         // grpMultimeter.Location = new Point(grpVFOB.Location.X +
         // grpVFOB.Size.Width + 8, gr_Multimeter_basis_location.Y);
         // grpMultimeter.Size = new Size(gr_multi_meter_size_basis.Width
@@ -48877,7 +48893,7 @@ public partial class Console : Form {
                 // grpVFOB.Height);
 
                 ////if (current_meter_display_mode ==
-                ///MultiMeterDisplayMode.Original)
+                /// MultiMeterDisplayMode.Original)
                 //{
                 // MW0LGE picMultiMeterDigital.Size = new
                 // Size(pic_multi_meter_size_basis.Width * 2,
