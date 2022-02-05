@@ -258,6 +258,7 @@ PORT int StartAudioIVAC(int id) {
 
         a->inParam.hostApiSpecificStreamInfo = &w;
         a->outParam.hostApiSpecificStreamInfo = &w;
+
     } else if (hinf->type == paWDMKS){
       
         x.version = 1;

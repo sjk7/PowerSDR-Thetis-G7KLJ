@@ -1254,8 +1254,8 @@ namespace Thetis
                     ivac.SetIVACOutLatency(0, out_latency, 0);
                     ivac.SetIVACPAInLatency(0, pa_in_latency, 0);
                     ivac.SetIVACPAOutLatency(0, pa_out_latency, 1);
-                    int return_value = Convert.ToInt32(PortAudioForThetis.PaErrorCode.paNoError); ;
-
+                    int return_value = Convert.ToInt32(PortAudioForThetis.PaErrorCode.paNoError);
+ 
                     try
                     {
                         return_value = ivac.StartAudioIVAC(0);
@@ -1264,6 +1264,10 @@ namespace Thetis
                         {
                             pa_msg = "\n\nFailed to start VAC. Audio subsystem reports: " +
                             PortAudioForThetis.PA_GetErrorText(return_value);
+                            var v = PortAudioForThetis.PA_GetLastHostErrorInfo();
+                            if (v.errorText.Length > 0)
+                                pa_msg += "\n\n Api Error: " + v.errorText;
+
                         }
                         if (retval && console.PowerOn)
                         {
@@ -1284,6 +1288,9 @@ namespace Thetis
                         {
                             pa_msg = "\n\nFailed to start VAC. Audio subsystem reports: " +
                                     PortAudioForThetis.PA_GetErrorText(return_value);
+                            var v = PortAudioForThetis.PA_GetLastHostErrorInfo();
+                            if (v.errorText.Length > 0)
+                                pa_msg += "\n\n Api Error: " + v.errorText;
 
                             if ((PortAudioForThetis.PaErrorCode)(return_value) == PortAudioForThetis.PaErrorCode.paInvalidSampleRate)
                             {
