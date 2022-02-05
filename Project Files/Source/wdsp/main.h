@@ -27,8 +27,7 @@ warren@wpratt.com
 #ifndef _mainloop_h
 #define _mainloop_h
 
-// G7KLJ: renamed from main(), which was a bad idea.
-extern void main_fun (void *pargs);
+extern void wdspmain (void *pargs);
 
 extern void create_main (int channel);
 

@@ -48,7 +48,6 @@ struct _ch
 	double tslewup;
 	double tdelaydown;
 	double tslewdown;
-    HANDLE thread_quit_event;
 	int bfo;					// 'block_for_output', block fexchange until output is available
 	volatile long flushflag;
 	struct	//io buffers
@@ -56,7 +55,9 @@ struct _ch
 		IOB pc, pd, pe, pf;		// copies for console calls, dsp, exchange, and flush thread
 		volatile long ch_upslew;
 	} iob;
-} ch[MAX_CHANNELS];
+};
+
+extern struct _ch ch[];
 
 PORT void OpenChannel (int channel, int in_size, int dsp_size, int input_samplerate, int dsp_rate, int output_samplerate, int type, int state, double tdelayup, double tslewup, double tdelaydown, double tslewdown, int bfo);
 

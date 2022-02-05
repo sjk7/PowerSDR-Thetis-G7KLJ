@@ -23,7 +23,8 @@ The author can be reached by email at
 warren@wpratt.com
 
 */
-#include <float.h>// DBL_EPSILON & friends. G7KLJ
+
+#include <float.h> // DBL_EPSILON & friends. G7KLJ
 
 #include "../ChannelMaster/debug_flags.h"
 
@@ -44,6 +45,7 @@ typedef double SAMPLETYPE;
 #include <time.h>
 #include <avrt.h>
 #include <assert.h>
+#include <stdint.h>
 #include "fftw3.h"
 
 #include "amd.h"
@@ -104,8 +106,6 @@ typedef double SAMPLETYPE;
 #ifndef PRIO_THRD_DEFINED
 #define PRIO_THRD_DEFINED
 
-
-
 static inline HANDLE prioritise_thread_max() {
 
     DWORD taskIndex = 0;
@@ -116,11 +116,11 @@ static inline HANDLE prioritise_thread_max() {
         assert(ok);
 
     } else {
-        //assert("Why did setting thread priority fail?" == 0);
+        // assert("Why did setting thread priority fail?" == 0);
         const DWORD dw = GetLastError();
         if (dw == 1552) { // the specified thread is already joining a task
-            //assert(0);
-            
+            // assert(0);
+
         } else {
             SetThreadPriority(
                 GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL);
@@ -141,11 +141,9 @@ static inline BOOL prioritise_thread_cleanup(HANDLE h) {
         fprintf(stderr,
             "Failed to clean up thread priority, with error code: %ld\n",
             (int)dw);
-        
-    }         
+    }
 
     return ret;
-
 }
 #endif
 
@@ -190,10 +188,4 @@ static inline BOOL prioritise_thread_cleanup(HANDLE h) {
 
 // miscellaneous
 typedef double complex[2];
-#ifndef PORT
 #define PORT __declspec(dllexport)
-#endif
-
-extern PORT const char* build_date();
-
-//extern void prioritise_thread_max();

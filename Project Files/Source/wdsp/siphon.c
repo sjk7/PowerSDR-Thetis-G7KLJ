@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  siphon.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -70,7 +67,7 @@ SIPHON create_siphon (int run, int position, int mode, int disp, int insize,
 	a->idx = 0;
 	a->sipout  = (double *) malloc0 (a->sipsize * sizeof (complex));
 	a->specout = (double *) malloc0 (a->fftsize * sizeof (complex));
-	a->sipplan = fftw_plan_dft_1d (a->fftsize, (fftw_complex *)a->sipout, (fftw_complex *)a->specout, FFTW_FORWARD, MY_PATIENCE);
+	a->sipplan = fftw_plan_dft_1d (a->fftsize, (fftw_complex *)a->sipout, (fftw_complex *)a->specout, FFTW_FORWARD, FFTW_PATIENT);
 	a->window  = (double *) malloc0 (a->fftsize * sizeof (complex));
 	InitializeCriticalSectionAndSpinCount(&a->update, 2500);
 	build_window (a);
@@ -374,4 +371,3 @@ void SetSiphonInsize (int id, int size)
 	a->insize = size;
 	LeaveCriticalSection (&a->update);
 }
-

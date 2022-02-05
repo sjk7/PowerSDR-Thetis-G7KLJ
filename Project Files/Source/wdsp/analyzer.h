@@ -100,7 +100,7 @@ typedef struct _dp
 	volatile LONG *pnum_threads;							// pointer to current number of active worker threads
 	int stop;												// when set, fft threads will be returned to the pool
 	int end_dispatcher;										// set this flag to one to destroy the dispatcher thread
-	volatile int dispatcher;											// one if the dispatcher thread is alive & active
+	int dispatcher;											// one if the dispatcher thread is alive & active
 	int ss;													// sub-span being processed
 	int LO;													// LO (within current sub-span) being processed 
 	int flag;
@@ -137,7 +137,7 @@ typedef struct _dp
 	int normalize[dMAX_PIXOUTS];
 }  dp, *DP;
 
-DP pdisp[dMAX_DISPLAYS];									// array of pointers to instance data
+extern DP pdisp[];									// array of pointers to instance data
 
 extern __declspec( dllexport )
 void CreateAnalyzer (	int disp,

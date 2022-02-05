@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  nbp.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -84,7 +81,7 @@ double* fir_mbandpass (int N, int nbp, double* flow, double* fhigh, double rate,
 
 double min_notch_width (NBP a)
 {
-	double min_width = 0;
+	double min_width;
 	switch (a->wintype)
 	{
 	case 0:
@@ -92,6 +89,9 @@ double min_notch_width (NBP a)
 		break;
 	case 1:
 		min_width = 2200.0 / (a->nc / 256) * (a->rate / 48000);
+		break;
+	default:
+		min_width = 1.0;
 		break;
 	}
 	return min_width;

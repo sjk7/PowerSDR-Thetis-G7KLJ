@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  icfir.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -141,8 +138,7 @@ double* icfir_impulse (int N, int DD, int R, int Pairs, double runrate, double c
 	// rtype:	0 for real output, 1 for complex output
 	// scale:	scale factor to be applied to the output
 	int i, j;
-	double tmp, local_scale, ri, fn;
-    double mag = 0;
+	double tmp, local_scale, ri, mag=1.0, fn;
 	double* impulse;
 	double* A = (double *) malloc0 (N * sizeof (double));
 	double ft = cutoff / cicrate;										// normalized cutoff frequency
@@ -192,7 +188,7 @@ double* icfir_impulse (int N, int DD, int R, int Pairs, double runrate, double c
 				mag = pow (tmp, Pairs) * local_scale;
 				A[i] = mag;
 			}
-			else if ( i <= c_samps + x_samps)
+			else if ( i >= c_samps && i <= c_samps + x_samps)
 				A[i] = mag * xistion[i - c_samps];
 			else
 				A[i] = 0.0;

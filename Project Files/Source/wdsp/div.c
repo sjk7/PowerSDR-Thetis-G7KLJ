@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  div.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -189,3 +186,34 @@ void SetEXTDIVRotate (int id, int nr, double *Irotate, double *Qrotate)
 	LeaveCriticalSection (&a->cs_update);
 }
 
+/********************************************************************************************************
+*																										*
+*									  LEGACY INTERFACE - REMOVE											*
+*																										*
+********************************************************************************************************/
+PORT
+void xdivEXTF (int id, int size, float **input, float *Iout, float *Qout)
+{
+	int i, j;
+	MDIV a = pdiv[id];
+	if (a->run)
+	{
+		a->size = size;
+		for (i = 0; i < a->nr; i++)
+		{
+			for (j = 0; j < a->size; j++)
+			{
+				a->legacy[i][2 * j + 0] = (double)input[2 * i + 0][j];
+				a->legacy[i][2 * j + 1] = (double)input[2 * i + 1][j];
+			}
+			a->in[i] = a->legacy[i];
+		}
+		a->out = a->legacy[3];
+		xdiv (a);
+		for (j = 0; j < a->size; j++)
+		{
+			Iout[j] = (float)a->legacy[3][2 * j + 0];
+			Qout[j] = (float)a->legacy[3][2 * j + 1];
+		}
+	}
+}

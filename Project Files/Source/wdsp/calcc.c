@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  calcc.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -24,9 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 The author can be reached by email at
 
 warren@wpratt.com
-#ifndef _CRT_SECURE_NO_WARNINGS
-#define _CRT_SECURE_NO_WARNINGS
-#endif*/
+
+*/
 #ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -785,9 +781,9 @@ void __cdecl RestoreCorrection(void* pargs) {
     double* ps = (double*)malloc0(4 * a->util.ints * sizeof(double));
     FILE* file = fopen(a->util.restfile, "r");
     for (i = 0; i < a->util.ints; i++) {
-        for (k = 0; k < 4; k++) fscanf(file, "%le", &(pm[4 * i + k]));
-        for (k = 0; k < 4; k++) fscanf(file, "%le", &(pc[4 * i + k]));
-        for (k = 0; k < 4; k++) fscanf(file, "%le", &(ps[4 * i + k]));
+        for (k = 0; k < 4; k++) (void)fscanf(file, "%le", &(pm[4 * i + k]));
+        for (k = 0; k < 4; k++) (void)fscanf(file, "%le", &(pc[4 * i + k]));
+        for (k = 0; k < 4; k++) (void)fscanf(file, "%le", &(ps[4 * i + k]));
     }
     fclose(file);
     if (!InterlockedBitTestAndSet(&a->ctrl.running, 0))
@@ -899,6 +895,7 @@ PORT void pscc(int channel, int size, double* tx, double* rx) {
                             && a->convex) {
                             int nmin = 0;
                             int nmax = a->ints;
+                            n = nmin;
                             while (nmax - nmin > 1) {
                                 n = (nmin + nmax) / 2;
                                 if (env >= a->tmap[n])
@@ -1039,7 +1036,7 @@ PORT void PSSaveCorr(int channel, char* filename) {
     int i = 0;
     EnterCriticalSection(&txa[channel].calcc.cs_update);
     a = txa[channel].calcc.p;
-    while (a->util.savefile[i++] = *filename++)
+    while ((a->util.savefile[i++] = *filename++))
         ;
     _beginthread(SaveCorrection, 0, (void*)a);
     LeaveCriticalSection(&txa[channel].calcc.cs_update);
@@ -1050,7 +1047,7 @@ PORT void PSRestoreCorr(int channel, char* filename) {
     int i = 0;
     EnterCriticalSection(&txa[channel].calcc.cs_update);
     a = txa[channel].calcc.p;
-    while (a->util.restfile[i++] = *filename++)
+    while ((a->util.restfile[i++] = *filename++))
         ;
     a->ctrl.turnon = 1;
     _beginthread(RestoreCorrection, 0, (void*)a);

@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  wisdom.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -32,6 +29,18 @@ warren@wpratt.com
 #endif
 #include "comm.h"
 
+//
+// A string holding the last "progress report" message.
+// The new function wdsp_get_status() returns a pointer
+// to this string. All output lines to stdout are also
+// printed to this string.
+//
+static char status[128];
+
+PORT char* wisdom_get_status() {
+    return status;
+}
+
 PORT void WDSPwisdom(char* directory) {
     fftw_plan tplan;
     int psize;
@@ -53,50 +62,59 @@ PORT void WDSPwisdom(char* directory) {
         fprintf(stdout,
             "Please do not close this window until wisdom plans are "
             "completed.\n\n");
+        sprintf(status, "Optimizing FFT sizes through %d", maxsize);
         psize = 64;
         while (psize <= MAX_WISDOM_SIZE_FILTER) {
             fprintf(stdout, "Planning COMPLEX FORWARD  FFT size %d\n", psize);
             fflush(stdout);
+            sprintf(status, "Planning COMPLEX FORWARD  FFT size %d\n", psize);
             tplan = fftw_plan_dft_1d(psize, (fftw_complex*)fftin,
-                (fftw_complex*)fftout, FFTW_FORWARD, MY_PATIENCE);
+                (fftw_complex*)fftout, FFTW_FORWARD, FFTW_PATIENT);
             fftw_execute(tplan);
             fftw_destroy_plan(tplan);
             fprintf(stdout, "Planning COMPLEX BACKWARD FFT size %d\n", psize);
             fflush(stdout);
+            sprintf(status, "Planning COMPLEX BACKWARD FFT size %d\n", psize);
             tplan = fftw_plan_dft_1d(psize, (fftw_complex*)fftin,
-                (fftw_complex*)fftout, FFTW_BACKWARD, MY_PATIENCE);
+                (fftw_complex*)fftout, FFTW_BACKWARD, FFTW_PATIENT);
             fftw_execute(tplan);
             fftw_destroy_plan(tplan);
             fprintf(
                 stdout, "Planning COMPLEX BACKWARD FFT size %d\n", psize + 1);
             fflush(stdout);
+            sprintf(
+                status, "Planning COMPLEX BACKWARD FFT size %d\n", psize + 1);
             tplan = fftw_plan_dft_1d(psize + 1, (fftw_complex*)fftin,
-                (fftw_complex*)fftout, FFTW_BACKWARD, MY_PATIENCE);
+                (fftw_complex*)fftout, FFTW_BACKWARD, FFTW_PATIENT);
             fftw_execute(tplan);
             fftw_destroy_plan(tplan);
             psize *= 2;
         }
         psize = 64;
         while (psize <= MAX_WISDOM_SIZE_DISPLAY) {
-           // if (psize > MAX_WISDOM_SIZE_FILTER) { <-- PVS: always false
+            if (psize > MAX_WISDOM_SIZE_FILTER) {
                 fprintf(
                     stdout, "Planning COMPLEX FORWARD  FFT size %d\n", psize);
                 fflush(stdout);
+                sprintf(
+                    status, "Planning COMPLEX FORWARD  FFT size %d\n", psize);
                 tplan = fftw_plan_dft_1d(psize, (fftw_complex*)fftin,
-                    (fftw_complex*)fftout, FFTW_FORWARD, MY_PATIENCE);
+                    (fftw_complex*)fftout, FFTW_FORWARD, FFTW_PATIENT);
                 fftw_execute(tplan);
                 fftw_destroy_plan(tplan);
-            //}
+            }
             fprintf(stdout, "Planning REAL    FORWARD  FFT size %d\n", psize);
             fflush(stdout);
+            sprintf(status, "Planning REAL    FORWARD  FFT size %d\n", psize);
             tplan = fftw_plan_dft_r2c_1d(
-                psize, fftin, (fftw_complex*)fftout, MY_PATIENCE);
+                psize, fftin, (fftw_complex*)fftout, FFTW_PATIENT);
             fftw_execute(tplan);
             fftw_destroy_plan(tplan);
             psize *= 2;
         }
         fprintf(stdout, "\nFFTW planning complete.\n");
         fflush(stdout);
+        sprintf(status, "\nFFTW planning complete.\n");
         fftw_export_wisdom_to_filename(wisdom_file);
         _aligned_free(fftout);
         _aligned_free(fftin);

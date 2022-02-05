@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  iobuffs.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -492,7 +489,7 @@ void fexchange0 (int channel, double* in, double* out, int* error)
 				if (!_InterlockedAnd (&a->slew.downflag, 1))
 				{
 					InterlockedBitTestAndReset (&ch[channel].exchange, 0);
-					_beginthread (flushChannel, 0, (void *)channel);
+					_beginthread (flushChannel, 0, (void *)(uintptr_t)channel);
 				}
 			}
 			else
@@ -551,7 +548,7 @@ void fexchange2 (int channel, INREAL *Iin, INREAL *Qin, OUTREAL *Iout, OUTREAL *
 				if (!_InterlockedAnd (&a->slew.downflag, 1))
 				{
 					InterlockedBitTestAndReset (&ch[channel].exchange, 0);
-					_beginthread (flushChannel, 0, (void *)channel);
+					_beginthread (flushChannel, 0, (void *)(uintptr_t)channel);
 				}
 			}
 			else
@@ -577,8 +574,7 @@ void dexchange (int channel, double* in, double* out)
 {
 	int n;
 	IOB a = ch[channel].iob.pd;
-	if (!_InterlockedAnd (&ch[channel].run, 1)) 
-		_endthread();
+	if (!_InterlockedAnd (&ch[channel].run, 1)) _endthread();
 
 	EnterCriticalSection (&a->r2_ControlSection);
 	a->r2_havesamps += a->r2_insize;

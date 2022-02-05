@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  utilities.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -263,10 +260,7 @@ void print_deviation(const char* filename, double dpmax, double rate) {
 void __cdecl CalccPrintSamples(void* pargs) {
     int i;
     double env_tx, env_rx;
-#pragma warning(disable : 4311)
-    int channel = (int)pargs;
-#pragma warning(default : 4311)
-
+    int channel = (int)(uintptr_t)pargs;
     CALCC a = txa[channel].calcc.p;
     FILE* file = fopen("samples.txt", "w");
     fprintf(file, "\n");
@@ -286,9 +280,7 @@ void __cdecl CalccPrintSamples(void* pargs) {
 
 void doCalccPrintSamples(
     int channel) { // no sample buffering - use in single cal mode
-#pragma warning(disable : 4312)
-    _beginthread(CalccPrintSamples, 0, (void*)channel);
-#pragma warning(default : 4312)
+    _beginthread(CalccPrintSamples, 0, (void*)(uintptr_t)channel);
 }
 
 void print_anb_parms(const char* filename, ANB a) {

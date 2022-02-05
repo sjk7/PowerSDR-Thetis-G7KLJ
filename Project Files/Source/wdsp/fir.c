@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  fir.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -26,7 +23,6 @@ The author can be reached by email at
 warren@wpratt.com
 
 */
-
 #ifndef _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
 #endif
@@ -185,8 +181,7 @@ double* fir_bandpass(int N, double f_low, double f_high, double samplerate,
     double delta = PI / m;
     double cosphi;
     double posi, posj;
-    double sinc, coef;
-    double window = 0;
+    double sinc, window, coef;
 
     if (N & 1) {
         switch (rtype) {
@@ -225,6 +220,7 @@ double* fir_bandpass(int N, double f_low, double f_high, double samplerate,
                                                             + cosphi
                                                                 * (+4.3778825791773474e-04))))));
                 break;
+            default: window = 0.0; break;
         }
         coef = scale * sinc * window;
         switch (rtype) {
@@ -264,12 +260,12 @@ double* fir_read(int N, const char* filename, int rtype, double scale)
         // will all be zero.
         switch (rtype) {
             case 0:
-                fscanf(file, "%le", &I);
+                (void)fscanf(file, "%le", &I);
                 c_impulse[i] = +scale * I;
                 break;
             case 1:
-                fscanf(file, "%le", &I);
-                fscanf(file, "%le", &Q);
+                (void)fscanf(file, "%le", &I);
+                (void)fscanf(file, "%le", &Q);
                 c_impulse[2 * i + 0] = +scale * I;
                 c_impulse[2 * i + 1] = -scale * Q;
                 break;
@@ -285,9 +281,9 @@ void analytic(int N, double* in, double* out) {
     double two_inv_N = 2.0 * inv_N;
     double* x = (double*)malloc0(N * sizeof(complex));
     fftw_plan pfor = fftw_plan_dft_1d(
-        N, (fftw_complex*)in, (fftw_complex*)x, FFTW_FORWARD, MY_PATIENCE);
+        N, (fftw_complex*)in, (fftw_complex*)x, FFTW_FORWARD, FFTW_PATIENT);
     fftw_plan prev = fftw_plan_dft_1d(
-        N, (fftw_complex*)x, (fftw_complex*)out, FFTW_BACKWARD, MY_PATIENCE);
+        N, (fftw_complex*)x, (fftw_complex*)out, FFTW_BACKWARD, FFTW_PATIENT);
     fftw_execute(pfor);
     x[0] *= inv_N;
     x[1] *= inv_N;
@@ -316,9 +312,9 @@ void mp_imp(int N, double* fir, double* mpfir, int pfactor, int polarity) {
     double* newfreq = (double*)malloc0(size * sizeof(complex));
     memcpy(firpad, fir, N * sizeof(complex));
     fftw_plan pfor = fftw_plan_dft_1d(size, (fftw_complex*)firpad,
-        (fftw_complex*)firfreq, FFTW_FORWARD, MY_PATIENCE);
+        (fftw_complex*)firfreq, FFTW_FORWARD, FFTW_PATIENT);
     fftw_plan prev = fftw_plan_dft_1d(size, (fftw_complex*)newfreq,
-        (fftw_complex*)impulse, FFTW_BACKWARD, MY_PATIENCE);
+        (fftw_complex*)impulse, FFTW_BACKWARD, FFTW_PATIENT);
     // print_impulse("orig_imp.txt", N, fir, 1, 0);
     fftw_execute(pfor);
     for (i = 0; i < size; i++) {

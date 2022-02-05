@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  fmmod.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -28,7 +25,6 @@ warren@wpratt.com
 */
 
 #include "comm.h"
-
 
 void calc_fmmod (FMMOD a)
 {

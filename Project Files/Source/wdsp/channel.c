@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  channel.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -29,11 +26,12 @@ warren@wpratt.com
 
 #include "comm.h"
 
+struct _ch ch[MAX_CHANNELS];
+
 void start_thread (int channel)
 {
-    ch[channel].thread_quit_event = CreateEvent(0, 0, 0, 0);
-	_beginthread(main_fun, 0, (void *)channel);
-
+	HANDLE handle = (HANDLE) _beginthread(wdspmain, 0, (void *)(uintptr_t)channel);
+	//SetThreadPriority(handle, THREAD_PRIORITY_HIGHEST);
 }
 
 void pre_main_build (int channel)
@@ -56,9 +54,6 @@ void pre_main_build (int channel)
 	InitializeCriticalSectionAndSpinCount ( &ch[channel].csDSP, 2500 );
 	InitializeCriticalSectionAndSpinCount ( &ch[channel].csEXCH,  2500 );
 	InterlockedBitTestAndReset (&ch[channel].flushflag, 0);
-
-	ch[channel].thread_quit_event = NULL;
-    
 	create_iobuffs (channel);
 }
 
@@ -112,18 +107,11 @@ void pre_main_destroy (int channel)
 	InterlockedBitTestAndReset (&ch[channel].run, 0);
 	InterlockedBitTestAndSet (&ch[channel].iob.pc->exec_bypass, 0);
 	ReleaseSemaphore (a->Sem_BuffReady, 1, 0);
-    if (ch[channel].thread_quit_event) {
-        DWORD wait = WaitForSingleObject(ch[channel].thread_quit_event, 2000);
-        assert(wait != WAIT_TIMEOUT);
-	}
+	Sleep (25);
 }
 
 void post_main_destroy (int channel)
 {
-    if (ch[channel].thread_quit_event) {
-        CloseHandle(ch[channel].thread_quit_event);
-        ch[channel].thread_quit_event = 0;
-	}
 	destroy_iobuffs (channel);
 	DeleteCriticalSection ( &ch[channel].csEXCH  );
 	DeleteCriticalSection ( &ch[channel].csDSP );
@@ -139,7 +127,7 @@ void CloseChannel (int channel)
 
 void flushChannel (void* p)
 {
-	int channel = (int)p;
+	int channel = (int)(uintptr_t)p;
 	EnterCriticalSection (&ch[channel].csDSP);
 	EnterCriticalSection (&ch[channel].csEXCH);
 	flush_iobuffs (channel);

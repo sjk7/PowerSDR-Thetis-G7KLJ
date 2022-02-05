@@ -1241,7 +1241,8 @@ static PaWinWdmPin* PinNew(
     pin->pinConnect->PinToHandle = NULL;
     pin->pinConnect->Priority.PriorityClass = KSPRIORITY_NORMAL;
     pin->pinConnect->Priority.PrioritySubClass = 1;
-    pin->ksDataFormatWfx = (KSDATAFORMAT_WAVEFORMATEX*)(pin->pinConnect + 1); //-V1027
+    pin->ksDataFormatWfx
+        = (KSDATAFORMAT_WAVEFORMATEX*)(pin->pinConnect + 1); //-V1027
     pin->ksDataFormatWfx->DataFormat.FormatSize
         = sizeof(KSDATAFORMAT_WAVEFORMATEX);
     pin->ksDataFormatWfx->DataFormat.Flags = 0;
@@ -1309,7 +1310,8 @@ static PaWinWdmPin* PinNew(
 
     if (result != paNoError) goto error;
 
-    identifier = (KSIDENTIFIER*)(item + 1); /* Not actually necessary... */ //-V1027
+    identifier = (KSIDENTIFIER*)(item + 1);
+    /* Not actually necessary... */ //-V1027
 
     /* Check that at least one medium is STANDARD_DEVIO */
     result = paUnanticipatedHostError;
@@ -1998,7 +2000,8 @@ static PaError PinSetFormat(PaWinWdmPin* pin, const WAVEFORMATEX* format) {
         pin->pinConnect = (KSPIN_CONNECT*)newConnect;
         pin->pinConnectSize = size;
         pin->ksDataFormatWfx
-            = (KSDATAFORMAT_WAVEFORMATEX*)((KSPIN_CONNECT*)newConnect + 1); //-V1027
+            = (KSDATAFORMAT_WAVEFORMATEX*)((KSPIN_CONNECT*)newConnect
+                + 1); //-V1027
         pin->ksDataFormatWfx->DataFormat.FormatSize
             = size - sizeof(KSPIN_CONNECT);
     }
@@ -2957,9 +2960,14 @@ PaWinWdmFilter** BuildFilterList(
             newFilter = FilterNew(streamingType, devInfoData.DevInst,
                 devInterfaceDetails->DevicePath, friendlyName, &result);
 
-            if (!wcsstr(friendlyName, L"MIDI"))
-            assert(newFilter);
-            
+            if (wcsstr(friendlyName, L"MIDI") || wcsstr(friendlyName, L"Synth")
+                || wcsstr(friendlyName, L"Spdif")) {
+
+            } else {
+                PA_DEBUG(("Interface %d, Name: %s\n", device, friendlyName));
+                assert(newFilter);
+            }
+
             if (!newFilter) {
                 return NULL;
             }
@@ -3209,10 +3217,10 @@ static PaError ScanDeviceInfos(struct PaUtilHostApiRepresentation* hostApi,
         idxDevice = 0;
         for (idxFilter = 0; idxFilter < filterCount; ++idxFilter) {
             PaNameHashObject nameHash = {0};
-            PaWinWdmFilter* pFilter =0;
+            PaWinWdmFilter* pFilter = 0;
 
             if (ppFilters) {
-               pFilter = ppFilters[idxFilter];
+                pFilter = ppFilters[idxFilter];
             } else {
                 assert(0);
                 return paInternalError;
@@ -4287,7 +4295,8 @@ static PaError OpenStream(struct PaUtilHostApiRepresentation* hostApi,
         PaWinWdmDeviceInfo* pDeviceInfo;
         PaWinWdmPin* pPin;
         PaWinWDMKSInfo* pInfo
-            = (PaWinWDMKSInfo*)(outputParameters->hostApiSpecificStreamInfo); //-V1004
+            = (PaWinWDMKSInfo*)(outputParameters
+                                    ->hostApiSpecificStreamInfo); //-V1004
         unsigned validBitsPerSample = 0;
         PaWinWaveFormatChannelMask channelMask
             = PaWin_DefaultChannelMask(userOutputChannels);
@@ -4754,8 +4763,8 @@ static PaError OpenStream(struct PaUtilHostApiRepresentation* hostApi,
                         = CreateEvent(NULL, TRUE, FALSE, NULL);
 
                     p->Signal.hEvent = stream->capture.events[i];
-                    p->Header.Data
-                        = stream->capture.hostBuffer + (i * bufferSizeInBytes); //-V769
+                    p->Header.Data = stream->capture.hostBuffer
+                        + (i * bufferSizeInBytes); //-V769
                     p->Header.FrameExtent = bufferSizeInBytes;
                     p->Header.DataUsed = 0;
                     p->Header.Size = sizeof(p->Header);
@@ -4881,8 +4890,8 @@ static PaError OpenStream(struct PaUtilHostApiRepresentation* hostApi,
                     /* In this case, we just use the packets as ptr to the
                      * device buffer */
                     p->Signal.hEvent = stream->render.events[i];
-                    p->Header.Data
-                        = stream->render.hostBuffer + (i * bufferSizeInBytes); //-V769
+                    p->Header.Data = stream->render.hostBuffer
+                        + (i * bufferSizeInBytes); //-V769
                     p->Header.FrameExtent = bufferSizeInBytes;
                     p->Header.DataUsed = bufferSizeInBytes;
                     p->Header.Size = sizeof(p->Header);

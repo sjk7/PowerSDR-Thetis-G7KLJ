@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  lmath.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -89,8 +86,8 @@ void trI (
             B[ni * n + nj] = b;
             B[nj * n + ni] = b;
         }
-	_aligned_free (v);
-	_aligned_free (y);
+    _aligned_free (v);
+    _aligned_free (y);
 }
 
 void asolve(int xsize, int asize, double* x, double* a)

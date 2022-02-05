@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  nobII.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -224,7 +221,7 @@ void xnob (NOB a)
 									if (++tidx >= a->dline_size) tidx -= a->dline_size;
 								}
 								j = 1;
-								// len = 0; PVS-STUDIO: assigned same value
+								len = 0;
 								lidx = tidx;
 								while (j <= a->adv_slew_count + a->adv_count && len == 0)
 								{
@@ -329,7 +326,7 @@ void xnob (NOB a)
 								else
 								{
 									a->state = 6;
-									// a->time = 0; PVS: assiged same value
+									a->time = 0;
 									a->blank_count += a->adv_count + a->filterlen;
 								}
 							}
@@ -439,8 +436,8 @@ void xnob (NOB a)
                                 a->time = 0;
                                 if ((tidx = a->scan_idx + a->hang_slew_count + a->hang_count - a->adv_count - a->adv_slew_count) >= a->dline_size) tidx -= a->dline_size;
                                 if (tidx < 0) tidx += a->dline_size;
-                                a->Inext = a->dline[tidx, 0];
-                                a->Qnext = a->dline[tidx, 1];
+                                a->Inext = a->dline[2*tidx + 0];
+                                a->Qnext = a->dline[2*tidx + 1];
                             }
                             else
                             {
@@ -462,8 +459,8 @@ void xnob (NOB a)
                                 a->time = 0;
                                 if ((tidx = a->scan_idx + a->hang_slew_count - a->adv_count - a->adv_slew_count) >= a->dline_size) tidx -= a->dline_size;
                                 if (tidx < 0) tidx += a->dline_size;
-                                a->Inext = a->dline[tidx, 0];
-                                a->Qnext = a->dline[tidx, 1];
+                                a->Inext = a->dline[2*tidx + 0];
+                                a->Qnext = a->dline[2*tidx + 1];
                             }
                             else
                             {

@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*  RXA.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -28,6 +25,8 @@ warren@wpratt.com
 */
 
 #include "comm.h"
+
+struct _rxa rxa[MAX_CHANNELS];
 
 void create_rxa (int channel)
 {
@@ -830,7 +829,10 @@ void RXAbpsnbaCheck (int channel, int mode, int notch_run)
 		case RXA_AM:
 		case RXA_SAM:
 		case RXA_DSB:
-
+			f_low  = +a->abs_low_freq;
+			f_high = +a->abs_high_freq;
+			run_notches = 0;
+			break;
 		case RXA_FM:
 			f_low  = +a->abs_low_freq;
 			f_high = +a->abs_high_freq;
@@ -865,7 +867,9 @@ void RXAbpsnbaSet (int channel)
 		case RXA_LSB:
 		case RXA_CWL:
 		case RXA_DIGL:
-			// fall through
+			a->run = rxa[channel].snba.p->run;
+			a->position = 0;
+			break;
 		case RXA_USB:
 		case RXA_CWU:
 		case RXA_DIGU:
@@ -875,7 +879,9 @@ void RXAbpsnbaSet (int channel)
 		case RXA_AM:
 		case RXA_SAM:
 		case RXA_DSB:
-			// fall through
+			a->run = rxa[channel].snba.p->run;
+			a->position = 1;
+			break;
 		case RXA_FM:
 			a->run = rxa[channel].snba.p->run;
 			a->position = 1;
@@ -894,16 +900,16 @@ void RXAbpsnbaSet (int channel)
 *																										*
 ********************************************************************************************************/
 
-void PORT
-RXASetPassband (int channel, double f_low, double f_high)
+PORT
+void RXASetPassband (int channel, double f_low, double f_high)
 {
 	SetRXABandpassFreqs			(channel, f_low, f_high);
 	SetRXASNBAOutputBandwidth	(channel, f_low, f_high);
 	RXANBPSetFreqs				(channel, f_low, f_high);
 }
 
-void PORT
-RXASetNC (int channel, int nc)
+PORT
+void RXASetNC (int channel, int nc)
 {
 	int oldstate = SetChannelState (channel, 0, 1);
 	RXANBPSetNC					(channel, nc);
@@ -916,8 +922,8 @@ RXASetNC (int channel, int nc)
 	SetChannelState (channel, oldstate, 0);
 }
 
-void PORT
-RXASetMP (int channel, int mp)
+PORT
+void RXASetMP (int channel, int mp)
 {
 	RXANBPSetMP					(channel, mp);
 	RXABPSNBASetMP				(channel, mp);
