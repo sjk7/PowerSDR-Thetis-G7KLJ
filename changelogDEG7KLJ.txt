@@ -1,6 +1,5 @@
 Fixed:
 
-TESTSETSTTES
 
 15/02/2021:
 Rx audio volume does not obey audio slider setting when powered on. Fixed.
