@@ -146,7 +146,7 @@ namespace Thetis
 
             if (!File.Exists(path + "\\" + name + ".xml"))
             {
-                /*TextWriter writer = new StreamWriter(app_data_path + "\\xml_error.log", true);
+                /*TextWriter writer = new StreamWriter(m_app_data_path + "\\xml_error.log", true);
                writer.WriteLine(DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString() + " " +
                    "File not found ("+path + ".xml.\n");
                writer.Close();

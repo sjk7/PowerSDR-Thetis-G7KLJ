@@ -83,8 +83,8 @@ namespace Thetis
 
         public static void CreateDSP()
         {
-            //String app_data_path = "";
-            //app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+            //String m_app_data_path = "";
+            //m_app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
             //    + "\\OpenHPSDR\\Thetis\\";
             WDSP.WDSPwisdom(app_data_path);
             cmaster.CMCreateCMaster();

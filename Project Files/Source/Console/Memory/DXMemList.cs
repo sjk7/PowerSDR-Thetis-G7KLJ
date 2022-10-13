@@ -41,13 +41,14 @@ namespace Thetis
 
         public DXMemList()
         {
-
+            isValid = false;
         }
 
         #endregion
 
         #region Properties
 
+        public bool isValid = false;
         private Thetis.SortableBindingList<DXMemRecord> list = new Thetis.SortableBindingList<DXMemRecord>();
 
         public Thetis.SortableBindingList<DXMemRecord> List
@@ -120,12 +121,14 @@ namespace Thetis
             DXMemList mem_list1 = new DXMemList();
 
             StreamReader reader;
+            
 
             try
             {
                 if (!File.Exists(file_name))
                 {
-                    throw new FileNotFoundException();
+                    return mem_list1;// caller can check for isValid.
+                    // throw new FileNotFoundException();
                 }
 
                 reader = new StreamReader(file_name);
@@ -136,6 +139,7 @@ namespace Thetis
 
                 // save backup file
                 mem_list1.Save1(bak_file_name);
+                mem_list1.isValid = true;
             }
             catch (Exception ex1)
             {
@@ -155,27 +159,16 @@ namespace Thetis
                 catch (Exception ex2)
                 {
                     Debug.WriteLine(ex2);
+                    mem_list1.isValid = false;
                 }
             }
 
             reader.Close();
 
+            mem_list1.isValid = true;
             return mem_list1;  // return memory listing to memory form window datagridview1
 
         } // restore
-
-
-
-        //======================================================================================================================
-        public void CheckVersion1()
-        {
-            if (this.major_version == DXMemList.current_major_version && this.minor_version == DXMemList.current_minor_version) return;
-
-            if (this.major_version == 1 && this.minor_version == 0)
-            {
-                // go modify the data as appropriate
-            }
-        }
 
         #endregion
     }

@@ -9756,7 +9756,7 @@ namespace Thetis
 
             //-------------------------------------- ke9ns.vg1 is a voa muf table for your lat/long location
 
-            // file_name = console.AppDataPath + @"itshfbc\areadata\default\ke9ns.vg1"; // voacap table  data
+            // m_file_name = console.AppDataPath + @"itshfbc\areadata\default\ke9ns.vg1"; // voacap table  data
 
             Debug.WriteLine("read ke9ns.vg1 is a voa muf table for your lat/long location");
 

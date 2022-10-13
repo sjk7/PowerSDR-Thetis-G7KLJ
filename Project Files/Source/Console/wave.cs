@@ -875,7 +875,7 @@ public class WaveControl : Form {
       string file_name = temp + ".wav";
       scheduleName = file_name; // ke9ns add
 
-      // string file_name2 = file_name+"-rx2";
+      // string file_name2 = m_file_name+"-rx2";
       WaveThing.wave_file_writer[0] =
           new WaveFileWriter(0, 2, waveOptionsForm.SampleRate, file_name);
 
@@ -906,7 +906,7 @@ public class WaveControl : Form {
 
       WaveThing.wave_file_writer[0].Stop();
       checkBoxRecord.BackColor = SystemColors.Control;
-      // MessageBox.Show("The file has been written to the following location:\n"+file_name);
+      // MessageBox.Show("The file has been written to the following location:\n"+m_file_name);
     }
   }
 
@@ -1091,12 +1091,12 @@ public class WaveControl : Form {
     //
     //                 if (QPFile != null)
     //                 {
-    //                     file_name = QPFile; // ke9ns check file name passed from console play
+    //                     m_file_name = QPFile; // ke9ns check file name passed from console play
     //                     button
     //                 }
     //                 else
     //                 {
-    //                     file_name = console.AppDataPath + "QuickAudio" + "\\SDRQuickAudio" +
+    //                     m_file_name = console.AppDataPath + "QuickAudio" + "\\SDRQuickAudio" +
     //                     QAC.ToString() + ".wav";
     //                 }
     //             }
@@ -1198,7 +1198,7 @@ public class WaveControl : Form {
       //                     System.IO.Directory.CreateDirectory(console.AppDataPath +
       //                     "QuickAudioMP3"); // ke9ns add create sub directory
       //
-      //                     file_name = console.AppDataPath + "QuickAudio" + "\\SDRQuickAudio" +
+      //                     m_file_name = console.AppDataPath + "QuickAudio" + "\\SDRQuickAudio" +
       //                     QAC.ToString() + ".wav";
       //
       //                     quickmp3 = console.AppDataPath + "QuickAudioMP3" + "\\SDRQuickAudio" +
@@ -1233,7 +1233,7 @@ public class WaveControl : Form {
       //    created.\n" +
       //        "Key the radio with either PTT or MOX and click on the Play button to play back the
       //        Quick audio recording over the air.");
-      //    // MessageBox.Show("The file has been written to the following location:\n"+file_name);
+      //    // MessageBox.Show("The file has been written to the following location:\n"+m_file_name);
       //}
 
       //                 Audio.RecordRXPreProcessed = temp_record; //return to original state
@@ -1246,7 +1246,7 @@ public class WaveControl : Form {
       //
       //                     try
       //                     {
-      //                         //using (var reader = new WaveFileReader(file_name)) // closes
+      //                         //using (var reader = new WaveFileReader(m_file_name)) // closes
       //                         reader when done using
       //                         //using (var writer = new LameMP3FileWriter(quickmp3,
       //                         reader.WaveFormat, LAMEPreset.VBR_90)) // closes writer when done
@@ -1339,7 +1339,7 @@ public class WaveControl : Form {
 
       //   Debug.WriteLine("playing ");
 
-      // dd if (!OpenWaveFile(file_name, false))
+      // dd if (!OpenWaveFile(m_file_name, false))
       //{
       //    TXIDBoxTS.Checked = false;
 

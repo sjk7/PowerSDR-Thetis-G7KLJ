@@ -16,21 +16,21 @@ using LBSoft.IndustrialCtrls.Utils;
 using Thetis.Properties;
 
 namespace LBSoft.IndustrialCtrls.Meters {
-  /// <summary>
-  /// Class for the analog meter control
-  /// </summary>
-  public partial class LBAnalogMeter : UserControl {
+/// <summary>
+/// Class for the analog meter control
+/// </summary>
+public partial class LBAnalogMeter : UserControl {
     public event EventHandler ValueChanged;
     public event EventHandler MaxValueChanged;
     public event EventHandler MinValueChanged;
     public event EventHandler BackGndImgChanged;
 
     public class BackGndChanged : EventArgs {
-      public int which = 0;
+        public int which = 0;
     }
 #region Enumerator
     public enum AnalogMeterStyle {
-      Circular = 0,
+        Circular = 0,
     }
     ;
 #endregion
@@ -64,397 +64,426 @@ namespace LBSoft.IndustrialCtrls.Meters {
     private ToolStripMenuItem version2ToolStripMenuItem;
     protected LBAnalogMeterRenderer defaultRenderer;
 #endregion
-    public enum BackGroundChoices { Skin = -1, Default = 0, Blue = 1, Tango = 2 }
+    public enum BackGroundChoices {
+        Skin = -1,
+        Default = 0,
+        Blue = 1,
+        Tango = 2
+    }
 
     BackGroundChoices m_backGroundChoice;
-    public BackGroundChoices CurrentBackGroundChoice() { return m_backGroundChoice; }
+    public BackGroundChoices CurrentBackGroundChoice() {
+        return m_backGroundChoice;
+    }
 
 #region Constructors
     public LBAnalogMeter() {
-      // Initialization
-      InitializeComponent();
+        // Initialization
+        InitializeComponent();
 
-      // Properties initialization
-      this.bodyColor = Color.Red;
-      this.needleColor = Color.Yellow;
-      this.scaleColor = Color.White;
-      this.meterStyle = AnalogMeterStyle.Circular;
-      this.viewGlass = false;
-      this.startAngle = 225;
-      this.endAngle = 315;
-      this.minValue = 0;
-      this.maxValue = 1000;
-      this.currValue = 0;
-      this.scaleDivisions = 10;
-      this.scaleSubDivisions = 10;
-      this.renderer = null;
+        // Properties initialization
+        this.bodyColor = Color.Red;
+        this.needleColor = Color.Yellow;
+        this.scaleColor = Color.White;
+        this.meterStyle = AnalogMeterStyle.Circular;
+        this.viewGlass = false;
+        this.startAngle = 225;
+        this.endAngle = 315;
+        this.minValue = 0;
+        this.maxValue = 1000;
+        this.currValue = 0;
+        this.scaleDivisions = 10;
+        this.scaleSubDivisions = 10;
+        this.renderer = null;
 
-      // Set the styles for drawing
-      SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-      this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-      this.SetStyle(ControlStyles.UserPaint, true);
+        // Set the styles for drawing
+        SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+        this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+        this.SetStyle(ControlStyles.UserPaint, true);
 
-      // Create the default renderer
-      this.defaultRenderer = new LBDefaultAnalogMeterRenderer();
-      this.defaultRenderer.AnalogMeter = this;
+        // Create the default renderer
+        this.defaultRenderer = new LBDefaultAnalogMeterRenderer();
+        this.defaultRenderer.AnalogMeter = this;
     }
 #endregion
 
 #region Properties
     [Category("Appearance"), Description("Style of the control")]
     public AnalogMeterStyle MeterStyle {
-      get { return meterStyle; }
-      set {
-        meterStyle = value;
-        Invalidate();
-      }
+        get { return meterStyle; }
+        set {
+            meterStyle = value;
+            Invalidate();
+        }
     }
 
-    [Category("Appearance"),
-     Description("Color of the body of the control")] public Color BodyColor {
-      get { return bodyColor; }
-      set {
-        bodyColor = value;
-        Invalidate();
-      }
+    [Category("Appearance"), Description("Color of the body of the control")]
+    public Color BodyColor {
+        get { return bodyColor; }
+        set {
+            bodyColor = value;
+            Invalidate();
+        }
     }
 
-    [Category("Appearance"), Description("Color of the needle")] public Color NeedleColor {
-      get { return needleColor; }
-      set {
-        needleColor = value;
-        Invalidate();
-      }
+    [Category("Appearance"), Description("Color of the needle")]
+    public Color NeedleColor {
+        get { return needleColor; }
+        set {
+            needleColor = value;
+            Invalidate();
+        }
     }
 
-    [Category("Appearance"), Description("Show or hide the glass effect")] public bool ViewGlass {
-      get { return viewGlass; }
-      set {
-        viewGlass = value;
-        Invalidate();
-      }
+    [Category("Appearance"), Description("Show or hide the glass effect")]
+    public bool ViewGlass {
+        get { return viewGlass; }
+        set {
+            viewGlass = value;
+            Invalidate();
+        }
     }
 
-    [Category("Appearance"),
-     Description("Color of the scale of the control")] public Color ScaleColor {
-      get { return scaleColor; }
-      set {
-        scaleColor = value;
-        Invalidate();
-      }
+    [Category("Appearance"), Description("Color of the scale of the control")]
+    public Color ScaleColor {
+        get { return scaleColor; }
+        set {
+            scaleColor = value;
+            Invalidate();
+        }
     }
 
     public class ValueEvent : EventArgs {
-      public float currentVal = 0.0f;
+        public float currentVal = 0.0f;
     }
 
     [Category("Behavior"), Description("Value of the data")]
     public double Value {
-      get { return currValue; }
-      set {
+        get { return currValue; }
+        set {
 
-        double val = value;
-        if (val > maxValue)
-          val = maxValue;
+            double val = value;
+            if (val > maxValue) val = maxValue;
 
-        if (val < minValue)
-          val = minValue;
+            if (val < minValue) val = minValue;
 
-        ValueEvent e = new ValueEvent();
-        e.currentVal = (float)val;
-        currValue = val;
-        Invalidate();
-        this.ValueChanged?.Invoke(this, e);
-      }
+            ValueEvent e = new ValueEvent();
+            e.currentVal = (float)val;
+            currValue = val;
+            Invalidate();
+            this.ValueChanged?.Invoke(this, e);
+        }
     }
 
     ValueEvent dummy_event_data = new ValueEvent();
     public double Max {
-      get { return maxValue; }
-      set {
-        maxValue = value;
-        this.MaxValueChanged?.Invoke(this, dummy_event_data);
-        Invalidate();
-      }
+        get { return maxValue; }
+        set {
+            maxValue = value;
+            this.MaxValueChanged?.Invoke(this, dummy_event_data);
+            Invalidate();
+        }
     }
 
-    public void setValue(float newVal) { Value = newVal; }
+    public void setValue(float newVal) {
+        Value = newVal;
+    }
 
     [Category("Behavior"), Description("Minimum value of the data")]
     public double MinValue {
-      get { return minValue; }
-      set {
-        var oldValue = minValue;
+        get { return minValue; }
+        set {
+            var oldValue = minValue;
 
-        minValue = value;
-        this.MinValueChanged?.Invoke(this, dummy_event_data);
-        if (minValue != oldValue)
-          Invalidate();
-      }
-    }
-
-    [Category("Behavior"), Description("Maximum value of the data")] public double MaxValue {
-      get { return maxValue; }
-      set {
-        var oldMax = maxValue;
-        maxValue = value;
-        this.MaxValueChanged?.Invoke(this, dummy_event_data);
-        if (oldMax != value) {
-          Invalidate();
+            minValue = value;
+            this.MinValueChanged?.Invoke(this, dummy_event_data);
+            if (minValue != oldValue) Invalidate();
         }
-      }
     }
 
-    [Category("Appearance"),
-     Description("Number of the scale divisions")] public int ScaleDivisions {
-      get { return scaleDivisions; }
-      set {
-        scaleDivisions = value;
-        CalculateDimensions();
-        Invalidate();
-      }
+    [Category("Behavior"), Description("Maximum value of the data")]
+    public double MaxValue {
+        get { return maxValue; }
+        set {
+            var oldMax = maxValue;
+            maxValue = value;
+            this.MaxValueChanged?.Invoke(this, dummy_event_data);
+            if (oldMax != value) {
+                Invalidate();
+            }
+        }
     }
 
-    [Category("Appearance"),
-     Description("Number of the scale subdivisions")] public int ScaleSubDivisions {
-      get { return scaleSubDivisions; }
-      set {
-        scaleSubDivisions = value;
-        CalculateDimensions();
-        Invalidate();
-      }
+    [Category("Appearance"), Description("Number of the scale divisions")]
+    public int ScaleDivisions {
+        get { return scaleDivisions; }
+        set {
+            scaleDivisions = value;
+            CalculateDimensions();
+            Invalidate();
+        }
     }
 
-    [Browsable(false)] public LBAnalogMeterRenderer Renderer {
-      get { return this.renderer; }
-      set {
-        this.renderer = value;
-        if (this.renderer != null)
-          renderer.AnalogMeter = this;
-        Invalidate();
-      }
+    [Category("Appearance"), Description("Number of the scale subdivisions")]
+    public int ScaleSubDivisions {
+        get { return scaleSubDivisions; }
+        set {
+            scaleSubDivisions = value;
+            CalculateDimensions();
+            Invalidate();
+        }
+    }
+
+    [Browsable(false)]
+    public LBAnalogMeterRenderer Renderer {
+        get { return this.renderer; }
+        set {
+            this.renderer = value;
+            if (this.renderer != null) renderer.AnalogMeter = this;
+            Invalidate();
+        }
     }
 
 #endregion
 
 #region Public methods
-    public float GetDrawRatio() { return this.drawRatio; }
+    public float GetDrawRatio() {
+        return this.drawRatio;
+    }
 
-    public float GetStartAngle() { return this.startAngle; }
+    public float GetStartAngle() {
+        return this.startAngle;
+    }
 
-    public float GetEndAngle() { return this.endAngle; }
+    public float GetEndAngle() {
+        return this.endAngle;
+    }
 
-    public PointF GetNeedleCenter() { return this.needleCenter; }
+    public PointF GetNeedleCenter() {
+        return this.needleCenter;
+    }
 #endregion
 
 #region Events delegates
     protected override void OnSizeChanged(EventArgs e) {
-      base.OnSizeChanged(e);
+        base.OnSizeChanged(e);
 
-      // Calculate dimensions
-      CalculateDimensions();
+        // Calculate dimensions
+        CalculateDimensions();
 
-      this.Invalidate();
+        this.Invalidate();
     }
 
     protected override void OnPaintBackground(PaintEventArgs e) {}
 
     protected override void OnPaint(PaintEventArgs e) {
-      RectangleF _rc = new RectangleF(0, 0, this.Width, this.Height);
-      e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+        RectangleF _rc = new RectangleF(0, 0, this.Width, this.Height);
+        e.Graphics.SmoothingMode
+            = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-      if (this.renderer == null) {
-        this.defaultRenderer.DrawBackground(e.Graphics, _rc);
-        this.defaultRenderer.DrawBody(e.Graphics, drawRect);
-        this.defaultRenderer.DrawThresholds(e.Graphics, drawRect);
-        this.defaultRenderer.DrawDivisions(e.Graphics, drawRect);
-        this.defaultRenderer.DrawUM(e.Graphics, drawRect);
-        this.defaultRenderer.DrawValue(e.Graphics, drawRect);
-        this.defaultRenderer.DrawNeedle(e.Graphics, drawRect);
-        this.defaultRenderer.DrawNeedleCover(e.Graphics, this.needleCoverRect);
-        this.defaultRenderer.DrawGlass(e.Graphics, this.glossyRect);
-      } else {
-        if (this.Renderer.DrawBackground(e.Graphics, _rc) == false)
-          this.defaultRenderer.DrawBackground(e.Graphics, _rc);
-        if (this.Renderer.DrawBody(e.Graphics, drawRect) == false)
-          this.defaultRenderer.DrawBody(e.Graphics, drawRect);
-        if (this.Renderer.DrawThresholds(e.Graphics, drawRect) == false)
-          this.defaultRenderer.DrawThresholds(e.Graphics, drawRect);
-        if (this.Renderer.DrawDivisions(e.Graphics, drawRect) == false)
-          this.defaultRenderer.DrawDivisions(e.Graphics, drawRect);
-        if (this.Renderer.DrawUM(e.Graphics, drawRect) == false)
-          this.defaultRenderer.DrawUM(e.Graphics, drawRect);
-        if (this.Renderer.DrawValue(e.Graphics, drawRect) == false)
-          this.defaultRenderer.DrawValue(e.Graphics, drawRect);
-        if (this.Renderer.DrawNeedle(e.Graphics, drawRect) == false)
-          this.defaultRenderer.DrawNeedle(e.Graphics, drawRect);
-        if (this.Renderer.DrawNeedleCover(e.Graphics, this.needleCoverRect) == false)
-          this.defaultRenderer.DrawNeedleCover(e.Graphics, this.needleCoverRect);
-        if (this.Renderer.DrawGlass(e.Graphics, this.glossyRect) == false)
-          this.defaultRenderer.DrawGlass(e.Graphics, this.glossyRect);
-      }
+        if (this.renderer == null) {
+            this.defaultRenderer.DrawBackground(e.Graphics, _rc);
+            this.defaultRenderer.DrawBody(e.Graphics, drawRect);
+            this.defaultRenderer.DrawThresholds(e.Graphics, drawRect);
+            this.defaultRenderer.DrawDivisions(e.Graphics, drawRect);
+            this.defaultRenderer.DrawUM(e.Graphics, drawRect);
+            this.defaultRenderer.DrawValue(e.Graphics, drawRect);
+            this.defaultRenderer.DrawNeedle(e.Graphics, drawRect);
+            this.defaultRenderer.DrawNeedleCover(
+                e.Graphics, this.needleCoverRect);
+            this.defaultRenderer.DrawGlass(e.Graphics, this.glossyRect);
+        } else {
+            if (this.Renderer.DrawBackground(e.Graphics, _rc) == false)
+                this.defaultRenderer.DrawBackground(e.Graphics, _rc);
+            if (this.Renderer.DrawBody(e.Graphics, drawRect) == false)
+                this.defaultRenderer.DrawBody(e.Graphics, drawRect);
+            if (this.Renderer.DrawThresholds(e.Graphics, drawRect) == false)
+                this.defaultRenderer.DrawThresholds(e.Graphics, drawRect);
+            if (this.Renderer.DrawDivisions(e.Graphics, drawRect) == false)
+                this.defaultRenderer.DrawDivisions(e.Graphics, drawRect);
+            if (this.Renderer.DrawUM(e.Graphics, drawRect) == false)
+                this.defaultRenderer.DrawUM(e.Graphics, drawRect);
+            if (this.Renderer.DrawValue(e.Graphics, drawRect) == false)
+                this.defaultRenderer.DrawValue(e.Graphics, drawRect);
+            if (this.Renderer.DrawNeedle(e.Graphics, drawRect) == false)
+                this.defaultRenderer.DrawNeedle(e.Graphics, drawRect);
+            if (this.Renderer.DrawNeedleCover(e.Graphics, this.needleCoverRect)
+                == false)
+                this.defaultRenderer.DrawNeedleCover(
+                    e.Graphics, this.needleCoverRect);
+            if (this.Renderer.DrawGlass(e.Graphics, this.glossyRect) == false)
+                this.defaultRenderer.DrawGlass(e.Graphics, this.glossyRect);
+        }
     }
 #endregion
 
 #region Virtual functions
     protected virtual void CalculateDimensions() {
-      // Rectangle
-      float x, y, w, h;
-      x = 0;
-      y = 0;
-      w = this.Size.Width;
-      h = this.Size.Height;
+        // Rectangle
+        float x, y, w, h;
+        x = 0;
+        y = 0;
+        w = this.Size.Width;
+        h = this.Size.Height;
 
-      // Calculate ratio
-      drawRatio = (Math.Min(w, h)) / 200;
-      if (drawRatio == 0.0)
-        drawRatio = 1;
+        // Calculate ratio
+        drawRatio = (Math.Min(w, h)) / 200;
+        if (drawRatio == 0.0) drawRatio = 1;
 
-      // Draw rectangle
-      drawRect.X = x;
-      drawRect.Y = y;
-      drawRect.Width = w - 2;
-      drawRect.Height = h - 2;
+        // Draw rectangle
+        drawRect.X = x;
+        drawRect.Y = y;
+        drawRect.Width = w - 2;
+        drawRect.Height = h - 2;
 
-      // if ( w < h )
-      //	drawRect.Height = w;
-      // else if ( w > h )
-      //	drawRect.Width = h;
+        // if ( w < h )
+        //	drawRect.Height = w;
+        // else if ( w > h )
+        //	drawRect.Width = h;
 
-      if (drawRect.Width < 10)
-        drawRect.Width = 10;
-      if (drawRect.Height < 10)
-        drawRect.Height = 10;
+        if (drawRect.Width < 10) drawRect.Width = 10;
+        if (drawRect.Height < 10) drawRect.Height = 10;
 
-      // Calculate needle center
-      // needleCenter.X = drawRect.X + ( drawRect.Width / 2 );
-      // needleCenter.Y =  drawRect.Y + ( drawRect.Height / 2 );
+        // Calculate needle center
+        // needleCenter.X = drawRect.X + ( drawRect.Width / 2 );
+        // needleCenter.Y =  drawRect.Y + ( drawRect.Height / 2 );
 
-      needleCenter.X = drawRect.X + (drawRect.Width / 2);
-      needleCenter.Y = drawRect.Height + (15 * drawRatio);
+        needleCenter.X = drawRect.X + (drawRect.Width / 2);
+        needleCenter.Y = drawRect.Height + (15 * drawRatio);
 
-      // Needle cover rect
-      var cover = 45;
-      needleCoverRect.X = needleCenter.X - (cover / 2 * drawRatio);
-      needleCoverRect.Y = needleCenter.Y - (cover / 2 * drawRatio);
-      needleCoverRect.Width = cover * drawRatio;
-      needleCoverRect.Height = cover * drawRatio;
+        // Needle cover rect
+        var cover = 45;
+        needleCoverRect.X = needleCenter.X - (cover / 2 * drawRatio);
+        needleCoverRect.Y = needleCenter.Y - (cover / 2 * drawRatio);
+        needleCoverRect.Width = cover * drawRatio;
+        needleCoverRect.Height = cover * drawRatio;
 
-      // Glass effect rect
-      glossyRect.X = drawRect.X + (20 * drawRatio);
-      glossyRect.Y = drawRect.Y + (20 * drawRatio);
-      glossyRect.Width = drawRect.Width - (30 * drawRatio);
-      glossyRect.Height = needleCenter.Y + (30 * drawRatio);
+        // Glass effect rect
+        glossyRect.X = drawRect.X + (20 * drawRatio);
+        glossyRect.Y = drawRect.Y + (20 * drawRatio);
+        glossyRect.Width = drawRect.Width - (30 * drawRatio);
+        glossyRect.Height = needleCenter.Y + (30 * drawRatio);
     }
 #endregion
 
     private void InitializeComponent() {
-      this.components = new System.ComponentModel.Container();
-      this.mnuBigSMeter = new System.Windows.Forms.ContextMenuStrip(this.components);
-      this.chooseBackgroundImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.version1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.version2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.mnuBigSMeter.SuspendLayout();
-      this.SuspendLayout();
-      //
-      // mnuBigSMeter
-      //
-      this.mnuBigSMeter.Items.AddRange(
-          new System.Windows.Forms.ToolStripItem[] { this.chooseBackgroundImageToolStripMenuItem });
-      this.mnuBigSMeter.Name = "mnuBigSMeter";
-      this.mnuBigSMeter.Size = new System.Drawing.Size(218, 48);
-      //
-      // chooseBackgroundImageToolStripMenuItem
-      //
+        this.components = new System.ComponentModel.Container();
+        this.mnuBigSMeter
+            = new System.Windows.Forms.ContextMenuStrip(this.components);
+        this.chooseBackgroundImageToolStripMenuItem
+            = new System.Windows.Forms.ToolStripMenuItem();
+        this.version1ToolStripMenuItem
+            = new System.Windows.Forms.ToolStripMenuItem();
+        this.version2ToolStripMenuItem
+            = new System.Windows.Forms.ToolStripMenuItem();
+        this.mnuBigSMeter.SuspendLayout();
+        this.SuspendLayout();
+        //
+        // mnuBigSMeter
+        //
+        this.mnuBigSMeter.Items.AddRange(
+            new System.Windows.Forms.ToolStripItem[] {
+                this.chooseBackgroundImageToolStripMenuItem
+            });
+        this.mnuBigSMeter.Name = "mnuBigSMeter";
+        this.mnuBigSMeter.Size = new System.Drawing.Size(218, 48);
+        //
+        // chooseBackgroundImageToolStripMenuItem
+        //
 
-      //
-      // LBAnalogMeter
-      //
-      this.Name = "LBAnalogMeter";
-      this.mnuBigSMeter.ResumeLayout(false);
-      this.ResumeLayout(false);
+        //
+        // LBAnalogMeter
+        //
+        this.Name = "LBAnalogMeter";
+        this.mnuBigSMeter.ResumeLayout(false);
+        this.ResumeLayout(false);
     }
     public Thetis.Console m_console;
 
     private Image m_bio;
     public override Image BackgroundImage {
-      get { return m_bio; }
-      set {
-        // converting background image to particular format, which is meant to be
-        // the most efficient in GDI+
-        Bitmap bmp = new Bitmap(value.Width, value.Height,
-                                System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+        get { return m_bio; }
+        set {
+            // converting background image to particular format, which is meant
+            // to be the most efficient in GDI+
+            Bitmap bmp = new Bitmap(value.Width, value.Height,
+                System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
 
-        using (Graphics gr = Graphics.FromImage(bmp)) {
-          gr.DrawImage(value, new Rectangle(0, 0, this.Width, this.Height));
+            using (Graphics gr = Graphics.FromImage(bmp)) {
+                gr.DrawImage(
+                    value, new Rectangle(0, 0, this.Width, this.Height));
+            }
+            m_bio = value;
+            if (defaultRenderer != null) {
+                defaultRenderer.BackGroundCustomImage = m_bio;
+                if (m_console != null) {
+                    m_console.PrettySMeter.defaultRenderer.BackGroundCustomImage
+                        = renderer.BackGroundCustomImage;
+                }
+            }
         }
-        m_bio = value;
-        if (defaultRenderer != null) {
-          defaultRenderer.BackGroundCustomImage = m_bio;
-          if (m_console != null) {
-            m_console.PrettySMeter.defaultRenderer.BackGroundCustomImage =
-                renderer.BackGroundCustomImage;
-          }
-        }
-      }
     }
 
     public void ToggleBackGroundImage(int which = -1) {
 
-      int cur = Settings.Default.SMeterBackgroundImg;
-      var renderer = Renderer;
-      if (renderer == null) {
-        renderer = this.defaultRenderer;
-      }
-      if (m_console != null) {
-        Image skinpic = m_console.PrettySMeterSkin();
-        if (skinpic != null) {
-          renderer.BackGroundCustomImage = skinpic;
-          m_backGroundChoice = BackGroundChoices.Skin;
-          goto done;
+        int cur = Settings.Default.SMeterBackgroundImg;
+        var renderer = Renderer;
+        if (renderer == null) {
+            renderer = this.defaultRenderer;
         }
-      }
+        if (m_console != null) {
+            Image skinpic = m_console.PrettySMeterSkin();
+            if (skinpic != null) {
+                renderer.BackGroundCustomImage = skinpic;
+                m_backGroundChoice = BackGroundChoices.Skin;
+                goto done;
+            }
+        }
 
-      if (which >= 0) {
-        Settings.Default.SMeterBackgroundImg = which;
-        if (which == 1) {
-          renderer.BackGroundCustomImage = Thetis.Properties.Resources.OLDAnalogSignalGauge;
-          m_backGroundChoice = BackGroundChoices.Default;
-        } else if (which == 0) {
-          renderer.BackGroundCustomImage = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
-          m_backGroundChoice = BackGroundChoices.Default;
+        if (which >= 0) {
+            Settings.Default.SMeterBackgroundImg = which;
+            if (which == 1) {
+                renderer.BackGroundCustomImage
+                    = Thetis.Properties.Resources.OLDAnalogSignalGauge;
+                m_backGroundChoice = BackGroundChoices.Default;
+            } else if (which == 0) {
+                renderer.BackGroundCustomImage
+                    = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
+                m_backGroundChoice = BackGroundChoices.Default;
+            } else {
+                renderer.BackGroundCustomImage
+                    = Thetis.Properties.Resources.SMeterTango;
+                m_backGroundChoice = BackGroundChoices.Tango;
+            }
         } else {
-          renderer.BackGroundCustomImage = Thetis.Properties.Resources.SMeterTango;
-          m_backGroundChoice = BackGroundChoices.Tango;
+            if (cur == 0) {
+                Settings.Default.SMeterBackgroundImg = 1;
+                renderer.BackGroundCustomImage = Resources.OLDAnalogSignalGauge;
+                m_backGroundChoice = BackGroundChoices.Blue;
+            } else if (cur == 1) {
+                Settings.Default.SMeterBackgroundImg = 2;
+                renderer.BackGroundCustomImage = Resources.SMeterTango;
+                m_backGroundChoice = BackGroundChoices.Tango;
+            } else {
+                Settings.Default.SMeterBackgroundImg = 0;
+                renderer.BackGroundCustomImage
+                    = Resources.NewVFOAnalogSignalGauge;
+                m_backGroundChoice = BackGroundChoices.Default;
+            }
         }
-      } else {
-        if (cur == 0) {
-          Settings.Default.SMeterBackgroundImg = 1;
-          renderer.BackGroundCustomImage = Resources.OLDAnalogSignalGauge;
-          m_backGroundChoice = BackGroundChoices.Blue;
-        } else if (cur == 1) {
-          Settings.Default.SMeterBackgroundImg = 2;
-          renderer.BackGroundCustomImage = Resources.SMeterTango;
-          m_backGroundChoice = BackGroundChoices.Tango;
-        } else {
-          Settings.Default.SMeterBackgroundImg = 0;
-          renderer.BackGroundCustomImage = Resources.NewVFOAnalogSignalGauge;
-          m_backGroundChoice = BackGroundChoices.Default;
-        }
-      }
     done:
 
-      Settings.Default.Save();
-      Invalidate();
-      Refresh();
-      BackGndChanged e = new BackGndChanged();
-      e.which = Settings.Default.SMeterBackgroundImg;
-      this.BackGndImgChanged?.Invoke(this, e);
+        Settings.Default.Save();
+        Invalidate();
+        Refresh();
+        BackGndChanged e = new BackGndChanged();
+        e.which = Settings.Default.SMeterBackgroundImg;
+        this.BackGndImgChanged?.Invoke(this, e);
 
-      if (m_console != null) {
-        m_console.PrettySMeter.defaultRenderer.BackGroundCustomImage =
-            renderer.BackGroundCustomImage;
-      }
+        if (m_console != null) {
+            m_console.PrettySMeter.defaultRenderer.BackGroundCustomImage
+                = renderer.BackGroundCustomImage;
+        }
     }
-  }
+}
 }

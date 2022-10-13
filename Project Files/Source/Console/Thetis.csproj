@@ -583,6 +583,7 @@
     <None Include="Resources\OLDAnalogSignalGauge.JPG" />
     <None Include="Resources\OLDVFOAnalogSignalGauge.JPG" />
     <None Include="Resources\PPM.jpg" />
+    <None Include="Resources\HL2 - front_sml.jpg" />
     <Content Include="Resources\screen4.png" />
     <None Include="Resources\openhpsdrnotastall.bmp" />
     <None Include="Resources\openhpsdrnotastall.png" />

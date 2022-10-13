@@ -3790,8 +3790,8 @@ partial class Console {
             this.picSquelch.Paint += new System.Windows.Forms.PaintEventHandler(this.picSquelch_Paint);
             // 
             // timer_clock
-            // 
-            this.timer_clock.Enabled = true;
+            //
+            this.timer_clock.Enabled = false;
             this.timer_clock.Interval = 1000;
             this.timer_clock.Tick += new System.EventHandler(this.timer_clock_Tick);
             // 

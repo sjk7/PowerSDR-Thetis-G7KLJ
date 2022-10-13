@@ -78,6 +78,7 @@ public partial class Console : Form {
     public int MAX_FPS = 144;
 
     private void doResize() {
+        if (initializing) return;
         updateResolutionStatusBarText();
 
         if (this.WindowState == FormWindowState.Minimized) return;
@@ -143,16 +144,6 @@ public partial class Console : Form {
         pause_DisplayThread = false;
         SizeAndPositionAnalogSMeter();
     }
-
-    private void ResizeComplete(Object sender, EventArgs e) {
-        doResize();
-        ResumeDrawing(this);
-    }
-    private void ResizeStart(Object sender, EventArgs e) {
-        SuspendDrawing(this);
-    }
-
-    private void LayoutChanged(Object sender, EventArgs e) { doResize(); }
 
     // public System.Timers.Timer m_uptimeTimer;
     //==================================================================================
@@ -840,7 +831,9 @@ public partial class Console : Form {
     // Constructor and Destructor
     // ======================================================
 
-    public Console(string[] args) {
+    public Console(string[] args, string app_data_path) {
+
+        AppDataPath = app_data_path;
         Display.specready = false;
         Common.Console = this;
 
@@ -877,6 +870,7 @@ public partial class Console : Form {
         }
         //
 
+        /*/ Nope, done in main() de G7KLJ
         foreach (string s in args) {
             if (s.StartsWith("-datapath:")) {
                 string path = s.Trim().Substring(s.Trim().IndexOf(":") + 1);
@@ -887,8 +881,10 @@ public partial class Console : Form {
                     AppDataPath = path;
                 else {
                     DialogResult dr = MessageBox.Show(
-                        "-datapath: command line option found, but the folder specified was not found.\n"
-                            + "Would you like to create this folder?  If not, the default folder will be used.\n\n"
+                        "-datapath: command line option found, but the folder
+        specified was not found.\n"
+                            + "Would you like to create this folder?  If not,
+        the default folder will be used.\n\n"
                             + "(" + s + ")",
                         "Command Line Option: Create Folder?",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -901,7 +897,7 @@ public partial class Console : Form {
             }
         }
 
-        if (app_data_path == "") {
+        if (m_app_data_path.Length == 0) {
             AppDataPath = Environment.GetFolderPath(
                               Environment.SpecialFolder.ApplicationData)
                 + "\\OpenHPSDR\\Thetis\\";
@@ -910,6 +906,10 @@ public partial class Console : Form {
                                   Environment.SpecialFolder.ApplicationData)
                     + "\\OpenHPSDR\\Thetis-x64\\";
         }
+        /*/
+
+        Debug.Assert(app_data_path.Length > 0); // done in main()
+        Debug.Assert(!String.IsNullOrEmpty(AppDataPath));
 
         foreach (string s in args) {
             if (s.StartsWith("-dbfilename:")) {
@@ -929,22 +929,19 @@ public partial class Console : Form {
             }
         }
 
-#if (DEBUG)
-        AppDataPath += "Debug\\";
-#endif
         if (!Directory.Exists(app_data_path))
             Directory.CreateDirectory(app_data_path);
 
         // G8NJJ
         InitialiseAndromedaMenus();
 
-        if (db_file_name == "") DBFileName = AppDataPath + "database.xml";
+        if (m_db_file_name == "") DBFileName = AppDataPath + "database.xml";
 
         string autoMergeFileName = AppDataPath
             + "databaseToMerge.xml"; //-W2PA A legacy database candidate for
                                      // automatic merging
 
-        if (File.Exists(db_file_name)) {
+        if (File.Exists(m_db_file_name)) {
             if (Keyboard.IsKeyDown(Keys.LShiftKey)
                 || Keyboard.IsKeyDown(Keys.RShiftKey)) {
                 Thread.Sleep(500); // ensure this is intentional
@@ -967,24 +964,24 @@ public partial class Console : Form {
                             + DateTime.Now.ToShortTimeString().Replace(
                                 ":", ".");
 
-                        string file = db_file_name.Substring(
-                            db_file_name.LastIndexOf("\\") + 1);
+                        string file = m_db_file_name.Substring(
+                            m_db_file_name.LastIndexOf("\\") + 1);
                         file = file.Substring(0, file.Length - 4);
                         if (!Directory.Exists(AppDataPath + "\\DB_Archive\\"))
                             Directory.CreateDirectory(
                                 AppDataPath + "\\DB_Archive\\");
 
-                        File.Copy(db_file_name,
+                        File.Copy(m_db_file_name,
                             AppDataPath + "\\DB_Archive\\Thetis_" + file + "_"
                                 + datetime + ".xml",
                             true);
-                        File.Delete(db_file_name);
+                        File.Delete(m_db_file_name);
                         Thread.Sleep(100);
                     }
                 }
             }
 
-            if (File.Exists(db_file_name)) {
+            if (File.Exists(m_db_file_name)) {
                 if (!DB.Init()) // Init throws an exception on reading XML files
                                 // that are too corrupted for DataSet.ReadXml to
                                 // handle.
@@ -996,18 +993,18 @@ public partial class Console : Form {
                         + "_"
                         + DateTime.Now.ToShortTimeString().Replace(":", ".");
 
-                    string file = db_file_name.Substring(
-                        db_file_name.LastIndexOf("\\") + 1);
+                    string file = m_db_file_name.Substring(
+                        m_db_file_name.LastIndexOf("\\") + 1);
                     file = file.Substring(0, file.Length - 4);
                     if (!Directory.Exists(AppDataPath + "\\DB_Archive\\"))
                         Directory.CreateDirectory(
                             AppDataPath + "\\DB_Archive\\");
 
-                    File.Copy(db_file_name,
+                    File.Copy(m_db_file_name,
                         AppDataPath + "\\DB_Archive\\Thetis" + file + "_"
                             + datetime + ".xml",
                         true);
-                    File.Delete(db_file_name);
+                    File.Delete(m_db_file_name);
                     MessageBox.Show(
                         "The database file could not be read. It has been copied to the DB_Archive folder\n\n"
                             + "Current database has been reset and initialized.  After the reset, "
@@ -1057,7 +1054,7 @@ public partial class Console : Form {
                                           .VersionName(); // versionName.Remove(versionName.LastIndexOf("("));
                                                           // // strip off date
                                 File.Delete(autoMergeFileName);
-                                DB.WriteCurrentDB(db_file_name);
+                                DB.WriteCurrentDB(m_db_file_name);
                                 DB.Init();
                                 MessageBox.Show(
                                     "Your database from a different version was imported successfully into a new one.\n\n"
@@ -1065,7 +1062,7 @@ public partial class Console : Form {
                                     "Success!", MessageBoxButtons.OK,
                                     MessageBoxIcon.Information);
                             } else {
-                                File.Delete(db_file_name);
+                                File.Delete(m_db_file_name);
                                 File.Delete(autoMergeFileName);
                                 Thread.Sleep(100);
                                 MessageBox.Show(
@@ -1090,21 +1087,21 @@ public partial class Console : Form {
                                 + DateTime.Now.ToShortTimeString().Replace(
                                     ":", ".");
 
-                            string file = db_file_name.Substring(
-                                db_file_name.LastIndexOf("\\") + 1);
+                            string file = m_db_file_name.Substring(
+                                m_db_file_name.LastIndexOf("\\") + 1);
                             file = file.Substring(0, file.Length - 4);
                             if (!Directory.Exists(
                                     AppDataPath + "\\DB_Archive\\"))
                                 Directory.CreateDirectory(
                                     AppDataPath + "\\DB_Archive\\");
-                            File.Copy(db_file_name,
+                            File.Copy(m_db_file_name,
                                 AppDataPath + "\\DB_Archive\\Thetis" + file
                                     + "_" + datetime + ".xml",
                                 true);
-                            File.Copy(db_file_name, autoMergeFileName,
+                            File.Copy(m_db_file_name, autoMergeFileName,
                                 true); // After reset and restart, this will be
                                        // a flag to attempt to merge
-                            File.Delete(db_file_name);
+                            File.Delete(m_db_file_name);
                             resetForAutoMerge = true; // a flag to main()
 
                             MessageBox.Show(
@@ -1121,7 +1118,7 @@ public partial class Console : Form {
 
         CmdLineArgs = args;
         Splash.ShowSplashScreen(); // Start splash screen
-        Splash.SetStatus("Initializing Components"); // Set progress point
+        Splash.SetStatus("Initializing Components ..."); // Set progress point
         booting = true;
         InitializeComponent(); // Windows Forms Generated Code
         booting = false;
@@ -1130,9 +1127,9 @@ public partial class Console : Form {
             = new GlobalMouseHandler(); // capture mouse up event
         gmh.MouseUp += new MouseMovedEvent(gmh_MouseUp);
         Application.AddMessageFilter(gmh);
-        this.ResizeEnd += new EventHandler(this.ResizeComplete);
-        this.ResizeBegin += new EventHandler(this.ResizeStart);
-        this.Layout += new LayoutEventHandler(this.LayoutChanged);
+        // this.ResizeEnd += new EventHandler(this.ResizeComplete);
+        // this.ResizeBegin += new EventHandler(this.ResizeStart);
+        // this.Layout += new LayoutEventHandler(this.LayoutChanged);
 
         foreach (PanelTS control in this.Controls.OfType<PanelTS>()) {
             foreach (TextBoxTS c in control.Controls.OfType<TextBoxTS>()) {
@@ -1160,14 +1157,14 @@ public partial class Console : Form {
         GrabConsoleSizeBasis();
         MinimumSize = this.Size;
 
-        Splash.SetStatus("Initializing Database"); // Set progress point
+        Splash.SetStatus("Initializing Database ..."); // Set progress point
         DB.Init(); // Initialize the database
 
         InitCTCSS();
-        Splash.SetStatus("Initializing Hardware"); // Set progress point
+        Splash.SetStatus("Initializing Hardware ..."); // Set progress point
 
         bool RX2Enabled = false;
-        if (File.Exists(db_file_name)) {
+        if (File.Exists(m_db_file_name)) {
             ArrayList a = DB.GetVars("State");
             a.Sort();
             foreach (string s in a) {
@@ -1187,18 +1184,18 @@ public partial class Console : Form {
         }
 
         Application.DoEvents();
-
-        Splash.SetStatus("Initializing Radio"); // Set progress point
+        Splash.SetStatus("Initializing Radio ..."); // Set progress point
         radio = new Radio(app_data_path); // Initialize the Radio processor
         specRX = new SpecRX();
         Display.specready = true;
 
-        Splash.SetStatus("Initializing PortAudio"); // Set progress point
+        Splash.SetStatus(
+            "Initializing PortAudio, please wait ..."); // Set progress point
         PortAudioForThetis.PA_Initialize(); // Initialize the audio interface
 
-        Splash.SetStatus("Loading Main Window"); // Set progress point
-        Splash.SplashForm.Owner
-            = this; // So that main form will show/focus when splash disappears
+        Splash.SetStatus("Loading Main Window ..."); // Set progress point
+        Splash.SplashForm.Owner = this;
+        // So that main form will show/focus when splash disappears
         break_in_timer = new HiPerfTimer();
 
         Midi2Cat = new Midi2CatCommands(this);
@@ -1276,13 +1273,17 @@ public partial class Console : Form {
         Splash.SetStatus("Synchronising DSP ...");
         SyncDSP();
 
+        Splash.SetStatus("Getting command line arguments ...");
+        /*/ Huh? This is done already, on line 1458
         foreach (string s in CmdLineArgs) {
-            if (s.StartsWith("-datapath:")) {
-                string path = s.Substring(s.IndexOf(":") + 1);
-                if (Directory.Exists(path)) AppDataPath = path;
-                break;
-            }
+        if (s.StartsWith("-datapath:")) {
+            string path = s.Substring(s.IndexOf(":") + 1);
+                path = path.Trim();
+            if (Directory.Exists(path)) AppDataPath = path;
+            break;
         }
+    }
+        /*/
 
         specRX.GetSpecRX(0).Update = true;
         specRX.GetSpecRX(1).Update = true;
@@ -1331,16 +1332,24 @@ public partial class Console : Form {
         }
 
         Splash.CloseForm();
-        m_PrettySMeterHelpers = new PrettySMeterHelpers(this);
+        if (m_PrettySMeterHelpers == null) {
+            m_PrettySMeterHelpers = new PrettySMeterHelpers(this);
+        }
 
         this.Click += new System.EventHandler(this.form_Click);
         this.doResize();
+        this.BringToFront();
+        this.Activate();
+        this.timer_clock.Enabled = true;
+        Control.CheckForIllegalCrossThreadCalls = true;
     }
 
     public bool IsSetupFormNull {
         // MW0LGE used because some aspects of thetis test for null.
         // Doing so on the singleton would instantiate it if null
-        get { return m_frmSetupForm == null || m_frmSetupForm.IsDisposed; }
+        get {
+            return m_frmSetupForm == null || m_frmSetupForm.IsDisposed;
+        }
     }
     public Setup SetupForm {
         // MW0LGE implement SetupForm as singleton, with some level of thread
@@ -1366,14 +1375,10 @@ public partial class Console : Form {
         if (initializing) return;
         SendMessage(parent.Handle, WM_SETREDRAW, false, 0);
     }
-    private void ResumeDrawing(Control parent) {
+    private void ResumeDrawing(Control parent, bool refresh = true) {
         if (initializing) return;
         SendMessage(parent.Handle, WM_SETREDRAW, true, 0);
-        parent.Refresh();
-    }
-    private void ResumeDrawingNoRefresh(Control parent) {
-        if (initializing) return;
-        SendMessage(parent.Handle, WM_SETREDRAW, true, 0);
+        if (refresh) parent.Refresh();
     }
     //--
     private void OnAutoStartTimerEvent(Object source, ElapsedEventArgs e) {
@@ -1411,16 +1416,16 @@ public partial class Console : Form {
             string datetime = DateTime.Now.ToShortDateString().Replace("/", "-")
                 + "_" + DateTime.Now.ToShortTimeString().Replace(":", ".");
 
-            string file
-                = db_file_name.Substring(db_file_name.LastIndexOf("\\") + 1);
+            string file = m_db_file_name.Substring(
+                m_db_file_name.LastIndexOf("\\") + 1);
             file = file.Substring(0, file.Length - 4);
             if (!Directory.Exists(AppDataPath + "\\DB_Archive\\"))
                 Directory.CreateDirectory(AppDataPath + "\\DB_Archive\\");
 
-            File.Copy(db_file_name,
+            File.Copy(m_db_file_name,
                 AppDataPath + "\\DB_Archive\\Thetis_" + file + "_" + datetime
                     + ".xml");
-            File.Delete(db_file_name);
+            File.Delete(m_db_file_name);
         }
     }
 
@@ -1450,6 +1455,8 @@ public partial class Console : Form {
                 CurrentDomain_UnhandledException);
 
         string app_data_path = "";
+        // Need to establish correct folder b4 running wisdom
+
         foreach (string s in args) {
             if (s.StartsWith("-datapath:")) {
                 string path = s.Trim().Substring(s.Trim().IndexOf(":") + 1);
@@ -1465,19 +1472,21 @@ public partial class Console : Form {
                     DialogResult dr = MessageBox.Show(
                         "-datapath: command line option found, but the folder specified was not found.\n"
                             + "Would you like to create this folder?  If not, the default folder will be used.\n\n"
-                            + "(" + s + ")",
+                            + "(" + path + ")",
                         "Command Line Option: Create Folder?",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (dr == DialogResult.Yes) {
                         Directory.CreateDirectory(path);
                         app_data_path = path;
+                    } else {
+                        app_data_path = "";
                     }
                 }
             }
         }
 
-        if (app_data_path == "") {
+        if (String.IsNullOrEmpty(app_data_path)) {
             app_data_path = Environment.GetFolderPath(
                                 Environment.SpecialFolder.ApplicationData)
                 + "\\OpenHPSDR\\Thetis\\";
@@ -1511,7 +1520,7 @@ public partial class Console : Form {
             Application.EnableVisualStyles();
             Application.DoEvents();
 
-            theConsole = new Console(args);
+            theConsole = new Console(args, app_data_path);
             if (theConsole.failed) {
                 Application.Exit();
             }
@@ -1898,9 +1907,7 @@ public partial class Console : Form {
             = FormStartPosition.Manual }; // ke9ns add create Scan form
 
         MemoryList = MemoryList.Restore();
-        MemoryList.CheckVersion();
         dxmemList = DXMemList.Restore1(); // ke9ns add for dx spotter
-        dxmemList.CheckVersion1(); // ke9ns add
 
         InitMemoryFrontPanel();
         vfob_dsp_mode = DSPMode.LSB;
@@ -2000,15 +2007,19 @@ public partial class Console : Form {
         booting = false;
         chkDisplayAVG_CheckedChanged(this, EventArgs.Empty);
 
-        Splash.SetStatus("Loading more ...");
+        Splash.SetStatus("Calculating display freq ...");
         CalcDisplayFreq();
+        Splash.SetStatus("Calculating RX2 display freq ...");
         CalcRX2DisplayFreq();
+        Splash.SetStatus("Calculating CPU Usage ...");
         CpuUsage(m_bShowSystemCPUUsage);
 
+        Splash.SetStatus("Calculating tuning ...");
         tune_step_index--; // Setup wheel tuning
         ChangeTuneStepUp();
         UpdateRX1DisplayOffsets();
         UpdateRX2DisplayOffsets();
+        Splash.SetStatus("Initialising CAT and PTT props ...");
         SetupForm.initCATandPTTprops(); // wjt added -- get console props setup
                                         // for cat and ptt
 
@@ -2023,6 +2034,7 @@ public partial class Console : Form {
             rX2ToolStripMenuItem.Visible = false;
         }
 
+        Splash.SetStatus("Calculating more ...");
         // MW0LGE duped from above Display.Target = picDisplay;
         update_rx2_display = true;
 
@@ -2060,6 +2072,7 @@ public partial class Console : Form {
         Splash.SetStatus("Loading Raw Input ...");
         initialiseRawInput(); // MW0LGE - WIP
         SetupForm.getOptions2();
+        Splash.SetStatus("Ready.");
     }
 
     private void selectFilters() {
@@ -2238,7 +2251,7 @@ public partial class Console : Form {
         // ke9ns add  create database to store my stuff in
 
         string file_name2
-            = app_data_path + "ke9ns8.dat"; // save data for my mods
+            = m_app_data_path + "ke9ns8.dat"; // save data for my mods
 
         FileStream stream2
             = new FileStream(file_name2, FileMode.Create); // open BMP  file
@@ -2246,8 +2259,8 @@ public partial class Console : Form {
 
         writer2.Write(Display.GrayScale); // color or grayscale watetfall
         writer2.Write(Display.GridOff); // save panadapter grid on/off
-        //  writer2.Write(WaveControl.QAC);                      // QUickaudio
-        //  file #
+                                        //  writer2.Write(WaveControl.QAC); //
+                                        //  QUickaudio file #
 
         writer2.Write(SpotControl.nameB); // name for dx spotter
         writer2.Write(SpotControl.callB); // call sign for dx spotter
@@ -2272,7 +2285,7 @@ public partial class Console : Form {
 
         writer2.Close(); // close  file
         stream2.Close(); // close stream
-        //   Debug.WriteLine("save database file on exit");
+                         //   Debug.WriteLine("save database file on exit");
 
         // PAON = 0;       // shut down PAON thread
         //--------------------------------------------------------------------
@@ -2816,8 +2829,8 @@ public partial class Console : Form {
         a.Add("Version/" + this.Text); // save the current version
         a.Add("VersionNumber/"
             + ver_num); // Thetis version number in a.b.c format
-        // a.Add("RadioType/" + CurrentModel);     // radio model string (ex.
-        // FLEX1500)
+                        // a.Add("RadioType/" + CurrentModel);     // radio
+                        // model string (ex. FLEX1500)
         a.Add("BandTextID/" + current_region); // TURF Region
         a.Add("Metis_IP_address/" + NetworkIO.HpSdrHwIpAddress.ToString(nfi));
         a.Add("EthernetHostIPAddress/"
@@ -2871,14 +2884,20 @@ public partial class Console : Form {
             //   SetupForm.checkWaterMoveSize.Checked = reader2.ReadBoolean();
             //   // large waterfall move
             Display.GrayScale
-                = reader2.ReadByte(); // color or grayscale waterfall
-            //  WaveForm.BandL = (DSPMode)reader2.ReadByte(); // for check of
-            //  valid waterfall id Display.PW_AVG = reader2.ReadByte(); // avgP
-            //  or avgB RX1 Display.PW_AVG2 = reader2.ReadByte(); // avgP or
-            //  avgB RX2
-            // Audio.MON_PRE = reader2.ReadByte(); // MONitor pre or post
-            Display.GridOff = reader2.ReadByte(); // panadapter grid on / off
-            // WaveControl.QAC = reader2.ReadInt32(); // QUickaudio file #
+                = reader2
+                      .ReadByte(); // color or grayscale waterfall
+                                   //  WaveForm.BandL =
+                                   //  (DSPMode)reader2.ReadByte(); // for check
+                                   //  of valid waterfall id Display.PW_AVG =
+                                   //  reader2.ReadByte(); // avgP or avgB RX1
+                                   //  Display.PW_AVG2 = reader2.ReadByte(); //
+                                   //  avgP or avgB RX2
+                                   // Audio.MON_PRE = reader2.ReadByte(); //
+                                   // MONitor pre or post
+            Display.GridOff
+                = reader2.ReadByte(); // panadapter grid on / off
+                                      // WaveControl.QAC = reader2.ReadInt32();
+                                      // // QUickaudio file #
 
             SpotControl.DXNAME = reader2.ReadString(); // name for dx spotter
             SpotControl.DXCALL
@@ -3122,9 +3141,10 @@ public partial class Console : Form {
                     }
                     break; // added by w3sz
                 case "isexpanded": // added by w3sz
-                    isexpanded = bool.Parse(val); // added by w3sz
-                    if (isexpanded) // added by w3sz
+                    bool btmp = bool.Parse(val);
+                    if (isexpanded != btmp) // added by w3sz
                     {
+                        isexpanded = btmp;
                         // this.ExpandDisplay();
                         bNeedUpdate = true;
                         isexpanded = true;
@@ -3149,20 +3169,28 @@ public partial class Console : Form {
                     break;
                 case "console_top":
                     num = Int32.Parse(val);
-                    bNeedUpdate = true;
-                    consoleLocation.Y = num;
+                    if (consoleLocation.Y != num) {
+                        bNeedUpdate = true;
+                        consoleLocation.Y = num;
+                    }
                     break;
                 case "console_left":
                     num = Int32.Parse(val);
-                    bNeedUpdate = true;
-                    consoleLocation.X = num;
+
+                    if (consoleLocation.X != num) {
+                        bNeedUpdate = true;
+                        consoleLocation.X = num;
+                    }
                     break;
                 case "console_width":
                     if (dpi <= 96) {
                         int tmp = int.Parse(val);
-                        if (isexpanded) this.expandedSize.Width = tmp;
-                        bNeedUpdate = true;
-                        consoleSize.Width = tmp;
+                        if (tmp != this.expandedSize.Width
+                            || tmp != consoleSize.Width) {
+                            if (isexpanded) this.expandedSize.Width = tmp;
+                            bNeedUpdate = true;
+                            consoleSize.Width = tmp;
+                        }
                     }
                     break;
                 case "console_height":
@@ -5469,8 +5497,8 @@ public partial class Console : Form {
                 break;
             case Band.B2M:
                 last_band = "2M"; // ke9ns add
-                //    SpotControl.VFOLOW = 144000000; //
-                //    SpotControl.VFOHIGH = 146000000; //
+                                  //    SpotControl.VFOLOW = 144000000; //
+                                  //    SpotControl.VFOHIGH = 146000000; //
                 radBand2.Checked = true;
                 regBox.Text = band_2m_register.ToString();
                 regBox1.Text = (band_2m_index + 1).ToString();
@@ -5487,7 +5515,7 @@ public partial class Console : Form {
                 break;
             case Band.GEN:
                 last_band = "GEN"; // ke9ns add
-                //   Debug.WriteLine("gen pushed");
+                                   //   Debug.WriteLine("gen pushed");
                 radBandGEN.Checked = true;
                 DeselectVHF();
                 DeselectHF(); // ke9ns add
@@ -5495,8 +5523,8 @@ public partial class Console : Form {
 
             case Band.VHF0:
                 last_band = "VHF0"; // ke9ns add
-                //    SpotControl.VFOLOW = 144000000; //
-                //    SpotControl.VFOHIGH = 146000000; //
+                                    //    SpotControl.VFOLOW = 144000000; //
+                                    //    SpotControl.VFOHIGH = 146000000; //
                 radBandVHF0.Checked = true;
                 regBox.Text = band_vhf0_register.ToString();
                 regBox1.Text = (band_vhf0_index + 1).ToString();
@@ -5505,8 +5533,8 @@ public partial class Console : Form {
                 break;
             case Band.VHF1:
                 last_band = "VHF1"; // ke9ns add
-                //    SpotControl.VFOLOW = 430000000; //
-                //    SpotControl.VFOHIGH = 445000000; //
+                                    //    SpotControl.VFOLOW = 430000000; //
+                                    //    SpotControl.VFOHIGH = 445000000; //
                 radBandVHF1.Checked = true;
                 regBox.Text = band_vhf1_register.ToString();
                 regBox1.Text = (band_vhf1_index + 1).ToString();
@@ -5515,8 +5543,8 @@ public partial class Console : Form {
                 break;
             case Band.VHF2:
                 last_band = "VHF2"; // ke9ns add
-                //   SpotControl.VFOLOW = 445000000; //
-                //    SpotControl.VFOHIGH = 990000000; //
+                                    //   SpotControl.VFOLOW = 445000000; //
+                                    //    SpotControl.VFOHIGH = 990000000; //
                 radBandVHF2.Checked = true;
                 regBox.Text = band_vhf2_register.ToString();
                 regBox1.Text = (band_vhf2_index + 1).ToString();
@@ -5525,8 +5553,8 @@ public partial class Console : Form {
                 break;
             case Band.VHF3:
                 last_band = "VHF3"; // ke9ns add
-                //   SpotControl.VFOLOW = 445000000; //
-                //   SpotControl.VFOHIGH = 990000000; //
+                                    //   SpotControl.VFOLOW = 445000000; //
+                                    //   SpotControl.VFOHIGH = 990000000; //
                 radBandVHF3.Checked = true;
                 regBox.Text = band_vhf3_register.ToString();
                 regBox1.Text = (band_vhf3_index + 1).ToString();
@@ -5535,8 +5563,8 @@ public partial class Console : Form {
                 break;
             case Band.VHF4:
                 last_band = "VHF4"; // ke9ns add
-                //   SpotControl.VFOLOW = 445000000; //
-                //   SpotControl.VFOHIGH = 990000000; //
+                                    //   SpotControl.VFOLOW = 445000000; //
+                                    //   SpotControl.VFOHIGH = 990000000; //
                 radBandVHF4.Checked = true;
                 regBox.Text = band_vhf4_register.ToString();
                 regBox1.Text = (band_vhf4_index + 1).ToString();
@@ -5545,8 +5573,8 @@ public partial class Console : Form {
                 break;
             case Band.VHF5:
                 last_band = "VHF5"; // ke9ns add
-                //   SpotControl.VFOLOW = 445000000; //
-                //  SpotControl.VFOHIGH = 990000000; //
+                                    //   SpotControl.VFOLOW = 445000000; //
+                                    //  SpotControl.VFOHIGH = 990000000; //
                 radBandVHF5.Checked = true;
                 regBox.Text = band_vhf5_register.ToString();
                 regBox1.Text = (band_vhf5_index + 1).ToString();
@@ -5555,8 +5583,8 @@ public partial class Console : Form {
                 break;
             case Band.VHF6:
                 last_band = "VHF6"; // ke9ns add
-                //   SpotControl.VFOLOW = 445000000; //
-                //   SpotControl.VFOHIGH = 990000000; //
+                                    //   SpotControl.VFOLOW = 445000000; //
+                                    //   SpotControl.VFOHIGH = 990000000; //
                 radBandVHF6.Checked = true;
                 regBox.Text = band_vhf6_register.ToString();
                 regBox1.Text = (band_vhf6_index + 1).ToString();
@@ -5565,8 +5593,8 @@ public partial class Console : Form {
                 break;
             case Band.VHF7:
                 last_band = "VHF7"; // ke9ns add
-                //  SpotControl.VFOLOW = 445000000; //
-                //  SpotControl.VFOHIGH = 990000000; //
+                                    //  SpotControl.VFOLOW = 445000000; //
+                                    //  SpotControl.VFOHIGH = 990000000; //
                 radBandVHF7.Checked = true;
                 regBox.Text = band_vhf7_register.ToString();
                 regBox1.Text = (band_vhf7_index + 1).ToString();
@@ -5575,8 +5603,8 @@ public partial class Console : Form {
                 break;
             case Band.VHF8:
                 last_band = "VHF8"; // ke9ns add
-                //   SpotControl.VFOLOW = 445000000; //
-                //  SpotControl.VFOHIGH = 990000000; //
+                                    //   SpotControl.VFOLOW = 445000000; //
+                                    //  SpotControl.VFOHIGH = 990000000; //
                 radBandVHF8.Checked = true;
                 regBox.Text = band_vhf8_register.ToString();
                 regBox1.Text = (band_vhf8_index + 1).ToString();
@@ -5585,8 +5613,8 @@ public partial class Console : Form {
                 break;
             case Band.VHF9:
                 last_band = "VHF9"; // ke9ns add
-                //  SpotControl.VFOLOW = 445000000; //
-                //  SpotControl.VFOHIGH = 990000000; //
+                                    //  SpotControl.VFOLOW = 445000000; //
+                                    //  SpotControl.VFOHIGH = 990000000; //
                 radBandVHF9.Checked = true;
                 regBox.Text = band_vhf9_register.ToString();
                 regBox1.Text = (band_vhf9_index + 1).ToString();
@@ -5595,8 +5623,8 @@ public partial class Console : Form {
                 break;
             case Band.VHF10:
                 last_band = "VHF10"; // ke9ns add
-                //  SpotControl.VFOLOW = 445000000; //
-                //  SpotControl.VFOHIGH = 990000000; //
+                                     //  SpotControl.VFOLOW = 445000000; //
+                                     //  SpotControl.VFOHIGH = 990000000; //
                 radBandVHF10.Checked = true;
                 regBox.Text = band_vhf10_register.ToString();
                 regBox1.Text = (band_vhf10_index + 1).ToString();
@@ -5605,8 +5633,8 @@ public partial class Console : Form {
                 break;
             case Band.VHF11:
                 last_band = "VHF11"; // ke9ns add
-                //   SpotControl.VFOLOW = 445000000; //
-                //   SpotControl.VFOHIGH = 990000000; //
+                                     //   SpotControl.VFOLOW = 445000000; //
+                                     //   SpotControl.VFOHIGH = 990000000; //
                 radBandVHF11.Checked = true;
                 regBox.Text = band_vhf11_register.ToString();
                 regBox1.Text = (band_vhf11_index + 1).ToString();
@@ -5615,8 +5643,8 @@ public partial class Console : Form {
                 break;
             case Band.VHF12:
                 last_band = "VHF12"; // ke9ns add
-                //   SpotControl.VFOLOW = 445000000; //
-                //   SpotControl.VFOHIGH = 990000000; //
+                                     //   SpotControl.VFOLOW = 445000000; //
+                                     //   SpotControl.VFOHIGH = 990000000; //
                 radBandVHF12.Checked = true;
                 regBox.Text = band_vhf12_register.ToString();
                 regBox1.Text = (band_vhf12_index + 1).ToString();
@@ -5625,8 +5653,8 @@ public partial class Console : Form {
                 break;
             case Band.VHF13:
                 last_band = "VHF13"; // ke9ns add
-                // SpotControl.VFOLOW = 445000000; //
-                // SpotControl.VFOHIGH = 990000000; //
+                                     // SpotControl.VFOLOW = 445000000; //
+                                     // SpotControl.VFOHIGH = 990000000; //
                 radBandVHF13.Checked = true;
                 regBox.Text = band_vhf13_register.ToString();
                 regBox1.Text = (band_vhf13_index + 1).ToString();
@@ -5676,8 +5704,9 @@ public partial class Console : Form {
                 DeselectVHF(); // ke9ns add
                 break;
             case Band.B41M:
-                last_band = "41M"; // ke9ns add
-                //  Debug.WriteLine("================41==============");
+                last_band
+                    = "41M"; // ke9ns add
+                             //  Debug.WriteLine("================41==============");
 
                 radBandGEN5.Checked = true;
                 regBox.Text = band_41m_register.ToString();
@@ -12799,7 +12828,9 @@ public partial class Console : Form {
     }
 
     // G8NJJ added to allow labelling of buttons in popup form
-    public string GetVHFText(int index) { return vhf_text[index].Text; }
+    public string GetVHFText(int index) {
+        return vhf_text[index].Text;
+    }
 
     //=============================================================================
     // ke9ns mod add GEN SWL bands
@@ -14887,15 +14918,15 @@ public partial class Console : Form {
     //============================================================================
     //============================================================================
 #pragma warning disable CS0414 // The field 'Console.vac1' is assigned but its
-                               // value is never used
+    // value is never used
     private static byte vac1 = 0;
 #pragma warning restore CS0414 // The field 'Console.vac1' is assigned but its
-                               // value is never used
+    // value is never used
 #pragma warning disable CS0414 // The field 'Console.Txfh' is assigned but its
-                               // value is never used
+    // value is never used
     private static int Txfh = 0;
 #pragma warning restore CS0414 // The field 'Console.Txfh' is assigned but its
-                               // value is never used
+    // value is never used
     private void TXIDMenuItem_CheckedChanged(object sender, EventArgs e) {
         /*
                     if ((TXIDMenuItem.Checked) && (chkPower.Checked))
@@ -16415,13 +16446,14 @@ public partial class Console : Form {
         int fft_size = specRX.GetSpecRX(0).FFTSize; // get fft_size
         double[,] buf
             = new double[fft_size, 2]; // buffer for complex spectrum data
-        double[] sum
-            = new double[fft_size]; // buffer for "averaged" spectrum data
-        // const double cal_range = 2500.0;                // look +/- this much
-        // from current freq to find the calibration signal
-        //  double bin_width = (double)(sample_rate1) / (double)fft_size;
-        //  int offset = (int)(cal_range / bin_width);
-        //  double maxsumsq = double.MinValue;
+        double[] sum = new double
+        [fft_size]; // buffer for "averaged" spectrum data
+                    // const double cal_range = 2500.0;                // look
+                    // +/- this much from current freq to find the calibration
+                    // signal
+                    //  double bin_width = (double)(sample_rate1) /
+                    //  (double)fft_size; int offset = (int)(cal_range /
+                    //  bin_width); double maxsumsq = double.MinValue;
 
         int iterations = 20; // number of samples to average
 
@@ -16526,9 +16558,10 @@ public partial class Console : Form {
                ret_val = false;
                goto end;
            } */
-        double cal_range = 20000.0; // look +/- this much from current freq to
-                                    // find the calibration signal
-        //  double cal_range = (double)(sample_rate1 / 2.0 - 1);
+        double cal_range
+            = 20000.0; // look +/- this much from current freq to
+                       // find the calibration signal
+                       //  double cal_range = (double)(sample_rate1 / 2.0 - 1);
         double bin_width = (double)(sample_rate_rx1) / (double)fft_size;
         int offset = (int)(cal_range / bin_width);
         double maxsumsq = double.MinValue;
@@ -16854,26 +16887,28 @@ public partial class Console : Form {
         comboDisplayMode.Text = display;
         chkRIT.Checked = rit_on; // restore RIT on
         udRIT.Value = rit_val; // restore RIT value
-        // SetupForm.RXOnly = rx_only;						// restore RX Only
-        //  DisplayAVG = display_avg;							// restore
-        //  AVG value
+                               // SetupForm.RXOnly = rx_only;
+                               // // restore RX Only
+                               //  DisplayAVG = display_avg;
+                               //  // restore AVG value
         RX1PreampMode = preamp; // restore preamp value
         SetupForm.HermesEnableAttenuator = step_attn;
         // RX1Filter = am_filter;							// restore AM filter
         RX1DSPMode = dsp_mode; // restore DSP mode
-        // RX1Filter = filter;								// restore
-        // filter
-        //  if (dsp_buf_size != 4096)
-        //  chkPower.Checked = false;						// go to standby
+                               // RX1Filter = filter; // restore filter
+                               //  if (dsp_buf_size != 4096)
+                               //  chkPower.Checked = false;
+                               //  // go to standby
         SetupForm.DSPPhoneRXBuffer = dsp_buf_size; // restore DSP Buffer Size
         VFOAFreq = vfoa; // restore vfo frequency
-        // if (dsp_buf_size != 4096)
-        //  {
-        //  Thread.Sleep(2000);
-        //  chkPower.Checked = true;
-        //  }
+                         // if (dsp_buf_size != 4096)
+                         //  {
+                         //  Thread.Sleep(2000);
+                         //  chkPower.Checked = true;
+                         //  }
         CurrentMeterRXMode = rx_meter; // restore RX Meter mode
-        // SetupForm.Polyphase = polyphase;					// restore polyphase
+                                       // SetupForm.Polyphase = polyphase;
+                                       // // restore polyphase
 
         //			Debug.WriteLine("multimeter_cal_offset:
         //"+multimeter_cal_offset);
@@ -16926,11 +16961,11 @@ public partial class Console : Form {
         DSPMode dsp2_mode = rx2_dsp_mode; // save current DSP demod mode
 
         RX1DSPMode = DSPMode.DSB; // set mode to DSB
-        // Thread.Sleep(50);
+                                  // Thread.Sleep(50);
         RX2DSPMode = DSPMode.DSB; // set mode to DSB
 
         VFOAFreq = freq; // set VFOA frequency
-        // Thread.Sleep(100);
+                         // Thread.Sleep(100);
         VFOBFreq = freq;
         // Thread.Sleep(100);
 
@@ -17147,21 +17182,22 @@ public partial class Console : Form {
         comboDisplayMode.Text = display;
         chkRIT.Checked = rit_on; // restore RIT on
         udRIT.Value = rit_val; // restore RIT value
-        // SetupForm.RXOnly = rx_only;						// restore RX Only
+                               // SetupForm.RXOnly = rx_only;
+                               // // restore RX Only
         DisplayAVG = display_avg; // restore AVG value
-        // chkRX1Preamp.Checked = rx1_preamp;					// restore
-        // preamp value
+                                  // chkRX1Preamp.Checked = rx1_preamp;
+                                  // // restore preamp value
         chkRX2Preamp.Checked = rx2_preamp;
         RX1Filter = rx1_filter; // restore AM filter
         RX1DSPMode = dsp_mode; // restore DSP mode*
-        // Thread.Sleep(50);
+                               // Thread.Sleep(50);
         RX2Filter = rx2_filter; // restore AM filter
         RX2DSPMode = dsp2_mode; // restore DSP mode
         RX1Filter = filter; // restore filter
         if (dsp_buf_size != 4096) chkPower.Checked = false; // go to standby
         SetupForm.DSPPhoneRXBuffer = dsp_buf_size; // restore DSP Buffer Size
         VFOAFreq = vfoa; // restore vfo frequency
-        // Thread.Sleep(100);
+                         // Thread.Sleep(100);
         if (dsp_buf_size != 4096) {
             Thread.Sleep(100);
             chkPower.Checked = true;
@@ -17282,7 +17318,7 @@ public partial class Console : Form {
                     // pa_power_mutex.WaitOne();
                     // watts = PAPower(pa_fwd_power);
                     watts = alex_fwd; // (double)computeAlexFwdPower(); //HPSDR
-                    // pa_power_mutex.ReleaseMutex();
+                                      // pa_power_mutex.ReleaseMutex();
 
                     chkMOX.Checked = false;
                     tuning = false;
@@ -17451,7 +17487,7 @@ public partial class Console : Form {
     error:
         MessageBox.Show(
             "Calculated gain is invalid.  Please double check connections and try again.\n" /* +
-    "If this problem persists, contact support@flex-radio.com for support."*/
+"If this problem persists, contact support@flex-radio.com for support."*/
             ,
             "Invalid Gain Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
         goto end;
@@ -18366,24 +18402,32 @@ public partial class Console : Form {
         set { vac2_on_split = value; }
     }
 
-    private string db_file_name = "";
+    private string m_db_file_name = "";
     public string DBFileName {
-        get { return db_file_name; }
+        get {
+            Debug.Assert(!String.IsNullOrEmpty(m_db_file_name));
+            return m_db_file_name;
+        }
         set {
             if (initializing) // ignore changes here after init is complete per
                               // design
             {
-                db_file_name = value;
+                Debug.Assert(!String.IsNullOrEmpty(value));
+                m_db_file_name = value;
                 DB.FileName = value;
             }
         }
     }
 
-    private string app_data_path = "";
+    private string m_app_data_path = "";
     public string AppDataPath {
-        get { return app_data_path; }
+        get {
+            Debug.Assert(!String.IsNullOrEmpty(m_app_data_path));
+            return m_app_data_path;
+        }
         set {
-            app_data_path = value;
+            Debug.Assert(!String.IsNullOrEmpty(value));
+            m_app_data_path = value;
             Skin.SetAppDataPath(value);
         }
     }
@@ -18629,7 +18673,9 @@ public partial class Console : Form {
         rx1_preamp_by_band[(int)b] = mode;
     }
 
-    public PreampMode GetPreamp(Band b) { return rx1_preamp_by_band[(int)b]; }
+    public PreampMode GetPreamp(Band b) {
+        return rx1_preamp_by_band[(int)b];
+    }
 
     private PreampMode[] rx2_preamp_by_band;
 
@@ -18641,7 +18687,9 @@ public partial class Console : Form {
         if (tx_band == b) PWR = pwr;
     }
 
-    public int GetPower(Band b) { return power_by_band[(int)b]; }
+    public int GetPower(Band b) {
+        return power_by_band[(int)b];
+    }
 
     private AGCMode[] rx1_agcm_by_band;
     private AGCMode[] rx2_agcm_by_band;
@@ -18652,7 +18700,9 @@ public partial class Console : Form {
         if (rx1_band == b) RF = gain;
     }
 
-    public int GetRFGain(Band b) { return rx1_agct_by_band[(int)b]; }
+    public int GetRFGain(Band b) {
+        return rx1_agct_by_band[(int)b];
+    }
 
     private int[] rx2_agct_by_band;
 
@@ -20892,8 +20942,9 @@ public partial class Console : Form {
         set {
             digu_click_tune_offset = value;
             Filter filter1 = RX1Filter; // save RX1 filter
-            Filter filter2 = RX2Filter; // save RX2 filter
-            // reset preset filter's center frequency - W4TME
+            Filter filter2
+                = RX2Filter; // save RX2 filter
+                             // reset preset filter's center frequency - W4TME
 
             for (Filter f = Filter.F1; f < Filter.LAST; f++) {
                 int low = rx1_filters[(int)DSPMode.DIGU].GetLow(f);
@@ -20917,8 +20968,9 @@ public partial class Console : Form {
         set {
             digl_click_tune_offset = value;
             Filter filter1 = RX1Filter; // save RX1 filter
-            Filter filter2 = RX2Filter; // save RX2 filter
-            // reset preset filter's center frequency - W4TME
+            Filter filter2
+                = RX2Filter; // save RX2 filter
+                             // reset preset filter's center frequency - W4TME
 
             for (Filter f = Filter.F1; f < Filter.LAST; f++) {
                 int low = rx1_filters[(int)DSPMode.DIGL].GetLow(f);
@@ -21687,9 +21739,15 @@ public partial class Console : Form {
     // equivalent console
     // functions.
     //   i.e. not just copy frequency alone
-    public void CATVFOAtoB() { btnVFOAtoB_Click(this, EventArgs.Empty); }
-    public void CATVFOBtoA() { btnVFOBtoA_Click(this, EventArgs.Empty); }
-    public void CATVFOABSwap() { btnVFOSwap_Click(this, EventArgs.Empty); }
+    public void CATVFOAtoB() {
+        btnVFOAtoB_Click(this, EventArgs.Empty);
+    }
+    public void CATVFOBtoA() {
+        btnVFOBtoA_Click(this, EventArgs.Empty);
+    }
+    public void CATVFOABSwap() {
+        btnVFOSwap_Click(this, EventArgs.Empty);
+    }
 
     public int CATTXProfileCount {
         get { return comboTXProfile.Items.Count; }
@@ -21856,9 +21914,13 @@ public partial class Console : Form {
         set { btnZeroBeat.PerformClick(); }
     }
 
-    public void CATTuneStepUp() { ChangeTuneStepUp(); }
+    public void CATTuneStepUp() {
+        ChangeTuneStepUp();
+    }
 
-    public void CATTuneStepDown() { ChangeTuneStepDown(); }
+    public void CATTuneStepDown() {
+        ChangeTuneStepDown();
+    }
 
     //-W2PA This specifies the number of MIDI messages that cause a single tune
     // step increment
@@ -21954,13 +22016,15 @@ public partial class Console : Form {
         }
     }
 
-    public void CATSingleCal() { psform.SingleCalrun(); }
+    public void CATSingleCal() {
+        psform.SingleCalrun();
+    }
 
 #pragma warning disable CS0414 // The field 'Console.cat_breakin_status' is
-                               // assigned but its value is never used
+    // assigned but its value is never used
     private int cat_breakin_status = 0;
 #pragma warning restore CS0414 // The field 'Console.cat_breakin_status' is
-                               // assigned but its value is never used
+    // assigned but its value is never used
     public int CATBreakIn {
         get {
             if (chkQSK.Checked)
@@ -21977,10 +22041,10 @@ public partial class Console : Form {
     }
 
 #pragma warning disable CS0414 // The field 'Console.cat_qsk_breakin_status' is
-                               // assigned but its value is never used
+    // assigned but its value is never used
     private int cat_qsk_breakin_status = 0;
 #pragma warning restore CS0414 // The field 'Console.cat_qsk_breakin_status' is
-                               // assigned but its value is never used
+    // assigned but its value is never used
     public int CATQSKBreakIn {
         get {
             if (chkQSK.CheckState == CheckState.Indeterminate)
@@ -23369,7 +23433,7 @@ public partial class Console : Form {
         if (alexpresent) {
             // pa_power_mutex.WaitOne();
             power = calfwdpower; // PAPower(pa_fwd_power);
-            // pa_power_mutex.ReleaseMutex();
+                                 // pa_power_mutex.ReleaseMutex();
 
             return power.ToString("f0") + " W";
         } else {
@@ -23426,7 +23490,7 @@ public partial class Console : Form {
         double swr = 1.0;
         // pa_power_mutex.WaitOne();
         swr = alex_swr; // SWR(pa_fwd_power, pa_rev_power);
-        // pa_power_mutex.ReleaseMutex();
+                        // pa_power_mutex.ReleaseMutex();
         return swr.ToString("f1") + " : 1";
     }
 
@@ -31270,44 +31334,6 @@ public partial class Console : Form {
     // private int last_sec;		// for time of day clock
     // private DateTime last_date;	// for date
     private void timer_clock_Tick(object sender, System.EventArgs e) {
-        // switch (current_datetime_mode)
-        //{
-        //    case DateTimeMode.LOCAL:
-        //        DateTime date = DateTime.Now.Date;
-        //        if (date != last_date || txtDate.Text == "")
-        //        {
-        //            last_date = date;
-        //            txtDate.Text = DateTime.Now.ToShortDateString();
-        //        }
-
-        //        int sec = DateTime.Now.Second;
-        //        if (sec != last_sec)
-        //        {
-        //            last_sec = sec;
-        //            txtTime.Text = "LOC " + DateTime.Now.ToString("HH:mm:ss");
-        //        }
-        //        break;
-        //    case DateTimeMode.UTC:
-        //        date = DateTime.UtcNow.Date;
-        //        if (date != last_date || txtDate.Text == "")
-        //        {
-        //            last_date = date;
-        //            txtDate.Text = DateTime.UtcNow.ToShortDateString();
-        //        }
-
-        //        sec = DateTime.UtcNow.Second;
-        //        if (sec != last_sec)
-        //        {
-        //            last_sec = sec;
-        //            txtTime.Text = "UTC " +
-        //            DateTime.UtcNow.ToString("HH:mm:ss");
-        //        }
-        //        break;
-        //    case DateTimeMode.OFF:
-        //        txtDate.Text = "";
-        //        txtTime.Text = "";
-        //        break;
-        //}
 
         DateTime now = DateTime.Now;
         DateTime UTCnow = DateTime.UtcNow;
@@ -31328,6 +31354,9 @@ public partial class Console : Form {
         bool big = Properties.Settings.Default.BigSMeterOpen;
         if (big && m_frmSMeter == null) {
             m_frmSMeter = new frmSMeter(this.PrettySMeter.Bounds, this);
+            if (m_PrettySMeterHelpers == null) {
+                m_PrettySMeterHelpers = new PrettySMeterHelpers(this);
+            }
             m_PrettySMeterHelpers.frmSMeter = m_frmSMeter;
             m_frmSMeter.Show();
             m_frmSMeter.BringToFront();
@@ -31835,8 +31864,8 @@ public partial class Console : Form {
               //  ==1))
 
         } // e.control key
-        // MW0LGE else
-        //{
+          // MW0LGE else
+          //{
 
         //    m_bControlKeyDown = 0;
         //}
@@ -32689,44 +32718,39 @@ public partial class Console : Form {
             }
 
             Audio.CurrentAudioState1 = Audio.AudioState.DTTSP;
-                // Audio.callback_return = 0;
+            // Audio.callback_return = 0;
 
-                bool vac_was_wanted = false;
-                bool vac2_was_wanted = false;
+            bool vac_was_wanted = false;
+            bool vac2_was_wanted = false;
             if (vac_enabled) {
-                    vac_was_wanted = true;
+                vac_was_wanted = true;
                 VACEnabled = true; // Don't trigger StopAudioIVAC if the VACs
                                    // aren't needed now
             }
-                if (vac2_enabled)
-                {
-                    VAC2Enabled = true;
+            if (vac2_enabled) {
+                VAC2Enabled = true;
+            }
+
+            if (vac_was_wanted) {
+                if (!Audio.Status[0].state) {
+
+                    chkPower.Checked = false;
+                    SetupForm.ShowSetupTab(Setup.SetupTab.VAC1_Tab);
+                    SetupForm.Show();
+                    return;
                 }
+            }
 
-                if (vac_was_wanted)
-                {
-                    if (!Audio.Status[0].state)
-                    {
-
-                        chkPower.Checked = false;
-                        SetupForm.ShowSetupTab(Setup.SetupTab.VAC1_Tab);
-                        SetupForm.Show();
-                        return;
-                    }
+            if (vac2_was_wanted) {
+                if (!Audio.Status[1].state) {
+                    chkPower.Checked = false;
+                    SetupForm.ShowSetupTab(Setup.SetupTab.VAC2_Tab);
+                    SetupForm.Show();
+                    return;
                 }
+            }
 
-                if (vac2_was_wanted)
-                {
-                    if (!Audio.Status[1].state)
-                    {
-                        chkPower.Checked = false;
-                        SetupForm.ShowSetupTab(Setup.SetupTab.VAC2_Tab);
-                        SetupForm.Show();
-                        return;
-                    }
-                }
-
-                Thread.Sleep(100); // wait for hardware to settle before starting
+            Thread.Sleep(100); // wait for hardware to settle before starting
                                // audio (possible sample rate change)
             psform.ForcePS();
 
@@ -35042,7 +35066,9 @@ public partial class Console : Form {
         if (comboTuneMode.Focused) btnHidden.Focus();
     }
 
-    private void HideFocus(object sender, EventArgs e) { btnHidden.Focus(); }
+    private void HideFocus(object sender, EventArgs e) {
+        btnHidden.Focus();
+    }
 
     private void textbox_GotFocus(object sender, EventArgs e) {
         SetFocusMaster(false);
@@ -35628,8 +35654,10 @@ public partial class Console : Form {
         if (WheelReverse)
             num_steps = (e.Delta > 0 ? -1 : 1); // 1 per click
         else
-            num_steps = (e.Delta > 0 ? 1 : -1); // 1 per click
-        // int numberToMove = e.Delta / 120;	// 1 per click
+            num_steps = (e.Delta > 0
+                    ? 1
+                    : -1); // 1 per click
+                           // int numberToMove = e.Delta / 120;	// 1 per click
 
         // MW0LGE before all, handle the notch size change
         if (SelectedNotch != null && num_steps != 0) {
@@ -37559,15 +37587,15 @@ public partial class Console : Form {
     private bool tx2_grid_adjust = false;
     private bool gridmaxadjust = false;
 #pragma warning disable CS0414 // The field 'Console.wfmaxadjust' is assigned
-                               // but its value is never used
+    // but its value is never used
     private bool wfmaxadjust = false;
 #pragma warning restore CS0414 // The field 'Console.wfmaxadjust' is assigned
-                               // but its value is never used
+    // but its value is never used
 #pragma warning disable CS0414 // The field 'Console.wfminadjust' is assigned
-                               // but its value is never used
+    // but its value is never used
     private bool wfminadjust = false;
 #pragma warning restore CS0414 // The field 'Console.wfminadjust' is assigned
-                               // but its value is never used
+    // but its value is never used
     private bool gridminmaxadjust = false;
 
     private Point grid_minmax_drag_start_point = new Point(0, 0);
@@ -38208,11 +38236,12 @@ public partial class Console : Form {
                                                 agc_rx2_top = -20.0;
 
                                             if (!IsSetupFormNull)
-                                                SetupForm.AGCRX2FixedGain
-                                                    = (int)
-                                                        agc_rx2_top; // agc_top;
-                                            // Debug.WriteLine("agc_db_point3: "
-                                            // + agc_db_point);
+                                                SetupForm.AGCRX2FixedGain = (int)
+                                                    agc_rx2_top; // agc_top;
+                                                                 // Debug.WriteLine("agc_db_point3:
+                                                                 // "
+                                                                 // +
+                                                                 // agc_db_point);
                                             break;
                                         default:
                                             if (agc_rx2_top > 120)
@@ -38260,10 +38289,11 @@ public partial class Console : Form {
                                                 agc_top = -20.0;
 
                                             if (!IsSetupFormNull)
-                                                SetupForm.AGCFixedGain
-                                                    = (int)agc_top; // agc_top;
-                                            // Debug.WriteLine("agc_db_point3: "
-                                            // + agc_db_point);
+                                                SetupForm.AGCFixedGain = (int)
+                                                    agc_top; // agc_top;
+                                                             // Debug.WriteLine("agc_db_point3:
+                                                             // "
+                                                             // + agc_db_point);
                                             break;
                                         default:
                                             if (agc_top > 120) agc_top = 120;
@@ -38285,9 +38315,9 @@ public partial class Console : Form {
                                         = (double)PixelToRx2Db(e.Y + 4);
                                     agc_hang_point -= (double)
                                         cal_offset; // (double)Display.RX1PreampOffset;
-                                    // agc_hang_point += 120;
-                                    // Debug.WriteLine("agc_db_point1: " +
-                                    // agc_db_point);
+                                                    // agc_hang_point += 120;
+                                                    // Debug.WriteLine("agc_db_point1:
+                                                    // " + agc_db_point);
                                     if (agc_hang_point > 4.0)
                                         agc_hang_point = 4.0;
                                     if (agc_hang_point < -121.0)
@@ -38330,11 +38360,12 @@ public partial class Console : Form {
                                         = (double)PixelToDb(e.Y + 4);
                                     agc_hang_point -= (double)
                                         cal_offset; // (double)Display.RX1PreampOffset;
-                                    // agc_hang_point += 120;
-                                    // int agc_slope = radio.GetDSPRX(0,
-                                    // 0).RXAGCSlope / 10;
-                                    // Debug.WriteLine("agc_db_point1: " +
-                                    // agc_db_point);
+                                                    // agc_hang_point += 120;
+                                                    // int agc_slope =
+                                                    // radio.GetDSPRX(0,
+                                                    // 0).RXAGCSlope / 10;
+                                                    // Debug.WriteLine("agc_db_point1:
+                                                    // " + agc_db_point);
                                     if (agc_hang_point > 4.0)
                                         agc_hang_point = 4.0;
                                     if (agc_hang_point < -121.0)
@@ -38377,7 +38408,8 @@ public partial class Console : Form {
                     }
                     switch (Display.CurrentDisplayMode) {
                         case DisplayMode.PANAFALL:
-                            if (e.Y < Display.PanafallSplitBarPos /*picDisplay.Height / 2*/) {
+                            if (e.Y < Display.PanafallSplitBarPos /*picDisplay.Height / 2*/)
+                                {
                                 y = PixelToDb(e.Y);
                                 txtDisplayCursorPower.Text
                                     = y.ToString("f1") + "dBm";
@@ -38448,7 +38480,7 @@ public partial class Console : Form {
 
                     if (bDragRX1Filter || bDragRX2Filter) {
                         if (/*!click_tune_display && !click_tune_rx2_display
-                               &&*/
+                           &&*/
                             current_click_tune_mode == ClickTuneMode.Off
                             && picDisplay.Cursor != Cursors.Hand
                             && next_cursor != Cursors.SizeNS
@@ -39748,7 +39780,7 @@ public partial class Console : Form {
 
         int low = -width / 2; // target -- if width is centered at 0, low will
                               // be half the width below 0
-        // if (ModelIsHPSDRorHermes())
+                              // if (ModelIsHPSDRorHermes())
         int abs_low = (int)(-(double)sample_rate_rx1 * 0.5 + spur_tune_width);
         // else
         // abs_low = (int)(-(double)sample_rate1 * 0.5 - if_freq * 1000000.0 +
@@ -41604,9 +41636,10 @@ public partial class Console : Form {
 
         radio.GetDSPRX(0, 0).SetRXFilter(low, high); // select new filters
         udFilterLow.Value = low; // display new low value
-        udFilterHigh.Value = high; // display new high value
-        // if (redraw) Display.DrawBackground();			// draw new
-        // background for updated filter values
+        udFilterHigh.Value
+            = high; // display new high value
+                    // if (redraw) Display.DrawBackground();			// draw
+                    // new background for updated filter values
 
         // store the last IF Shift applied for use next time
         if (rx1_filter == Filter.VAR1)
@@ -42038,7 +42071,9 @@ public partial class Console : Form {
         }
     }
 
-    public void CopyVFOAtoB() { btnVFOAtoB_Click(this, EventArgs.Empty); }
+    public void CopyVFOAtoB() {
+        btnVFOAtoB_Click(this, EventArgs.Empty);
+    }
 
     private void btnVFOAtoB_Click(object sender, System.EventArgs e) {
         if (rx2_enabled) {
@@ -42072,7 +42107,9 @@ public partial class Console : Form {
         }
     }
 
-    public void CopyVFOBtoA() { btnVFOBtoA_Click(this, EventArgs.Empty); }
+    public void CopyVFOBtoA() {
+        btnVFOBtoA_Click(this, EventArgs.Empty);
+    }
 
     private void btnVFOBtoA_Click(object sender, System.EventArgs e) {
         if (!rx2_enabled) {
@@ -42110,7 +42147,9 @@ public partial class Console : Form {
         }
     }
 
-    public void VFOSwap() { btnVFOSwap_Click(this, EventArgs.Empty); }
+    public void VFOSwap() {
+        btnVFOSwap_Click(this, EventArgs.Empty);
+    }
 
     private void btnVFOSwap_Click(object sender, System.EventArgs e) {
         if (!rx2_enabled) {
@@ -43160,7 +43199,9 @@ public partial class Console : Form {
 
     private static Console theConsole = null;
 
-    public static Console getConsole() { return theConsole; }
+    public static Console getConsole() {
+        return theConsole;
+    }
 
     protected override void WndProc(ref Message m) {
         const int WM_QUERYENDSESSION = 0x0011;
@@ -43790,8 +43831,11 @@ public partial class Console : Form {
                 old_rx1_display_mode = comboDisplayMode.Text;
                 // UpdateRXADCCtrl();
                 UpdateDDCs(rx2_enabled);
-                chkDX_CheckedChanged(this, EventArgs.Empty); // stereo_diversity
-                // comboRX2Preamp_SelectedIndexChanged(this, EventArgs.Empty);
+                chkDX_CheckedChanged(this,
+                    EventArgs
+                        .Empty); // stereo_diversity
+                                 // comboRX2Preamp_SelectedIndexChanged(this,
+                                 // EventArgs.Empty);
                 if (RX2StepAttPresent)
                     udRX2StepAttData_ValueChanged(this, EventArgs.Empty);
                 else
@@ -43959,9 +44003,9 @@ public partial class Console : Form {
                 //    this.Height += (panelRX2Filter.Height + 8);
 
                 resizeWaterfallBitmaps(
-            /*Display.CurrentDisplayModeBottom == DisplayMode.PANAFALL*/); // MW0LGE
+                /*Display.CurrentDisplayModeBottom == DisplayMode.PANAFALL*/); // MW0LGE
                 resizeWaterfallBitmaps2(
-            /*Display.CurrentDisplayModeBottom == DisplayMode.PANAFALL*/); // MW0LGE
+                /*Display.CurrentDisplayModeBottom == DisplayMode.PANAFALL*/); // MW0LGE
             } else {
                 if (this.Height
                     <= MinimumSize.Height + panelRX2Filter.Height + 8)
@@ -44125,8 +44169,9 @@ public partial class Console : Form {
         else
             WDSP.SetDSPSamplerate(WDSP.id(2, 0), 48000);
 
-        radio.GetDSPRX(1, 0).DSPMode = new_mode; // set new DSP mode
-        // radio.GetDSPRX(1, 1).DSPMode = new_mode;
+        radio.GetDSPRX(1, 0).DSPMode
+            = new_mode; // set new DSP mode
+                        // radio.GetDSPRX(1, 1).DSPMode = new_mode;
 
         if (rx2_enabled) {
             if (chkVFOBTX.Checked) {
@@ -46030,13 +46075,15 @@ public partial class Console : Form {
             PrettySMeter.Height = 103;
             PrettySMeter.Left = grpMultimeterMenus.Right - PrettySMeter.Width;
 
-            PrettySMeter.BringToFront();
+            // PrettySMeter.BringToFront();
         } else {
             PrettySMeter.Visible = false;
         }
     }
 
-    private void Console_Resize(object sender, System.EventArgs e) {}
+    private void Console_Resize(object sender, System.EventArgs e) {
+        doResize();
+    }
 
     private void comboRX2AGC_SelectedIndexChanged(
         object sender, System.EventArgs e) {
@@ -46484,15 +46531,15 @@ public partial class Console : Form {
     }
 
 #pragma warning disable CS0414 // The field 'Console.TDxButtonState' is assigned
-                               // but its value is never used
+    // but its value is never used
     private static bool TDxButtonState = false;
 #pragma warning restore CS0414 // The field 'Console.TDxButtonState' is assigned
-                               // but its value is never used
+    // but its value is never used
 #pragma warning disable CS0414 // The field 'Console.TDxCurrentVFO' is assigned
-                               // but its value is never used
+    // but its value is never used
     private static bool TDxCurrentVFO = false; // VFOA
 #pragma warning restore CS0414 // The field 'Console.TDxCurrentVFO' is assigned
-                               // but its value is never used
+    // but its value is never used
 
     int ticker = 0;
     private void timer_navigate_Tick(object sender, System.EventArgs e) {
@@ -47597,7 +47644,7 @@ public partial class Console : Form {
         this.modeToolStripMenuItem.Visible = false;
         int minWidth = console_basis_size.Width;
         int minHeight = /*(current_hpsdr_model == HPSDRModel.HPSDR) ?
-            console_basis_size.Height - (panelRX2Filter.Height + 8) :*/
+        console_basis_size.Height - (panelRX2Filter.Height + 8) :*/
             console_basis_size.Height;
 
         this.Size = this.expandedSize;
@@ -48136,7 +48183,9 @@ public partial class Console : Form {
     }
     public Color StatusBarTextColour {
         // use one to return the colour, as all will be the same
-        get { return toolStripDropDownButton_ScreenSize.ForeColor; }
+        get {
+            return toolStripDropDownButton_ScreenSize.ForeColor;
+        }
         set {
             foreach (ToolStripItem c in statusStripMain.Items) {
                 c.ForeColor = value;
@@ -48473,7 +48522,7 @@ public partial class Console : Form {
 
                 chkRX2Mute.Hide(); // MW0LGE
                 chkMUT.Parent = this; // MW0LGE
-                // chkMUT.Hide();
+                                      // chkMUT.Hide();
                 chkMUT.Show(); // MW0LGE
 
                 chkMOX.Parent = this;
@@ -48593,7 +48642,7 @@ public partial class Console : Form {
 
                 chkMUT.Hide();
                 chkRX2Mute.Parent = this; // MW0LGE
-                // chkMUT.Hide();
+                                          // chkMUT.Hide();
                 chkRX2Mute.Show(); // MW0LGE
 
                 chkMOX.Parent = this;
@@ -48830,19 +48879,20 @@ public partial class Console : Form {
                 picMultiMeterDigital.Size = pic_rx2meter_size_basis;
                 if (current_meter_display_mode
                     == MultiMeterDisplayMode.Original) {
-                    picMultiMeterDigital.Size
-                        = new Size(pic_multi_meter_size_basis.Width * 2,
-                            pic_multi_meter_size_basis
-                                .Height); // MW0LGE  - lblMultiSMeter.Height);
-                    // MW0LGE lblMultiSMeter.Size = new
-                    // Size(lbl_multi_smeter_size_basis.Width * 2,
-                    // lbl_multi_smeter_size_basis.Height); MW0LGE
-                    // lblMultiSMeter.Location = new
-                    // Point(picMultiMeterDigital.Location.X,
-                    // picMultiMeterDigital.Location.Y + MW0LGE
-                    // picMultiMeterDigital.Height); MW0LGE
-                    // lblMultiSMeter.Show(); MW0LGE
-                    // lblMultiSMeter.BringToFront();
+                    picMultiMeterDigital.Size = new Size(
+                        pic_multi_meter_size_basis.Width * 2,
+                        pic_multi_meter_size_basis
+                            .Height); // MW0LGE  - lblMultiSMeter.Height);
+                                      // MW0LGE lblMultiSMeter.Size = new
+                                      // Size(lbl_multi_smeter_size_basis.Width
+                                      // * 2,
+                                      // lbl_multi_smeter_size_basis.Height);
+                                      // MW0LGE lblMultiSMeter.Location = new
+                                      // Point(picMultiMeterDigital.Location.X,
+                                      // picMultiMeterDigital.Location.Y +
+                                      // MW0LGE picMultiMeterDigital.Height);
+                                      // MW0LGE lblMultiSMeter.Show(); MW0LGE
+                                      // lblMultiSMeter.BringToFront();
                 }
                 // MW0LGE else
                 // MW0LGE lblMultiSMeter.Hide();
@@ -48856,17 +48906,19 @@ public partial class Console : Form {
                 picRX2Meter.Size = pic_rx2meter_size_basis;
                 if (current_meter_display_mode
                     == MultiMeterDisplayMode.Original) {
-                    picRX2Meter.Size
-                        = new Size(pic_rx2meter_size_basis.Width * 2,
-                            pic_rx2meter_size_basis
-                                .Height); // MW0LGE  - lblRX2Meter.Height);
-                    // MW0LGE lblRX2Meter.Size = new
-                    // Size(lbl_rx2meter_size_basis.Width * 2,
-                    // lbl_rx2meter_size_basis.Height); MW0LGE
-                    // lblRX2Meter.Location = new Point(picRX2Meter.Location.X,
-                    // picRX2Meter.Location.Y + MW0LGE picRX2Meter.Height);
-                    // MW0LGE lblRX2Meter.Show();
-                    // MW0LGE lblRX2Meter.BringToFront();
+                    picRX2Meter.Size = new Size(
+                        pic_rx2meter_size_basis.Width * 2,
+                        pic_rx2meter_size_basis
+                            .Height); // MW0LGE  - lblRX2Meter.Height);
+                                      // MW0LGE lblRX2Meter.Size = new
+                                      // Size(lbl_rx2meter_size_basis.Width * 2,
+                                      // lbl_rx2meter_size_basis.Height); MW0LGE
+                                      // lblRX2Meter.Location = new
+                                      // Point(picRX2Meter.Location.X,
+                                      // picRX2Meter.Location.Y + MW0LGE
+                                      // picRX2Meter.Height); MW0LGE
+                                      // lblRX2Meter.Show(); MW0LGE
+                                      // lblRX2Meter.BringToFront();
                 }
                 // MW0LGE else
                 // MW0LGE lblRX2Meter.Hide();
@@ -49076,16 +49128,19 @@ public partial class Console : Form {
                 // grpVFOB.Height);
                 if (current_meter_display_mode
                     == MultiMeterDisplayMode.Original) {
-                    picRX2Meter.Size
-                        = new Size(pic_rx2meter_size_basis.Width * 2,
-                            pic_rx2meter_size_basis
-                                .Height); // MW0LGE  - lblRX2Meter.Height);
-                    // MW0LGE lblRX2Meter.Size = new
-                    // Size(lbl_rx2meter_size_basis.Width * 2,
-                    // lbl_rx2meter_size_basis.Height); MW0LGE
-                    // lblRX2Meter.Location = new Point(picRX2Meter.Location.X,
-                    // picRX2Meter.Location.Y + picRX2Meter.Height); MW0LGE
-                    // lblRX2Meter.Show(); MW0LGE lblRX2Meter.BringToFront();
+                    picRX2Meter.Size = new Size(
+                        pic_rx2meter_size_basis.Width * 2,
+                        pic_rx2meter_size_basis
+                            .Height); // MW0LGE  - lblRX2Meter.Height);
+                                      // MW0LGE lblRX2Meter.Size = new
+                                      // Size(lbl_rx2meter_size_basis.Width * 2,
+                                      // lbl_rx2meter_size_basis.Height); MW0LGE
+                                      // lblRX2Meter.Location = new
+                                      // Point(picRX2Meter.Location.X,
+                                      // picRX2Meter.Location.Y +
+                                      // picRX2Meter.Height); MW0LGE
+                                      // lblRX2Meter.Show(); MW0LGE
+                                      // lblRX2Meter.BringToFront();
                 }
                 // MW0LGE else lblRX2Meter.Hide();
 
@@ -49133,9 +49188,11 @@ public partial class Console : Form {
 
                 chkRX2SR.Location
                     = new Point(chkTUN.Location.X - chkRX2SR.Width - 10,
-                        chkTUN.Location.Y); // DUP
-                //  chkFWCATU.Location = new Point(chkMOX.Location.X -
-                //  chkFWCATU.Width - 10, chkMOX.Location.Y); //CTUN
+                        chkTUN.Location
+                            .Y); // DUP
+                                 //  chkFWCATU.Location = new
+                                 //  Point(chkMOX.Location.X - chkFWCATU.Width -
+                                 //  10, chkMOX.Location.Y); //CTUN
                 chkX2TR.Location
                     = new Point(chkMOX.Location.X - chkX2TR.Width - 10,
                         chkMOX.Location.Y); // RX2 CTUN
@@ -50221,7 +50278,9 @@ public partial class Console : Form {
 
     private bool isHPFBypassed;
 
-    public void wbClosing() { SetupForm.AlexHPFBypass = isHPFBypassed; }
+    public void wbClosing() {
+        SetupForm.AlexHPFBypass = isHPFBypassed;
+    }
 
     private void wBToolStripMenuItem_Click(object sender, EventArgs e) {
         cmaster.Getwb(0).WBdisplay.Init();
@@ -51220,12 +51279,16 @@ public partial class Console : Form {
     //=========================================================================================
     //=========================================================================================
     // rn3kk
-    public void startHttpServer(int port) { httpServer.start(port); }
+    public void startHttpServer(int port) {
+        httpServer.start(port);
+    }
 
     //=========================================================================================
     //=========================================================================================
     // rn3kk
-    public void stopHttpServer() { httpServer.stop(); }
+    public void stopHttpServer() {
+        httpServer.stop();
+    }
 
     //=========================================================================================
     //=========================================================================================
@@ -51265,10 +51328,14 @@ public partial class Console : Form {
     }
 
     // rn3kk add
-    public string getVFOAFreqString() { return txtVFOAFreq.Text; }
+    public string getVFOAFreqString() {
+        return txtVFOAFreq.Text;
+    }
 
     // rn3kk add
-    public string getVFOBFreqString() { return txtVFOBFreq.Text; }
+    public string getVFOBFreqString() {
+        return txtVFOBFreq.Text;
+    }
 
     //=============================================================================
     // ke9ns add call DB routine and delete the current freq listed in the
@@ -51503,15 +51570,23 @@ public partial class Console : Form {
     public bool ZoomShiftModifier {
         // enable/disable the use of the shift key zoom modifier
         // where holding shift will prevent the zoom from auto centering
-        get { return m_bZoomShiftModifier; }
-        set { m_bZoomShiftModifier = value; }
+        get {
+            return m_bZoomShiftModifier;
+        }
+        set {
+            m_bZoomShiftModifier = value;
+        }
     }
 
     private bool m_bZoomShiftModifierReverse = false;
     public bool ZoomShiftModifierReverse {
         // reverses the action of the shiftzoom modifier
-        get { return m_bZoomShiftModifierReverse; }
-        set { m_bZoomShiftModifierReverse = value; }
+        get {
+            return m_bZoomShiftModifierReverse;
+        }
+        set {
+            m_bZoomShiftModifierReverse = value;
+        }
     }
 
     private bool m_bShowSmallModeFilterOnVFOs = false;
@@ -51605,7 +51680,9 @@ public partial class Console : Form {
         set { m_nSpecificMouseDeviceHandle = value; }
     }
 
-    private void OnDevicesChanged(object sender) { updateRawInputDevices(); }
+    private void OnDevicesChanged(object sender) {
+        updateRawInputDevices();
+    }
 
     private void OnMouseWheelChanged(object sender, RawInputEventArg e) {
         if (!m_bAlsoUseSpecificMouseWheel)
@@ -51778,7 +51855,7 @@ public partial class Console : Form {
                     - (gr_multi_meter_size_basis.Width
                         - pic_multi_meter_size_basis.Width),
                 pic_multi_meter_size_basis.Height);
-            ResumeDrawingNoRefresh(grpMultimeter);
+            ResumeDrawing(grpMultimeter, false);
 
             this.Invalidate(r, true);
             this.Update();
