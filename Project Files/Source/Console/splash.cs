@@ -298,6 +298,7 @@ public class Splash : System.Windows.Forms.Form {
 
     // A static method to set the status and update the reference.
     static public void SetStatus(string newStatus) {
+        
         SetStatus(newStatus, true);
     }
 
