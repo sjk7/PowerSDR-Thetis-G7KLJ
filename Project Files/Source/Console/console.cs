@@ -1341,7 +1341,7 @@ public partial class Console : Form {
         this.BringToFront();
         this.Activate();
         this.timer_clock.Enabled = true;
-        Control.CheckForIllegalCrossThreadCalls = true;
+        Control.CheckForIllegalCrossThreadCalls = false;
     }
 
     public bool IsSetupFormNull {
@@ -1623,28 +1623,28 @@ public partial class Console : Form {
 
     private void InitConsole() {
 
-        // NewVFOSignalGauge = new PowerSDR.SMeter(this, 0, picSMeter);
-
-        // NewVFOSignalGauge.Width = picSMeter.Width;
-        // NewVFOSignalGauge.Height = picSMeter.Height;
-
-        // NewVFOSignalGauge.booting = false;
-
+        Splash.SetStatus("Initialising Notch interface ...");
         m_frmNotchPopup = new frmNotchPopup();
         m_frmNotchPopup.NotchDeleteEvent += onNotchDelete;
         m_frmNotchPopup.NotchBWChangedEvent += onBWChanged;
         m_frmNotchPopup.NotchActiveChangedEvent += onActiveChanged;
 
+        Splash.SetStatus("Initialising Seq Log interface ...");
         m_frmSeqLog = new frmSeqLog();
         m_frmSeqLog.ClearButtonEvent += onClearButton;
 
+        Splash.SetStatus("Initialising PureSignal interface ...");
         psform = new PSForm(this);
         psform.Owner = this;
         booting = true;
-        Thread.Sleep(100);
+        // Thread.Sleep(100);
+        Splash.SetStatus("Initialising Band Stack Regsiters ...");
         UpdateBandStackRegisters();
 
+        Splash.SetStatus("Initialising Audio ...");
         Audio.console = this;
+
+        Splash.SetStatus("Initialising Display ...");
         Display.console = this;
 
         chkDSPNB2.Enabled = true;
@@ -1652,6 +1652,7 @@ public partial class Console : Form {
         vfoa_hover_digit = -1;
         vfob_hover_digit = -1;
 
+        Splash.SetStatus("Initialising Radio offsets ...");
         rx_meter_cal_offset_by_radio = new float[(int)HPSDRModel.LAST];
         rx_display_cal_offset_by_radio = new float[(int)HPSDRModel.LAST];
         for (int i = 0; i < (int)HPSDRModel.LAST; i++) {
@@ -1669,6 +1670,7 @@ public partial class Console : Form {
             }
         }
 
+        Splash.SetStatus("Initialising Preamps ...");
         rx1_preamp_by_band = new PreampMode[(int)Band.LAST];
         rx2_preamp_by_band = new PreampMode[(int)Band.LAST];
         rx1_step_attenuator_by_band = new int[(int)Band.LAST];
@@ -1698,6 +1700,7 @@ public partial class Console : Form {
             tx_step_attenuator_by_band[i] = 31;
         }
 
+        Splash.SetStatus("Initialising Power (by band) ...");
         power_by_band = new int[(int)Band.LAST];
         for (int i = 0; i < (int)Band.LAST; i++) power_by_band[i] = 50;
 
@@ -1713,6 +1716,7 @@ public partial class Console : Form {
             }
         }
 
+        Splash.SetStatus("Initialising AGC ...");
         rx1_agcm_by_band = new AGCMode[(int)Band.LAST]; // AGC Mode by band
         rx2_agcm_by_band = new AGCMode[(int)Band.LAST];
 
@@ -1754,6 +1758,7 @@ public partial class Console : Form {
             }
         }
 
+        Splash.SetStatus("Initialising Diversity...");
         diversity_rx1_ref_by_band = new bool[(int)Band.LAST];
         diversity_rx2_ref_by_band = new bool[(int)Band.LAST];
 
@@ -1761,6 +1766,8 @@ public partial class Console : Form {
             diversity_rx1_ref_by_band[i] = true;
             diversity_rx2_ref_by_band[i] = false;
         }
+
+        Splash.SetStatus("Initialising VHF...");
 
         vhf_text = new RadioButtonTS[15];
         vhf_text[0] = radBandVHF0;
@@ -1778,6 +1785,8 @@ public partial class Console : Form {
         vhf_text[12] = radBandVHF12;
         vhf_text[13] = radBandVHF13;
 
+        Splash.SetStatus("Initialising General Coverage RX ...");
+
         radBandGEN0.Enabled
             = true; // ke9ns add turn on all the buttons for GEN SWL
         radBandGEN1.Enabled = true;
@@ -1794,6 +1803,7 @@ public partial class Console : Form {
         radBandGEN12.Enabled = true;
         radBandGEN13.Enabled = true;
 
+        Splash.SetStatus("Initialising RX Levels...");
         rx1_level_table = new float
             [(int) Band.LAST][]; // 3 settings per band (display_offset, preamp,
                                  // multimeter offset)
@@ -1825,6 +1835,7 @@ public partial class Console : Form {
 
         last_band = ""; // initialize bandstack
 
+        Splash.SetStatus("Initialising Tune Steps ...");
         tune_step_list = new List<TuneStep> {
             new TuneStep(1, "1Hz"), new TuneStep(2, "2Hz"),
             new TuneStep(10, "10Hz"), new TuneStep(25, "25Hz"),
@@ -1843,11 +1854,13 @@ public partial class Console : Form {
 
         tune_step_index = 2;
 
+        Splash.SetStatus("Initialising Meter History ...");
         meter_text_history = new float[multimeter_text_peak_samples];
 
         current_meter_data = -200.0f;
         new_meter_data = -200.0f;
 
+        Splash.SetStatus("Initialising RX Preamp ...");
         rx1_preamp_offset = new float[9];
 
         rx1_preamp_offset[(int)PreampMode.HPSDR_OFF] = 20.0f; // atten inline
@@ -1869,10 +1882,16 @@ public partial class Console : Form {
         this.ActiveControl = chkPower; // Power has focus initially
 
         Display.Target = picDisplay;
+
+        Splash.SetStatus("Initialising Display Modes...");
         InitDisplayModes(); // Initialize Display Modes
+
+        Splash.SetStatus("Initialising AGC Modes ...");
         InitAGCModes(); // Initialize AGC Modes
+        Splash.SetStatus("Initialising Meter Modes ...");
         InitMultiMeterModes(); // Initialize MultiMeter Modes
 
+        Splash.SetStatus("Initialising SIO Listeners ...");
         Siolisten = new SIOListenerII(this);
         Sio2listen = new SIO2ListenerII(this);
         Sio3listen = new SIO3ListenerII(this);
@@ -1881,35 +1900,54 @@ public partial class Console : Form {
         AriesSiolisten = new SIO6ListenerII(this);
         GanymedeSiolisten = new SIO7ListenerII(this);
 
+        Splash.SetStatus("Initialising EQ Form...");
         EQForm = new EQForm(this);
 
+        Splash.SetStatus("Initialising Filter Presets ...");
         InitFilterPresets(); // Initialize filter values
 
+        Splash.SetStatus("Initialising Stack Window ...");
         StackForm = new StackControl(
             this); // ke9ns add communicate with bandstack controls
+
+        Splash.SetStatus("Initialising SWL Window ...");
         SwlForm = new SwlControl(
             this); // ke9ns add communicate with swl list controls
+
+        Splash.SetStatus("Initialising HTTP Server ...");
         httpFile = new Http(this); // ke9ns add
         httpServer = new HttpServer(this); // rn3kk add
 
+        Splash.SetStatus("Initialising Setup Window ...");
         SetupForm.StartPosition
             = FormStartPosition
                   .Manual; // first use of singleton will create Setup form
 
+        Splash.SetStatus("Initialising TXProfile ...");
         UpdateTXProfile(SetupForm.TXProfile);
 
+        Splash.SetStatus("Restoring EQ Window ...");
         Common.RestoreForm(EQForm, "EQForm", false);
 
+        Splash.SetStatus("Initialising Transceiver Form...");
         XVTRForm = new XVTRForm(this);
+
+        Splash.SetStatus("Initialising 'Waveform' ...");
         WaveForm = new WaveControl(this) { StartPosition
             = FormStartPosition.Manual }; // create Wave form
+
+        Splash.SetStatus("Initialising Scan Window ...");
         ScanForm = new ScanControl(this) { StartPosition
             = FormStartPosition.Manual }; // ke9ns add create Scan form
 
+        Splash.SetStatus("Restoring Memory List ...");
         MemoryList = MemoryList.Restore();
+        Splash.SetStatus("Restoring DXMemory List ...");
         dxmemList = DXMemList.Restore1(); // ke9ns add for dx spotter
 
+        Splash.SetStatus("Init Front Panel Memory ...");
         InitMemoryFrontPanel();
+
         vfob_dsp_mode = DSPMode.LSB;
         vfob_filter = Filter.F3;
         comboDisplayMode.Text = "Panafall";
@@ -1922,23 +1960,30 @@ public partial class Console : Form {
         ptbPWR.Value = 100;
         btnDisplayPanCenter_Click(this, EventArgs.Empty);
 
+        Splash.SetStatus("Synching TX Profile ...");
         comboTXProfile.Text = SetupForm.TXProfile;
         comboDigTXProfile.Text = SetupForm.TXProfile;
         comboFMTXProfile.Text = SetupForm.TXProfile;
         comboAMTXProfile.Text = SetupForm.TXProfile;
         comboFMCTCSS.Text = "100.0";
 
+        Splash.SetStatus("Recalling Main Window State ...");
         GetState(); // recall saved state
 
         initializing = false;
+        Splash.SetStatus("Loading Previous TX Profile ...");
         SetupForm.ForceTXProfileUpdate(); // loads previously saved profile
         initializing = true;
 
         // MW0LGE certain things in setup need objects created in this instance,
         // so we will delay them during init of setup, and now do them here
+        Splash.SetStatus("Delayed initialisation tasks ...");
         SetupForm.PerformDelayedInitalistion();
 
+        Splash.SetStatus("Initialisation for Duplex ...");
         chkFullDuplex.Checked = false;
+
+        Splash.SetStatus("Sync for DSP Modes...");
         if (rx1_dsp_mode == DSPMode.FIRST || rx1_dsp_mode == DSPMode.LAST)
             radModeLSB.Checked = true;
         if (rx2_dsp_mode == DSPMode.FIRST || rx2_dsp_mode == DSPMode.LAST)
@@ -1952,10 +1997,12 @@ public partial class Console : Form {
                 && rx2_dsp_mode != DSPMode.SPEC))
             radRX2Filter3.Checked = true;
 
+        Splash.SetStatus("Initialisation for VFO ...");
         chkVFOATX_CheckedChanged(this, EventArgs.Empty);
         chkVFOBTX_CheckedChanged(this, EventArgs.Empty);
 
         PAPresent = pa_present;
+        Splash.SetStatus("Initialisation for TX Sample Rate ...");
         SampleRateTX = sample_rate_tx;
 
         if (comboAGC.SelectedIndex < 0) RX1AGCMode = AGCMode.MED;
@@ -12828,9 +12875,7 @@ public partial class Console : Form {
     }
 
     // G8NJJ added to allow labelling of buttons in popup form
-    public string GetVHFText(int index) {
-        return vhf_text[index].Text;
-    }
+    public string GetVHFText(int index) { return vhf_text[index].Text; }
 
     //=============================================================================
     // ke9ns mod add GEN SWL bands
@@ -18673,9 +18718,7 @@ public partial class Console : Form {
         rx1_preamp_by_band[(int)b] = mode;
     }
 
-    public PreampMode GetPreamp(Band b) {
-        return rx1_preamp_by_band[(int)b];
-    }
+    public PreampMode GetPreamp(Band b) { return rx1_preamp_by_band[(int)b]; }
 
     private PreampMode[] rx2_preamp_by_band;
 
@@ -18687,9 +18730,7 @@ public partial class Console : Form {
         if (tx_band == b) PWR = pwr;
     }
 
-    public int GetPower(Band b) {
-        return power_by_band[(int)b];
-    }
+    public int GetPower(Band b) { return power_by_band[(int)b]; }
 
     private AGCMode[] rx1_agcm_by_band;
     private AGCMode[] rx2_agcm_by_band;
@@ -18700,9 +18741,7 @@ public partial class Console : Form {
         if (rx1_band == b) RF = gain;
     }
 
-    public int GetRFGain(Band b) {
-        return rx1_agct_by_band[(int)b];
-    }
+    public int GetRFGain(Band b) { return rx1_agct_by_band[(int)b]; }
 
     private int[] rx2_agct_by_band;
 
@@ -19737,9 +19776,9 @@ public partial class Console : Form {
 
         set {
             Display.ColorSheme = value;
-            //#if DirectX
-            //         Display_DirectX.ColorSheme = value;
-            //#endif
+            // #if DirectX
+            //          Display_DirectX.ColorSheme = value;
+            // #endif
             color_palette = value;
         }
     }
@@ -19750,9 +19789,9 @@ public partial class Console : Form {
 
         set {
             Display.RX2ColorSheme = value;
-            //#if DirectX
-            //         Display_DirectX.ColorSheme = value;
-            //#endif
+            // #if DirectX
+            //          Display_DirectX.ColorSheme = value;
+            // #endif
             rx2_color_palette = value;
         }
     }
@@ -21739,15 +21778,9 @@ public partial class Console : Form {
     // equivalent console
     // functions.
     //   i.e. not just copy frequency alone
-    public void CATVFOAtoB() {
-        btnVFOAtoB_Click(this, EventArgs.Empty);
-    }
-    public void CATVFOBtoA() {
-        btnVFOBtoA_Click(this, EventArgs.Empty);
-    }
-    public void CATVFOABSwap() {
-        btnVFOSwap_Click(this, EventArgs.Empty);
-    }
+    public void CATVFOAtoB() { btnVFOAtoB_Click(this, EventArgs.Empty); }
+    public void CATVFOBtoA() { btnVFOBtoA_Click(this, EventArgs.Empty); }
+    public void CATVFOABSwap() { btnVFOSwap_Click(this, EventArgs.Empty); }
 
     public int CATTXProfileCount {
         get { return comboTXProfile.Items.Count; }
@@ -21914,13 +21947,9 @@ public partial class Console : Form {
         set { btnZeroBeat.PerformClick(); }
     }
 
-    public void CATTuneStepUp() {
-        ChangeTuneStepUp();
-    }
+    public void CATTuneStepUp() { ChangeTuneStepUp(); }
 
-    public void CATTuneStepDown() {
-        ChangeTuneStepDown();
-    }
+    public void CATTuneStepDown() { ChangeTuneStepDown(); }
 
     //-W2PA This specifies the number of MIDI messages that cause a single tune
     // step increment
@@ -22016,9 +22045,7 @@ public partial class Console : Form {
         }
     }
 
-    public void CATSingleCal() {
-        psform.SingleCalrun();
-    }
+    public void CATSingleCal() { psform.SingleCalrun(); }
 
 #pragma warning disable CS0414 // The field 'Console.cat_breakin_status' is
     // assigned but its value is never used
@@ -35066,9 +35093,7 @@ public partial class Console : Form {
         if (comboTuneMode.Focused) btnHidden.Focus();
     }
 
-    private void HideFocus(object sender, EventArgs e) {
-        btnHidden.Focus();
-    }
+    private void HideFocus(object sender, EventArgs e) { btnHidden.Focus(); }
 
     private void textbox_GotFocus(object sender, EventArgs e) {
         SetFocusMaster(false);
@@ -35770,9 +35795,8 @@ public partial class Console : Form {
                 if (!m_bWheelTunesOutsideSpectral)
                     break; // break out because we are not permitted to tune
                            // outside spectral/vfo boxes
-                goto case TuneLocation
-                    .DisplayTop; // give me fall through c# gods
-            case TuneLocation.DisplayTop:
+            goto case TuneLocation.DisplayTop; // give me fall through c# gods
+                case TuneLocation.DisplayTop:
                 // MW0LGE this was other, but now we assume it is top of
                 // spectral display
                 if (current_click_tune_mode == ClickTuneMode.VFOB
@@ -42071,9 +42095,7 @@ public partial class Console : Form {
         }
     }
 
-    public void CopyVFOAtoB() {
-        btnVFOAtoB_Click(this, EventArgs.Empty);
-    }
+    public void CopyVFOAtoB() { btnVFOAtoB_Click(this, EventArgs.Empty); }
 
     private void btnVFOAtoB_Click(object sender, System.EventArgs e) {
         if (rx2_enabled) {
@@ -42107,9 +42129,7 @@ public partial class Console : Form {
         }
     }
 
-    public void CopyVFOBtoA() {
-        btnVFOBtoA_Click(this, EventArgs.Empty);
-    }
+    public void CopyVFOBtoA() { btnVFOBtoA_Click(this, EventArgs.Empty); }
 
     private void btnVFOBtoA_Click(object sender, System.EventArgs e) {
         if (!rx2_enabled) {
@@ -42147,9 +42167,7 @@ public partial class Console : Form {
         }
     }
 
-    public void VFOSwap() {
-        btnVFOSwap_Click(this, EventArgs.Empty);
-    }
+    public void VFOSwap() { btnVFOSwap_Click(this, EventArgs.Empty); }
 
     private void btnVFOSwap_Click(object sender, System.EventArgs e) {
         if (!rx2_enabled) {
@@ -43199,9 +43217,7 @@ public partial class Console : Form {
 
     private static Console theConsole = null;
 
-    public static Console getConsole() {
-        return theConsole;
-    }
+    public static Console getConsole() { return theConsole; }
 
     protected override void WndProc(ref Message m) {
         const int WM_QUERYENDSESSION = 0x0011;
@@ -50278,9 +50294,7 @@ public partial class Console : Form {
 
     private bool isHPFBypassed;
 
-    public void wbClosing() {
-        SetupForm.AlexHPFBypass = isHPFBypassed;
-    }
+    public void wbClosing() { SetupForm.AlexHPFBypass = isHPFBypassed; }
 
     private void wBToolStripMenuItem_Click(object sender, EventArgs e) {
         cmaster.Getwb(0).WBdisplay.Init();
@@ -51279,16 +51293,12 @@ public partial class Console : Form {
     //=========================================================================================
     //=========================================================================================
     // rn3kk
-    public void startHttpServer(int port) {
-        httpServer.start(port);
-    }
+    public void startHttpServer(int port) { httpServer.start(port); }
 
     //=========================================================================================
     //=========================================================================================
     // rn3kk
-    public void stopHttpServer() {
-        httpServer.stop();
-    }
+    public void stopHttpServer() { httpServer.stop(); }
 
     //=========================================================================================
     //=========================================================================================
@@ -51328,14 +51338,10 @@ public partial class Console : Form {
     }
 
     // rn3kk add
-    public string getVFOAFreqString() {
-        return txtVFOAFreq.Text;
-    }
+    public string getVFOAFreqString() { return txtVFOAFreq.Text; }
 
     // rn3kk add
-    public string getVFOBFreqString() {
-        return txtVFOBFreq.Text;
-    }
+    public string getVFOBFreqString() { return txtVFOBFreq.Text; }
 
     //=============================================================================
     // ke9ns add call DB routine and delete the current freq listed in the
@@ -51680,9 +51686,7 @@ public partial class Console : Form {
         set { m_nSpecificMouseDeviceHandle = value; }
     }
 
-    private void OnDevicesChanged(object sender) {
-        updateRawInputDevices();
-    }
+    private void OnDevicesChanged(object sender) { updateRawInputDevices(); }
 
     private void OnMouseWheelChanged(object sender, RawInputEventArg e) {
         if (!m_bAlsoUseSpecificMouseWheel)
