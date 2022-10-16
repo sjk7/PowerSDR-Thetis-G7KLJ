@@ -95,4 +95,28 @@
     <CodeCurrent>29663</CodeCurrent>
     <CodeNext>7341739</CodeNext>
   </ChannelMaster>
+  <ChannelMaster>
+    <FileName>portaudio.h</FileName>
+    <ErrorCode>V802</ErrorCode>
+    <Message>On _-bit platform, structure size can be reduced from _ to _ bytes by rearranging the fields according to their sizes in decreasing order.</Message>
+    <CodePrev>123</CodePrev>
+    <CodeCurrent>3101508157</CodeCurrent>
+    <CodeNext>873116732</CodeNext>
+  </ChannelMaster>
+  <ChannelMaster>
+    <FileName>pa_win_wasapi.h</FileName>
+    <ErrorCode>V802</ErrorCode>
+    <Message>On _-bit platform, structure size can be reduced from _ to _ bytes by rearranging the fields according to their sizes in decreasing order.</Message>
+    <CodePrev>463499252</CodePrev>
+    <CodeCurrent>123</CodeCurrent>
+    <CodeNext>26511967</CodeNext>
+  </ChannelMaster>
+  <ChannelMaster>
+    <FileName>debug_flags.h</FileName>
+    <ErrorCode>V575</ErrorCode>
+    <Message>The potential null pointer is passed into 'fwrite' function. Inspect the fourth argument.</Message>
+    <CodePrev>78233</CodePrev>
+    <CodeCurrent>2271631499</CodeCurrent>
+    <CodeNext>10023465</CodeNext>
+  </ChannelMaster>
 </NewDataSet>

@@ -126,7 +126,6 @@ void xpipe(int stream, int pos, double** buffs) {
     int rx = 0;
     int tx = 0;
     int sp0 = 0;
-    volatile double meh = 0;
     int st = stype(stream);
 
     if (st == 0)
@@ -182,9 +181,7 @@ void xpipe(int stream, int pos, double** buffs) {
         }
     } else if (stream == inid(1, 0)) // PowerSDR single transmitter
     {
-        if (meh) {
-            meh++;
-        }
+
         switch (pos) {
 
             case 0: // MIC data
@@ -221,18 +218,14 @@ void xpipe(int stream, int pos, double** buffs) {
         }
     } else if (stream == inid(2, 0)) // PowerSDR Stitched Rcvrs, Left side
     {
-        if (meh) {
-            meh++;
-        }
+
         xanb(ppip->spc0[sp0].panb); // nb
         xnob(ppip->spc0[sp0].pnob); // nb II
         Spectrum0(_InterlockedAnd(&pip.rcvr[0].top_pan3_run, 0xffffffff), 0, 0,
             0, buff); // stitched pan
     } else if (stream == inid(2, 1)) // PowerSDR Stitched Rcvrs, Right side
     {
-        if (meh) {
-            meh++;
-        }
+
         xanb(ppip->spc0[sp0].panb); // nb
         xnob(ppip->spc0[sp0].pnob); // nb2
         Spectrum0(_InterlockedAnd(&pip.rcvr[0].top_pan3_run, 0xffffffff), 0, 2,

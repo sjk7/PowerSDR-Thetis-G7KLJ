@@ -1,6 +1,8 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio,
+// please check it.
 
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java:
+// http://www.viva64.com
 /*
  * network.c
  * Copyright (C) 2015-2020 Doug Wigley (W5WC)
@@ -33,7 +35,6 @@
 #include <assert.h>
 #include "network.h"
 #include <Iphlpapi.h>
-
 
 #pragma comment(lib, "IPHLPAPI.lib")
 #pragma comment(lib, "ws2_32.lib")
@@ -108,28 +109,27 @@ PORT int nativeInitMetis(
     local.sin_family = AF_INET;
     local.sin_addr.s_addr = inet_addr(localaddr);
 
-
-    #ifdef RIO_SOCK_USED
+#ifdef RIO_SOCK_USED
     InitialiseWinsock();
-    listenSock = socket(AF_INET, SOCK_DGRAM, 0); 
-    #else
+    listenSock = socket(AF_INET, SOCK_DGRAM, 0);
+#else
     listenSock = WSASocket(AF_INET, SOCK_DGRAM, IPPROTO_UDP, NULL, 0, 0);
 #endif
-    
-    if (listenSock == INVALID_SOCKET){    
-    printf("createSocket Error: socket failed %ld\n", WSAGetLastError());
+
+    if (listenSock == INVALID_SOCKET) {
+        printf("createSocket Error: socket failed %ld\n", WSAGetLastError());
         WSACleanup();
         return INVALID_SOCKET;
     }
 
     // bind to the local address
-    //int bound = bind(listenSock, (SOCKADDR*)&local, sizeof(local));
+    // int bound = bind(listenSock, (SOCKADDR*)&local, sizeof(local));
     int bound = bind(listenSock, (struct sockaddr*)(&local), sizeof(local));
     assert(bound == 0);
     MetisAddr = inet_addr(netaddr);
     fflush(stdout);
 
-    #ifndef RIO_SOCK_USED
+#ifndef RIO_SOCK_USED
     int sndbufsize = 0;
     sndbufsize = 0xfa000 * 16;
     setsockopt(listenSock, SOL_SOCKET, SO_SNDBUF, (const char*)&sndbufsize,
@@ -137,10 +137,10 @@ PORT int nativeInitMetis(
     sndbufsize = 0x10000 * 16;
     setsockopt(listenSock, SOL_SOCKET, SO_RCVBUF, (const char*)&sndbufsize,
         sizeof(int));
-    #else
+#else
     SetSocketRecvBufferToMaximum(listenSock);
     SetSocketSendBufferToMaximum(listenSock);
-    #endif
+#endif
 
     DestIp = inet_addr(netaddr);
 
@@ -305,7 +305,8 @@ int ReadUDPFrame(unsigned char* bufp) {
     unsigned char* seqbytep = (unsigned char*)&seqnum;
     fromlen = sizeof(fromaddr);
 
-    // EnterCriticalSection(&prn->rcvpkt); G7KLJ: not here! readbuf is our own stack buffer, we only need to lock bufp here
+    // EnterCriticalSection(&prn->rcvpkt); G7KLJ: not here! readbuf is our own
+    // stack buffer, we only need to lock bufp here
 
     nrecv = recvfrom(listenSock, readbuf, sizeof(readbuf), 0,
         (SOCKADDR*)&fromaddr, &fromlen);
@@ -326,8 +327,8 @@ int ReadUDPFrame(unsigned char* bufp) {
     seqbytep[1] = readbuf[2];
     seqbytep[0] = readbuf[3];
 
-
-    EnterCriticalSection(&prn->rcvpkt); // G7KLJ: Now, if recvFrom blocks, we dont have the lock. Better!
+    EnterCriticalSection(&prn->rcvpkt); // G7KLJ: Now, if recvFrom blocks, we
+                                        // dont have the lock. Better!
 
     switch (inport = ntohs(fromaddr.sin_port)) {
         case HPCCPort: // 1025: // 60 bytes - High Priority C&C data
@@ -337,12 +338,12 @@ int ReadUDPFrame(unsigned char* bufp) {
                 prn->cc_seq_err += 1;
                 // PrintTimeHack();
                 printf("- Rx High Priority C&C: seq error this: %i last: %i\n",
-                    seqnum, prn->cc_seq_no);
+                    (int)seqnum, prn->cc_seq_no);
                 fflush(stdout);
             }
 
             prn->cc_seq_no = seqnum;
-            
+
             memcpy(bufp, readbuf + 4, 56);
             break;
 
@@ -354,7 +355,7 @@ int ReadUDPFrame(unsigned char* bufp) {
                 prn->tx[0].mic_in_seq_err += 1;
                 // PrintTimeHack();
                 printf("- Mic samples: seq error this: %i last: %i\n", seqnum,
-                    prn->tx[0].mic_in_seq_no);
+                    (int)prn->tx[0].mic_in_seq_no);
                 fflush(stdout);
             }
 
@@ -428,7 +429,7 @@ int ReadUDPFrame(unsigned char* bufp) {
             if (seqnum != (1 + prn->rx[ddc].rx_in_seq_no) && seqnum != 0) {
                 prn->rx[ddc].rx_in_seq_err += 1;
                 printf("- Rx%d I/Q: seq error this: %d last: %d\n", ddc, seqnum,
-                    prn->rx[ddc].rx_in_seq_no);
+                    (int)prn->rx[ddc].rx_in_seq_no);
                 fflush(stdout);
 
                 addSnapShot(ddc, seqnum, prn->rx[ddc].rx_in_seq_no);
@@ -1049,14 +1050,14 @@ void sendOutbound(int id, double* out) {
         if (id == 1) {
             memcpy(prn->outIQbufp, out, sizeof(complex) * 126);
             ReleaseSemaphore(prn->hsendIQSem, 1, 0);
-          
+
             WaitForSingleObject(prn->hobbuffsRun[0], INFINITE);
         } else {
 
             memcpy(prn->outLRbufp, out, sizeof(complex) * 126);
             prn->last_time_signalled = timeGetTime();
             ReleaseSemaphore(prn->hsendLRSem, 1, 0);
-            
+
             WaitForSingleObject(prn->hobbuffsRun[1], INFINITE);
         }
     }
@@ -1112,7 +1113,7 @@ int sendPacket(SOCKET sock, char* data, int length, int port) {
     }
 
     EnterCriticalSection(&prn->sndpkt);
-    
+
     DWORD timeStart = timeGetTime();
     dest.sin_port = htons((u_short)port);
     dest.sin_family = AF_INET;
@@ -1123,31 +1124,31 @@ int sendPacket(SOCKET sock, char* data, int length, int port) {
     DWORD sock_error = 0;
     char* mydata = data;
 
-    #ifdef RIO_SOCK_USED
+#ifdef RIO_SOCK_USED
     WSABUF buf;
     buf.buf = (char*)data;
     buf.len = length;
     DWORD bytesSent = 0;
     DWORD flags = 0;
-    #endif
+#endif
 
     int slept = 0;
 
     while (sent < length) {
-        #ifdef RIO_SOCK_USEDD // nah, WSASendTo always blocks: not what we want!
-        //WSARecv(listenSock, &buf, 1, &bytesRecvd, &flags, 0, 0);
+#ifdef RIO_SOCK_USEDD // nah, WSASendTo always blocks: not what we want!
+        // WSARecv(listenSock, &buf, 1, &bytesRecvd, &flags, 0, 0);
         ret = WSASendTo(listenSock, &buf, 1, &bytesSent, flags,
-            (SOCKADDR*)&dest, sizeof(dest) ,0, 0);
+            (SOCKADDR*)&dest, sizeof(dest), 0, 0);
         if (ret == 0) {
             sent += bytesSent;
         }
 
-        #else
+#else
         ret = sendto(sock, mydata, length, 0, (SOCKADDR*)&dest, sizeof(dest));
         if (ret == 0) {
             sent += ret;
         }
-        #endif
+#endif
         if (ret == -1) {
             sock_error = WSAGetLastError();
             if (sock_error == WSAEWOULDBLOCK) {
@@ -1159,11 +1160,10 @@ int sendPacket(SOCKET sock, char* data, int length, int port) {
             } else {
                 if (sock_error != 0) {
                     LeaveCriticalSection(&prn->sndpkt);
-                    //assert(0);
-                     wprintf(L"sendto failed with error:%d\n", sock_error);
+                    // assert(0);
+                    wprintf(L"sendto failed with error:%d\n", (int)sock_error);
                     return ret;
                 }
-               
             }
         } else {
             if (ret == 0) {
@@ -1171,23 +1171,23 @@ int sendPacket(SOCKET sock, char* data, int length, int port) {
                 Sleep(10);
                 break;
             }
-            
+
             sent += ret;
             mydata += ret;
         }
     }
-    
+
     assert(sent == length);
-    #ifdef DEBUG_TIMINGS
+#ifdef DEBUG_TIMINGS
     volatile DWORD d2 = timeGetTime();
     volatile DWORD took = d2 - d1;
     if (took > 10) {
         fprintf(stderr, "sendto took ages: %ld\n", (int)d2 - d1);
     }
-    #endif
+#endif
 
     assert(ret = sizeof(dest)); // for non-blocking experiments.
-    
+
     DWORD done = timeGetTime();
     DWORD all = done - timeEnter;
     DWORD sent_time = done - timeStart;
@@ -1196,7 +1196,6 @@ int sendPacket(SOCKET sock, char* data, int length, int port) {
         printf("Long time to send: %ld %ld\n", (int)all, (int)sent);
     }
 
-    
     LeaveCriticalSection(&prn->sndpkt);
 
     last_send_time = timeGetTime();
@@ -1208,11 +1207,11 @@ void KeepAliveLoop(void) {
 
     prn->hTimer = CreateWaitableTimer(NULL, FALSE, NULL);
     if (prn->hTimer == NULL) {
-        printf("CreateWaitableTimer failed (%d)\n", GetLastError());
+        printf("CreateWaitableTimer failed (%d)\n", (int)GetLastError());
     } else {
         if (!SetWaitableTimer(
                 prn->hTimer, &prn->liDueTime, 500, NULL, NULL, 0)) {
-            printf("SetWaitableTimer failed (%d)\n", GetLastError());
+            printf("SetWaitableTimer failed (%d)\n", (int)GetLastError());
         }
 
         while (io_keep_running) {
@@ -1269,8 +1268,7 @@ DWORD WINAPI ReadThreadMain(LPVOID n) {
     ReadThreadMainLoop();
     IOThreadRunning = 0;
 
-
-      if (hpri && hpri != INVALID_HANDLE_VALUE) prioritise_thread_cleanup(hpri);
+    if (hpri && hpri != INVALID_HANDLE_VALUE) prioritise_thread_cleanup(hpri);
     return 0;
 }
 

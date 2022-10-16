@@ -1,6 +1,8 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio,
+// please check it.
 
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java:
+// http://www.viva64.com
 /*
  * networkprot1.c
  * Copyright (C) 2020 Doug Wigley (W5WC)
@@ -153,9 +155,9 @@ int MetisReadDirectPOLL(unsigned char* bufp) {
         unsigned char readbuf[1074];
     } inpacket;
 
-    #ifdef DEBUG_TIMINGS
+#ifdef DEBUG_TIMINGS
     if (time_when_start == 0) time_when_start = timeGetTime();
-    #endif
+#endif
 
     struct sockaddr_in fromaddr;
     int fromlen;
@@ -169,7 +171,7 @@ int MetisReadDirectPOLL(unsigned char* bufp) {
     int loops = 0;
     int yields = 0;
 
-    #ifdef RIO_SOCK_USEDD
+#ifdef RIO_SOCK_USEDD
     WSABUF buf;
 
     buf.buf = (char*)&inpacket;
@@ -177,24 +179,22 @@ int MetisReadDirectPOLL(unsigned char* bufp) {
 
     DWORD bytesRecvd = 0;
     DWORD flags = 0;
-    #else
+#else
     char* buf = (char*)&inpacket;
     int buflen = sizeof(inpacket);
-    #endif
-
-    
+#endif
 
     // trying a tight loop to see if it helps relay chatter
-    while (io_keep_running && rc != 1032){ 
-        #ifndef RIO_SOCK_USEDD // nah, WSA.. blocks
+    while (io_keep_running && rc != 1032) {
+#ifndef RIO_SOCK_USEDD // nah, WSA.. blocks
         rc = recvfrom(listenSock, (char*)buf, buflen, 0,
-        (struct sockaddr*)&fromaddr, &fromlen);
-        #else
+            (struct sockaddr*)&fromaddr, &fromlen);
+#else
         rc = WSARecv(listenSock, &buf, 1, &bytesRecvd, &flags, 0, 0);
         if (rc == 0) {
             rc = bytesRecvd;
         }
-        #endif
+#endif
 
         if (rc < 0) {
             if (rc == -1) // SOCKET_ERROR
@@ -212,13 +212,13 @@ int MetisReadDirectPOLL(unsigned char* bufp) {
             assert(0);
             return rc;
         } else if (rc > 0) {
-            #ifdef RIO_SOCK_USEDD
+#ifdef RIO_SOCK_USEDD
             buf.buf += rc;
             buf.len -= rc;
-            #else
+#else
             buf += rc;
             buflen -= rc;
-            #endif
+#endif
             done = timeGetTime();
         }
     }
@@ -240,7 +240,7 @@ int MetisReadDirectPOLL(unsigned char* bufp) {
                     HaveSync = 1;
                 } else {
                     HaveSync = 0;
-                    printf("MRD: sync error on frame %d\n", seqnum);
+                    printf("MRD: sync error on frame %d\n", (int)seqnum);
                 }
                 memcpy(bufp, inpacket.readbuf + 8, 1024);
                 xpro(prop, seqnum, bufp); // resequence out of order packets
@@ -250,15 +250,13 @@ int MetisReadDirectPOLL(unsigned char* bufp) {
                 MetisLastRecvSeq = seqnum;
 
                 // LeaveCriticalSection(&prn->rcvpktp1);
-                
 
 #if (defined _DEBUG && defined DEBUG_TIMINGS)
                 DWORD took = done - startEnter;
                 DWORD total = timeGetTime() - startEnter;
                 if (reads++ > 20 && (took > 10 || total > 10)) {
-                    if (took > (DWORD)longest_wait ) 
-                    {
-                            longest_wait = took;
+                    if (took > (DWORD)longest_wait) {
+                        longest_wait = took;
                         fprintf(stderr,
                             "This is the LONGEST metis read wait: %ld ms.\n",
                             (int)longest_wait);
@@ -266,13 +264,15 @@ int MetisReadDirectPOLL(unsigned char* bufp) {
                     fprintf(stderr,
                         "Waited a long time for MetisReadDirect: took: %ld, "
                         "total: %ld ms.\nLooped: %ld. Yielded: %ld times.\n",
-                        (int)took, (int)total, (int) loops, (int)yields);
+                        (int)took, (int)total, (int)loops, (int)yields);
                     DWORD time_since_start = timeGetTime() - time_when_start;
                     double sec_since_start = (double)time_since_start / 1000.0;
                     volatile double reads_sec = (double)reads / sec_since_start;
                     if (reads > 1000) {
                         int ireads_per_sec = (int)reads;
-                        fprintf(stderr, "---------Average reads per sec: %ld. Secs running: %f----------\n",
+                        fprintf(stderr,
+                            "---------Average reads per sec: %ld. Secs "
+                            "running: %f----------\n",
                             ireads_per_sec, sec_since_start);
                     }
                 }
@@ -350,7 +350,7 @@ int MetisReadDirect(unsigned char* bufp) {
                     HaveSync = 1;
                 } else {
                     HaveSync = 0;
-                    printf("MRD: sync error on frame %d\n", seqnum);
+                    printf("MRD: sync error on frame %d\n", (int)seqnum);
                 }
                 memcpy(bufp, inpacket.readbuf + 8, 1024);
                 xpro(prop, seqnum, bufp); // resequence out of order packets
@@ -412,7 +412,7 @@ int MetisWriteFrame(int endpoint, char* bufp) {
 // this is the main thread that reads data
 DWORD WINAPI MetisReadThreadMain(LPVOID n) {
     HANDLE hpri = prioritise_thread_max();
-    //SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL);
+    // SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL);
     io_keep_running = 1;
     IOThreadRunning = 1;
 
@@ -442,7 +442,7 @@ void twist(int nsamples, int stream0, int stream1, int port) {
     xrouter(0, 0, port, 2 * nsamples, prn->RxReadBufp);
 }
 
- #define POLL_INSTEAD
+#define POLL_INSTEAD
 
 void MetisReadThreadMainLoop(void) {
     mic_decimation_count = 0;
@@ -456,23 +456,21 @@ void MetisReadThreadMainLoop(void) {
     fflush(stdout);
 
     prn->hDataEvent = WSACreateEvent();
-    #ifndef POLL_INSTEAD
+#ifndef POLL_INSTEAD
     WSAEventSelect(listenSock, prn->hDataEvent, FD_READ);
-    #endif
+#endif
     PrintTimeHack();
     printf("- MetisReadThreadMainLoop()\n");
     fflush(stdout);
     BOOL first_read = TRUE;
 
-   
-
-    #ifdef POLL_INSTEAD
-        u_long mode = 1; // 1 to enable non-blocking socket
-        ioctlsocket(listenSock, FIONBIO, &mode);
-    #endif
+#ifdef POLL_INSTEAD
+    u_long mode = 1; // 1 to enable non-blocking socket
+    ioctlsocket(listenSock, FIONBIO, &mode);
+#endif
 
     while (io_keep_running != 0) {
-        #ifndef POLL_INSTEAD
+#ifndef POLL_INSTEAD
         WSAWaitForMultipleEvents(
             1, &prn->hDataEvent, FALSE, WSA_INFINITE, FALSE);
         if (io_keep_running == 0) break; // must check after blocking call.
@@ -489,11 +487,10 @@ void MetisReadThreadMainLoop(void) {
                 break;
             }
             MetisReadDirect(FPGAReadBufp);
-        #else
-            MetisReadDirectPOLL(FPGAReadBufp);
+#else
+        MetisReadDirectPOLL(FPGAReadBufp);
 
-        #endif
-            
+#endif
 
             if (io_keep_running == 0) break;
 
@@ -616,350 +613,359 @@ void MetisReadThreadMainLoop(void) {
         }
     }
 
+    void WriteMainLoop(char* bufp) {
+        // now attempt to TX if there is a frame of data to send
+        int txframe;
+        unsigned char C0 = 0, C1 = 0, C2 = 0, C3 = 0, C4 = 0;
+        unsigned char CWMode;
+        char* txbptr;
+        int ddc_freq;
+        // create 2 USB frames
+        for (txframe = 0; txframe < 2; txframe++) {
+            txbptr = FPGAWriteBufp + (uint64_t)512 * (uint64_t)txframe;
+            txbptr[0] = 0x7f; // add the 3 sync bytes
+            txbptr[1] = 0x7f;
+            txbptr[2] = 0x7f;
 
-void WriteMainLoop(char* bufp) {
-    // now attempt to TX if there is a frame of data to send
-    int txframe;
-    unsigned char C0 = 0, C1 = 0, C2 = 0, C3 = 0, C4 = 0;
-    unsigned char CWMode;
-    char* txbptr;
-    int ddc_freq;
-    // create 2 USB frames
-    for (txframe = 0; txframe < 2; txframe++) {
-        txbptr = FPGAWriteBufp + (uint64_t)512 * (uint64_t)txframe;
-        txbptr[0] = 0x7f; // add the 3 sync bytes
-        txbptr[1] = 0x7f;
-        txbptr[2] = 0x7f;
-
-        // if TX/RX has changed we need to change the DDC0 frequency for
-        // Hermes-II; so jump to that C&C next
-        if (XmitBit != PreviousTXBit) {
-            if (nddc == 2) out_control_idx = 2;
-            PreviousTXBit = XmitBit;
-        }
-
-        // add the 5 control bytes: get  inc TX bit
-        // "C0=0" used to be sent often, but will rarely be changed
-        // so it is now sent at the same rate as everything else
-        C0 = (unsigned char)XmitBit;
-
-        switch (out_control_idx) // now m=pick the frame of control bytes
-        {
-            case 0: // C0=0: general settings
-                C1 = (SampleRateIn2Bits & 3);
-                C2 = (prn->cw.eer & 1) | ((prn->oc_output << 1) & 0xFE);
-                C3 = (prbpfilter->_10_dB_Atten & 1)
-                    | ((prbpfilter->_20_dB_Atten << 1) & 2)
-                    | ((prn->rx[0].preamp << 2) & 0b00000100)
-                    | ((prn->adc[0].dither << 3) & 0b00001000)
-                    | ((prn->adc[0].random << 4) & 0b00010000)
-                    | ((prbpfilter->_Rx_1_Out << 7) & 0b10000000);
-                if (prbpfilter->_XVTR_Rx_In)
-                    C3 |= 0b01100000;
-                else if (prbpfilter->_Rx_1_In)
-                    C3 |= 0b00100000;
-                else if (prbpfilter->_Rx_2_In)
-                    C3 |= 0b01000000;
-
-                if (prbpfilter->_ANT_3 == 1)
-                    C4 = 0b10;
-                else if (prbpfilter->_ANT_2 == 1)
-                    C4 = 0b01;
-                else
-                    C4 = 0b0;
-                C4 |= 0b00000100; // duplex bit /* Should be assigned */
-                C4 |= (nddc - 1) << 3; // number of DDCs to run
-                C4 |= (P1_en_diversity) << 7; // if diversity, locks VFOs
-                break;
-
-                // the frequency assignments will need to change
-                // when we work out a mapping for the ADC channels
-            case 1: // TX VFO
-                C0 |= 2;
-                C1 = (prn->tx[0].frequency >> 24) & 0xff; // byte 0 of tx freq
-                C2 = (prn->tx[0].frequency >> 16) & 0xff; // byte 1 of tx freq
-                C3 = (prn->tx[0].frequency >> 8) & 0xff; // byte 2 of tx freq
-                C4 = (prn->tx[0].frequency) & 0xff; // byte 3 of tx freq
-                break;
-
-            case 2: // RX1 VFO (DDC0)
-                C0 |= 4;
-                // DDC0 is always RX0 freqency, except if Puresignal TX with
-                // hermes-II
-                if ((nddc == 2) && (XmitBit == 1) && (prn->puresignal_run))
-                    ddc_freq = prn->tx[0].frequency;
-                else
-                    ddc_freq = prn->rx[0].frequency;
-                C1 = (ddc_freq >> 24) & 0xff; // byte 0 of rx1 freq
-                C2 = (ddc_freq >> 16) & 0xff; // byte 1 of rx1 freq
-                C3 = (ddc_freq >> 8) & 0xff; // byte 2 of rx1 freq
-                C4 = (ddc_freq)&0xff; // byte 3 of rx1 freq
-                break;
-
-            case 3: // RX2 VFO (DDC1)
-                C0 |= 6;
-                // DDC1 is TX freq if Hermes-II && TX && Puresignal;
-                // RX1 freq if Orion;
-                // else RX2 freq if Hermes
-                if ((nddc == 2) && (XmitBit == 1) && (prn->puresignal_run))
-                    ddc_freq = prn->tx[0].frequency;
-                else if (nddc == 5)
-                    ddc_freq = prn->rx[0].frequency;
-                else
-                    ddc_freq = prn->rx[1].frequency; // Hermes RX2 freq
-                C1 = (ddc_freq >> 24) & 0xff; // byte 0 of rx2 freq
-                C2 = (ddc_freq >> 16) & 0xff; // byte 1 of rx2 freq
-                C3 = (ddc_freq >> 8) & 0xff; // byte 2 of rx2 freq
-                C4 = (ddc_freq)&0xff; // byte 3 of rx2 freq
-                break;
-
-                // ADC assignments hardwired according to the configuration (see
-                // spreadsheet) orion: taken from setup form Hermes/Hermes-E
-                // don't use this data
-            case 4: // ADC assignments & ADC Tx ATT
-                C0 |= 0x1c; // C0 0001 110x
-                C1 = P1_adc_cntrl & 0xFF;
-                C2 = (P1_adc_cntrl >> 8) & 0b0011111111;
-                C3 = prn->adc[0].tx_step_attn & 0b00011111;
-                C4 = 0;
-                break;
-
-            case 5: // RX3 VFO (DDC2)
-                C0 |= 8;
-                // if Orion, DDC2 is RX2 frequency; else TX frequency for Hermes
-                if (nddc == 5)
-                    ddc_freq = prn->rx[3].frequency;
-                else
-                    ddc_freq = prn->tx[0].frequency;
-                C1 = (ddc_freq >> 24) & 0xff; // byte 0 of rx3 freq
-                C2 = (ddc_freq >> 16) & 0xff; // byte 1 of rx3 freq
-                C3 = (ddc_freq >> 8) & 0xff; // byte 2 of rx3 freq
-                C4 = (ddc_freq)&0xff; // byte 3 of rx3 freq
-                break;
-
-            case 6: // RX4 VFO (DDC3)
-                C0 |= 0x0a;
-                // DDC3 is TX frequency always
-                ddc_freq = prn->tx[0].frequency;
-                C1 = (ddc_freq >> 24) & 0xff; // byte 0 of rx4 freq
-                C2 = (ddc_freq >> 16) & 0xff; // byte 1 of rx4 freq
-                C3 = (ddc_freq >> 8) & 0xff; // byte 2 of rx4 freq
-                C4 = (ddc_freq)&0xff; // byte 3 of rx4 freq
-                break;
-
-            case 7: // RX5 VFO (DDC4)
-                C0 |= 0x0c;
-                // DDC4 is TX frequency for Orion2 TX with puresignal, otherwise
-                // not used, so make TX always
-                ddc_freq = prn->tx[0].frequency;
-                C1 = (ddc_freq >> 24) & 0xff; // byte 0 of rx5 freq
-                C2 = (ddc_freq >> 16) & 0xff; // byte 1 of rx5 freq
-                C3 = (ddc_freq >> 8) & 0xff; // byte 2 of rx5 freq
-                C4 = (ddc_freq)&0xff; // byte 3 of rx5 freq
-                break;
-
-            case 8: // RX6 VFO
-                C0 |= 0x0e;
-                // DDC5 not used
-                ddc_freq = prn->rx[0].frequency;
-                C1 = (ddc_freq >> 24) & 0xff; // byte 0 of rx6 freq
-                C2 = (ddc_freq >> 16) & 0xff; // byte 1 of rx6 freq
-                C3 = (ddc_freq >> 8) & 0xff; // byte 2 of rx6 freq
-                C4 = (ddc_freq)&0xff; // byte 3 of rx6 freq
-                break;
-
-            case 9: // RX7 VFO
-                C0 |= 0x10;
-                // DDC6 not used
-                ddc_freq = prn->rx[0].frequency;
-                C1 = (ddc_freq >> 24) & 0xff; // byte 0 of rx7 freq
-                C2 = (ddc_freq >> 16) & 0xff; // byte 1 of rx7 freq
-                C3 = (ddc_freq >> 8) & 0xff; // byte 2 of rx7 freq
-                C4 = (ddc_freq)&0xff; // byte 3 of rx7 freq
-                break;
-
-            case 10:
-                C0 |= 0x12; // C0 0001 001x
-                C1 = prn->tx[0].drive_level; // SWR adjustment before this in
-                                             // SetOutputPowerFactor()
-                C2 = ((prn->mic.mic_boost & 1) | ((prn->mic.line_in & 1) << 1)
-                         | ApolloFilt | ApolloTuner | ApolloATU
-                         | ApolloFiltSelect | 0b01000000)
-                    & 0x7f;
-                C3 = (prbpfilter->_13MHz_HPF & 1)
-                    | ((prbpfilter->_20MHz_HPF & 1) << 1)
-                    | ((prbpfilter->_9_5MHz_HPF & 1) << 2)
-                    | ((prbpfilter->_6_5MHz_HPF & 1) << 3)
-                    | ((prbpfilter->_1_5MHz_HPF & 1) << 4)
-                    | ((prbpfilter->_Bypass & 1) << 5)
-                    | ((prbpfilter->_6M_preamp & 1) << 6)
-                    | ((prn->tx[0].pa & 1) << 7);
-                C4 = (prbpfilter->_30_20_LPF & 1)
-                    | ((prbpfilter->_60_40_LPF & 1) << 1)
-                    | ((prbpfilter->_80_LPF & 1) << 2)
-                    | ((prbpfilter->_160_LPF & 1) << 3)
-                    | ((prbpfilter->_6_LPF & 1) << 4)
-                    | ((prbpfilter->_12_10_LPF & 1) << 5)
-                    | ((prbpfilter->_17_15_LPF & 1) << 6);
-                break;
-
-            case 11: // Preamp control
-                C0 |= 0x14; // C0 0001 010x
-                C1 = (prn->rx[0].preamp & 1) | ((prn->rx[1].preamp & 1) << 1)
-                    | ((prn->rx[2].preamp & 1) << 2)
-                    | ((prn->rx[0].preamp & 1) << 3)
-                    | ((prn->mic.mic_trs & 1) << 4)
-                    | ((prn->mic.mic_bias & 1) << 5)
-                    | ((prn->mic.mic_ptt & 1) << 6);
-                C2 = (prn->mic.line_in_gain & 0b00011111)
-                    | ((prn->puresignal_run & 1) << 6);
-                C3 = prn->user_dig_out & 0b00001111;
-                C4 = (prn->adc[0].rx_step_attn & 0b00011111) | 0b00100000;
-                break;
-
-            case 12: // Step ATT control
-                C0 |= 0x16; // C0 0001 011x
-                if (XmitBit)
-                    C1 = 0x1F;
-                else
-                    C1 = (prn->adc[1].rx_step_attn);
-                C1 |= 0b00100000;
-                C2 = (prn->adc[2].rx_step_attn & 0b00011111) | 0b00100000
-                    | ((prn->cw.rev_paddle & 1) << 6);
-
-                if (prn->cw.iambic == 0)
-                    CWMode = 0b00000000;
-                else if (prn->cw.mode_b == 0)
-                    CWMode = 0b01000000;
-                else
-                    CWMode = 0b10000000;
-                C3 = (prn->cw.keyer_speed & 0b00111111) | CWMode;
-                C4 = (prn->cw.keyer_weight & 0b01111111)
-                    | ((prn->cw.strict_spacing) << 7);
-                break;
-
-                // 0x18, 1A are reserved
-
-            case 13: // CW
-                C0 |= 0x1e; // C0 0001 111x
-                C1 = prn->cw.cw_enable;
-                C2 = prn->cw.sidetone_level;
-                C3 = prn->cw.rf_delay;
-                C4 = 0;
-                break;
-
-            case 14: // CW
-                C0 |= 0x20; // C0 0010 000x
-                C1 = (prn->cw.hang_delay >> 2) & 0b11111111;
-                C2 = (prn->cw.hang_delay & 0b00000011);
-                C3 = (prn->cw.sidetone_freq >> 4) & 0b11111111;
-                C4 = (prn->cw.sidetone_freq) & 0b00001111;
-                break;
-
-            case 15: // EER PWM
-                C0 |= 0x22; // C0 0010 001x
-                C1 = (prn->tx[0].epwm_min >> 2) & 0b11111111;
-                C2 = (prn->tx[0].epwm_min & 0b00000011);
-                C3 = (prn->tx[0].epwm_max >> 2) & 0b11111111;
-                C4 = (prn->tx[0].epwm_max & 0b00000011);
-                break;
-
-            case 16: // BPF2
-                C0 |= 0x24; // C0 0010 010x
-                C1 = (prbpfilter2->_13MHz_HPF & 1)
-                    | ((prbpfilter2->_20MHz_HPF & 1) << 1)
-                    | ((prbpfilter2->_9_5MHz_HPF & 1) << 2)
-                    | ((prbpfilter2->_6_5MHz_HPF & 1) << 3)
-                    | ((prbpfilter2->_1_5MHz_HPF & 1) << 4)
-                    | ((prbpfilter2->_Bypass & 1) << 5)
-                    | ((prbpfilter2->_6M_preamp & 1) << 6)
-                    | ((prbpfilter2->_rx2_gnd) << 7);
-                C2 = (xvtr_enable & 1) | ((prn->puresignal_run & 1) << 6);
-                C3 = 0;
-                C4 = 0;
-                break;
-        }
-        txbptr[3] = C0; // add the C0-C4 bytes to USB frame
-        txbptr[4] = C1;
-        txbptr[5] = C2;
-        txbptr[6] = C3;
-        txbptr[7] = C4;
-        if (out_control_idx < 16) // ready for next USB frame
-            out_control_idx++;
-        else
-            out_control_idx = 0;
-    }
-
-    // now add the data for the two USB frames
-    memcpy(
-        FPGAWriteBufp + 8, bufp, sizeof(char) * 8 * 63); // add LRIQ to frame 1recf
-    memcpy(FPGAWriteBufp + 520, bufp + 504,
-        sizeof(char) * 8 * 63); // add LRIQ to frame 2
-
-    // we created 2 USB frames, so send them
-    MetisWriteFrame(0x02, FPGAWriteBufp);
-    ReleaseSemaphore(prn->hobbuffsRun[0], 1, 0);
-    ReleaseSemaphore(prn->hobbuffsRun[1], 1, 0);
-}
-
-DWORD WINAPI sendProtocol1Samples(LPVOID n) {
-    HANDLE hpri = prioritise_thread_max();
-
-    int i, j, k;
-    short temp;
-    double swap;
-    double* pbuffs[2];
-    pbuffs[0] = prn->outLRbufp;
-    pbuffs[1] = prn->outIQbufp;
-
-    while (io_keep_running != 0) {
-        DWORD dw1 = timeGetTime();
-        // G7KLJ: this thread never died due to an infinite wait here
-        DWORD dwWait = WaitForMultipleObjects(2, prn->hsendEventHandles, TRUE, 250);
-        DWORD dw2 = timeGetTime();
-        if (dwWait == WAIT_TIMEOUT) {
-            continue;
-        }
-
-        DWORD waited = dw2 - dw1;
-        if (waited > 10) {
-            volatile DWORD since_signalled = timeGetTime() - prn->last_time_signalled;
-            printf("waited ages for send event handles: %ld ms. Was signalled %ld ms ago.\n", (int)waited,
-                (int)since_signalled);
-        }
-        // if ((nddc == 2) || (nddc == 4))
-        {
-            for (i = 0; i < 4 * 63;
-                 i += 2) // swap L & R audio; firmware bug fix
-            {
-                swap = pbuffs[0][i + 0];
-                pbuffs[0][i + 0] = pbuffs[0][i + 1];
-                pbuffs[0][i + 1] = swap;
+            // if TX/RX has changed we need to change the DDC0 frequency for
+            // Hermes-II; so jump to that C&C next
+            if (XmitBit != PreviousTXBit) {
+                if (nddc == 2) out_control_idx = 2;
+                PreviousTXBit = XmitBit;
             }
+
+            // add the 5 control bytes: get  inc TX bit
+            // "C0=0" used to be sent often, but will rarely be changed
+            // so it is now sent at the same rate as everything else
+            C0 = (unsigned char)XmitBit;
+
+            switch (out_control_idx) // now m=pick the frame of control bytes
+            {
+                case 0: // C0=0: general settings
+                    C1 = (SampleRateIn2Bits & 3);
+                    C2 = (prn->cw.eer & 1) | ((prn->oc_output << 1) & 0xFE);
+                    C3 = (prbpfilter->_10_dB_Atten & 1)
+                        | ((prbpfilter->_20_dB_Atten << 1) & 2)
+                        | ((prn->rx[0].preamp << 2) & 0b00000100)
+                        | ((prn->adc[0].dither << 3) & 0b00001000)
+                        | ((prn->adc[0].random << 4) & 0b00010000)
+                        | ((prbpfilter->_Rx_1_Out << 7) & 0b10000000);
+                    if (prbpfilter->_XVTR_Rx_In)
+                        C3 |= 0b01100000;
+                    else if (prbpfilter->_Rx_1_In)
+                        C3 |= 0b00100000;
+                    else if (prbpfilter->_Rx_2_In)
+                        C3 |= 0b01000000;
+
+                    if (prbpfilter->_ANT_3 == 1)
+                        C4 = 0b10;
+                    else if (prbpfilter->_ANT_2 == 1)
+                        C4 = 0b01;
+                    else
+                        C4 = 0b0;
+                    C4 |= 0b00000100; // duplex bit /* Should be assigned */
+                    C4 |= (nddc - 1) << 3; // number of DDCs to run
+                    C4 |= (P1_en_diversity) << 7; // if diversity, locks VFOs
+                    break;
+
+                    // the frequency assignments will need to change
+                    // when we work out a mapping for the ADC channels
+                case 1: // TX VFO
+                    C0 |= 2;
+                    C1 = (prn->tx[0].frequency >> 24)
+                        & 0xff; // byte 0 of tx freq
+                    C2 = (prn->tx[0].frequency >> 16)
+                        & 0xff; // byte 1 of tx freq
+                    C3 = (prn->tx[0].frequency >> 8)
+                        & 0xff; // byte 2 of tx freq
+                    C4 = (prn->tx[0].frequency) & 0xff; // byte 3 of tx freq
+                    break;
+
+                case 2: // RX1 VFO (DDC0)
+                    C0 |= 4;
+                    // DDC0 is always RX0 freqency, except if Puresignal TX with
+                    // hermes-II
+                    if ((nddc == 2) && (XmitBit == 1) && (prn->puresignal_run))
+                        ddc_freq = prn->tx[0].frequency;
+                    else
+                        ddc_freq = prn->rx[0].frequency;
+                    C1 = (ddc_freq >> 24) & 0xff; // byte 0 of rx1 freq
+                    C2 = (ddc_freq >> 16) & 0xff; // byte 1 of rx1 freq
+                    C3 = (ddc_freq >> 8) & 0xff; // byte 2 of rx1 freq
+                    C4 = (ddc_freq)&0xff; // byte 3 of rx1 freq
+                    break;
+
+                case 3: // RX2 VFO (DDC1)
+                    C0 |= 6;
+                    // DDC1 is TX freq if Hermes-II && TX && Puresignal;
+                    // RX1 freq if Orion;
+                    // else RX2 freq if Hermes
+                    if ((nddc == 2) && (XmitBit == 1) && (prn->puresignal_run))
+                        ddc_freq = prn->tx[0].frequency;
+                    else if (nddc == 5)
+                        ddc_freq = prn->rx[0].frequency;
+                    else
+                        ddc_freq = prn->rx[1].frequency; // Hermes RX2 freq
+                    C1 = (ddc_freq >> 24) & 0xff; // byte 0 of rx2 freq
+                    C2 = (ddc_freq >> 16) & 0xff; // byte 1 of rx2 freq
+                    C3 = (ddc_freq >> 8) & 0xff; // byte 2 of rx2 freq
+                    C4 = (ddc_freq)&0xff; // byte 3 of rx2 freq
+                    break;
+
+                    // ADC assignments hardwired according to the configuration
+                    // (see spreadsheet) orion: taken from setup form
+                    // Hermes/Hermes-E don't use this data
+                case 4: // ADC assignments & ADC Tx ATT
+                    C0 |= 0x1c; // C0 0001 110x
+                    C1 = P1_adc_cntrl & 0xFF;
+                    C2 = (P1_adc_cntrl >> 8) & 0b0011111111;
+                    C3 = prn->adc[0].tx_step_attn & 0b00011111;
+                    C4 = 0;
+                    break;
+
+                case 5: // RX3 VFO (DDC2)
+                    C0 |= 8;
+                    // if Orion, DDC2 is RX2 frequency; else TX frequency for
+                    // Hermes
+                    if (nddc == 5)
+                        ddc_freq = prn->rx[3].frequency;
+                    else
+                        ddc_freq = prn->tx[0].frequency;
+                    C1 = (ddc_freq >> 24) & 0xff; // byte 0 of rx3 freq
+                    C2 = (ddc_freq >> 16) & 0xff; // byte 1 of rx3 freq
+                    C3 = (ddc_freq >> 8) & 0xff; // byte 2 of rx3 freq
+                    C4 = (ddc_freq)&0xff; // byte 3 of rx3 freq
+                    break;
+
+                case 6: // RX4 VFO (DDC3)
+                    C0 |= 0x0a;
+                    // DDC3 is TX frequency always
+                    ddc_freq = prn->tx[0].frequency;
+                    C1 = (ddc_freq >> 24) & 0xff; // byte 0 of rx4 freq
+                    C2 = (ddc_freq >> 16) & 0xff; // byte 1 of rx4 freq
+                    C3 = (ddc_freq >> 8) & 0xff; // byte 2 of rx4 freq
+                    C4 = (ddc_freq)&0xff; // byte 3 of rx4 freq
+                    break;
+
+                case 7: // RX5 VFO (DDC4)
+                    C0 |= 0x0c;
+                    // DDC4 is TX frequency for Orion2 TX with puresignal,
+                    // otherwise not used, so make TX always
+                    ddc_freq = prn->tx[0].frequency;
+                    C1 = (ddc_freq >> 24) & 0xff; // byte 0 of rx5 freq
+                    C2 = (ddc_freq >> 16) & 0xff; // byte 1 of rx5 freq
+                    C3 = (ddc_freq >> 8) & 0xff; // byte 2 of rx5 freq
+                    C4 = (ddc_freq)&0xff; // byte 3 of rx5 freq
+                    break;
+
+                case 8: // RX6 VFO
+                    C0 |= 0x0e;
+                    // DDC5 not used
+                    ddc_freq = prn->rx[0].frequency;
+                    C1 = (ddc_freq >> 24) & 0xff; // byte 0 of rx6 freq
+                    C2 = (ddc_freq >> 16) & 0xff; // byte 1 of rx6 freq
+                    C3 = (ddc_freq >> 8) & 0xff; // byte 2 of rx6 freq
+                    C4 = (ddc_freq)&0xff; // byte 3 of rx6 freq
+                    break;
+
+                case 9: // RX7 VFO
+                    C0 |= 0x10;
+                    // DDC6 not used
+                    ddc_freq = prn->rx[0].frequency;
+                    C1 = (ddc_freq >> 24) & 0xff; // byte 0 of rx7 freq
+                    C2 = (ddc_freq >> 16) & 0xff; // byte 1 of rx7 freq
+                    C3 = (ddc_freq >> 8) & 0xff; // byte 2 of rx7 freq
+                    C4 = (ddc_freq)&0xff; // byte 3 of rx7 freq
+                    break;
+
+                case 10:
+                    C0 |= 0x12; // C0 0001 001x
+                    C1 = prn->tx[0].drive_level; // SWR adjustment before this
+                                                 // in SetOutputPowerFactor()
+                    C2 = ((prn->mic.mic_boost & 1)
+                             | ((prn->mic.line_in & 1) << 1) | ApolloFilt
+                             | ApolloTuner | ApolloATU | ApolloFiltSelect
+                             | 0b01000000)
+                        & 0x7f;
+                    C3 = (prbpfilter->_13MHz_HPF & 1)
+                        | ((prbpfilter->_20MHz_HPF & 1) << 1)
+                        | ((prbpfilter->_9_5MHz_HPF & 1) << 2)
+                        | ((prbpfilter->_6_5MHz_HPF & 1) << 3)
+                        | ((prbpfilter->_1_5MHz_HPF & 1) << 4)
+                        | ((prbpfilter->_Bypass & 1) << 5)
+                        | ((prbpfilter->_6M_preamp & 1) << 6)
+                        | ((prn->tx[0].pa & 1) << 7);
+                    C4 = (prbpfilter->_30_20_LPF & 1)
+                        | ((prbpfilter->_60_40_LPF & 1) << 1)
+                        | ((prbpfilter->_80_LPF & 1) << 2)
+                        | ((prbpfilter->_160_LPF & 1) << 3)
+                        | ((prbpfilter->_6_LPF & 1) << 4)
+                        | ((prbpfilter->_12_10_LPF & 1) << 5)
+                        | ((prbpfilter->_17_15_LPF & 1) << 6);
+                    break;
+
+                case 11: // Preamp control
+                    C0 |= 0x14; // C0 0001 010x
+                    C1 = (prn->rx[0].preamp & 1)
+                        | ((prn->rx[1].preamp & 1) << 1)
+                        | ((prn->rx[2].preamp & 1) << 2)
+                        | ((prn->rx[0].preamp & 1) << 3)
+                        | ((prn->mic.mic_trs & 1) << 4)
+                        | ((prn->mic.mic_bias & 1) << 5)
+                        | ((prn->mic.mic_ptt & 1) << 6);
+                    C2 = (prn->mic.line_in_gain & 0b00011111)
+                        | ((prn->puresignal_run & 1) << 6);
+                    C3 = prn->user_dig_out & 0b00001111;
+                    C4 = (prn->adc[0].rx_step_attn & 0b00011111) | 0b00100000;
+                    break;
+
+                case 12: // Step ATT control
+                    C0 |= 0x16; // C0 0001 011x
+                    if (XmitBit)
+                        C1 = 0x1F;
+                    else
+                        C1 = (prn->adc[1].rx_step_attn);
+                    C1 |= 0b00100000;
+                    C2 = (prn->adc[2].rx_step_attn & 0b00011111) | 0b00100000
+                        | ((prn->cw.rev_paddle & 1) << 6);
+
+                    if (prn->cw.iambic == 0)
+                        CWMode = 0b00000000;
+                    else if (prn->cw.mode_b == 0)
+                        CWMode = 0b01000000;
+                    else
+                        CWMode = 0b10000000;
+                    C3 = (prn->cw.keyer_speed & 0b00111111) | CWMode;
+                    C4 = (prn->cw.keyer_weight & 0b01111111)
+                        | ((prn->cw.strict_spacing) << 7);
+                    break;
+
+                    // 0x18, 1A are reserved
+
+                case 13: // CW
+                    C0 |= 0x1e; // C0 0001 111x
+                    C1 = prn->cw.cw_enable;
+                    C2 = prn->cw.sidetone_level;
+                    C3 = prn->cw.rf_delay;
+                    C4 = 0;
+                    break;
+
+                case 14: // CW
+                    C0 |= 0x20; // C0 0010 000x
+                    C1 = (prn->cw.hang_delay >> 2) & 0b11111111;
+                    C2 = (prn->cw.hang_delay & 0b00000011);
+                    C3 = (prn->cw.sidetone_freq >> 4) & 0b11111111;
+                    C4 = (prn->cw.sidetone_freq) & 0b00001111;
+                    break;
+
+                case 15: // EER PWM
+                    C0 |= 0x22; // C0 0010 001x
+                    C1 = (prn->tx[0].epwm_min >> 2) & 0b11111111;
+                    C2 = (prn->tx[0].epwm_min & 0b00000011);
+                    C3 = (prn->tx[0].epwm_max >> 2) & 0b11111111;
+                    C4 = (prn->tx[0].epwm_max & 0b00000011);
+                    break;
+
+                case 16: // BPF2
+                    C0 |= 0x24; // C0 0010 010x
+                    C1 = (prbpfilter2->_13MHz_HPF & 1)
+                        | ((prbpfilter2->_20MHz_HPF & 1) << 1)
+                        | ((prbpfilter2->_9_5MHz_HPF & 1) << 2)
+                        | ((prbpfilter2->_6_5MHz_HPF & 1) << 3)
+                        | ((prbpfilter2->_1_5MHz_HPF & 1) << 4)
+                        | ((prbpfilter2->_Bypass & 1) << 5)
+                        | ((prbpfilter2->_6M_preamp & 1) << 6)
+                        | ((prbpfilter2->_rx2_gnd) << 7);
+                    C2 = (xvtr_enable & 1) | ((prn->puresignal_run & 1) << 6);
+                    C3 = 0;
+                    C4 = 0;
+                    break;
+            }
+            txbptr[3] = C0; // add the C0-C4 bytes to USB frame
+            txbptr[4] = C1;
+            txbptr[5] = C2;
+            txbptr[6] = C3;
+            txbptr[7] = C4;
+            if (out_control_idx < 16) // ready for next USB frame
+                out_control_idx++;
+            else
+                out_control_idx = 0;
         }
-        for (i = 0; i < 2 * 63;
-             i++) // for each sample from both sets, 8 bytes per
-            for (j = 0; j < 2; j++) // for a sample from each set, 4 bytes per
-                for (k = 0; k < 2;
-                     k++) // for each component of the sample, 2 per
-                {
-                    temp = pbuffs[j][i * 2 + k] >= 0.0
-                        ? (short)floor(pbuffs[j][i * 2 + k] * 32767.0 + 0.5)
-                        : (short)ceil(pbuffs[j][i * 2 + k] * 32767.0 - 0.5);
-                    if (prn->cw.cw_enable && j == 1)
-                        temp = (prn->tx[0].dot << 2 | prn->tx[0].dash << 1
-                                   | prn->tx[0].cwx)
-                            & 0b00000111;
-                    prn->OutBufp[8 * i + 4 * j + 2 * k + 0]
-                        = (char)((temp >> 8) & 0xff);
-                    prn->OutBufp[8 * i + 4 * j + 2 * k + 1]
-                        = (char)(temp & 0xff);
-                }
-        WriteMainLoop(prn->OutBufp);
+
+        // now add the data for the two USB frames
+        memcpy(FPGAWriteBufp + 8, bufp,
+            sizeof(char) * 8 * 63); // add LRIQ to frame 1recf
+        memcpy(FPGAWriteBufp + 520, bufp + 504,
+            sizeof(char) * 8 * 63); // add LRIQ to frame 2
+
+        // we created 2 USB frames, so send them
+        MetisWriteFrame(0x02, FPGAWriteBufp);
+        ReleaseSemaphore(prn->hobbuffsRun[0], 1, 0);
+        ReleaseSemaphore(prn->hobbuffsRun[1], 1, 0);
     }
 
+    DWORD WINAPI sendProtocol1Samples(LPVOID n) {
+        HANDLE hpri = prioritise_thread_max();
 
-      if (hpri && hpri != INVALID_HANDLE_VALUE) prioritise_thread_cleanup(hpri);
+        int i, j, k;
+        short temp;
+        double swap;
+        double* pbuffs[2];
+        pbuffs[0] = prn->outLRbufp;
+        pbuffs[1] = prn->outIQbufp;
 
-    return 0;
-}
+        while (io_keep_running != 0) {
+            DWORD dw1 = timeGetTime();
+            // G7KLJ: this thread never died due to an infinite wait here
+            DWORD dwWait
+                = WaitForMultipleObjects(2, prn->hsendEventHandles, TRUE, 250);
+            DWORD dw2 = timeGetTime();
+            if (dwWait == WAIT_TIMEOUT) {
+                continue;
+            }
+
+            DWORD waited = dw2 - dw1;
+            if (waited > 10) {
+                volatile DWORD since_signalled
+                    = timeGetTime() - prn->last_time_signalled;
+                printf("waited ages for send event handles: %ld ms. Was "
+                       "signalled %ld ms ago.\n",
+                    (int)waited, (int)since_signalled);
+            }
+            // if ((nddc == 2) || (nddc == 4))
+            {
+                for (i = 0; i < 4 * 63;
+                     i += 2) // swap L & R audio; firmware bug fix
+                {
+                    swap = pbuffs[0][i + 0];
+                    pbuffs[0][i + 0] = pbuffs[0][i + 1];
+                    pbuffs[0][i + 1] = swap;
+                }
+            }
+            for (i = 0; i < 2 * 63;
+                 i++) // for each sample from both sets, 8 bytes per
+                for (j = 0; j < 2;
+                     j++) // for a sample from each set, 4 bytes per
+                    for (k = 0; k < 2;
+                         k++) // for each component of the sample, 2 per
+                    {
+                        temp = pbuffs[j][i * 2 + k] >= 0.0
+                            ? (short)floor(pbuffs[j][i * 2 + k] * 32767.0 + 0.5)
+                            : (short)ceil(pbuffs[j][i * 2 + k] * 32767.0 - 0.5);
+                        if (prn->cw.cw_enable && j == 1)
+                            temp = (prn->tx[0].dot << 2 | prn->tx[0].dash << 1
+                                       | prn->tx[0].cwx)
+                                & 0b00000111;
+                        prn->OutBufp[8 * i + 4 * j + 2 * k + 0]
+                            = (char)((temp >> 8) & 0xff);
+                        prn->OutBufp[8 * i + 4 * j + 2 * k + 1]
+                            = (char)(temp & 0xff);
+                    }
+            WriteMainLoop(prn->OutBufp);
+        }
+
+        if (hpri && hpri != INVALID_HANDLE_VALUE)
+            prioritise_thread_cleanup(hpri);
+
+        return 0;
+    }

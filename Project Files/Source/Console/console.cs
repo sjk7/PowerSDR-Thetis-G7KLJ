@@ -32732,6 +32732,7 @@ private void chkPower_CheckedChanged(object sender, System.EventArgs e) {
             }
             if (vac2_enabled) {
                 VAC2Enabled = true;
+                vac2_was_wanted = true;
             }
 
             if (vac_was_wanted) {
@@ -32973,10 +32974,7 @@ private void chkPower_CheckedChanged(object sender, System.EventArgs e) {
                         + 50)) // MW0LGE change to meter delay
                     rx2_meter_thread.Abort();
             }
-            if (rx2_sql_update_thread != null) {
-                if (!rx2_sql_update_thread.Join(500))
-                    rx2_sql_update_thread.Abort();
-            }
+
             if (rx2_sql_update_thread != null) {
                 if (!rx2_sql_update_thread.Join(500))
                     rx2_sql_update_thread.Abort();
@@ -34302,11 +34300,9 @@ private void HdwMOXChanged(bool tx, double freq) {
             UpdateRX2DDSFreq();
             UpdateTXDDSFreq();
 
-            Band lo_band = Band.FIRST;
-            Band lo_bandb = Band.FIRST;
-            lo_band = BandByFreq(XVTRForm.TranslateFreq(VFOAFreq),
+            Band lo_band = BandByFreq(XVTRForm.TranslateFreq(VFOAFreq),
                 rx1_xvtr_index, false, current_region, true);
-            lo_bandb = BandByFreq(XVTRForm.TranslateFreq(VFOBFreq),
+            Band lo_bandb = BandByFreq(XVTRForm.TranslateFreq(VFOBFreq),
                 rx2_xvtr_index, false, current_region, false);
 
             // if (penny_ext_ctrl_enabled)
