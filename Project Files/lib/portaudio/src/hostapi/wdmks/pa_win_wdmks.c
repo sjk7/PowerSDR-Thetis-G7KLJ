@@ -2796,7 +2796,7 @@ PaWinWdmFilter** BuildFilterList(
     /* Open a handle to search for devices (filters) */
     handle = SetupDiGetClassDevs(
         category, NULL, NULL, DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
-    if (handle == INVALID_HANDLE_VALUE) {
+    if (handle == INVALID_HANDLE_VALUE || handle == NULL) {
         *pResult = paUnanticipatedHostError;
         return NULL;
     }
