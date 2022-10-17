@@ -143,7 +143,7 @@ public class Splash : System.Windows.Forms.Form {
             // 
             this.labelTS1.BackColor = System.Drawing.Color.Transparent;
             this.labelTS1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTS1.ForeColor = System.Drawing.Color.Blue;
+            this.labelTS1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.labelTS1.Image = null;
             this.labelTS1.Location = new System.Drawing.Point(331, 24);
             this.labelTS1.Name = "labelTS1";
@@ -157,7 +157,7 @@ public class Splash : System.Windows.Forms.Form {
             this.lblTimeRemaining.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTimeRemaining.BackColor = System.Drawing.Color.Transparent;
             this.lblTimeRemaining.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimeRemaining.ForeColor = System.Drawing.Color.Blue;
+            this.lblTimeRemaining.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblTimeRemaining.Image = null;
             this.lblTimeRemaining.Location = new System.Drawing.Point(586, 380);
             this.lblTimeRemaining.Name = "lblTimeRemaining";
@@ -171,7 +171,7 @@ public class Splash : System.Windows.Forms.Form {
             this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblStatus.BackColor = System.Drawing.Color.Transparent;
             this.lblStatus.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.ForeColor = System.Drawing.Color.MediumBlue;
+            this.lblStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblStatus.Image = null;
             this.lblStatus.Location = new System.Drawing.Point(262, 380);
             this.lblStatus.Name = "lblStatus";
@@ -185,7 +185,7 @@ public class Splash : System.Windows.Forms.Form {
             this.labelTS2.AutoSize = true;
             this.labelTS2.BackColor = System.Drawing.Color.Transparent;
             this.labelTS2.Font = new System.Drawing.Font("Arial", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTS2.ForeColor = System.Drawing.Color.Blue;
+            this.labelTS2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.labelTS2.Image = null;
             this.labelTS2.Location = new System.Drawing.Point(12, 9);
             this.labelTS2.Name = "labelTS2";
@@ -199,7 +199,7 @@ public class Splash : System.Windows.Forms.Form {
             this.labelTS3.AutoSize = true;
             this.labelTS3.BackColor = System.Drawing.Color.Transparent;
             this.labelTS3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTS3.ForeColor = System.Drawing.Color.Blue;
+            this.labelTS3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.labelTS3.Image = null;
             this.labelTS3.Location = new System.Drawing.Point(15, 61);
             this.labelTS3.Name = "labelTS3";
@@ -213,7 +213,7 @@ public class Splash : System.Windows.Forms.Form {
             this.labelTS4.AutoSize = true;
             this.labelTS4.BackColor = System.Drawing.Color.Transparent;
             this.labelTS4.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTS4.ForeColor = System.Drawing.Color.Blue;
+            this.labelTS4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.labelTS4.Image = null;
             this.labelTS4.Location = new System.Drawing.Point(541, 329);
             this.labelTS4.Name = "labelTS4";
