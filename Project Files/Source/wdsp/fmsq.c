@@ -36,7 +36,7 @@ void calc_fmsq(FMSQ a) {
     double* impulse;
     int i;
     // noise filter
-    a->noise = (double*)malloc0(2 * a->size * sizeof(complex));
+    a->noise = (double*)malloc0(2 * a->size * sizeof(WDSP_COMPLEX));
     a->F[0] = 0.0;
     a->F[1] = a->fc;
     a->F[2] = *a->pllpole;
@@ -192,7 +192,7 @@ void xfmsq(FMSQ a) {
             }
         }
     } else if (a->insig != a->outsig)
-        memcpy(a->outsig, a->insig, a->size * sizeof(complex));
+        memcpy(a->outsig, a->insig, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_fmsq(FMSQ a, double* in, double* out, double* trig) {

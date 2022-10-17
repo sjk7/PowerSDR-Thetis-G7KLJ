@@ -130,7 +130,7 @@ void xuslew(USLEW a) {
             }
         }
     } else if (a->out != a->in)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_uslew(USLEW a, double* in, double* out) {

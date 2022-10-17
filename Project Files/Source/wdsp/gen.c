@@ -324,12 +324,12 @@ void xgen(GEN a) {
             } break;
             default: // silence
             {
-                memset(a->out, 0, a->size * sizeof(complex));
+                memset(a->out, 0, a->size * sizeof(WDSP_COMPLEX));
                 break;
             }
         }
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_gen(GEN a, double* in, double* out) {

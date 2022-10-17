@@ -31,6 +31,7 @@ warren@wpratt.com
 */
 
 #include "comm.h"
+#include <math.h>
 
 AMD create_amd(int run, int buff_size, double* in_buff, double* out_buff,
     int mode, int levelfade, int sbmode, int sample_rate, double fmin,
@@ -227,7 +228,7 @@ void xamd(AMD a) {
             }
         }
     } else if (a->in_buff != a->out_buff)
-        memcpy(a->out_buff, a->in_buff, a->buff_size * sizeof(complex));
+        memcpy(a->out_buff, a->in_buff, a->buff_size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_amd(AMD a, double* in, double* out) {

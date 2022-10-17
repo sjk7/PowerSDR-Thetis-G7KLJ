@@ -52,7 +52,7 @@ void initBlanker(ANB a) {
     a->backmult = exp(-1.0 / (a->samplerate * a->backtau));
     a->ombackmult = 1.0 - a->backmult;
     for (i = 0; i <= a->trans_count; i++) a->wave[i] = 0.5 * cos(i * a->coef);
-    memset(a->dline, 0, a->dline_size * sizeof(complex));
+    memset(a->dline, 0, a->dline_size * sizeof(WDSP_COMPLEX));
 }
 
 PORT ANB create_anb(int run, int buffsize, double* in, double* out,
@@ -73,11 +73,11 @@ PORT ANB create_anb(int run, int buffsize, double* in, double* out,
     a->wave = (double*)malloc0(
         ((int)(MAX_SAMPLERATE * MAX_TAU) + 1) * sizeof(double));
     a->dline_size = (int)((MAX_TAU + MAX_ADVTIME) * MAX_SAMPLERATE) + 1;
-    a->dline = (double*)malloc0(a->dline_size * sizeof(complex));
+    a->dline = (double*)malloc0(a->dline_size * sizeof(WDSP_COMPLEX));
     InitializeCriticalSectionAndSpinCount(&a->cs_update, 2500);
     initBlanker(a);
     a->legacy = (double*)malloc0(
-        2048 * sizeof(complex)); /////////////// legacy interface - remove
+        2048 * sizeof(WDSP_COMPLEX)); /////////////// legacy interface - remove
     return a;
 }
 
@@ -162,7 +162,7 @@ PORT void xanb(ANB a) {
         }
         LeaveCriticalSection(&a->cs_update);
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->buffsize * sizeof(complex));
+        memcpy(a->out, a->in, a->buffsize * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_anb(ANB a, double* in, double* out) {

@@ -346,8 +346,10 @@ void create_iobuffs(int channel) {
         a->r2_size = a->r2_insize;
     a->r1_active_buffsize = DSP_MULT * a->r1_size;
     a->r2_active_buffsize = DSP_MULT * a->r2_size;
-    a->r1_baseptr = (double*)malloc0(a->r1_active_buffsize * sizeof(complex));
-    a->r2_baseptr = (double*)malloc0(a->r2_active_buffsize * sizeof(complex));
+    a->r1_baseptr
+        = (double*)malloc0(a->r1_active_buffsize * sizeof(WDSP_COMPLEX));
+    a->r2_baseptr
+        = (double*)malloc0(a->r2_active_buffsize * sizeof(WDSP_COMPLEX));
     a->r1_inidx = 0;
     a->r1_outidx = 0;
     a->r1_unqueuedsamps = 0;
@@ -377,8 +379,8 @@ void destroy_iobuffs(int channel) {
 void flush_iobuffs(int channel) {
     int n;
     IOB a = ch[channel].iob.pf;
-    memset(a->r1_baseptr, 0, a->r1_active_buffsize * sizeof(complex));
-    memset(a->r2_baseptr, 0, a->r2_active_buffsize * sizeof(complex));
+    memset(a->r1_baseptr, 0, a->r1_active_buffsize * sizeof(WDSP_COMPLEX));
+    memset(a->r2_baseptr, 0, a->r2_active_buffsize * sizeof(WDSP_COMPLEX));
     a->r1_inidx = 0;
     a->r1_outidx = 0;
     a->r1_unqueuedsamps = 0;
@@ -408,7 +410,7 @@ PORT // double, interleaved I/Q
             upslew0(a, in);
         else
             memcpy(a->r1_baseptr + 2 * a->r1_inidx, in,
-                a->in_size * sizeof(complex));
+                a->in_size * sizeof(WDSP_COMPLEX));
         // add check with *error += -1; for case when r1 is full and an
         // overwrite occurs
         if ((a->r1_unqueuedsamps += a->in_size) >= a->r1_outsize) {
@@ -433,9 +435,9 @@ PORT // double, interleaved I/Q
                 }
             } else
                 memcpy(out, a->r2_baseptr + 2 * a->r2_outidx,
-                    a->out_size * sizeof(complex));
+                    a->out_size * sizeof(WDSP_COMPLEX));
         else {
-            memset(out, 0, a->out_size * sizeof(complex));
+            memset(out, 0, a->out_size * sizeof(WDSP_COMPLEX));
             *error += -2;
         }
         if ((a->r2_outidx += a->out_size) == a->r2_active_buffsize)
@@ -510,15 +512,16 @@ void dexchange(int channel, double* in, double* out) {
     EnterCriticalSection(&a->r2_ControlSection);
     a->r2_havesamps += a->r2_insize;
     LeaveCriticalSection(&a->r2_ControlSection);
-    memcpy(a->r2_baseptr + 2 * a->r2_inidx, in, a->r2_insize * sizeof(complex));
+    memcpy(a->r2_baseptr + 2 * a->r2_inidx, in,
+        a->r2_insize * sizeof(WDSP_COMPLEX));
     if ((a->r2_inidx += a->r2_insize) == a->r2_active_buffsize) a->r2_inidx = 0;
     if (a->bfo && (a->r2_unqueuedsamps += a->r2_insize) >= a->out_size) {
         n = a->r2_unqueuedsamps / a->out_size;
         ReleaseSemaphore(a->Sem_OutReady, n, 0);
         a->r2_unqueuedsamps -= n * a->out_size;
     }
-    memcpy(
-        out, a->r1_baseptr + 2 * a->r1_outidx, a->r1_outsize * sizeof(complex));
+    memcpy(out, a->r1_baseptr + 2 * a->r1_outidx,
+        a->r1_outsize * sizeof(WDSP_COMPLEX));
     if ((a->r1_outidx += a->r1_outsize) == a->r1_active_buffsize)
         a->r1_outidx = 0;
 }

@@ -62,7 +62,7 @@ void calc_varsamp(VARSAMP a) {
     a->h = fir_bandpass(a->ncoef, fc_norm_low, fc_norm_high, (double)a->R, 1, 0,
         (double)a->R * a->gain);
     // print_impulse ("imp.txt", a->ncoef, a->h, 0, 0);
-    a->ring = (double*)malloc0(a->rsize * sizeof(complex));
+    a->ring = (double*)malloc0(a->rsize * sizeof(WDSP_COMPLEX));
     a->idx_in = a->rsize - 1;
     a->h_offset = 0.0;
     a->hs = (double*)malloc0(a->rsize * sizeof(double));
@@ -102,7 +102,7 @@ void destroy_varsamp(VARSAMP a) {
 }
 
 void flush_varsamp(VARSAMP a) {
-    memset(a->ring, 0, a->rsize * sizeof(complex));
+    memset(a->ring, 0, a->rsize * sizeof(WDSP_COMPLEX));
     a->idx_in = a->rsize - 1;
     a->h_offset = 0.0;
     a->isamps = 0.0;
@@ -172,7 +172,7 @@ int xvarsamp(VARSAMP a, double var) {
             if (--a->idx_in < 0) a->idx_in = a->rsize - 1;
         }
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
     return outsamps;
 }
 

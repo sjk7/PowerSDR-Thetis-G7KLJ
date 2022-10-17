@@ -30,6 +30,7 @@ warren@wpratt.com
 */
 
 #include "comm.h"
+#include <math.h>
 
 void compute_slews(AMSQ a) {
     int i;
@@ -52,7 +53,7 @@ void compute_slews(AMSQ a) {
 
 void calc_amsq(AMSQ a) {
     // signal averaging
-    a->trigsig = (double*)malloc0(a->size * sizeof(complex));
+    a->trigsig = (double*)malloc0(a->size * sizeof(WDSP_COMPLEX));
     a->avm = exp(-1.0 / (a->rate * a->avtau));
     a->onem_avm = 1.0 - a->avm;
     a->avsig = 0.0;
@@ -100,7 +101,7 @@ void destroy_amsq(AMSQ a) {
 }
 
 void flush_amsq(AMSQ a) {
-    memset(a->trigsig, 0, a->size * sizeof(complex));
+    memset(a->trigsig, 0, a->size * sizeof(WDSP_COMPLEX));
     a->avsig = 0.0;
     a->state = 0;
 }
@@ -163,11 +164,11 @@ void xamsq(AMSQ a) {
             }
         }
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void xamsqcap(AMSQ a) {
-    memcpy(a->trigsig, a->trigger, a->size * sizeof(complex));
+    memcpy(a->trigsig, a->trigger, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_amsq(AMSQ a, double* in, double* out, double* trigger) {

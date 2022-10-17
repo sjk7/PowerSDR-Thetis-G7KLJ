@@ -32,7 +32,7 @@ warren@wpratt.com
 #include "comm.h"
 
 void calc_sender(SENDER a) {
-    a->out = (double*)malloc0(a->size * sizeof(complex));
+    a->out = (double*)malloc0(a->size * sizeof(WDSP_COMPLEX));
 }
 
 void decalc_sender(SENDER a) {
@@ -61,7 +61,7 @@ void destroy_sender(SENDER a) {
 }
 
 void flush_sender(SENDER a) {
-    memset(a->out, 0, a->size * sizeof(complex));
+    memset(a->out, 0, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void xsender(SENDER a) {

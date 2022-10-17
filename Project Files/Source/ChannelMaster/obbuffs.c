@@ -1,6 +1,8 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio,
+// please check it.
 
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java:
+// http://www.viva64.com
 /*  obbuffs.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -40,8 +42,7 @@ struct _obpointers {
 void start_obthread(int id) {
 #pragma warning(disable : 4312)
     _beginthread(ob_main, 0, (void*)id);
-#pragma warning(default: 4312)
-    
+#pragma warning(default : 4312)
 }
 
 void create_obbuffs(int id, int accept, int max_insize, int outsize) {
@@ -59,14 +60,15 @@ void create_obbuffs(int id, int accept, int max_insize, int outsize) {
     else
         a->r1_size = a->max_in_size;
     a->r1_active_buffsize = OBB_MULT * a->r1_size;
-    a->r1_baseptr = (double*)calloc(a->r1_active_buffsize, sizeof(complex));
+    a->r1_baseptr
+        = (double*)calloc(a->r1_active_buffsize, sizeof(WDSP_COMPLEX));
     a->r1_inidx = 0;
     a->r1_outidx = 0;
     a->r1_unqueuedsamps = 0;
     a->Sem_BuffReady = CreateSemaphore(0, 0, 1000, 0);
     InitializeCriticalSectionAndSpinCount(&a->csIN, 2500);
     InitializeCriticalSectionAndSpinCount(&a->csOUT, 2500);
-    a->out = (double*)calloc(obMAXSIZE, sizeof(complex));
+    a->out = (double*)calloc(obMAXSIZE, sizeof(WDSP_COMPLEX));
     start_obthread(id);
 }
 
@@ -91,7 +93,7 @@ void destroy_obbuffs(int id) {
 
 void flush_obbuffs(int id) {
     OBB a = obp.pfbuff[id];
-    memset(a->r1_baseptr, 0, a->r1_active_buffsize * sizeof(complex));
+    memset(a->r1_baseptr, 0, a->r1_active_buffsize * sizeof(WDSP_COMPLEX));
     a->r1_inidx = 0;
     a->r1_outidx = 0;
     a->r1_unqueuedsamps = 0;
@@ -121,19 +123,20 @@ PORT void OutBound(int id, int nsamples, double* in) {
             first = nsamples;
             second = 0;
         }
-        memcpy(a->r1_baseptr + 2 * a->r1_inidx, in, first * sizeof(complex));
-        memcpy(a->r1_baseptr, in + 2 * first, second * sizeof(complex));
+        memcpy(
+            a->r1_baseptr + 2 * a->r1_inidx, in, first * sizeof(WDSP_COMPLEX));
+        memcpy(a->r1_baseptr, in + 2 * first, second * sizeof(WDSP_COMPLEX));
 
         if ((a->r1_unqueuedsamps += nsamples) >= a->r1_outsize) {
             n = a->r1_unqueuedsamps / a->r1_outsize;
             DWORD d2 = timeGetTime();
             volatile DWORD took = d2 - d1;
             if (took > 10) {
-                printf("took ages: %ld\n", (int) took);
+                printf("took ages: %ld\n", (int)took);
             }
             a->sem_buff_flagged_when = timeGetTime();
             ReleaseSemaphore(a->Sem_BuffReady, n, 0);
-            
+
             a->r1_unqueuedsamps -= n * a->r1_outsize;
         }
         if ((a->r1_inidx += nsamples) >= a->r1_active_buffsize)
@@ -149,8 +152,7 @@ int obdata(int id, double* out) {
     if (!_InterlockedAnd(&a->run, 1)) {
         return -1;
     }
-    
-    
+
     if (a->r1_outsize > (a->r1_active_buffsize - a->r1_outidx)) {
         first = a->r1_active_buffsize - a->r1_outidx;
         second = a->r1_outsize - first;
@@ -158,26 +160,22 @@ int obdata(int id, double* out) {
         first = a->r1_outsize;
         second = 0;
     }
-    memcpy(out, a->r1_baseptr + 2 * a->r1_outidx, first * sizeof(complex));
-    memcpy(out + 2 * first, a->r1_baseptr, second * sizeof(complex));
+    memcpy(out, a->r1_baseptr + 2 * a->r1_outidx, first * sizeof(WDSP_COMPLEX));
+    memcpy(out + 2 * first, a->r1_baseptr, second * sizeof(WDSP_COMPLEX));
     if ((a->r1_outidx += a->r1_outsize) >= a->r1_active_buffsize)
         a->r1_outidx -= a->r1_active_buffsize;
 
     return NOERROR;
 }
 
-
-
-
 void ob_main(void* pargs) {
-   HANDLE hpri = prioritise_thread_max();
+    HANDLE hpri = prioritise_thread_max();
 
-   #pragma warning(disable : 4311)
+#pragma warning(disable : 4311)
     int id = (int)pargs;
 #pragma warning(default : 4311)
 
     OBB a = obp.pdbuff[id];
-    
 
     while (_InterlockedAnd(&a->run, 1)) {
         DWORD dw1 = timeGetTime();
@@ -185,15 +183,17 @@ void ob_main(void* pargs) {
         if (dwWait == WAIT_TIMEOUT) {
             continue;
         }
-        
+
 #ifdef DEBUG_TIMINGS
         DWORD dw2 = timeGetTime();
         volatile DWORD took = dw2 - dw1;
         if (took > 10) {
             volatile DWORD since_flagged = dw2 - a->sem_buff_flagged_when;
-            printf("Took ages waiting for Sem_BuffReady %ld ms. It was flagged %ld ms ago.\n", (int)took, (int)since_flagged);
+            printf("Took ages waiting for Sem_BuffReady %ld ms. It was flagged "
+                   "%ld ms ago.\n",
+                (int)took, (int)since_flagged);
         }
-        
+
 #endif
         EnterCriticalSection(&a->csOUT);
         LeaveCriticalSection(&a->csOUT);
@@ -204,8 +204,7 @@ void ob_main(void* pargs) {
         // if (id == 0) WriteAudio(15.0, 48000, 126, a->out, 3);
     }
 
-      if (hpri && hpri != INVALID_HANDLE_VALUE) prioritise_thread_cleanup(hpri);
-
+    if (hpri && hpri != INVALID_HANDLE_VALUE) prioritise_thread_cleanup(hpri);
 }
 
 void SetOBRingOutsize(int id, int size) {

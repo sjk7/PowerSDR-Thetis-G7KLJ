@@ -40,7 +40,7 @@ void calc_osctrl(OSCTRL a) {
     if ((a->pn & 1) == 0) a->pn += 1;
     if (a->pn < 3) a->pn = 3;
     a->dl_len = a->pn >> 1;
-    a->dl = (double*)malloc0(a->pn * sizeof(complex));
+    a->dl = (double*)malloc0(a->pn * sizeof(WDSP_COMPLEX));
     a->dlenv = (double*)malloc0(a->pn * sizeof(double));
     a->in_idx = 0;
     a->out_idx = a->in_idx + a->dl_len;
@@ -72,7 +72,7 @@ void destroy_osctrl(OSCTRL a) {
 }
 
 void flush_osctrl(OSCTRL a) {
-    memset(a->dl, 0, a->dl_len * sizeof(complex));
+    memset(a->dl, 0, a->dl_len * sizeof(WDSP_COMPLEX));
     memset(a->dlenv, 0, a->pn * sizeof(double));
 }
 
@@ -107,7 +107,7 @@ void xosctrl(OSCTRL a) {
             if (--a->out_idx < 0) a->out_idx += a->pn;
         }
     } else if (a->inbuff != a->outbuff)
-        memcpy(a->outbuff, a->inbuff, a->size * sizeof(complex));
+        memcpy(a->outbuff, a->inbuff, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_osctrl(OSCTRL a, double* in, double* out) {

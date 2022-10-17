@@ -70,7 +70,7 @@ PORT void xgain(GAIN a) {
             a->out[2 * i + 1] = a->Qgain * a->in[2 * i + 1];
         }
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
     LeaveCriticalSection(&a->cs_update);
 }
 

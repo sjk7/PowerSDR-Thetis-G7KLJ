@@ -1,6 +1,8 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio,
+// please check it.
 
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java:
+// http://www.viva64.com
 /*  ivac.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -51,8 +53,8 @@ void create_resamps(IVAC a) {
         a->rmatchOUT = create_rmatchV(a->iq_size, a->vac_size, a->iq_rate,
             a->vac_rate, a->OUTringsize); // RX I-Q data going to VAC
     forceRMatchVar(a->rmatchOUT, a->OUTforce, a->OUTfvar);
-    a->bitbucket
-        = (double*)malloc0(getbuffsize(pcm->cmMAXInRate) * sizeof(complex));
+    a->bitbucket = (double*)malloc0(
+        getbuffsize(pcm->cmMAXInRate) * sizeof(WDSP_COMPLEX));
 }
 
 PORT void create_ivac(int id, int run,
@@ -114,7 +116,8 @@ PORT void destroy_ivac(int id) {
 
 PORT void xvacIN(int id, double* in_tx, int bypass) {
     // used for MIC data to TX
-    // might be a clue where to record audio from in wave recorder, since it doesn't work with vac!
+    // might be a clue where to record audio from in wave recorder, since it
+    // doesn't work with vac!
     IVAC a = pvac[id];
     if (a->run)
         if (!a->vac_bypass && !bypass) {
@@ -133,7 +136,7 @@ static uint32_t fails = 0;
 PORT void xvacOUT(int id, int stream, double* data) {
     IVAC a = pvac[id];
 
-    #ifdef DEBUG_TIMINGS
+#ifdef DEBUG_TIMINGS
     if (times_ctr++ > 5000) {
         DWORD since = timeGetTime() - last_times[stream];
         if (since > 10) {
@@ -141,13 +144,14 @@ PORT void xvacOUT(int id, int stream, double* data) {
             if (fails > 10) {
 
                 fprintf(stderr,
-                    "xvacOUT: long time between calls, for stream: %ld, took: %ld ms.\n",
+                    "xvacOUT: long time between calls, for stream: %ld, took: "
+                    "%ld ms.\n",
                     stream, (int)since);
             }
         }
     }
-    #endif
- 
+#endif
+
     // receiver input data (iq_type) -> stream = 0
     // receiver output data (audio)  -> stream = 1
     // transmitter output data (mon) -> stream = 2
@@ -162,7 +166,7 @@ PORT void xvacOUT(int id, int stream, double* data) {
     }
 #ifdef DEBUG_TIMINGS
     last_times[stream] = timeGetTime();
-    #endif
+#endif
 }
 
 void xvac_out(int id, int nsamples,
@@ -174,7 +178,7 @@ void xvac_out(int id, int nsamples,
 
 void StreamFinishedCallback(void* userData) {
 
-    #pragma warning(disable : 4311)
+#pragma warning(disable : 4311)
     int id = (int)userData;
     IVAC a = pvac[id];
     if (a->have_set_thread_priority == 1) {
@@ -183,20 +187,19 @@ void StreamFinishedCallback(void* userData) {
         a->MMThreadApiHandle = 0;
     }
 
-     #pragma warning(default : 4311)
-
+#pragma warning(default : 4311)
 }
 
 int CallbackIVAC(const void* input, void* output, unsigned long frameCount,
     const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags,
     void* userData) {
 
-   #pragma warning(disable : 4311)
+#pragma warning(disable : 4311)
     int id = (int)userData;
 #pragma warning(default : 4311)
     IVAC a = pvac[id];
     if (a->have_set_thread_priority == -1) {
-         a->have_set_thread_priority = 10;
+        a->have_set_thread_priority = 10;
         a->MMThreadApiHandle = prioritise_thread_max();
         if (a->MMThreadApiHandle)
             a->have_set_thread_priority = 1;
@@ -246,12 +249,11 @@ PORT int StartAudioIVAC(int id) {
 
     if (hinf->type == paWASAPI) {
 
-        
         w.threadPriority = eThreadPriorityProAudio;
         if (a->exclusive) {
             w.flags = (paWinWasapiExclusive | paWinWasapiThreadPriority);
         }
-        
+
         w.hostApiType = paWASAPI;
         w.size = sizeof(PaWasapiStreamInfo);
         w.version = 1;
@@ -259,28 +261,28 @@ PORT int StartAudioIVAC(int id) {
         a->inParam.hostApiSpecificStreamInfo = &w;
         a->outParam.hostApiSpecificStreamInfo = &w;
 
-    } else if (hinf->type == paWDMKS){
-      
+    } else if (hinf->type == paWDMKS) {
+
         x.version = 1;
         x.hostApiType = paWDMKS;
         x.size = sizeof(PaWinWDMKSInfo);
-	    x.flags = paWinWDMKSOverrideFramesize;
+        x.flags = paWinWDMKSOverrideFramesize;
         a->inParam.hostApiSpecificStreamInfo = &x;
         a->outParam.hostApiSpecificStreamInfo = &x;
 
-	} else {
+    } else {
         a->inParam.hostApiSpecificStreamInfo = NULL;
         a->outParam.hostApiSpecificStreamInfo = NULL;
-	}
+    }
 
-    #pragma warning(disable : 4312)
-   
+#pragma warning(disable : 4312)
+
     error = Pa_OpenStream(&a->Stream, &a->inParam, &a->outParam, a->vac_rate,
         a->vac_size, // paFramesPerBufferUnspecified,
         0, CallbackIVAC,
         (void*)id); // pass 'id' as userData
 
-        if (error == 0) {
+    if (error == 0) {
         error = Pa_SetStreamFinishedCallback(a->Stream, StreamFinishedCallback);
 
         assert(error == 0);
@@ -306,7 +308,7 @@ PORT int StartAudioIVAC(int id) {
 
     if (error != paNoError) return error;
 
-	//const PaStreamInfo* inf = Pa_GetStreamInfo(a->Stream);
+    // const PaStreamInfo* inf = Pa_GetStreamInfo(a->Stream);
     return paNoError;
 }
 
@@ -510,7 +512,7 @@ PORT void SetIVACmox(int id, int mox) {
     IVAC a = pvac[id];
 
     a->mox = mox;
-    
+
     if (!a->mox) {
         SetAAudioMixWhat(a->mixer, 0, 1, 0);
         SetAAudioMixWhat(a->mixer, 0, 0, 1);
@@ -525,7 +527,7 @@ PORT void SetIVACmox(int id, int mox) {
 
 PORT void SetIVACmon(int id, int mon) {
     IVAC a = pvac[id];
-   
+
     a->mon = mon;
 
     if (!a->mox) {
@@ -541,7 +543,7 @@ PORT void SetIVACmon(int id, int mon) {
 }
 
 PORT void SetIVACMonVolume(int id, double vol) {
-    
+
     if (id == -1) {
         // overall monitor gain
         IVAC pa = pvac[0];
@@ -561,7 +563,6 @@ PORT void SetIVACMonVolume(int id, double vol) {
     const int mon_index = 1;
     a->tvol[mon_index] = vol * a->vol[mon_index];
     LeaveCriticalSection(&a->cs_out);
-
 }
 
 PORT void SetIVACpreamp(int id, double preamp) {

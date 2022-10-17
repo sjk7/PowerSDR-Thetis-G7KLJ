@@ -263,8 +263,8 @@ void* create_aamix(int id, int outbound_id, int ringinsize, int outsize,
     a->slew.tdelaydown = tdelaydown;
     a->slew.tslewdown = tslewdown;
     for (i = 0; i < a->ninputs; i++)
-        a->ring[i] = (double*)malloc0(a->rsize * sizeof(complex));
-    a->out = (double*)malloc0(a->outsize * sizeof(complex));
+        a->ring[i] = (double*)malloc0(a->rsize * sizeof(WDSP_COMPLEX));
+    a->out = (double*)malloc0(a->outsize * sizeof(WDSP_COMPLEX));
     a->nactive = 0;
     for (i = 0; i < a->ninputs; i++) {
         a->vol[i] = 1.0;
@@ -302,7 +302,8 @@ void* create_aamix(int id, int outbound_id, int ringinsize, int outsize,
             size = a->ringinsize * (a->inrate[i] / a->outrate);
         else
             size = a->ringinsize / (a->outrate / a->inrate[i]);
-        a->resampbuff[i] = (double*)malloc0(a->ringinsize * sizeof(complex));
+        a->resampbuff[i]
+            = (double*)malloc0(a->ringinsize * sizeof(WDSP_COMPLEX));
         a->rsmp[i] = create_resample(run, size, 0, a->resampbuff[i],
             a->inrate[i], a->outrate, 0.0, 0, 1.0);
     }
@@ -386,8 +387,9 @@ void xMixAudio(void* ptr, int id, int stream, double* data) {
             second = 0;
         }
         memcpy(a->ring[stream] + 2 * a->inidx[stream], indata,
-            first * sizeof(complex));
-        memcpy(a->ring[stream], indata + 2 * first, second * sizeof(complex));
+            first * sizeof(WDSP_COMPLEX));
+        memcpy(
+            a->ring[stream], indata + 2 * first, second * sizeof(WDSP_COMPLEX));
 
         if ((a->unqueuedsamps[stream] += a->ringinsize) >= a->outsize) {
             n = a->unqueuedsamps[stream] / a->outsize;
@@ -541,7 +543,7 @@ int xaamix(AAMIX a) {
         // no endthread! doesn't clean up after itself!
         return -1;
     }
-    memset(a->out, 0, a->outsize * sizeof(complex));
+    memset(a->out, 0, a->outsize * sizeof(WDSP_COMPLEX));
     what = _InterlockedAnd(&a->what, 0xffffffff)
         & _InterlockedAnd(&a->active, 0xffffffff);
     i = 0;
@@ -571,7 +573,7 @@ int xaamix(AAMIX a) {
 }
 
 void flush_mix_ring(AAMIX a, int stream) {
-    memset(a->ring[stream], 0, a->rsize * sizeof(complex));
+    memset(a->ring[stream], 0, a->rsize * sizeof(WDSP_COMPLEX));
     a->inidx[stream] = 0;
     a->outidx[stream] = 0;
     a->unqueuedsamps[stream] = 0;
@@ -778,7 +780,8 @@ void SetAAudioRingInsize(void* ptr, int id, int size) {
             rs_size = a->ringinsize / (a->outrate / a->inrate[i]);
         a->rsmp[i]->size = rs_size;
         _aligned_free(a->resampbuff[i]);
-        a->resampbuff[i] = (double*)malloc0(a->ringinsize * sizeof(complex));
+        a->resampbuff[i]
+            = (double*)malloc0(a->ringinsize * sizeof(WDSP_COMPLEX));
         a->rsmp[i]->out = a->resampbuff[i];
     }
     open_mixer(a);
@@ -793,7 +796,7 @@ void SetAAudioRingOutsize(void* ptr, int id, int size) {
     close_mixer(a);
     a->outsize = size;
     _aligned_free(a->out);
-    a->out = (double*)malloc0(a->outsize * sizeof(complex));
+    a->out = (double*)malloc0(a->outsize * sizeof(WDSP_COMPLEX));
     open_mixer(a);
 }
 
@@ -821,7 +824,8 @@ void SetAAudioOutRate(void* ptr, int id, int rate) {
             size = a->ringinsize * (a->inrate[i] / a->outrate);
         else
             size = a->ringinsize / (a->outrate / a->inrate[i]);
-        a->resampbuff[i] = (double*)malloc0(a->ringinsize * sizeof(complex));
+        a->resampbuff[i]
+            = (double*)malloc0(a->ringinsize * sizeof(WDSP_COMPLEX));
         a->rsmp[i] = create_resample(run, size, 0, a->resampbuff[i],
             a->inrate[i], a->outrate, 0.0, 0, 1.0);
         a->rsmp[i]->out = a->resampbuff[i];

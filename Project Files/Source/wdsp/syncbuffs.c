@@ -56,7 +56,7 @@ SYNCB create_syncbuffs(int accept, int nstreams, int max_insize,
     a->r1_baseptr = (double**)malloc0(a->nstreams * sizeof(double*));
     for (i = 0; i < a->nstreams; i++)
         a->r1_baseptr[i]
-            = (double*)malloc0(a->r1_active_buffsize * sizeof(complex));
+            = (double*)malloc0(a->r1_active_buffsize * sizeof(WDSP_COMPLEX));
     a->r1_inidx = 0;
     a->r1_outidx = 0;
     a->r1_unqueuedsamps = 0;
@@ -96,7 +96,8 @@ void destroy_syncbuffs(SYNCB a) {
 void flush_syncbuffs(SYNCB a) {
     int i;
     for (i = 0; i < a->nstreams; i++)
-        memset(a->r1_baseptr[i], 0, a->r1_active_buffsize * sizeof(complex));
+        memset(
+            a->r1_baseptr[i], 0, a->r1_active_buffsize * sizeof(WDSP_COMPLEX));
     a->r1_inidx = 0;
     a->r1_outidx = 0;
     a->r1_unqueuedsamps = 0;
@@ -119,9 +120,9 @@ void Syncbound(SYNCB a, int nsamples, double** in) {
         }
         for (i = 0; i < a->nstreams; i++) {
             memcpy(a->r1_baseptr[i] + 2 * a->r1_inidx, in[i],
-                first * sizeof(complex));
-            memcpy(
-                a->r1_baseptr[i], in[i] + 2 * first, second * sizeof(complex));
+                first * sizeof(WDSP_COMPLEX));
+            memcpy(a->r1_baseptr[i], in[i] + 2 * first,
+                second * sizeof(WDSP_COMPLEX));
         }
         if ((a->r1_unqueuedsamps += nsamples) >= a->r1_outsize) {
             n = a->r1_unqueuedsamps / a->r1_outsize;
@@ -151,9 +152,9 @@ void syncbdata(SYNCB a) {
     }
     for (i = 0; i < a->nstreams; i++) {
         memcpy(a->out[i], a->r1_baseptr[i] + 2 * a->r1_outidx,
-            first * sizeof(complex));
-        memcpy(
-            a->out[i] + 2 * first, a->r1_baseptr[i], second * sizeof(complex));
+            first * sizeof(WDSP_COMPLEX));
+        memcpy(a->out[i] + 2 * first, a->r1_baseptr[i],
+            second * sizeof(WDSP_COMPLEX));
     }
     if ((a->r1_outidx += a->r1_outsize) >= a->r1_active_buffsize)
         a->r1_outidx -= a->r1_active_buffsize;
@@ -211,7 +212,7 @@ DUMFILT create_dumfilt(
     a->rsize = a->opsize + a->delay;
     a->in = in;
     a->out = out;
-    a->ring = (double*)malloc0(a->rsize * sizeof(complex));
+    a->ring = (double*)malloc0(a->rsize * sizeof(WDSP_COMPLEX));
     a->outidx = 0;
     a->inidx = a->delay;
     return a;
@@ -223,7 +224,7 @@ void destroy_dumfilt(DUMFILT a) {
 }
 
 void flush_dumfilt(DUMFILT a) {
-    memset(a->ring, 0, a->rsize * sizeof(complex));
+    memset(a->ring, 0, a->rsize * sizeof(WDSP_COMPLEX));
     a->outidx = 0;
     a->inidx = a->delay;
 }
@@ -238,8 +239,8 @@ void xdumfilt(DUMFILT a) {
             first = a->opsize;
             second = 0;
         }
-        memcpy(a->ring + 2 * a->inidx, a->in, first * sizeof(complex));
-        memcpy(a->ring, a->in + 2 * first, second * sizeof(complex));
+        memcpy(a->ring + 2 * a->inidx, a->in, first * sizeof(WDSP_COMPLEX));
+        memcpy(a->ring, a->in + 2 * first, second * sizeof(WDSP_COMPLEX));
         if ((a->inidx += a->opsize) > a->rsize) a->inidx -= a->rsize;
         if (a->opsize > a->rsize - a->outidx) {
             first = a->rsize - a->outidx;
@@ -248,8 +249,8 @@ void xdumfilt(DUMFILT a) {
             first = a->opsize;
             second = 0;
         }
-        memcpy(a->out, a->ring + 2 * a->outidx, first * sizeof(complex));
-        memcpy(a->out + 2 * first, a->ring, second * sizeof(complex));
+        memcpy(a->out, a->ring + 2 * a->outidx, first * sizeof(WDSP_COMPLEX));
+        memcpy(a->out + 2 * first, a->ring, second * sizeof(WDSP_COMPLEX));
         if ((a->outidx += a->opsize) > a->rsize) a->outidx -= a->rsize;
     }
 }

@@ -54,7 +54,7 @@ DELAY create_delay(int run, int size, double* in, double* out, int rate,
     a->adelay = a->adelta * (a->snum * a->L + a->phnum);
     a->h = fir_bandpass(a->ncoef, -a->ft, +a->ft, 1.0, 1, 0, (double)a->L);
     a->rsize = a->cpp + (WSDEL - 1);
-    a->ring = (double*)malloc0(a->rsize * sizeof(complex));
+    a->ring = (double*)malloc0(a->rsize * sizeof(WDSP_COMPLEX));
     InitializeCriticalSectionAndSpinCount(&a->cs_update, 2500);
     return a;
 }
@@ -67,7 +67,7 @@ void destroy_delay(DELAY a) {
 }
 
 void flush_delay(DELAY a) {
-    memset(a->ring, 0, a->cpp * sizeof(complex));
+    memset(a->ring, 0, a->cpp * sizeof(WDSP_COMPLEX));
     a->idx_in = 0;
 }
 
@@ -92,7 +92,7 @@ void xdelay(DELAY a) {
             if (--a->idx_in < 0) a->idx_in = a->rsize - 1;
         }
     } else if (a->out != a->in)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
     LeaveCriticalSection(&a->cs_update);
 }
 

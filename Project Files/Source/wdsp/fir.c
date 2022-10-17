@@ -34,13 +34,14 @@ warren@wpratt.com
 #include "comm.h"
 
 double* fftcv_mults(int NM, double* c_impulse) {
-    double* mults = (double*)malloc0(NM * sizeof(complex));
-    double* cfft_impulse = (double*)malloc0(NM * sizeof(complex));
+    double* mults = (double*)malloc0(NM * sizeof(WDSP_COMPLEX));
+    double* cfft_impulse = (double*)malloc0(NM * sizeof(WDSP_COMPLEX));
     fftw_plan ptmp = fftw_plan_dft_1d(NM, (fftw_complex*)cfft_impulse,
         (fftw_complex*)mults, FFTW_FORWARD, FFTW_PATIENT);
-    memset(cfft_impulse, 0, NM * sizeof(complex));
+    memset(cfft_impulse, 0, NM * sizeof(WDSP_COMPLEX));
     // store complex coefs right-justified in the buffer
-    memcpy(&(cfft_impulse[NM - 2]), c_impulse, (NM / 2 + 1) * sizeof(complex));
+    memcpy(&(cfft_impulse[NM - 2]), c_impulse,
+        (NM / 2 + 1) * sizeof(WDSP_COMPLEX));
     fftw_execute(ptmp);
     fftw_destroy_plan(ptmp);
     _aligned_free(cfft_impulse);
@@ -90,8 +91,8 @@ double* fir_fsamp_odd(int N, double* A, int rtype, double scale, int wintype) {
     int mid = (N - 1) / 2;
     double mag, phs;
     double* window;
-    double* fcoef = (double*)malloc0(N * sizeof(complex));
-    double* c_impulse = (double*)malloc0(N * sizeof(complex));
+    double* fcoef = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
+    double* c_impulse = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
     fftw_plan ptmp = fftw_plan_dft_1d(N, (fftw_complex*)fcoef,
         (fftw_complex*)c_impulse, FFTW_BACKWARD, FFTW_PATIENT);
     double local_scale = 1.0 / (double)N;
@@ -129,7 +130,7 @@ double* fir_fsamp(int N, double* A, int rtype, double scale, int wintype) {
     int n, i, j, k;
     double sum;
     double* window;
-    double* c_impulse = (double*)malloc0(N * sizeof(complex));
+    double* c_impulse = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
 
     if (N & 1) {
         int M = (N - 1) / 2;
@@ -177,7 +178,7 @@ double* fir_fsamp(int N, double* A, int rtype, double scale, int wintype) {
 
 double* fir_bandpass(int N, double f_low, double f_high, double samplerate,
     int wintype, int rtype, double scale) {
-    double* c_impulse = (double*)malloc0(N * sizeof(complex));
+    double* c_impulse = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
     double ft = (f_high - f_low) / (2.0 * samplerate);
     double ft_rad = TWOPI * ft;
     double w_osc = PI * (f_high + f_low) / samplerate;
@@ -257,7 +258,7 @@ double* fir_read(int N, const char* filename, int rtype, double scale)
     FILE* file;
     int i;
     double I, Q;
-    double* c_impulse = (double*)malloc0(N * sizeof(complex));
+    double* c_impulse = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
     file = fopen(filename, "r");
     for (i = 0; i < N; i++) {
         // read in the complex impulse response
@@ -284,7 +285,7 @@ void analytic(int N, double* in, double* out) {
     int i;
     double inv_N = 1.0 / (double)N;
     double two_inv_N = 2.0 * inv_N;
-    double* x = (double*)malloc0(N * sizeof(complex));
+    double* x = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
     fftw_plan pfor = fftw_plan_dft_1d(
         N, (fftw_complex*)in, (fftw_complex*)x, FFTW_FORWARD, FFTW_PATIENT);
     fftw_plan prev = fftw_plan_dft_1d(
@@ -309,13 +310,13 @@ void mp_imp(int N, double* fir, double* mpfir, int pfactor, int polarity) {
     int i;
     int size = N * pfactor;
     double inv_PN = 1.0 / (double)size;
-    double* firpad = (double*)malloc0(size * sizeof(complex));
-    double* firfreq = (double*)malloc0(size * sizeof(complex));
+    double* firpad = (double*)malloc0(size * sizeof(WDSP_COMPLEX));
+    double* firfreq = (double*)malloc0(size * sizeof(WDSP_COMPLEX));
     double* mag = (double*)malloc0(size * sizeof(double));
-    double* ana = (double*)malloc0(size * sizeof(complex));
-    double* impulse = (double*)malloc0(size * sizeof(complex));
-    double* newfreq = (double*)malloc0(size * sizeof(complex));
-    memcpy(firpad, fir, N * sizeof(complex));
+    double* ana = (double*)malloc0(size * sizeof(WDSP_COMPLEX));
+    double* impulse = (double*)malloc0(size * sizeof(WDSP_COMPLEX));
+    double* newfreq = (double*)malloc0(size * sizeof(WDSP_COMPLEX));
+    memcpy(firpad, fir, N * sizeof(WDSP_COMPLEX));
     fftw_plan pfor = fftw_plan_dft_1d(size, (fftw_complex*)firpad,
         (fftw_complex*)firfreq, FFTW_FORWARD, FFTW_PATIENT);
     fftw_plan prev = fftw_plan_dft_1d(size, (fftw_complex*)newfreq,
@@ -341,9 +342,10 @@ void mp_imp(int N, double* fir, double* mpfir, int pfactor, int polarity) {
     }
     fftw_execute(prev);
     if (polarity)
-        memcpy(mpfir, &impulse[2 * (pfactor - 1) * N], N * sizeof(complex));
+        memcpy(
+            mpfir, &impulse[2 * (pfactor - 1) * N], N * sizeof(WDSP_COMPLEX));
     else
-        memcpy(mpfir, impulse, N * sizeof(complex));
+        memcpy(mpfir, impulse, N * sizeof(WDSP_COMPLEX));
     // print_impulse("min_imp.txt", N, mpfir, 1, 0);
     fftw_destroy_plan(prev);
     fftw_destroy_plan(pfor);

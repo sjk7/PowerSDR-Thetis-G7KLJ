@@ -830,12 +830,13 @@ public partial class Console : Form {
     // ======================================================
     // Constructor and Destructor
     // ======================================================
-
+    string[] m_args;
     public Console(string[] args, string app_data_path) {
 
         AppDataPath = app_data_path;
         Display.specready = false;
         Common.Console = this;
+        m_args = args;
 
         // MW0LGE
         // Problems with CultureInfo.
@@ -868,45 +869,6 @@ public partial class Console : Form {
             Environment.Exit(0);
             return;
         }
-        //
-
-        /*/ Nope, done in main() de G7KLJ
-        foreach (string s in args) {
-            if (s.StartsWith("-datapath:")) {
-                string path = s.Trim().Substring(s.Trim().IndexOf(":") + 1);
-                if (path.EndsWith("\""))
-                    path = path.Substring(0, path.Length - 1);
-                if (!path.EndsWith("\\")) path += "\\";
-                if (Directory.Exists(path))
-                    AppDataPath = path;
-                else {
-                    DialogResult dr = MessageBox.Show(
-                        "-datapath: command line option found, but the folder
-        specified was not found.\n"
-                            + "Would you like to create this folder?  If not,
-        the default folder will be used.\n\n"
-                            + "(" + s + ")",
-                        "Command Line Option: Create Folder?",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (dr == DialogResult.Yes) {
-                        Directory.CreateDirectory(path);
-                        AppDataPath = path;
-                    }
-                }
-            }
-        }
-
-        if (m_app_data_path.Length == 0) {
-            AppDataPath = Environment.GetFolderPath(
-                              Environment.SpecialFolder.ApplicationData)
-                + "\\OpenHPSDR\\Thetis\\";
-            if (Environment.Is64BitProcess)
-                AppDataPath = Environment.GetFolderPath(
-                                  Environment.SpecialFolder.ApplicationData)
-                    + "\\OpenHPSDR\\Thetis-x64\\";
-        }
-        /*/
 
         Debug.Assert(app_data_path.Length > 0); // done in main()
         Debug.Assert(!String.IsNullOrEmpty(AppDataPath));
@@ -52420,9 +52382,32 @@ private void PrettySMeter_MinValueChanged(object sender, EventArgs e) {
     if (m_frmSMeter != null)
             m_frmSMeter.BigSMeter.MinValue = PrettySMeter.MinValue;
 }
+
+NewConsole m_newConsole;
+private void showNewConsoleToolStripMenuItem_Click(object sender, EventArgs e) {
+
+            showNewConsole();
 }
 
-public class DigiMode {
+        private void showNewConsole()
+        {
+            if (m_newConsole == null)
+            {
+                m_newConsole = new NewConsole(m_args, this.m_app_data_path);
+            }
+
+            m_newConsole.Show();
+            m_newConsole.BringToFront();
+            m_newConsole.Activate();
+        }
+
+        private void mnuShowNewConsole_Click(object sender, EventArgs e)
+        {
+            showNewConsole();
+        }
+    }
+
+    public class DigiMode {
     public DigiMode() {}
 
     public bool DEXP { get; set; }

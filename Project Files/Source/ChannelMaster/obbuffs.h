@@ -32,7 +32,7 @@ warren@wpratt.com
 #include <avrt.h>
 #include "cmUtilities.h"
 
-typedef double complex[2];
+typedef double WDSP_COMPLEX[2];
 #ifndef PORT
 #define PORT __declspec(dllexport)
 #endif

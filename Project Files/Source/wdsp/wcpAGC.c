@@ -50,7 +50,7 @@ void calc_wcpagc(WCPAGC a) {
     a->hang_counter = 0;
     a->decay_type = 0;
     a->state = 0;
-    a->ring = (double*)malloc0(RB_SIZE * sizeof(complex));
+    a->ring = (double*)malloc0(RB_SIZE * sizeof(WDSP_COMPLEX));
     a->abs_ring = (double*)malloc0(RB_SIZE * sizeof(double));
     loadWcpAGC(a);
 }
@@ -295,7 +295,7 @@ void xwcpagc(WCPAGC a) {
             a->out[2 * i + 1] = a->out_sample[1] * mult;
         }
     } else if (a->out != a->in)
-        memcpy(a->out, a->in, a->io_buffsize * sizeof(complex));
+        memcpy(a->out, a->in, a->io_buffsize * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_wcpagc(WCPAGC a, double* in, double* out) {

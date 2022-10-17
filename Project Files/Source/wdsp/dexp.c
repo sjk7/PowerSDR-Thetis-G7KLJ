@@ -40,7 +40,7 @@ DELRING calc_delring(int rsize, int size, int delay, double* in, double* out) {
     a->rdelay = delay;
     a->in = in;
     a->out = out;
-    a->ring = (double*)malloc0(a->rsize * sizeof(complex));
+    a->ring = (double*)malloc0(a->rsize * sizeof(WDSP_COMPLEX));
     a->inptr = a->rdelay;
     a->outptr = 0;
     return a;
@@ -52,7 +52,7 @@ void decalc_delring(DELRING a) {
 }
 
 void flush_delring(DELRING a) {
-    memset(a->ring, 0, a->rsize * sizeof(complex));
+    memset(a->ring, 0, a->rsize * sizeof(WDSP_COMPLEX));
     a->inptr = a->rdelay;
     a->outptr = 0;
 }
@@ -67,8 +67,8 @@ void xdelring(DELRING a) {
         first = a->size;
         second = 0;
     }
-    memcpy(a->ring + 2 * a->inptr, a->in, first * sizeof(complex));
-    memcpy(a->ring, a->in + 2 * first, second * sizeof(complex));
+    memcpy(a->ring + 2 * a->inptr, a->in, first * sizeof(WDSP_COMPLEX));
+    memcpy(a->ring, a->in + 2 * first, second * sizeof(WDSP_COMPLEX));
     a->inptr = (a->inptr + a->size) % a->rsize;
     // copy out
     if (a->size > (a->rsize - a->outptr)) {
@@ -78,8 +78,8 @@ void xdelring(DELRING a) {
         first = a->size;
         second = 0;
     }
-    memcpy(a->out, a->ring + 2 * a->outptr, first * sizeof(complex));
-    memcpy(a->out + 2 * first, a->ring, second * sizeof(complex));
+    memcpy(a->out, a->ring + 2 * a->outptr, first * sizeof(WDSP_COMPLEX));
+    memcpy(a->out + 2 * first, a->ring, second * sizeof(WDSP_COMPLEX));
     a->outptr = (a->outptr + a->size) % a->rsize;
 }
 
@@ -104,9 +104,9 @@ void calc_slews(DEXP a) {
 
 void calc_buffs(DEXP a) {
     a->trigsig = (double*)malloc0(2 * a->size
-        * sizeof(complex)); // allow for double-sized output of filter
-    a->delsig = (double*)malloc0(a->size * sizeof(complex));
-    a->audbuffer = (double*)malloc0(a->size * sizeof(complex));
+        * sizeof(WDSP_COMPLEX)); // allow for double-sized output of filter
+    a->delsig = (double*)malloc0(a->size * sizeof(WDSP_COMPLEX));
+    a->audbuffer = (double*)malloc0(a->size * sizeof(WDSP_COMPLEX));
 }
 
 void decalc_buffs(DEXP a) {
@@ -169,7 +169,7 @@ void decalc_filter(DEXP a) {
 void calc_antivox(DEXP a) {
     a->antivox_mult = exp(-1.0 / (a->antivox_rate * a->antivox_tau));
     a->antivox_onemmult = 1.0 - a->antivox_mult;
-    a->antivox_data = (double*)malloc0(a->antivox_size * sizeof(complex));
+    a->antivox_data = (double*)malloc0(a->antivox_size * sizeof(WDSP_COMPLEX));
 }
 
 void decalc_antivox(DEXP a) {
@@ -233,9 +233,9 @@ PORT void destroy_dexp(int id) {
 
 PORT void flush_dexp(int id) {
     DEXP a = pdexp[id];
-    memset(a->audbuffer, 0, a->size * sizeof(complex));
-    memset(a->trigsig, 0, a->size * sizeof(complex));
-    memset(a->delsig, 0, a->size * sizeof(complex));
+    memset(a->audbuffer, 0, a->size * sizeof(WDSP_COMPLEX));
+    memset(a->trigsig, 0, a->size * sizeof(WDSP_COMPLEX));
+    memset(a->delsig, 0, a->size * sizeof(WDSP_COMPLEX));
     a->avsig = 0.0;
     a->state = 0;
     a->count = 0;
@@ -258,8 +258,8 @@ PORT void xdexp(int id) {
         xdelring(a->scdring); // input is 'a->in'; output is 'a->delsig'
         xfircore(a->p); // input is 'a->in'; output is 'a->trigsig'
     } else {
-        memcpy(a->delsig, a->in, a->size * sizeof(complex));
-        memcpy(a->trigsig, a->in, a->size * sizeof(complex));
+        memcpy(a->delsig, a->in, a->size * sizeof(WDSP_COMPLEX));
+        memcpy(a->trigsig, a->in, a->size * sizeof(WDSP_COMPLEX));
     }
     // ******* END SIDE-CHANNEL FILTER *******
 
@@ -358,7 +358,7 @@ PORT void xdexp(int id) {
     // If DEXP functionality is set to OFF, copy its input to overwrite its
     // output.
     if (!a->run_dexp)
-        memcpy(a->audbuffer, a->delsig, a->size * sizeof(complex));
+        memcpy(a->audbuffer, a->delsig, a->size * sizeof(WDSP_COMPLEX));
     // ******* END DEXP *******
 
     // ******* BEGIN AUDIO DELAY *******
@@ -366,7 +366,7 @@ PORT void xdexp(int id) {
         xdelring(a->audring); // uses 'a->audbuffer' as audio input; uses
                               // 'a->out' as audio output
     else
-        memcpy(a->out, a->audbuffer, a->size * sizeof(complex));
+        memcpy(a->out, a->audbuffer, a->size * sizeof(WDSP_COMPLEX));
     // ******* END AUDIO DELAY *******
 
     LeaveCriticalSection(&a->cs_update);
@@ -638,7 +638,7 @@ PORT void SendAntiVOXData(int id, int nsamples, double* data) {
     // note:  'nsamples' is not used as it has been previously specified
     DEXP a = pdexp[id];
     EnterCriticalSection(&a->cs_update);
-    memcpy(a->antivox_data, data, a->antivox_size * sizeof(complex));
+    memcpy(a->antivox_data, data, a->antivox_size * sizeof(WDSP_COMPLEX));
     a->antivox_new = 1;
     LeaveCriticalSection(&a->cs_update);
 }

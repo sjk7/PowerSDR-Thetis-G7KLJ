@@ -38,11 +38,11 @@ void create_txa(int channel) {
     txa[channel].f_low = -5000.0;
     txa[channel].f_high = -100.0;
     txa[channel].inbuff
-        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(WDSP_COMPLEX));
     txa[channel].outbuff
-        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(WDSP_COMPLEX));
     txa[channel].midbuff
-        = (double*)malloc0(2 * ch[channel].dsp_size * sizeof(complex));
+        = (double*)malloc0(2 * ch[channel].dsp_size * sizeof(WDSP_COMPLEX));
 
     txa[channel].rsmpin.p
         = create_resample(0, // run - will be turned on below if needed
@@ -496,11 +496,12 @@ void destroy_txa(int channel) {
 }
 
 void flush_txa(int channel) {
-    memset(
-        txa[channel].inbuff, 0, 1 * ch[channel].dsp_insize * sizeof(complex));
-    memset(
-        txa[channel].outbuff, 0, 1 * ch[channel].dsp_outsize * sizeof(complex));
-    memset(txa[channel].midbuff, 0, 2 * ch[channel].dsp_size * sizeof(complex));
+    memset(txa[channel].inbuff, 0,
+        1 * ch[channel].dsp_insize * sizeof(WDSP_COMPLEX));
+    memset(txa[channel].outbuff, 0,
+        1 * ch[channel].dsp_outsize * sizeof(WDSP_COMPLEX));
+    memset(txa[channel].midbuff, 0,
+        2 * ch[channel].dsp_size * sizeof(WDSP_COMPLEX));
     flush_resample(txa[channel].rsmpin.p);
     flush_gen(txa[channel].gen0.p);
     flush_panel(txa[channel].panel.p);
@@ -576,7 +577,7 @@ void setInputSamplerate_txa(int channel) {
     // buffers
     _aligned_free(txa[channel].inbuff);
     txa[channel].inbuff
-        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(WDSP_COMPLEX));
     // input resampler
     setBuffers_resample(
         txa[channel].rsmpin.p, txa[channel].inbuff, txa[channel].midbuff);
@@ -589,7 +590,7 @@ void setOutputSamplerate_txa(int channel) {
     // buffers
     _aligned_free(txa[channel].outbuff);
     txa[channel].outbuff
-        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(WDSP_COMPLEX));
     // cfir - needs to know input rate of firmware CIC
     setOutRate_cfir(txa[channel].cfir.p, ch[channel].out_rate);
     // output resampler
@@ -607,10 +608,10 @@ void setDSPSamplerate_txa(int channel) {
     // buffers
     _aligned_free(txa[channel].inbuff);
     txa[channel].inbuff
-        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(WDSP_COMPLEX));
     _aligned_free(txa[channel].outbuff);
     txa[channel].outbuff
-        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(WDSP_COMPLEX));
     // input resampler
     setBuffers_resample(
         txa[channel].rsmpin.p, txa[channel].inbuff, txa[channel].midbuff);
@@ -658,13 +659,13 @@ void setDSPBuffsize_txa(int channel) {
     // buffers
     _aligned_free(txa[channel].inbuff);
     txa[channel].inbuff
-        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(WDSP_COMPLEX));
     _aligned_free(txa[channel].midbuff);
     txa[channel].midbuff
-        = (double*)malloc0(2 * ch[channel].dsp_size * sizeof(complex));
+        = (double*)malloc0(2 * ch[channel].dsp_size * sizeof(WDSP_COMPLEX));
     _aligned_free(txa[channel].outbuff);
     txa[channel].outbuff
-        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(WDSP_COMPLEX));
     // input resampler
     setBuffers_resample(
         txa[channel].rsmpin.p, txa[channel].inbuff, txa[channel].midbuff);

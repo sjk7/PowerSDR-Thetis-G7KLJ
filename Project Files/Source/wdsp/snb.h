@@ -63,7 +63,7 @@ typedef struct _snba {
     RESAMPLE outresamp;
     double* inbuff;
     double* outbuff;
-    struct _exec {
+    struct _exec { //-V802
         int asize;
         double* a;
         double* v;

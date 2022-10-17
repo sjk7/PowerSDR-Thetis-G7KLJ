@@ -39,7 +39,7 @@ void wdspmain(void* pargs) {
     else
         SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_HIGHEST);
 
-    int channel = (int)(uintptr_t)pargs;
+    int channel = (int)(uintptr_t)pargs; //-V221
     while (_InterlockedAnd(&ch[channel].run, 1)) {
         WaitForSingleObject(ch[channel].iob.pd->Sem_BuffReady, INFINITE);
         EnterCriticalSection(&ch[channel].csDSP);

@@ -104,7 +104,7 @@ void xfmmod(FMMOD a) {
         // print_deviation ("peakdev.txt", peak, a->samplerate);
         if (a->bp_run) xfircore(a->p);
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_fmmod(FMMOD a, double* in, double* out) {

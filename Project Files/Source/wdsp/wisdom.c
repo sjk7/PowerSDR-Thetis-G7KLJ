@@ -58,8 +58,8 @@ PORT void WDSPwisdom(char* directory) {
     strcpy(wisdom_file, directory);
     strncat(wisdom_file, "wdspWisdom00", 16);
     if (!fftw_import_wisdom_from_filename(wisdom_file)) {
-        fftin = (double*)malloc0(maxsize * sizeof(complex));
-        fftout = (double*)malloc0(maxsize * sizeof(complex));
+        fftin = (double*)malloc0(maxsize * sizeof(WDSP_COMPLEX));
+        fftout = (double*)malloc0(maxsize * sizeof(WDSP_COMPLEX));
         AllocConsole(); // create console
         freopen_s(
             &stream, "conout$", "w", stdout); // redirect output to console

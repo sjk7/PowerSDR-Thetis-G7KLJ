@@ -115,7 +115,7 @@ void xanr(ANR a, int position) {
             a->in_idx = (a->in_idx + a->mask) & a->mask;
         }
     } else if (a->in_buff != a->out_buff)
-        memcpy(a->out_buff, a->in_buff, a->buff_size * sizeof(complex));
+        memcpy(a->out_buff, a->in_buff, a->buff_size * sizeof(WDSP_COMPLEX));
 }
 
 void flush_anr(ANR a) {

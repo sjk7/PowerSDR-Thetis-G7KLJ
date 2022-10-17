@@ -1,6 +1,8 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio,
+// please check it.
 
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java:
+// http://www.viva64.com
 /*  cmbuffs.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -29,9 +31,6 @@ warren@wpratt.com
 
 #include "cmcomm.h"
 
-
-
-
 void start_cmthread(int id) {
     _beginthread(cm_main, 0, (void*)id);
 }
@@ -51,7 +50,8 @@ void create_cmbuffs(
     else
         a->r1_size = a->max_in_size;
     a->r1_active_buffsize = CMB_MULT * a->r1_size;
-    a->r1_baseptr = (double*)malloc0(a->r1_active_buffsize * sizeof(complex));
+    a->r1_baseptr
+        = (double*)malloc0(a->r1_active_buffsize * sizeof(WDSP_COMPLEX));
     a->r1_inidx = 0;
     a->r1_outidx = 0;
     a->r1_unqueuedsamps = 0;
@@ -85,7 +85,7 @@ void destroy_cmbuffs(int id) {
 
 void flush_cmbuffs(int id) {
     CMB a = pcm->pfbuff[id];
-    memset(a->r1_baseptr, 0, a->r1_active_buffsize * sizeof(complex));
+    memset(a->r1_baseptr, 0, a->r1_active_buffsize * sizeof(WDSP_COMPLEX));
     a->r1_inidx = 0;
     a->r1_outidx = 0;
     a->r1_unqueuedsamps = 0;
@@ -107,8 +107,9 @@ PORT void Inbound(int id, int nsamples, double* in) {
             first = nsamples;
             second = 0;
         }
-        memcpy(a->r1_baseptr + 2 * a->r1_inidx, in, first * sizeof(complex));
-        memcpy(a->r1_baseptr, in + 2 * first, second * sizeof(complex));
+        memcpy(
+            a->r1_baseptr + 2 * a->r1_inidx, in, first * sizeof(WDSP_COMPLEX));
+        memcpy(a->r1_baseptr, in + 2 * first, second * sizeof(WDSP_COMPLEX));
 
         if ((a->r1_unqueuedsamps += nsamples) >= a->r1_outsize) {
             n = a->r1_unqueuedsamps / a->r1_outsize;
@@ -137,35 +138,34 @@ void cmdata(int id, double* out) {
         first = a->r1_outsize;
         second = 0;
     }
-    memcpy(out, a->r1_baseptr + 2 * a->r1_outidx, first * sizeof(complex));
-    memcpy(out + 2 * first, a->r1_baseptr, second * sizeof(complex));
+    memcpy(out, a->r1_baseptr + 2 * a->r1_outidx, first * sizeof(WDSP_COMPLEX));
+    memcpy(out + 2 * first, a->r1_baseptr, second * sizeof(WDSP_COMPLEX));
     if ((a->r1_outidx += a->r1_outsize) >= a->r1_active_buffsize)
         a->r1_outidx -= a->r1_active_buffsize;
     LeaveCriticalSection(&a->csOUT);
 }
 #ifdef DEBUG_TIMINGS
-static unsigned int  times_ctr = 0;
+static unsigned int times_ctr = 0;
 #endif
 
 void cm_main(void* pargs) {
     HANDLE hpri = prioritise_thread_max();
 
-
-    #pragma warning(disable : 4311)
+#pragma warning(disable : 4311)
     int id = (int)pargs;
-#pragma warning(default: 4311)
+#pragma warning(default : 4311)
     CMB a = pcm->pdbuff[id];
 
-    #ifdef DEBUG_TIMINGS
+#ifdef DEBUG_TIMINGS
     if (times_ctr == 0) {
         a->when_sembuffready = 0;
     }
-    #endif
+#endif
 
     while (_InterlockedAnd(&a->run, 1)) {
-        #ifdef DEBUG_TIMINGS
+#ifdef DEBUG_TIMINGS
         DWORD dwstartwait = timeGetTime();
-        #endif
+#endif
         DWORD dwWait = WaitForSingleObject(a->Sem_BuffReady, 500);
         if (dwWait == WAIT_TIMEOUT) {
             continue;
@@ -176,9 +176,11 @@ void cm_main(void* pargs) {
         DWORD took = dwendwait - dwstartwait;
         if (took > 10 && times_ctr++ > 50) {
             DWORD how_long_ready = dwendwait - a->when_sembuffready;
-            fprintf(stderr, "cm_main: long time between calls: %ld ms, for id %ld\n",
+            fprintf(stderr,
+                "cm_main: long time between calls: %ld ms, for id %ld\n",
                 (int)took, id);
-            fprintf(stderr, "cm_main: time since Sem_BuffReady signalled: %ld ms.\n",
+            fprintf(stderr,
+                "cm_main: time since Sem_BuffReady signalled: %ld ms.\n",
                 (int)how_long_ready);
             fflush(stderr);
         }
@@ -188,9 +190,7 @@ void cm_main(void* pargs) {
         xcmaster(id);
     }
 
-    if (hpri)
-    prioritise_thread_cleanup(hpri);
-
+    if (hpri) prioritise_thread_cleanup(hpri);
 }
 
 void SetCMRingOutsize(int id, int size) {

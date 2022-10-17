@@ -40,8 +40,8 @@ warren@wpratt.com
 
 void calc_bps(BPS a) {
     double* impulse;
-    a->infilt = (double*)malloc0(2 * a->size * sizeof(complex));
-    a->product = (double*)malloc0(2 * a->size * sizeof(complex));
+    a->infilt = (double*)malloc0(2 * a->size * sizeof(WDSP_COMPLEX));
+    a->product = (double*)malloc0(2 * a->size * sizeof(WDSP_COMPLEX));
     impulse = fir_bandpass(a->size + 1, a->f_low, a->f_high, a->samplerate,
         a->wintype, 1, 1.0 / (double)(2 * a->size));
     a->mults = fftcv_mults(2 * a->size, impulse);
@@ -83,14 +83,15 @@ void destroy_bps(BPS a) {
 }
 
 void flush_bps(BPS a) {
-    memset(a->infilt, 0, 2 * a->size * sizeof(complex));
+    memset(a->infilt, 0, 2 * a->size * sizeof(WDSP_COMPLEX));
 }
 
 void xbps(BPS a, int pos) {
     int i;
     double I, Q;
     if (a->run && pos == a->position) {
-        memcpy(&(a->infilt[2 * a->size]), a->in, a->size * sizeof(complex));
+        memcpy(
+            &(a->infilt[2 * a->size]), a->in, a->size * sizeof(WDSP_COMPLEX));
         fftw_execute(a->CFor);
         for (i = 0; i < 2 * a->size; i++) {
             I = a->gain * a->product[2 * i + 0];
@@ -101,9 +102,10 @@ void xbps(BPS a, int pos) {
                 = I * a->mults[2 * i + 1] + Q * a->mults[2 * i + 0];
         }
         fftw_execute(a->CRev);
-        memcpy(a->infilt, &(a->infilt[2 * a->size]), a->size * sizeof(complex));
+        memcpy(a->infilt, &(a->infilt[2 * a->size]),
+            a->size * sizeof(WDSP_COMPLEX));
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_bps(BPS a, double* in, double* out) {
@@ -320,7 +322,7 @@ void xbandpass(BANDPASS a, int pos) {
     if (a->run && a->position == pos)
         xfircore(a->p);
     else if (a->out != a->in)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_bandpass(BANDPASS a, double* in, double* out) {

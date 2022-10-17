@@ -83,7 +83,7 @@ void xcbl(CBL a) {
                 a->prevQout = 0.0;
         }
     } else if (a->in_buff != a->out_buff)
-        memcpy(a->out_buff, a->in_buff, a->buff_size * sizeof(complex));
+        memcpy(a->out_buff, a->in_buff, a->buff_size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_cbl(CBL a, double* in, double* out) {

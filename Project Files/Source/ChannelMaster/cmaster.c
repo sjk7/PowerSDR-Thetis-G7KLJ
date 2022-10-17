@@ -42,7 +42,7 @@ void create_rcvr() {
         // audio buffer, one per subreceiver
         for (j = 0; j < pcm->cmSubRCVR; j++)
             pcm->rcvr[i].audio[j] = (double*)malloc0(
-                getbuffsize(pcm->cmMAXAudioRate) * sizeof(complex));
+                getbuffsize(pcm->cmMAXAudioRate) * sizeof(WDSP_COMPLEX));
         // noise blanker
         pcm->rcvr[i].panb = create_anb(0, // run
             pcm->xcm_insize[in_id], // buffsize
@@ -116,7 +116,7 @@ void create_xmtr() {
         // output buffers (two because of EER)
         for (j = 0; j < 2; j++)
             pcm->xmtr[i].out[j] = (double*)malloc0(
-                getbuffsize(pcm->cmMAXTxOutRate) * sizeof(complex));
+                getbuffsize(pcm->cmMAXTxOutRate) * sizeof(WDSP_COMPLEX));
         // dexp - vox
         create_dexp(i, // transmitter id, txid
             0, // dexp initially set to OFF
@@ -240,8 +240,8 @@ void create_cmaster() {
             pcm->cmMAXInbound[i], // maximum input size
             getbuffsize(pcm->cmMAXInRate), // maximum output size
             pcm->xcm_insize[i]); // ring outsize = xcmaster() insize
-        pcm->in[i] = (double*)malloc0(
-            getbuffsize(pcm->cmMAXInRate) * sizeof(complex)); // input buffer
+        pcm->in[i] = (double*)malloc0(getbuffsize(pcm->cmMAXInRate)
+            * sizeof(WDSP_COMPLEX)); // input buffer
     }
     create_rcvr(); // standard receiver
     create_xmtr(); // standard transmitter
@@ -325,13 +325,13 @@ PORT void xcmaster(int stream) {
         case 1: // standard transmitter
             tx = txid(stream);
             assert(stream == 2);
-            xpipe (stream, 0, pcm->in);
+            xpipe(stream, 0, pcm->in);
             xdexp(tx); // vox-dexp
             fexchange0(chid(stream, 0), pcm->in[stream], pcm->xmtr[tx].out[0],
                 &error); // dsp
             xpipe(stream, 1, pcm->xmtr[tx].out);
-            // Spectrum0 (1, stream, 0, 0, pcm->xmtr[tx].out[0]);									//
-            // panadapter
+            // Spectrum0 (1, stream, 0, 0, pcm->xmtr[tx].out[0]);
+            // // panadapter
             xMixAudio(0, 0, chid(stream, 0),
                 pcm->xmtr[tx].out[0]); // mix monitor audio
             // WriteAudio(30.0, 192000, 256, pcm->xmtr[0].out[0], 3);
@@ -407,8 +407,8 @@ PORT void SetXcmInrate(
                     chid(in_id, 0), rate); // dsp channel input rate
                 SetInputBuffsize(chid(in_id, 0),
                     pcm->xcm_insize[in_id]); // dsp channel input size
-                // SetTXAVoxSize (tx, pcm->xcm_insize[in_id]);							// VOX
-                // size
+                // SetTXAVoxSize (tx, pcm->xcm_insize[in_id]);
+                // // VOX size
                 SetDEXPSize(tx, pcm->xcm_insize[in_id]); // vox-dexp size
                 SetDEXPRate(tx, rate); // vox-dexp rate
                 // PIPE - set wave player, rcvr0 (leave in C# since player is

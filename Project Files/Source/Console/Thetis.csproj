@@ -317,6 +317,12 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="AnalogSMeter\PrettySMeterHelpers.cs" />
+    <Compile Include="NewConsole\NewConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewConsole\NewConsole.Designer.cs">
+      <DependentUpon>NewConsole.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -631,6 +637,9 @@
     <EmbeddedResource Include="Andromeda\ModeDependentSettingsForm.resx">
       <DependentUpon>ModeDependentSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewConsole\NewConsole.resx">
+      <DependentUpon>NewConsole.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\picD1orig.png" />
     <None Include="Resources\cpu.png" />
     <EmbeddedResource Include="Resources\picD2.png" />
@@ -840,6 +849,7 @@
       <Name>RawInput</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

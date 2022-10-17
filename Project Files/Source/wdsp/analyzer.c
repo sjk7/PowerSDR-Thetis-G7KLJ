@@ -156,7 +156,7 @@ void new_window(int disp, int type, int size, double PiAlpha) {
         case 5: // Kaiser window
         {
             arg0 = bessi0(PiAlpha);
-            arg1 = (double)(size - 1);
+            arg1 = (double)((double)size - 1);
             cgsum = 0.0;
             igsum = 0.0;
             for (i = 0; i < size; ++i) {
@@ -423,7 +423,7 @@ void detector(int det_type, // detector type
         double pix_pos = 0;
         for (i = 1; i < m; i++) {
             while (pix_pos < (double)i) {
-                frac = pix_pos - (double)(i - 1);
+                frac = pix_pos - (double)((double)i - 1);
                 pixels[pix_count] = bins[i - 1] * (1.0 - frac) + bins[i] * frac;
                 pix_count++;
                 pix_pos += bin_per_pix;
@@ -687,7 +687,7 @@ DWORD WINAPI Cspectra(void* pargs) {
             a->stitch_flag = 0;
             LeaveCriticalSection(&a->StitchSection);
             for (j = 0; j < dMAX_STITCH; j++)
-                for (i = 0; i < dMAX_NUM_FFT; i++)
+                for (i = 0; i < dMAX_NUM_FFT; i++) //-V1008
                     InterlockedBitTestAndReset(&(a->input_busy[j][i]), 0);
             stitch(disp);
         } else {
@@ -714,7 +714,7 @@ void interpolate(int disp, int set, double fmin, double fmax, int num_pixels) {
     double mag;
 
     for (i = 0; i < num_pixels; i++) {
-        f = fmin + (double)i * (fmax - fmin) / (double)(num_pixels - 1);
+        f = fmin + (double)i * (fmax - fmin) / (double)((double)num_pixels - 1);
 
         if (f < (a->freqs[set])[0]) {
             k = 0;
@@ -755,17 +755,21 @@ void interpolate(int disp, int set, double fmin, double fmax, int num_pixels) {
 int build_interpolants(
     int disp, int set, int n, int m, double* x, double (*y)[dMAX_M]) {
     DP a = pdisp[disp];
-    double dx[dMAX_N];
-    double idx[dMAX_N];
-    double dmain[dMAX_N];
-    double dsub[dMAX_N];
-    double dsup[dMAX_N];
-    double d[dMAX_N][dMAX_M];
-    double S[dMAX_N][dMAX_M];
-    double b[dMAX_N];
-    double v[dMAX_N][dMAX_M];
-    double tmp;
-    int i, j;
+    double dx[dMAX_N] = {0};
+    double idx[dMAX_N] = {0};
+
+    double dmain[dMAX_N] = {0};
+
+    double dsub[dMAX_N] = {0};
+
+    double dsup[dMAX_N] = {0};
+    double d[dMAX_N][dMAX_M] = {0};
+    double S[dMAX_N][dMAX_M] = {0};
+    double b[dMAX_N] = {0};
+    double v[dMAX_N][dMAX_M] = {0};
+    double tmp = 0;
+    int i = 0;
+    int j = 0;
 
     // provide initialization for the case n<2
     dmain[1] = 0.0;
@@ -845,13 +849,13 @@ void __cdecl sendbuf(void* arg) {
                     InterlockedIncrement(a->pnum_threads);
                     if (a->type == 0)
                         QueueUserWorkItem(spectra,
-                            (void*)(((uintptr_t)arg << 12) + (a->ss << 4)
-                                + a->LO),
+                            (void*)(((uintptr_t)arg << 12)
+                                + ((uintptr_t)(a->ss) << 4) + a->LO),
                             0);
                     else
                         QueueUserWorkItem(Cspectra,
-                            (void*)(((uintptr_t)arg << 12) + (a->ss << 4)
-                                + a->LO),
+                            (void*)(((uintptr_t)arg << 12)
+                                + ((uintptr_t)(a->ss) << 4) + a->LO),
                             0);
 
                     if ((a->IQout_index[a->ss][a->LO] += a->incr) >= a->bsize)

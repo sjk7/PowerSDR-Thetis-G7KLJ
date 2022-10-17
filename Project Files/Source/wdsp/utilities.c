@@ -88,8 +88,8 @@ void print_impulse(
 
 PORT void analyze_bandpass_filter(int N, double f_low, double f_high,
     double samplerate, int wintype, int rtype, double scale) {
-    double* linphase_imp = (double*)malloc0(N * sizeof(complex));
-    double* minphase_imp = (double*)malloc0(N * sizeof(complex));
+    double* linphase_imp = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
+    double* minphase_imp = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
     linphase_imp
         = fir_bandpass(N, f_low, f_high, samplerate, wintype, rtype, scale);
     mp_imp(N, linphase_imp, minphase_imp, 16, 0);
@@ -265,7 +265,7 @@ void print_deviation(const char* filename, double dpmax, double rate) {
 void __cdecl CalccPrintSamples(void* pargs) {
     int i;
     double env_tx, env_rx;
-    int channel = (int)(uintptr_t)pargs;
+    int channel = (int)(uintptr_t)pargs; //-V221
     CALCC a = txa[channel].calcc.p;
     FILE* file = fopen("samples.txt", "w");
     fprintf(file, "\n");

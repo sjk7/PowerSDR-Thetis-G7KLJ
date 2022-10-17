@@ -90,7 +90,7 @@ void xsnotch(SNOTCH a) {
             a->x1 = a->x0;
         }
     } else if (a->out != a->in)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
     LeaveCriticalSection(&a->cs_update);
 }
 
@@ -225,12 +225,12 @@ SPEAK create_speak(int run, int size, double* in, double* out, int rate,
     a->gain = gain;
     a->nstages = nstages;
     a->design = design;
-    a->x0 = (double*)malloc0(a->nstages * sizeof(complex));
-    a->x1 = (double*)malloc0(a->nstages * sizeof(complex));
-    a->x2 = (double*)malloc0(a->nstages * sizeof(complex));
-    a->y0 = (double*)malloc0(a->nstages * sizeof(complex));
-    a->y1 = (double*)malloc0(a->nstages * sizeof(complex));
-    a->y2 = (double*)malloc0(a->nstages * sizeof(complex));
+    a->x0 = (double*)malloc0(a->nstages * sizeof(WDSP_COMPLEX));
+    a->x1 = (double*)malloc0(a->nstages * sizeof(WDSP_COMPLEX));
+    a->x2 = (double*)malloc0(a->nstages * sizeof(WDSP_COMPLEX));
+    a->y0 = (double*)malloc0(a->nstages * sizeof(WDSP_COMPLEX));
+    a->y1 = (double*)malloc0(a->nstages * sizeof(WDSP_COMPLEX));
+    a->y2 = (double*)malloc0(a->nstages * sizeof(WDSP_COMPLEX));
     InitializeCriticalSectionAndSpinCount(&a->cs_update, 2500);
     calc_speak(a);
     return a;
@@ -278,7 +278,7 @@ void xspeak(SPEAK a) {
             }
         }
     } else if (a->out != a->in)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
     LeaveCriticalSection(&a->cs_update);
 }
 
@@ -344,8 +344,8 @@ PORT void SetRXASPCWGain(int channel, double gain) {
 
 void calc_mpeak(MPEAK a) {
     int i;
-    a->tmp = (double*)malloc0(a->size * sizeof(complex));
-    a->mix = (double*)malloc0(a->size * sizeof(complex));
+    a->tmp = (double*)malloc0(a->size * sizeof(WDSP_COMPLEX));
+    a->mix = (double*)malloc0(a->size * sizeof(WDSP_COMPLEX));
     for (i = 0; i < a->npeaks; i++) {
         a->pfil[i] = create_speak(1, a->size, a->in, a->tmp, a->rate, a->f[i],
             a->bw[i], a->gain[i], a->nstages, 1);
@@ -403,16 +403,16 @@ void xmpeak(MPEAK a) {
     EnterCriticalSection(&a->cs_update);
     if (a->run) {
         int i, j;
-        memset(a->mix, 0, a->size * sizeof(complex));
+        memset(a->mix, 0, a->size * sizeof(WDSP_COMPLEX));
         for (i = 0; i < a->npeaks; i++) {
             if (a->enable[i]) {
                 xspeak(a->pfil[i]);
                 for (j = 0; j < 2 * a->size; j++) a->mix[j] += a->tmp[j];
             }
         }
-        memcpy(a->out, a->mix, a->size * sizeof(complex));
+        memcpy(a->out, a->mix, a->size * sizeof(WDSP_COMPLEX));
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
     LeaveCriticalSection(&a->cs_update);
 }
 
@@ -560,7 +560,7 @@ void xphrot(PHROT a) {
             a->out[2 * i + 0] = a->y0[a->nstages - 1];
         }
     } else if (a->out != a->in)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
     LeaveCriticalSection(&a->cs_update);
 }
 

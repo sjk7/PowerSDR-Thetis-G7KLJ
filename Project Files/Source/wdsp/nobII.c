@@ -84,7 +84,7 @@ PORT NOB create_nob(int run, int buffsize, double* in, double* out,
             * (MAX_ADV_SLEW_TIME + MAX_ADV_TIME + MAX_HANG_SLEW_TIME
                 + MAX_HANG_TIME + MAX_SEQ_TIME)
         + 2);
-    a->dline = (double*)malloc0(a->dline_size * sizeof(complex));
+    a->dline = (double*)malloc0(a->dline_size * sizeof(WDSP_COMPLEX));
     a->imp = (int*)malloc0(a->dline_size * sizeof(int));
     a->awave = (double*)malloc0(
         (int)(MAX_ADV_SLEW_TIME * MAX_SAMPLERATE + 1) * sizeof(double));
@@ -92,8 +92,8 @@ PORT NOB create_nob(int run, int buffsize, double* in, double* out,
         (int)(MAX_HANG_SLEW_TIME * MAX_SAMPLERATE + 1) * sizeof(double));
 
     a->filterlen = 10;
-    a->bfbuff = (double*)malloc0(a->filterlen * sizeof(complex));
-    a->ffbuff = (double*)malloc0(a->filterlen * sizeof(complex));
+    a->bfbuff = (double*)malloc0(a->filterlen * sizeof(WDSP_COMPLEX));
+    a->ffbuff = (double*)malloc0(a->filterlen * sizeof(WDSP_COMPLEX));
     a->fcoefs = (double*)malloc0(a->filterlen * sizeof(double));
     a->fcoefs[0] = 0.308720593;
     a->fcoefs[1] = 0.216104415;
@@ -110,7 +110,7 @@ PORT NOB create_nob(int run, int buffsize, double* in, double* out,
     init_nob(a);
 
     a->legacy = (double*)malloc0(
-        2048 * sizeof(complex)); /////////////// legacy interface - remove
+        2048 * sizeof(WDSP_COMPLEX)); /////////////// legacy interface - remove
     return a;
 }
 
@@ -136,10 +136,10 @@ PORT void flush_nob(NOB a) {
     a->avg = 1.0;
     a->bfb_in_idx = a->filterlen - 1;
     a->ffb_in_idx = a->filterlen - 1;
-    memset(a->dline, 0, a->dline_size * sizeof(complex));
+    memset(a->dline, 0, a->dline_size * sizeof(WDSP_COMPLEX));
     memset(a->imp, 0, a->dline_size * sizeof(int));
-    memset(a->bfbuff, 0, a->filterlen * sizeof(complex));
-    memset(a->ffbuff, 0, a->filterlen * sizeof(complex));
+    memset(a->bfbuff, 0, a->filterlen * sizeof(WDSP_COMPLEX));
+    memset(a->ffbuff, 0, a->filterlen * sizeof(WDSP_COMPLEX));
 }
 
 PORT void xnob(NOB a) {
@@ -206,7 +206,7 @@ PORT void xnob(NOB a) {
                                     tidx -= a->dline_size;
                             }
                             j = 1;
-                            len = 0;
+
                             lidx = tidx;
                             while (j <= a->adv_slew_count + a->adv_count
                                 && len == 0) {
@@ -315,7 +315,7 @@ PORT void xnob(NOB a) {
                                 a->state = 5;
                             else {
                                 a->state = 6;
-                                a->time = 0;
+                                a->time = 0; //-V1048
                                 a->blank_count += a->adv_count + a->filterlen;
                             }
                         }
@@ -467,7 +467,7 @@ PORT void xnob(NOB a) {
             if (++a->out_idx == a->dline_size) a->out_idx = 0;
         }
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->buffsize * sizeof(complex));
+        memcpy(a->out, a->in, a->buffsize * sizeof(WDSP_COMPLEX));
     LeaveCriticalSection(&a->cs_update);
 }
 

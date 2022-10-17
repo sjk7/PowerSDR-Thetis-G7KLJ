@@ -44,8 +44,8 @@ void size_calcc(CALCC a) { // for change in ints or spi
     a->cc = (double*)malloc0(a->ints * 4 * sizeof(double));
     a->cs = (double*)malloc0(a->ints * 4 * sizeof(double));
 
-    a->rxs = (double*)malloc0(a->nsamps * sizeof(complex));
-    a->txs = (double*)malloc0(a->nsamps * sizeof(complex));
+    a->rxs = (double*)malloc0(a->nsamps * sizeof(WDSP_COMPLEX));
+    a->txs = (double*)malloc0(a->nsamps * sizeof(WDSP_COMPLEX));
 
     a->ctrl.cpi = (int*)malloc0(a->ints * sizeof(int));
     a->ctrl.sindex = (int*)malloc0(a->ints * sizeof(int));
@@ -150,8 +150,8 @@ CALCC create_calcc(int channel, int runcal, int size, int rate, int ints,
 
     size_calcc(a);
 
-    a->temprx = (double*)malloc0(2048 * sizeof(complex)); // remove later
-    a->temptx = (double*)malloc0(2048 * sizeof(complex)); // remove later
+    a->temprx = (double*)malloc0(2048 * sizeof(WDSP_COMPLEX)); // remove later
+    a->temptx = (double*)malloc0(2048 * sizeof(WDSP_COMPLEX)); // remove later
     return a;
 }
 

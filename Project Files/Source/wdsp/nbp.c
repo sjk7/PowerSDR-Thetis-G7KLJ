@@ -69,7 +69,7 @@ void destroy_notchdb(NOTCHDB b) {
 double* fir_mbandpass(int N, int nbp, double* flow, double* fhigh, double rate,
     double scale, int wintype) {
     int i, k;
-    double* impulse = (double*)malloc0(N * sizeof(complex));
+    double* impulse = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
     double* imp;
     for (k = 0; k < nbp; k++) {
         imp = fir_bandpass(N, flow[k], fhigh[k], rate, wintype, 1, scale);
@@ -85,8 +85,12 @@ double* fir_mbandpass(int N, int nbp, double* flow, double* fhigh, double rate,
 double min_notch_width(NBP a) {
     double min_width;
     switch (a->wintype) {
-        case 0: min_width = 1600.0 / (a->nc / 256) * (a->rate / 48000); break;
-        case 1: min_width = 2200.0 / (a->nc / 256) * (a->rate / 48000); break;
+        case 0:
+            min_width = 1600.0 / (a->nc / 256) * (a->rate / 48000);
+            break; //-V636
+        case 1:
+            min_width = 2200.0 / (a->nc / 256) * (a->rate / 48000);
+            break; //-V636
         default: min_width = 1.0; break;
     }
     return min_width;
@@ -256,7 +260,7 @@ void xnbp(NBP a, int pos) {
     if (a->run && pos == a->position)
         xfircore(a->p);
     else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_nbp(NBP a, double* in, double* out) {

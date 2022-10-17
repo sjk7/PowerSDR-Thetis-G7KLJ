@@ -93,7 +93,7 @@ FMD create_fmd(int run, int size, double* in, double* out, int rate,
     a->mp_aud = mp_aud;
     calc_fmd(a);
     // de-emphasis filter
-    a->audio = (double*)malloc0(a->size * sizeof(complex));
+    a->audio = (double*)malloc0(a->size * sizeof(WDSP_COMPLEX));
     impulse = fc_impulse(a->nc_de, a->f_low, a->f_high,
         +20.0 * log10(a->f_high / a->f_low), 0.0, 1, a->rate,
         1.0 / (2.0 * a->size), 0, 0);
@@ -118,7 +118,7 @@ void destroy_fmd(FMD a) {
 }
 
 void flush_fmd(FMD a) {
-    memset(a->audio, 0, a->size * sizeof(complex));
+    memset(a->audio, 0, a->size * sizeof(WDSP_COMPLEX));
     flush_fircore(a->pde);
     flush_fircore(a->paud);
     a->phs = 0.0;
@@ -161,7 +161,7 @@ void xfmd(FMD a) {
         // CTCSS Removal
         xsnotch(a->sntch);
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_fmd(FMD a, double* in, double* out) {
@@ -197,7 +197,7 @@ void setSize_fmd(FMD a, int size) {
     _aligned_free(a->audio);
     a->size = size;
     calc_fmd(a);
-    a->audio = (double*)malloc0(a->size * sizeof(complex));
+    a->audio = (double*)malloc0(a->size * sizeof(WDSP_COMPLEX));
     // de-emphasis filter
     destroy_fircore(a->pde);
     impulse = fc_impulse(a->nc_de, a->f_low, a->f_high,

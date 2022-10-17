@@ -1,6 +1,8 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
+// This is an independent project of an individual developer. Dear PVS-Studio,
+// please check it.
 
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java:
+// http://www.viva64.com
 /*  sync.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -21,7 +23,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-The author can be reached by email at  
+The author can be reached by email at
 
 warren@wpratt.com
 
@@ -29,54 +31,45 @@ warren@wpratt.com
 
 #include "cmcomm.h"
 
-sync syn  = {0};
+sync syn = {0};
 SYNC psyn = &syn;
 
-void create_sync()
-{
-	psyn->divbuff = (double *) malloc0 (pcm->cmMAXInbound[inid (0, 0)] * sizeof (complex));
-	create_divEXT(0, 0, 2, 1024);
+void create_sync() {
+    psyn->divbuff = (double*)malloc0(
+        pcm->cmMAXInbound[inid(0, 0)] * sizeof(WDSP_COMPLEX));
+    create_divEXT(0, 0, 2, 1024);
 }
 
-void destroy_sync()
-{
-	destroy_divEXT (0);
-	_aligned_free (psyn->divbuff);
+void destroy_sync() {
+    destroy_divEXT(0);
+    _aligned_free(psyn->divbuff);
 }
 
-PORT
-void InboundBlock (int id, int nsamples, double** data)
-{
-	switch (id)
-	{
-	case 0: // diversity receivers
-		xdivEXT (0, nsamples, data, psyn->divbuff);
-		Inbound (0, nsamples, psyn->divbuff);
-		break;
-	case 1: // puresignal receivers
-		pscc (chid (inid (1, 0), 0),
-			nsamples,
-			data[_InterlockedAnd (&psyn->xmtr[0].ps_tx_idx, 0xffffffff)], 
-			data[_InterlockedAnd (&psyn->xmtr[0].ps_rx_idx, 0xffffffff)]);
-		break;
-	case 2: // synchronous receivers
-		Inbound(0, nsamples, data[0]);
-		Inbound(1, nsamples, data[1]);
-		break;
-	case 3: // send synchronous only to first software receiver
-		Inbound(0, nsamples, data[0]);
-		break;
-	}
+PORT void InboundBlock(int id, int nsamples, double** data) {
+    switch (id) {
+        case 0: // diversity receivers
+            xdivEXT(0, nsamples, data, psyn->divbuff);
+            Inbound(0, nsamples, psyn->divbuff);
+            break;
+        case 1: // puresignal receivers
+            pscc(chid(inid(1, 0), 0), nsamples,
+                data[_InterlockedAnd(&psyn->xmtr[0].ps_tx_idx, 0xffffffff)],
+                data[_InterlockedAnd(&psyn->xmtr[0].ps_rx_idx, 0xffffffff)]);
+            break;
+        case 2: // synchronous receivers
+            Inbound(0, nsamples, data[0]);
+            Inbound(1, nsamples, data[1]);
+            break;
+        case 3: // send synchronous only to first software receiver
+            Inbound(0, nsamples, data[0]);
+            break;
+    }
 }
 
-PORT
-void SetPSTxIdx (int id, int idx)
-{
-	_InterlockedExchange (&psyn->xmtr[id].ps_tx_idx, idx);
+PORT void SetPSTxIdx(int id, int idx) {
+    _InterlockedExchange(&psyn->xmtr[id].ps_tx_idx, idx);
 }
 
-PORT
-void SetPSRxIdx (int id, int idx)
-{
-	_InterlockedExchange (&psyn->xmtr[id].ps_rx_idx, idx);
+PORT void SetPSRxIdx(int id, int idx) {
+    _InterlockedExchange(&psyn->xmtr[id].ps_rx_idx, idx);
 }

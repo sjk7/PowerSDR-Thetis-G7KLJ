@@ -212,7 +212,7 @@ void xiqc(IQC a) {
             // ys, 1.1);
         }
     } else if (a->out != a->in)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_iqc(IQC a, double* in, double* out) {

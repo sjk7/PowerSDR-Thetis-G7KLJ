@@ -1048,13 +1048,13 @@ void sendOutbound(int id, double* out) {
         LeaveCriticalSection(&prn->udpOUT);
     } else {
         if (id == 1) {
-            memcpy(prn->outIQbufp, out, sizeof(complex) * 126);
+            memcpy(prn->outIQbufp, out, sizeof(WDSP_COMPLEX) * 126);
             ReleaseSemaphore(prn->hsendIQSem, 1, 0);
 
             WaitForSingleObject(prn->hobbuffsRun[0], INFINITE);
         } else {
 
-            memcpy(prn->outLRbufp, out, sizeof(complex) * 126);
+            memcpy(prn->outLRbufp, out, sizeof(WDSP_COMPLEX) * 126);
             prn->last_time_signalled = timeGetTime();
             ReleaseSemaphore(prn->hsendLRSem, 1, 0);
 

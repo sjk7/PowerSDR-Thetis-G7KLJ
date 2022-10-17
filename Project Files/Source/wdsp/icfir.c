@@ -94,7 +94,7 @@ void xicfir(ICFIR a) {
     if (a->run)
         xfircore(a->p);
     else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_icfir(ICFIR a, double* in, double* out) {
@@ -189,7 +189,7 @@ double* icfir_impulse(int N, int DD, int R, int Pairs, double runrate,
                     tmp = -tmp;
                 mag = pow(tmp, Pairs) * local_scale;
                 A[i] = mag;
-            } else if (i >= c_samps && i <= c_samps + x_samps)
+            } else if (i >= c_samps && i <= c_samps + x_samps) //-V560
                 A[i] = mag * xistion[i - c_samps];
             else
                 A[i] = 0.0;

@@ -129,12 +129,12 @@ void calc_rmatch(RMATCH a) {
     max_ring_insize = (int)(1.0 + (double)a->insize * (1.05 * a->nom_ratio));
     if (a->ringsize < 2 * max_ring_insize) a->ringsize = 2 * max_ring_insize;
     if (a->ringsize < 2 * a->outsize) a->ringsize = 2 * a->outsize;
-    a->ring = (double*)malloc0(a->ringsize * sizeof(complex));
+    a->ring = (double*)malloc0(a->ringsize * sizeof(WDSP_COMPLEX));
     a->rsize = a->ringsize;
     a->n_ring = a->rsize / 2;
     a->iin = a->rsize / 2;
     a->iout = 0;
-    a->resout = (double*)malloc0(max_ring_insize * sizeof(complex));
+    a->resout = (double*)malloc0(max_ring_insize * sizeof(WDSP_COMPLEX));
     a->v = create_varsamp(1, a->insize, a->in, a->resout, a->nom_inrate,
         a->nom_outrate, a->fc_high, a->fc_low, a->R, a->gain, a->var,
         a->varmode);
@@ -156,7 +156,7 @@ void calc_rmatch(RMATCH a) {
         a->cslew[m] = 0.5 * (1.0 - cos(theta));
         theta += dtheta;
     }
-    a->baux = (double*)malloc0(a->ringsize / 2 * sizeof(complex));
+    a->baux = (double*)malloc0(a->ringsize / 2 * sizeof(WDSP_COMPLEX));
     a->readsamps = 0;
     a->writesamps = 0;
     a->read_startup = (unsigned int)((double)a->nom_outrate * a->startup_delay);
@@ -320,8 +320,9 @@ PORT void xrmatchIN(void* b, double* in) {
                 first = a->ntslew + 1;
                 second = 0;
             }
-            memcpy(a->baux, a->ring + 2 * a->iout, first * sizeof(complex));
-            memcpy(a->baux + 2 * first, a->ring, second * sizeof(complex));
+            memcpy(
+                a->baux, a->ring + 2 * a->iout, first * sizeof(WDSP_COMPLEX));
+            memcpy(a->baux + 2 * first, a->ring, second * sizeof(WDSP_COMPLEX));
             // a->iout = (a->iout + ovfl + a->rsize / 2) % a->rsize;
             a->iout = (a->iout + ovfl) % a->rsize; //
         }
@@ -332,8 +333,8 @@ PORT void xrmatchIN(void* b, double* in) {
             first = newsamps;
             second = 0;
         }
-        memcpy(a->ring + 2 * a->iin, a->resout, first * sizeof(complex));
-        memcpy(a->ring, a->resout + 2 * first, second * sizeof(complex));
+        memcpy(a->ring + 2 * a->iin, a->resout, first * sizeof(WDSP_COMPLEX));
+        memcpy(a->ring, a->resout + 2 * first, second * sizeof(WDSP_COMPLEX));
         if (a->ucnt >= 0) upslew(a, newsamps);
         a->iin = (a->iin + newsamps) % a->rsize;
         if (ovfl > 0) blend(a);
@@ -391,8 +392,8 @@ void dslew(RMATCH a) {
             first = zeros;
             second = 0;
         }
-        memset(a->ring + 2 * i, 0, first * sizeof(complex));
-        memset(a->ring, 0, second * sizeof(complex));
+        memset(a->ring + 2 * i, 0, first * sizeof(WDSP_COMPLEX));
+        memset(a->ring, 0, second * sizeof(WDSP_COMPLEX));
         n += zeros; //
     } //
     // a->n_ring = a->outsize + a->rsize / 2;
@@ -419,8 +420,8 @@ PORT void xrmatchOUT(void* b, double* out) {
             first = a->outsize;
             second = 0;
         }
-        memcpy(a->out, a->ring + 2 * a->iout, first * sizeof(complex));
-        memcpy(a->out + 2 * first, a->ring, second * sizeof(complex));
+        memcpy(a->out, a->ring + 2 * a->iout, first * sizeof(WDSP_COMPLEX));
+        memcpy(a->out + 2 * first, a->ring, second * sizeof(WDSP_COMPLEX));
         a->iout = (a->iout + a->outsize) % a->rsize;
         a->n_ring -= a->outsize;
         a->dlast[0] = a->out[2 * (a->outsize - 1) + 0];

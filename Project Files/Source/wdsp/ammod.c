@@ -75,7 +75,7 @@ void xammod(AMMOD a) {
                 break;
         }
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_ammod(AMMOD a, double* in, double* out) {

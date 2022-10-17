@@ -70,13 +70,13 @@ SIPHON create_siphon(int run, int position, int mode, int disp, int insize,
     a->sipsize = sipsize; // NOTE:  sipsize MUST BE A POWER OF TWO!!
     a->fftsize = fftsize;
     a->specmode = specmode;
-    a->sipbuff = (double*)malloc0(a->sipsize * sizeof(complex));
+    a->sipbuff = (double*)malloc0(a->sipsize * sizeof(WDSP_COMPLEX));
     a->idx = 0;
-    a->sipout = (double*)malloc0(a->sipsize * sizeof(complex));
-    a->specout = (double*)malloc0(a->fftsize * sizeof(complex));
+    a->sipout = (double*)malloc0(a->sipsize * sizeof(WDSP_COMPLEX));
+    a->specout = (double*)malloc0(a->fftsize * sizeof(WDSP_COMPLEX));
     a->sipplan = fftw_plan_dft_1d(a->fftsize, (fftw_complex*)a->sipout,
         (fftw_complex*)a->specout, FFTW_FORWARD, FFTW_PATIENT);
-    a->window = (double*)malloc0(a->fftsize * sizeof(complex));
+    a->window = (double*)malloc0(a->fftsize * sizeof(WDSP_COMPLEX));
     InitializeCriticalSectionAndSpinCount(&a->update, 2500);
     build_window(a);
     return a;
@@ -93,9 +93,9 @@ void destroy_siphon(SIPHON a) {
 }
 
 void flush_siphon(SIPHON a) {
-    memset(a->sipbuff, 0, a->sipsize * sizeof(complex));
-    memset(a->sipout, 0, a->sipsize * sizeof(complex));
-    memset(a->specout, 0, a->fftsize * sizeof(complex));
+    memset(a->sipbuff, 0, a->sipsize * sizeof(WDSP_COMPLEX));
+    memset(a->sipout, 0, a->sipsize * sizeof(WDSP_COMPLEX));
+    memset(a->specout, 0, a->fftsize * sizeof(WDSP_COMPLEX));
     a->idx = 0;
 }
 
@@ -107,7 +107,7 @@ void xsiphon(SIPHON a, int pos) {
             case 0:
                 if (a->insize >= a->sipsize)
                     memcpy(a->sipbuff, &(a->in[2 * (a->insize - a->sipsize)]),
-                        a->sipsize * sizeof(complex));
+                        a->sipsize * sizeof(WDSP_COMPLEX));
                 else {
                     if (a->insize > (a->sipsize - a->idx)) {
                         first = a->sipsize - a->idx;
@@ -117,9 +117,9 @@ void xsiphon(SIPHON a, int pos) {
                         second = 0;
                     }
                     memcpy(a->sipbuff + 2 * a->idx, a->in,
-                        first * sizeof(complex));
+                        first * sizeof(WDSP_COMPLEX));
                     memcpy(a->sipbuff, a->in + 2 * first,
-                        second * sizeof(complex));
+                        second * sizeof(WDSP_COMPLEX));
                     if ((a->idx += a->insize) >= a->sipsize)
                         a->idx -= a->sipsize;
                 }
@@ -149,12 +149,13 @@ void suck(SIPHON a) {
         int j = (a->idx - a->outsize) & mask;
         int size = a->sipsize - j;
         if (size >= a->outsize)
-            memcpy(
-                a->sipout, &(a->sipbuff[2 * j]), a->outsize * sizeof(complex));
+            memcpy(a->sipout, &(a->sipbuff[2 * j]),
+                a->outsize * sizeof(WDSP_COMPLEX));
         else {
-            memcpy(a->sipout, &(a->sipbuff[2 * j]), size * sizeof(complex));
+            memcpy(
+                a->sipout, &(a->sipbuff[2 * j]), size * sizeof(WDSP_COMPLEX));
             memcpy(&(a->sipout[2 * size]), a->sipbuff,
-                (a->outsize - size) * sizeof(complex));
+                (a->outsize - size) * sizeof(WDSP_COMPLEX));
         }
     }
 }

@@ -64,9 +64,9 @@ PORT EER create_eer(int run, int size, double* in, double* out, double* outM,
     InitializeCriticalSectionAndSpinCount(&a->cs_update, 2500);
 
     a->legacy = (double*)malloc0(
-        2048 * sizeof(complex)); /////////////// legacy interface - remove
+        2048 * sizeof(WDSP_COMPLEX)); /////////////// legacy interface - remove
     a->legacyM = (double*)malloc0(
-        2048 * sizeof(complex)); /////////////// legacy interface - remove
+        2048 * sizeof(WDSP_COMPLEX)); /////////////// legacy interface - remove
 
     return a;
 }
@@ -112,7 +112,7 @@ PORT void xeer(EER a) {
         xdelay(a->mdel); // delay for outM
         xdelay(a->pdel); // delay for out
     } else if (a->out != a->in)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
     LeaveCriticalSection(&a->cs_update);
 }
 

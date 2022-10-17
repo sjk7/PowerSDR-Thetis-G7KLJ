@@ -79,7 +79,7 @@ void xshift(SHIFT a) {
             if (a->phase < 0.0) a->phase += TWOPI;
         }
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_shift(SHIFT a, double* in, double* out) {

@@ -60,7 +60,7 @@ extern "C" {
 
 /* If <complex.h> is included, use the C99 complex type.  Otherwise
    define a type bit-compatible with C99 complex */
-#if !defined(FFTW_NO_Complex) && defined(_Complex_I) && defined(complex)       \
+#if !defined(FFTW_NO_Complex) && defined(_Complex_I) && defined(WDSP_COMPLEX)  \
     && defined(I)
 #define FFTW_DEFINE_COMPLEX(R, C) typedef R _Complex C
 #else

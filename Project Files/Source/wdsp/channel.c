@@ -129,7 +129,7 @@ PORT void CloseChannel(int channel) {
 }
 
 void flushChannel(void* p) {
-    int channel = (int)(uintptr_t)p;
+    int channel = (int)(uintptr_t)p; //-V221
     EnterCriticalSection(&ch[channel].csDSP);
     EnterCriticalSection(&ch[channel].csEXCH);
     flush_iobuffs(channel);

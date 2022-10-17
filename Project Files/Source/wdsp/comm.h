@@ -192,5 +192,5 @@ static inline BOOL prioritise_thread_cleanup(HANDLE h) {
 #define TWOPI 6.2831853071795864
 
 // miscellaneous
-typedef double complex[2];
+typedef double WDSP_COMPLEX[2];
 #define PORT __declspec(dllexport)

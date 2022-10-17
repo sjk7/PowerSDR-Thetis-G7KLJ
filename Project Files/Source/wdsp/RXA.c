@@ -36,11 +36,11 @@ struct _rxa rxa[MAX_CHANNELS];
 void create_rxa(int channel) {
     rxa[channel].mode = RXA_LSB;
     rxa[channel].inbuff
-        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(WDSP_COMPLEX));
     rxa[channel].outbuff
-        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(WDSP_COMPLEX));
     rxa[channel].midbuff
-        = (double*)malloc0(2 * ch[channel].dsp_size * sizeof(complex));
+        = (double*)malloc0(2 * ch[channel].dsp_size * sizeof(WDSP_COMPLEX));
 
     // shift to select a slice of spectrum
     rxa[channel].shift.p = create_shift(1, // run
@@ -494,11 +494,12 @@ void destroy_rxa(int channel) {
 }
 
 void flush_rxa(int channel) {
-    memset(
-        rxa[channel].inbuff, 0, 1 * ch[channel].dsp_insize * sizeof(complex));
-    memset(
-        rxa[channel].outbuff, 0, 1 * ch[channel].dsp_outsize * sizeof(complex));
-    memset(rxa[channel].midbuff, 0, 2 * ch[channel].dsp_size * sizeof(complex));
+    memset(rxa[channel].inbuff, 0,
+        1 * ch[channel].dsp_insize * sizeof(WDSP_COMPLEX));
+    memset(rxa[channel].outbuff, 0,
+        1 * ch[channel].dsp_outsize * sizeof(WDSP_COMPLEX));
+    memset(rxa[channel].midbuff, 0,
+        2 * ch[channel].dsp_size * sizeof(WDSP_COMPLEX));
     flush_shift(rxa[channel].shift.p);
     flush_resample(rxa[channel].rsmpin.p);
     flush_gen(rxa[channel].gen0.p);
@@ -568,7 +569,7 @@ void setInputSamplerate_rxa(int channel) {
     // buffers
     _aligned_free(rxa[channel].inbuff);
     rxa[channel].inbuff
-        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(WDSP_COMPLEX));
     // shift
     setBuffers_shift(
         rxa[channel].shift.p, rxa[channel].inbuff, rxa[channel].inbuff);
@@ -586,7 +587,7 @@ void setOutputSamplerate_rxa(int channel) {
     // buffers
     _aligned_free(rxa[channel].outbuff);
     rxa[channel].outbuff
-        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(WDSP_COMPLEX));
     // output resampler
     setBuffers_resample(
         rxa[channel].rsmpout.p, rxa[channel].midbuff, rxa[channel].outbuff);
@@ -598,10 +599,10 @@ void setDSPSamplerate_rxa(int channel) {
     // buffers
     _aligned_free(rxa[channel].inbuff);
     rxa[channel].inbuff
-        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(WDSP_COMPLEX));
     _aligned_free(rxa[channel].outbuff);
     rxa[channel].outbuff
-        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(WDSP_COMPLEX));
     // shift
     setBuffers_shift(
         rxa[channel].shift.p, rxa[channel].inbuff, rxa[channel].inbuff);
@@ -648,13 +649,13 @@ void setDSPBuffsize_rxa(int channel) {
     // buffers
     _aligned_free(rxa[channel].inbuff);
     rxa[channel].inbuff
-        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_insize * sizeof(WDSP_COMPLEX));
     _aligned_free(rxa[channel].midbuff);
     rxa[channel].midbuff
-        = (double*)malloc0(2 * ch[channel].dsp_size * sizeof(complex));
+        = (double*)malloc0(2 * ch[channel].dsp_size * sizeof(WDSP_COMPLEX));
     _aligned_free(rxa[channel].outbuff);
     rxa[channel].outbuff
-        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(complex));
+        = (double*)malloc0(1 * ch[channel].dsp_outsize * sizeof(WDSP_COMPLEX));
     // shift
     setBuffers_shift(
         rxa[channel].shift.p, rxa[channel].inbuff, rxa[channel].inbuff);
@@ -837,7 +838,7 @@ void RXAbpsnbaCheck(int channel, int mode, int notch_run) {
         case RXA_AM:
         case RXA_SAM:
         case RXA_DSB:
-            f_low = +a->abs_low_freq;
+            f_low = +a->abs_low_freq; //-V1037
             f_high = +a->abs_high_freq;
             run_notches = 0;
             break;
@@ -869,7 +870,7 @@ void RXAbpsnbaSet(int channel) {
         case RXA_LSB:
         case RXA_CWL:
         case RXA_DIGL:
-            a->run = rxa[channel].snba.p->run;
+            a->run = rxa[channel].snba.p->run; //-V1037
             a->position = 0;
             break;
         case RXA_USB:
@@ -881,7 +882,7 @@ void RXAbpsnbaSet(int channel) {
         case RXA_AM:
         case RXA_SAM:
         case RXA_DSB:
-            a->run = rxa[channel].snba.p->run;
+            a->run = rxa[channel].snba.p->run; //-V1037
             a->position = 1;
             break;
         case RXA_FM:

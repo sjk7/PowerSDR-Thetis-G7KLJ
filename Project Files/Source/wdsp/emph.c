@@ -74,7 +74,7 @@ void xemphp(EMPHP a, int position) {
     if (a->run && a->position == position)
         xfircore(a->p);
     else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_emphp(EMPHP a, double* in, double* out) {
@@ -151,8 +151,8 @@ PORT void SetTXAFMEmphNC(int channel, int nc) {
  ********************************************************************************************************/
 
 void calc_emph(EMPH a) {
-    a->infilt = (double*)malloc0(2 * a->size * sizeof(complex));
-    a->product = (double*)malloc0(2 * a->size * sizeof(complex));
+    a->infilt = (double*)malloc0(2 * a->size * sizeof(WDSP_COMPLEX));
+    a->product = (double*)malloc0(2 * a->size * sizeof(WDSP_COMPLEX));
     a->mults = fc_mults(a->size, a->f_low, a->f_high,
         -20.0 * log10(a->f_high / a->f_low), 0.0, a->ctype, a->rate,
         1.0 / (2.0 * a->size), 0, 0);
@@ -192,14 +192,15 @@ void destroy_emph(EMPH a) {
 }
 
 void flush_emph(EMPH a) {
-    memset(a->infilt, 0, 2 * a->size * sizeof(complex));
+    memset(a->infilt, 0, 2 * a->size * sizeof(WDSP_COMPLEX));
 }
 
 void xemph(EMPH a, int position) {
     int i;
     double I, Q;
     if (a->run && a->position == position) {
-        memcpy(&(a->infilt[2 * a->size]), a->in, a->size * sizeof(complex));
+        memcpy(
+            &(a->infilt[2 * a->size]), a->in, a->size * sizeof(WDSP_COMPLEX));
         fftw_execute(a->CFor);
         for (i = 0; i < 2 * a->size; i++) {
             I = a->product[2 * i + 0];
@@ -210,9 +211,10 @@ void xemph(EMPH a, int position) {
                 = I * a->mults[2 * i + 1] + Q * a->mults[2 * i + 0];
         }
         fftw_execute(a->CRev);
-        memcpy(a->infilt, &(a->infilt[2 * a->size]), a->size * sizeof(complex));
+        memcpy(a->infilt, &(a->infilt[2 * a->size]),
+            a->size * sizeof(WDSP_COMPLEX));
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_emph(EMPH a, double* in, double* out) {

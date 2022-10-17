@@ -200,7 +200,7 @@ void xeqp(EQP a) {
     if (a->run)
         xfircore(a->p);
     else
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_eqp(EQP a, double* in, double* out) {
@@ -509,8 +509,8 @@ double* eq_mults(int size, int nfreqs, double* F, double* G, double samplerate,
 
 void calc_eq(EQ a) {
     a->scale = 1.0 / (double)(2 * a->size);
-    a->infilt = (double*)malloc0(2 * a->size * sizeof(complex));
-    a->product = (double*)malloc0(2 * a->size * sizeof(complex));
+    a->infilt = (double*)malloc0(2 * a->size * sizeof(WDSP_COMPLEX));
+    a->product = (double*)malloc0(2 * a->size * sizeof(WDSP_COMPLEX));
     a->CFor = fftw_plan_dft_1d(2 * a->size, (fftw_complex*)a->infilt,
         (fftw_complex*)a->product, FFTW_FORWARD, FFTW_PATIENT);
     a->CRev = fftw_plan_dft_1d(2 * a->size, (fftw_complex*)a->product,
@@ -554,14 +554,15 @@ void destroy_eq(EQ a) {
 }
 
 void flush_eq(EQ a) {
-    memset(a->infilt, 0, 2 * a->size * sizeof(complex));
+    memset(a->infilt, 0, 2 * a->size * sizeof(WDSP_COMPLEX));
 }
 
 void xeq(EQ a) {
     int i;
     double I, Q;
     if (a->run) {
-        memcpy(&(a->infilt[2 * a->size]), a->in, a->size * sizeof(complex));
+        memcpy(
+            &(a->infilt[2 * a->size]), a->in, a->size * sizeof(WDSP_COMPLEX));
         fftw_execute(a->CFor);
         for (i = 0; i < 2 * a->size; i++) {
             I = a->product[2 * i + 0];
@@ -572,9 +573,10 @@ void xeq(EQ a) {
                 = I * a->mults[2 * i + 1] + Q * a->mults[2 * i + 0];
         }
         fftw_execute(a->CRev);
-        memcpy(a->infilt, &(a->infilt[2 * a->size]), a->size * sizeof(complex));
+        memcpy(a->infilt, &(a->infilt[2 * a->size]),
+            a->size * sizeof(WDSP_COMPLEX));
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_eq(EQ a, double* in, double* out) {

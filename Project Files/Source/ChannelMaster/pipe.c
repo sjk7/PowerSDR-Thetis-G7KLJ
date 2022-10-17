@@ -88,7 +88,7 @@ void create_pipe() {
     ppip->rbuff = (double**)malloc0(pcm->cmRCVR * sizeof(double*));
     for (i = 0; i < pcm->cmRCVR; i++) {
         ppip->rbuff[i]
-            = (double*)malloc0(pcm->rcvr[i].ch_outsize * sizeof(complex));
+            = (double*)malloc0(pcm->rcvr[i].ch_outsize * sizeof(WDSP_COMPLEX));
         (*pip.create_WavePlay)(i);
         (*pip.create_WaveRecord)(i);
         create_ivac(i, // id
@@ -149,7 +149,7 @@ void xpipe(int stream, int pos, double** buffs) {
                 break;
             case 1: // Audio data
                 memcpy(ppip->rbuff[rx], buffs[0],
-                    pcm->rcvr[rx].ch_outsize * sizeof(complex));
+                    pcm->rcvr[rx].ch_outsize * sizeof(WDSP_COMPLEX));
                 for (i = 1; i < pcm->cmSubRCVR; i++)
                     for (j = 0; j < 2 * pcm->rcvr[rx].ch_outsize; j++)
                         ppip->rbuff[rx][j] += buffs[i][j];
@@ -170,7 +170,7 @@ void xpipe(int stream, int pos, double** buffs) {
                 break;
             case 1: // Audio data
                 memcpy(ppip->rbuff[rx], buffs[0],
-                    pcm->rcvr[rx].ch_outsize * sizeof(complex));
+                    pcm->rcvr[rx].ch_outsize * sizeof(WDSP_COMPLEX));
                 for (i = 1; i < pcm->cmSubRCVR; i++)
                     for (j = 0; j < 2 * pcm->rcvr[rx].ch_outsize; j++)
                         ppip->rbuff[rx][j] += buffs[i][j];

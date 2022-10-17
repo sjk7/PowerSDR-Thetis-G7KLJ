@@ -47,8 +47,8 @@ MDIV create_div(int run, int nr, int size, double** in, double* out) {
     a->Qrotate = (double*)malloc0(MAX_NR * sizeof(double));
     InitializeCriticalSectionAndSpinCount(&a->cs_update, 2500);
     for (i = 0; i < 4; i++) ///////////// legacy interface - remove
-        a->legacy[i] = (double*)malloc0(
-            2048 * sizeof(complex)); ///////////// legacy interface - remove
+        a->legacy[i] = (double*)malloc0(2048
+            * sizeof(WDSP_COMPLEX)); ///////////// legacy interface - remove
     return a;
 }
 
@@ -70,11 +70,12 @@ void xdiv(MDIV a) {
         EnterCriticalSection(&a->cs_update);
         if (a->output != a->nr) {
             if (a->out != a->in[a->output])
-                memcpy(a->out, a->in[a->output], a->size * sizeof(complex));
+                memcpy(
+                    a->out, a->in[a->output], a->size * sizeof(WDSP_COMPLEX));
         } else {
             int i, j;
             double I, Q;
-            memset(a->out, 0, a->size * sizeof(complex));
+            memset(a->out, 0, a->size * sizeof(WDSP_COMPLEX));
             for (i = 0; i < a->nr; i++)
                 for (j = 0; j < a->size; j++) {
                     I = a->in[i][2 * j + 0];
@@ -85,7 +86,7 @@ void xdiv(MDIV a) {
         }
         LeaveCriticalSection(&a->cs_update);
     } else
-        memcpy(a->out, a->in[0], a->size * sizeof(complex));
+        memcpy(a->out, a->in[0], a->size * sizeof(WDSP_COMPLEX));
 }
 
 /********************************************************************************************************

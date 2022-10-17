@@ -235,9 +235,9 @@ void calc_emnr(EMNR a) {
     a->window = (double*)malloc0(a->fsize * sizeof(double));
     a->inaccum = (double*)malloc0(a->iasize * sizeof(double));
     a->forfftin = (double*)malloc0(a->fsize * sizeof(double));
-    a->forfftout = (double*)malloc0(a->msize * sizeof(complex));
+    a->forfftout = (double*)malloc0(a->msize * sizeof(WDSP_COMPLEX));
     a->mask = (double*)malloc0(a->msize * sizeof(double));
-    a->revfftin = (double*)malloc0(a->msize * sizeof(complex));
+    a->revfftin = (double*)malloc0(a->msize * sizeof(WDSP_COMPLEX));
     a->revfftout = (double*)malloc0(a->fsize * sizeof(double));
     a->save = (double**)malloc0(a->ovrlp * sizeof(double*));
     for (i = 0; i < a->ovrlp; i++)
@@ -819,7 +819,7 @@ void xemnr(EMNR a, int pos) {
             a->oaoutidx = (a->oaoutidx + 1) % a->oasize;
         }
     } else if (a->out != a->in)
-        memcpy(a->out, a->in, a->bsize * sizeof(complex));
+        memcpy(a->out, a->in, a->bsize * sizeof(WDSP_COMPLEX));
 }
 
 void setBuffers_emnr(EMNR a, double* in, double* out) {

@@ -30,6 +30,7 @@ warren@wpratt.com
 */
 
 #include "comm.h"
+#include "snb.h"
 
 #define MAXIMP 256
 
@@ -38,8 +39,8 @@ void calc_snba(SNBA d) {
         d->isize = d->bsize / (d->inrate / d->internalrate);
     else
         d->isize = d->bsize * (d->internalrate / d->inrate);
-    d->inbuff = (double*)malloc0(d->isize * sizeof(complex));
-    d->outbuff = (double*)malloc0(d->isize * sizeof(complex));
+    d->inbuff = (double*)malloc0(d->isize * sizeof(WDSP_COMPLEX));
+    d->outbuff = (double*)malloc0(d->isize * sizeof(WDSP_COMPLEX));
     if (d->inrate != d->internalrate)
         d->resamprun = 1;
     else
@@ -157,8 +158,8 @@ void flush_snba(SNBA d) {
     memset(d->sdet.vp, 0, d->xsize * sizeof(double));
     memset(d->sdet.vpwr, 0, d->xsize * sizeof(double));
 
-    memset(d->inbuff, 0, d->isize * sizeof(complex));
-    memset(d->outbuff, 0, d->isize * sizeof(complex));
+    memset(d->inbuff, 0, d->isize * sizeof(WDSP_COMPLEX));
+    memset(d->outbuff, 0, d->isize * sizeof(WDSP_COMPLEX));
     flush_resample(d->inresamp);
     flush_resample(d->outresamp);
 }
@@ -401,7 +402,7 @@ int scanFrame(int xsize, int pval, double pmultmin, int* det, int* bimp,
     i = 1;
 
     if (nimp > 0)
-        while (merit[i] == merit[0] && i < nimp) i++;
+        while (merit[i] == merit[0] && i < nimp) i++; //-V781
 
     for (j = 0; j < i - 1; j++) {
         for (k = 0; k < i - j - 1; k++) {
@@ -489,7 +490,7 @@ void xsnba(SNBA d) {
         }
         xresample(d->outresamp);
     } else if (d->out != d->in)
-        memcpy(d->out, d->in, d->bsize * sizeof(complex));
+        memcpy(d->out, d->in, d->bsize * sizeof(WDSP_COMPLEX));
 }
 
 /********************************************************************************************************
@@ -617,7 +618,7 @@ PORT void SetRXASNBAOutputBandwidth(int channel, double flow, double fhigh) {
 // xbpshbaout().
 
 void calc_bpsnba(BPSNBA a) {
-    a->buff = (double*)malloc0(a->size * sizeof(complex));
+    a->buff = (double*)malloc0(a->size * sizeof(WDSP_COMPLEX));
     a->bpsnba = create_nbp(1, // run, always runs (use bpsnba 'run')
         a->run_notches, // run the notches
         0, // position variable for nbp (not for bpsnba), always 0
@@ -674,7 +675,7 @@ void destroy_bpsnba(BPSNBA a) {
 }
 
 void flush_bpsnba(BPSNBA a) {
-    memset(a->buff, 0, a->size * sizeof(complex));
+    memset(a->buff, 0, a->size * sizeof(WDSP_COMPLEX));
     flush_nbp(a->bpsnba);
 }
 
@@ -699,7 +700,7 @@ void setSize_bpsnba(BPSNBA a, int size) {
 
 void xbpsnbain(BPSNBA a, int position) {
     if (a->run && a->position == position)
-        memcpy(a->buff, a->in, a->size * sizeof(complex));
+        memcpy(a->buff, a->in, a->size * sizeof(WDSP_COMPLEX));
 }
 
 void xbpsnbaout(BPSNBA a, int position) {

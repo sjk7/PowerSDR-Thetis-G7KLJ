@@ -77,7 +77,7 @@ void calc_resample(RESAMPLE a) {
     for (j = 0; j < a->L; j++)
         for (k = 0; k < a->ncoef; k += a->L) a->h[i++] = impulse[j + k];
     a->ringsize = a->cpp;
-    a->ring = (double*)malloc0(a->ringsize * sizeof(complex));
+    a->ring = (double*)malloc0(a->ringsize * sizeof(WDSP_COMPLEX));
     a->idx_in = a->ringsize - 1;
     a->phnum = 0;
     _aligned_free(impulse);
@@ -112,7 +112,7 @@ PORT void destroy_resample(RESAMPLE a) {
 }
 
 PORT void flush_resample(RESAMPLE a) {
-    memset(a->ring, 0, a->ringsize * sizeof(complex));
+    memset(a->ring, 0, a->ringsize * sizeof(WDSP_COMPLEX));
     a->idx_in = a->ringsize - 1;
     a->phnum = 0;
 }
@@ -146,7 +146,7 @@ PORT int xresample(RESAMPLE a) {
             if (--a->idx_in < 0) a->idx_in = a->ringsize - 1;
         }
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(complex));
+        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
     return outsamps;
 }
 
