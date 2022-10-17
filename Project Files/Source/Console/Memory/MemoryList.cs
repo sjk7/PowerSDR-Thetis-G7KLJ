@@ -53,14 +53,14 @@ public class MemoryList {
         get { return list; }
     }
 
-    private static int current_major_version = 1;
+    // private static int current_major_version = 1;
     private int major_version = 1;
     public int MajorVersion {
         get { return major_version; }
         set { major_version = value; }
     }
 
-    private static int current_minor_version = 1;
+    // private static int current_minor_version = 1;
     private int minor_version = 1;
     public int MinorVersion {
         get { return minor_version; }

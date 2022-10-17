@@ -379,7 +379,7 @@ void WriteScaledAudioFile(void* arg) {
     typedef struct {
         int n;
         double* ddata;
-    } * dstr;
+    }* dstr;
     dstr dstruct = (dstr)arg;
 
     FILE* file = fopen("AudioFile", "wb");

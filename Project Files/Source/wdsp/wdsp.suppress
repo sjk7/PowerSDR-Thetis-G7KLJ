@@ -119,4 +119,12 @@
     <CodeCurrent>2782849014</CodeCurrent>
     <CodeNext>10431955</CodeNext>
   </wdsp>
+  <wdsp>
+    <FileName>debug_flags.h</FileName>
+    <ErrorCode>V575</ErrorCode>
+    <Message>The potential null pointer is passed into 'fwrite' function. Inspect the fourth argument.</Message>
+    <CodePrev>78233</CodePrev>
+    <CodeCurrent>2271631499</CodeCurrent>
+    <CodeNext>10023465</CodeNext>
+  </wdsp>
 </NewDataSet>

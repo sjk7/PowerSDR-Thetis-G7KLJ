@@ -23,7 +23,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-The author can be reached by email at  
+The author can be reached by email at
 
 warren@wpratt.com
 
@@ -32,38 +32,38 @@ warren@wpratt.com
 #ifndef _shift_h
 #define _shift_h
 
-typedef struct _shift
-{
-	int run;
-	int size;
-	double* in;
-	double* out;
-	double rate;
-	double shift;
-	double phase;
-	double delta;
-	double cos_delta;
-	double sin_delta;
+typedef struct _shift {
+    int run;
+    int size;
+    double* in;
+    double* out;
+    double rate;
+    double shift;
+    double phase;
+    double delta;
+    double cos_delta;
+    double sin_delta;
 } shift, *SHIFT;
 
-extern SHIFT create_shift (int run, int size, double* in, double* out, int rate, double fshift);
+extern SHIFT create_shift(
+    int run, int size, double* in, double* out, int rate, double fshift);
 
-extern void destroy_shift (SHIFT a);
+extern void destroy_shift(SHIFT a);
 
-extern void flush_shift (SHIFT a);
+extern void flush_shift(SHIFT a);
 
-extern void xshift (SHIFT a);
+extern void xshift(SHIFT a);
 
-extern void setBuffers_shift (SHIFT a, double* in, double* out);
+extern void setBuffers_shift(SHIFT a, double* in, double* out);
 
-extern void setSamplerate_shift (SHIFT a, int rate);
+extern void setSamplerate_shift(SHIFT a, int rate);
 
-extern void setSize_shift (SHIFT a, int size);
+extern void setSize_shift(SHIFT a, int size);
 
 // RXA Properties
 
-extern __declspec (dllexport) void SetRXAShiftRun (int channel, int run);
+extern __declspec(dllexport) void SetRXAShiftRun(int channel, int run);
 
-extern __declspec (dllexport) void SetRXAShiftFreq (int channel, double fshift);
+extern __declspec(dllexport) void SetRXAShiftFreq(int channel, double fshift);
 
 #endif

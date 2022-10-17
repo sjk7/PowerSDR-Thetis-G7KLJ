@@ -1,5 +1,5 @@
 ﻿//=================================================================
-// DXMemList.cs 
+// DXMemList.cs
 // created by ke9ns
 //=================================================================
 // PowerSDR is a C# implementation of a Software Defined Radio.
@@ -33,143 +33,128 @@ using System.IO;
 using System.Text;
 using System.Diagnostics;
 
-namespace Thetis
-{
-    public class DXMemList
-    {
-        #region Constructor
+namespace Thetis {
+public class DXMemList {
+#region Constructor
 
-        public DXMemList()
-        {
-            isValid = false;
-        }
+    public DXMemList() { isValid = false; }
 
-        #endregion
+#endregion
 
-        #region Properties
+#region Properties
 
-        public bool isValid = false;
-        private Thetis.SortableBindingList<DXMemRecord> list = new Thetis.SortableBindingList<DXMemRecord>();
+    public bool isValid = false;
+    private Thetis.SortableBindingList<DXMemRecord> list
+        = new Thetis.SortableBindingList<DXMemRecord>();
 
-        public Thetis.SortableBindingList<DXMemRecord> List
-        {
-            get
-            {
-                return list;
-            }
-        }
-
-        private static int current_major_version = 1;
-        private int major_version = 1;
-        public int MajorVersion
-        {
-            get { return major_version; }
-            set { major_version = value; }
-        }
-
-        private static int current_minor_version = 1;
-        private int minor_version = 1;
-        public int MinorVersion
-        {
-            get { return minor_version; }
-            set { minor_version = value; }
-        }
-
-        #endregion
-
-        #region Routines
-
-
-
-        //======================================================================================================================
-        private void Save1(string file_name)
-        {
-            TextWriter writer = new StreamWriter(file_name);
-
-            try
-            {
-                XmlSerializer ser = new XmlSerializer(typeof(DXMemList),
-                    new Type[] { typeof(DXMemRecord), typeof(Thetis.SortableBindingList<DXMemRecord>), typeof(int) });
-                ser.Serialize(writer, this);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-
-            writer.Close();
-        }
-
-
-        //======================================================================================================================
-        public void Save1()
-        {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\OpenHPSDR\\";
-            string file_name = path + "DXMemory.xml";
-
-            Save1(file_name);
-        }
-
-
-        //======================================================================================================================
-        public static DXMemList Restore1()
-        {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\OpenHPSDR\\";
-            string file_name = path + "DXMemory.xml";
-            string bak_file_name = path + "DXMemory_bak.xml";
-
-            DXMemList mem_list1 = new DXMemList();
-
-            StreamReader reader;
-            
-
-            try
-            {
-                if (!File.Exists(file_name))
-                {
-                    return mem_list1;// caller can check for isValid.
-                    // throw new FileNotFoundException();
-                }
-
-                reader = new StreamReader(file_name);
-
-                XmlSerializer ser = new XmlSerializer(typeof(DXMemList), new Type[] { typeof(DXMemRecord), typeof(Thetis.SortableBindingList<DXMemRecord>), typeof(int) });
-
-                mem_list1 = (DXMemList)ser.Deserialize(reader);
-
-                // save backup file
-                mem_list1.Save1(bak_file_name);
-                mem_list1.isValid = true;
-            }
-            catch (Exception ex1)
-            {
-                Debug.WriteLine(ex1);
-                // check to see if backup file exists
-                // if so, try to deserialize it
-                if (!File.Exists(bak_file_name)) return mem_list1;  // no memory, no backup
-
-                reader = new StreamReader(bak_file_name);
-
-                try
-                {
-                    XmlSerializer ser = new XmlSerializer(typeof(DXMemList),
-                    new Type[] { typeof(DXMemRecord), typeof(Thetis.SortableBindingList<DXMemRecord>), typeof(int) });
-                    mem_list1 = (DXMemList)ser.Deserialize(reader);
-                }
-                catch (Exception ex2)
-                {
-                    Debug.WriteLine(ex2);
-                    mem_list1.isValid = false;
-                }
-            }
-
-            reader.Close();
-
-            mem_list1.isValid = true;
-            return mem_list1;  // return memory listing to memory form window datagridview1
-
-        } // restore
-
-        #endregion
+    public Thetis.SortableBindingList<DXMemRecord> List {
+        get { return list; }
     }
+
+    // private static int current_major_version = 1;
+    private int major_version = 1;
+    public int MajorVersion {
+        get { return major_version; }
+        set { major_version = value; }
+    }
+
+    // private static int current_minor_version = 1;
+    private int minor_version = 1;
+    public int MinorVersion {
+        get { return minor_version; }
+        set { minor_version = value; }
+    }
+
+#endregion
+
+#region Routines
+
+    //======================================================================================================================
+    private void Save1(string file_name) {
+        TextWriter writer = new StreamWriter(file_name);
+
+        try {
+            XmlSerializer ser = new XmlSerializer(typeof(DXMemList),
+                new Type[] { typeof(DXMemRecord),
+                    typeof(Thetis.SortableBindingList<DXMemRecord>),
+                    typeof(int) });
+            ser.Serialize(writer, this);
+        } catch (Exception ex) {
+            Debug.WriteLine(ex.Message);
+        }
+
+        writer.Close();
+    }
+
+    //======================================================================================================================
+    public void Save1() {
+        string path = Environment.GetFolderPath(
+                          Environment.SpecialFolder.ApplicationData)
+            + "\\OpenHPSDR\\";
+        string file_name = path + "DXMemory.xml";
+
+        Save1(file_name);
+    }
+
+    //======================================================================================================================
+    public static DXMemList Restore1() {
+        string path = Environment.GetFolderPath(
+                          Environment.SpecialFolder.ApplicationData)
+            + "\\OpenHPSDR\\";
+        string file_name = path + "DXMemory.xml";
+        string bak_file_name = path + "DXMemory_bak.xml";
+
+        DXMemList mem_list1 = new DXMemList();
+
+        StreamReader reader;
+
+        try {
+            if (!File.Exists(file_name)) {
+                return mem_list1; // caller can check for isValid.
+                // throw new FileNotFoundException();
+            }
+
+            reader = new StreamReader(file_name);
+
+            XmlSerializer ser = new XmlSerializer(typeof(DXMemList),
+                new Type[] { typeof(DXMemRecord),
+                    typeof(Thetis.SortableBindingList<DXMemRecord>),
+                    typeof(int) });
+
+            mem_list1 = (DXMemList)ser.Deserialize(reader);
+
+            // save backup file
+            mem_list1.Save1(bak_file_name);
+            mem_list1.isValid = true;
+        } catch (Exception ex1) {
+            Debug.WriteLine(ex1);
+            // check to see if backup file exists
+            // if so, try to deserialize it
+            if (!File.Exists(bak_file_name))
+                return mem_list1; // no memory, no backup
+
+            reader = new StreamReader(bak_file_name);
+
+            try {
+                XmlSerializer ser = new XmlSerializer(typeof(DXMemList),
+                    new Type[] { typeof(DXMemRecord),
+                        typeof(Thetis.SortableBindingList<DXMemRecord>),
+                        typeof(int) });
+                mem_list1 = (DXMemList)ser.Deserialize(reader);
+            } catch (Exception ex2) {
+                Debug.WriteLine(ex2);
+                mem_list1.isValid = false;
+            }
+        }
+
+        reader.Close();
+
+        mem_list1.isValid = true;
+        return mem_list1; // return memory listing to memory form window
+                          // datagridview1
+
+    } // restore
+
+#endregion
+}
 }

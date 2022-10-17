@@ -33,6 +33,7 @@ warren@wpratt.com
 */
 
 #include "comm.h"
+#include "analyzer.h"
 
 DP pdisp[dMAX_DISPLAYS];
 
@@ -901,8 +902,8 @@ PORT void SetAnalyzer(int disp, // display identifier
     double fmin, // frequency at first pixel value
     double fmax, // frequency at last pixel value
     int max_w) {
-    DP a = pdisp[disp];
-    int i, j;
+    volatile DP a = pdisp[disp];
+    volatile int i, j;
 
     EnterCriticalSection(&a->SetAnalyzerSection);
     a->end_dispatcher = 1;
@@ -1102,7 +1103,7 @@ PORT void XCreateAnalyzer(int disp, int* success, int m_size, int m_num_fft,
 }
 
 PORT void DestroyAnalyzer(int disp) {
-    DP a = pdisp[disp];
+    volatile DP a = pdisp[disp];
     int i, j;
 
     a->end_dispatcher = 1;
