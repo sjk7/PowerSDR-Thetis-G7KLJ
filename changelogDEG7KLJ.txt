@@ -1,9 +1,34 @@
 Fixed:
 
+17/10/2022:
+Improved further start-up time. Mostly by CPU monitor on a background thread as it can take upwards of 5 seconds to create,
+and this is no reason to hang the loading process. The CPU % display is not important enough not to defer on a background thread.
+
+"PowerSDR" is a trademark owned by FlexRadio. All references to this in consumer-facing code should be dropped.
+I don't much like the name 'Thetis', either. I think a nice name would be 'CoolSDR' or similar. Looking
+to change repo name to this in the future.
+
+Running PVS-Studio on the project reveals many, many bugs. Started to fix them, gradually.
+
+Other thoughts:
+This program tries too hard to be all things to all people. Unnec' complications in code, therefore.
+Seriously look at making the program ONLY for Hermes Lite and some ANAN hardwares.
+
+The whole resizing thing is broken. It doesn't help that there are more than 1 layout modes. If the code
+used proper .NET anchors and alignment, there would be *no* code in the resize method at all. As well
+as being a lot cleaner (no code is the best code, after all!) the thing would then resize smoothly for
+all resolutions/scale modes.
+
+The 'console.cs' is hundreds of thousands of lines long. This needs a major refactor into a number of
+dedicated modules, eg resize module, audio module, drawing module, and so on. And whilst we are about it,
+I see no reason to have several rendering modes. Accelerated (DirectX) seems to be the only way to go in 2022.
+
+
+
+
 
 15/02/2021:
 Rx audio volume does not obey audio slider setting when powered on. Fixed.
-
 
 
 18/11/2020:

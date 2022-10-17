@@ -6,7 +6,12 @@ Driver:		Windows WASAPI
 Input: 		Your input device (preferably the same one as the output device)
 Output:		Your output device (preferably the same one as input device)
 
-Exclusive:	Checked. NOTE: this setting is currently not saved between sessions!
+Exclusive:	
+
+********************************************************************************
+Checked. Settings must *match* the device you are using, as there will be 
+no internal bitdepth, samplerate etc resampling.
+********************************************************************************
 Buffer Size: 	As low as you can get away with, without audio 'artifacts'
 Sample Rate:	MUST match the *native* samplerate of your sound card.
 
