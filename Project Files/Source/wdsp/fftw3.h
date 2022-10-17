@@ -1,3 +1,8 @@
+// This is an independent project of an individual developer. Dear PVS-Studio,
+// please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java:
+// http://www.viva64.com
 /*
  * Copyright (c) 2003, 2007-11 Matteo Frigo
  * Copyright (c) 2003, 2007-11 Massachusetts Institute of Technology
