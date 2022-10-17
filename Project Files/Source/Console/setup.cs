@@ -91,7 +91,8 @@ public partial class Setup : Form {
             = false; // MW0LGE gets shown/hidden by save/cancel/apply
 
         // GetMixerDevices();
-        Thetis.Splash.SetStatus("Loading Hosts() ...");
+        Thetis.Splash.SetStatus("Loading Audio Host APIs ...");
+
         GetHosts();
         Thetis.Splash.SetStatus("InitAlexTables ...");
         InitAlexAntTables();
@@ -804,15 +805,12 @@ public partial class Setup : Form {
         comboAudioDriver2.Items.Clear();
         comboAudioDriver3.Items.Clear();
         int host_index = 0;
-        foreach (string PAHostName in Audio.GetPAHosts()) {
-            if (Audio.GetPAInputDevices(host_index).Count > 0
-                || Audio.GetPAOutputDevices(host_index).Count > 0) {
+        var hosts = Audio.GetPAHosts();
+        foreach (string PAHostName in hosts) {
+            int indevs = Audio.GetPAInputDevices(host_index).Count;
+            int outdevs = Audio.GetPAOutputDevices(host_index).Count;
+            if (indevs > 0 || outdevs > 0) {
 
-                /*/
-                if (PAHostName != "Windows WASAPI")
-                                    /*/
-                // G7KLJ does not know why WASAPI is barred. There should be a
-                // comment stating why if you really mean it!
                 {
                     comboAudioDriver2.Items.Add(
                         new PADeviceInfo(PAHostName, host_index));

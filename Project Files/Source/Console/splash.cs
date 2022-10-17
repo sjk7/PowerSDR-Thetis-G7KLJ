@@ -82,7 +82,8 @@ public class Splash : System.Windows.Forms.Form {
     private LabelTS labelTS2;
     private LabelTS labelTS3;
     private LabelTS labelTS4;
-    private System.ComponentModel.IContainer components;
+        private LabelTS labelTS5;
+        private System.ComponentModel.IContainer components;
 
 #endregion
 
@@ -121,6 +122,7 @@ public class Splash : System.Windows.Forms.Form {
             this.labelTS2 = new System.Windows.Forms.LabelTS();
             this.labelTS3 = new System.Windows.Forms.LabelTS();
             this.labelTS4 = new System.Windows.Forms.LabelTS();
+            this.labelTS5 = new System.Windows.Forms.LabelTS();
             this.SuspendLayout();
             // 
             // pnlStatus
@@ -189,9 +191,9 @@ public class Splash : System.Windows.Forms.Form {
             this.labelTS2.Image = null;
             this.labelTS2.Location = new System.Drawing.Point(12, 9);
             this.labelTS2.Name = "labelTS2";
-            this.labelTS2.Size = new System.Drawing.Size(313, 34);
+            this.labelTS2.Size = new System.Drawing.Size(291, 34);
             this.labelTS2.TabIndex = 4;
-            this.labelTS2.Text = "PowerSDR -- Thetis --";
+            this.labelTS2.Text = "CoolSDR -- Thetis --";
             this.labelTS2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelTS3
@@ -222,6 +224,21 @@ public class Splash : System.Windows.Forms.Form {
             this.labelTS4.Text = "Also for ANAN radios";
             this.labelTS4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // labelTS5
+            // 
+            this.labelTS5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelTS5.AutoSize = true;
+            this.labelTS5.BackColor = System.Drawing.Color.Transparent;
+            this.labelTS5.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTS5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.labelTS5.Image = null;
+            this.labelTS5.Location = new System.Drawing.Point(506, 9);
+            this.labelTS5.Name = "labelTS5";
+            this.labelTS5.Size = new System.Drawing.Size(147, 14);
+            this.labelTS5.TabIndex = 7;
+            this.labelTS5.Text = "Our users say: \"It\'s all good\"";
+            this.labelTS5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Splash
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -229,6 +246,7 @@ public class Splash : System.Windows.Forms.Form {
             this.BackgroundImage = global::Thetis.Properties.Resources.HL2___front_sml;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(677, 416);
+            this.Controls.Add(this.labelTS5);
             this.Controls.Add(this.labelTS4);
             this.Controls.Add(this.labelTS3);
             this.Controls.Add(this.labelTS2);

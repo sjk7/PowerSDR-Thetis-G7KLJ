@@ -826,9 +826,6 @@ public partial class Console : Form {
 
 #endregion
 
-    bool m_waiting_for_portaudio = true;
-    bool m_waiting_for_dsp = true;
-
 #region Constructor and Destructor
     // ======================================================
     // Constructor and Destructor
@@ -841,30 +838,47 @@ public partial class Console : Form {
         Common.Console = this;
         m_args = args;
 
-        Splash.SetStatus("Initializing Components ..."); // Set progress point
+        Splash.SetStatus(
+            "Launching PortAudio initialisation, please wait ..."); // Set
+                                                                    // progress
+                                                                    // point
 
-        // MW0LGE
-        // Problems with CultureInfo.
-        // MemoryPanel and Spot system changes CultureInfo on their own threads,
-        // problem with this is that the culture change is now not limited just
-        // in that thread, if they access stuff outside their thread, then the
-        // stuff they access has the same culture as the calling thread. VFOA
-        // frequency etc gets read incorrectly. I have no idea how this actually
-        // managed to work before, unless it has been a recent change/fix to
-        // .NET 4.8. I went through the stages of standardising the xml/db
-        // saving so to use CultureInfo.InvariantCulture, however the issues
-        // caused by Spot and Memory forms just meant it was 100x easier just to
-        // force whole application to un-US.
-        CultureInfo ci = new CultureInfo("en-GB");
+        m_waiting_for_portaudio = true;
+            new Thread(() =>
+            {
 
-        CultureInfo.DefaultThreadCurrentCulture = ci;
-        CultureInfo.DefaultThreadCurrentUICulture = ci;
-        Thread.CurrentThread.CurrentCulture = ci;
-        Thread.CurrentThread.CurrentUICulture = ci;
-        //
+                PortAudioForThetis.PA_Initialize();
+            m_waiting_for_portaudio = false;
+    })
+            {
+                IsBackground = true,
+                ApartmentState = ApartmentState.STA // no ASIO devices without Apartment state
+            }.Start();
 
-        // check versions of DLL/etc
-        if (!checkVersions()) {
+    Splash.SetStatus("Initializing Components ...");
+
+    // MW0LGE
+    // Problems with CultureInfo.
+    // MemoryPanel and Spot system changes CultureInfo on their own threads,
+    // problem with this is that the culture change is now not limited just
+    // in that thread, if they access stuff outside their thread, then the
+    // stuff they access has the same culture as the calling thread. VFOA
+    // frequency etc gets read incorrectly. I have no idea how this actually
+    // managed to work before, unless it has been a recent change/fix to
+    // .NET 4.8. I went through the stages of standardising the xml/db
+    // saving so to use CultureInfo.InvariantCulture, however the issues
+    // caused by Spot and Memory forms just meant it was 100x easier just to
+    // force whole application to un-US.
+    CultureInfo ci = new CultureInfo("en-GB");
+
+    CultureInfo.DefaultThreadCurrentCulture = ci;
+    CultureInfo.DefaultThreadCurrentUICulture = ci;
+    Thread.CurrentThread.CurrentCulture = ci;
+    Thread.CurrentThread.CurrentUICulture = ci;
+    //
+
+    // check versions of DLL/etc
+    if (!checkVersions()) {
             // version incorrect
             DialogResult dr = MessageBox.Show(
                 "An incorrect version of a required dll has been found.\n"
@@ -873,12 +887,12 @@ public partial class Console : Form {
             failed = true;
             Environment.Exit(0);
             return;
-        }
+    }
 
-        Debug.Assert(app_data_path.Length > 0); // done in main()
-        Debug.Assert(!String.IsNullOrEmpty(AppDataPath));
+    Debug.Assert(app_data_path.Length > 0); // done in main()
+    Debug.Assert(!String.IsNullOrEmpty(AppDataPath));
 
-        foreach (string s in args) {
+    foreach (string s in args) {
             if (s.StartsWith("-dbfilename:")) {
                 string path = s.Trim().Substring(s.Trim().IndexOf(":") + 1);
                 if (File.Exists(path)) {
@@ -894,21 +908,21 @@ public partial class Console : Form {
                     if (dr == DialogResult.Yes) DBFileName = path;
                 }
             }
-        }
+    }
 
-        if (!Directory.Exists(app_data_path))
+    if (!Directory.Exists(app_data_path))
             Directory.CreateDirectory(app_data_path);
 
-        // G8NJJ
-        InitialiseAndromedaMenus();
+    // G8NJJ
+    InitialiseAndromedaMenus();
 
-        if (m_db_file_name == "") DBFileName = AppDataPath + "database.xml";
+    if (m_db_file_name == "") DBFileName = AppDataPath + "database.xml";
 
-        string autoMergeFileName = AppDataPath
-            + "databaseToMerge.xml"; //-W2PA A legacy database candidate for
-                                     // automatic merging
+    string autoMergeFileName = AppDataPath
+        + "databaseToMerge.xml"; //-W2PA A legacy database candidate for
+                                 // automatic merging
 
-        if (File.Exists(m_db_file_name)) {
+    if (File.Exists(m_db_file_name)) {
             if (Keyboard.IsKeyDown(Keys.LShiftKey)
                 || Keyboard.IsKeyDown(Keys.RShiftKey)) {
                 Thread.Sleep(500); // ensure this is intentional
@@ -1006,9 +1020,9 @@ public partial class Console : Form {
                         // old database file if possible
 
                         if (File.Exists(
-                                autoMergeFileName)) // We have already reset and
-                                                    // are ready for trying a
-                                                    // merge
+                                autoMergeFileName)) // We have already reset
+                                                    // and are ready for
+                                                    // trying a merge
                         {
                             //-W2PA Import carefully, allowing use of DB files
                             // created by previous versions so as
@@ -1081,25 +1095,11 @@ public partial class Console : Form {
                     }
                 }
             }
-        }
+    }
 
-        CmdLineArgs = args;
+    CmdLineArgs = args;
 
-        booting = true;
-
-        Splash.SetStatus(
-            "Initializing PortAudio, please wait ..."); // Set progress point
-
-            new Thread(() =>
-            {
-                m_waiting_for_portaudio = true;
-            PortAudioForThetis
-                .PA_Initialize(); // Initialize the audio interface
-                                  // this is incredibly slow and affects
-                                  // start-up time dramatically
-            m_waiting_for_portaudio = false;
-    })
-            { IsBackground = true, Priority = ThreadPriority.Highest }.Start();
+    booting = true;
 
     InitializeComponent(); // Windows Forms Generated Code
     booting = false;
@@ -1269,8 +1269,8 @@ public partial class Console : Form {
                 new ThreadStart(RunDisplay)) { Name = "Draw Display Thread",
                 Priority
                 = m_tpDisplayThreadPriority, // MW0LGE now defaulted with
-                                             // m_tpDisplayThreadPriority, and
-                                             // updated by setupform
+                                             // m_tpDisplayThreadPriority,
+                                             // and updated by setupform
                 IsBackground = true };
             draw_display_thread.Start();
     }
@@ -1300,14 +1300,6 @@ public partial class Console : Form {
 
     Splash.SetStatus("Syncing DSP, please wait ...");
     SyncDSP();
-
-    while (m_waiting_for_portaudio) {
-            Thread.Sleep(10);
-
-            Splash.SetStatus(
-                "Initializing PortAudio, please wait ..."); // Set progress
-                                                            // point
-    }
 
     Splash.SetStatus("Pretty S Meter Helpers being loaded ...");
 
@@ -1413,6 +1405,8 @@ protected override void Dispose(bool disposing) {
 }
 
 #endregion
+
+bool m_waiting_for_portaudio = false;
 
 #region Main
 static void Application_ThreadException(
@@ -1900,7 +1894,15 @@ private void InitConsole() {
     httpFile = new Http(this); // ke9ns add
     httpServer = new HttpServer(this); // rn3kk add
 
+    int slept = 0;
+    while (m_waiting_for_portaudio) {
+            Splash.SetStatus("Please wait while PortAudio initialises ...");
+            Thread.Sleep(20);
+            slept += 20;
+    }
+
     Splash.SetStatus("Initialising Setup Window ...");
+
     SetupForm.StartPosition
         = FormStartPosition
               .Manual; // first use of singleton will create Setup form
@@ -2939,21 +2941,22 @@ public void GetState() {
                 = new FileStream(file_name2, FileMode.Open); // open BMP  file
             BinaryReader reader2 = new BinaryReader(stream2);
 
-            //   WaterfallLowThresholdMic = (float)reader2.ReadDouble(); //  TX
-            //   low level waterfall threshold
-            //   SetupForm.checkWaterMoveSize.Checked = reader2.ReadBoolean();
+            //   WaterfallLowThresholdMic = (float)reader2.ReadDouble(); //
+            //   TX low level waterfall threshold
+            //   SetupForm.checkWaterMoveSize.Checked =
+            //   reader2.ReadBoolean();
             //   // large waterfall move
             Display.GrayScale
-                = reader2
-                      .ReadByte(); // color or grayscale waterfall
-                                   //  WaveForm.BandL =
-                                   //  (DSPMode)reader2.ReadByte(); // for check
-                                   //  of valid waterfall id Display.PW_AVG =
-                                   //  reader2.ReadByte(); // avgP or avgB RX1
-                                   //  Display.PW_AVG2 = reader2.ReadByte(); //
-                                   //  avgP or avgB RX2
-                                   // Audio.MON_PRE = reader2.ReadByte(); //
-                                   // MONitor pre or post
+                = reader2.ReadByte(); // color or grayscale waterfall
+                                      //  WaveForm.BandL =
+                                      //  (DSPMode)reader2.ReadByte(); // for
+                                      //  check of valid waterfall id
+                                      //  Display.PW_AVG = reader2.ReadByte();
+                                      //  // avgP or avgB RX1 Display.PW_AVG2 =
+                                      //  reader2.ReadByte(); // avgP or avgB
+                                      //  RX2
+                                      // Audio.MON_PRE = reader2.ReadByte(); //
+                                      // MONitor pre or post
             Display.GridOff
                 = reader2.ReadByte(); // panadapter grid on / off
                                       // WaveControl.QAC = reader2.ReadInt32();
@@ -2966,9 +2969,8 @@ public void GetState() {
             SpotControl.DXPORT = reader2.ReadString(); // port for dx spotter
 
             callsign = reader2.ReadString(); // callsign for waterfall ID
-            lastcallsign
-                = reader2
-                      .ReadString(); // last callsign test of waterfall ID valid
+            lastcallsign = reader2.ReadString(); // last callsign test of
+                                                 // waterfall ID valid
 
             noaaON = reader2.ReadByte(); // space weather console display
             reader2.Close(); // close  file
@@ -3027,15 +3029,15 @@ public void GetState() {
                                                     // NumericUpDown
                         numericupdown_list.Add(c);
                     else if (c.GetType()
-                        == typeof(RadioButtonTS)) // the control is a
-                                                  // RadioButton
+                        == typeof(RadioButtonTS)) // the control is
+                                                  // a RadioButton
                         radiobutton_list.Add(c);
                     else if (c.GetType()
                         == typeof(TextBoxTS)) // the control is a TextBox
                         textbox_list.Add(c);
                     else if (c.GetType()
-                        == typeof(TrackBarTS)) // the control is a TrackBar
-                                               // (slider)
+                        == typeof(TrackBarTS)) // the control is a
+                                               // TrackBar (slider)
                         trackbar_list.Add(c);
                     else if (c.GetType() == typeof(PrettyTrackBar))
                         prettytrackbar_list.Add(c);
@@ -3276,8 +3278,8 @@ public void GetState() {
                     break;
                 case "PanafallSplitBarPerc":
                     Display.PanafallSplitBarPerc = float.Parse(
-                        val); // used for the splitter percentage when rx1 only
-                              // displayed in panafall mode
+                        val); // used for the splitter percentage when
+                              // rx1 only displayed in panafall mode
                     break;
                 case "DumpCap_WireSharkPath":
                     DumpCap.WireSharkPath = val;
@@ -5279,8 +5281,8 @@ public void SetBand(string mode, string filter, double freq, bool CTUN,
             ptbDisplayZoom_Scroll(this, EventArgs.Empty);
 
             if (CTUN) {
-            center_frequency = CenterFreq; // Restore centre frequency if CTUN
-                                           // enabled - G3OQD
+            center_frequency = CenterFreq; // Restore centre frequency if
+                                           // CTUN enabled - G3OQD
             VFOAFreq = center_frequency;
             // MW0LGE txtVFOAFreq_LostFocus(this, EventArgs.Empty);
             }
@@ -5302,8 +5304,8 @@ public void SetBand(string mode, string filter, double freq, bool CTUN,
                 != oldBand) // actual band change, not just rotating the stack
             {
             if (chkQSK.Text == "QSK"
-                && !QSKEnabled) // We're changing from QSK off to on due to a
-                                // mode change
+                && !QSKEnabled) // We're changing from QSK off
+                                // to on due to a mode change
             {
                 QSKEnabled = true; // complete the postponed change started in
                                    // SetRX1Mode() via QSKEnabled()
@@ -5325,16 +5327,16 @@ public void SetBand(string mode, string filter, double freq, bool CTUN,
                 RX1AGCMode = AGCMode.CUSTOM;
                 ; // don't need to turn QSK on - it's already on
             } else if (!(chkQSK.Text == "QSK")
-                && !QSKEnabled) // Either CW to CW or non-CW to non-CW, with QSK
-                                // off
+                && !QSKEnabled) // Either CW to CW or non-CW to non-CW, with
+                                // QSK off
             {
                 RX1AGCMode = rx1_agcm_by_band[(int)RX1_band_change];
             }
             } else // just rotating the stack without changing bands
             {
             if (chkQSK.Text == "QSK"
-                && !QSKEnabled) // We're changing from QSK off to on due to a
-                                // mode change
+                && !QSKEnabled) // We're changing from QSK off
+                                // to on due to a mode change
             {
                 QSKEnabled = true; // complete the postponed change started in
                                    // SetRX1Mode() via QSKEnabled()
@@ -5448,11 +5450,11 @@ private void SetRX1BandButton(Band b) {
                 radBand160.Checked = true;
                 regBox.Text
                     = band_160m_register
-                          .ToString(); // ke9ns add box to show the total # of
-                                       // bankstacks in memory
+                          .ToString(); // ke9ns add box to show the total #
+                                       // of bankstacks in memory
                 regBox1.Text = (band_160m_index + 1)
-                                   .ToString(); // ke9ns add box to show which
-                                                // bandstack your on
+                                   .ToString(); // ke9ns add box to show
+                                                // which bandstack your on
                 DeselectVHF();
                 DeselectGEN(); // ke9ns add
                 break;
@@ -6038,8 +6040,8 @@ private Band BandByFreq(
             }
             // else if (freq > 2.75 && freq < 5.3305)
             else if (freq > 2.75
-                && freq < 5.25) // MW0LGE modified from 5.3305 to 5.25 to take
-                                // into consideration region1
+                && freq < 5.25) // MW0LGE modified from 5.3305 to 5.25 to
+                                // take into consideration region1
             {
                 if (vfoa) {
                     panelBandHF.Visible = true;
@@ -6049,8 +6051,8 @@ private Band BandByFreq(
             }
             // else if (freq >= 5.3305 && freq < 7.0)
             else if (freq >= 5.25
-                && freq < 7.0) // MW0LGE modified from 5.3305 to 5.25 to take
-                               // into consideration region1
+                && freq < 7.0) // MW0LGE modified from 5.3305 to 5.25 to
+                               // take into consideration region1
             {
                 if (vfoa) {
                     panelBandHF.Visible = true;
@@ -15167,37 +15169,42 @@ private void ckQuickRec_MouseDown(object sender, MouseEventArgs e) {
             // string filePath1 = AppDataPath + "QuickAudio\\";
 
             /*
-                            if (WaveForm.chkQuickAudioFolder.Checked == false)
+                            if (WaveForm.chkQuickAudioFolder.Checked ==
+               false)
                // ke9ns do below if standard quickqudio
                             {
                                 if (!File.Exists(filePath))
                                 {
-                                    Debug.WriteLine("problem no ke9ns dat file
-               found"); return;
+                                    Debug.WriteLine("problem no ke9ns dat
+               file found"); return;
                                 }
 
                                 string argument = @"/select, " + filePath;
-                                //   Debug.WriteLine("filepath " + argument);
+                                //   Debug.WriteLine("filepath " +
+               argument);
 
                                 System.Diagnostics.Process.Start("explorer.exe",
                argument);
                             }
-                            else // do below if subfolder sequential quickaudio
+                            else // do below if subfolder sequential
+               quickaudio
                             {
 
 
                                 if (!Directory.Exists(filePath1))
                                 {
-                                    // create PowerSDR audio folder if it does
-               not exist
-                                    //  Directory.CreateDirectory(wave_folder);
-                                    Debug.WriteLine("problem no ke9ns dat file
-               found"); return;
+                                    // create PowerSDR audio folder if it
+               does not exist
+                                    //
+               Directory.CreateDirectory(wave_folder);
+                                    Debug.WriteLine("problem no ke9ns dat
+               file found"); return;
 
                                 }
                                 string argument = @"/select, " + filePath1;
 
-                                //   Debug.WriteLine("filepath1 " + argument);
+                                //   Debug.WriteLine("filepath1 " +
+               argument);
 
                                 System.Diagnostics.Process.Start("explorer.exe",
                argument);
@@ -16659,8 +16666,8 @@ unsafe public bool CalibrateLevel(
             for (int i = fft_size / 2 - offset; i <= fft_size / 2 + offset;
                  i++) // find the max value in any bin
             {
-            sum[i] /= iterations; // convert the sum to the average value for
-                                  // the bin
+            sum[i] /= iterations; // convert the sum to the average value
+                                  // for the bin
             avgmag += sum[i];
             if (sum[i] > maxsumsq) maxsumsq = sum[i];
             }
@@ -17194,8 +17201,8 @@ public bool CalibrateRX2Level(
             for (int i = 0; i < 20; i++) {
             calibration_mutex.WaitOne();
             // fixed (float* ptr = &a[0])
-            //    DttSP.GetSpectrum(2, ptr);		// read again to clear out
-            //    changed DSP
+            //    DttSP.GetSpectrum(2, ptr);		// read again to clear
+            //    out changed DSP
             calibration_mutex.ReleaseMutex();
 
             max = float.MinValue; // find the max spectrum value
@@ -17722,7 +17729,8 @@ public FocusMasterMode FocusMasterMode {
             //{
             //    if (n1mm_delay == null)
             //    {
-            //        n1mm_delay = new System.Timers.Timer(focus_master_delay);
+            //        n1mm_delay = new
+            //        System.Timers.Timer(focus_master_delay);
             //        n1mm_delay.Elapsed += new
             //        ElapsedEventHandler(n1mm_delay_Elapsed);
             //        n1mm_delay.AutoReset = false;
@@ -18493,8 +18501,8 @@ public string DBFileName {
             return m_db_file_name;
             }
             set {
-            if (initializing) // ignore changes here after init is complete per
-                              // design
+            if (initializing) // ignore changes here after init is complete
+                              // per design
             {
                 Debug.Assert(!String.IsNullOrEmpty(value));
                 m_db_file_name = value;
@@ -19032,7 +19040,8 @@ public string TXProfile {
             }
             set {
             // if (comboTXProfile != null) comboTXProfile.Text = value;
-            // if (comboDigTXProfile != null) comboDigTXProfile.Text = value;
+            // if (comboDigTXProfile != null) comboDigTXProfile.Text =
+            // value;
             switch (rx1_dsp_mode) {
                 case DSPMode.DIGL:
                 case DSPMode.DIGU:
@@ -19121,7 +19130,8 @@ public MultiMeterDisplayMode CurrentMeterDisplayMode {
             //                picMultiMeterDigital.Height +=
             //                lblMultiSMeter.ClientSize.Height;
             //                picMultiMeterDigital.BackColor =
-            //                edge_meter_background_color; picRX2Meter.Height +=
+            //                edge_meter_background_color;
+            //                picRX2Meter.Height +=
             //                lblRX2Meter.ClientSize.Height;
             //                picRX2Meter.BackColor =
             //                edge_meter_background_color;
@@ -19129,8 +19139,10 @@ public MultiMeterDisplayMode CurrentMeterDisplayMode {
             //                lblMultiSMeter.SendToBack();
             //                //lblRX2Meter.Hide();
             //                lblRX2Meter.SendToBack();
-            //                if (!comboMeterTXMode.Items.Contains("Fwd SWR"))
-            //                    comboMeterTXMode.Items.Insert(3, "Fwd SWR");
+            //                if (!comboMeterTXMode.Items.Contains("Fwd
+            //                SWR"))
+            //                    comboMeterTXMode.Items.Insert(3, "Fwd
+            //                    SWR");
             //                break;
             //            case MultiMeterDisplayMode.Original:
             //                picMultiMeterDigital.Height -=
@@ -19138,12 +19150,14 @@ public MultiMeterDisplayMode CurrentMeterDisplayMode {
             //                picMultiMeterDigital.BackColor =
             //                meter_background_color; picRX2Meter.Height -=
             //                lblRX2Meter.ClientSize.Height;
-            //                picRX2Meter.BackColor = meter_background_color;
+            //                picRX2Meter.BackColor =
+            //                meter_background_color;
             //               // lblMultiSMeter.Show();
             //                lblMultiSMeter.BringToFront();
             //                //lblRX2Meter.Show();
             //                lblRX2Meter.BringToFront();
-            //                if (comboMeterTXMode.Items.Contains("Fwd SWR"))
+            //                if (comboMeterTXMode.Items.Contains("Fwd
+            //                SWR"))
             //                    comboMeterTXMode.Items.Remove("Fwd SWR");
             //                break;
             // }
@@ -21024,9 +21038,9 @@ public int DIGUClickTuneOffset {
             set {
             digu_click_tune_offset = value;
             Filter filter1 = RX1Filter; // save RX1 filter
-            Filter filter2
-                = RX2Filter; // save RX2 filter
-                             // reset preset filter's center frequency - W4TME
+            Filter filter2 = RX2Filter; // save RX2 filter
+                                        // reset preset filter's center
+                                        // frequency - W4TME
 
             for (Filter f = Filter.F1; f < Filter.LAST; f++) {
                 int low = rx1_filters[(int)DSPMode.DIGU].GetLow(f);
@@ -21050,9 +21064,9 @@ public int DIGLClickTuneOffset {
             set {
             digl_click_tune_offset = value;
             Filter filter1 = RX1Filter; // save RX1 filter
-            Filter filter2
-                = RX2Filter; // save RX2 filter
-                             // reset preset filter's center frequency - W4TME
+            Filter filter2 = RX2Filter; // save RX2 filter
+                                        // reset preset filter's center
+                                        // frequency - W4TME
 
             for (Filter f = Filter.F1; f < Filter.LAST; f++) {
                 int low = rx1_filters[(int)DSPMode.DIGL].GetLow(f);
@@ -23294,7 +23308,8 @@ public Band RX2Band {
             Band old_band = rx2_band;
             rx2_band = value;
 
-            ////comboRX2Band.SelectedIndex = Math.Min(Math.Max(0, (int)value),
+            ////comboRX2Band.SelectedIndex = Math.Min(Math.Max(0,
+            ///(int)value),
             /// comboRX2Band.Items.Count-1);
             // comboRX2Band.Text = BandToString(rx2_band);
 
@@ -23306,8 +23321,8 @@ public Band RX2Band {
 
             // MW0LGE
             // not all bands are in the drop down, and consequently solution
-            // above caused all sorts of issues when for example dragging RX2
-            // outside HAM bands
+            // above caused all sorts of issues when for example dragging
+            // RX2 outside HAM bands
             string sBand = BandToString(rx2_band);
             if (comboRX2Band.Items.Contains(sBand)) {
                 comboRX2Band.Text = sBand;
@@ -23372,8 +23387,8 @@ public Band TXBand {
                 // Fix Penny O/C VHF control Vk4xv
                 lo_band = BandByFreq(XVTRForm.TranslateFreq(VFOAFreq),
                     rx1_xvtr_index, false, current_region, true);
-            // lo_band = BandByFreq(XVTRForm.TranslateFreq(VFOAFreq), -1, true,
-            // current_region);
+            // lo_band = BandByFreq(XVTRForm.TranslateFreq(VFOAFreq), -1,
+            // true, current_region);
 
             if (tx_band != old_band || initializing) {
                 // save values for old band
@@ -23525,8 +23540,8 @@ public string CATReadFwdPwr() {
             // if (Audio.CurrentAudioState1 == Audio.AudioState.DTTSP)
             //{
             //    num = (float)Math.Max(0.0, DttSP.CalculateTXMeter(0,
-            //    DttSP.MeterType.PWR)); num *= (float)((double)ptbPWR.Value *
-            //    0.01); return num.ToString("f2") + " W";
+            //    DttSP.MeterType.PWR)); num *= (float)((double)ptbPWR.Value
+            //    * 0.01); return num.ToString("f2") + " W";
             //}
             // else
             return "0" + separator + "00 W";
@@ -23900,13 +23915,14 @@ public int CWPitch {
 
             //-W2PA June 2017
             //      This centers the passband of the CW filters on the pitch
-            //      frequency, but if CWPitch setter is called by mode buttons,
-            //      it prevents filter setting from persisting when the mode
-            //      changes or band changes, since band changes trigger mode
-            //      changes. This happened because of a line:  CWPitch =
-            //      cw_pitch;  in SetRX1Mode and SetRX2Mode. Those are now
-            //      commented out. This should only be called by the CW Pitch
-            //      control in the UI and Setup, or by a CAT command.
+            //      frequency, but if CWPitch setter is called by mode
+            //      buttons, it prevents filter setting from persisting when
+            //      the mode changes or band changes, since band changes
+            //      trigger mode changes. This happened because of a line:
+            //      CWPitch = cw_pitch;  in SetRX1Mode and SetRX2Mode. Those
+            //      are now commented out. This should only be called by the
+            //      CW Pitch control in the UI and Setup, or by a CAT
+            //      command.
             for (Filter f = Filter.F1; f < Filter.LAST; f++) {
                 // Adjust CWL filters
                 int low = rx1_filters[(int)DSPMode.CWL].GetLow(f);
@@ -26421,8 +26437,8 @@ private async void UpdatePeakText() {
                     double Freq = double.Parse(txtVFOAFreq.Text);
                     string temp_text;
                     if (click_tune_display
-                        && !mox) // Correct Right hand peak frequency when CTUN
-                                 // on -G3OQD
+                        && !mox) // Correct Right hand peak
+                                 // frequency when CTUN on -G3OQD
                         temp_text
                             = (freq + (center_frequency - Freq)).ToString("f6")
                             + " MHz"; // Disply Right hand peak frequency under
@@ -28201,7 +28217,8 @@ private void getMeterPixelPosAndDrawScales(int rx, Graphics g, int H, int W,
                     }
                     if (bDrawMarkers) {
                         g.FillRectangle(low_brush, (int)(W * 0.625), H - 4 - 3,
-                            1, 3); // small tic 2.5:1
+                            1,
+                            3); // small tic 2.5:1
                     }
                     string[] swr_hi_list = { "3", "4", "5" };
 
@@ -31317,8 +31334,8 @@ private async void PollPAPWR() {
                     == HPSDRModel.ANAN8000D) // K2UE idea:  try to determine if
                                              // Hi-Z or Lo-Z load
                     alex_fwd_limit = 2.0f
-                        * (float)ptbPWR.Value; //    by comparing alex_fwd with
-                                               //    power setting
+                        * (float)ptbPWR.Value; //    by comparing alex_fwd
+                                               //    with power setting
 
                 if (swr > 2.0f && alex_fwd > alex_fwd_limit && swrprotection
                     && !swr_pass) {
@@ -31556,12 +31573,13 @@ private void Console_KeyDown(
             {
 
             // MW0LGE m_bControlKeyDown = 1; // ke9ns add (used for an extra
-            // right click + CTRL function: add bandstacking and hyperlinking)
+            // right click + CTRL function: add bandstacking and
+            // hyperlinking)
 
             if ((SpotControl.SP4_Active == 0) && (SpotControl.SP_Active > 2)
                 && (SpotControl.DX_Index
-                    > 0)) // Do below if not in the middle of processing a DX
-                          // spot, but DX spotting is Active
+                    > 0)) // Do below if not in the middle of processing a
+                          // DX spot, but DX spotting is Active
             {
 
                 int x = DX_X;
@@ -31841,8 +31859,8 @@ private void Console_KeyDown(
 
                 } // rx2 checked on
 
-            } //   if ((SpotControl.SP4_Active == 0) && (SpotControl.SP_Active >
-              //   2))
+            } //   if ((SpotControl.SP4_Active == 0) &&
+              //   (SpotControl.SP_Active > 2))
 
             //---------------------------------------------------------------------------------
             //---------------------------------------------------------------------------------
@@ -31946,7 +31964,8 @@ private void Console_KeyDown(
 
                 } // for loop
 
-            } //  if ((SpotControl.SP3_Active == 1) && (SpotControl.SP1_Active
+            } //  if ((SpotControl.SP3_Active == 1) &&
+              //  (SpotControl.SP1_Active
               //  ==1))
 
             } // e.control key
@@ -33734,8 +33753,8 @@ private void Console_Closing(
             // this.Hide();
             // Audio.callback_return = 2;
             if (m_frmSetupForm != null) {
-            m_frmSetupForm.Owner = null; // else it dies with us and he wants to
-                                         // save settings, etc
+            m_frmSetupForm.Owner = null; // else it dies with us and he
+                                         // wants to save settings, etc
             }
             CATEnabled = false;
             AndromedaCATEnabled = false;
@@ -33785,7 +33804,8 @@ private void Console_Closing(
             // Change to check if existing save is happening. Without this
             // it is possible to crash on save and corrupt settings file
             if (!IsSetupFormNull) {
-            // if(SetupForm.CompleteAnyExistingSave()) SetupForm.SaveOptions();
+            // if(SetupForm.CompleteAnyExistingSave())
+            // SetupForm.SaveOptions();
             SetupForm.IgnoreButtonState
                 = true; // prevents threads from updating controls in the
                         // blocked thead caused by WaitForSaveLoad
@@ -34437,8 +34457,8 @@ private void UIMOXChangedTrue() {
             NB_CheckState = chkNB.CheckState; // save current state of NB
             if (display_duplex)
             chkNB.CheckState
-                = CheckState.Unchecked; // turn off NB/NB2 while transmitting
-                                        // with DUP enabled
+                = CheckState.Unchecked; // turn off NB/NB2 while
+                                        // transmitting with DUP enabled
             meter_peak_count
                 = multimeter_peak_hold_samples; // reset multimeter peak
 
@@ -34545,7 +34565,8 @@ private void chkMOX_CheckedChanged2(object sender, System.EventArgs e) {
 
             if (tx) // change to TX mode
             {
-            // DisableAllModes();      //Disallow mode changes in transmit mode
+            // DisableAllModes();      //Disallow mode changes in transmit
+            // mode
             } else // change to RX mode
             {
             if (!VFOALock) {
@@ -34741,7 +34762,8 @@ private void chkMOX_CheckedChanged2(object sender, System.EventArgs e) {
 
             if (radio.GetDSPTX(0).CurrentDSPMode != DSPMode.CWL
                 && radio.GetDSPTX(0).CurrentDSPMode
-                    != DSPMode.CWU) // turn on the transmitter unless in CW mode
+                    != DSPMode.CWU) // turn on the transmitter unless in CW
+                                    // mode
             {
                 if (rf_delay > 0) Thread.Sleep(rf_delay);
                 AudioMOXChanged(
@@ -34758,7 +34780,8 @@ private void chkMOX_CheckedChanged2(object sender, System.EventArgs e) {
             mox = tx;
             psform.Mox = tx;
             WDSP.SetChannelState(WDSP.id(1, 0), 0,
-                1); // turn off the transmitter (no action if it's already off)
+                1); // turn off the transmitter (no action if it's already
+                    // off)
 
             if (radio.GetDSPTX(0).CurrentDSPMode == DSPMode.CWL
                 || radio.GetDSPTX(0).CurrentDSPMode == DSPMode.CWU) {
@@ -35435,8 +35458,8 @@ private void udCWPitch_ValueChanged(object sender, System.EventArgs e) {
 private void comboVACSampleRate_SelectedIndexChanged(
     object sender, System.EventArgs e) {
             if (!IsSetupFormNull) {
-            // G8NJJ: change so that it sets the correct VAC 1 or 2 sample rate
-            // in setup
+            // G8NJJ: change so that it sets the correct VAC 1 or 2 sample
+            // rate in setup
             if (!(chkRX2.Checked && chkVAC2.Checked && chkVFOBTX.Checked))
                 SetupForm.VACSampleRate = comboVACSampleRate.Text;
             else
@@ -35735,10 +35758,9 @@ private void Console_MouseWheel(
             if (WheelReverse)
             num_steps = (e.Delta > 0 ? -1 : 1); // 1 per click
             else
-            num_steps = (e.Delta > 0
-                    ? 1
-                    : -1); // 1 per click
-                           // int numberToMove = e.Delta / 120;	// 1 per click
+            num_steps = (e.Delta > 0 ? 1 : -1); // 1 per click
+                                                // int numberToMove = e.Delta /
+                                                // 120;	// 1 per click
 
             // MW0LGE before all, handle the notch size change
             if (SelectedNotch != null && num_steps != 0) {
@@ -35886,8 +35908,8 @@ public double SnapTune(double freq_mhz, int step_size_hz, int num_steps) {
             // handle when starting frequency was already on a step size
             // boundary and tuning down
             if (num_steps < 0 && freq_hz % step_size_hz != 0)
-            num_steps++; // off boundary -- add one as the divide takes care of
-                         // one step
+            num_steps++; // off boundary -- add one as the divide takes care
+                         // of one step
 
             temp += num_steps; // increment by the number of steps (positive or
                                // negative
@@ -35989,8 +36011,8 @@ private void txtVFOAFreq_LostFocus(object sender, System.EventArgs e) {
             double Hdisp = Convert.ToDouble(Display.RXDisplayHigh)
                 - dispWidth * dispMargin;
             double freqJumpThresh
-                = 0.5e6; // definition of jumping far, e.g. with memory recall -
-                         // causes a re-centering
+                = 0.5e6; // definition of jumping far, e.g. with
+                         // memory recall - causes a re-centering
 
             bool bChanged = false;
 
@@ -36234,8 +36256,8 @@ private void txtVFOAFreq_LostFocus(object sender, System.EventArgs e) {
 
             Band b1 = b; // ke9ns add
 
-            if (extended) // ke9ns add if you have extended capabilities then
-                          // SWL bands are really ham bands
+            if (extended) // ke9ns add if you have extended capabilities
+                          // then SWL bands are really ham bands
             {
                 if (Band.BLMF == b)
                     b1 = Band.B160M;
@@ -36569,7 +36591,8 @@ private void txtVFOAFreq_KeyPress(
             }
             if (e.KeyChar == (char)Keys.Enter) {
             // txtVFOAFreq_LostFocus(txtVFOAFreq, new System.EventArgs());
-            // //MW0LGE     TODO FIX VFOAFreq = double.Parse(txtVFOAFreq.Text);
+            // //MW0LGE     TODO FIX VFOAFreq =
+            // double.Parse(txtVFOAFreq.Text);
             // //MW0LGE
             m_bVFOAChangedByKeys = true;
             btnHidden.Focus();
@@ -36703,8 +36726,8 @@ private void txtVFOABand_LostFocus(object sender, System.EventArgs e) {
                 = BandByFreq(freq, tx_xvtr_index, true, current_region, true);
 
             Band b1 = b; // ke9ns add
-            if (extended) // ke9ns add if you have extended capabilities then
-                          // SWL bands are really ham bands
+            if (extended) // ke9ns add if you have extended capabilities
+                          // then SWL bands are really ham bands
             {
                 if (Band.BLMF == b)
                     b1 = Band.B160M;
@@ -36906,8 +36929,8 @@ private void txtVFOBFreq_LostFocus(object sender, System.EventArgs e) {
             double Hdisp = Convert.ToDouble(Display.RX2DisplayHigh)
                 - dispWidth * dispMargin;
             double freqJumpThresh
-                = 0.5e6; // Definition of jumping far, e.g. with memory recall -
-                         // causes a re-centering
+                = 0.5e6; // Definition of jumping far, e.g. with
+                         // memory recall - causes a re-centering
 
             bool bChanged = false;
 
@@ -37400,9 +37423,9 @@ set_rx2_freq:
             if (!stereo_diversity) {
             if (!click_tune_rx2_display || set_rx2_freq) RX2DDSFreq = freq;
 
-            if (click_tune_rx2_display) // && rx2_spectrum_tune_drag) //-W2PA
-                                        // This was preventing proper receiver
-                                        // adjustment
+            if (click_tune_rx2_display) // && rx2_spectrum_tune_drag)
+                                        // //-W2PA This was preventing
+                                        // proper receiver adjustment
             {
                 // RX2DDSFreq = center_rx2_frequency;
                 // MW0LGE fix to stop multiple sets of RX2DDSFreq
@@ -37824,8 +37847,8 @@ unsafe private void picDisplay_MouseMove(object sender, MouseEventArgs e) {
             int filt_high_x = 0;
             if (rx2_enabled
                 && e.Y > picDisplay.Height
-                        / 2) // if RX2 is enabled and the cursor is in the lower
-                             // half of the display
+                        / 2) // if RX2 is enabled and the cursor is
+                             // in the lower half of the display
             {
                 if (mox) // && chkVFOBTX.Checked)
                 {
@@ -37903,9 +37926,10 @@ unsafe private void picDisplay_MouseMove(object sender, MouseEventArgs e) {
 
             if (!SetupForm.NotchAdminBusy
                 && !m_frmNotchPopup.Visible
-                    & !bDraggingAFilter) // only highlight/select if we are not
-                                         // actively adding/edditing via setup
-                                         // form, or the popup is hidden
+                    & !bDraggingAFilter) // only highlight/select if we are
+                                         // not actively adding/edditing via
+                                         // setup form, or the popup is
+                                         // hidden
             {
                 int nRX = 0;
                 if (bOverRX1
@@ -41218,11 +41242,11 @@ private void SetRX1Mode(DSPMode new_mode) {
             if (new_mode != DSPMode.CWL
                 && new_mode != DSPMode.CWU) // Changing to a non-CW mode
             {
-            // Although CWFWKeyer is mostly a deprecated flag, it's useful in
-            // the QSK-enabled firmware (1.7 or later) -W2PA It is used here
-            // solely to prevent keying in non-CW modes.
-            CWFWKeyer
-                = false; // Disallow the FW to key the rig except in CW modes
+            // Although CWFWKeyer is mostly a deprecated flag, it's useful
+            // in the QSK-enabled firmware (1.7 or later) -W2PA It is used
+            // here solely to prevent keying in non-CW modes.
+            CWFWKeyer = false; // Disallow the FW to key the rig except in
+                               // CW modes
             if (BreakInEnabledState == CheckState.Indeterminate)
                 NonCWModeBreakInDisabled
                     = true; // Disable break-in if not in a CW mode
@@ -41239,8 +41263,8 @@ private void SetRX1Mode(DSPMode new_mode) {
             {
             if (QSKEnabled) {
                 chkQSK.Checked
-                    = false; // QSKEnabled = false; // If QSK was on, turn it
-                             // off to return to non-QSK settings
+                    = false; // QSKEnabled = false; // If QSK was on,
+                             // turn it off to return to non-QSK settings
                 qsk_in_CW = true; // But remember it was on in CW modes
             } else
                 qsk_in_CW = false;
@@ -43435,12 +43459,12 @@ private void ResizeConsole(int h_delta, int v_delta) {
             // for all new size calcs.
 
             if ((h_delta == 0) && (v_delta == 0) && (previous_delta == 0)) {
-            // do nothing - this only occurs for my first call to Resize with
-            // both deltas zero during init and at that time windows hasn't
-            // resized the display if in 120 dpi mode. Use the "previous_delta"
-            // variable to ensure that if we *reduce* size back to original, we
-            // do the calcs for that, too (previous_delta won't be 0 in that
-            // case);
+            // do nothing - this only occurs for my first call to Resize
+            // with both deltas zero during init and at that time windows
+            // hasn't resized the display if in 120 dpi mode. Use the
+            // "previous_delta" variable to ensure that if we *reduce* size
+            // back to original, we do the calcs for that, too
+            // (previous_delta won't be 0 in that case);
             } else {
             //
             panelFilter.Location
@@ -43638,7 +43662,8 @@ private void ResizeConsole(int h_delta, int v_delta) {
             panelRX2Mode.Location = new Point(
                 gr_RX2Mode_basis_location.X + (int)(h_delta * 0.492),
                 gr_RX2Mode_basis_location.Y
-                    + v_delta); // MW0LGE changed to gr_RX2Mode_basis_location
+                    + v_delta); // MW0LGE changed to
+                                // gr_RX2Mode_basis_location
             panelRX2Display.Location
                 = new Point(gr_rx2_display_basis.X + (int)(h_delta * 0.383),
                     gr_rx2_display_basis.Y + v_delta);
@@ -44134,9 +44159,9 @@ private void chkRX2_CheckedChanged(object sender, System.EventArgs e) {
                 //    this.Height += (panelRX2Filter.Height + 8);
 
                 resizeWaterfallBitmaps(
-                        /*Display.CurrentDisplayModeBottom == DisplayMode.PANAFALL*/); // MW0LGE
+                /*Display.CurrentDisplayModeBottom == DisplayMode.PANAFALL*/); // MW0LGE
                 resizeWaterfallBitmaps2(
-                        /*Display.CurrentDisplayModeBottom == DisplayMode.PANAFALL*/); // MW0LGE
+                /*Display.CurrentDisplayModeBottom == DisplayMode.PANAFALL*/); // MW0LGE
             } else {
                 if (this.Height
                     <= MinimumSize.Height + panelRX2Filter.Height + 8)
@@ -44670,7 +44695,8 @@ private void SetRX2Mode(DSPMode new_mode) {
             }
 
             if (RX2IsOn60mChannel() && current_region == FRSRegion.US) {
-            // adjust freq offset to ensure center of energy for new mode in 60m
+            // adjust freq offset to ensure center of energy for new mode in
+            // 60m
             rx2_freq += (-ModeFreqOffset(old_mode) + ModeFreqOffset(new_mode));
             // MW0LGE txtVFOBFreq.Text = rx2_freq.ToString("f6");
             setVFOBFreqNoUpdate(rx2_freq);
@@ -45153,11 +45179,9 @@ private void comboRX2MeterMode_SelectedIndexChanged(
                 {
                     case MeterRXMode.SIGNAL_STRENGTH:
                     case MeterRXMode.SIGNAL_AVERAGE:
-                        lblRX2Meter.Text = "  1   3   5   7   9  +20 +40 +60";
-                        break;
-                    case MeterRXMode.ADC_L:
-                    case MeterRXMode.ADC_R:
-                        lblRX2Meter.Text = "-100  -80   -60   -40   -20    0";
+                        lblRX2Meter.Text = "  1   3   5   7   9  +20 +40
+            +60"; break; case MeterRXMode.ADC_L: case MeterRXMode.ADC_R:
+                        lblRX2Meter.Text = "-100  -80   -60   -40   -20 0";
                         break;
                     case MeterRXMode.OFF:
                         lblRX2Meter.Text = "";
@@ -45170,11 +45194,9 @@ private void comboRX2MeterMode_SelectedIndexChanged(
                 {
                     case MeterRXMode.SIGNAL_STRENGTH:
                     case MeterRXMode.SIGNAL_AVERAGE:
-                        lblRX2Meter.Text = "  1   3   5   7   9  +20 +40 +60";
-                        break;
-                    case MeterRXMode.ADC_L:
-                    case MeterRXMode.ADC_R:
-                        lblRX2Meter.Text = "-100  -80   -60   -40   -20    0";
+                        lblRX2Meter.Text = "  1   3   5   7   9  +20 +40
+            +60"; break; case MeterRXMode.ADC_L: case MeterRXMode.ADC_R:
+                        lblRX2Meter.Text = "-100  -80   -60   -40   -20 0";
                         break;
                     case MeterRXMode.OFF:
                         lblRX2Meter.Text = "";
@@ -46312,8 +46334,8 @@ private void chkVFOSync_CheckedChanged(object sender, System.EventArgs e) {
             //    RX2Filter = RX1Filter;
             //  }
             // RX2PreampMode = RX1PreampMode;
-            // console.RX2AGCMode = console.RX1AGCMode;    // no custom AGC mode
-            // for RX2 causes UHE
+            // console.RX2AGCMode = console.RX1AGCMode;    // no custom AGC
+            // mode for RX2 causes UHE
             //   RX2RF = RF;                 //W4TME
             //  radio.GetDSPRX(1, 0).Copy(radio.GetDSPRX(0, 0));
 
@@ -46761,8 +46783,8 @@ unsafe private bool changeNotchBW(MNotch notch, double newWidth) {
             SetupForm.SaveNotchesToDatabase();
             SetupForm.UpdateNotchDisplay();
 
-            // find the previously selected notch, which would have been lost
-            // due to savenotchestodb
+            // find the previously selected notch, which would have been
+            // lost due to savenotchestodb
             if (bSelected)
                 SelectedNotch = MNotchDB.GetFirstNotchThatMatches(
                     fcenter, newWidth, bActive);
@@ -46807,8 +46829,8 @@ unsafe private bool changeNotchCentreFrequency(
             SetupForm.SaveNotchesToDatabase();
             SetupForm.UpdateNotchDisplay();
 
-            // find the previously selected notch, which would have been lost
-            // due to savenotchestodb
+            // find the previously selected notch, which would have been
+            // lost due to savenotchestodb
             if (bSelected)
                 SelectedNotch = MNotchDB.GetFirstNotchThatMatches(
                     fcenter, fwidth, bActive);
@@ -46844,8 +46866,8 @@ unsafe private bool changeNotchActive(MNotch notch, bool bActive) {
             SetupForm.SaveNotchesToDatabase();
             SetupForm.UpdateNotchDisplay();
 
-            // find the previously selected notch, which would have been lost
-            // due to savenotchestodb
+            // find the previously selected notch, which would have been
+            // lost due to savenotchestodb
             if (bSelected)
                 SelectedNotch = MNotchDB.GetFirstNotchThatMatches(
                     fcenter, fwidth, bActive);
@@ -46884,8 +46906,8 @@ unsafe private bool toggleNotchActive(MNotch notch) {
             SetupForm.SaveNotchesToDatabase();
             SetupForm.UpdateNotchDisplay();
 
-            // find the previously selected notch, which would have been lost
-            // due to savenotchestodb
+            // find the previously selected notch, which would have been
+            // lost due to savenotchestodb
             if (bSelected)
                 SelectedNotch = MNotchDB.GetFirstNotchThatMatches(
                     fcenter, fwidth, bActive);
@@ -48106,7 +48128,8 @@ private void ExpandDisplay() {
             lblRX2APF.Location = lbl_RX2_APF_VFOB_basis;
 
             if (rx1_step_att_present) {
-            // udRX1StepAttData.Location = ud_rx1_step_att_present_data_basis;
+            // udRX1StepAttData.Location =
+            // ud_rx1_step_att_present_data_basis;
             udRX1StepAttData.BringToFront();
             } else {
             //   comboPreamp.Location = combo_preamp_basis;
@@ -48114,7 +48137,8 @@ private void ExpandDisplay() {
             }
 
             if (rx2_step_att_present) {
-            // udRX2StepAttData.Location = ud_rx2_step_att_present_data_basis;
+            // udRX2StepAttData.Location =
+            // ud_rx2_step_att_present_data_basis;
             udRX2StepAttData.BringToFront();
             } else {
             //  comboRX2Preamp.Location = combo_rx2_preamp_basis;
@@ -48536,8 +48560,8 @@ public void CollapseDisplay() {
             grpVFOB.Show();
 
             //
-            // show meter for RX1 or RX2 in centre, and panadapter type display
-            // controls
+            // show meter for RX1 or RX2 in centre, and panadapter type
+            // display controls
             //
             if (show_rx1) {
                 // G8NJJ
@@ -48612,8 +48636,8 @@ public void CollapseDisplay() {
             //                udXIT.Show();
             //                btnRITReset.Show();
             //                btnXITReset.Show();
-            // G8NJJ: restore foreground colours which seem to get lost in the
-            // move
+            // G8NJJ: restore foreground colours which seem to get lost in
+            // the move
             //                if (!chkRIT.Checked)
             //                    chkRIT.ForeColor =
             //                    SystemColors.ControlLightLight;
@@ -51856,9 +51880,9 @@ private void OnMouseWheelChanged(object sender, RawInputEventArg e) {
             // if(e.MouseEvent.DeviceHandle == m_nSpecificMouseDeviceHandle)  //
             // handle can change dont use
             if (e.MouseEvent.DeviceName == m_sSpecificMouseDeviceID) {
-            // this is a bit of a cludge, but next mouse wheel event is ignored
-            // this will 'arrive' as the next wm_mousewheel and will be the same
-            // one associateed with this rawinput event
+            // this is a bit of a cludge, but next mouse wheel event is
+            // ignored this will 'arrive' as the next wm_mousewheel and will
+            // be the same one associateed with this rawinput event
             m_objRawinput.IgnoreNextWheelEvent = m_bWheelOnlyAdjustsVFO;
 
             if (!IsSetupFormNull) {
@@ -51867,8 +51891,8 @@ private void OnMouseWheelChanged(object sender, RawInputEventArg e) {
                 }
             }
 
-            enableOutsideSpectral(); // allow outside spectral display for this
-                                     // secondary tuning device
+            enableOutsideSpectral(); // allow outside spectral display for
+                                     // this secondary tuning device
             Console_MouseWheel(this,
                 new MouseEventArgs(
                     MouseButtons.None, 0, 0, 0, e.MouseEvent.buttonData));
