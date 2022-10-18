@@ -93,6 +93,14 @@ public partial class Setup : Form {
         // GetMixerDevices();
         Thetis.Splash.SetStatus("Loading Audio Host APIs ...");
 
+        int slept = 0;
+        while (c.m_waiting_for_portaudio) {
+            if (slept == 0)
+                Splash.SetStatus("Please wait while PortAudio initialises ...");
+            Thread.Sleep(20);
+            slept += 20;
+        }
+
         GetHosts();
         Thetis.Splash.SetStatus("InitAlexTables ...");
         InitAlexAntTables();

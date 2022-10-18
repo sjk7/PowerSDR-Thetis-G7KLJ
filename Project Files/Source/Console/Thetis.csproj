@@ -175,6 +175,7 @@
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>0618</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>..\..\bin\x64\Release\</OutputPath>
@@ -190,6 +191,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <NoWarn>0618</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Interleaved|x64'">
     <OutputPath>bin\x64\Interleaved\</OutputPath>
@@ -205,6 +207,7 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>0618</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -636,9 +639,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Andromeda\ModeDependentSettingsForm.resx">
       <DependentUpon>ModeDependentSettingsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NewConsole\NewConsole.resx">
-      <DependentUpon>NewConsole.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\picD1orig.png" />
     <None Include="Resources\cpu.png" />
