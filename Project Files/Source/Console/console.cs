@@ -26233,7 +26233,15 @@ private async void UpdatePeakText() {
             oload_select = 0;
             else if (amp_oload)
             oload_select = 1;
+
+            bool visible = false;
+            /*/ test it will actually show if it needs to 
+            overload = true;
+            oload_select = 1;
+            /*/
+
             if (overload) {
+                visible = true;
             switch (oload_select) {
                 case 0:
                     switch (adc_oload_num) {
@@ -26241,11 +26249,13 @@ private async void UpdatePeakText() {
                         case 2: txtOverload.Text = "ADC2 Overload!"; break;
                         case 4: txtOverload.Text = "ADC3 Overload!"; break;
                         default: txtOverload.Text = "ADC Overload!"; break;
-                    }
+
+                        }
                     break;
                 case 1: txtOverload.Text = "AMP OVERLOAD!"; break;
             }
             change_overload_color_count = ++change_overload_color_count % 2;
+               
             } else {
             // if (!tx_inhibit)
             // txtOverload.Text = "";
@@ -26351,7 +26361,7 @@ private async void UpdatePeakText() {
             } else if (tx_inhibit)
                 txtOverload.Text = "TX Inhibit";
             else
-                txtOverload.Text = "";
+                txtOverload.Text = "txtOverload is empty here";
             }
             switch (change_overload_color_count) {
             case 0: txtOverload.ForeColor = Color.Red; break;
@@ -26432,8 +26442,8 @@ private async void UpdatePeakText() {
                     txtDisplayPeakPower.ForeColor = peak_text_color;
                     txtDisplayPeakFreq.ForeColor = peak_text_color;
                     txtDisplayPeakOffset.Text = x.ToString("f1") + "Hz";
-                    txtDisplayPeakPower.Text = y.ToString("f1") + "dBm";
-
+                      txtDisplayPeakPower.Text = y.ToString("f1") + "dBm";
+                        //txtDisplayPeakPower.Text = "Fuck off";
                     double Freq = double.Parse(txtVFOAFreq.Text);
                     string temp_text;
                     if (click_tune_display
@@ -26457,6 +26467,7 @@ private async void UpdatePeakText() {
                     txtDisplayPeakFreq.Text = "";
                     break;
             }
+                txtOverload.Visible = visible;
             }
 }
 
