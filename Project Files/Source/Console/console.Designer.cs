@@ -743,6 +743,7 @@ partial class Console {
             this.toolStripNotchDeep = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripNotchVeryDeep = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.mnuShowNewConsole = new System.Windows.Forms.ToolStripMenuItem();
             this.setupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.memoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.waveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1140,7 +1141,6 @@ partial class Console {
             this.lblAndromedaEncoderSlider = new System.Windows.Forms.LabelTS();
             this.lblATUTuneLabel = new System.Windows.Forms.LabelTS();
             this.tmrPrettySMeter = new System.Windows.Forms.Timer(this.components);
-            this.mnuShowNewConsole = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udFilterHigh)).BeginInit();
@@ -3919,6 +3919,12 @@ partial class Console {
             this.BPFToolStripMenuItem});
             resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
+            // 
+            // mnuShowNewConsole
+            // 
+            this.mnuShowNewConsole.Name = "mnuShowNewConsole";
+            resources.ApplyResources(this.mnuShowNewConsole, "mnuShowNewConsole");
+            this.mnuShowNewConsole.Click += new System.EventHandler(this.mnuShowNewConsole_Click);
             // 
             // setupToolStripMenuItem
             // 
@@ -7271,12 +7277,6 @@ partial class Console {
             this.tmrPrettySMeter.Enabled = true;
             this.tmrPrettySMeter.Interval = 50;
             this.tmrPrettySMeter.Tick += new System.EventHandler(this.tmrPrettySMeter_Tick);
-            // 
-            // mnuShowNewConsole
-            // 
-            this.mnuShowNewConsole.Name = "mnuShowNewConsole";
-            resources.ApplyResources(this.mnuShowNewConsole, "mnuShowNewConsole");
-            this.mnuShowNewConsole.Click += new System.EventHandler(this.mnuShowNewConsole_Click);
             // 
             // Console
             // 
