@@ -281,6 +281,12 @@ public class Splash : System.Windows.Forms.Form {
         ms_oThread.Start();
     }
 
+        static public void ShowAgain()
+        {
+            if (ms_frmSplash != null)
+                ms_frmSplash.Show();
+        }
+
     // A property returning the splash screen instance
     static public Splash SplashForm {
         get { return ms_frmSplash; }

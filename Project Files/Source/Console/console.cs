@@ -1080,14 +1080,15 @@ public partial class Console : Form {
                                       // a flag to attempt to merge
                            File.Delete(m_db_file_name);
                            resetForAutoMerge = true; // a flag to main()
-
+                                Splash.HideForm();
                            MessageBox.Show(
                                "Your database file is from a different version.\nMerging it into a new database will now be attempted.\n\n"
                                    + "First your old database will be saved in DB_Archive folder,\nand a database reset will happen.\n\n"
                                    + "Please RE-START when the reset finishes.",
                                "Note", MessageBoxButtons.OK,
                                MessageBoxIcon.Exclamation);
-                       }
+                                Splash.ShowAgain();
+                            }
                    }
                }
            }
