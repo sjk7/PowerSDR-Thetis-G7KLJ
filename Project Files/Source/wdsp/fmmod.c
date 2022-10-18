@@ -1,8 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio,
-// please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java:
-// http://www.viva64.com
 /*  fmmod.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -101,10 +96,10 @@ void xfmmod(FMMOD a) {
             if ((magdp = dp) < 0.0) magdp = -magdp;
             if (magdp > peak) peak = magdp;
         }
-        // print_deviation ("peakdev.txt", peak, a->samplerate);
+         // print_deviation ("peakdev.txt", peak, a->samplerate);
         if (a->bp_run) xfircore(a->p);
     } else if (a->in != a->out)
-        memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
+        memcpy(a->out, a->in, a->size * sizeof(fftw_complex));
 }
 
 void setBuffers_fmmod(FMMOD a, double* in, double* out) {

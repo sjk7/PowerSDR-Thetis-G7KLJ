@@ -1,8 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio,
-// please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java:
-// http://www.viva64.com
 /*  fir.c
 
 This file is part of a program that implements a Software-Defined Radio.
@@ -28,20 +23,18 @@ The author can be reached by email at
 warren@wpratt.com
 
 */
-#ifndef _CRT_SECURE_NO_WARNINGS
+
 #define _CRT_SECURE_NO_WARNINGS
-#endif
 #include "comm.h"
 
 double* fftcv_mults(int NM, double* c_impulse) {
-    double* mults = (double*)malloc0(NM * sizeof(WDSP_COMPLEX));
-    double* cfft_impulse = (double*)malloc0(NM * sizeof(WDSP_COMPLEX));
+    double* mults = (double*)malloc0(NM * sizeof(fftw_complex));
+    double* cfft_impulse = (double*)malloc0(NM * sizeof(fftw_complex));
     fftw_plan ptmp = fftw_plan_dft_1d(NM, (fftw_complex*)cfft_impulse,
         (fftw_complex*)mults, FFTW_FORWARD, FFTW_PATIENT);
-    memset(cfft_impulse, 0, NM * sizeof(WDSP_COMPLEX));
-    // store complex coefs right-justified in the buffer
-    memcpy(&(cfft_impulse[NM - 2]), c_impulse,
-        (NM / 2 + 1) * sizeof(WDSP_COMPLEX));
+    memset(cfft_impulse, 0, NM * sizeof(fftw_complex));
+    // store fftw_complex coefs right-justified in the buffer
+    memcpy(&(cfft_impulse[NM - 2]), c_impulse, (NM / 2 + 1) * sizeof(fftw_complex));
     fftw_execute(ptmp);
     fftw_destroy_plan(ptmp);
     _aligned_free(cfft_impulse);
@@ -91,8 +84,8 @@ double* fir_fsamp_odd(int N, double* A, int rtype, double scale, int wintype) {
     int mid = (N - 1) / 2;
     double mag, phs;
     double* window;
-    double* fcoef = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
-    double* c_impulse = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
+    double* fcoef = (double*)malloc0(N * sizeof(fftw_complex));
+    double* c_impulse = (double*)malloc0(N * sizeof(fftw_complex));
     fftw_plan ptmp = fftw_plan_dft_1d(N, (fftw_complex*)fcoef,
         (fftw_complex*)c_impulse, FFTW_BACKWARD, FFTW_PATIENT);
     double local_scale = 1.0 / (double)N;
@@ -130,7 +123,7 @@ double* fir_fsamp(int N, double* A, int rtype, double scale, int wintype) {
     int n, i, j, k;
     double sum;
     double* window;
-    double* c_impulse = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
+    double* c_impulse = (double*)malloc0(N * sizeof(fftw_complex));
 
     if (N & 1) {
         int M = (N - 1) / 2;
@@ -178,7 +171,7 @@ double* fir_fsamp(int N, double* A, int rtype, double scale, int wintype) {
 
 double* fir_bandpass(int N, double f_low, double f_high, double samplerate,
     int wintype, int rtype, double scale) {
-    double* c_impulse = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
+    double* c_impulse = (double*)malloc0(N * sizeof(fftw_complex));
     double ft = (f_high - f_low) / (2.0 * samplerate);
     double ft_rad = TWOPI * ft;
     double w_osc = PI * (f_high + f_low) / samplerate;
@@ -226,7 +219,6 @@ double* fir_bandpass(int N, double f_low, double f_high, double samplerate,
                                                             + cosphi
                                                                 * (+4.3778825791773474e-04))))));
                 break;
-            default: window = 0.0; break;
         }
         coef = scale * sinc * window;
         switch (rtype) {
@@ -246,10 +238,10 @@ double* fir_bandpass(int N, double f_low, double f_high, double samplerate,
 }
 
 double* fir_read(int N, const char* filename, int rtype, double scale)
-// N = number of real or complex coefficients (see rtype)
+// N = number of real or fftw_complex coefficients (see rtype)
 // *filename = filename
 // rtype = 0:  real coefficients
-// rtype = 1:  complex coefficients
+// rtype = 1:  fftw_complex coefficients
 // scale = a scale factor that will be applied to the returned coefficients;
 //		if this is not needed, set it to 1.0
 // NOTE:  The number of values in the file must NOT exceed those implied by N
@@ -258,20 +250,20 @@ double* fir_read(int N, const char* filename, int rtype, double scale)
     FILE* file;
     int i;
     double I, Q;
-    double* c_impulse = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
+    double* c_impulse = (double*)malloc0(N * sizeof(fftw_complex));
     file = fopen(filename, "r");
     for (i = 0; i < N; i++) {
-        // read in the complex impulse response
+        // read in the fftw_complex impulse response
         // NOTE:  IF the freq response is symmetrical about 0, the imag coeffs
         // will all be zero.
         switch (rtype) {
             case 0:
-                (void)fscanf(file, "%le", &I);
+                fscanf(file, "%le", &I);
                 c_impulse[i] = +scale * I;
                 break;
             case 1:
-                (void)fscanf(file, "%le", &I);
-                (void)fscanf(file, "%le", &Q);
+                fscanf(file, "%le", &I);
+                fscanf(file, "%le", &Q);
                 c_impulse[2 * i + 0] = +scale * I;
                 c_impulse[2 * i + 1] = -scale * Q;
                 break;
@@ -285,7 +277,7 @@ void analytic(int N, double* in, double* out) {
     int i;
     double inv_N = 1.0 / (double)N;
     double two_inv_N = 2.0 * inv_N;
-    double* x = (double*)malloc0(N * sizeof(WDSP_COMPLEX));
+    double* x = (double*)malloc0(N * sizeof(fftw_complex));
     fftw_plan pfor = fftw_plan_dft_1d(
         N, (fftw_complex*)in, (fftw_complex*)x, FFTW_FORWARD, FFTW_PATIENT);
     fftw_plan prev = fftw_plan_dft_1d(
@@ -310,13 +302,13 @@ void mp_imp(int N, double* fir, double* mpfir, int pfactor, int polarity) {
     int i;
     int size = N * pfactor;
     double inv_PN = 1.0 / (double)size;
-    double* firpad = (double*)malloc0(size * sizeof(WDSP_COMPLEX));
-    double* firfreq = (double*)malloc0(size * sizeof(WDSP_COMPLEX));
+    double* firpad = (double*)malloc0(size * sizeof(fftw_complex));
+    double* firfreq = (double*)malloc0(size * sizeof(fftw_complex));
     double* mag = (double*)malloc0(size * sizeof(double));
-    double* ana = (double*)malloc0(size * sizeof(WDSP_COMPLEX));
-    double* impulse = (double*)malloc0(size * sizeof(WDSP_COMPLEX));
-    double* newfreq = (double*)malloc0(size * sizeof(WDSP_COMPLEX));
-    memcpy(firpad, fir, N * sizeof(WDSP_COMPLEX));
+    double* ana = (double*)malloc0(size * sizeof(fftw_complex));
+    double* impulse = (double*)malloc0(size * sizeof(fftw_complex));
+    double* newfreq = (double*)malloc0(size * sizeof(fftw_complex));
+    memcpy(firpad, fir, N * sizeof(fftw_complex));
     fftw_plan pfor = fftw_plan_dft_1d(size, (fftw_complex*)firpad,
         (fftw_complex*)firfreq, FFTW_FORWARD, FFTW_PATIENT);
     fftw_plan prev = fftw_plan_dft_1d(size, (fftw_complex*)newfreq,
@@ -342,10 +334,9 @@ void mp_imp(int N, double* fir, double* mpfir, int pfactor, int polarity) {
     }
     fftw_execute(prev);
     if (polarity)
-        memcpy(
-            mpfir, &impulse[2 * (pfactor - 1) * N], N * sizeof(WDSP_COMPLEX));
+        memcpy(mpfir, &impulse[2 * (pfactor - 1) * N], N * sizeof(fftw_complex));
     else
-        memcpy(mpfir, impulse, N * sizeof(WDSP_COMPLEX));
+        memcpy(mpfir, impulse, N * sizeof(fftw_complex));
     // print_impulse("min_imp.txt", N, mpfir, 1, 0);
     fftw_destroy_plan(prev);
     fftw_destroy_plan(pfor);

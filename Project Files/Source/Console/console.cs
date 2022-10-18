@@ -13530,8 +13530,8 @@ public void SetTXFilters(DSPMode mode, int low, int high) {
                break;
            case DSPMode.FM:
                if (radio.GetDSPTX(0).TXFMDeviation == 5000) {
-                   l = -8000;
-                   h = 8000;
+                   l = -18000;
+                   h = 18000;
                } else if (radio.GetDSPTX(0).TXFMDeviation == 2500) {
                    l = -5500;
                    h = 5500;
