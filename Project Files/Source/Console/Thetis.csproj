@@ -300,6 +300,7 @@
     <Compile Include="Andromeda\FilterButtonsPopup.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="FormRestore.cs" />
     <Compile Include="frmNotchPopup.cs">
       <SubType>Form</SubType>
     </Compile>

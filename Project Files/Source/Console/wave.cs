@@ -1081,29 +1081,7 @@ public class WaveControl : Form {
   public static int QAC = 0; // ke9ns add
 
   private void chkQuickPlay_CheckedChanged(object sender, System.EventArgs e) {
-    string file_name; // = console.AppDataPath + "\\SDRQuickAudio.wav";
-
-    //             if (chkQuickAudioFolder.Checked == true) // ke9ns add to allow subfolder with
-    //             different names to play
-    //             {
-    //                 System.IO.Directory.CreateDirectory(console.AppDataPath + "QuickAudio"); //
-    //                 ke9ns create sub directory
-    //
-    //                 if (QPFile != null)
-    //                 {
-    //                     m_file_name = QPFile; // ke9ns check file name passed from console play
-    //                     button
-    //                 }
-    //                 else
-    //                 {
-    //                     m_file_name = console.AppDataPath + "QuickAudio" + "\\SDRQuickAudio" +
-    //                     QAC.ToString() + ".wav";
-    //                 }
-    //             }
-    //             else
-    //             {
-    file_name = console.AppDataPath + "SDRQuickAudio.wav";
-    //           }
+    string file_name = console.AppDataPath + "\\SDRQuickAudio.wav";
 
     if (chkQuickPlay.Checked) {
       temp_txeq = console.TXEQ;
@@ -2108,7 +2086,6 @@ unsafe public class WaveFileWriter {
   private BinaryWriter writer;
   private bool record;
   private short channels;
-  public bool recordMp3 = true;
   private short format_tag;
   private short bit_depth;
   private UInt32
@@ -2254,18 +2231,10 @@ unsafe public class WaveFileWriter {
 
   unsafe public void AddWriteBuffer(float *left, float *right, int nsamps) {
 
-    if (!this.recordMp3) {
+
       rb_l.WritePtr(left, nsamps);
       rb_r.WritePtr(right, nsamps);
-    } else {
-      byte[] buffer = new byte[8192];
-      var nbytes = nsamps * sizeof(float);
-      // System.Runtime.InteropServices.Marshal.Copy(new IntPtr(left), buffer, 0, nbytes);
-      //_audioWriter.Write(buffer, 0, nsamps * sizeof(float));
-      // NAudio.Wave.MediaFoundationEncoder.EncodeToMp3(
-      //    new NAudio.Wave.RawSourceWaveStream(_audioStream, _audioWriter.WaveFormat), "Test.mp3",
-      //    320000);
-    }
+
   }
 
   public string Stop() {

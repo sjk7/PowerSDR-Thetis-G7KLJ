@@ -8670,6 +8670,9 @@ Ctrl + Right Click on any Band Button adds to Stack</value>
   <data name="mnuShowNewConsole.Text" xml:space="preserve">
     <value>Show New Console</value>
   </data>
+  <data name="mnuShowNewConsole.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="setupToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>49, 20</value>
   </data>
@@ -8838,85 +8841,85 @@ Ctrl + Right Click on any Band Button adds to Stack</value>
     <value>False</value>
   </data>
   <data name="bandtoolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="bandtoolStripMenuItem1.Text" xml:space="preserve">
     <value>160</value>
   </data>
   <data name="bandtoolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="bandtoolStripMenuItem2.Text" xml:space="preserve">
     <value>80</value>
   </data>
   <data name="bandtoolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="bandtoolStripMenuItem3.Text" xml:space="preserve">
     <value>60</value>
   </data>
   <data name="bandtoolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="bandtoolStripMenuItem4.Text" xml:space="preserve">
     <value>40</value>
   </data>
   <data name="bandtoolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="bandtoolStripMenuItem5.Text" xml:space="preserve">
     <value>30</value>
   </data>
   <data name="bandtoolStripMenuItem14.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="bandtoolStripMenuItem14.Text" xml:space="preserve">
     <value>20</value>
   </data>
   <data name="bandtoolStripMenuItem7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="bandtoolStripMenuItem7.Text" xml:space="preserve">
     <value>17</value>
   </data>
   <data name="bandtoolStripMenuItem8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="bandtoolStripMenuItem8.Text" xml:space="preserve">
     <value>15</value>
   </data>
   <data name="bandtoolStripMenuItem9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="bandtoolStripMenuItem9.Text" xml:space="preserve">
     <value>12</value>
   </data>
   <data name="bandtoolStripMenuItem10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="bandtoolStripMenuItem10.Text" xml:space="preserve">
     <value>10</value>
   </data>
   <data name="bandtoolStripMenuItem11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="bandtoolStripMenuItem11.Text" xml:space="preserve">
     <value>6</value>
   </data>
   <data name="bandtoolStripMenuItem12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="bandtoolStripMenuItem12.Text" xml:space="preserve">
     <value>WWV</value>
   </data>
   <data name="bandtoolStripMenuItem13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="bandtoolStripMenuItem13.Text" xml:space="preserve">
     <value>GEN</value>
   </data>
   <data name="showNewConsoleToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="showNewConsoleToolStripMenuItem.Text" xml:space="preserve">
     <value>Show new Console</value>
@@ -8931,73 +8934,73 @@ Ctrl + Right Click on any Band Button adds to Stack</value>
     <value>False</value>
   </data>
   <data name="lSBToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="lSBToolStripMenuItem.Text" xml:space="preserve">
     <value>LSB</value>
   </data>
   <data name="uSBToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="uSBToolStripMenuItem.Text" xml:space="preserve">
     <value>USB</value>
   </data>
   <data name="dSBToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="dSBToolStripMenuItem.Text" xml:space="preserve">
     <value>DSB</value>
   </data>
   <data name="cWLToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="cWLToolStripMenuItem.Text" xml:space="preserve">
     <value>CWL</value>
   </data>
   <data name="cWUToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="cWUToolStripMenuItem.Text" xml:space="preserve">
     <value>CWU</value>
   </data>
   <data name="fMToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="fMToolStripMenuItem.Text" xml:space="preserve">
     <value>FM</value>
   </data>
   <data name="aMToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="aMToolStripMenuItem.Text" xml:space="preserve">
     <value>AM</value>
   </data>
   <data name="sAMToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="sAMToolStripMenuItem.Text" xml:space="preserve">
     <value>SAM</value>
   </data>
   <data name="sPECToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="sPECToolStripMenuItem.Text" xml:space="preserve">
     <value>SPEC</value>
   </data>
   <data name="dIGLToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="dIGLToolStripMenuItem.Text" xml:space="preserve">
     <value>DIGL</value>
   </data>
   <data name="dIGUToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="dIGUToolStripMenuItem.Text" xml:space="preserve">
     <value>DIGU</value>
   </data>
   <data name="dRMToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="dRMToolStripMenuItem.Text" xml:space="preserve">
     <value>DRM</value>
@@ -9012,61 +9015,61 @@ Ctrl + Right Click on any Band Button adds to Stack</value>
     <value>False</value>
   </data>
   <data name="FilterToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="FilterToolStripMenuItem1.Text" xml:space="preserve">
     <value>6.0k</value>
   </data>
   <data name="FilterToolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="FilterToolStripMenuItem2.Text" xml:space="preserve">
     <value>4.0k</value>
   </data>
   <data name="FilterToolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="FilterToolStripMenuItem3.Text" xml:space="preserve">
     <value>2.6k</value>
   </data>
   <data name="FilterToolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="FilterToolStripMenuItem4.Text" xml:space="preserve">
     <value>2.1k</value>
   </data>
   <data name="FilterToolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="FilterToolStripMenuItem5.Text" xml:space="preserve">
     <value>1.0k</value>
   </data>
   <data name="FilterToolStripMenuItem6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="FilterToolStripMenuItem6.Text" xml:space="preserve">
     <value>500</value>
   </data>
   <data name="FilterToolStripMenuItem7.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="FilterToolStripMenuItem7.Text" xml:space="preserve">
     <value>250</value>
   </data>
   <data name="FilterToolStripMenuItem8.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="FilterToolStripMenuItem8.Text" xml:space="preserve">
     <value>100</value>
   </data>
   <data name="FilterToolStripMenuItem9.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="FilterToolStripMenuItem9.Text" xml:space="preserve">
     <value>50</value>
   </data>
   <data name="FilterToolStripMenuItem10.Size" type="System.Drawing.Size, System.Drawing">
-    <value>95, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="FilterToolStripMenuItem10.Text" xml:space="preserve">
     <value>25</value>
@@ -9380,8 +9383,11 @@ Ctrl + Right Click on any Band Button adds to Stack</value>
   <data name="pIToolStripMenuItem.Text" xml:space="preserve">
     <value>PI</value>
   </data>
+  <data name="pIToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="BPF1ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="BPF1ToolStripMenuItem.Text" xml:space="preserve">
     <value>BPF-1 @ ByPass</value>
@@ -9390,7 +9396,7 @@ Ctrl + Right Click on any Band Button adds to Stack</value>
     <value>BandPass Filter #1 ByPass Mode</value>
   </data>
   <data name="BPF2ToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>158, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="BPF2ToolStripMenuItem.Text" xml:space="preserve">
     <value>BPF-2 @ ByPass</value>
@@ -9403,6 +9409,9 @@ Ctrl + Right Click on any Band Button adds to Stack</value>
   </data>
   <data name="BPFToolStripMenuItem.Text" xml:space="preserve">
     <value>BPF</value>
+  </data>
+  <data name="BPFToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="menuStrip1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>

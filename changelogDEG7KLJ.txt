@@ -1,5 +1,11 @@
 Fixed:
 
+Pretty S Meter position when display collapsed, etc
+
+Custom Window Title now obeys settings
+
+QuickRecord and playback now works!
+
 17/10/2022:
 Improved further start-up time. Mostly by CPU monitor on a background thread as it can take upwards of 5 seconds to create,
 and this is no reason to hang the loading process. The CPU % display is not important enough not to defer on a background thread.

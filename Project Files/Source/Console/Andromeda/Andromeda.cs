@@ -1782,6 +1782,8 @@ namespace Thetis
             }
         }
 
+        
+
         //
         // handle a button press from a front panel physical button, sent by CAT command
         // button = 0-98

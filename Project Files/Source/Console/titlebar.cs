@@ -29,6 +29,7 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Forms;
 
 namespace Thetis
@@ -52,6 +53,10 @@ namespace Thetis
         
         }
 
+        static string m_customText = "";
+        
+   
+
         public static DateTime BuildDate()
         {
             //System.IntPtr verText = cmaster.Build_date();
@@ -62,6 +67,8 @@ namespace Thetis
         }
 
         private static string m_sTitleString = "";
+
+        public static string CustomText { get => m_customText; set => m_customText = value; }
 
         public static string GetString()
         {
@@ -86,10 +93,18 @@ namespace Thetis
         public static string GetStringPlusUptime()
         {
 
-            String retval = m_sTitleString;
-            retval += "    [UPTIME: ";
-            retval += UpTime();
-            retval += "]";
+            String retval = TitleBar.CustomText;
+            if (String.IsNullOrEmpty(retval))
+            {
+                retval = m_sTitleString;
+                retval += "    [UPTIME: ";
+                retval += UpTime();
+                retval += "]";
+            }
+            else
+            {
+                retval = TitleBar.CustomText;
+            }
             return retval;
         }
     }

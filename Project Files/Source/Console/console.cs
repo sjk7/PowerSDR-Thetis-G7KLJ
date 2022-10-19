@@ -1445,7 +1445,8 @@ static void Main(string[] args) {
                if (Directory.Exists(path))
                    app_data_path = path;
                else {
-                   DialogResult dr = MessageBox.Show(
+
+                   DialogResult dr = MessageBox.Show(Splash.form(),
                        "-datapath: command line option found, but the folder specified was not found.\n"
                            + "Would you like to create this folder?  If not, the default folder will be used.\n\n"
                            + "(" + path + ")",
@@ -11651,7 +11652,7 @@ private static bool CheckForOpenProcesses() {
             // find all open Thetis processes
             Process[] p = Process.GetProcessesByName("Thetis");
             if (p.Length > 1) {
-           DialogResult dr = MessageBox.Show(
+           DialogResult dr = MessageBox.Show(Splash.form(),
                "There are other Thetis instances running.\n"
                    + "Are you sure you want to continue?",
                "Continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -46041,31 +46042,55 @@ public Image PrettySMeterSkin() {
 
 private void SizeAndPositionAnalogSMeter() {
 
-            var gap = this.panelBandHF.Top - grpMultimeterMenus.Bottom;
-            PrettySMeter.ToggleBackGroundImage(
-                Thetis.Properties.Settings.Default.SMeterBackgroundImg);
+            if (!this.collapsedDisplay)
+            {
+                var gap = this.panelBandHF.Top - grpMultimeterMenus.Bottom;
+                PrettySMeter.ToggleBackGroundImage(
+                    Thetis.Properties.Settings.Default.SMeterBackgroundImg);
 
-            if (gap >= 100) {
-           if (PrettySMeter.m_console == null) {
-               PrettySMeter.m_console = this;
-           }
-           // goes under grpMultiMeterMenus
-           var top = this.grpMultimeterMenus.Bottom;
-           // this.picSMeter.Top = top;
-           PrettySMeter.Left = grpMultimeterMenus.Left;
-           PrettySMeter.Top = top;
-           PrettySMeter.Visible = true;
-           PrettySMeter.Width = grpMultimeterMenus.Width;
-           PrettySMeter.Height = 103;
-           PrettySMeter.Left = grpMultimeterMenus.Right - PrettySMeter.Width;
-
-           // PrettySMeter.BringToFront();
-            } else {
-           PrettySMeter.Visible = false;
+                if (gap >= 100)
+                {
+                    if (PrettySMeter.m_console == null)
+                    {
+                        PrettySMeter.m_console = this;
+                    }
+                    // goes under grpMultiMeterMenus
+                    var top = this.grpMultimeterMenus.Bottom;
+                    PrettySMeter.Top = top;
+                    PrettySMeter.Visible = true;
+                    PrettySMeter.Width = grpMultimeterMenus.Width;
+                    PrettySMeter.Height = 103;
+                    PrettySMeter.Left = grpMultimeterMenus.Right - PrettySMeter.Width;
+                }
+                else
+                {
+                    PrettySMeter.Visible = false;
+                }
             }
+            else
+            {
+                PrettySMeter.Visible = false;
+                if (this.Width >= 1460 && SetupForm.chkShowAndromedaBar.Checked == false && m_bShowTopControls== true)
+                {
+                    Control mut = grpVFOA;
+                    if (chkRX2.Checked)
+                        mut = grpVFOB;
+                    var border = 10;
+                    var gap = grpMultimeterMenus.Left - mut.Right;
+                    PrettySMeter.Height = 103;
+                    PrettySMeter.Left = picMultiMeterDigital.Left - PrettySMeter.Width - border;
+                    PrettySMeter.Width = grpMultimeterMenus.Width;
+                    PrettySMeter.Top = 10;
+                    PrettySMeter.Visible = true;
+                         
+                }
+
+            }
+
 }
 
-private void Console_Resize(object sender, System.EventArgs e) {
+
+        private void Console_Resize(object sender, System.EventArgs e) {
             doResize();
 }
 
@@ -47562,7 +47587,10 @@ public bool ShowTopControls {
                    SetupForm.chkShowAndromedaTop.Checked = false;
 
            if (this.CollapsedDisplay) this.CollapseDisplay();
+                this.SizeAndPositionAnalogSMeter();
             }
+
+            
 }
 
 private bool m_bShowBandControls = true;
@@ -48188,6 +48216,7 @@ private void ExpandDisplay() {
             radRX2ModeDIGU.Location = rad_RX2mode_digu_basis;
             radRX2ModeDRM.Location = rad_RX2mode_drm_basis;
 
+            doResize();
             ResumeDrawing(this);
 }
 
@@ -48804,6 +48833,7 @@ public void CollapseDisplay() {
             this.Size
                 = new Size(SetupForm.CollapsedWidth, SetupForm.CollapsedHeight);
 
+            SizeAndPositionAnalogSMeter();
             ResumeDrawing(this);
 }
 

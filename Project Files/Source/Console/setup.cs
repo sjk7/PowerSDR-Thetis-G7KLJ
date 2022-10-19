@@ -11207,12 +11207,7 @@ public partial class Setup : Form {
 
     private void txtGenCustomTitle_TextChanged(
         object sender, System.EventArgs e) {
-        string title = console.Text;
-        int index = title.IndexOf("   --   ");
-        if (index >= 0) title = title.Substring(0, index);
-        if (!string.IsNullOrEmpty(txtGenCustomTitle.Text))
-            title += "   --   " + txtGenCustomTitle.Text;
-        console.Text = title;
+            Thetis.TitleBar.CustomText = txtGenCustomTitle.Text;
     }
 
     private void chkGenAllModeMicPTT_CheckedChanged(

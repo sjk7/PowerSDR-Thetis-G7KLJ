@@ -281,6 +281,11 @@ public class Splash : System.Windows.Forms.Form {
         ms_oThread.Start();
     }
 
+        static public Form form()
+        {
+            return ms_frmSplash;
+        }
+
         static public void ShowAgain()
         {
             if (ms_frmSplash != null)
