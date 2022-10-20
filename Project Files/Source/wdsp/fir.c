@@ -24,7 +24,6 @@ warren@wpratt.com
 
 */
 
-#define _CRT_SECURE_NO_WARNINGS
 #include "comm.h"
 
 double* fftcv_mults(int NM, double* c_impulse) {
@@ -180,7 +179,8 @@ double* fir_bandpass(int N, double f_low, double f_high, double samplerate,
     double delta = PI / m;
     double cosphi;
     double posi, posj;
-    double sinc, window, coef;
+    double sinc, coef;
+    double window = 0.0;
 
     if (N & 1) {
         switch (rtype) {
@@ -256,6 +256,7 @@ double* fir_read(int N, const char* filename, int rtype, double scale)
         // read in the fftw_complex impulse response
         // NOTE:  IF the freq response is symmetrical about 0, the imag coeffs
         // will all be zero.
+#pragma warning(disable : 6031)
         switch (rtype) {
             case 0:
                 fscanf(file, "%le", &I);
@@ -269,6 +270,7 @@ double* fir_read(int N, const char* filename, int rtype, double scale)
                 break;
         }
     }
+#pragma warning(default : 6031)
     fclose(file);
     return c_impulse;
 }

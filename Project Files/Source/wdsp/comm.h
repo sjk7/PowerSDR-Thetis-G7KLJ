@@ -29,6 +29,12 @@ warren@wpratt.com
 
 */
 
+#ifdef _MSC_VER
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#endif // _CRT_SECURE_NO_WARNINGS
+#endif
+
 #include <float.h> // DBL_EPSILON & friends. G7KLJ
 
 #include "../ChannelMaster/debug_flags.h"
