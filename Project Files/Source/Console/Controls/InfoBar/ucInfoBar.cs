@@ -82,10 +82,10 @@ namespace Thetis
         private int[] _right2Width;
         private int[] _right3Width;
 
-        private frmInfoBarPopup _frmInfoBarPopup_Button1;
+       // private frmInfoBarPopup _frmInfoBarPopup_Button1;
         private ToolStripDropDown _toolStripForm_Button1;
         private ToolStripControlHost _host_Button1;
-        private frmInfoBarPopup _frmInfoBarPopup_Button2;
+       // private frmInfoBarPopup _frmInfoBarPopup_Button2;
         private ToolStripDropDown _toolStripForm_Button2;
         private ToolStripControlHost _host_Button2;
         private Cursor _oldCursor;
@@ -224,6 +224,7 @@ namespace Thetis
             _button2Action = new ActionState() { Action = ActionTypes.ActivePeaks };
             //
 
+            /*/
             _frmInfoBarPopup_Button1 = new frmInfoBarPopup();
             _frmInfoBarPopup_Button1.ActionClicked += OnActionClicked_Button1;
             _frmInfoBarPopup_Button1.TopLevel = false;
@@ -231,11 +232,12 @@ namespace Thetis
             _frmInfoBarPopup_Button2 = new frmInfoBarPopup();
             _frmInfoBarPopup_Button2.ActionClicked += OnActionClicked_Button2;
             _frmInfoBarPopup_Button2.TopLevel = false;
-
+           
             _host_Button1 = new ToolStripControlHost(_frmInfoBarPopup_Button1);
             _toolStripForm_Button1 = new ToolStripDropDown();
             _host_Button2 = new ToolStripControlHost(_frmInfoBarPopup_Button2);
             _toolStripForm_Button2 = new ToolStripDropDown();
+             /*/
             //
 
             lblSplitter.BackColor = Color.Silver;
@@ -264,6 +266,7 @@ namespace Thetis
             ActionState tmp = new ActionState() { Action = action };
             return tmp.DisplayString;
         }
+        /*/
         private void OnActionClicked_Button1(object sender, frmInfoBarPopup.PopupActionSelected e)
         {
             if(e.Button == MouseButtons.Left)
@@ -304,6 +307,7 @@ namespace Thetis
 
             _toolStripForm_Button2.Hide();
         }
+        /*/
         private void doAction(int button, ActionTypes action, bool bState, MouseButtons mouseButton)
         {
             if (_preventClickEvents) return;
@@ -332,6 +336,7 @@ namespace Thetis
             }
         }
 
+        /*/
         private void addPopup(frmInfoBarPopup frm, ToolStripControlHost host, ToolStripDropDown dropDown) 
         {
             // build the popup
@@ -350,7 +355,7 @@ namespace Thetis
 
             dropDown.Closed += OnPopupClosed;
         }
-
+        /*/
         ~ucInfoBar()
         {
             ShutDown();
@@ -360,7 +365,7 @@ namespace Thetis
         }
         public void ShutDown()
         {
-            if(_console != null) _console.MoxChangeHandlers -= OnMoxChangeHandler;
+           // if(_console != null) _console.MoxChangeHandlers -= OnMoxChangeHandler;
 
             _shutDown = true;
             if (_psTimer != null)
@@ -375,11 +380,13 @@ namespace Thetis
                 _warningTimer.Elapsed -= onWarning;
                 _warningTimer = null;
             }
+            /*/
             if (_frmInfoBarPopup_Button1 != null)
             {
                 _frmInfoBarPopup_Button1.Close();
                 _frmInfoBarPopup_Button1 = null;
             }
+            /*/
         }
         private void onWarning(object sender, System.Timers.ElapsedEventArgs e)
         {
@@ -460,7 +467,7 @@ namespace Thetis
         {
             _console = c;
 
-            _console.MoxChangeHandlers += OnMoxChangeHandler;
+            // _console.MoxChangeHandlers += OnMoxChangeHandler;
 
             // clear everything
             for (int i = 0; i < MAX_FLIP; i++)
@@ -481,12 +488,13 @@ namespace Thetis
             _preventClickEvents = false;
             PSAEnabled = false;
 
+            /*/
             _frmInfoBarPopup_Button1.SetStates(_button1Actions, _button1Action, _button2Action);
             _frmInfoBarPopup_Button2.SetStates(_button2Actions, _button1Action, _button2Action);
 
             addPopup(_frmInfoBarPopup_Button1, _host_Button1, _toolStripForm_Button1);
             addPopup(_frmInfoBarPopup_Button2, _host_Button2, _toolStripForm_Button2);
-
+            /*/
             updateLabels();
             setToolTips();
         }
@@ -534,12 +542,14 @@ namespace Thetis
             _button1Actions[action].Checked = bEnabled;
             _button2Actions[action].Checked = bEnabled;
 
+            /*/
             if (bIncludePopup)
             {
                 // udpate the drop menus, if any have this action
                 _frmInfoBarPopup_Button1.SetStates(_button1Actions, _button1Action, _button2Action);
                 _frmInfoBarPopup_Button2.SetStates(_button2Actions, _button1Action, _button2Action);
             }
+            /*/
 
             // set the state of the main infobar buttons1 and button2 if they are this action
             if (_button1Action.Action == action)
@@ -573,8 +583,10 @@ namespace Thetis
                 lblRight3.BackColor = value;
                 lblWarning.BackColor = value;
 
+                /*/
                 if(_frmInfoBarPopup_Button1 != null) _frmInfoBarPopup_Button1.BackColor = value;
                 if (_frmInfoBarPopup_Button2 != null) _frmInfoBarPopup_Button2.BackColor = value;
+                /*/
             }
         }
         public override Color ForeColor
@@ -876,6 +888,7 @@ namespace Thetis
 
         private void chkButton1_MouseDown(object sender, MouseEventArgs e)
         {
+            /*/
             if (IsRightButton(e))
             {
                 if (Common.ShiftKeyDown)
@@ -889,6 +902,7 @@ namespace Thetis
                 }
                 else
                 {
+
                     if (_frmInfoBarPopup_Button1 != null)
                     {
                         if (_frmInfoBarPopup_Button1 != null && _frmInfoBarPopup_Button1.HasButtons)
@@ -896,10 +910,12 @@ namespace Thetis
                     }
                 }
             }
+            /*/
         }
 
         private void chkButton2_MouseDown(object sender, MouseEventArgs e)
         {
+            /*/
             if (IsRightButton(e))
             {
                 if (Common.ShiftKeyDown)
@@ -920,6 +936,7 @@ namespace Thetis
                     }
                 }
             }
+            /*/
         }
 
         private bool IsRightButton(MouseEventArgs e)
@@ -932,7 +949,7 @@ namespace Thetis
             if(e.Button == MouseButtons.Left)
             {
                 // swap red/blue
-                SwapRedBlue = !puresignal.InvertRedBlue;
+                // SwapRedBlue = !puresignal.InvertRedBlue;
             }
             else if(e.Button == MouseButtons.Right)
             {
@@ -941,6 +958,7 @@ namespace Thetis
             }
         }
 
+        /*/
         public bool SwapRedBlue
         {
             get { return puresignal.InvertRedBlue; }
@@ -953,6 +971,7 @@ namespace Thetis
                 if (bChanged) SwapRedBlueChanged?.Invoke(this, EventArgs.Empty);
             }
         }
+        /*/
         public bool HideFeedback
         {
             get { return _hideFeedback; }
@@ -973,6 +992,7 @@ namespace Thetis
             if (!HideFeedback)
                 fb = "Showing level, ";
 
+            /*/
             if (puresignal.InvertRedBlue)
             {
                 toolTip1.SetToolTip(lblFB, fb + "Blue 0-90, Yellow 91-128, Green 129-181, Red 182+");
@@ -981,6 +1001,7 @@ namespace Thetis
             {
                 toolTip1.SetToolTip(lblFB, fb + "Red 0-90, Yellow 91-128, Green 129-181, Blue 182+");
             }
+            /*/
         }
 
         private void replaceMainButton(int button, ActionTypes action, bool bState, MouseButtons mouseButton)
@@ -1002,6 +1023,7 @@ namespace Thetis
         }
         public CheckBoxTS GetPopupButton(int infoBarButton, int index)
         {
+            /*/
             if(infoBarButton == 1)
             {
                 if (_frmInfoBarPopup_Button1 == null) return null;
@@ -1012,6 +1034,7 @@ namespace Thetis
                 if (_frmInfoBarPopup_Button2 == null) return null;
                 return _frmInfoBarPopup_Button2.GetPopupButton(index);
             }
+            /*/
             return null;
         }
 
@@ -1139,6 +1162,16 @@ namespace Thetis
         {
             get { return _splitterRatio; }
             set { _splitterRatio = value; }
+        }
+
+        private void lblPageNo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblWarning_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

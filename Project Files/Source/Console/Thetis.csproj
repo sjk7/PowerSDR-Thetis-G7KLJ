@@ -295,6 +295,12 @@
     <Compile Include="Andromeda\displaysettingsform.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Controls\InfoBar\ucInfoBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\InfoBar\ucInfoBar.Designer.cs">
+      <DependentUpon>ucInfoBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dumpcap.cs" />
     <Compile Include="enums.cs" />
     <Compile Include="Andromeda\FilterButtonsPopup.cs">
@@ -621,6 +627,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Andromeda\FilterButtonsPopup.resx">
       <DependentUpon>FilterButtonsPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\InfoBar\ucInfoBar.resx">
+      <DependentUpon>ucInfoBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmNotchPopup.resx">
       <DependentUpon>frmNotchPopup.cs</DependentUpon>

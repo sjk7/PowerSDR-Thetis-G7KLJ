@@ -274,8 +274,12 @@ public class Splash : System.Windows.Forms.Form {
     // A static method to create the thread and
     // launch the SplashScreen.
     static public void ShowSplashScreen() {
-        // Make sure it is only launched once.
-        if (ms_frmSplash != null) return;
+            // Make sure it is only launched once.
+            if (ms_frmSplash != null)
+            {
+                ShowAgain();
+                return;
+            }
         ms_oThread = new Thread(new ThreadStart(
             ShowForm)) { IsBackground = true, Name = "Splash Screen Thread" };
         ms_oThread.Start();

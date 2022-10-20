@@ -902,6 +902,10 @@ namespace Thetis
         #endregion
 
         #region public methods
+
+
+
+
         public static int[] Info = new int[16];
         private static int[] oldInfo = new int[16];
         public static void GetInfo(int txachannel)

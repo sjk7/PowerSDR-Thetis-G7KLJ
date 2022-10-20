@@ -8,7 +8,6 @@ partial class Console {
     public System.Windows.Forms.TextBoxTS txtVFOAFreq;
     private System.Windows.Forms.TextBoxTS txtVFOABand;
     private System.Windows.Forms.TextBoxTS txtVFOBFreq;
-    public System.Windows.Forms.PictureBox picDisplay;
     private System.Windows.Forms.GroupBoxTS grpVFOA;
     private System.Windows.Forms.GroupBoxTS grpVFOB;
     private System.Windows.Forms.TextBoxTS txtVFOBBand;
@@ -1062,7 +1061,6 @@ partial class Console {
             this.txtDisplayPeakPower = new System.Windows.Forms.TextBoxTS();
             this.txtDisplayPeakFreq = new System.Windows.Forms.TextBoxTS();
             this.lblDisplayPan = new System.Windows.Forms.LabelTS();
-            this.picDisplay = new System.Windows.Forms.PictureBox();
             this.txtDisplayCursorPower = new System.Windows.Forms.TextBoxTS();
             this.txtDisplayCursorFreq = new System.Windows.Forms.TextBoxTS();
             this.txtDisplayOrionMKIIPAAmps = new System.Windows.Forms.TextBoxTS();
@@ -1141,6 +1139,8 @@ partial class Console {
             this.lblAndromedaEncoderSlider = new System.Windows.Forms.LabelTS();
             this.lblATUTuneLabel = new System.Windows.Forms.LabelTS();
             this.tmrPrettySMeter = new System.Windows.Forms.Timer(this.components);
+            this.picDisplay = new System.Windows.Forms.PictureBox();
+            this.ucInfoBar1 = new Thetis.ucInfoBar();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udFilterHigh)).BeginInit();
@@ -1222,7 +1222,6 @@ partial class Console {
             this.grpVACStereo.SuspendLayout();
             this.grpDIGSampleRate.SuspendLayout();
             this.panelDisplay.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             this.panelMode.SuspendLayout();
             this.panelBandHF.SuspendLayout();
             this.grpVFOA.SuspendLayout();
@@ -1240,6 +1239,7 @@ partial class Console {
             this.grpMultimeterMenus.SuspendLayout();
             this.panelAndromedaMisc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbAndromedaEncoderSlider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             this.SuspendLayout();
             // 
             // timer_cpu_meter
@@ -6379,31 +6379,33 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelDisplay, "panelDisplay");
             this.panelDisplay.BackColor = System.Drawing.Color.Transparent;
-            this.panelDisplay.Controls.Add(this.txtOverload);
+            this.panelDisplay.Controls.Add(this.ucInfoBar1);
             this.panelDisplay.Controls.Add(this.radDisplayZoom4x);
             this.panelDisplay.Controls.Add(this.radDisplayZoom2x);
             this.panelDisplay.Controls.Add(this.radDisplayZoom1x);
             this.panelDisplay.Controls.Add(this.radDisplayZoom05);
             this.panelDisplay.Controls.Add(this.ptbDisplayZoom);
             this.panelDisplay.Controls.Add(this.ptbDisplayPan);
-            this.panelDisplay.Controls.Add(this.txtDisplayPeakOffset);
             this.panelDisplay.Controls.Add(this.lblDisplayZoom);
-            this.panelDisplay.Controls.Add(this.txtDisplayPeakPower);
             this.panelDisplay.Controls.Add(this.btnDisplayPanCenter);
-            this.panelDisplay.Controls.Add(this.txtDisplayPeakFreq);
             this.panelDisplay.Controls.Add(this.lblDisplayPan);
-            this.panelDisplay.Controls.Add(this.picDisplay);
+            this.panelDisplay.Controls.Add(this.txtOverload);
+            this.panelDisplay.Controls.Add(this.PrettySMeter);
+            this.panelDisplay.Controls.Add(this.txtDisplayPeakOffset);
+            this.panelDisplay.Controls.Add(this.txtDisplayPeakPower);
+            this.panelDisplay.Controls.Add(this.txtDisplayPeakFreq);
             this.panelDisplay.Controls.Add(this.txtDisplayCursorPower);
             this.panelDisplay.Controls.Add(this.txtDisplayCursorFreq);
             this.panelDisplay.Controls.Add(this.txtDisplayOrionMKIIPAAmps);
             this.panelDisplay.Controls.Add(this.txtDisplayOrionMKIIBlank);
             this.panelDisplay.Controls.Add(this.txtDisplayCursorOffset);
             this.panelDisplay.Controls.Add(this.txtDisplayOrionMKIIPAVolts);
+            this.panelDisplay.Controls.Add(this.picDisplay);
             this.panelDisplay.Name = "panelDisplay";
             // 
             // txtOverload
             // 
-            this.txtOverload.BackColor = System.Drawing.Color.Black;
+            this.txtOverload.BackColor = System.Drawing.Color.Gainsboro;
             this.txtOverload.BorderStyle = System.Windows.Forms.BorderStyle.None;
             resources.ApplyResources(this.txtOverload, "txtOverload");
             this.txtOverload.ForeColor = System.Drawing.Color.Red;
@@ -6412,7 +6414,7 @@ partial class Console {
             // 
             // txtDisplayPeakOffset
             // 
-            this.txtDisplayPeakOffset.BackColor = System.Drawing.Color.Black;
+            this.txtDisplayPeakOffset.BackColor = System.Drawing.Color.Gainsboro;
             this.txtDisplayPeakOffset.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDisplayPeakOffset.Cursor = System.Windows.Forms.Cursors.Default;
             resources.ApplyResources(this.txtDisplayPeakOffset, "txtDisplayPeakOffset");
@@ -6429,7 +6431,7 @@ partial class Console {
             // 
             // txtDisplayPeakPower
             // 
-            this.txtDisplayPeakPower.BackColor = System.Drawing.Color.Black;
+            this.txtDisplayPeakPower.BackColor = System.Drawing.Color.Gainsboro;
             this.txtDisplayPeakPower.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDisplayPeakPower.Cursor = System.Windows.Forms.Cursors.Default;
             resources.ApplyResources(this.txtDisplayPeakPower, "txtDisplayPeakPower");
@@ -6439,7 +6441,7 @@ partial class Console {
             // 
             // txtDisplayPeakFreq
             // 
-            this.txtDisplayPeakFreq.BackColor = System.Drawing.Color.Black;
+            this.txtDisplayPeakFreq.BackColor = System.Drawing.Color.Gainsboro;
             this.txtDisplayPeakFreq.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDisplayPeakFreq.Cursor = System.Windows.Forms.Cursors.Default;
             resources.ApplyResources(this.txtDisplayPeakFreq, "txtDisplayPeakFreq");
@@ -6453,24 +6455,9 @@ partial class Console {
             resources.ApplyResources(this.lblDisplayPan, "lblDisplayPan");
             this.lblDisplayPan.Name = "lblDisplayPan";
             // 
-            // picDisplay
-            // 
-            this.picDisplay.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.picDisplay, "picDisplay");
-            this.picDisplay.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.picDisplay.Name = "picDisplay";
-            this.picDisplay.TabStop = false;
-            this.picDisplay.Paint += new System.Windows.Forms.PaintEventHandler(this.picDisplay_Paint);
-            this.picDisplay.DoubleClick += new System.EventHandler(this.picDisplay_DoubleClick);
-            this.picDisplay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseDown);
-            this.picDisplay.MouseLeave += new System.EventHandler(this.picDisplay_MouseLeave);
-            this.picDisplay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseMove);
-            this.picDisplay.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseUp);
-            this.picDisplay.Resize += new System.EventHandler(this.picDisplay_Resize);
-            // 
             // txtDisplayCursorPower
             // 
-            this.txtDisplayCursorPower.BackColor = System.Drawing.Color.Black;
+            this.txtDisplayCursorPower.BackColor = System.Drawing.Color.Gainsboro;
             this.txtDisplayCursorPower.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDisplayCursorPower.Cursor = System.Windows.Forms.Cursors.Default;
             resources.ApplyResources(this.txtDisplayCursorPower, "txtDisplayCursorPower");
@@ -6480,7 +6467,7 @@ partial class Console {
             // 
             // txtDisplayCursorFreq
             // 
-            this.txtDisplayCursorFreq.BackColor = System.Drawing.Color.Black;
+            this.txtDisplayCursorFreq.BackColor = System.Drawing.Color.Gainsboro;
             this.txtDisplayCursorFreq.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDisplayCursorFreq.Cursor = System.Windows.Forms.Cursors.Default;
             resources.ApplyResources(this.txtDisplayCursorFreq, "txtDisplayCursorFreq");
@@ -6510,7 +6497,7 @@ partial class Console {
             // 
             // txtDisplayCursorOffset
             // 
-            this.txtDisplayCursorOffset.BackColor = System.Drawing.Color.Black;
+            this.txtDisplayCursorOffset.BackColor = System.Drawing.Color.Gainsboro;
             this.txtDisplayCursorOffset.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDisplayCursorOffset.Cursor = System.Windows.Forms.Cursors.Default;
             resources.ApplyResources(this.txtDisplayCursorOffset, "txtDisplayCursorOffset");
@@ -7278,12 +7265,37 @@ partial class Console {
             this.tmrPrettySMeter.Interval = 50;
             this.tmrPrettySMeter.Tick += new System.EventHandler(this.tmrPrettySMeter_Tick);
             // 
+            // picDisplay
+            // 
+            this.picDisplay.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.picDisplay, "picDisplay");
+            this.picDisplay.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.picDisplay.Name = "picDisplay";
+            this.picDisplay.TabStop = false;
+            this.picDisplay.Paint += new System.Windows.Forms.PaintEventHandler(this.picDisplay_Paint);
+            this.picDisplay.DoubleClick += new System.EventHandler(this.picDisplay_DoubleClick);
+            this.picDisplay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseDown);
+            this.picDisplay.MouseLeave += new System.EventHandler(this.picDisplay_MouseLeave);
+            this.picDisplay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseMove);
+            this.picDisplay.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseUp);
+            this.picDisplay.Resize += new System.EventHandler(this.picDisplay_Resize);
+            // 
+            // ucInfoBar1
+            // 
+            this.ucInfoBar1.BackColor = System.Drawing.Color.Gray;
+            this.ucInfoBar1.Button1Action = Thetis.ucInfoBar.ActionTypes.Blobs;
+            this.ucInfoBar1.Button2Action = Thetis.ucInfoBar.ActionTypes.ActivePeaks;
+            this.ucInfoBar1.CurrentFlip = 0;
+            resources.ApplyResources(this.ucInfoBar1, "ucInfoBar1");
+            this.ucInfoBar1.HideFeedback = false;
+            this.ucInfoBar1.Name = "ucInfoBar1";
+            this.ucInfoBar1.SplitterRatio = 1F;
+            // 
             // Console
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.Controls.Add(this.PrettySMeter);
+            this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.grpMultimeter);
             this.Controls.Add(this.panelFilter);
@@ -7432,7 +7444,6 @@ partial class Console {
             this.grpDIGSampleRate.ResumeLayout(false);
             this.panelDisplay.ResumeLayout(false);
             this.panelDisplay.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
             this.panelMode.ResumeLayout(false);
             this.panelBandHF.ResumeLayout(false);
             this.grpVFOA.ResumeLayout(false);
@@ -7454,6 +7465,7 @@ partial class Console {
             this.grpMultimeterMenus.ResumeLayout(false);
             this.panelAndromedaMisc.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbAndromedaEncoderSlider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -7586,5 +7598,7 @@ partial class Console {
     private Timer tmrPrettySMeter;
         private ToolStripMenuItem showNewConsoleToolStripMenuItem;
         private ToolStripMenuItem mnuShowNewConsole;
+        private ucInfoBar ucInfoBar1;
+        public PictureBox picDisplay;
     }
 }

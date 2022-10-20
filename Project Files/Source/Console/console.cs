@@ -1033,11 +1033,13 @@ public partial class Console : Form {
                                File.Delete(autoMergeFileName);
                                DB.WriteCurrentDB(m_db_file_name);
                                DB.Init();
+                                    Splash.HideForm();
                                MessageBox.Show(
                                    "Your database from a different version was imported successfully into a new one.\n\n"
                                        + versionName + " will now start.",
                                    "Success!", MessageBoxButtons.OK,
                                    MessageBoxIcon.Information);
+                                    Splash.ShowAgain();
                            } else {
                                File.Delete(m_db_file_name);
                                File.Delete(autoMergeFileName);
@@ -1084,7 +1086,7 @@ public partial class Console : Form {
                            MessageBox.Show(
                                "Your database file is from a different version.\nMerging it into a new database will now be attempted.\n\n"
                                    + "First your old database will be saved in DB_Archive folder,\nand a database reset will happen.\n\n"
-                                   + "Please RE-START when the reset finishes.",
+                                   + "Please RE-START this app when the reset finishes.",
                                "Note", MessageBoxButtons.OK,
                                MessageBoxIcon.Exclamation);
                                 Splash.ShowAgain();
@@ -1100,6 +1102,7 @@ public partial class Console : Form {
 
     InitializeComponent(); // Windows Forms Generated Code
     booting = false;
+            this.ucInfoBar1.BackColor = this.picDisplay.BackColor;
 
     GlobalMouseHandler gmh = new GlobalMouseHandler(); // capture mouse up event
     gmh.MouseUp += new MouseMovedEvent(gmh_MouseUp);
@@ -52643,9 +52646,14 @@ private void showNewConsole() {
 private void mnuShowNewConsole_Click(object sender, EventArgs e) {
             showNewConsole();
 }
-}
 
-public class DigiMode {
+        private void ucInfoBar1_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
+
+    public class DigiMode {
             public DigiMode() {}
 
             public bool DEXP { get; set; }
