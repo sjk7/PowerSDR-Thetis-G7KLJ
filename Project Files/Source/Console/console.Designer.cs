@@ -124,9 +124,6 @@ partial class Console {
     private System.Windows.Forms.CheckBoxTS chkCWIambic;
     private System.Windows.Forms.LabelTS lblCWPitchFreq;
     public System.Windows.Forms.NumericUpDownTS udCWPitch;
-    private System.Windows.Forms.LabelTS lblDisplayPan;
-    private System.Windows.Forms.ButtonTS btnDisplayPanCenter;
-    private System.Windows.Forms.LabelTS lblDisplayZoom;
     private System.Windows.Forms.LabelTS lblTransmitProfile;
     private System.Windows.Forms.CheckBoxTS chkX2TR;
     private System.Windows.Forms.CheckBoxTS chkShowTXCWFreq;
@@ -254,8 +251,6 @@ partial class Console {
     private PanelTS panelRX2Display;
     private PanelTS panelRX2Mode;
     private PanelTS panelRX2Filter;
-    private PrettyTrackBar ptbDisplayPan;
-    private PrettyTrackBar ptbDisplayZoom;
     private PrettyTrackBar ptbAF;
     private PrettyTrackBar ptbRF;
     private PrettyTrackBar ptbPWR;
@@ -290,10 +285,6 @@ partial class Console {
     private ToolStripMenuItem toolStripMenuItemRX2FilterConfigure;
     private ToolStripMenuItem toolStripMenuItemRX2FilterReset;
     private System.Windows.Forms.Timer timer_navigate;
-    private RadioButtonTS radDisplayZoom05;
-    private RadioButtonTS radDisplayZoom4x;
-    private RadioButtonTS radDisplayZoom2x;
-    private RadioButtonTS radDisplayZoom1x;
     private CheckBoxTS chkFWCATUBypass;
     private CheckBoxTS chkFWCATU;
     private CheckBoxTS chkMicMute;
@@ -608,7 +599,6 @@ partial class Console {
             this.comboDigTXProfile = new System.Windows.Forms.ComboBoxTS();
             this.chkVACStereo = new System.Windows.Forms.CheckBoxTS();
             this.comboVACSampleRate = new System.Windows.Forms.ComboBoxTS();
-            this.btnDisplayPanCenter = new System.Windows.Forms.ButtonTS();
             this.radModeAM = new System.Windows.Forms.RadioButtonTS();
             this.radModeLSB = new System.Windows.Forms.RadioButtonTS();
             this.radModeSAM = new System.Windows.Forms.RadioButtonTS();
@@ -655,8 +645,6 @@ partial class Console {
             this.radBand40 = new System.Windows.Forms.RadioButtonTS();
             this.radBand60 = new System.Windows.Forms.RadioButtonTS();
             this.radBand80 = new System.Windows.Forms.RadioButtonTS();
-            this.ptbDisplayZoom = new Thetis.PrettyTrackBar();
-            this.ptbDisplayPan = new Thetis.PrettyTrackBar();
             this.ptbPWR = new Thetis.PrettyTrackBar();
             this.ptbRF = new Thetis.PrettyTrackBar();
             this.ptbAF = new Thetis.PrettyTrackBar();
@@ -668,10 +656,6 @@ partial class Console {
             this.ptbRX1Gain = new Thetis.PrettyTrackBar();
             this.ptbVACRXGain = new Thetis.PrettyTrackBar();
             this.ptbVACTXGain = new Thetis.PrettyTrackBar();
-            this.radDisplayZoom05 = new System.Windows.Forms.RadioButtonTS();
-            this.radDisplayZoom4x = new System.Windows.Forms.RadioButtonTS();
-            this.radDisplayZoom2x = new System.Windows.Forms.RadioButtonTS();
-            this.radDisplayZoom1x = new System.Windows.Forms.RadioButtonTS();
             this.chkMicMute = new System.Windows.Forms.CheckBoxTS();
             this.chkMUT = new System.Windows.Forms.CheckBoxTS();
             this.chkCWFWKeyer = new System.Windows.Forms.CheckBoxTS();
@@ -725,6 +709,13 @@ partial class Console {
             this.chkVFOBLock = new System.Windows.Forms.CheckBoxTS();
             this.chkQSK = new System.Windows.Forms.CheckBoxTS();
             this.comboAMTXProfile = new System.Windows.Forms.ComboBoxTS();
+            this.radDisplayZoom4x = new System.Windows.Forms.RadioButtonTS();
+            this.radDisplayZoom2x = new System.Windows.Forms.RadioButtonTS();
+            this.radDisplayZoom1x = new System.Windows.Forms.RadioButtonTS();
+            this.radDisplayZoom05 = new System.Windows.Forms.RadioButtonTS();
+            this.ptbDisplayZoom = new Thetis.PrettyTrackBar();
+            this.ptbDisplayPan = new Thetis.PrettyTrackBar();
+            this.btnDisplayPanCenter = new System.Windows.Forms.ButtonTS();
             this.picSquelch = new System.Windows.Forms.PictureBox();
             this.timer_clock = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStripFilterRX1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -1055,18 +1046,21 @@ partial class Console {
             this.lblTXGain = new System.Windows.Forms.LabelTS();
             this.grpDIGSampleRate = new System.Windows.Forms.GroupBoxTS();
             this.panelDisplay = new System.Windows.Forms.PanelTS();
+            this.ucInfoBar = new Thetis.ucInfoBar();
+            this.pnlDisplayControls = new System.Windows.Forms.Panel();
+            this.lblDisplayZoom = new System.Windows.Forms.LabelTS();
+            this.lblDisplayPan = new System.Windows.Forms.LabelTS();
             this.txtOverload = new System.Windows.Forms.TextBoxTS();
             this.txtDisplayPeakOffset = new System.Windows.Forms.TextBoxTS();
-            this.lblDisplayZoom = new System.Windows.Forms.LabelTS();
             this.txtDisplayPeakPower = new System.Windows.Forms.TextBoxTS();
             this.txtDisplayPeakFreq = new System.Windows.Forms.TextBoxTS();
-            this.lblDisplayPan = new System.Windows.Forms.LabelTS();
             this.txtDisplayCursorPower = new System.Windows.Forms.TextBoxTS();
             this.txtDisplayCursorFreq = new System.Windows.Forms.TextBoxTS();
             this.txtDisplayOrionMKIIPAAmps = new System.Windows.Forms.TextBoxTS();
             this.txtDisplayOrionMKIIBlank = new System.Windows.Forms.TextBoxTS();
             this.txtDisplayCursorOffset = new System.Windows.Forms.TextBoxTS();
             this.txtDisplayOrionMKIIPAVolts = new System.Windows.Forms.TextBoxTS();
+            this.picDisplay = new System.Windows.Forms.PictureBox();
             this.panelMode = new System.Windows.Forms.PanelTS();
             this.panelBandHF = new System.Windows.Forms.PanelTS();
             this.txtVFOAFreq = new System.Windows.Forms.TextBoxTS();
@@ -1139,8 +1133,6 @@ partial class Console {
             this.lblAndromedaEncoderSlider = new System.Windows.Forms.LabelTS();
             this.lblATUTuneLabel = new System.Windows.Forms.LabelTS();
             this.tmrPrettySMeter = new System.Windows.Forms.Timer(this.components);
-            this.picDisplay = new System.Windows.Forms.PictureBox();
-            this.ucInfoBar1 = new Thetis.ucInfoBar();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udFilterHigh)).BeginInit();
@@ -1153,8 +1145,6 @@ partial class Console {
             ((System.ComponentModel.ISupportInitialize)(this.udRX2FilterLow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udRIT)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udXIT)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbDisplayZoom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbDisplayPan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbPWR)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbRF)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbAF)).BeginInit();
@@ -1176,6 +1166,8 @@ partial class Console {
             ((System.ComponentModel.ISupportInitialize)(this.ptbCWAPFFreq)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udTXFilterLow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udTXFilterHigh)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbDisplayZoom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbDisplayPan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picSquelch)).BeginInit();
             this.contextMenuStripFilterRX1.SuspendLayout();
             this.contextMenuStripFilterRX2.SuspendLayout();
@@ -1222,6 +1214,8 @@ partial class Console {
             this.grpVACStereo.SuspendLayout();
             this.grpDIGSampleRate.SuspendLayout();
             this.panelDisplay.SuspendLayout();
+            this.pnlDisplayControls.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             this.panelMode.SuspendLayout();
             this.panelBandHF.SuspendLayout();
             this.grpVFOA.SuspendLayout();
@@ -1239,7 +1233,6 @@ partial class Console {
             this.grpMultimeterMenus.SuspendLayout();
             this.panelAndromedaMisc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbAndromedaEncoderSlider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             this.SuspendLayout();
             // 
             // timer_cpu_meter
@@ -2335,17 +2328,6 @@ partial class Console {
             this.toolTip1.SetToolTip(this.comboVACSampleRate, resources.GetString("comboVACSampleRate.ToolTip"));
             this.comboVACSampleRate.SelectedIndexChanged += new System.EventHandler(this.comboVACSampleRate_SelectedIndexChanged);
             // 
-            // btnDisplayPanCenter
-            // 
-            this.btnDisplayPanCenter.FlatAppearance.BorderSize = 0;
-            resources.ApplyResources(this.btnDisplayPanCenter, "btnDisplayPanCenter");
-            this.btnDisplayPanCenter.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnDisplayPanCenter.Name = "btnDisplayPanCenter";
-            this.btnDisplayPanCenter.Tag = "";
-            this.toolTip1.SetToolTip(this.btnDisplayPanCenter, resources.GetString("btnDisplayPanCenter.ToolTip"));
-            this.btnDisplayPanCenter.UseVisualStyleBackColor = false;
-            this.btnDisplayPanCenter.Click += new System.EventHandler(this.btnDisplayPanCenter_Click);
-            // 
             // radModeAM
             // 
             resources.ApplyResources(this.radModeAM, "radModeAM");
@@ -2847,36 +2829,6 @@ partial class Console {
             this.radBand80.Click += new System.EventHandler(this.radBand80_Click);
             this.radBand80.MouseDown += new System.Windows.Forms.MouseEventHandler(this.radBand80_MouseDown);
             // 
-            // ptbDisplayZoom
-            // 
-            resources.ApplyResources(this.ptbDisplayZoom, "ptbDisplayZoom");
-            this.ptbDisplayZoom.HeadImage = null;
-            this.ptbDisplayZoom.LargeChange = 1;
-            this.ptbDisplayZoom.Maximum = 240;
-            this.ptbDisplayZoom.Minimum = 10;
-            this.ptbDisplayZoom.Name = "ptbDisplayZoom";
-            this.ptbDisplayZoom.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.ptbDisplayZoom.SmallChange = 1;
-            this.ptbDisplayZoom.TabStop = false;
-            this.toolTip1.SetToolTip(this.ptbDisplayZoom, resources.GetString("ptbDisplayZoom.ToolTip"));
-            this.ptbDisplayZoom.Value = 150;
-            this.ptbDisplayZoom.Scroll += new Thetis.PrettyTrackBar.ScrollHandler(this.ptbDisplayZoom_Scroll);
-            // 
-            // ptbDisplayPan
-            // 
-            resources.ApplyResources(this.ptbDisplayPan, "ptbDisplayPan");
-            this.ptbDisplayPan.HeadImage = null;
-            this.ptbDisplayPan.LargeChange = 1;
-            this.ptbDisplayPan.Maximum = 1000;
-            this.ptbDisplayPan.Minimum = 0;
-            this.ptbDisplayPan.Name = "ptbDisplayPan";
-            this.ptbDisplayPan.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            this.ptbDisplayPan.SmallChange = 1;
-            this.ptbDisplayPan.TabStop = false;
-            this.toolTip1.SetToolTip(this.ptbDisplayPan, resources.GetString("ptbDisplayPan.ToolTip"));
-            this.ptbDisplayPan.Value = 500;
-            this.ptbDisplayPan.Scroll += new Thetis.PrettyTrackBar.ScrollHandler(this.ptbDisplayPan_Scroll);
-            // 
             // ptbPWR
             // 
             resources.ApplyResources(this.ptbPWR, "ptbPWR");
@@ -3045,50 +2997,6 @@ partial class Console {
             this.toolTip1.SetToolTip(this.ptbVACTXGain, resources.GetString("ptbVACTXGain.ToolTip"));
             this.ptbVACTXGain.Value = 0;
             this.ptbVACTXGain.Scroll += new Thetis.PrettyTrackBar.ScrollHandler(this.ptbVACTXGain_Scroll);
-            // 
-            // radDisplayZoom05
-            // 
-            resources.ApplyResources(this.radDisplayZoom05, "radDisplayZoom05");
-            this.radDisplayZoom05.FlatAppearance.BorderSize = 0;
-            this.radDisplayZoom05.ForeColor = System.Drawing.Color.White;
-            this.radDisplayZoom05.Name = "radDisplayZoom05";
-            this.radDisplayZoom05.TabStop = true;
-            this.toolTip1.SetToolTip(this.radDisplayZoom05, resources.GetString("radDisplayZoom05.ToolTip"));
-            this.radDisplayZoom05.UseVisualStyleBackColor = true;
-            this.radDisplayZoom05.CheckedChanged += new System.EventHandler(this.radDisplayZoom05_CheckedChanged);
-            // 
-            // radDisplayZoom4x
-            // 
-            resources.ApplyResources(this.radDisplayZoom4x, "radDisplayZoom4x");
-            this.radDisplayZoom4x.FlatAppearance.BorderSize = 0;
-            this.radDisplayZoom4x.ForeColor = System.Drawing.Color.White;
-            this.radDisplayZoom4x.Name = "radDisplayZoom4x";
-            this.radDisplayZoom4x.TabStop = true;
-            this.toolTip1.SetToolTip(this.radDisplayZoom4x, resources.GetString("radDisplayZoom4x.ToolTip"));
-            this.radDisplayZoom4x.UseVisualStyleBackColor = true;
-            this.radDisplayZoom4x.CheckedChanged += new System.EventHandler(this.radDisplayZoom4x_CheckedChanged);
-            // 
-            // radDisplayZoom2x
-            // 
-            resources.ApplyResources(this.radDisplayZoom2x, "radDisplayZoom2x");
-            this.radDisplayZoom2x.FlatAppearance.BorderSize = 0;
-            this.radDisplayZoom2x.ForeColor = System.Drawing.Color.White;
-            this.radDisplayZoom2x.Name = "radDisplayZoom2x";
-            this.radDisplayZoom2x.TabStop = true;
-            this.toolTip1.SetToolTip(this.radDisplayZoom2x, resources.GetString("radDisplayZoom2x.ToolTip"));
-            this.radDisplayZoom2x.UseVisualStyleBackColor = true;
-            this.radDisplayZoom2x.CheckedChanged += new System.EventHandler(this.radDisplayZoom2x_CheckedChanged);
-            // 
-            // radDisplayZoom1x
-            // 
-            resources.ApplyResources(this.radDisplayZoom1x, "radDisplayZoom1x");
-            this.radDisplayZoom1x.FlatAppearance.BorderSize = 0;
-            this.radDisplayZoom1x.ForeColor = System.Drawing.Color.White;
-            this.radDisplayZoom1x.Name = "radDisplayZoom1x";
-            this.radDisplayZoom1x.TabStop = true;
-            this.toolTip1.SetToolTip(this.radDisplayZoom1x, resources.GetString("radDisplayZoom1x.ToolTip"));
-            this.radDisplayZoom1x.UseVisualStyleBackColor = true;
-            this.radDisplayZoom1x.CheckedChanged += new System.EventHandler(this.radDisplayZoom1x_CheckedChanged);
             // 
             // chkMicMute
             // 
@@ -3782,6 +3690,91 @@ partial class Console {
             this.comboAMTXProfile.Name = "comboAMTXProfile";
             this.toolTip1.SetToolTip(this.comboAMTXProfile, resources.GetString("comboAMTXProfile.ToolTip"));
             this.comboAMTXProfile.SelectedIndexChanged += new System.EventHandler(this.comboAMTXProfile_SelectedIndexChanged);
+            // 
+            // radDisplayZoom4x
+            // 
+            resources.ApplyResources(this.radDisplayZoom4x, "radDisplayZoom4x");
+            this.radDisplayZoom4x.BackColor = System.Drawing.Color.Transparent;
+            this.radDisplayZoom4x.FlatAppearance.BorderSize = 0;
+            this.radDisplayZoom4x.ForeColor = System.Drawing.Color.White;
+            this.radDisplayZoom4x.Name = "radDisplayZoom4x";
+            this.radDisplayZoom4x.TabStop = true;
+            this.toolTip1.SetToolTip(this.radDisplayZoom4x, resources.GetString("radDisplayZoom4x.ToolTip"));
+            this.radDisplayZoom4x.UseVisualStyleBackColor = false;
+            // 
+            // radDisplayZoom2x
+            // 
+            resources.ApplyResources(this.radDisplayZoom2x, "radDisplayZoom2x");
+            this.radDisplayZoom2x.BackColor = System.Drawing.Color.Transparent;
+            this.radDisplayZoom2x.FlatAppearance.BorderSize = 0;
+            this.radDisplayZoom2x.ForeColor = System.Drawing.Color.White;
+            this.radDisplayZoom2x.Name = "radDisplayZoom2x";
+            this.radDisplayZoom2x.TabStop = true;
+            this.toolTip1.SetToolTip(this.radDisplayZoom2x, resources.GetString("radDisplayZoom2x.ToolTip"));
+            this.radDisplayZoom2x.UseVisualStyleBackColor = false;
+            // 
+            // radDisplayZoom1x
+            // 
+            resources.ApplyResources(this.radDisplayZoom1x, "radDisplayZoom1x");
+            this.radDisplayZoom1x.BackColor = System.Drawing.Color.Transparent;
+            this.radDisplayZoom1x.FlatAppearance.BorderSize = 0;
+            this.radDisplayZoom1x.ForeColor = System.Drawing.Color.White;
+            this.radDisplayZoom1x.Name = "radDisplayZoom1x";
+            this.radDisplayZoom1x.TabStop = true;
+            this.toolTip1.SetToolTip(this.radDisplayZoom1x, resources.GetString("radDisplayZoom1x.ToolTip"));
+            this.radDisplayZoom1x.UseVisualStyleBackColor = false;
+            // 
+            // radDisplayZoom05
+            // 
+            resources.ApplyResources(this.radDisplayZoom05, "radDisplayZoom05");
+            this.radDisplayZoom05.BackColor = System.Drawing.Color.Transparent;
+            this.radDisplayZoom05.FlatAppearance.BorderSize = 0;
+            this.radDisplayZoom05.ForeColor = System.Drawing.Color.White;
+            this.radDisplayZoom05.Name = "radDisplayZoom05";
+            this.radDisplayZoom05.TabStop = true;
+            this.toolTip1.SetToolTip(this.radDisplayZoom05, resources.GetString("radDisplayZoom05.ToolTip"));
+            this.radDisplayZoom05.UseVisualStyleBackColor = false;
+            // 
+            // ptbDisplayZoom
+            // 
+            resources.ApplyResources(this.ptbDisplayZoom, "ptbDisplayZoom");
+            this.ptbDisplayZoom.BackColor = System.Drawing.Color.Transparent;
+            this.ptbDisplayZoom.HeadImage = null;
+            this.ptbDisplayZoom.LargeChange = 1;
+            this.ptbDisplayZoom.Maximum = 240;
+            this.ptbDisplayZoom.Minimum = 10;
+            this.ptbDisplayZoom.Name = "ptbDisplayZoom";
+            this.ptbDisplayZoom.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.ptbDisplayZoom.SmallChange = 1;
+            this.ptbDisplayZoom.TabStop = false;
+            this.toolTip1.SetToolTip(this.ptbDisplayZoom, resources.GetString("ptbDisplayZoom.ToolTip"));
+            this.ptbDisplayZoom.Value = 150;
+            // 
+            // ptbDisplayPan
+            // 
+            this.ptbDisplayPan.BackColor = System.Drawing.Color.Transparent;
+            resources.ApplyResources(this.ptbDisplayPan, "ptbDisplayPan");
+            this.ptbDisplayPan.HeadImage = null;
+            this.ptbDisplayPan.LargeChange = 1;
+            this.ptbDisplayPan.Maximum = 1000;
+            this.ptbDisplayPan.Minimum = 0;
+            this.ptbDisplayPan.Name = "ptbDisplayPan";
+            this.ptbDisplayPan.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.ptbDisplayPan.SmallChange = 1;
+            this.ptbDisplayPan.TabStop = false;
+            this.toolTip1.SetToolTip(this.ptbDisplayPan, resources.GetString("ptbDisplayPan.ToolTip"));
+            this.ptbDisplayPan.Value = 500;
+            // 
+            // btnDisplayPanCenter
+            // 
+            this.btnDisplayPanCenter.BackColor = System.Drawing.Color.Transparent;
+            this.btnDisplayPanCenter.FlatAppearance.BorderSize = 0;
+            resources.ApplyResources(this.btnDisplayPanCenter, "btnDisplayPanCenter");
+            this.btnDisplayPanCenter.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnDisplayPanCenter.Name = "btnDisplayPanCenter";
+            this.btnDisplayPanCenter.Tag = "";
+            this.toolTip1.SetToolTip(this.btnDisplayPanCenter, resources.GetString("btnDisplayPanCenter.ToolTip"));
+            this.btnDisplayPanCenter.UseVisualStyleBackColor = false;
             // 
             // picSquelch
             // 
@@ -6379,16 +6372,8 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelDisplay, "panelDisplay");
             this.panelDisplay.BackColor = System.Drawing.Color.Transparent;
-            this.panelDisplay.Controls.Add(this.ucInfoBar1);
-            this.panelDisplay.Controls.Add(this.radDisplayZoom4x);
-            this.panelDisplay.Controls.Add(this.radDisplayZoom2x);
-            this.panelDisplay.Controls.Add(this.radDisplayZoom1x);
-            this.panelDisplay.Controls.Add(this.radDisplayZoom05);
-            this.panelDisplay.Controls.Add(this.ptbDisplayZoom);
-            this.panelDisplay.Controls.Add(this.ptbDisplayPan);
-            this.panelDisplay.Controls.Add(this.lblDisplayZoom);
-            this.panelDisplay.Controls.Add(this.btnDisplayPanCenter);
-            this.panelDisplay.Controls.Add(this.lblDisplayPan);
+            this.panelDisplay.Controls.Add(this.ucInfoBar);
+            this.panelDisplay.Controls.Add(this.pnlDisplayControls);
             this.panelDisplay.Controls.Add(this.txtOverload);
             this.panelDisplay.Controls.Add(this.PrettySMeter);
             this.panelDisplay.Controls.Add(this.txtDisplayPeakOffset);
@@ -6402,6 +6387,46 @@ partial class Console {
             this.panelDisplay.Controls.Add(this.txtDisplayOrionMKIIPAVolts);
             this.panelDisplay.Controls.Add(this.picDisplay);
             this.panelDisplay.Name = "panelDisplay";
+            // 
+            // ucInfoBar
+            // 
+            this.ucInfoBar.BackColor = System.Drawing.Color.Gray;
+            this.ucInfoBar.Button1Action = Thetis.ucInfoBar.ActionTypes.Blobs;
+            this.ucInfoBar.Button2Action = Thetis.ucInfoBar.ActionTypes.ActivePeaks;
+            this.ucInfoBar.CurrentFlip = 0;
+            resources.ApplyResources(this.ucInfoBar, "ucInfoBar");
+            this.ucInfoBar.HideFeedback = false;
+            this.ucInfoBar.Name = "ucInfoBar";
+            this.ucInfoBar.SplitterRatio = 1F;
+            // 
+            // pnlDisplayControls
+            // 
+            this.pnlDisplayControls.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(103)))), ((int)(((byte)(103)))));
+            this.pnlDisplayControls.Controls.Add(this.radDisplayZoom4x);
+            this.pnlDisplayControls.Controls.Add(this.radDisplayZoom2x);
+            this.pnlDisplayControls.Controls.Add(this.radDisplayZoom1x);
+            this.pnlDisplayControls.Controls.Add(this.radDisplayZoom05);
+            this.pnlDisplayControls.Controls.Add(this.ptbDisplayZoom);
+            this.pnlDisplayControls.Controls.Add(this.ptbDisplayPan);
+            this.pnlDisplayControls.Controls.Add(this.lblDisplayZoom);
+            this.pnlDisplayControls.Controls.Add(this.btnDisplayPanCenter);
+            this.pnlDisplayControls.Controls.Add(this.lblDisplayPan);
+            resources.ApplyResources(this.pnlDisplayControls, "pnlDisplayControls");
+            this.pnlDisplayControls.Name = "pnlDisplayControls";
+            // 
+            // lblDisplayZoom
+            // 
+            resources.ApplyResources(this.lblDisplayZoom, "lblDisplayZoom");
+            this.lblDisplayZoom.BackColor = System.Drawing.Color.Transparent;
+            this.lblDisplayZoom.ForeColor = System.Drawing.Color.White;
+            this.lblDisplayZoom.Name = "lblDisplayZoom";
+            // 
+            // lblDisplayPan
+            // 
+            this.lblDisplayPan.BackColor = System.Drawing.Color.Transparent;
+            this.lblDisplayPan.ForeColor = System.Drawing.Color.White;
+            resources.ApplyResources(this.lblDisplayPan, "lblDisplayPan");
+            this.lblDisplayPan.Name = "lblDisplayPan";
             // 
             // txtOverload
             // 
@@ -6423,12 +6448,6 @@ partial class Console {
             this.txtDisplayPeakOffset.ReadOnly = true;
             this.txtDisplayPeakOffset.GotFocus += new System.EventHandler(this.HideFocus);
             // 
-            // lblDisplayZoom
-            // 
-            this.lblDisplayZoom.ForeColor = System.Drawing.Color.White;
-            resources.ApplyResources(this.lblDisplayZoom, "lblDisplayZoom");
-            this.lblDisplayZoom.Name = "lblDisplayZoom";
-            // 
             // txtDisplayPeakPower
             // 
             this.txtDisplayPeakPower.BackColor = System.Drawing.Color.Gainsboro;
@@ -6448,12 +6467,6 @@ partial class Console {
             this.txtDisplayPeakFreq.ForeColor = System.Drawing.Color.DodgerBlue;
             this.txtDisplayPeakFreq.Name = "txtDisplayPeakFreq";
             this.txtDisplayPeakFreq.ReadOnly = true;
-            // 
-            // lblDisplayPan
-            // 
-            this.lblDisplayPan.ForeColor = System.Drawing.Color.White;
-            resources.ApplyResources(this.lblDisplayPan, "lblDisplayPan");
-            this.lblDisplayPan.Name = "lblDisplayPan";
             // 
             // txtDisplayCursorPower
             // 
@@ -6515,6 +6528,22 @@ partial class Console {
             resources.ApplyResources(this.txtDisplayOrionMKIIPAVolts, "txtDisplayOrionMKIIPAVolts");
             this.txtDisplayOrionMKIIPAVolts.Name = "txtDisplayOrionMKIIPAVolts";
             this.txtDisplayOrionMKIIPAVolts.ReadOnly = true;
+            // 
+            // picDisplay
+            // 
+            this.picDisplay.BackColor = System.Drawing.Color.Black;
+            resources.ApplyResources(this.picDisplay, "picDisplay");
+            this.picDisplay.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.picDisplay.Name = "picDisplay";
+            this.picDisplay.TabStop = false;
+            this.picDisplay.ClientSizeChanged += new System.EventHandler(this.picDisplay_ClientSizeChanged);
+            this.picDisplay.Paint += new System.Windows.Forms.PaintEventHandler(this.picDisplay_Paint);
+            this.picDisplay.DoubleClick += new System.EventHandler(this.picDisplay_DoubleClick);
+            this.picDisplay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseDown);
+            this.picDisplay.MouseLeave += new System.EventHandler(this.picDisplay_MouseLeave);
+            this.picDisplay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseMove);
+            this.picDisplay.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseUp);
+            this.picDisplay.Resize += new System.EventHandler(this.picDisplay_Resize);
             // 
             // panelMode
             // 
@@ -7265,37 +7294,12 @@ partial class Console {
             this.tmrPrettySMeter.Interval = 50;
             this.tmrPrettySMeter.Tick += new System.EventHandler(this.tmrPrettySMeter_Tick);
             // 
-            // picDisplay
-            // 
-            this.picDisplay.BackColor = System.Drawing.Color.Black;
-            resources.ApplyResources(this.picDisplay, "picDisplay");
-            this.picDisplay.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.picDisplay.Name = "picDisplay";
-            this.picDisplay.TabStop = false;
-            this.picDisplay.Paint += new System.Windows.Forms.PaintEventHandler(this.picDisplay_Paint);
-            this.picDisplay.DoubleClick += new System.EventHandler(this.picDisplay_DoubleClick);
-            this.picDisplay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseDown);
-            this.picDisplay.MouseLeave += new System.EventHandler(this.picDisplay_MouseLeave);
-            this.picDisplay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseMove);
-            this.picDisplay.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseUp);
-            this.picDisplay.Resize += new System.EventHandler(this.picDisplay_Resize);
-            // 
-            // ucInfoBar1
-            // 
-            this.ucInfoBar1.BackColor = System.Drawing.Color.Gray;
-            this.ucInfoBar1.Button1Action = Thetis.ucInfoBar.ActionTypes.Blobs;
-            this.ucInfoBar1.Button2Action = Thetis.ucInfoBar.ActionTypes.ActivePeaks;
-            this.ucInfoBar1.CurrentFlip = 0;
-            resources.ApplyResources(this.ucInfoBar1, "ucInfoBar1");
-            this.ucInfoBar1.HideFeedback = false;
-            this.ucInfoBar1.Name = "ucInfoBar1";
-            this.ucInfoBar1.SplitterRatio = 1F;
-            // 
             // Console
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.Controls.Add(this.panelDisplay);
             this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.grpMultimeter);
             this.Controls.Add(this.panelFilter);
@@ -7323,7 +7327,6 @@ partial class Console {
             this.Controls.Add(this.grpVFOA);
             this.Controls.Add(this.picSquelch);
             this.Controls.Add(this.grpVFOB);
-            this.Controls.Add(this.panelDisplay);
             this.Controls.Add(this.chkSquelch);
             this.Controls.Add(this.panelPower);
             this.Controls.Add(this.panelMode);
@@ -7367,8 +7370,6 @@ partial class Console {
             ((System.ComponentModel.ISupportInitialize)(this.udRX2FilterLow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udRIT)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udXIT)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbDisplayZoom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbDisplayPan)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbPWR)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbRF)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbAF)).EndInit();
@@ -7390,6 +7391,8 @@ partial class Console {
             ((System.ComponentModel.ISupportInitialize)(this.ptbCWAPFFreq)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udTXFilterLow)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udTXFilterHigh)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbDisplayZoom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbDisplayPan)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picSquelch)).EndInit();
             this.contextMenuStripFilterRX1.ResumeLayout(false);
             this.contextMenuStripFilterRX2.ResumeLayout(false);
@@ -7444,6 +7447,8 @@ partial class Console {
             this.grpDIGSampleRate.ResumeLayout(false);
             this.panelDisplay.ResumeLayout(false);
             this.panelDisplay.PerformLayout();
+            this.pnlDisplayControls.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
             this.panelMode.ResumeLayout(false);
             this.panelBandHF.ResumeLayout(false);
             this.grpVFOA.ResumeLayout(false);
@@ -7465,7 +7470,6 @@ partial class Console {
             this.grpMultimeterMenus.ResumeLayout(false);
             this.panelAndromedaMisc.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbAndromedaEncoderSlider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -7598,7 +7602,17 @@ partial class Console {
     private Timer tmrPrettySMeter;
         private ToolStripMenuItem showNewConsoleToolStripMenuItem;
         private ToolStripMenuItem mnuShowNewConsole;
-        private ucInfoBar ucInfoBar1;
         public PictureBox picDisplay;
+        private ucInfoBar ucInfoBar;
+        private Panel pnlDisplayControls;
+        private RadioButtonTS radDisplayZoom4x;
+        private RadioButtonTS radDisplayZoom2x;
+        private RadioButtonTS radDisplayZoom1x;
+        private RadioButtonTS radDisplayZoom05;
+        private PrettyTrackBar ptbDisplayZoom;
+        private PrettyTrackBar ptbDisplayPan;
+        private LabelTS lblDisplayZoom;
+        private ButtonTS btnDisplayPanCenter;
+        private LabelTS lblDisplayPan;
     }
 }

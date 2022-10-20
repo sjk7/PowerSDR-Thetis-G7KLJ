@@ -81,7 +81,10 @@ public partial class Console : Form {
         if (initializing) return;
         updateResolutionStatusBarText();
 
-        if (this.WindowState == FormWindowState.Minimized) return;
+
+
+
+            if (this.WindowState == FormWindowState.Minimized) return;
         pause_DisplayThread = true;
         if (dpi == 0) dpi = (int)picDisplay.CreateGraphics().DpiX;
         if (dpi > 96 && !dpi_resize_done) {
@@ -143,7 +146,8 @@ public partial class Console : Form {
         ResizeConsole(h_delta, v_delta);
         pause_DisplayThread = false;
         SizeAndPositionAnalogSMeter();
-    }
+  
+        }
 
     // public System.Timers.Timer m_uptimeTimer;
     //==================================================================================
@@ -839,8 +843,17 @@ public partial class Console : Form {
         m_args = args;
 
         Splash.SetStatus("Launching PortAudio initialisation, please wait ...");
+            bool db = this.DoubleBuffered;
+            this.DoubleBuffered = true;
 
-        m_waiting_for_portaudio = true;
+            // reduces flicker in display:
+            this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint
+                    | ControlStyles.OptimizedDoubleBuffer,
+                true);
+
+            this.UpdateStyles();
+
+            m_waiting_for_portaudio = true;
            new Thread(() =>
             {
            
@@ -1102,7 +1115,7 @@ public partial class Console : Form {
 
     InitializeComponent(); // Windows Forms Generated Code
     booting = false;
-            this.ucInfoBar1.BackColor = this.picDisplay.BackColor;
+            this.ucInfoBar.BackColor = this.picDisplay.BackColor;
 
     GlobalMouseHandler gmh = new GlobalMouseHandler(); // capture mouse up event
     gmh.MouseUp += new MouseMovedEvent(gmh_MouseUp);
@@ -1174,10 +1187,9 @@ public partial class Console : Form {
     break_in_timer = new HiPerfTimer();
 
     Midi2Cat = new Midi2CatCommands(this);
-    bool db = this.DoubleBuffered;
-    this.DoubleBuffered = true;
-    // resize events are caused by this
-    if (RX2Enabled) {
+ 
+            // resize events are caused by this
+            if (RX2Enabled) {
            this.MinimumSize = new Size(this.MinimumSize.Width,
                this.MinimumSize.Height - (panelRX2Filter.Height + 8));
     } else {
@@ -1201,12 +1213,6 @@ public partial class Console : Form {
     CWFWKeyer = true;
     Splash.SetStatus("Finished"); // Set progress point
 
-    // reduces flicker in display:
-    this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint
-            | ControlStyles.OptimizedDoubleBuffer,
-        true);
-
-    this.UpdateStyles();
 
     this.Text = TitleBar.GetString();
     SetupForm.UpdateCustomTitle();
@@ -1631,6 +1637,8 @@ private void InitConsole() {
 
     vfoa_hover_digit = -1;
     vfob_hover_digit = -1;
+
+            
 
     Splash.SetStatus("Initialising Radio offsets ...");
     rx_meter_cal_offset_by_radio = new float[(int)HPSDRModel.LAST];
@@ -26009,7 +26017,9 @@ public bool Enable_VU_Power_Curve {
 private string current_skin = "Default";
 public string CurrentSkin {
             get { return current_skin; }
-            set { current_skin = value; }
+            set { current_skin = value;
+                pnlDisplayControls.BackColor = Color.FromArgb(90,90,90);
+            }
 }
 
 private bool radar_color_update = false;
@@ -43416,6 +43426,7 @@ private void ResizeConsole(int h_delta, int v_delta) {
                    pic_multi_meter_size_basis.Height);
                //
 
+                    /*/
                btnDisplayPanCenter.Location
                    = new Point(btn_display_pan_center_basis.X,
                        btn_display_pan_center_basis.Y + v_delta);
@@ -43447,15 +43458,18 @@ private void ResizeConsole(int h_delta, int v_delta) {
                txtDisplayPeakOffset.Location
                    = new Point(txt_display_peak_offset_basis.X + h_delta,
                        txt_display_peak_offset_basis.Y + v_delta);
-
+                    /*/
                var wid = (gr_display_size_basis.Width
                    + h_delta); //; - (Width * 0.2);
-               panelDisplay.Size
-                   = new Size((int)wid, gr_display_size_basis.Height + v_delta);
-               picDisplay.Size
-                   = new Size(pic_display_size_basis.Width + h_delta,
-                       pic_display_size_basis.Height + v_delta);
-               txtOverload.Size
+                    var ht = (pic_display_size_basis.Height + v_delta);// - (pnlDisplayControls.Height + ucInfoBar.Height);
+                
+                    panelDisplay.Size
+                   = new Size((int)wid, ht);
+
+                   // picDisplay.Size
+                   //= new Size(pic_display_size_basis.Width + h_delta,
+                   //    ht);
+                    txtOverload.Size
                    = new Size(txtOverload_size_basis.Width + h_delta,
                        txtOverload_size_basis.Height);
                txtOverload.Location = new Point(
@@ -43466,6 +43480,7 @@ private void ResizeConsole(int h_delta, int v_delta) {
                panelDSP.Location = new Point(
                    gr_dsp_basis.X + (h_delta / 2), gr_dsp_basis.Y + v_delta);
 
+                    /*/
                ptbDisplayPan.Location = new Point(
                    tb_displaypan_basis.X, tb_displaypan_basis.Y + v_delta);
                lblDisplayPan.Location = new Point(
@@ -43479,7 +43494,7 @@ private void ResizeConsole(int h_delta, int v_delta) {
                txtDisplayCursorOffset.Location
                    = new Point(txt_display_cursor_offset_basis.X,
                        txt_display_cursor_offset_basis.Y + v_delta);
-
+/*/
                txtDisplayOrionMKIIPAVolts.Location
                    = new Point(txt_display_orion_mkii_pa_volts_basis.X,
                        txt_display_orion_mkii_pa_volts_basis.Y + v_delta);
@@ -47814,6 +47829,7 @@ private void ExpandDisplay() {
 
             int h_delta = this.Width - console_basis_size.Width;
             int v_delta = Math.Max(this.Height - console_basis_size.Height, 0);
+            
 
             grpVFOA.Location
                 = new Point(gr_VFOA_basis_location.X + (h_delta / 4),
@@ -48038,6 +48054,7 @@ private void ExpandDisplay() {
             // tb_display_pan_size_basis; btnDisplayPanCenter.Location = new
             // Point(ptbDisplayPan.Location.X + ptbDisplayPan.Width + 4,
             // ptbDisplayPan.Location.Y);
+            /*/
             radDisplayZoom4x.Location
                 = new Point(btn_display_zoom_4x_basis.X + h_delta,
                     btn_display_zoom_4x_basis.Y + v_delta);
@@ -48052,7 +48069,7 @@ private void ExpandDisplay() {
                     btn_display_zoom_05_basis.Y + v_delta);
             ptbDisplayZoom.Location
                 = new Point(tb_display_zoom_basis.X + h_delta,
-                    tb_display_zoom_basis.Y + v_delta);
+                  tb_display_zoom_basis.Y + v_delta);
             txtDisplayPeakFreq.Location
                 = new Point(txt_display_peak_freq_basis.X + h_delta,
                     txt_display_peak_freq_basis.Y + v_delta);
@@ -48065,16 +48082,18 @@ private void ExpandDisplay() {
             lblDisplayZoom.Location
                 = new Point(lbl_display_zoom_basis.X + h_delta,
                     lbl_display_zoom_basis.Y + v_delta);
-
+            /*/
+            var ht = (pic_display_size_basis.Height + v_delta);// - (pnlDisplayControls.Height + ucInfoBar.Height);
             panelDisplay.Location = gr_display_basis;
             panelDisplay.Size = new Size(gr_display_size_basis.Width + h_delta,
-                gr_display_size_basis.Height + v_delta);
+                ht);
             picDisplay.Location = pic_display_basis;
-            picDisplay.Size = new Size(pic_display_size_basis.Width + h_delta,
-                pic_display_size_basis.Height + v_delta);
+            //picDisplay.Size = new Size(pic_display_size_basis.Width + h_delta,
+            //     pic_display_size_basis.Height + v_delta - pnlDisplayControls.Height - ucInfoBar.Height);
             // picWaterfall.Location = pic_waterfall_basis;
             // picWaterfall.Size = new Size(pic_waterfall_size_basis.Width +
             // h_delta, pic_waterfall_size_basis.Height + v_delta);
+            
             txtOverload.Size = new Size(txtOverload_size_basis.Width + h_delta,
                 txtOverload_size_basis.Height);
             txtOverload.Location
@@ -48085,6 +48104,7 @@ private void ExpandDisplay() {
             panelDSP.Location = new Point(
                 gr_dsp_basis.X + (h_delta / 2), gr_dsp_basis.Y + v_delta);
 
+            /*/
             ptbDisplayPan.Size = tb_display_pan_size_basis;
             ptbDisplayPan.Location = new Point(
                 tb_displaypan_basis.X, tb_displaypan_basis.Y + v_delta);
@@ -48104,7 +48124,7 @@ private void ExpandDisplay() {
             txtDisplayCursorOffset.Location
                 = new Point(txt_display_cursor_offset_basis.X,
                     txt_display_cursor_offset_basis.Y + v_delta);
-
+            /*/
             txtDisplayOrionMKIIPAVolts.Location
                 = new Point(txt_display_orion_mkii_pa_volts_basis.X,
                     txt_display_orion_mkii_pa_volts_basis.Y + v_delta);
@@ -49346,13 +49366,17 @@ private void RepositionControlsForCollapsedlDisplay() {
            if (this.m_bShowModeControls) height -= radModeLSB.Height;
             }
 
+            //var ht = height - (pnlDisplayControls.Height + ucInfoBar.Height);
             panelDisplay.Size = new Size(this.ClientSize.Width, height);
+            //height -= (txtOverload_size_basis.Height + 5);
+            //height -= tb_display_pan_size_basis.Height + 5;
 
-            picDisplay.Location = new Point(0, 0);
-            picDisplay.Size = new Size(panelDisplay.Size.Width,
-                panelDisplay.Size.Height
-                    - (txtOverload_size_basis.Height + 5
-                        + tb_display_pan_size_basis.Height + 5));
+
+            //picDisplay.Location = new Point(0, 0);
+
+            
+            //picDisplay.Size = new Size(panelDisplay.Size.Width, h);
+            
             // picWaterfall.Location = new Point(0, 0);
             // picWaterfall.Size = new Size(panelDisplay.Size.Width,
             // panelDisplay.Size.Height - (txtOverload_size_basis.Height + 5 +
@@ -49405,6 +49429,7 @@ private void RepositionControlsForCollapsedlDisplay() {
                     + comboDisplayMode.Width + 5 + lblDisplayZoom.Width
                     + radDisplayZoom05.Width * 4);
 
+            /*/
             lblDisplayPan.Location = new Point(picDisplay.Location.X, top);
             ptbDisplayPan.Location = new Point(
                 lblDisplayPan.Location.X + lblDisplayPan.Width, top);
@@ -49415,6 +49440,7 @@ private void RepositionControlsForCollapsedlDisplay() {
             //			btnDisplayPanCenter_Click(this, EventArgs.Empty);
 
             // :NOTE: Force update on pan control
+            /*/
             ptbDisplayPan.Value = ptbDisplayPan.Value;
             ptbDisplayPan_Scroll(this, EventArgs.Empty);
 
@@ -49434,6 +49460,7 @@ private void RepositionControlsForCollapsedlDisplay() {
             ptbDisplayZoom.Size
                 = new Size(dynamicWidth / 2, tb_display_zoom_size_basis.Height);
 
+            /*/ todoKLJ just move the parent around? pnl
             // :NOTE: Force update on zoom control
             ptbDisplayZoom.Value = ptbDisplayZoom.Value;
             ptbDisplayZoom_Scroll(this, EventArgs.Empty);
@@ -49446,7 +49473,7 @@ private void RepositionControlsForCollapsedlDisplay() {
                 radDisplayZoom1x.Location.X + radDisplayZoom1x.Width, top);
             radDisplayZoom4x.Location = new Point(
                 radDisplayZoom2x.Location.X + radDisplayZoom2x.Width, top);
-
+            /*/
             top = panelDisplay.Location.Y + panelDisplay.Height;
             // G8NJJ to add new Andromeda button bar in place of band, mode
             // controls
@@ -52624,8 +52651,12 @@ private void PrettySMeter_MinValueChanged(object sender, EventArgs e) {
            m_frmSMeter.BigSMeter.MinValue = PrettySMeter.MinValue;
 }
 
-// Thetis.NewConsole m_newConsole;
-private void showNewConsoleToolStripMenuItem_Click(object sender, EventArgs e) {
+  
+
+    
+
+        // Thetis.NewConsole m_newConsole;
+        private void showNewConsoleToolStripMenuItem_Click(object sender, EventArgs e) {
 
             showNewConsole();
 }
@@ -52648,6 +52679,16 @@ private void mnuShowNewConsole_Click(object sender, EventArgs e) {
 }
 
         private void ucInfoBar1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void picDisplay_ClientSizeChanged(object sender, EventArgs e)
+        {
+            Debug.Print("picDisplay resized!: " + picDisplay.Size.ToString());
+        }
+
+        private void pnlDisplayControls_ParentChanged(object sender, EventArgs e)
         {
 
         }
@@ -52678,4 +52719,6 @@ public class AsyncLock : IDisposable {
 
             public void Dispose() { _semaphoreSlim.Release(); }
 }
+
+
 }

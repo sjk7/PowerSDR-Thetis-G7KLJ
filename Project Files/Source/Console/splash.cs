@@ -516,7 +516,7 @@ public class Splash : System.Windows.Forms.Form {
     private void pnlStatus_Paint(
         object sender, System.Windows.Forms.PaintEventArgs e) {
         if (m_bFirstLaunch == false && e.ClipRectangle.Width > 0
-            && m_iActualTicks > 1) {
+            && m_iActualTicks > 1 && Visible) {
             LinearGradientBrush brBackground
                 = new LinearGradientBrush(m_rProgress, Color.FromArgb(0, 80, 0),
                     Color.FromArgb(60, 180, 60), LinearGradientMode.Horizontal);
