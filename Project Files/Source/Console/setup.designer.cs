@@ -1479,6 +1479,9 @@
             this.tpDisplay = new System.Windows.Forms.TabPage();
             this.tcDisplay = new System.Windows.Forms.TabControl();
             this.tpDisplayGeneral = new System.Windows.Forms.TabPage();
+            this.grpSpectralWarningLeds = new System.Windows.Forms.GroupBoxTS();
+            this.chkSpecWarningLEDGetPixels = new System.Windows.Forms.CheckBoxTS();
+            this.chkSpecWarningLEDRenderDelay = new System.Windows.Forms.CheckBoxTS();
             this.groupBoxTS13 = new System.Windows.Forms.GroupBoxTS();
             this.chkPeakHoldFade = new System.Windows.Forms.CheckBoxTS();
             this.lblBlobMS = new System.Windows.Forms.LabelTS();
@@ -1535,6 +1538,13 @@
             this.lblDisplayFPS = new System.Windows.Forms.LabelTS();
             this.tpDisplayTop = new System.Windows.Forms.TabPage();
             this.grpWaterfallAverage = new System.Windows.Forms.GroupBoxTS();
+            this.groupBoxTS21 = new System.Windows.Forms.GroupBoxTS();
+            this.chkFillActivePeakHoldRX1 = new System.Windows.Forms.CheckBoxTS();
+            this.udActivePeakHoldDropRX1 = new System.Windows.Forms.NumericUpDownTS();
+            this.chkActivePeakHoldRX1 = new System.Windows.Forms.CheckBoxTS();
+            this.lblActivePeakHoldDropRX1 = new System.Windows.Forms.LabelTS();
+            this.lblActivePeakHoldRX1 = new System.Windows.Forms.LabelTS();
+            this.udActivePeakHoldDurationRX1 = new System.Windows.Forms.NumericUpDownTS();
             this.labelTS372 = new System.Windows.Forms.LabelTS();
             this.comboDispWFAveraging = new System.Windows.Forms.ComboBoxTS();
             this.labelTS373 = new System.Windows.Forms.LabelTS();
@@ -1592,6 +1602,13 @@
             this.lblDisplayWaterfallHighColor = new System.Windows.Forms.LabelTS();
             this.tpDisplayBottom = new System.Windows.Forms.TabPage();
             this.grpRX2DisplayAveraging = new System.Windows.Forms.GroupBoxTS();
+            this.groupBoxTS20 = new System.Windows.Forms.GroupBoxTS();
+            this.chkFillActivePeakHoldRX2 = new System.Windows.Forms.CheckBoxTS();
+            this.udActivePeakHoldDropRX2 = new System.Windows.Forms.NumericUpDownTS();
+            this.chkActivePeakHoldRX2 = new System.Windows.Forms.CheckBoxTS();
+            this.lblActivePeakHoldDropRX2 = new System.Windows.Forms.LabelTS();
+            this.lblActivePeakHoldRX2 = new System.Windows.Forms.LabelTS();
+            this.udActivePeakHoldDurationRX2 = new System.Windows.Forms.NumericUpDownTS();
             this.labelTS375 = new System.Windows.Forms.LabelTS();
             this.comboRX2DispWFAveraging = new System.Windows.Forms.ComboBoxTS();
             this.labelTS376 = new System.Windows.Forms.LabelTS();
@@ -3325,6 +3342,7 @@
             this.panelTS4 = new System.Windows.Forms.PanelTS();
             this.radioButtonTS5 = new System.Windows.Forms.RadioButtonTS();
             this.radioButtonTS6 = new System.Windows.Forms.RadioButtonTS();
+            this.chkShowMHzOnCursor = new System.Windows.Forms.CheckBoxTS();
             tpAlexAntCtrl = new System.Windows.Forms.TabPage();
             numericUpDownTS3 = new System.Windows.Forms.NumericUpDownTS();
             numericUpDownTS4 = new System.Windows.Forms.NumericUpDownTS();
@@ -3607,6 +3625,7 @@
             this.tpDisplay.SuspendLayout();
             this.tcDisplay.SuspendLayout();
             this.tpDisplayGeneral.SuspendLayout();
+            this.grpSpectralWarningLeds.SuspendLayout();
             this.groupBoxTS13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udBlobPeakHoldMS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udPeakBlobs)).BeginInit();
@@ -3631,6 +3650,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.udDisplayFPS)).BeginInit();
             this.tpDisplayTop.SuspendLayout();
             this.grpWaterfallAverage.SuspendLayout();
+            this.groupBoxTS21.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udActivePeakHoldDropRX1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udActivePeakHoldDurationRX1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udDisplayAVTimeWF)).BeginInit();
             this.grpDisplaySpectrumGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udDisplayGridStep)).BeginInit();
@@ -3646,6 +3668,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.udDisplayWaterfallHighLevel)).BeginInit();
             this.tpDisplayBottom.SuspendLayout();
             this.grpRX2DisplayAveraging.SuspendLayout();
+            this.groupBoxTS20.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udActivePeakHoldDropRX2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udActivePeakHoldDurationRX2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udRX2DisplayWFAVTime)).BeginInit();
             this.grpRX2DisplayWaterfall.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udRX2DisplayWaterfallUpdatePeriod)).BeginInit();
@@ -24348,6 +24373,7 @@
             // tpDisplayGeneral
             // 
             this.tpDisplayGeneral.BackColor = System.Drawing.SystemColors.Control;
+            this.tpDisplayGeneral.Controls.Add(this.grpSpectralWarningLeds);
             this.tpDisplayGeneral.Controls.Add(this.groupBoxTS13);
             this.tpDisplayGeneral.Controls.Add(this.groupBoxTS11);
             this.tpDisplayGeneral.Controls.Add(this.grpDisplay8000DLE);
@@ -24362,6 +24388,43 @@
             this.tpDisplayGeneral.Size = new System.Drawing.Size(721, 365);
             this.tpDisplayGeneral.TabIndex = 0;
             this.tpDisplayGeneral.Text = "General";
+            // 
+            // grpSpectralWarningLeds
+            // 
+            this.grpSpectralWarningLeds.Controls.Add(this.chkSpecWarningLEDGetPixels);
+            this.grpSpectralWarningLeds.Controls.Add(this.chkSpecWarningLEDRenderDelay);
+            this.grpSpectralWarningLeds.Location = new System.Drawing.Point(333, 293);
+            this.grpSpectralWarningLeds.Name = "grpSpectralWarningLeds";
+            this.grpSpectralWarningLeds.Size = new System.Drawing.Size(166, 72);
+            this.grpSpectralWarningLeds.TabIndex = 95;
+            this.grpSpectralWarningLeds.TabStop = false;
+            this.grpSpectralWarningLeds.Text = "Spectral Warning LEDs";
+            // 
+            // chkSpecWarningLEDGetPixels
+            // 
+            this.chkSpecWarningLEDGetPixels.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.chkSpecWarningLEDGetPixels.Image = null;
+            this.chkSpecWarningLEDGetPixels.Location = new System.Drawing.Point(6, 42);
+            this.chkSpecWarningLEDGetPixels.Name = "chkSpecWarningLEDGetPixels";
+            this.chkSpecWarningLEDGetPixels.Size = new System.Drawing.Size(148, 17);
+            this.chkSpecWarningLEDGetPixels.TabIndex = 52;
+            this.chkSpecWarningLEDGetPixels.Text = "GetPixels not ready";
+            this.toolTip1.SetToolTip(this.chkSpecWarningLEDGetPixels, "The analyser GetPixels does not have any data for this frame");
+            this.chkSpecWarningLEDGetPixels.UseVisualStyleBackColor = false;
+            // 
+            // chkSpecWarningLEDRenderDelay
+            // 
+            this.chkSpecWarningLEDRenderDelay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.chkSpecWarningLEDRenderDelay.Checked = true;
+            this.chkSpecWarningLEDRenderDelay.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSpecWarningLEDRenderDelay.Image = null;
+            this.chkSpecWarningLEDRenderDelay.Location = new System.Drawing.Point(6, 19);
+            this.chkSpecWarningLEDRenderDelay.Name = "chkSpecWarningLEDRenderDelay";
+            this.chkSpecWarningLEDRenderDelay.Size = new System.Drawing.Size(148, 17);
+            this.chkSpecWarningLEDRenderDelay.TabIndex = 51;
+            this.chkSpecWarningLEDRenderDelay.Text = "Unable to render in time";
+            this.toolTip1.SetToolTip(this.chkSpecWarningLEDRenderDelay, "The display engine is unable to render at the requested frame rate");
+            this.chkSpecWarningLEDRenderDelay.UseVisualStyleBackColor = false;
             // 
             // groupBoxTS13
             // 
@@ -24498,10 +24561,11 @@
             // 
             // groupBoxTS11
             // 
+            this.groupBoxTS11.Controls.Add(this.chkShowMHzOnCursor);
             this.groupBoxTS11.Controls.Add(this.chkSmallModeFilteronVFOs);
             this.groupBoxTS11.Location = new System.Drawing.Point(513, 84);
             this.groupBoxTS11.Name = "groupBoxTS11";
-            this.groupBoxTS11.Size = new System.Drawing.Size(200, 47);
+            this.groupBoxTS11.Size = new System.Drawing.Size(200, 63);
             this.groupBoxTS11.TabIndex = 47;
             this.groupBoxTS11.TabStop = false;
             this.groupBoxTS11.Text = "Other";
@@ -25284,18 +25348,135 @@
             // 
             // grpWaterfallAverage
             // 
+            this.grpWaterfallAverage.Controls.Add(this.groupBoxTS21);
             this.grpWaterfallAverage.Controls.Add(this.labelTS372);
             this.grpWaterfallAverage.Controls.Add(this.comboDispWFAveraging);
             this.grpWaterfallAverage.Controls.Add(this.labelTS373);
             this.grpWaterfallAverage.Controls.Add(this.comboDispWFDetector);
             this.grpWaterfallAverage.Controls.Add(this.udDisplayAVTimeWF);
             this.grpWaterfallAverage.Controls.Add(this.labelTS374);
-            this.grpWaterfallAverage.Location = new System.Drawing.Point(143, 170);
+            this.grpWaterfallAverage.Location = new System.Drawing.Point(143, 140);
             this.grpWaterfallAverage.Name = "grpWaterfallAverage";
-            this.grpWaterfallAverage.Size = new System.Drawing.Size(123, 141);
+            this.grpWaterfallAverage.Size = new System.Drawing.Size(290, 179);
             this.grpWaterfallAverage.TabIndex = 80;
             this.grpWaterfallAverage.TabStop = false;
             this.grpWaterfallAverage.Text = "Waterfall";
+            // 
+            // groupBoxTS21
+            // 
+            this.groupBoxTS21.Controls.Add(this.chkFillActivePeakHoldRX1);
+            this.groupBoxTS21.Controls.Add(this.udActivePeakHoldDropRX1);
+            this.groupBoxTS21.Controls.Add(this.chkActivePeakHoldRX1);
+            this.groupBoxTS21.Controls.Add(this.lblActivePeakHoldDropRX1);
+            this.groupBoxTS21.Controls.Add(this.lblActivePeakHoldRX1);
+            this.groupBoxTS21.Controls.Add(this.udActivePeakHoldDurationRX1);
+            this.groupBoxTS21.Location = new System.Drawing.Point(124, 38);
+            this.groupBoxTS21.Name = "groupBoxTS21";
+            this.groupBoxTS21.Size = new System.Drawing.Size(161, 104);
+            this.groupBoxTS21.TabIndex = 84;
+            this.groupBoxTS21.TabStop = false;
+            // 
+            // chkFillActivePeakHoldRX1
+            // 
+            this.chkFillActivePeakHoldRX1.AutoSize = true;
+            this.chkFillActivePeakHoldRX1.Image = null;
+            this.chkFillActivePeakHoldRX1.Location = new System.Drawing.Point(100, 73);
+            this.chkFillActivePeakHoldRX1.Name = "chkFillActivePeakHoldRX1";
+            this.chkFillActivePeakHoldRX1.Size = new System.Drawing.Size(38, 17);
+            this.chkFillActivePeakHoldRX1.TabIndex = 75;
+            this.chkFillActivePeakHoldRX1.Text = "Fill";
+            this.toolTip1.SetToolTip(this.chkFillActivePeakHoldRX1, "Fill the peak hold area");
+            this.chkFillActivePeakHoldRX1.UseVisualStyleBackColor = true;
+            // 
+            // udActivePeakHoldDropRX1
+            // 
+            this.udActivePeakHoldDropRX1.DecimalPlaces = 1;
+            this.udActivePeakHoldDropRX1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.udActivePeakHoldDropRX1.Location = new System.Drawing.Point(100, 47);
+            this.udActivePeakHoldDropRX1.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.udActivePeakHoldDropRX1.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.udActivePeakHoldDropRX1.Name = "udActivePeakHoldDropRX1";
+            this.udActivePeakHoldDropRX1.Size = new System.Drawing.Size(48, 20);
+            this.udActivePeakHoldDropRX1.TabIndex = 68;
+            this.toolTip1.SetToolTip(this.udActivePeakHoldDropRX1, "The speed of the drop in dBm per second");
+            this.udActivePeakHoldDropRX1.Value = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            // 
+            // chkActivePeakHoldRX1
+            // 
+            this.chkActivePeakHoldRX1.AutoSize = true;
+            this.chkActivePeakHoldRX1.Checked = true;
+            this.chkActivePeakHoldRX1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkActivePeakHoldRX1.Image = null;
+            this.chkActivePeakHoldRX1.Location = new System.Drawing.Point(9, 0);
+            this.chkActivePeakHoldRX1.Name = "chkActivePeakHoldRX1";
+            this.chkActivePeakHoldRX1.Size = new System.Drawing.Size(109, 17);
+            this.chkActivePeakHoldRX1.TabIndex = 65;
+            this.chkActivePeakHoldRX1.Text = "Active Peak Hold";
+            this.chkActivePeakHoldRX1.UseVisualStyleBackColor = true;
+            // 
+            // lblActivePeakHoldDropRX1
+            // 
+            this.lblActivePeakHoldDropRX1.Image = null;
+            this.lblActivePeakHoldDropRX1.Location = new System.Drawing.Point(9, 51);
+            this.lblActivePeakHoldDropRX1.Name = "lblActivePeakHoldDropRX1";
+            this.lblActivePeakHoldDropRX1.Size = new System.Drawing.Size(85, 17);
+            this.lblActivePeakHoldDropRX1.TabIndex = 69;
+            this.lblActivePeakHoldDropRX1.Text = "Drop (dBm/s):";
+            this.lblActivePeakHoldDropRX1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblActivePeakHoldRX1
+            // 
+            this.lblActivePeakHoldRX1.Image = null;
+            this.lblActivePeakHoldRX1.Location = new System.Drawing.Point(6, 23);
+            this.lblActivePeakHoldRX1.Name = "lblActivePeakHoldRX1";
+            this.lblActivePeakHoldRX1.Size = new System.Drawing.Size(88, 18);
+            this.lblActivePeakHoldRX1.TabIndex = 67;
+            this.lblActivePeakHoldRX1.Text = "Time (ms):";
+            this.lblActivePeakHoldRX1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // udActivePeakHoldDurationRX1
+            // 
+            this.udActivePeakHoldDurationRX1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.udActivePeakHoldDurationRX1.Location = new System.Drawing.Point(100, 21);
+            this.udActivePeakHoldDurationRX1.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.udActivePeakHoldDurationRX1.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.udActivePeakHoldDurationRX1.Name = "udActivePeakHoldDurationRX1";
+            this.udActivePeakHoldDurationRX1.Size = new System.Drawing.Size(48, 20);
+            this.udActivePeakHoldDurationRX1.TabIndex = 66;
+            this.toolTip1.SetToolTip(this.udActivePeakHoldDurationRX1, "How long to hold the peaks");
+            this.udActivePeakHoldDurationRX1.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // labelTS372
             // 
@@ -25401,7 +25582,7 @@
             this.grpDisplaySpectrumGrid.Controls.Add(this.lblDisplayGridStep);
             this.grpDisplaySpectrumGrid.Controls.Add(this.lblDisplayGridMin);
             this.grpDisplaySpectrumGrid.Controls.Add(this.lblDisplayGridMax);
-            this.grpDisplaySpectrumGrid.Location = new System.Drawing.Point(375, 240);
+            this.grpDisplaySpectrumGrid.Location = new System.Drawing.Point(439, 247);
             this.grpDisplaySpectrumGrid.Name = "grpDisplaySpectrumGrid";
             this.grpDisplaySpectrumGrid.Size = new System.Drawing.Size(255, 110);
             this.grpDisplaySpectrumGrid.TabIndex = 47;
@@ -25580,7 +25761,7 @@
             this.grpDisplayAverage.Controls.Add(this.comboDispPanDetector);
             this.grpDisplayAverage.Controls.Add(this.udDisplayAVGTime);
             this.grpDisplayAverage.Controls.Add(this.lblDisplayAVGTime);
-            this.grpDisplayAverage.Location = new System.Drawing.Point(6, 170);
+            this.grpDisplayAverage.Location = new System.Drawing.Point(6, 140);
             this.grpDisplayAverage.Name = "grpDisplayAverage";
             this.grpDisplayAverage.Size = new System.Drawing.Size(123, 179);
             this.grpDisplayAverage.TabIndex = 38;
@@ -25699,7 +25880,7 @@
             this.clrbtnWaterfallMid.Automatic = "Automatic";
             this.clrbtnWaterfallMid.Color = System.Drawing.Color.Transparent;
             this.clrbtnWaterfallMid.Image = null;
-            this.clrbtnWaterfallMid.Location = new System.Drawing.Point(447, 173);
+            this.clrbtnWaterfallMid.Location = new System.Drawing.Point(494, 202);
             this.clrbtnWaterfallMid.MoreColors = "More Colors...";
             this.clrbtnWaterfallMid.Name = "clrbtnWaterfallMid";
             this.clrbtnWaterfallMid.Size = new System.Drawing.Size(40, 23);
@@ -25824,7 +26005,7 @@
             this.clrbtnWaterfallHigh.Automatic = "Automatic";
             this.clrbtnWaterfallHigh.Color = System.Drawing.Color.Transparent;
             this.clrbtnWaterfallHigh.Image = null;
-            this.clrbtnWaterfallHigh.Location = new System.Drawing.Point(567, 173);
+            this.clrbtnWaterfallHigh.Location = new System.Drawing.Point(614, 202);
             this.clrbtnWaterfallHigh.MoreColors = "More Colors...";
             this.clrbtnWaterfallHigh.Name = "clrbtnWaterfallHigh";
             this.clrbtnWaterfallHigh.Size = new System.Drawing.Size(40, 23);
@@ -25851,7 +26032,7 @@
             this.grpDisplayWaterfall.Controls.Add(this.udDisplayWaterfallLowLevel);
             this.grpDisplayWaterfall.Controls.Add(this.lblDisplayWaterfallHighLevel);
             this.grpDisplayWaterfall.Controls.Add(this.udDisplayWaterfallHighLevel);
-            this.grpDisplayWaterfall.Location = new System.Drawing.Point(375, 10);
+            this.grpDisplayWaterfall.Location = new System.Drawing.Point(439, 12);
             this.grpDisplayWaterfall.Name = "grpDisplayWaterfall";
             this.grpDisplayWaterfall.Size = new System.Drawing.Size(274, 163);
             this.grpDisplayWaterfall.TabIndex = 40;
@@ -26099,7 +26280,7 @@
             // lblDisplayWaterfallMidColor
             // 
             this.lblDisplayWaterfallMidColor.Image = null;
-            this.lblDisplayWaterfallMidColor.Location = new System.Drawing.Point(387, 178);
+            this.lblDisplayWaterfallMidColor.Location = new System.Drawing.Point(434, 207);
             this.lblDisplayWaterfallMidColor.Name = "lblDisplayWaterfallMidColor";
             this.lblDisplayWaterfallMidColor.Size = new System.Drawing.Size(64, 16);
             this.lblDisplayWaterfallMidColor.TabIndex = 76;
@@ -26108,7 +26289,7 @@
             // lblDisplayWaterfallHighColor
             // 
             this.lblDisplayWaterfallHighColor.Image = null;
-            this.lblDisplayWaterfallHighColor.Location = new System.Drawing.Point(502, 178);
+            this.lblDisplayWaterfallHighColor.Location = new System.Drawing.Point(549, 207);
             this.lblDisplayWaterfallHighColor.Name = "lblDisplayWaterfallHighColor";
             this.lblDisplayWaterfallHighColor.Size = new System.Drawing.Size(64, 16);
             this.lblDisplayWaterfallHighColor.TabIndex = 75;
@@ -26135,18 +26316,136 @@
             // 
             // grpRX2DisplayAveraging
             // 
+            this.grpRX2DisplayAveraging.Controls.Add(this.groupBoxTS20);
             this.grpRX2DisplayAveraging.Controls.Add(this.labelTS375);
             this.grpRX2DisplayAveraging.Controls.Add(this.comboRX2DispWFAveraging);
             this.grpRX2DisplayAveraging.Controls.Add(this.labelTS376);
             this.grpRX2DisplayAveraging.Controls.Add(this.comboRX2DispWFDetector);
             this.grpRX2DisplayAveraging.Controls.Add(this.udRX2DisplayWFAVTime);
             this.grpRX2DisplayAveraging.Controls.Add(this.labelTS377);
-            this.grpRX2DisplayAveraging.Location = new System.Drawing.Point(143, 170);
+            this.grpRX2DisplayAveraging.Location = new System.Drawing.Point(143, 149);
             this.grpRX2DisplayAveraging.Name = "grpRX2DisplayAveraging";
-            this.grpRX2DisplayAveraging.Size = new System.Drawing.Size(123, 141);
+            this.grpRX2DisplayAveraging.Size = new System.Drawing.Size(295, 179);
             this.grpRX2DisplayAveraging.TabIndex = 80;
             this.grpRX2DisplayAveraging.TabStop = false;
             this.grpRX2DisplayAveraging.Text = "Waterfall";
+            // 
+            // groupBoxTS20
+            // 
+            this.groupBoxTS20.Controls.Add(this.chkFillActivePeakHoldRX2);
+            this.groupBoxTS20.Controls.Add(this.udActivePeakHoldDropRX2);
+            this.groupBoxTS20.Controls.Add(this.chkActivePeakHoldRX2);
+            this.groupBoxTS20.Controls.Add(this.lblActivePeakHoldDropRX2);
+            this.groupBoxTS20.Controls.Add(this.lblActivePeakHoldRX2);
+            this.groupBoxTS20.Controls.Add(this.udActivePeakHoldDurationRX2);
+            this.groupBoxTS20.Location = new System.Drawing.Point(128, 38);
+            this.groupBoxTS20.Name = "groupBoxTS20";
+            this.groupBoxTS20.Size = new System.Drawing.Size(161, 104);
+            this.groupBoxTS20.TabIndex = 84;
+            this.groupBoxTS20.TabStop = false;
+            // 
+            // chkFillActivePeakHoldRX2
+            // 
+            this.chkFillActivePeakHoldRX2.AutoSize = true;
+            this.chkFillActivePeakHoldRX2.Image = null;
+            this.chkFillActivePeakHoldRX2.Location = new System.Drawing.Point(100, 73);
+            this.chkFillActivePeakHoldRX2.Name = "chkFillActivePeakHoldRX2";
+            this.chkFillActivePeakHoldRX2.Size = new System.Drawing.Size(38, 17);
+            this.chkFillActivePeakHoldRX2.TabIndex = 74;
+            this.chkFillActivePeakHoldRX2.Text = "Fill";
+            this.toolTip1.SetToolTip(this.chkFillActivePeakHoldRX2, "Fill the peak hold area");
+            this.chkFillActivePeakHoldRX2.UseVisualStyleBackColor = true;
+            // 
+            // udActivePeakHoldDropRX2
+            // 
+            this.udActivePeakHoldDropRX2.DecimalPlaces = 1;
+            this.udActivePeakHoldDropRX2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.udActivePeakHoldDropRX2.Location = new System.Drawing.Point(100, 47);
+            this.udActivePeakHoldDropRX2.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.udActivePeakHoldDropRX2.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.udActivePeakHoldDropRX2.Name = "udActivePeakHoldDropRX2";
+            this.udActivePeakHoldDropRX2.Size = new System.Drawing.Size(48, 20);
+            this.udActivePeakHoldDropRX2.TabIndex = 72;
+            this.toolTip1.SetToolTip(this.udActivePeakHoldDropRX2, "The speed of the drop in dBm per second");
+            this.udActivePeakHoldDropRX2.Value = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            // 
+            // chkActivePeakHoldRX2
+            // 
+            this.chkActivePeakHoldRX2.AutoSize = true;
+            this.chkActivePeakHoldRX2.Checked = true;
+            this.chkActivePeakHoldRX2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkActivePeakHoldRX2.Image = null;
+            this.chkActivePeakHoldRX2.Location = new System.Drawing.Point(9, 0);
+            this.chkActivePeakHoldRX2.Name = "chkActivePeakHoldRX2";
+            this.chkActivePeakHoldRX2.Size = new System.Drawing.Size(109, 17);
+            this.chkActivePeakHoldRX2.TabIndex = 69;
+            this.chkActivePeakHoldRX2.Text = "Active Peak Hold";
+            this.toolTip1.SetToolTip(this.chkActivePeakHoldRX2, "Actively peak hold the panadaptor display");
+            this.chkActivePeakHoldRX2.UseVisualStyleBackColor = true;
+            // 
+            // lblActivePeakHoldDropRX2
+            // 
+            this.lblActivePeakHoldDropRX2.Image = null;
+            this.lblActivePeakHoldDropRX2.Location = new System.Drawing.Point(11, 51);
+            this.lblActivePeakHoldDropRX2.Name = "lblActivePeakHoldDropRX2";
+            this.lblActivePeakHoldDropRX2.Size = new System.Drawing.Size(83, 20);
+            this.lblActivePeakHoldDropRX2.TabIndex = 73;
+            this.lblActivePeakHoldDropRX2.Text = "Drop (dBm/s):";
+            this.lblActivePeakHoldDropRX2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblActivePeakHoldRX2
+            // 
+            this.lblActivePeakHoldRX2.Image = null;
+            this.lblActivePeakHoldRX2.Location = new System.Drawing.Point(20, 23);
+            this.lblActivePeakHoldRX2.Name = "lblActivePeakHoldRX2";
+            this.lblActivePeakHoldRX2.Size = new System.Drawing.Size(74, 20);
+            this.lblActivePeakHoldRX2.TabIndex = 71;
+            this.lblActivePeakHoldRX2.Text = "Time (ms):";
+            this.lblActivePeakHoldRX2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // udActivePeakHoldDurationRX2
+            // 
+            this.udActivePeakHoldDurationRX2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.udActivePeakHoldDurationRX2.Location = new System.Drawing.Point(100, 21);
+            this.udActivePeakHoldDurationRX2.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.udActivePeakHoldDurationRX2.Minimum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.udActivePeakHoldDurationRX2.Name = "udActivePeakHoldDurationRX2";
+            this.udActivePeakHoldDurationRX2.Size = new System.Drawing.Size(48, 20);
+            this.udActivePeakHoldDurationRX2.TabIndex = 70;
+            this.toolTip1.SetToolTip(this.udActivePeakHoldDurationRX2, "How long to hold the peaks");
+            this.udActivePeakHoldDurationRX2.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // labelTS375
             // 
@@ -26258,7 +26557,7 @@
             this.grpRX2DisplayWaterfall.Controls.Add(this.udRX2DisplayWaterfallLowLevel);
             this.grpRX2DisplayWaterfall.Controls.Add(this.lblRX2DisplayWaterfallHighLevel);
             this.grpRX2DisplayWaterfall.Controls.Add(this.udRX2DisplayWaterfallHighLevel);
-            this.grpRX2DisplayWaterfall.Location = new System.Drawing.Point(375, 10);
+            this.grpRX2DisplayWaterfall.Location = new System.Drawing.Point(444, 6);
             this.grpRX2DisplayWaterfall.Name = "grpRX2DisplayWaterfall";
             this.grpRX2DisplayWaterfall.Size = new System.Drawing.Size(274, 163);
             this.grpRX2DisplayWaterfall.TabIndex = 50;
@@ -26513,7 +26812,7 @@
             this.grpRX2DisplaySpectrumGrid.Controls.Add(this.lblRX2DisplayGridStep);
             this.grpRX2DisplaySpectrumGrid.Controls.Add(this.lblRX2DisplayGridMin);
             this.grpRX2DisplaySpectrumGrid.Controls.Add(this.lblRX2DisplayGridMax);
-            this.grpRX2DisplaySpectrumGrid.Location = new System.Drawing.Point(375, 240);
+            this.grpRX2DisplaySpectrumGrid.Location = new System.Drawing.Point(463, 251);
             this.grpRX2DisplaySpectrumGrid.Name = "grpRX2DisplaySpectrumGrid";
             this.grpRX2DisplaySpectrumGrid.Size = new System.Drawing.Size(255, 110);
             this.grpRX2DisplaySpectrumGrid.TabIndex = 49;
@@ -26686,7 +26985,7 @@
             this.clrbtnRX2WaterfallMid.Automatic = "Automatic";
             this.clrbtnRX2WaterfallMid.Color = System.Drawing.Color.Transparent;
             this.clrbtnRX2WaterfallMid.Image = null;
-            this.clrbtnRX2WaterfallMid.Location = new System.Drawing.Point(447, 173);
+            this.clrbtnRX2WaterfallMid.Location = new System.Drawing.Point(525, 198);
             this.clrbtnRX2WaterfallMid.MoreColors = "More Colors...";
             this.clrbtnRX2WaterfallMid.Name = "clrbtnRX2WaterfallMid";
             this.clrbtnRX2WaterfallMid.Size = new System.Drawing.Size(40, 23);
@@ -26700,7 +26999,7 @@
             this.clrbtnRX2WaterfallHigh.Automatic = "Automatic";
             this.clrbtnRX2WaterfallHigh.Color = System.Drawing.Color.Transparent;
             this.clrbtnRX2WaterfallHigh.Image = null;
-            this.clrbtnRX2WaterfallHigh.Location = new System.Drawing.Point(567, 173);
+            this.clrbtnRX2WaterfallHigh.Location = new System.Drawing.Point(645, 198);
             this.clrbtnRX2WaterfallHigh.MoreColors = "More Colors...";
             this.clrbtnRX2WaterfallHigh.Name = "clrbtnRX2WaterfallHigh";
             this.clrbtnRX2WaterfallHigh.Size = new System.Drawing.Size(40, 23);
@@ -26718,7 +27017,7 @@
             this.grpRX2DisplayAverage.Controls.Add(this.comboRX2DispPanDetector);
             this.grpRX2DisplayAverage.Controls.Add(this.udRX2DisplayAVGTime);
             this.grpRX2DisplayAverage.Controls.Add(this.labelTS143);
-            this.grpRX2DisplayAverage.Location = new System.Drawing.Point(6, 170);
+            this.grpRX2DisplayAverage.Location = new System.Drawing.Point(6, 149);
             this.grpRX2DisplayAverage.Name = "grpRX2DisplayAverage";
             this.grpRX2DisplayAverage.Size = new System.Drawing.Size(123, 179);
             this.grpRX2DisplayAverage.TabIndex = 47;
@@ -26834,7 +27133,7 @@
             // lblRX2DisplayWaterfallMidColor
             // 
             this.lblRX2DisplayWaterfallMidColor.Image = null;
-            this.lblRX2DisplayWaterfallMidColor.Location = new System.Drawing.Point(387, 178);
+            this.lblRX2DisplayWaterfallMidColor.Location = new System.Drawing.Point(465, 203);
             this.lblRX2DisplayWaterfallMidColor.Name = "lblRX2DisplayWaterfallMidColor";
             this.lblRX2DisplayWaterfallMidColor.Size = new System.Drawing.Size(64, 16);
             this.lblRX2DisplayWaterfallMidColor.TabIndex = 76;
@@ -26843,7 +27142,7 @@
             // lblRX2DisplayWaterfallHighColor
             // 
             this.lblRX2DisplayWaterfallHighColor.Image = null;
-            this.lblRX2DisplayWaterfallHighColor.Location = new System.Drawing.Point(502, 178);
+            this.lblRX2DisplayWaterfallHighColor.Location = new System.Drawing.Point(580, 203);
             this.lblRX2DisplayWaterfallHighColor.Name = "lblRX2DisplayWaterfallHighColor";
             this.lblRX2DisplayWaterfallHighColor.Size = new System.Drawing.Size(64, 16);
             this.lblRX2DisplayWaterfallHighColor.TabIndex = 75;
@@ -55084,6 +55383,19 @@
             this.radioButtonTS6.Text = "Auto";
             this.radioButtonTS6.UseVisualStyleBackColor = true;
             // 
+            // chkShowMHzOnCursor
+            // 
+            this.chkShowMHzOnCursor.AutoSize = true;
+            this.chkShowMHzOnCursor.Image = null;
+            this.chkShowMHzOnCursor.Location = new System.Drawing.Point(10, 40);
+            this.chkShowMHzOnCursor.Name = "chkShowMHzOnCursor";
+            this.chkShowMHzOnCursor.Size = new System.Drawing.Size(123, 17);
+            this.chkShowMHzOnCursor.TabIndex = 3;
+            this.chkShowMHzOnCursor.Text = "Show Mhz on cursor";
+            this.toolTip1.SetToolTip(this.chkShowMHzOnCursor, "Show MHz,  dBm/sec info, filter edges and other info  on the cursor (hold shift t" +
+        "o show on demand)");
+            this.chkShowMHzOnCursor.UseVisualStyleBackColor = true;
+            // 
             // Setup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -55434,6 +55746,7 @@
             this.tpDisplay.ResumeLayout(false);
             this.tcDisplay.ResumeLayout(false);
             this.tpDisplayGeneral.ResumeLayout(false);
+            this.grpSpectralWarningLeds.ResumeLayout(false);
             this.groupBoxTS13.ResumeLayout(false);
             this.groupBoxTS13.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.udBlobPeakHoldMS)).EndInit();
@@ -55464,6 +55777,10 @@
             this.tpDisplayTop.ResumeLayout(false);
             this.grpWaterfallAverage.ResumeLayout(false);
             this.grpWaterfallAverage.PerformLayout();
+            this.groupBoxTS21.ResumeLayout(false);
+            this.groupBoxTS21.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udActivePeakHoldDropRX1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udActivePeakHoldDurationRX1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udDisplayAVTimeWF)).EndInit();
             this.grpDisplaySpectrumGrid.ResumeLayout(false);
             this.grpDisplaySpectrumGrid.PerformLayout();
@@ -55484,6 +55801,10 @@
             this.tpDisplayBottom.ResumeLayout(false);
             this.grpRX2DisplayAveraging.ResumeLayout(false);
             this.grpRX2DisplayAveraging.PerformLayout();
+            this.groupBoxTS20.ResumeLayout(false);
+            this.groupBoxTS20.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.udActivePeakHoldDropRX2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.udActivePeakHoldDurationRX2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.udRX2DisplayWFAVTime)).EndInit();
             this.grpRX2DisplayWaterfall.ResumeLayout(false);
             this.grpRX2DisplayWaterfall.PerformLayout();
@@ -59570,5 +59891,23 @@
         private ButtonTS btnVAC1Refresh;
         private CheckBoxTS chkExclusive;
         private ButtonTS btnResetCFC;
+        private GroupBoxTS groupBoxTS21;
+        private CheckBoxTS chkFillActivePeakHoldRX1;
+        private NumericUpDownTS udActivePeakHoldDropRX1;
+        private CheckBoxTS chkActivePeakHoldRX1;
+        private LabelTS lblActivePeakHoldDropRX1;
+        private LabelTS lblActivePeakHoldRX1;
+        private NumericUpDownTS udActivePeakHoldDurationRX1;
+        private GroupBoxTS groupBoxTS20;
+        private CheckBoxTS chkFillActivePeakHoldRX2;
+        private NumericUpDownTS udActivePeakHoldDropRX2;
+        private CheckBoxTS chkActivePeakHoldRX2;
+        private LabelTS lblActivePeakHoldDropRX2;
+        private LabelTS lblActivePeakHoldRX2;
+        private NumericUpDownTS udActivePeakHoldDurationRX2;
+        private GroupBoxTS grpSpectralWarningLeds;
+        private CheckBoxTS chkSpecWarningLEDGetPixels;
+        private CheckBoxTS chkSpecWarningLEDRenderDelay;
+        private CheckBoxTS chkShowMHzOnCursor;
     }
 }

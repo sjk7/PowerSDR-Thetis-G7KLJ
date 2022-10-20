@@ -590,22 +590,19 @@ public partial class Console : Form {
     private Point btn_display_zoom_1x_basis = new Point(100, 100);
     private Point btn_display_zoom_05_basis = new Point(100, 100);
     private Point tb_display_zoom_basis = new Point(100, 100);
-    private Point txt_display_peak_freq_basis = new Point(100, 100);
-    private Point txt_display_peak_power_basis = new Point(100, 100);
-    private Point txt_display_peak_offset_basis = new Point(100, 100);
+    //private Point txt_display_peak_freq_basis = new Point(100, 100);
+    // private Point txt_display_peak_power_basis = new Point(100, 100);
+    //private Point txt_display_peak_offset_basis = new Point(100, 100);
     private Point lbl_display_zoom_basis = new Point(100, 100);
     private Size gr_display_size_basis = new Size(100, 100);
     private Size pic_display_size_basis = new Size(100, 100);
     private Size pic_waterfall_size_basis = new Size(100, 100);
-    private Size txtOverload_size_basis = new Size(100, 100);
-    private Point txtOverload_basis = new Point(100, 100);
+
     private Point gr_display2_basis = new Point(100, 100);
     private Point gr_dsp_basis = new Point(100, 100);
     private Point tb_displaypan_basis = new Point(100, 100);
     private Point lbl_displaypan_basis = new Point(100, 100);
-    private Point txt_display_cursor_freq_basis = new Point(100, 100);
-    private Point txt_display_cursor_power_basis = new Point(100, 100);
-    private Point txt_display_cursor_offset_basis = new Point(100, 100);
+    
 
     private Point txt_display_orion_mkii_pa_volts_basis = new Point(100, 100);
     private Point txt_display_orion_mkii_blank_basis = new Point(100, 100);
@@ -19310,17 +19307,63 @@ public Color MeterBackgroundColor {
 }
 
 private Color peak_background_color = Color.Black;
-public Color PeakBackgroundColor {
+
+        #region "InfoBarGetters"
+        public LabelTS lblDisplayCursorOffset
+        {
+            get { return ucInfoBar.Left1Label; }
+ 
+        }
+
+        public LabelTS lblDisplayCursorFreq
+        {
+            get
+            {
+                return ucInfoBar.Left2Label;
+            }
+        }
+
+        public LabelTS lblDisplayCursorPower
+        {
+            get { return ucInfoBar.UnknownLabel; }
+
+        }
+
+        public LabelTS lblOverload
+        {
+            get { return ucInfoBar.WarningLabel; }
+
+        }
+
+        public LabelTS lblDisplayPeakOffset
+        {
+            get { return ucInfoBar.Right2Label; }
+
+        }
+        public LabelTS lblDisplayPeakPower
+        {
+            get { return ucInfoBar.Right1Label; }
+
+        }
+
+        public LabelTS lblDisplayPeakFreq
+        {
+            get { return ucInfoBar.Right3Label; }
+
+        }
+
+
+        #endregion
+
+
+        public Color PeakBackgroundColor {
             get { return peak_background_color; }
             set {
            peak_background_color = value;
-           txtDisplayCursorOffset.BackColor = value;
-           txtDisplayCursorPower.BackColor = value;
-           txtDisplayCursorFreq.BackColor = value;
-           // txtDisplayPeakOffset.BackColor = value;
-           // txtDisplayPeakPower.BackColor = value;
-           // txtDisplayPeakFreq.BackColor = value;
-           txtOverload.BackColor = value;
+           lblDisplayCursorOffset.BackColor = value;
+           lblDisplayCursorPower.BackColor = value;
+           lblDisplayCursorFreq.BackColor = value;
+           lblOverload.BackColor = value;
             }
 }
 
@@ -25528,9 +25571,9 @@ public Color PeakTextColor {
             get { return peak_text_color; }
             set {
            peak_text_color = value;
-           txtDisplayCursorOffset.ForeColor = value;
-           txtDisplayCursorPower.ForeColor = value;
-           txtDisplayCursorFreq.ForeColor = value;
+           lblDisplayCursorOffset.ForeColor = value;
+           lblDisplayCursorPower.ForeColor = value;
+           lblDisplayCursorFreq.ForeColor = value;
            // txtDisplayPeakOffset.ForeColor = value;
            // txtDisplayPeakPower.ForeColor = value;
            // txtDisplayPeakFreq.ForeColor = value;
@@ -26194,13 +26237,13 @@ private async void UpdatePeakText() {
            switch (oload_select) {
                case 0:
                    switch (adc_oload_num) {
-                       case 1: txtOverload.Text = "ADC1 Overload!"; break;
-                       case 2: txtOverload.Text = "ADC2 Overload!"; break;
-                       case 4: txtOverload.Text = "ADC3 Overload!"; break;
-                       default: txtOverload.Text = "ADC Overload!"; break;
+                       case 1: lblOverload.Text = "ADC1 Overload!"; break;
+                       case 2: lblOverload.Text = "ADC2 Overload!"; break;
+                       case 4: lblOverload.Text = "ADC3 Overload!"; break;
+                       default: lblOverload.Text = "ADC Overload!"; break;
                    }
                    break;
-               case 1: txtOverload.Text = "AMP OVERLOAD!"; break;
+               case 1: lblOverload.Text = "AMP OVERLOAD!"; break;
            }
            change_overload_color_count = ++change_overload_color_count % 2;
 
@@ -26302,17 +26345,17 @@ private async void UpdatePeakText() {
                    toolStripStatusLabel_SeqWarning.Visible = bShow;
                }
 
-               // txtOverload.ForeColor = Color.Red;
-               txtOverload.Text
+                    // txtOverload.ForeColor = Color.Red;
+                    lblOverload.Text
                    = "Seq=> " + ooo.ToString() + " (" + s.Trim() + ")";
            } else if (tx_inhibit)
-               txtOverload.Text = "TX Inhibit";
+                    lblOverload.Text = "TX Inhibit";
            else
-               txtOverload.Text = "txtOverload is empty here";
+                    lblOverload.Text = "txtOverload is empty here";
             }
             switch (change_overload_color_count) {
-           case 0: txtOverload.ForeColor = Color.Red; break;
-           case 1: txtOverload.ForeColor = Color.Yellow; break;
+           case 0: lblOverload.ForeColor = Color.Red; break;
+           case 1: lblOverload.ForeColor = Color.Yellow; break;
             }
 
             if (txtVFOAFreq.Text == "" || txtVFOAFreq.Text == "."
@@ -26351,32 +26394,32 @@ private async void UpdatePeakText() {
             if (old_psautocal != chkFWCATUBypass.Checked) {
            old_psautocal = chkFWCATUBypass.Checked;
            if (chkFWCATUBypass.Checked) {
-               txtDisplayPeakOffset.BackColor = Color.Black;
-               txtDisplayPeakOffset.Font = new Font(
+               lblDisplayPeakOffset.BackColor = Color.Black;
+                    lblDisplayPeakOffset.Font = new Font(
                    "Cambria", 9.00f, FontStyle.Bold | FontStyle.Italic);
-               txtDisplayPeakOffset.Text = "PureSignal 2";
-               txtDisplayPeakPower.ForeColor = Color.Black;
-               txtDisplayPeakPower.Font
+                    lblDisplayPeakOffset.Text = "PureSignal 2";
+               lblDisplayPeakPower.ForeColor = Color.Black;
+                    lblDisplayPeakPower.Font
                    = new Font("Arial", 9.25f, FontStyle.Bold);
-               txtDisplayPeakPower.Text = "Feedback";
-               txtDisplayPeakFreq.ForeColor = Color.Black;
-               txtDisplayPeakFreq.Font
+                    lblDisplayPeakPower.Text = "Feedback";
+                    lblDisplayPeakPower.ForeColor = Color.Black;
+                    lblDisplayPeakPower.Font
                    = new Font("Arial", 9.25f, FontStyle.Bold);
-               txtDisplayPeakFreq.Text = "Correcting";
+                    lblDisplayPeakPower.Text = "Correcting";
            } else {
-               txtDisplayPeakOffset.Font
+                    lblDisplayPeakOffset.Font
                    = new Font("Arial", 9.75f, FontStyle.Regular);
-               txtDisplayPeakPower.Font
+                    lblDisplayPeakPower.Font
                    = new Font("Arial", 9.75f, FontStyle.Regular);
-               txtDisplayPeakFreq.Font
+                    lblDisplayPeakPower.Font
                    = new Font("Arial", 9.75f, FontStyle.Regular);
            }
             }
 
             if (!chkFWCATUBypass.Checked) {
-           txtDisplayPeakOffset.BackColor = peak_background_color;
-           txtDisplayPeakPower.BackColor = peak_background_color;
-           txtDisplayPeakFreq.BackColor = peak_background_color;
+                lblDisplayPeakOffset.BackColor = peak_background_color;
+                lblDisplayPeakPower.BackColor = peak_background_color;
+                lblDisplayPeakFreq.BackColor = peak_background_color;
            switch (Display.CurrentDisplayMode) {
                case DisplayMode.HISTOGRAM:
                case DisplayMode.PANADAPTER:
@@ -26385,11 +26428,11 @@ private async void UpdatePeakText() {
                case DisplayMode.PANAFALL:
                case DisplayMode.PANASCOPE:
                case DisplayMode.SPECTRASCOPE:
-                   txtDisplayPeakOffset.ForeColor = peak_text_color;
-                   txtDisplayPeakPower.ForeColor = peak_text_color;
-                   txtDisplayPeakFreq.ForeColor = peak_text_color;
-                   txtDisplayPeakOffset.Text = x.ToString("f1") + "Hz";
-                   txtDisplayPeakPower.Text = y.ToString("f1") + "dBm";
+                        lblDisplayPeakOffset.ForeColor = peak_text_color;
+                        lblDisplayPeakPower.ForeColor = peak_text_color;
+                        lblDisplayPeakPower.ForeColor = peak_text_color;
+                        lblDisplayPeakOffset.Text = x.ToString("f1") + "Hz";
+                        lblDisplayPeakPower.Text = y.ToString("f1") + "dBm";
                    // txtDisplayPeakPower.Text = "Fuck off";
                    double Freq = double.Parse(txtVFOAFreq.Text);
                    string temp_text;
@@ -26405,16 +26448,16 @@ private async void UpdatePeakText() {
                            + " MHz"; // Right hand - Peak frequency readout
 
                    int jper = temp_text.IndexOf(separator) + 4;
-                   txtDisplayPeakFreq.Text
+                        lblDisplayPeakFreq.Text
                        = String.Copy(temp_text.Insert(jper, " "));
                    break;
                default:
-                   txtDisplayPeakOffset.Text = "";
-                   txtDisplayPeakPower.Text = "";
-                   txtDisplayPeakFreq.Text = "";
+                        lblDisplayPeakOffset.Text = "";
+                        lblDisplayPeakFreq.Text = "";
+                        lblDisplayPeakFreq.Text = "";
                    break;
            }
-           txtOverload.Visible = visible;
+           lblOverload.Visible = visible;
             }
 }
 
@@ -26431,9 +26474,9 @@ public void UpdatePAVoltsAmpsDisplay() {
            // txtDisplayOrionMKIIPAVolts.Hide(); // BringToFront();
            //  txtDisplayOrionMKIIPAAmps.Hide(); // BringToFront();
            // txtDisplayOrionMKIIBlank.Hide(); // BringToFront();
-           txtDisplayCursorFreq.BringToFront();
-           txtDisplayCursorOffset.BringToFront();
-           txtDisplayCursorPower.BringToFront();
+           lblDisplayCursorFreq.BringToFront();
+           lblDisplayCursorOffset.BringToFront();
+           lblDisplayCursorPower.BringToFront();
             }
 }
 
@@ -26441,7 +26484,7 @@ private Color txtcenterBackColor = Color.Black;
 public Color TxtCenterBackColor {
             set {
            txtcenterBackColor = value;
-           txtDisplayPeakPower.BackColor = value;
+                lblDisplayPeakFreq.BackColor = value;
             }
 }
 
@@ -26449,7 +26492,7 @@ private Color txtrightBackColor = Color.Black;
 public Color TxtRightBackColor {
             set {
            txtrightBackColor = value;
-           txtDisplayPeakFreq.BackColor = value;
+                lblDisplayPeakFreq.BackColor = value;
             }
 }
 
@@ -26457,7 +26500,7 @@ private Color txtleftForeColor = Color.Red;
 public Color TxtLeftForeColor {
             set {
            txtleftForeColor = value;
-           txtDisplayPeakOffset.ForeColor = value;
+                lblDisplayPeakOffset.ForeColor = value;
             }
 }
 
@@ -38132,12 +38175,12 @@ unsafe private void picDisplay_MouseMove(object sender, MouseEventArgs e) {
                        rf_freq += (double)cw_pitch * 0.0000010;
                    else if (rx1_dsp_mode == DSPMode.CWU)
                        rf_freq -= (double)cw_pitch * 0.0000010;
-                   txtDisplayCursorOffset.Text = x.ToString("f1") + "Hz";
-                   txtDisplayCursorPower.Text = y.ToString("f1") + "dBm";
+                   lblDisplayCursorOffset.Text = x.ToString("f1") + "Hz";
+                   lblDisplayCursorPower.Text = y.ToString("f1") + "dBm";
 
                    string temp_text = rf_freq.ToString("f6") + " MHz";
                    int jper = temp_text.IndexOf(separator) + 4;
-                   txtDisplayCursorFreq.Text
+                   lblDisplayCursorFreq.Text
                        = String.Copy(temp_text.Insert(jper, " "));
                    break;
                case DisplayMode.PANADAPTER:
@@ -38152,7 +38195,7 @@ unsafe private void picDisplay_MouseMove(object sender, MouseEventArgs e) {
                        case DisplayMode.PANASCOPE:
                        case DisplayMode.PANADAPTER:
                            y = PixelToDb(e.Y);
-                           txtDisplayCursorPower.Text
+                           lblDisplayCursorPower.Text
                                = y.ToString("f1") + "dBm";
 
                            float cal_offset = 0.0f;
@@ -38417,7 +38460,7 @@ unsafe private void picDisplay_MouseMove(object sender, MouseEventArgs e) {
                            break;
                        case DisplayMode.WATERFALL:
                            y = WaterfallPixelToTime(e.Y);
-                           txtDisplayCursorPower.Text
+                           lblDisplayCursorPower.Text
                                = (y / 1000.0f).ToString("f1") + "sec";
                            break;
                    }
@@ -38426,21 +38469,21 @@ unsafe private void picDisplay_MouseMove(object sender, MouseEventArgs e) {
                            if (e.Y < Display.PanafallSplitBarPos /*picDisplay.Height / 2*/)
                                 {
                                y = PixelToDb(e.Y);
-                               txtDisplayCursorPower.Text
+                               lblDisplayCursorPower.Text
                                    = y.ToString("f1") + "dBm";
                            } else {
                                y = WaterfallPixelToTime(e.Y);
-                               txtDisplayCursorPower.Text
+                               lblDisplayCursorPower.Text
                                    = (y / 1000.0f).ToString("f1") + "sec";
                            }
                            break;
                        case DisplayMode.PANASCOPE:
                            if (e.Y < picDisplay.Height / 2) {
                                y = PixelToDb(e.Y);
-                               txtDisplayCursorPower.Text
+                               lblDisplayCursorPower.Text
                                    = y.ToString("f1") + "dBm";
                            } else {
-                               txtDisplayCursorPower.Text = "";
+                               lblDisplayCursorPower.Text = "";
                            }
                            break;
                    }
@@ -38470,7 +38513,7 @@ unsafe private void picDisplay_MouseMove(object sender, MouseEventArgs e) {
                    }
                    double freq = double.Parse(txtVFOAFreq.Text);
 
-                   txtDisplayCursorOffset.Text = x.ToString("f1") + "Hz";
+                   lblDisplayCursorOffset.Text = x.ToString("f1") + "Hz";
 
                    if (click_tune_display
                        && !mox) // Correct cursor frequency when CTUN on -G3OQD
@@ -38483,7 +38526,7 @@ unsafe private void picDisplay_MouseMove(object sender, MouseEventArgs e) {
                            + " MHz"; // Disply cursor frequency under Spectrum
 
                    jper = temp_text.IndexOf(separator) + 4;
-                   txtDisplayCursorFreq.Text
+                   lblDisplayCursorFreq.Text
                        = String.Copy(temp_text.Insert(jper, " "));
 
                    bool bDragRX1Filter = bOverRX1
@@ -38615,9 +38658,9 @@ unsafe private void picDisplay_MouseMove(object sender, MouseEventArgs e) {
                    }
                    break;
                default:
-                   txtDisplayCursorOffset.Text = "";
-                   txtDisplayCursorPower.Text = "";
-                   txtDisplayCursorFreq.Text = "";
+                   lblDisplayCursorOffset.Text = "";
+                   lblDisplayCursorPower.Text = "";
+                   lblDisplayCursorFreq.Text = "";
                    break;
            }
 
@@ -38698,9 +38741,9 @@ private void picDisplay_MouseLeave(object sender, System.EventArgs e) {
             Display.HighlightNumberScaleRX1 = false;
             Display.HighlightNumberScaleRX2 = false;
 
-            txtDisplayCursorOffset.Text = "";
-            txtDisplayCursorPower.Text = "";
-            txtDisplayCursorFreq.Text = "";
+            lblDisplayCursorOffset.Text = "";
+            lblDisplayCursorPower.Text = "";
+            lblDisplayCursorFreq.Text = "";
             DisplayCursorX = -1;
             DisplayCursorY = -1;
             Cursor = Cursors.Default;
@@ -43466,14 +43509,7 @@ private void ResizeConsole(int h_delta, int v_delta) {
                     panelDisplay.Size
                    = new Size((int)wid, ht);
 
-                   // picDisplay.Size
-                   //= new Size(pic_display_size_basis.Width + h_delta,
-                   //    ht);
-                    txtOverload.Size
-                   = new Size(txtOverload_size_basis.Width + h_delta,
-                       txtOverload_size_basis.Height);
-               txtOverload.Location = new Point(
-                   txtOverload_basis.X, txtOverload_basis.Y + v_delta);
+
                panelDisplay2.Location
                    = new Point(gr_display2_basis.X + (h_delta / 2),
                        gr_display2_basis.Y + v_delta);
@@ -43625,15 +43661,16 @@ public void GrabConsoleSizeBasis() {
             btn_display_zoom_1x_basis = this.radDisplayZoom1x.Location;
             btn_display_zoom_05_basis = this.radDisplayZoom05.Location;
             tb_display_zoom_basis = this.ptbDisplayZoom.Location;
-            txt_display_peak_freq_basis = this.txtDisplayPeakFreq.Location;
-            txt_display_peak_power_basis = this.txtDisplayPeakPower.Location;
-            txt_display_peak_offset_basis = this.txtDisplayPeakOffset.Location;
+            // txt_display_peak_freq_basis = this.txtDisplayPeakFreq.Location;
+            // txt_display_peak_power_basis = this.txtDisplayPeakPower.Location;
+           // txt_display_peak_offset_basis = this.txtDisplayPeakOffset.Location;
             lbl_display_zoom_basis = this.lblDisplayZoom.Location;
 
             // klj
 
             gr_display_size_basis = this.panelDisplay.Size;
             pic_display_size_basis = this.picDisplay.Size;
+            /*/
             // pic_waterfall_size_basis = this.picWaterfall.Size;
             txtOverload_size_basis = this.txtOverload.Size;
             txtOverload_basis = this.txtOverload.Location;
@@ -43642,11 +43679,14 @@ public void GrabConsoleSizeBasis() {
             gr_multirx_basis = this.panelMultiRX.Location;
             tb_displaypan_basis = this.ptbDisplayPan.Location;
             lbl_displaypan_basis = this.lblDisplayPan.Location;
+            /*/
+            /*/
             txt_display_cursor_freq_basis = this.txtDisplayCursorFreq.Location;
             txt_display_cursor_power_basis
                 = this.txtDisplayCursorPower.Location;
             txt_display_cursor_offset_basis
                 = this.txtDisplayCursorOffset.Location;
+            /*/
 
             txt_display_orion_mkii_pa_volts_basis
                 = this.txtDisplayOrionMKIIPAVolts.Location;
@@ -48094,10 +48134,10 @@ private void ExpandDisplay() {
             // picWaterfall.Size = new Size(pic_waterfall_size_basis.Width +
             // h_delta, pic_waterfall_size_basis.Height + v_delta);
             
-            txtOverload.Size = new Size(txtOverload_size_basis.Width + h_delta,
-                txtOverload_size_basis.Height);
-            txtOverload.Location
-                = new Point(txtOverload_basis.X, txtOverload_basis.Y + v_delta);
+          //  txtOverload.Size = new Size(txtOverload_size_basis.Width + h_delta,
+         //       txtOverload_size_basis.Height);
+          //  txtOverload.Location
+          //      = new Point(txtOverload_basis.X, txtOverload_basis.Y + v_delta);
             panelDisplay2.Location
                 = new Point(gr_display2_basis.X + (h_delta / 2),
                     gr_display2_basis.Y + v_delta);
@@ -49383,18 +49423,19 @@ private void RepositionControlsForCollapsedlDisplay() {
             // tb_display_pan_size_basis.Height + 5));
 
             top = picDisplay.Location.Y + picDisplay.Height;
-            txtDisplayCursorOffset.Location
-                = new Point(picDisplay.Location.X, top);
-            txtDisplayCursorPower.Location
-                = new Point(txtDisplayCursorOffset.Location.X
-                        + txtDisplayCursorOffset.Width,
-                    top);
-            txtDisplayCursorFreq.Location = new Point(
-                txtDisplayCursorPower.Location.X + txtDisplayCursorPower.Width,
-                top);
-            txtOverload.Location = new Point(
-                txtDisplayCursorFreq.Location.X + txtDisplayCursorFreq.Width,
-                top);
+            //txtDisplayCursorOffset.Location
+            ///    = new Point(picDisplay.Location.X, top);
+           // txtDisplayCursorPower.Location
+            //    = new Point(txtDisplayCursorOffset.Location.X
+            //            + txtDisplayCursorOffset.Width,
+             //       top);
+            //txtDisplayCursorFreq.Location = new Point(
+           //     txtDisplayCursorPower.Location.X + txtDisplayCursorPower.Width,
+           //     top);
+           // txtOverload.Location = new Point(
+           //     txtDisplayCursorFreq.Location.X + txtDisplayCursorFreq.Width,
+            //    top);
+            /*/
             txtOverload.Size = new Size(picDisplay.Width
                     - (txtDisplayPeakOffset.Width + txtDisplayPeakPower.Width
                         + txtDisplayPeakFreq.Width
@@ -49410,7 +49451,7 @@ private void RepositionControlsForCollapsedlDisplay() {
             txtDisplayPeakFreq.Location = new Point(
                 txtDisplayPeakPower.Location.X + txtDisplayPeakPower.Width,
                 top);
-
+            /*/
             txtDisplayOrionMKIIPAVolts.Location
                 = new Point(picDisplay.Location.X, top);
             txtDisplayOrionMKIIPAAmps.Location
@@ -49422,8 +49463,9 @@ private void RepositionControlsForCollapsedlDisplay() {
                         + txtDisplayOrionMKIIPAAmps.Width,
                     top);
 
-            top = txtDisplayPeakOffset.Location.Y + txtDisplayPeakOffset.Height
-                + 5;
+           // top = txtDisplayPeakOffset.Location.Y + txtDisplayPeakOffset.Height
+             //   + 5;
+             // resizing trouble? CHECKME ^^
             int dynamicWidth = picDisplay.Width
                 - (lblDisplayPan.Width + btnDisplayPanCenter.Width + 5
                     + comboDisplayMode.Width + 5 + lblDisplayZoom.Width
@@ -52692,6 +52734,123 @@ private void mnuShowNewConsole_Click(object sender, EventArgs e) {
         {
 
         }
+        #region InfoBar
+        private void infoBar_Button1Clicked(object sender, ucInfoBar.InfoBarAction e)
+        {
+            handleInfoBarButtonClick(e);
+        }
+
+        private void infoBar_Button2Clicked(object sender, ucInfoBar.InfoBarAction e)
+        {
+            handleInfoBarButtonClick(e);
+        }
+
+        private void handleInfoBarButtonClick(ucInfoBar.InfoBarAction e)
+        {
+            if (IsSetupFormNull) return;
+
+            switch (e.Action)
+            {
+                case ucInfoBar.ActionTypes.ActivePeaks:
+                    SetupForm.ActivePeakHoldsEnabled = e.ButtonState;
+                    break;
+                case ucInfoBar.ActionTypes.Blobs:
+                    SetupForm.PeakBlobsEnabled = e.ButtonState;
+                    break;
+                case ucInfoBar.ActionTypes.CFC:
+                    CFCEnabled = e.ButtonState;
+                    break;
+                case ucInfoBar.ActionTypes.CursorInfo:
+                    SetupForm.ShowDisplayMHzCursorInfo = e.ButtonState;
+                    break;
+                case ucInfoBar.ActionTypes.Leveler:
+                    SetupForm.TXLevelerOn = e.ButtonState;
+                    break;
+                case ucInfoBar.ActionTypes.CFCeq:
+                    SetupForm.CFCPEQEnabled = e.ButtonState;
+                    break;
+                case ucInfoBar.ActionTypes.ShowSpots:
+                    //SetupForm.ShowTCISpots = e.ButtonState;
+                    break;
+                case ucInfoBar.ActionTypes.DisplayFill:
+                    SetupForm.DisplayPanFill = e.ButtonState;
+                    break;
+            }
+        }
+
+        private void infoBar_Button1MouseDown(object sender, ucInfoBar.InfoBarAction e)
+        {
+            if (e.Button == MouseButtons.Right) showSetupFromInfoBar(e.Action);
+        }
+
+        private void infoBar_Button2MouseDown(object sender, ucInfoBar.InfoBarAction e)
+        {
+            if (e.Button == MouseButtons.Right) showSetupFromInfoBar(e.Action);
+        }
+
+      
+
+      
+
+        private void showSetupFromInfoBar(ucInfoBar.ActionTypes action)
+        {
+            if (IsSetupFormNull) return;
+
+            switch (action)
+            {
+                case ucInfoBar.ActionTypes.Blobs:
+                    SetupForm.ShowSetupTab(Setup.SetupTab.DISPGEN_Tab);
+                    break;
+                case ucInfoBar.ActionTypes.ActivePeaks:
+                    SetupForm.ShowSetupTab(Setup.SetupTab.DISPRX1_Tab);
+                    break;
+                case ucInfoBar.ActionTypes.CFC:
+                    SetupForm.ShowSetupTab(Setup.SetupTab.CFC_Tab);
+                    break;
+                case ucInfoBar.ActionTypes.CursorInfo:
+                    SetupForm.ShowSetupTab(Setup.SetupTab.DISPGEN_Tab);
+                    break;
+                case ucInfoBar.ActionTypes.Leveler:
+                    SetupForm.ShowSetupTab(Setup.SetupTab.ALCAGC_Tab);
+                    break;
+                case ucInfoBar.ActionTypes.DisplayFill:
+                    SetupForm.ShowSetupTab(Setup.SetupTab.DISPGEN_Tab);
+                    break;
+                case ucInfoBar.ActionTypes.CFCeq:
+                    SetupForm.ShowSetupTab(Setup.SetupTab.CFC_Tab);
+                    break;
+                case ucInfoBar.ActionTypes.ShowSpots:
+                    SetupForm.ShowSetupTab(Setup.SetupTab.SpotTCI);
+                    break;
+            }
+        }
+
+        public ucInfoBar infoBar{
+            get
+            {
+                return ucInfoBar;
+            }
+            }
+        public bool HideFeebackLevel
+        {
+            get { return infoBar.HideFeedback; }
+            set { infoBar.HideFeedback = value; }
+        }
+        public bool SwapRedBlue
+        {
+            get { return infoBar.SwapRedBlue; }
+            set { infoBar.SwapRedBlue = value; }
+        }
+        private void infoBar_HideFeedbackChanged(object sender, EventArgs e)
+        {
+            if (!IsSetupFormNull) SetupForm.HideFeedbackChanged = infoBar.HideFeedback;
+        }
+        private void infoBar_SwapRedBlueChanged(object sender, EventArgs e)
+        {
+            if (!IsSetupFormNull) SetupForm.SwapRedBlueChanged();
+        }
+        #endregion
+
     }
 
     public class DigiMode {

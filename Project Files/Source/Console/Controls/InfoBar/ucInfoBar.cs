@@ -567,6 +567,64 @@ namespace Thetis
 
             _preventClickEvents = false;
         }
+
+        public LabelTS Left1Label
+        {
+            get { return lblLeft1; }
+
+        }
+        public LabelTS Left2Label
+        {
+            get { return lblLeft2; }
+
+        }
+
+        public LabelTS Left3Label
+        {
+            get { return lblLeft3; }
+
+        }
+
+        public LabelTS WarningLabel
+        {
+            get { return lblWarning; }
+
+        }
+
+        public LabelTS Right1Label
+        {
+            get { return lblRight1; }
+
+        }
+        public LabelTS Right2Label
+        {
+            get { return lblRight2; }
+
+        }
+
+        public LabelTS Right3Label
+        {
+            get { return lblRight3; }
+
+        }
+
+        private static LabelTS lbl;
+        public static LabelTS UnknownLabel
+        {
+            get
+            {
+                
+                if (lbl == null)
+                {
+                    lbl = new LabelTS();
+                }
+                return lbl;
+            }
+   
+        }
+
+
+
         public override Color BackColor
         {
             get { return base.BackColor; }
@@ -958,7 +1016,7 @@ namespace Thetis
             }
         }
 
-        /*/
+        
         public bool SwapRedBlue
         {
             get { return puresignal.InvertRedBlue; }
@@ -971,7 +1029,7 @@ namespace Thetis
                 if (bChanged) SwapRedBlueChanged?.Invoke(this, EventArgs.Empty);
             }
         }
-        /*/
+        
         public bool HideFeedback
         {
             get { return _hideFeedback; }

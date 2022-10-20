@@ -903,7 +903,12 @@ namespace Thetis
 
         #region public methods
 
-
+        private static bool _bInvertRedBlue;
+        public static bool InvertRedBlue
+        {
+            get { return _bInvertRedBlue; }
+            set { _bInvertRedBlue = value; }
+        }
 
 
         public static int[] Info = new int[16];

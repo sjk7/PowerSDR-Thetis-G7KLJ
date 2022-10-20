@@ -102,12 +102,6 @@ partial class Console {
     private System.Windows.Forms.PictureBox picVOX;
     private System.Windows.Forms.CheckBoxTS chkNoiseGate;
     private System.Windows.Forms.PictureBox picNoiseGate;
-    private System.Windows.Forms.TextBoxTS txtDisplayCursorOffset;
-    private System.Windows.Forms.TextBoxTS txtDisplayCursorPower;
-    private System.Windows.Forms.TextBoxTS txtDisplayCursorFreq;
-    private System.Windows.Forms.TextBoxTS txtDisplayPeakOffset;
-    private System.Windows.Forms.TextBoxTS txtDisplayPeakFreq;
-    private System.Windows.Forms.TextBoxTS txtDisplayPeakPower;
     private System.Windows.Forms.LabelTS lblVFOBLSD;
     private System.Windows.Forms.TextBoxTS txtVFOAMSD;
     private System.Windows.Forms.TextBoxTS txtVFOBMSD;
@@ -1050,15 +1044,8 @@ partial class Console {
             this.pnlDisplayControls = new System.Windows.Forms.Panel();
             this.lblDisplayZoom = new System.Windows.Forms.LabelTS();
             this.lblDisplayPan = new System.Windows.Forms.LabelTS();
-            this.txtOverload = new System.Windows.Forms.TextBoxTS();
-            this.txtDisplayPeakOffset = new System.Windows.Forms.TextBoxTS();
-            this.txtDisplayPeakPower = new System.Windows.Forms.TextBoxTS();
-            this.txtDisplayPeakFreq = new System.Windows.Forms.TextBoxTS();
-            this.txtDisplayCursorPower = new System.Windows.Forms.TextBoxTS();
-            this.txtDisplayCursorFreq = new System.Windows.Forms.TextBoxTS();
             this.txtDisplayOrionMKIIPAAmps = new System.Windows.Forms.TextBoxTS();
             this.txtDisplayOrionMKIIBlank = new System.Windows.Forms.TextBoxTS();
-            this.txtDisplayCursorOffset = new System.Windows.Forms.TextBoxTS();
             this.txtDisplayOrionMKIIPAVolts = new System.Windows.Forms.TextBoxTS();
             this.picDisplay = new System.Windows.Forms.PictureBox();
             this.panelMode = new System.Windows.Forms.PanelTS();
@@ -6374,16 +6361,9 @@ partial class Console {
             this.panelDisplay.BackColor = System.Drawing.Color.Transparent;
             this.panelDisplay.Controls.Add(this.ucInfoBar);
             this.panelDisplay.Controls.Add(this.pnlDisplayControls);
-            this.panelDisplay.Controls.Add(this.txtOverload);
             this.panelDisplay.Controls.Add(this.PrettySMeter);
-            this.panelDisplay.Controls.Add(this.txtDisplayPeakOffset);
-            this.panelDisplay.Controls.Add(this.txtDisplayPeakPower);
-            this.panelDisplay.Controls.Add(this.txtDisplayPeakFreq);
-            this.panelDisplay.Controls.Add(this.txtDisplayCursorPower);
-            this.panelDisplay.Controls.Add(this.txtDisplayCursorFreq);
             this.panelDisplay.Controls.Add(this.txtDisplayOrionMKIIPAAmps);
             this.panelDisplay.Controls.Add(this.txtDisplayOrionMKIIBlank);
-            this.panelDisplay.Controls.Add(this.txtDisplayCursorOffset);
             this.panelDisplay.Controls.Add(this.txtDisplayOrionMKIIPAVolts);
             this.panelDisplay.Controls.Add(this.picDisplay);
             this.panelDisplay.Name = "panelDisplay";
@@ -6428,66 +6408,6 @@ partial class Console {
             resources.ApplyResources(this.lblDisplayPan, "lblDisplayPan");
             this.lblDisplayPan.Name = "lblDisplayPan";
             // 
-            // txtOverload
-            // 
-            this.txtOverload.BackColor = System.Drawing.Color.Gainsboro;
-            this.txtOverload.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            resources.ApplyResources(this.txtOverload, "txtOverload");
-            this.txtOverload.ForeColor = System.Drawing.Color.Red;
-            this.txtOverload.Name = "txtOverload";
-            this.txtOverload.ReadOnly = true;
-            // 
-            // txtDisplayPeakOffset
-            // 
-            this.txtDisplayPeakOffset.BackColor = System.Drawing.Color.Gainsboro;
-            this.txtDisplayPeakOffset.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtDisplayPeakOffset.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.txtDisplayPeakOffset, "txtDisplayPeakOffset");
-            this.txtDisplayPeakOffset.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.txtDisplayPeakOffset.Name = "txtDisplayPeakOffset";
-            this.txtDisplayPeakOffset.ReadOnly = true;
-            this.txtDisplayPeakOffset.GotFocus += new System.EventHandler(this.HideFocus);
-            // 
-            // txtDisplayPeakPower
-            // 
-            this.txtDisplayPeakPower.BackColor = System.Drawing.Color.Gainsboro;
-            this.txtDisplayPeakPower.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtDisplayPeakPower.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.txtDisplayPeakPower, "txtDisplayPeakPower");
-            this.txtDisplayPeakPower.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.txtDisplayPeakPower.Name = "txtDisplayPeakPower";
-            this.txtDisplayPeakPower.ReadOnly = true;
-            // 
-            // txtDisplayPeakFreq
-            // 
-            this.txtDisplayPeakFreq.BackColor = System.Drawing.Color.Gainsboro;
-            this.txtDisplayPeakFreq.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtDisplayPeakFreq.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.txtDisplayPeakFreq, "txtDisplayPeakFreq");
-            this.txtDisplayPeakFreq.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.txtDisplayPeakFreq.Name = "txtDisplayPeakFreq";
-            this.txtDisplayPeakFreq.ReadOnly = true;
-            // 
-            // txtDisplayCursorPower
-            // 
-            this.txtDisplayCursorPower.BackColor = System.Drawing.Color.Gainsboro;
-            this.txtDisplayCursorPower.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtDisplayCursorPower.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.txtDisplayCursorPower, "txtDisplayCursorPower");
-            this.txtDisplayCursorPower.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.txtDisplayCursorPower.Name = "txtDisplayCursorPower";
-            this.txtDisplayCursorPower.ReadOnly = true;
-            // 
-            // txtDisplayCursorFreq
-            // 
-            this.txtDisplayCursorFreq.BackColor = System.Drawing.Color.Gainsboro;
-            this.txtDisplayCursorFreq.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtDisplayCursorFreq.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.txtDisplayCursorFreq, "txtDisplayCursorFreq");
-            this.txtDisplayCursorFreq.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.txtDisplayCursorFreq.Name = "txtDisplayCursorFreq";
-            this.txtDisplayCursorFreq.ReadOnly = true;
-            // 
             // txtDisplayOrionMKIIPAAmps
             // 
             this.txtDisplayOrionMKIIPAAmps.BackColor = System.Drawing.Color.Black;
@@ -6507,17 +6427,6 @@ partial class Console {
             resources.ApplyResources(this.txtDisplayOrionMKIIBlank, "txtDisplayOrionMKIIBlank");
             this.txtDisplayOrionMKIIBlank.Name = "txtDisplayOrionMKIIBlank";
             this.txtDisplayOrionMKIIBlank.ReadOnly = true;
-            // 
-            // txtDisplayCursorOffset
-            // 
-            this.txtDisplayCursorOffset.BackColor = System.Drawing.Color.Gainsboro;
-            this.txtDisplayCursorOffset.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtDisplayCursorOffset.Cursor = System.Windows.Forms.Cursors.Default;
-            resources.ApplyResources(this.txtDisplayCursorOffset, "txtDisplayCursorOffset");
-            this.txtDisplayCursorOffset.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.txtDisplayCursorOffset.Name = "txtDisplayCursorOffset";
-            this.txtDisplayCursorOffset.ReadOnly = true;
-            this.txtDisplayCursorOffset.GotFocus += new System.EventHandler(this.HideFocus);
             // 
             // txtDisplayOrionMKIIPAVolts
             // 
@@ -7583,7 +7492,6 @@ partial class Console {
     private LabelTS lblAndromedaEncoderSlider;
     private TrackBarTS tbAndromedaEncoderSlider;
     private ToolStripStatusLabel toolStripStatusLabel_timer;
-    private TextBoxTS txtOverload;
     private ToolStripDropDownButton toolStripStatusLabelTXAnt;
     private ToolStripMenuItem toolStripMenuItem16;
     private ToolStripMenuItem toolStripMenuItem15;

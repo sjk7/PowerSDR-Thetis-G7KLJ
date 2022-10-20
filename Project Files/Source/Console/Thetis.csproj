@@ -650,6 +650,9 @@
     <EmbeddedResource Include="Andromeda\ModeDependentSettingsForm.resx">
       <DependentUpon>ModeDependentSettingsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="NewConsole\NewConsole.resx">
+      <DependentUpon>NewConsole.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\picD1orig.png" />
     <None Include="Resources\cpu.png" />
     <EmbeddedResource Include="Resources\picD2.png" />

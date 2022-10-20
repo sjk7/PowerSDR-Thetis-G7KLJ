@@ -679,14 +679,196 @@ public partial class Setup : Form {
         clrbtnOutOfBand.Color = console.OutOfBandColor;
     }
 
-#endregion
+        #endregion
 
-#region Misc Routines
-    // ======================================================
-    // Misc Routines
-    // ======================================================
+        #region "InfoBarStuff"
+        public bool PeakBlobsEnabled
+        {
+            get { return chkPeakBlobsEnabled.Checked; }
+            set { chkPeakBlobsEnabled.Checked = value; }
+        }
 
-    public void PerformDelayedInitalistion() {
+        public bool ActivePeakHoldsEnabled
+        {
+            get
+            {
+                return chkActivePeakHoldRX1.Checked || (chkActivePeakHoldRX2.Checked && console.RX2Enabled);
+            }
+            set
+            {
+                chkActivePeakHoldRX1.Checked = value;
+                if (console.RX2Enabled) chkActivePeakHoldRX2.Checked = value;
+            }
+        }
+
+        public bool CFCPEQEnabled
+        {
+            get
+            {
+                return chkCFCPeqEnable.Checked;
+            }
+            set
+            {
+                if (chkCFCPeqEnable != null)
+                {
+                    chkCFCPeqEnable.Checked = value;
+                }
+            }
+        }
+
+        public bool ShowDisplayMHzCursorInfo
+        {
+            get { return chkShowMHzOnCursor.Checked; }
+            set
+            {
+                chkShowMHzOnCursor.Checked = value;
+            }
+        }
+        private void chkShowMHzOnCursor_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        public bool HideFeedbackChanged
+        {
+            // get { return chkHideFeebackLevel.Checked; }
+            // set { chkHideFeebackLevel.Checked = value; }
+            get { return false; }
+            set { }
+        }
+        public void SwapRedBlueChanged()
+        {
+           //  chkSwapREDBluePSAColours.Checked = puresignal.InvertRedBlue;
+        }
+        public enum SetupTab
+        {
+            ALCAGC_Tab = 0,
+            Transmit_Tab,
+            NR_Tab,
+            NB_Tab,
+            CW_Tab,
+            AM_Tab,
+            FM_Tab,
+            DSPAudio_Tab,
+            MNF_Tab,
+            VOXDE_Tab,
+            CFC_Tab,
+            VAC1_Tab,
+            VAC2_Tab,
+            TEST_Tab,
+            OC_Tab,
+            DISPGEN_Tab,
+            DISPRX1_Tab,
+            DISPRX2_Tab,
+            SpotTCI,
+            SMeter_Calib_Tab
+        }
+        public void ShowSetupTab(SetupTab eTab)
+        {
+            Show();
+            Focus();
+            WindowState = FormWindowState.Normal;
+
+            switch (eTab)
+            {
+                case SetupTab.SMeter_Calib_Tab:
+                    TabSetup.SelectedIndex = 0;
+                    TabSetup.SelectedIndex = 1;
+                    break;
+                case SetupTab.ALCAGC_Tab:
+                    TabSetup.SelectedIndex = 3;
+                    TabDSP.SelectedIndex = 2; // select AGC/ALC tab
+                    break;
+                case SetupTab.Transmit_Tab:
+                    TabSetup.SelectedIndex = 4; // select Transmit tab
+                    break;
+                case SetupTab.NR_Tab:
+                    TabSetup.SelectedIndex = 3;
+                    TabDSP.SelectedIndex = 7; // select NR tab
+                    break;
+                case SetupTab.NB_Tab:
+                    TabSetup.SelectedIndex = 3;
+                    TabDSP.SelectedIndex = 9; // select NB tab
+                    break;
+                case SetupTab.CW_Tab:
+                    TabSetup.SelectedIndex = 3;
+                    TabDSP.SelectedIndex = 1; // select CW tab
+                    break;
+                case SetupTab.AM_Tab:
+                    TabSetup.SelectedIndex = 3;
+                    TabDSP.SelectedIndex = 3; // select AM tab
+                    break;
+                case SetupTab.FM_Tab:
+                    TabSetup.SelectedIndex = 3;
+                    TabDSP.SelectedIndex = 4; // select FM tab
+                    break;
+                case SetupTab.DSPAudio_Tab:
+                    TabSetup.SelectedIndex = 3;
+                    TabDSP.SelectedIndex = 5; // select DSP/Audio tab
+                    break;
+                case SetupTab.MNF_Tab:
+                    TabSetup.SelectedIndex = 3;
+                    TabDSP.SelectedIndex = 8; // select MNF tab
+                    break;
+                case SetupTab.VOXDE_Tab:
+                    TabSetup.SelectedIndex = 3;
+                    TabDSP.SelectedIndex = 10; // select VOX/DE tab
+                    break;
+                case SetupTab.CFC_Tab:
+                    TabSetup.SelectedIndex = 3;
+                    TabDSP.SelectedIndex = 11; // select CFC tab
+                    break;
+                case SetupTab.VAC1_Tab:
+                    TabSetup.SelectedIndex = 1; // vac1
+                    TabAudio.SelectedIndex = 0;
+                    break;
+                case SetupTab.VAC2_Tab:
+                    TabSetup.SelectedIndex = 1; // vac2
+                    TabAudio.SelectedIndex = 1;
+                    break;
+                case SetupTab.OC_Tab:
+                    TabSetup.SelectedIndex = 0; // general
+                    TabGeneral.SelectedIndex = 5; // OC pins
+                    break;
+                case SetupTab.TEST_Tab:
+                    TabSetup.SelectedIndex = 9; // tests
+                    break;
+                case SetupTab.DISPGEN_Tab:
+                    TabSetup.SelectedIndex = 2; // display
+                    TabDisplay.SelectedIndex = 0; // general
+                    break;
+                case SetupTab.DISPRX1_Tab:
+                    TabSetup.SelectedIndex = 2; // display
+                    TabDisplay.SelectedIndex = 1; // rx1
+                    break;
+                case SetupTab.DISPRX2_Tab:
+                    TabSetup.SelectedIndex = 2; // display
+                    TabDisplay.SelectedIndex = 2; // rx2
+                    break;
+                case SetupTab.SpotTCI:
+                    TabSetup.SelectedIndex = 8; // cat
+                    TabCAT.SelectedIndex = 2; // user
+                    break;
+            }
+        }
+        public bool DisplayPanFill
+        {
+            get { return chkDisplayPanFill.Checked; }
+            set { chkDisplayPanFill.Checked = value; }
+        }
+        public bool ShowTCISpots
+        {
+            get { return false; } //chkShowTCISpots.Checked; }
+            // set { chkShowTCISpots.Checked = value; }
+        }
+        #endregion
+
+        #region Misc Routines
+        // ======================================================
+        // Misc Routines
+        // ======================================================
+
+        public void PerformDelayedInitalistion() {
         EventArgs e = EventArgs.Empty;
 
         chkDisable6mLNAonTX_CheckedChanged(this, e);
@@ -5193,12 +5375,24 @@ public partial class Setup : Form {
         set { lblGanymedeStatus.Text = value; }
     }
 
-    public TabControl TabSetup {
+
+        public TabControl TabCAT
+        {
+            get { return tcCAT; }
+            //set { tcCAT = value; }
+        }
+        public TabControl TabSetup {
         get { return tcSetup; }
         set { tcSetup = value; }
     }
 
-    public TabControl TabGeneral {
+        public TabControl TabDisplay
+        {
+            get { return tcDisplay; }
+            //set { tcDisplay = value; }
+        }
+
+        public TabControl TabGeneral {
         get { return tcGeneral; }
         set { tcGeneral = value; }
     }
@@ -18135,86 +18329,7 @@ public partial class Setup : Form {
         }
     }
 
-    public enum SetupTab {
-        ALCAGC_Tab = 0,
-        Transmit_Tab,
-        NR_Tab,
-        NB_Tab,
-        CW_Tab,
-        AM_Tab,
-        FM_Tab,
-        DSPAudio_Tab,
-        MNF_Tab,
-        VOXDE_Tab,
-        CFC_Tab,
-        VAC1_Tab,
-        VAC2_Tab,
-        SMeter_Calib_Tab
-    }
-    public void ShowSetupTab(SetupTab eTab) {
-        Show();
-        Focus();
-        WindowState = FormWindowState.Normal;
-
-        switch (eTab) {
-            case SetupTab.ALCAGC_Tab:
-                TabSetup.SelectedIndex = 3;
-                TabDSP.SelectedIndex = 2; // select AGC/ALC tab
-                break;
-            case SetupTab.Transmit_Tab:
-                TabSetup.SelectedIndex = 4; // select Transmit tab
-                break;
-            case SetupTab.NR_Tab:
-                TabSetup.SelectedIndex = 3;
-                TabDSP.SelectedIndex = 7; // select NR tab
-                break;
-            case SetupTab.NB_Tab:
-                TabSetup.SelectedIndex = 3;
-                TabDSP.SelectedIndex = 9; // select NB tab
-                break;
-            case SetupTab.CW_Tab:
-                TabSetup.SelectedIndex = 3;
-                TabDSP.SelectedIndex = 1; // select CW tab
-                break;
-            case SetupTab.AM_Tab:
-                TabSetup.SelectedIndex = 3;
-                TabDSP.SelectedIndex = 3; // select AM tab
-                break;
-            case SetupTab.FM_Tab:
-                TabSetup.SelectedIndex = 3;
-                TabDSP.SelectedIndex = 4; // select FM tab
-                break;
-            case SetupTab.DSPAudio_Tab:
-                TabSetup.SelectedIndex = 3;
-                TabDSP.SelectedIndex = 5; // select DSP/Audio tab
-                break;
-            case SetupTab.MNF_Tab:
-                TabSetup.SelectedIndex = 3;
-                TabDSP.SelectedIndex = 8; // select MNF tab
-                break;
-            case SetupTab.VOXDE_Tab:
-                TabSetup.SelectedIndex = 3;
-                TabDSP.SelectedIndex = 10; // select VOX/DE tab
-                break;
-            case SetupTab.CFC_Tab:
-                TabSetup.SelectedIndex = 3;
-                TabDSP.SelectedIndex = 11; // select CFC tab
-                break;
-            case SetupTab.VAC1_Tab:
-                TabSetup.SelectedIndex = 1; // vac1
-                TabAudio.SelectedIndex = 0;
-                break;
-            case SetupTab.VAC2_Tab:
-                TabSetup.SelectedIndex = 1; // vac2
-                TabAudio.SelectedIndex = 1;
-                break;
-            case SetupTab.SMeter_Calib_Tab:
-                TabSetup.SelectedIndex = 0; // General
-                tcGeneral.SelectedIndex = 3; // Calibration
-
-                break;
-        }
-    }
+    
 
     private void chkRadioProtocolSelect_CheckStateChanged(
         object sender, EventArgs e) {

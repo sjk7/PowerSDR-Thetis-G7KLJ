@@ -142,15 +142,14 @@
             // lblWarning
             // 
             this.lblWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWarning.ForeColor = System.Drawing.Color.DarkGray;
+            this.lblWarning.ForeColor = System.Drawing.Color.DimGray;
             this.lblWarning.Image = null;
-            this.lblWarning.Location = new System.Drawing.Point(1380, 0);
+            this.lblWarning.Location = new System.Drawing.Point(404, 0);
             this.lblWarning.Name = "lblWarning";
-            this.lblWarning.Size = new System.Drawing.Size(654, 24);
+            this.lblWarning.Size = new System.Drawing.Size(81, 24);
             this.lblWarning.TabIndex = 41;
             this.lblWarning.Text = "Warning";
             this.lblWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblWarning.Visible = false;
             this.lblWarning.Click += new System.EventHandler(this.lblWarning_Click);
             // 
             // lblRight3
