@@ -1,5 +1,7 @@
 Fixed:
 
+For developers: .gitattributes added to prevent pesky line endings messages when editing files.
+
 Pretty S Meter position when display collapsed, etc
 
 Custom Window Title now obeys settings
