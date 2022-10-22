@@ -642,6 +642,15 @@ namespace Thetis
             //        break;
             //}
 
+            if (autocal_enabled)
+            {
+
+                if (puresignal.HasInfoChanged)
+                {
+                    console.InfoBarFeedbackLevel(puresignal.FeedbackLevel, puresignal.IsFeedbackLevelOK, puresignal.CorrectionsBeingApplied, puresignal.CalibrationAttemptsChanged, puresignal.FeedbackColourLevel);
+                }
+            }
+
         }
 
         private void timer2_Tick(object sender, EventArgs e)

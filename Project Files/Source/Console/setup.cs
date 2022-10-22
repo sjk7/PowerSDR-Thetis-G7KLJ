@@ -421,6 +421,8 @@ public partial class Setup : Form {
 
         // AddHPSDRPages();
 
+            
+
         if (chkKWAI.Checked)
             AllowFreqBroadcast = true;
         else

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using SharpDX.Direct2D1;
 
 namespace Thetis
 {
@@ -42,8 +43,7 @@ namespace Thetis
 
         public event EventHandler<InfoBarAction> Button1Clicked;
         public event EventHandler<InfoBarAction> Button2Clicked;
-        public event EventHandler<InfoBarAction> Button1MouseDown;
-        public event EventHandler<InfoBarAction> Button2MouseDown;
+
 
         public event EventHandler SwapRedBlueChanged;
         public event EventHandler HideFeedbackChanged;
@@ -82,12 +82,7 @@ namespace Thetis
         private int[] _right2Width;
         private int[] _right3Width;
 
-       // private frmInfoBarPopup _frmInfoBarPopup_Button1;
-        private ToolStripDropDown _toolStripForm_Button1;
-        private ToolStripControlHost _host_Button1;
-       // private frmInfoBarPopup _frmInfoBarPopup_Button2;
-        private ToolStripDropDown _toolStripForm_Button2;
-        private ToolStripControlHost _host_Button2;
+
         private Cursor _oldCursor;
 
         private Font _normalFont = new Font("Arial", 9f, FontStyle.Bold);
@@ -240,7 +235,7 @@ namespace Thetis
              /*/
             //
 
-            lblSplitter.BackColor = Color.Silver;
+            //lblSplitter.BackColor = Color.Silver;
             lblFB.Font = _normalFont;
             repositionControls();
         }
@@ -516,11 +511,23 @@ namespace Thetis
         private void chkButton1_CheckedChanged(object sender, EventArgs e)
         {
             if (_preventClickEvents) return;
+   
             Button1Clicked?.Invoke(this, new InfoBarAction { 
                 Action = _button1Action.Action,
                 ButtonState = chkButton1.Checked,
                 Button = MouseButtons.None
             });
+
+            chkButton1.UseVisualStyleBackColor = false;
+            if (chkButton1.Checked)
+            {
+                //chkButton1.BackColor = Color.FromArgb(50, 50, 50);
+            }
+            else
+            {
+                //chkButton1.BackColor = Color.Black;
+            }
+            
         }
 
         private void chkButton2_CheckedChanged(object sender, EventArgs e)
@@ -566,6 +573,20 @@ namespace Thetis
             }
 
             _preventClickEvents = false;
+        }
+
+        public LabelTS PSLabel
+        {
+            get { return lblPS; }
+
+        }
+
+        public LabelTS FBLabel
+        {
+            get
+            {
+                return lblFB;
+            }
         }
 
         public LabelTS Left1Label
@@ -802,9 +823,16 @@ namespace Thetis
 
                 updatePSDisplay();
             }
+
+            get
+            {
+                return _psEnabled;
+            }
         }
 
-        private void updatePSDisplay()
+   
+
+        public void updatePSDisplay()
         {
             if (!_psEnabled)
             {
@@ -903,7 +931,7 @@ namespace Thetis
             int leftStop = (int)(this.Width * 0.7f);
             int span = this.Width - 88 - leftStop; // see lblSplitter_MouseMove for 88
             float shift = span - (span * _splitterRatio);
-            lblSplitter.Left = this.Width - 88 - (int)shift;
+           // lblSplitter.Left = this.Width - 88 - (int)shift;
             //
 
             repositionControls();
@@ -1045,10 +1073,10 @@ namespace Thetis
         
         private void setToolTips()
         {
-            string fb = "";
+           // string fb = "";
 
-            if (!HideFeedback)
-                fb = "Showing level, ";
+            //if (!HideFeedback)
+           //     fb = "Showing level, ";
 
             /*/
             if (puresignal.InvertRedBlue)
@@ -1106,7 +1134,7 @@ namespace Thetis
 
         private void lblSplitter_MouseEnter(object sender, EventArgs e)
         {
-            lblSplitter.BackColor = Color.White;
+            //lblSplitter.BackColor = Color.White;
             
             _oldCursor = Cursor.Current;
             this.Cursor = Cursors.SizeWE;
@@ -1114,21 +1142,22 @@ namespace Thetis
 
         private void lblSplitter_MouseHover(object sender, EventArgs e)
         {
-            lblSplitter.BackColor = Color.White;
+            //lblSplitter.BackColor = Color.White;
         }
 
         private void lblSplitter_MouseLeave(object sender, EventArgs e)
         {
-            lblSplitter.BackColor = Color.Silver;
+            //lblSplitter.BackColor = Color.Silver;
             this.Cursor = _oldCursor;
         }
 
+        
         private void lblSplitter_MouseMove(object sender, MouseEventArgs e)
         {
             if (_dragging)
             {
-                SendMessage(this.Handle, WM_SETREDRAW, false, 0);
-
+                //SendMessage(this.Handle, WM_SETREDRAW, false, 0);
+                this.SuspendLayout();
                 int nDelta = e.X - _startX;
 
                 int oldLeft = lblSplitter.Left;
@@ -1148,16 +1177,37 @@ namespace Thetis
 
                 repositionControls();
 
-                SendMessage(this.Handle, WM_SETREDRAW, true, 0);
+                //SendMessage(this.Handle, WM_SETREDRAW, true, 0);
+                this.ResumeLayout();
                 this.Refresh();
             }
         }
+        
         private bool _useSmallFonts = false;
+
+        
         private void repositionControls()
         {
-            int newLeftFB = lblSplitter.Left + lblSplitter.Width;
-            int newSpan = this.Width - newLeftFB;
-            int halfSpan = (int)Math.Ceiling(newSpan / 2f);
+             int newLeftFB = lblSplitter.Left + lblSplitter.Width;
+              int newSpan = this.Width - newLeftFB;
+              int halfSpan = (int)Math.Ceiling(newSpan / 2f);
+
+            _useSmallFonts = newSpan <= 180; // if space is too small, use small fonts
+
+            if (_useSmallFonts)
+            {
+                if (lblPS.Font != _smallFont) lblPS.Font = _smallFont;
+                if (lblFB.Text == "Feedback") lblFB.Text = "FB";
+                if (lblPS.Text == "Correcting") lblPS.Text = "Correct";
+            }
+            else
+            {
+                if (lblPS.Font != _normalFont) lblPS.Font = _normalFont;
+                if (lblFB.Text == "FB") lblFB.Text = "Feedback";
+                if (lblPS.Text == "Correct") lblPS.Text = "Correcting";
+            }
+
+
 
             // spread FB and PS to fill the space 50/50
             lblFB.Left = newLeftFB;
@@ -1187,20 +1237,7 @@ namespace Thetis
             //warning
             lblWarning.Width = lblSplitter.Left - lblWarning.Left - 4;
 
-            _useSmallFonts = newSpan <= 180; // if space is too small, use small fonts
 
-            if (_useSmallFonts)
-            {
-                if (lblPS.Font != _smallFont) lblPS.Font = _smallFont;
-                if (lblFB.Text == "Feedback") lblFB.Text = "FB";
-                if (lblPS.Text == "Correcting") lblPS.Text = "Correct";
-            }
-            else
-            {
-                if (lblPS.Font != _normalFont) lblPS.Font = _normalFont;
-                if (lblFB.Text == "FB") lblFB.Text = "Feedback";
-                if (lblPS.Text == "Correct") lblPS.Text = "Correcting";
-            }
 
             // check for overlapping anything on left
             lblLeft1.Visible = !lblSplitter.Bounds.IntersectsWith(lblLeft1.Bounds);
@@ -1211,7 +1248,9 @@ namespace Thetis
             lblRight1.Visible = !((lblLeft3.Text != "" && lblRight1.Bounds.IntersectsWith(lblLeft3.Bounds)) || (lblLeft2.Text != "" && lblRight1.Bounds.IntersectsWith(lblLeft2.Bounds)) || (lblLeft1.Text != "" && lblRight1.Bounds.IntersectsWith(lblLeft1.Bounds)));
             lblRight2.Visible = !((lblLeft3.Text != "" && lblRight2.Bounds.IntersectsWith(lblLeft3.Bounds)) || (lblLeft2.Text != "" && lblRight2.Bounds.IntersectsWith(lblLeft2.Bounds)) || (lblLeft1.Text != "" && lblRight2.Bounds.IntersectsWith(lblLeft1.Bounds)));
             lblRight3.Visible = !((lblLeft3.Text != "" && lblRight3.Bounds.IntersectsWith(lblLeft3.Bounds)) || (lblLeft2.Text != "" && lblRight3.Bounds.IntersectsWith(lblLeft2.Bounds)) || (lblLeft1.Text != "" && lblRight3.Bounds.IntersectsWith(lblLeft1.Bounds)));
-        }
+            
+            }
+        
         private void lblSplitter_MouseUp(object sender, MouseEventArgs e)
         {
             _dragging = false;

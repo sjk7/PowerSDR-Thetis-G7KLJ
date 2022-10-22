@@ -118,6 +118,15 @@ namespace Thetis
 
         }
 
+
+        public static bool ShiftKeyDown
+        {
+            get
+            {
+                return Keyboard.IsKeyDown(Keys.LShiftKey) || Keyboard.IsKeyDown(Keys.RShiftKey);
+            }
+        }
+
         public static void SaveForm(Form form, string tablename)
         {
             ArrayList a = new ArrayList();

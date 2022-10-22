@@ -901,7 +901,6 @@ partial class Console {
             this.txtMultiTextMnu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuBigSMeter = new System.Windows.Forms.ToolStripMenuItem();
             this.calibrateSMeterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.PrettySMeter = new LBSoft.IndustrialCtrls.Meters.LBAnalogMeter();
             this.grpMultimeter = new System.Windows.Forms.GroupBoxTS();
             this.pnlResizeMeter = new System.Windows.Forms.PanelTS();
             this.picMultiMeterDigital = new System.Windows.Forms.PictureBox();
@@ -1120,6 +1119,7 @@ partial class Console {
             this.lblAndromedaEncoderSlider = new System.Windows.Forms.LabelTS();
             this.lblATUTuneLabel = new System.Windows.Forms.LabelTS();
             this.tmrPrettySMeter = new System.Windows.Forms.Timer(this.components);
+            this.PrettySMeter = new LBSoft.IndustrialCtrls.Meters.LBAnalogMeter();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udFilterHigh)).BeginInit();
@@ -3688,6 +3688,7 @@ partial class Console {
             this.radDisplayZoom4x.TabStop = true;
             this.toolTip1.SetToolTip(this.radDisplayZoom4x, resources.GetString("radDisplayZoom4x.ToolTip"));
             this.radDisplayZoom4x.UseVisualStyleBackColor = false;
+            this.radDisplayZoom4x.CheckedChanged += new System.EventHandler(this.radDisplayZoom4x_CheckedChanged);
             // 
             // radDisplayZoom2x
             // 
@@ -3699,6 +3700,7 @@ partial class Console {
             this.radDisplayZoom2x.TabStop = true;
             this.toolTip1.SetToolTip(this.radDisplayZoom2x, resources.GetString("radDisplayZoom2x.ToolTip"));
             this.radDisplayZoom2x.UseVisualStyleBackColor = false;
+            this.radDisplayZoom2x.CheckedChanged += new System.EventHandler(this.radDisplayZoom2x_CheckedChanged);
             // 
             // radDisplayZoom1x
             // 
@@ -3710,6 +3712,7 @@ partial class Console {
             this.radDisplayZoom1x.TabStop = true;
             this.toolTip1.SetToolTip(this.radDisplayZoom1x, resources.GetString("radDisplayZoom1x.ToolTip"));
             this.radDisplayZoom1x.UseVisualStyleBackColor = false;
+            this.radDisplayZoom1x.CheckedChanged += new System.EventHandler(this.radDisplayZoom1x_CheckedChanged);
             // 
             // radDisplayZoom05
             // 
@@ -3721,6 +3724,7 @@ partial class Console {
             this.radDisplayZoom05.TabStop = true;
             this.toolTip1.SetToolTip(this.radDisplayZoom05, resources.GetString("radDisplayZoom05.ToolTip"));
             this.radDisplayZoom05.UseVisualStyleBackColor = false;
+            this.radDisplayZoom05.CheckedChanged += new System.EventHandler(this.radDisplayZoom05_CheckedChanged);
             // 
             // ptbDisplayZoom
             // 
@@ -3736,6 +3740,7 @@ partial class Console {
             this.ptbDisplayZoom.TabStop = false;
             this.toolTip1.SetToolTip(this.ptbDisplayZoom, resources.GetString("ptbDisplayZoom.ToolTip"));
             this.ptbDisplayZoom.Value = 150;
+            this.ptbDisplayZoom.Scroll += new Thetis.PrettyTrackBar.ScrollHandler(this.ptbDisplayZoom_Scroll);
             // 
             // ptbDisplayPan
             // 
@@ -3751,6 +3756,7 @@ partial class Console {
             this.ptbDisplayPan.TabStop = false;
             this.toolTip1.SetToolTip(this.ptbDisplayPan, resources.GetString("ptbDisplayPan.ToolTip"));
             this.ptbDisplayPan.Value = 500;
+            this.ptbDisplayPan.Scroll += new Thetis.PrettyTrackBar.ScrollHandler(this.ptbDisplayPan_Scroll);
             // 
             // btnDisplayPanCenter
             // 
@@ -5114,28 +5120,6 @@ partial class Console {
             resources.ApplyResources(this.calibrateSMeterToolStripMenuItem, "calibrateSMeterToolStripMenuItem");
             this.calibrateSMeterToolStripMenuItem.Click += new System.EventHandler(this.calibrateSMeterToolStripMenuItem_Click);
             // 
-            // PrettySMeter
-            // 
-            this.PrettySMeter.BodyColor = System.Drawing.Color.Red;
-            this.PrettySMeter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            resources.ApplyResources(this.PrettySMeter, "PrettySMeter");
-            this.PrettySMeter.Max = 1000D;
-            this.PrettySMeter.MaxValue = 1000D;
-            this.PrettySMeter.MeterStyle = LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.AnalogMeterStyle.Circular;
-            this.PrettySMeter.MinValue = 0D;
-            this.PrettySMeter.Name = "PrettySMeter";
-            this.PrettySMeter.NeedleColor = System.Drawing.Color.Yellow;
-            this.PrettySMeter.Renderer = null;
-            this.PrettySMeter.ScaleColor = System.Drawing.Color.White;
-            this.PrettySMeter.ScaleDivisions = 10;
-            this.PrettySMeter.ScaleSubDivisions = 10;
-            this.PrettySMeter.Value = 0D;
-            this.PrettySMeter.ViewGlass = true;
-            this.PrettySMeter.ValueChanged += new System.EventHandler(this.PrettySMeter_ValueChanged_1);
-            this.PrettySMeter.MaxValueChanged += new System.EventHandler(this.PrettySMeter_MaxValueChanged);
-            this.PrettySMeter.MinValueChanged += new System.EventHandler(this.PrettySMeter_MinValueChanged);
-            this.PrettySMeter.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PrettySMeter_MouseUp);
-            // 
             // grpMultimeter
             // 
             resources.ApplyResources(this.grpMultimeter, "grpMultimeter");
@@ -6361,7 +6345,6 @@ partial class Console {
             this.panelDisplay.BackColor = System.Drawing.Color.Transparent;
             this.panelDisplay.Controls.Add(this.ucInfoBar);
             this.panelDisplay.Controls.Add(this.pnlDisplayControls);
-            this.panelDisplay.Controls.Add(this.PrettySMeter);
             this.panelDisplay.Controls.Add(this.txtDisplayOrionMKIIPAAmps);
             this.panelDisplay.Controls.Add(this.txtDisplayOrionMKIIBlank);
             this.panelDisplay.Controls.Add(this.txtDisplayOrionMKIIPAVolts);
@@ -6378,6 +6361,7 @@ partial class Console {
             this.ucInfoBar.HideFeedback = false;
             this.ucInfoBar.Name = "ucInfoBar";
             this.ucInfoBar.SplitterRatio = 1F;
+            this.ucInfoBar.SwapRedBlue = false;
             // 
             // pnlDisplayControls
             // 
@@ -7203,6 +7187,24 @@ partial class Console {
             this.tmrPrettySMeter.Interval = 50;
             this.tmrPrettySMeter.Tick += new System.EventHandler(this.tmrPrettySMeter_Tick);
             // 
+            // PrettySMeter
+            // 
+            this.PrettySMeter.BodyColor = System.Drawing.Color.Red;
+            this.PrettySMeter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            resources.ApplyResources(this.PrettySMeter, "PrettySMeter");
+            this.PrettySMeter.Max = 1000D;
+            this.PrettySMeter.MaxValue = 1000D;
+            this.PrettySMeter.MeterStyle = LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.AnalogMeterStyle.Circular;
+            this.PrettySMeter.MinValue = 0D;
+            this.PrettySMeter.Name = "PrettySMeter";
+            this.PrettySMeter.NeedleColor = System.Drawing.Color.Yellow;
+            this.PrettySMeter.Renderer = null;
+            this.PrettySMeter.ScaleColor = System.Drawing.Color.White;
+            this.PrettySMeter.ScaleDivisions = 10;
+            this.PrettySMeter.ScaleSubDivisions = 10;
+            this.PrettySMeter.Value = 0D;
+            this.PrettySMeter.ViewGlass = true;
+            // 
             // Console
             // 
             resources.ApplyResources(this, "$this");
@@ -7256,6 +7258,7 @@ partial class Console {
             this.Controls.Add(this.panelModeSpecificFM);
             this.Controls.Add(this.panelModeSpecificDigital);
             this.Controls.Add(this.panelModeSpecificCW);
+            this.Controls.Add(this.PrettySMeter);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Console";
@@ -7502,7 +7505,6 @@ partial class Console {
     private ToolStripMenuItem toolStripMenuItem18;
     private ToolStripStatusLabel toolStripStatusLabelAndromedaMulti;
     private System.IO.FileSystemWatcher fileSystemWatcher1;
-    public LBSoft.IndustrialCtrls.Meters.LBAnalogMeter PrettySMeter;
     private ContextMenuStrip txtMultiTextMnu;
     private ToolStripMenuItem mnuBigSMeter;
     private ToolStripMenuItem calibrateSMeterToolStripMenuItem;
@@ -7522,5 +7524,6 @@ partial class Console {
         private LabelTS lblDisplayZoom;
         private ButtonTS btnDisplayPanCenter;
         private LabelTS lblDisplayPan;
+        public LBSoft.IndustrialCtrls.Meters.LBAnalogMeter PrettySMeter;
     }
 }

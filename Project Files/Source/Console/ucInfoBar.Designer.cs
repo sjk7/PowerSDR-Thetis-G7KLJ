@@ -50,7 +50,7 @@
             this.lblFB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.lblFB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFB.ForeColor = System.Drawing.Color.Gray;
+            this.lblFB.ForeColor = System.Drawing.Color.Black;
             this.lblFB.Image = null;
             this.lblFB.Location = new System.Drawing.Point(801, 0);
             this.lblFB.MinimumSize = new System.Drawing.Size(44, 24);
@@ -67,7 +67,7 @@
             this.lblPS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPS.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.lblPS.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPS.ForeColor = System.Drawing.Color.Gray;
+            this.lblPS.ForeColor = System.Drawing.Color.Black;
             this.lblPS.Image = null;
             this.lblPS.Location = new System.Drawing.Point(845, 0);
             this.lblPS.MinimumSize = new System.Drawing.Size(44, 24);
@@ -77,6 +77,7 @@
             this.lblPS.Text = "Pure Signal2";
             this.lblPS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.toolTip1.SetToolTip(this.lblPS, "PS2 is correcting if \'Correct\' is shown");
+            this.lblPS.Click += new System.EventHandler(this.lblPS_Click);
             // 
             // chkButton2
             // 
@@ -87,7 +88,7 @@
             this.chkButton2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.chkButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.chkButton2.ForeColor = System.Drawing.Color.DarkGray;
+            this.chkButton2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkButton2.Image = null;
             this.chkButton2.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.chkButton2.Location = new System.Drawing.Point(59, 1);
@@ -109,7 +110,7 @@
             this.chkButton1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
             this.chkButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.chkButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
-            this.chkButton1.ForeColor = System.Drawing.Color.DarkGray;
+            this.chkButton1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkButton1.Image = null;
             this.chkButton1.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.chkButton1.Location = new System.Drawing.Point(3, 1);
@@ -124,8 +125,8 @@
             // 
             // lblSplitter
             // 
-            this.lblSplitter.BackColor = System.Drawing.Color.Silver;
-            this.lblSplitter.ForeColor = System.Drawing.Color.Silver;
+            this.lblSplitter.BackColor = System.Drawing.Color.White;
+            this.lblSplitter.ForeColor = System.Drawing.Color.White;
             this.lblSplitter.Image = null;
             this.lblSplitter.Location = new System.Drawing.Point(796, 0);
             this.lblSplitter.Margin = new System.Windows.Forms.Padding(0);
@@ -141,23 +142,24 @@
             // 
             // lblWarning
             // 
+            this.lblWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWarning.ForeColor = System.Drawing.Color.DimGray;
+            this.lblWarning.ForeColor = System.Drawing.Color.Red;
             this.lblWarning.Image = null;
-            this.lblWarning.Location = new System.Drawing.Point(404, 0);
+            this.lblWarning.Location = new System.Drawing.Point(138, 0);
             this.lblWarning.Name = "lblWarning";
-            this.lblWarning.Size = new System.Drawing.Size(81, 24);
+            this.lblWarning.Size = new System.Drawing.Size(654, 24);
             this.lblWarning.TabIndex = 41;
             this.lblWarning.Text = "Warning";
             this.lblWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblWarning.Click += new System.EventHandler(this.lblWarning_Click);
+            this.lblWarning.Visible = false;
             // 
             // lblRight3
             // 
             this.lblRight3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblRight3.BackColor = System.Drawing.Color.Transparent;
+            this.lblRight3.BackColor = System.Drawing.Color.Black;
             this.lblRight3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRight3.ForeColor = System.Drawing.Color.DimGray;
+            this.lblRight3.ForeColor = System.Drawing.Color.DodgerBlue;
             this.lblRight3.Image = null;
             this.lblRight3.Location = new System.Drawing.Point(680, 3);
             this.lblRight3.Name = "lblRight3";
@@ -170,9 +172,9 @@
             // lblRight2
             // 
             this.lblRight2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblRight2.BackColor = System.Drawing.Color.Transparent;
+            this.lblRight2.BackColor = System.Drawing.Color.Black;
             this.lblRight2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRight2.ForeColor = System.Drawing.Color.DimGray;
+            this.lblRight2.ForeColor = System.Drawing.Color.DodgerBlue;
             this.lblRight2.Image = null;
             this.lblRight2.Location = new System.Drawing.Point(592, 3);
             this.lblRight2.Name = "lblRight2";
@@ -185,9 +187,9 @@
             // lblRight1
             // 
             this.lblRight1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblRight1.BackColor = System.Drawing.Color.Transparent;
+            this.lblRight1.BackColor = System.Drawing.Color.Black;
             this.lblRight1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRight1.ForeColor = System.Drawing.Color.DimGray;
+            this.lblRight1.ForeColor = System.Drawing.Color.DodgerBlue;
             this.lblRight1.Image = null;
             this.lblRight1.Location = new System.Drawing.Point(504, 3);
             this.lblRight1.Name = "lblRight1";
@@ -199,9 +201,9 @@
             // 
             // lblLeft3
             // 
-            this.lblLeft3.BackColor = System.Drawing.Color.Transparent;
+            this.lblLeft3.BackColor = System.Drawing.Color.Black;
             this.lblLeft3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLeft3.ForeColor = System.Drawing.Color.DimGray;
+            this.lblLeft3.ForeColor = System.Drawing.Color.DodgerBlue;
             this.lblLeft3.Image = null;
             this.lblLeft3.Location = new System.Drawing.Point(294, 4);
             this.lblLeft3.Name = "lblLeft3";
@@ -213,9 +215,9 @@
             // 
             // lblLeft2
             // 
-            this.lblLeft2.BackColor = System.Drawing.Color.Transparent;
+            this.lblLeft2.BackColor = System.Drawing.Color.Black;
             this.lblLeft2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLeft2.ForeColor = System.Drawing.Color.DimGray;
+            this.lblLeft2.ForeColor = System.Drawing.Color.DodgerBlue;
             this.lblLeft2.Image = null;
             this.lblLeft2.Location = new System.Drawing.Point(226, 4);
             this.lblLeft2.Name = "lblLeft2";
@@ -227,9 +229,9 @@
             // 
             // lblLeft1
             // 
-            this.lblLeft1.BackColor = System.Drawing.Color.Transparent;
+            this.lblLeft1.BackColor = System.Drawing.Color.Black;
             this.lblLeft1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLeft1.ForeColor = System.Drawing.Color.DimGray;
+            this.lblLeft1.ForeColor = System.Drawing.Color.DodgerBlue;
             this.lblLeft1.Image = null;
             this.lblLeft1.Location = new System.Drawing.Point(138, 4);
             this.lblLeft1.Name = "lblLeft1";
@@ -243,7 +245,7 @@
             // 
             this.lblPageNo.AutoSize = true;
             this.lblPageNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPageNo.ForeColor = System.Drawing.Color.DarkGray;
+            this.lblPageNo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.lblPageNo.Image = null;
             this.lblPageNo.Location = new System.Drawing.Point(115, 6);
             this.lblPageNo.Name = "lblPageNo";
@@ -251,13 +253,12 @@
             this.lblPageNo.TabIndex = 43;
             this.lblPageNo.Text = "2/2";
             this.lblPageNo.Visible = false;
-            this.lblPageNo.Click += new System.EventHandler(this.lblPageNo_Click);
             // 
             // ucInfoBar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Transparent;
+            this.BackColor = System.Drawing.Color.Gray;
             this.Controls.Add(this.lblPageNo);
             this.Controls.Add(this.lblSplitter);
             this.Controls.Add(this.lblWarning);

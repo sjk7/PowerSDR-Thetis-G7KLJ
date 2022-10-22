@@ -207,6 +207,7 @@
         HPSDR_MINUS40,
         HPSDR_MINUS50,
         SA_MINUS10,
+        SA_MINUS20,  //MW0LGE_21d
         SA_MINUS30,
         // STEP_ATTEN,
         LAST,
