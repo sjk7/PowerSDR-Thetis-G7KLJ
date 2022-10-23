@@ -1377,17 +1377,13 @@ namespace Thetis
             this.doResize();
             this.BringToFront();
             this.Activate();
-            this.Visible = true;
-            this.Refresh();
-            Application.DoEvents();
-            this.SetupInfoBar();
-            Application.DoEvents();
 
             this.timer_clock.Enabled = true;
 
             Splash.CloseForm();
             Control.CheckForIllegalCrossThreadCalls = false;
         }
+
 
         public bool IsSetupFormNull
         {
@@ -1426,12 +1422,17 @@ namespace Thetis
         {
             if (initializing) return;
             SendMessage(parent.Handle, WM_SETREDRAW, false, 0);
+            //parent.SuspendLayout();
         }
         private void ResumeDrawing(Control parent, bool refresh = true)
         {
             if (initializing) return;
             SendMessage(parent.Handle, WM_SETREDRAW, true, 0);
-            if (refresh) parent.Refresh();
+            //parent.ResumeLayout();
+            if (refresh)
+            {
+                parent.Refresh();
+            }
         }
         //--
         private void OnAutoStartTimerEvent(Object source, ElapsedEventArgs e)
@@ -30294,52 +30295,29 @@ namespace Thetis
             else if (rx1_dsp_mode == DSPMode.CWU)
                 freq -= (double)cw_pitch * 0.0000010;
 
-            // switch (Display.CurrentDisplayMode)
-            //{
-            //    case (DisplayMode.PANAFALL):
-            //        Display.MaxY = picDisplay.Height / 2;
-            //        break;
-            //    case (DisplayMode.PANADAPTER):
-            //        Display.MaxY = picDisplay.Height;
-            //        break;
-            //    case (DisplayMode.WATERFALL):
-            //        Display.MaxY = picDisplay.Height;
-            //        break;
-            //    default:
-            //        Display.MaxY = picDisplay.Height;
-            //        break;
-            //}
 
             if (old_psautocal != chkFWCATUBypass.Checked)
             {
                 old_psautocal = chkFWCATUBypass.Checked;
                 if (chkFWCATUBypass.Checked)
                 {
-                   // lblDisplayPeakOffset.BackColor = Color.Black;
-                   // lblDisplayPeakOffset.Font = new Font(
-                  // "Cambria", 9.00f, FontStyle.Bold | FontStyle.Italic);
-                    lblDisplayPeakOffset = "PureSignal 2";
-                   // lblDisplayPeakPower.ForeColor = Color.Black;
-                    //lblDisplayPeakPower.Font
-                   //= new Font("Arial", 9.25f, FontStyle.Bold);
-                    lblDisplayPeakPower = "Feedback";
-                    //lblDisplayPeakPower.ForeColor = Color.Black;
-                    //lblDisplayPeakPower.Font
-                   //= new Font("Arial", 9.25f, FontStyle.Bold);
-                    lblDisplayPeakPower = "Correcting";
+                    if (this.mox)
+                    {
+                        lblDisplayPeakOffset = "PureSignal 2";
+                        lblDisplayPeakPower = "Feedback";
+                        lblDisplayPeakPower = "Correcting";
+                    }
+                    else
+                    {
+
+                    }
                 }
                 else
                 {
-                  //  lblDisplayPeakOffset.Font
-                  // = new Font("Arial", 9.75f, FontStyle.Regular);
-                  //  lblDisplayPeakPower.Font
-                  // = new Font("Arial", 9.75f, FontStyle.Regular);
-                  //  lblDisplayPeakPower.Font
-                  // = new Font("Arial", 9.75f, FontStyle.Regular);
                 }
             }
 
-            if (!chkFWCATUBypass.Checked)
+            if (!chkFWCATUBypass.Checked || !mox)
             {
                 //lblDisplayPeakOffset.BackColor = peak_background_color;
                // lblDisplayPeakPower.BackColor = peak_background_color;
@@ -39481,6 +39459,10 @@ ucInfoBar.updatePSDisplay();
                 return;
             }
 
+            lblDisplayPeakOffset = "";
+            lblDisplayPeakPower = "";
+            lblDisplayPeakFreq = "";
+
             if (allow_mox_bypass && current_ptt_mode != PTTMode.MIC
                 && current_ptt_mode != PTTMode.SPACE
                 && current_ptt_mode != PTTMode.CAT)
@@ -39514,6 +39496,13 @@ ucInfoBar.updatePSDisplay();
 
                 Audio.MuteRX1 = chkMUT.Checked;
             }
+
+            if (tx)
+            {
+                lblDisplayPeakOffset = "PureSignal 2";
+                lblDisplayPeakPower = "Feedback";
+                lblDisplayPeakFreq = "";
+              }
 
             if (tx)
             {
@@ -59458,6 +59447,8 @@ ucInfoBar.updatePSDisplay();
 
         private void Console_Shown(object sender, EventArgs e)
         {
+
+            this.SetupInfoBar();
             // set the multifunction setting to the status bar
             DataTable multitable
                 = AndromedaSet.Tables["Multifunction Settings"];

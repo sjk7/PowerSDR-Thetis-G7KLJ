@@ -164,7 +164,7 @@ namespace Thetis
         {
             InitializeComponent();
 
-            Control.CheckForIllegalCrossThreadCalls = true;
+           // Control.CheckForIllegalCrossThreadCalls = true;
             _oldCursor = Cursor.Current;
 
             _psTimer = new System.Timers.Timer();
