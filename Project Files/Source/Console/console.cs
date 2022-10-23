@@ -1220,8 +1220,10 @@ namespace Thetis
             specRX = new SpecRX();
             Display.specready = true;
 
+            Control.CheckForIllegalCrossThreadCalls = false;
             Splash.SetStatus("Loading Main Window ..."); // Set progress point
             Splash.SplashForm.Owner = this;
+            Control.CheckForIllegalCrossThreadCalls = false;
             // So that main form will show/focus when splash disappears
             break_in_timer = new HiPerfTimer();
 
@@ -1375,6 +1377,7 @@ namespace Thetis
             this.doResize();
             this.BringToFront();
             this.Activate();
+            this.Visible = true;
             this.Refresh();
             Application.DoEvents();
             this.SetupInfoBar();
@@ -22006,46 +22009,52 @@ namespace Thetis
         private Color peak_background_color = Color.Black;
 
         #region "InfoBarGetters"
-        public LabelTS lblDisplayCursorOffset
+        public string lblDisplayCursorOffset
         {
-            get { return ucInfoBar.Left1Label; }
+            get { return ucInfoBar.Left1LabelText; }
+           set { ucInfoBar.Left1LabelText = value; }
 
         }
+        public string lblDisplayCursorPower
+        {
+            get { return ucInfoBar.Left2LabelText; }
+            set { ucInfoBar.Left2LabelText = value; }
 
-        public LabelTS lblDisplayCursorFreq
+        }
+        public string lblDisplayCursorFreq
         {
             get
             {
-                return ucInfoBar.Left2Label;
+                return ucInfoBar.Left3LabelText;
             }
+            set { ucInfoBar.Left3LabelText = value; }
         }
 
-        public LabelTS lblDisplayCursorPower
+        public string lblDisplayPeakOffset
         {
-            get { return ucInfoBar.Right2Label; }
-
-        }
-
-        public LabelTS lblOverload
-        {
-            get { return ucInfoBar.WarningLabel; }
+            get { return ucInfoBar.Right1LabelText; }
+            set { ucInfoBar.Right1LabelText = value; }
 
         }
 
-        public LabelTS lblDisplayPeakOffset
+        public string lblDisplayPeakPower
         {
-            get { return ucInfoBar.Right3Label; }
+            get { return ucInfoBar.Right2LabelText; }
+            set { ucInfoBar.Right2LabelText = value; }
 
         }
-        public LabelTS lblDisplayPeakPower
+        public string lblDisplayPeakFreq
         {
-            get { return ucInfoBar.WarningLabel; }
+            get { return ucInfoBar.Right3LabelText; }
+            set { ucInfoBar.Right3LabelText = value; }
 
         }
 
-        public LabelTS lblDisplayPeakFreq
+
+        public string lblOverload
         {
-            get { return ucInfoBar.WarningLabel; }
+            get { return ucInfoBar.WarningLabelText; }
+            set { ucInfoBar.WarningLabelText = value; }
 
         }
 
@@ -22059,10 +22068,10 @@ namespace Thetis
             set
             {
                 peak_background_color = value;
-                lblDisplayCursorOffset.BackColor = value;
-                lblDisplayCursorPower.BackColor = value;
-                lblDisplayCursorFreq.BackColor = value;
-                lblOverload.BackColor = value;
+               // lblDisplayCursorOffset.BackColor = value;
+               // lblDisplayCursorPower.BackColor = value;
+                //lblDisplayCursorFreq.BackColor = value;
+                //lblOverload.BackColor = value;
             }
         }
 
@@ -29348,9 +29357,9 @@ namespace Thetis
             set
             {
                 peak_text_color = value;
-                lblDisplayCursorOffset.ForeColor = value;
-                lblDisplayCursorPower.ForeColor = value;
-                lblDisplayCursorFreq.ForeColor = value;
+                //lblDisplayCursorOffset.ForeColor = value;
+                //lblDisplayCursorPower.ForeColor = value;
+                //lblDisplayCursorFreq.ForeColor = value;
                 // txtDisplayPeakOffset.ForeColor = value;
                 // txtDisplayPeakPower.ForeColor = value;
                 // txtDisplayPeakFreq.ForeColor = value;
@@ -30134,13 +30143,13 @@ namespace Thetis
                     case 0:
                         switch (adc_oload_num)
                         {
-                            case 1: lblOverload.Text = "ADC1 Overload!"; break;
-                            case 2: lblOverload.Text = "ADC2 Overload!"; break;
-                            case 4: lblOverload.Text = "ADC3 Overload!"; break;
-                            default: lblOverload.Text = "ADC Overload!"; break;
+                            case 1: lblOverload = "ADC1 Overload!"; break;
+                            case 2: lblOverload = "ADC2 Overload!"; break;
+                            case 4: lblOverload= "ADC3 Overload!"; break;
+                            default: lblOverload = "ADC Overload!"; break;
                         }
                         break;
-                    case 1: lblOverload.Text = "AMP OVERLOAD!"; break;
+                    case 1: lblOverload= "AMP OVERLOAD!"; break;
                 }
                 change_overload_color_count = ++change_overload_color_count % 2;
 
@@ -30254,18 +30263,18 @@ namespace Thetis
                     }
 
                     // txtOverload.ForeColor = Color.Red;
-                    lblOverload.Text
+                    lblOverload
                    = "Seq=> " + ooo.ToString() + " (" + s.Trim() + ")";
                 }
                 else if (tx_inhibit)
-                    lblOverload.Text = "TX Inhibit";
+                    lblOverload= "TX Inhibit";
                 else
-                    lblOverload.Text = "";
+                    lblOverload = "";
             }
             switch (change_overload_color_count)
             {
-                case 0: lblOverload.ForeColor = Color.Red; break;
-                case 1: lblOverload.ForeColor = Color.Yellow; break;
+                //case 0: lblOverload.ForeColor = Color.Red; break;
+                //case 1: lblOverload.ForeColor = Color.Yellow; break;
             }
 
             if (txtVFOAFreq.Text == "" || txtVFOAFreq.Text == "."
@@ -30306,35 +30315,35 @@ namespace Thetis
                 old_psautocal = chkFWCATUBypass.Checked;
                 if (chkFWCATUBypass.Checked)
                 {
-                    lblDisplayPeakOffset.BackColor = Color.Black;
-                    lblDisplayPeakOffset.Font = new Font(
-                   "Cambria", 9.00f, FontStyle.Bold | FontStyle.Italic);
-                    lblDisplayPeakOffset.Text = "PureSignal 2";
-                    lblDisplayPeakPower.ForeColor = Color.Black;
-                    lblDisplayPeakPower.Font
-                   = new Font("Arial", 9.25f, FontStyle.Bold);
-                    lblDisplayPeakPower.Text = "Feedback";
-                    lblDisplayPeakPower.ForeColor = Color.Black;
-                    lblDisplayPeakPower.Font
-                   = new Font("Arial", 9.25f, FontStyle.Bold);
-                    lblDisplayPeakPower.Text = "Correcting";
+                   // lblDisplayPeakOffset.BackColor = Color.Black;
+                   // lblDisplayPeakOffset.Font = new Font(
+                  // "Cambria", 9.00f, FontStyle.Bold | FontStyle.Italic);
+                    lblDisplayPeakOffset = "PureSignal 2";
+                   // lblDisplayPeakPower.ForeColor = Color.Black;
+                    //lblDisplayPeakPower.Font
+                   //= new Font("Arial", 9.25f, FontStyle.Bold);
+                    lblDisplayPeakPower = "Feedback";
+                    //lblDisplayPeakPower.ForeColor = Color.Black;
+                    //lblDisplayPeakPower.Font
+                   //= new Font("Arial", 9.25f, FontStyle.Bold);
+                    lblDisplayPeakPower = "Correcting";
                 }
                 else
                 {
-                    lblDisplayPeakOffset.Font
-                   = new Font("Arial", 9.75f, FontStyle.Regular);
-                    lblDisplayPeakPower.Font
-                   = new Font("Arial", 9.75f, FontStyle.Regular);
-                    lblDisplayPeakPower.Font
-                   = new Font("Arial", 9.75f, FontStyle.Regular);
+                  //  lblDisplayPeakOffset.Font
+                  // = new Font("Arial", 9.75f, FontStyle.Regular);
+                  //  lblDisplayPeakPower.Font
+                  // = new Font("Arial", 9.75f, FontStyle.Regular);
+                  //  lblDisplayPeakPower.Font
+                  // = new Font("Arial", 9.75f, FontStyle.Regular);
                 }
             }
 
             if (!chkFWCATUBypass.Checked)
             {
-                lblDisplayPeakOffset.BackColor = peak_background_color;
-                lblDisplayPeakPower.BackColor = peak_background_color;
-                lblDisplayPeakFreq.BackColor = peak_background_color;
+                //lblDisplayPeakOffset.BackColor = peak_background_color;
+               // lblDisplayPeakPower.BackColor = peak_background_color;
+               // lblDisplayPeakFreq.BackColor = peak_background_color;
                 switch (Display.CurrentDisplayMode)
                 {
                     case DisplayMode.HISTOGRAM:
@@ -30344,11 +30353,11 @@ namespace Thetis
                     case DisplayMode.PANAFALL:
                     case DisplayMode.PANASCOPE:
                     case DisplayMode.SPECTRASCOPE:
-                        lblDisplayPeakOffset.ForeColor = peak_text_color;
-                        lblDisplayPeakPower.ForeColor = peak_text_color;
-                        lblDisplayPeakPower.ForeColor = peak_text_color;
-                        lblDisplayPeakOffset.Text = x.ToString("f1") + "Hz";
-                        lblDisplayPeakPower.Text = y.ToString("f1") + "dBm";
+                        //lblDisplayPeakOffset.ForeColor = peak_text_color;
+                        //lblDisplayPeakPower.ForeColor = peak_text_color;
+                        //lblDisplayPeakPower.ForeColor = peak_text_color;
+                        lblDisplayPeakOffset= x.ToString("f1") + "Hz";
+                        lblDisplayPeakPower= y.ToString("f1") + "dBm";
                         // txtDisplayPeakPower.Text = "Fuck off";
                         double Freq = double.Parse(txtVFOAFreq.Text);
                         string temp_text;
@@ -30364,16 +30373,15 @@ namespace Thetis
                                 + " MHz"; // Right hand - Peak frequency readout
 
                         int jper = temp_text.IndexOf(separator) + 4;
-                        lblDisplayPeakFreq.Text
-                       = String.Copy(temp_text.Insert(jper, " "));
+                        lblDisplayPeakFreq = String.Copy(temp_text.Insert(jper, " "));
                         break;
                     default:
-                        lblDisplayPeakOffset.Text = "";
-                        lblDisplayPeakFreq.Text = "";
-                        lblDisplayPeakFreq.Text = "";
+                        lblDisplayPeakOffset= "";
+                        lblDisplayPeakFreq = "";
+                        lblDisplayPeakFreq = "";
                         break;
                 }
-                lblOverload.Visible = visible;
+                //lblOverload.Visible = visible;
             }
         }
 
@@ -30394,9 +30402,9 @@ namespace Thetis
                 // txtDisplayOrionMKIIPAVolts.Hide(); // BringToFront();
                 //  txtDisplayOrionMKIIPAAmps.Hide(); // BringToFront();
                 // txtDisplayOrionMKIIBlank.Hide(); // BringToFront();
-                lblDisplayCursorFreq.BringToFront();
-                lblDisplayCursorOffset.BringToFront();
-                lblDisplayCursorPower.BringToFront();
+               // lblDisplayCursorFreq.BringToFront();
+               // lblDisplayCursorOffset.BringToFront();
+               // lblDisplayCursorPower.BringToFront();
             }
         }
 
@@ -30406,7 +30414,7 @@ namespace Thetis
             set
             {
                 txtcenterBackColor = value;
-                lblDisplayPeakFreq.BackColor = value;
+                //lblDisplayPeakFreq.BackColor = value;
             }
         }
 
@@ -30416,7 +30424,7 @@ namespace Thetis
             set
             {
                 txtrightBackColor = value;
-                lblDisplayPeakFreq.BackColor = value;
+                //lblDisplayPeakFreq.BackColor = value;
             }
         }
 
@@ -30426,7 +30434,7 @@ namespace Thetis
             set
             {
                 txtleftForeColor = value;
-                lblDisplayPeakOffset.ForeColor = value;
+                //lblDisplayPeakOffset.ForeColor = value;
                 // ucInfoBar.lblFB.
             }
         }
@@ -43647,12 +43655,12 @@ ucInfoBar.updatePSDisplay();
                             rf_freq += (double)cw_pitch * 0.0000010;
                         else if (rx1_dsp_mode == DSPMode.CWU)
                             rf_freq -= (double)cw_pitch * 0.0000010;
-                        lblDisplayCursorOffset.Text = x.ToString("f1") + "Hz";
-                        lblDisplayCursorPower.Text = y.ToString("f1") + "dBm";
+                        lblDisplayCursorOffset= x.ToString("f1") + "Hz";
+                        lblDisplayCursorPower = y.ToString("f1") + "dBm";
 
                         string temp_text = rf_freq.ToString("f6") + " MHz";
                         int jper = temp_text.IndexOf(separator) + 4;
-                        lblDisplayCursorFreq.Text
+                        lblDisplayCursorFreq
                             = String.Copy(temp_text.Insert(jper, " "));
                         break;
                     case DisplayMode.PANADAPTER:
@@ -43668,7 +43676,7 @@ ucInfoBar.updatePSDisplay();
                             case DisplayMode.PANASCOPE:
                             case DisplayMode.PANADAPTER:
                                 y = PixelToDb(e.Y);
-                                lblDisplayCursorPower.Text
+                                lblDisplayCursorPower
                                     = y.ToString("f1") + "dBm";
 
                                 float cal_offset = 0.0f;
@@ -43959,7 +43967,7 @@ ucInfoBar.updatePSDisplay();
                                 break;
                             case DisplayMode.WATERFALL:
                                 y = WaterfallPixelToTime(e.Y);
-                                lblDisplayCursorPower.Text
+                                lblDisplayCursorPower
                                     = (y / 1000.0f).ToString("f1") + "sec";
                                 break;
                         }
@@ -43969,13 +43977,13 @@ ucInfoBar.updatePSDisplay();
                                 if (e.Y < Display.PanafallSplitBarPos /*picDisplay.Height / 2*/)
                                 {
                                     y = PixelToDb(e.Y);
-                                    lblDisplayCursorPower.Text
+                                    lblDisplayCursorPower
                                         = y.ToString("f1") + "dBm";
                                 }
                                 else
                                 {
                                     y = WaterfallPixelToTime(e.Y);
-                                    lblDisplayCursorPower.Text
+                                    lblDisplayCursorPower
                                         = (y / 1000.0f).ToString("f1") + "sec";
                                 }
                                 break;
@@ -43983,12 +43991,12 @@ ucInfoBar.updatePSDisplay();
                                 if (e.Y < picDisplay.Height / 2)
                                 {
                                     y = PixelToDb(e.Y);
-                                    lblDisplayCursorPower.Text
+                                    lblDisplayCursorPower
                                         = y.ToString("f1") + "dBm";
                                 }
                                 else
                                 {
-                                    lblDisplayCursorPower.Text = "";
+                                    lblDisplayCursorPower = "";
                                 }
                                 break;
                         }
@@ -44020,7 +44028,7 @@ ucInfoBar.updatePSDisplay();
                         }
                         double freq = double.Parse(txtVFOAFreq.Text);
 
-                        lblDisplayCursorOffset.Text = x.ToString("f1") + "Hz";
+                        lblDisplayCursorOffset= x.ToString("f1") + "Hz";
 
                         if (click_tune_display
                             && !mox) // Correct cursor frequency when CTUN on -G3OQD
@@ -44033,7 +44041,7 @@ ucInfoBar.updatePSDisplay();
                                 + " MHz"; // Disply cursor frequency under Spectrum
 
                         jper = temp_text.IndexOf(separator) + 4;
-                        lblDisplayCursorFreq.Text
+                        lblDisplayCursorFreq
                             = String.Copy(temp_text.Insert(jper, " "));
 
                         bool bDragRX1Filter = bOverRX1
@@ -44191,9 +44199,9 @@ ucInfoBar.updatePSDisplay();
                         }
                         break;
                     default:
-                        lblDisplayCursorOffset.Text = "";
-                        lblDisplayCursorPower.Text = "";
-                        lblDisplayCursorFreq.Text = "";
+                        lblDisplayCursorOffset= "";
+                        lblDisplayCursorPower = "";
+                        lblDisplayCursorFreq = "";
                         break;
                 }
 
@@ -44289,9 +44297,9 @@ ucInfoBar.updatePSDisplay();
             Display.HighlightNumberScaleRX1 = false;
             Display.HighlightNumberScaleRX2 = false;
 
-            lblDisplayCursorOffset.Text = "";
-            lblDisplayCursorPower.Text = "";
-            lblDisplayCursorFreq.Text = "";
+            lblDisplayCursorOffset = "";
+            lblDisplayCursorPower = "";
+            lblDisplayCursorFreq = "";
             DisplayCursorX = -1;
             DisplayCursorY = -1;
             Cursor = Cursors.Default;
@@ -58485,6 +58493,11 @@ ucInfoBar.updatePSDisplay();
         {
             get { return chkFWCATUBypass.Checked; }
             set { chkFWCATUBypass.Checked = value; }
+        }
+
+        public void setPSOnOff(bool on)
+        {
+            chkFWCATUBypass.Checked = on;
         }
 
         private void chkRxAnt_CheckedChanged(object sender, EventArgs e)

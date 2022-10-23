@@ -59,7 +59,7 @@ namespace Thetis
         private int _currentFlip = 0; // index into the string array to display
         private bool _hideFeedback = false;
         private bool _dragging = false;
-        private int _startX;
+        private int _startX = 1;
         private float _splitterRatio = 1;
 
         private string[] _left1;
@@ -164,6 +164,7 @@ namespace Thetis
         {
             InitializeComponent();
 
+            Control.CheckForIllegalCrossThreadCalls = true;
             _oldCursor = Cursor.Current;
 
             _psTimer = new System.Timers.Timer();
@@ -246,57 +247,66 @@ namespace Thetis
             repositionControls();
         }
 
-        public LabelTS PSLabel
+        public string PSLabelText
         {
-            get { return lblPS; }
+            get { return lblPS.Text; }
+            set { lblPS.Text = value; }
 
         }
 
-        public LabelTS FBLabel
+        public string FBLabelText
         {
             get
             {
-                return lblFB;
+                return lblFB.Text;
             }
+            set {  lblFB.Text = value; }
         }
 
-        public LabelTS Left1Label
+        public string Left1LabelText
         {
-            get { return lblLeft1; }
+            get { return lblLeft1.Text; }
+            set {  lblLeft1.Text = value; } 
 
         }
-        public LabelTS Left2Label
+        public string Left2LabelText
         {
-            get { return lblLeft2; }
-
-        }
-
-        public LabelTS Left3Label
-        {
-            get { return lblLeft3; }
+            get { return lblLeft2.Text; }
+            set { lblLeft2.Text = value; }
 
         }
 
-        public LabelTS WarningLabel
+        public string Left3LabelText
         {
-            get { return lblWarning; }
+            get { return lblLeft3.Text; }
+            set { lblLeft3.Text = value; }
 
         }
 
-        public LabelTS Right1Label
+        public string WarningLabelText
         {
-            get { return lblRight1; }
-
-        }
-        public LabelTS Right2Label
-        {
-            get { return lblRight2; }
+            get { return lblWarning.Text; }
+            set { lblWarning.Text = value; }
 
         }
 
-        public LabelTS Right3Label
+        public string Right1LabelText
         {
-            get { return lblRight3; }
+            get { return lblRight1.Text; }
+            set { lblRight1.Text = value; }
+
+        }
+        public string Right2LabelText
+        {
+            get { return lblRight2.Text; }
+            set { lblRight2.Text = value; }
+
+        }
+
+        public string Right3LabelText
+        {
+            get { return lblRight3.Text; }
+            set { lblRight3.Text = value; }
 
         }
 
@@ -305,6 +315,7 @@ namespace Thetis
         {
             get
             {
+                Debug.Assert(false);
 
                 if (lbl == null)
                 {
@@ -556,7 +567,7 @@ namespace Thetis
             lblPS.ForeColor = Color.Black;
 
             _shutDown = false;
-            lblWarning.Visible = false;
+            lblWarning.Text = "";
             _preventClickEvents = false;
             PSAEnabled = false;
 
@@ -573,9 +584,13 @@ namespace Thetis
             if (pt.X >0 && pt.X < this.Width)
             {
                 lblSplitter.Location = pt;
+                _dragging = true;
+                lblSplitter_MouseMove(null, new MouseEventArgs(MouseButtons.Left, 1, 0, 0, 0));
+                _dragging = false;
                 repositionControls();
 
             }
+
             setToolTips();
         }
 
@@ -686,6 +701,7 @@ namespace Thetis
             }
         }
 
+        /*/
         public void Left1(int flipLayer, string value, int width = -1)
         {
             if (flipLayer < 0 || flipLayer > MAX_FLIP - 1) return;
@@ -788,6 +804,7 @@ namespace Thetis
 
             lblRight3.Text = _right3[_currentFlip];
         }
+        /*/
 
         private bool _bCorrectionsBeingApplied = false;
         private bool _bCalibrationAttemptsChanged = false;
@@ -1187,25 +1204,28 @@ namespace Thetis
             lblPS.Width = halfSpan;
 
             // align left labels
-            lblLeft1.Width = _left1Width[_currentFlip];
-            lblLeft2.Width = _left2Width[_currentFlip];
-            lblLeft3.Width = _left3Width[_currentFlip];
+            //lblLeft1.Width = _left1Width[_currentFlip];
+           // lblLeft2.Width = _left2Width[_currentFlip];
+            //lblLeft3.Width = _left3Width[_currentFlip];
 
             lblLeft2.Left = lblLeft1.Left + lblLeft1.Width;
             lblLeft3.Left = lblLeft2.Left + lblLeft2.Width;
 
             // now the right labels
-            lblRight1.Width = _right1Width[_currentFlip];
-            lblRight2.Width = _right2Width[_currentFlip];
-            lblRight3.Width = _right3Width[_currentFlip];
+            //lblRight1.Width = _right1Width[_currentFlip];
+            //lblRight2.Width = _right2Width[_currentFlip];
+            //lblRight3.Width = _right3Width[_currentFlip];
 
             int shift = lblRight1.Width + lblRight2.Width + lblRight3.Width + 4;
             lblRight1.Left = lblFB.Left - shift;
             lblRight2.Left = lblRight1.Left + lblRight1.Width;
             lblRight3.Left = lblRight1.Left + lblRight1.Width + lblRight2.Width;
 
-            //warning
-            lblWarning.Width = lblSplitter.Left - lblWarning.Left - 4;
+            // warning fills the middle space:
+            lblWarning.Width = (lblRight1.Left - 5) - (lblLeft3.Right+ 5);
+            lblWarning.Left = lblLeft3.Right+ 5;
+            lblWarning.Visible = true;
+            // lblWarning.Text = "respositionControls()";
 
             _useSmallFonts = newSpan <= 180; // if space is too small, use small fonts
 
@@ -1231,6 +1251,16 @@ namespace Thetis
             lblRight1.Visible = !((lblLeft3.Text != "" && lblRight1.Bounds.IntersectsWith(lblLeft3.Bounds)) || (lblLeft2.Text != "" && lblRight1.Bounds.IntersectsWith(lblLeft2.Bounds)) || (lblLeft1.Text != "" && lblRight1.Bounds.IntersectsWith(lblLeft1.Bounds)));
             lblRight2.Visible = !((lblLeft3.Text != "" && lblRight2.Bounds.IntersectsWith(lblLeft3.Bounds)) || (lblLeft2.Text != "" && lblRight2.Bounds.IntersectsWith(lblLeft2.Bounds)) || (lblLeft1.Text != "" && lblRight2.Bounds.IntersectsWith(lblLeft1.Bounds)));
             lblRight3.Visible = !((lblLeft3.Text != "" && lblRight3.Bounds.IntersectsWith(lblLeft3.Bounds)) || (lblLeft2.Text != "" && lblRight3.Bounds.IntersectsWith(lblLeft2.Bounds)) || (lblLeft1.Text != "" && lblRight3.Bounds.IntersectsWith(lblLeft1.Bounds)));
+            if (this.Visible && _console != null)
+            {
+                Debug.Assert(lblLeft1.Visible);
+                Debug.Assert(lblRight1.Visible);
+                Debug.Assert(lblLeft2.Visible);
+                Debug.Assert(lblRight2.Visible);
+                Debug.Assert(lblLeft3.Visible);
+                Debug.Assert(lblRight3.Visible);
+           }
+        
         }
         private void lblSplitter_MouseUp(object sender, MouseEventArgs e)
         {
@@ -1244,7 +1274,7 @@ namespace Thetis
 
         private void lblPS_Click(object sender, EventArgs e)
         {
-
+            this._console.setPSOnOff (!this._console.PureSignalEnabled);
         }
     }
 }

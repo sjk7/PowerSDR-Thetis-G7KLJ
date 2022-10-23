@@ -49,6 +49,7 @@
             // 
             this.lblFB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFB.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.lblFB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblFB.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFB.ForeColor = System.Drawing.Color.Black;
             this.lblFB.Image = null;
@@ -77,7 +78,7 @@
             this.lblPS.Text = "Pure Signal2";
             this.lblPS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.toolTip1.SetToolTip(this.lblPS, "PS2 is correcting if \'Correct\' is shown");
-            this.lblPS.Click += new System.EventHandler(this.lblPS_Click);
+            this.lblPS.DoubleClick += new System.EventHandler(this.lblPS_Click);
             // 
             // chkButton2
             // 
@@ -146,9 +147,9 @@
             this.lblWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWarning.ForeColor = System.Drawing.Color.Red;
             this.lblWarning.Image = null;
-            this.lblWarning.Location = new System.Drawing.Point(138, 0);
+            this.lblWarning.Location = new System.Drawing.Point(427, 0);
             this.lblWarning.Name = "lblWarning";
-            this.lblWarning.Size = new System.Drawing.Size(654, 24);
+            this.lblWarning.Size = new System.Drawing.Size(71, 24);
             this.lblWarning.TabIndex = 41;
             this.lblWarning.Text = "Warning";
             this.lblWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -205,7 +206,7 @@
             this.lblLeft3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLeft3.ForeColor = System.Drawing.Color.DodgerBlue;
             this.lblLeft3.Image = null;
-            this.lblLeft3.Location = new System.Drawing.Point(294, 4);
+            this.lblLeft3.Location = new System.Drawing.Point(294, 3);
             this.lblLeft3.Name = "lblLeft3";
             this.lblLeft3.Size = new System.Drawing.Size(112, 15);
             this.lblLeft3.TabIndex = 37;
@@ -219,7 +220,7 @@
             this.lblLeft2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLeft2.ForeColor = System.Drawing.Color.DodgerBlue;
             this.lblLeft2.Image = null;
-            this.lblLeft2.Location = new System.Drawing.Point(226, 4);
+            this.lblLeft2.Location = new System.Drawing.Point(226, 3);
             this.lblLeft2.Name = "lblLeft2";
             this.lblLeft2.Size = new System.Drawing.Size(68, 15);
             this.lblLeft2.TabIndex = 36;
@@ -233,7 +234,7 @@
             this.lblLeft1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLeft1.ForeColor = System.Drawing.Color.DodgerBlue;
             this.lblLeft1.Image = null;
-            this.lblLeft1.Location = new System.Drawing.Point(138, 4);
+            this.lblLeft1.Location = new System.Drawing.Point(138, 3);
             this.lblLeft1.Name = "lblLeft1";
             this.lblLeft1.Size = new System.Drawing.Size(88, 15);
             this.lblLeft1.TabIndex = 35;
@@ -258,7 +259,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Gray;
+            this.BackColor = System.Drawing.Color.Black;
             this.Controls.Add(this.lblPageNo);
             this.Controls.Add(this.lblSplitter);
             this.Controls.Add(this.lblWarning);
