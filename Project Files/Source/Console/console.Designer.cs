@@ -3776,6 +3776,7 @@ partial class Console {
             this.btnDisplayPanCenter.Tag = "";
             this.toolTip1.SetToolTip(this.btnDisplayPanCenter, resources.GetString("btnDisplayPanCenter.ToolTip"));
             this.btnDisplayPanCenter.UseVisualStyleBackColor = false;
+            this.btnDisplayPanCenter.Click += new System.EventHandler(this.btnDisplayPanCenter_Click);
             // 
             // picSquelch
             // 
@@ -6611,6 +6612,7 @@ partial class Console {
             this.txtVFOAMSD.ForeColor = System.Drawing.Color.Olive;
             this.txtVFOAMSD.Name = "txtVFOAMSD";
             this.txtVFOAMSD.ShortcutsEnabled = false;
+            this.txtVFOAMSD.TextChanged += new System.EventHandler(this.txtVFOAMSD_TextChanged);
             this.txtVFOAMSD.MouseDown += new System.Windows.Forms.MouseEventHandler(this.txtVFOAMSD_MouseDown);
             this.txtVFOAMSD.MouseLeave += new System.EventHandler(this.txtVFOAMSD_MouseLeave);
             this.txtVFOAMSD.MouseMove += new System.Windows.Forms.MouseEventHandler(this.txtVFOAMSD_MouseMove);

@@ -30130,27 +30130,29 @@ namespace Thetis
             else if (amp_oload)
                 oload_select = 1;
 
+            // test it will actually show if it needs to
+            /*/
             bool visible = false;
-            /*/ test it will actually show if it needs to
+            
             overload = true;
             oload_select = 1;
             /*/
 
             if (overload)
             {
-                visible = true;
+                //visible = true;
                 switch (oload_select)
                 {
                     case 0:
                         switch (adc_oload_num)
                         {
-                            case 1: lblOverload = "ADC1 Overload!"; break;
-                            case 2: lblOverload = "ADC2 Overload!"; break;
-                            case 4: lblOverload= "ADC3 Overload!"; break;
-                            default: lblOverload = "ADC Overload!"; break;
+                            case 1: infoBar.Warning("ADC1 Overload!"); break;
+                            case 2: infoBar.Warning("ADC2 Overload!"); break;
+                            case 4: infoBar.Warning("ADC3 Overload!"); break;
+                            default: infoBar.Warning("ADC Overload!"); break;
                         }
                         break;
-                    case 1: lblOverload= "AMP OVERLOAD!"; break;
+                    case 1: infoBar.Warning("AMP OVERLOAD!"); break;
                 }
                 change_overload_color_count = ++change_overload_color_count % 2;
 
@@ -30267,15 +30269,22 @@ namespace Thetis
                     lblOverload
                    = "Seq=> " + ooo.ToString() + " (" + s.Trim() + ")";
                 }
-                else if (tx_inhibit)
-                    lblOverload= "TX Inhibit";
-                else
-                    lblOverload = "";
+                else if (tx_inhibit) {
+                    //lblOverload = "TX Inhibit";
+                    infoBar.Warning("TX Inhibit");
+                    }
+                else {
+                    infoBar.Warning("");
+                }
             }
             switch (change_overload_color_count)
             {
-                //case 0: lblOverload.ForeColor = Color.Red; break;
-                //case 1: lblOverload.ForeColor = Color.Yellow; break;
+                /*/
+                case 0: lblOverload.ForeColor = Color.Red; break;
+                case 1: lblOverload.ForeColor = Color.Yellow; break;
+                /*/
+                case 0: infoBar.WarningLabel.ForeColor = Color.Red; break;
+                case 1: infoBar.WarningLabel.ForeColor = Color.Yellow; break;
             }
 
             if (txtVFOAFreq.Text == "" || txtVFOAFreq.Text == "."
@@ -40863,7 +40872,7 @@ ucInfoBar.updatePSDisplay();
             switch (TuneHitTest(e.X, e.Y))
             {
                 case TuneLocation.VFOA:
-                    if (mox) return;
+                    //if (mox) return;
                     double freq = double.Parse(txtVFOAFreq.Text);
                     double mult = 1000.0;
                     int right = grpVFOA.Left + txtVFOAFreq.Left + txtVFOAFreq.Width;
@@ -59939,11 +59948,7 @@ ucInfoBar.updatePSDisplay();
             if (!IsSetupFormNull) SetupForm.SwapRedBlueChanged();
         }
         #endregion
-
-        private void ptbDisplayPan_Scroll_1(object sender, EventArgs e)
-        {
-
-        }
+         
 
         private void PrettySMeter_ValueChanged(object sender, EventArgs e)
         {
@@ -59972,6 +59977,8 @@ ucInfoBar.updatePSDisplay();
                 ShowBigSMeter();
             }
         }
+
+
     }
 
     public class DigiMode

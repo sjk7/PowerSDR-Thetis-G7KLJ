@@ -84,11 +84,11 @@ namespace Thetis
         private int[] _right3Width;
 
        // private frmInfoBarPopup _frmInfoBarPopup_Button1;
-        private ToolStripDropDown _toolStripForm_Button1;
-        private ToolStripControlHost _host_Button1;
+       // private ToolStripDropDown _toolStripForm_Button1;
+       // private ToolStripControlHost _host_Button1;
        // private frmInfoBarPopup _frmInfoBarPopup_Button2;
-        private ToolStripDropDown _toolStripForm_Button2;
-        private ToolStripControlHost _host_Button2;
+        //private ToolStripDropDown _toolStripForm_Button2;
+        //private ToolStripControlHost _host_Button2;
         private Cursor _oldCursor;
 
         private Font _normalFont = new Font("Arial", 9f, FontStyle.Bold);
@@ -289,6 +289,13 @@ namespace Thetis
             set { lblWarning.Text = value; }
 
         }
+
+        public Label WarningLabel { get
+            {
+                return lblWarning;
+            }
+        }
+
 
         public string Right1LabelText
         {
@@ -934,7 +941,7 @@ namespace Thetis
             }
 
             lblWarning.Text = msg;
-            lblWarning.Visible = true;
+            lblWarning.Visible = !string.IsNullOrEmpty(msg);
             _warningTimer.Start();
         }
 
