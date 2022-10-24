@@ -58554,9 +58554,12 @@ ucInfoBar.updatePSDisplay();
             {
                 if (current_display_engine == DisplayEngine.DIRECT_X)
                 {
-                    Image c = m_imgBackgroundCopy.Clone() as Image;
-                    Display.SetDX2BackgoundImage(c);
-                    c.Dispose();
+                    if (m_imgBackgroundCopy != null)
+                    {
+                        Image c = m_imgBackgroundCopy.Clone() as Image;
+                        Display.SetDX2BackgoundImage(c);
+                        c.Dispose();
+                    }
                 }
                 else
                 {
