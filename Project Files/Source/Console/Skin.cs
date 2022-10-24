@@ -114,7 +114,10 @@ namespace Thetis
         /// <returns></returns>
         public static bool Restore(string name, string p, Form f)
         {
-            path = p + "\\" + name;
+            if (p.EndsWith("\\"))
+                path = p + name;
+            else
+                path = p + "\\" + name;
             Skin.name = name;
 
             // f.BackgroundImage = File.Exists(path + "\\" + f.Name + "\\" + f.Name + pic_file_ext) ? Image.FromFile(path + "\\" + f.Name + "\\" + f.Name + pic_file_ext) : null;

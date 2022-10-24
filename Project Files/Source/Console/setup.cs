@@ -11757,7 +11757,7 @@ public partial class Setup : Form {
                        Environment.SpecialFolder.ApplicationData)
                 + "\\OpenHPSDR\\Skins\\";
 
-        if (Directory.Exists(path + comboAppSkin.Text)) {
+        if (!string.IsNullOrEmpty(comboAppSkin.Text) && Directory.Exists(path + comboAppSkin.Text)) {
             Skin.Restore(comboAppSkin.Text, path, console);
         }
 
