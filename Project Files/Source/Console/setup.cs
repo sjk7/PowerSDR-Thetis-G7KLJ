@@ -775,7 +775,7 @@ public partial class Setup : Form {
             {
                 case SetupTab.SMeter_Calib_Tab:
                     TabSetup.SelectedIndex = 0;
-                    TabSetup.SelectedIndex = 1;
+                    TabGeneral.SelectedIndex = 3;
                     break;
                 case SetupTab.ALCAGC_Tab:
                     TabSetup.SelectedIndex = 3;

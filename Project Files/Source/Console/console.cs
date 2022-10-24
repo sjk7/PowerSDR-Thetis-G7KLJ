@@ -49833,16 +49833,16 @@ ucInfoBar.updatePSDisplay();
 
             gr_display_size_basis = this.panelDisplay.Size;
             pic_display_size_basis = this.picDisplay.Size;
-            /*/
+            
             // pic_waterfall_size_basis = this.picWaterfall.Size;
-            txtOverload_size_basis = this.txtOverload.Size;
-            txtOverload_basis = this.txtOverload.Location;
+            //txtOverload_size_basis = this.txtOverload.Size;
+            //txtOverload_basis = this.txtOverload.Location;
             gr_display2_basis = this.panelDisplay2.Location;
             gr_dsp_basis = this.panelDSP.Location;
             gr_multirx_basis = this.panelMultiRX.Location;
             tb_displaypan_basis = this.ptbDisplayPan.Location;
             lbl_displaypan_basis = this.lblDisplayPan.Location;
-            /*/
+            
             /*/
             txt_display_cursor_freq_basis = this.txtDisplayCursorFreq.Location;
             txt_display_cursor_power_basis
@@ -54385,7 +54385,10 @@ ucInfoBar.updatePSDisplay();
             picSquelch.Show();
             // panelDateTime.Show();
             panelVFO.Show();
-            panelDSP.Show();
+            
+            panelDSP.Top = panelVFO.Top;
+            panelDSP.Show(); 
+            panelDSP.BringToFront();
             panelDisplay2.Show();
             panelMultiRX.Show();
             // G8NJJ
@@ -59549,13 +59552,7 @@ ucInfoBar.updatePSDisplay();
             toggle_vfo_b_mode();
         }
 
-        private void PrettySMeter_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                ShowBigSMeter();
-            }
-        }
+
 
         private void ShowBigSMeter()
         {
@@ -59573,11 +59570,7 @@ ucInfoBar.updatePSDisplay();
                 m_frmSMeter.WindowState = FormWindowState.Normal;
         }
 
-        private void PrettySMeter_ValueChanged_1(object sender, EventArgs e)
-        {
-            if (m_frmSMeter != null)
-                m_frmSMeter.Value = ((float)PrettySMeter.Value);
-        }
+
 
         private void txtMultiText_MouseUp(object sender, MouseEventArgs e)
         {
@@ -59783,17 +59776,7 @@ ucInfoBar.updatePSDisplay();
             }
         }
 
-        private void PrettySMeter_MaxValueChanged(object sender, EventArgs e)
-        {
-            if (m_frmSMeter != null)
-                m_frmSMeter.BigSMeter.MaxValue = PrettySMeter.MaxValue;
-        }
-
-        private void PrettySMeter_MinValueChanged(object sender, EventArgs e)
-        {
-            if (m_frmSMeter != null)
-                m_frmSMeter.BigSMeter.MinValue = PrettySMeter.MinValue;
-        }
+ 
 
 
 
@@ -59962,12 +59945,33 @@ ucInfoBar.updatePSDisplay();
 
         }
 
-        private void PrettySMeter_Load(object sender, EventArgs e)
+        private void PrettySMeter_ValueChanged(object sender, EventArgs e)
         {
 
+                if (m_frmSMeter != null)
+                    m_frmSMeter.Value = ((float)PrettySMeter.Value);
+ 
         }
 
+        private void PrettySMeter_MaxValueChanged(object sender, EventArgs e)
+        {
+            if (m_frmSMeter != null)
+                m_frmSMeter.BigSMeter.MaxValue = PrettySMeter.MaxValue;
+        }
 
+        private void PrettySMeter_MinValueChanged(object sender, EventArgs e)
+        {
+            if (m_frmSMeter != null)
+                m_frmSMeter.BigSMeter.MinValue = PrettySMeter.MinValue;
+        }
+
+        private void PrettySMeter_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                ShowBigSMeter();
+            }
+        }
     }
 
     public class DigiMode

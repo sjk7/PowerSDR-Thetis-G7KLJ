@@ -1475,7 +1475,7 @@ partial class Console {
             // chkRX2SR
             // 
             resources.ApplyResources(this.chkRX2SR, "chkRX2SR");
-            this.chkRX2SR.BackColor = System.Drawing.Color.Transparent;
+            this.chkRX2SR.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.chkRX2SR.Checked = true;
             this.chkRX2SR.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRX2SR.FlatAppearance.BorderSize = 0;
@@ -1507,7 +1507,7 @@ partial class Console {
             // chkSR
             // 
             resources.ApplyResources(this.chkSR, "chkSR");
-            this.chkSR.BackColor = System.Drawing.Color.Transparent;
+            this.chkSR.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.chkSR.Checked = true;
             this.chkSR.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSR.FlatAppearance.BorderSize = 0;
@@ -1598,7 +1598,7 @@ partial class Console {
             // chkPower
             // 
             resources.ApplyResources(this.chkPower, "chkPower");
-            this.chkPower.BackColor = System.Drawing.SystemColors.Control;
+            this.chkPower.BackColor = System.Drawing.Color.Transparent;
             this.chkPower.FlatAppearance.BorderSize = 0;
             this.chkPower.Name = "chkPower";
             this.toolTip1.SetToolTip(this.chkPower, resources.GetString("chkPower.ToolTip"));
@@ -1803,7 +1803,7 @@ partial class Console {
             // radRX2ModeUSB
             // 
             resources.ApplyResources(this.radRX2ModeUSB, "radRX2ModeUSB");
-            this.radRX2ModeUSB.BackColor = System.Drawing.SystemColors.Control;
+            this.radRX2ModeUSB.BackColor = System.Drawing.Color.Transparent;
             this.radRX2ModeUSB.FlatAppearance.BorderSize = 0;
             this.radRX2ModeUSB.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.radRX2ModeUSB.Name = "radRX2ModeUSB";
@@ -1932,11 +1932,13 @@ partial class Console {
             // chkDisplayAVG
             // 
             resources.ApplyResources(this.chkDisplayAVG, "chkDisplayAVG");
+            this.chkDisplayAVG.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.chkDisplayAVG.Checked = true;
             this.chkDisplayAVG.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDisplayAVG.FlatAppearance.BorderSize = 0;
             this.chkDisplayAVG.Name = "chkDisplayAVG";
             this.toolTip1.SetToolTip(this.chkDisplayAVG, resources.GetString("chkDisplayAVG.ToolTip"));
+            this.chkDisplayAVG.UseVisualStyleBackColor = false;
             this.chkDisplayAVG.CheckedChanged += new System.EventHandler(this.chkDisplayAVG_CheckedChanged);
             // 
             // chkNR
@@ -2187,12 +2189,14 @@ partial class Console {
             // chkShowTXFilter
             // 
             resources.ApplyResources(this.chkShowTXFilter, "chkShowTXFilter");
+            this.chkShowTXFilter.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.chkShowTXFilter.Checked = true;
             this.chkShowTXFilter.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkShowTXFilter.FlatAppearance.BorderSize = 0;
             this.chkShowTXFilter.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkShowTXFilter.Name = "chkShowTXFilter";
             this.toolTip1.SetToolTip(this.chkShowTXFilter, resources.GetString("chkShowTXFilter.ToolTip"));
+            this.chkShowTXFilter.UseVisualStyleBackColor = false;
             this.chkShowTXFilter.CheckedChanged += new System.EventHandler(this.chkShowTXFilter_CheckedChanged);
             // 
             // chkDX
@@ -2366,7 +2370,7 @@ partial class Console {
             // radModeUSB
             // 
             resources.ApplyResources(this.radModeUSB, "radModeUSB");
-            this.radModeUSB.BackColor = System.Drawing.SystemColors.Control;
+            this.radModeUSB.BackColor = System.Drawing.Color.Transparent;
             this.radModeUSB.FlatAppearance.BorderSize = 0;
             this.radModeUSB.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.radModeUSB.Name = "radModeUSB";
@@ -2630,12 +2634,14 @@ partial class Console {
             // chkRX2DisplayAVG
             // 
             resources.ApplyResources(this.chkRX2DisplayAVG, "chkRX2DisplayAVG");
+            this.chkRX2DisplayAVG.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.chkRX2DisplayAVG.Checked = true;
             this.chkRX2DisplayAVG.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRX2DisplayAVG.FlatAppearance.BorderSize = 0;
             this.chkRX2DisplayAVG.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkRX2DisplayAVG.Name = "chkRX2DisplayAVG";
             this.toolTip1.SetToolTip(this.chkRX2DisplayAVG, resources.GetString("chkRX2DisplayAVG.ToolTip"));
+            this.chkRX2DisplayAVG.UseVisualStyleBackColor = false;
             this.chkRX2DisplayAVG.CheckedChanged += new System.EventHandler(this.chkRX2DisplayAVG_CheckedChanged);
             // 
             // radBand160
@@ -2988,12 +2994,14 @@ partial class Console {
             // chkMicMute
             // 
             resources.ApplyResources(this.chkMicMute, "chkMicMute");
+            this.chkMicMute.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.chkMicMute.Checked = true;
             this.chkMicMute.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMicMute.FlatAppearance.BorderSize = 0;
             this.chkMicMute.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.chkMicMute.Name = "chkMicMute";
             this.toolTip1.SetToolTip(this.chkMicMute, resources.GetString("chkMicMute.ToolTip"));
+            this.chkMicMute.UseVisualStyleBackColor = false;
             this.chkMicMute.CheckedChanged += new System.EventHandler(this.chkMicMute_CheckedChanged);
             this.chkMicMute.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chkMicMute_MouseDown);
             // 
@@ -5169,6 +5177,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelFilter, "panelFilter");
             this.panelFilter.BackColor = System.Drawing.Color.Transparent;
+            this.panelFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelFilter.ContextMenuStrip = this.contextMenuStripFilterRX1;
             this.panelFilter.Controls.Add(this.radFilter1);
             this.panelFilter.Controls.Add(this.ptbFilterShift);
@@ -5318,6 +5327,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelRX2RF, "panelRX2RF");
             this.panelRX2RF.BackColor = System.Drawing.Color.Transparent;
+            this.panelRX2RF.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelRX2RF.Controls.Add(this.ptbRX2RF);
             this.panelRX2RF.Controls.Add(this.lblRX2RF);
             this.panelRX2RF.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -5341,6 +5351,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelRX2DSP, "panelRX2DSP");
             this.panelRX2DSP.BackColor = System.Drawing.Color.Transparent;
+            this.panelRX2DSP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelRX2DSP.Controls.Add(this.chkRX2Mute);
             this.panelRX2DSP.Controls.Add(this.chkRX2NB2);
             this.panelRX2DSP.Controls.Add(this.chkRX2NR);
@@ -5355,6 +5366,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelOptions, "panelOptions");
             this.panelOptions.BackColor = System.Drawing.Color.Transparent;
+            this.panelOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelOptions.Controls.Add(this.lblRec);
             this.panelOptions.Controls.Add(this.ckQuickPlay);
             this.panelOptions.Controls.Add(this.chkMON);
@@ -5379,6 +5391,7 @@ partial class Console {
             // panelButtonBar
             // 
             resources.ApplyResources(this.panelButtonBar, "panelButtonBar");
+            this.panelButtonBar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelButtonBar.Controls.Add(this.btnAndrBar8);
             this.panelButtonBar.Controls.Add(this.btnAndrBar7);
             this.panelButtonBar.Controls.Add(this.btnAndrBar6);
@@ -5650,6 +5663,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelRX2Power, "panelRX2Power");
             this.panelRX2Power.BackColor = System.Drawing.Color.Transparent;
+            this.panelRX2Power.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelRX2Power.Controls.Add(this.lblRX2Band);
             this.panelRX2Power.Controls.Add(this.comboRX2Band);
             this.panelRX2Power.Controls.Add(this.comboRX2Preamp);
@@ -5710,6 +5724,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelPower, "panelPower");
             this.panelPower.BackColor = System.Drawing.Color.Transparent;
+            this.panelPower.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelPower.Controls.Add(this.chkRX2);
             this.panelPower.Controls.Add(this.chkPower);
             this.panelPower.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -5794,6 +5809,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelRX2Filter, "panelRX2Filter");
             this.panelRX2Filter.BackColor = System.Drawing.Color.Transparent;
+            this.panelRX2Filter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelRX2Filter.ContextMenuStrip = this.contextMenuStripFilterRX2;
             this.panelRX2Filter.Controls.Add(this.udRX2FilterHigh);
             this.panelRX2Filter.Controls.Add(this.radRX2Filter1);
@@ -5898,6 +5914,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelRX2Mode, "panelRX2Mode");
             this.panelRX2Mode.BackColor = System.Drawing.Color.Transparent;
+            this.panelRX2Mode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelRX2Mode.Controls.Add(this.radRX2ModeAM);
             this.panelRX2Mode.Controls.Add(this.radRX2ModeLSB);
             this.panelRX2Mode.Controls.Add(this.radRX2ModeSAM);
@@ -5916,6 +5933,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelRX2Display, "panelRX2Display");
             this.panelRX2Display.BackColor = System.Drawing.Color.Transparent;
+            this.panelRX2Display.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelRX2Display.Controls.Add(this.chkRX2DisplayPeak);
             this.panelRX2Display.Controls.Add(this.comboRX2DisplayMode);
             this.panelRX2Display.Controls.Add(this.chkRX2DisplayAVG);
@@ -5929,6 +5947,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelRX2Mixer, "panelRX2Mixer");
             this.panelRX2Mixer.BackColor = System.Drawing.Color.Transparent;
+            this.panelRX2Mixer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelRX2Mixer.Controls.Add(this.ptbRX2Pan);
             this.panelRX2Mixer.Controls.Add(this.ptbRX2Gain);
             this.panelRX2Mixer.Controls.Add(this.lblRX2Pan);
@@ -5951,6 +5970,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelMultiRX, "panelMultiRX");
             this.panelMultiRX.BackColor = System.Drawing.Color.Transparent;
+            this.panelMultiRX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelMultiRX.Controls.Add(this.lblRX1SubVol);
             this.panelMultiRX.Controls.Add(this.label2);
             this.panelMultiRX.Controls.Add(this.lblRX1Vol);
@@ -5984,6 +6004,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelDisplay2, "panelDisplay2");
             this.panelDisplay2.BackColor = System.Drawing.Color.Transparent;
+            this.panelDisplay2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelDisplay2.Controls.Add(this.chkDisplayPeak);
             this.panelDisplay2.Controls.Add(this.comboDisplayMode);
             this.panelDisplay2.Controls.Add(this.chkDisplayAVG);
@@ -5995,6 +6016,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelDSP, "panelDSP");
             this.panelDSP.BackColor = System.Drawing.Color.Transparent;
+            this.panelDSP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelDSP.Controls.Add(this.btnTNFAdd);
             this.panelDSP.Controls.Add(this.chkMUT);
             this.panelDSP.Controls.Add(this.chkNR);
@@ -6010,6 +6032,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelVFO, "panelVFO");
             this.panelVFO.BackColor = System.Drawing.Color.Transparent;
+            this.panelVFO.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelVFO.Controls.Add(this.chkVAC2);
             this.panelVFO.Controls.Add(this.btnZeroBeat);
             this.panelVFO.Controls.Add(this.chkVFOSplit);
@@ -6037,6 +6060,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelSoundControls, "panelSoundControls");
             this.panelSoundControls.BackColor = System.Drawing.Color.Transparent;
+            this.panelSoundControls.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelSoundControls.Controls.Add(this.ptbRX2AF);
             this.panelSoundControls.Controls.Add(this.lblRX2AF);
             this.panelSoundControls.Controls.Add(this.ptbRX1AF);
@@ -6104,6 +6128,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelModeSpecificPhone, "panelModeSpecificPhone");
             this.panelModeSpecificPhone.BackColor = System.Drawing.Color.Transparent;
+            this.panelModeSpecificPhone.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelModeSpecificPhone.Controls.Add(this.labelTS4);
             this.panelModeSpecificPhone.Controls.Add(this.labelTS3);
             this.panelModeSpecificPhone.Controls.Add(this.udTXFilterLow);
@@ -6358,10 +6383,19 @@ partial class Console {
             this.ucInfoBar.Button2Action = Thetis.ucInfoBar.ActionTypes.ActivePeaks;
             this.ucInfoBar.CurrentFlip = 0;
             resources.ApplyResources(this.ucInfoBar, "ucInfoBar");
+            this.ucInfoBar.FBLabelText = "FB";
             this.ucInfoBar.HideFeedback = false;
+            this.ucInfoBar.Left1LabelText = "000000000000";
+            this.ucInfoBar.Left2LabelText = "0000sec";
+            this.ucInfoBar.Left3LabelText = "000000000000";
             this.ucInfoBar.Name = "ucInfoBar";
+            this.ucInfoBar.PSLabelText = "Pure Signal2";
+            this.ucInfoBar.Right1LabelText = "000000000000";
+            this.ucInfoBar.Right2LabelText = "000000000000";
+            this.ucInfoBar.Right3LabelText = "000000000000";
             this.ucInfoBar.SplitterRatio = 1F;
             this.ucInfoBar.SwapRedBlue = false;
+            this.ucInfoBar.WarningLabelText = "Warning";
             // 
             // pnlDisplayControls
             // 
@@ -6442,6 +6476,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelMode, "panelMode");
             this.panelMode.BackColor = System.Drawing.Color.Transparent;
+            this.panelMode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelMode.Controls.Add(this.radModeAM);
             this.panelMode.Controls.Add(this.radModeLSB);
             this.panelMode.Controls.Add(this.radModeSAM);
@@ -6461,6 +6496,7 @@ partial class Console {
             // 
             resources.ApplyResources(this.panelBandHF, "panelBandHF");
             this.panelBandHF.BackColor = System.Drawing.Color.Transparent;
+            this.panelBandHF.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelBandHF.Controls.Add(this.radBandGEN);
             this.panelBandHF.Controls.Add(this.radBandWWV);
             this.panelBandHF.Controls.Add(this.radBand2);
@@ -6994,6 +7030,7 @@ partial class Console {
             // ptbSquelch
             // 
             resources.ApplyResources(this.ptbSquelch, "ptbSquelch");
+            this.ptbSquelch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ptbSquelch.HeadImage = null;
             this.ptbSquelch.LargeChange = 1;
             this.ptbSquelch.Maximum = 0;
@@ -7204,6 +7241,10 @@ partial class Console {
             this.PrettySMeter.ScaleSubDivisions = 10;
             this.PrettySMeter.Value = 0D;
             this.PrettySMeter.ViewGlass = true;
+            this.PrettySMeter.ValueChanged += new System.EventHandler(this.PrettySMeter_ValueChanged);
+            this.PrettySMeter.MaxValueChanged += new System.EventHandler(this.PrettySMeter_MaxValueChanged);
+            this.PrettySMeter.MinValueChanged += new System.EventHandler(this.PrettySMeter_MinValueChanged);
+            this.PrettySMeter.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PrettySMeter_MouseUp);
             // 
             // Console
             // 
