@@ -30426,7 +30426,8 @@ namespace Thetis
             }
         }
 
-        public void InfoBarFeedbackLevel(int level, bool bFeedbackLevelOk, bool bCorrectionsBeingApplied, bool bCalibrationAttemptsChanged, Color feedbackColour)
+        public void InfoBarFeedbackLevel(int level, bool bFeedbackLevelOk,
+            bool bCorrectionsBeingApplied, bool bCalibrationAttemptsChanged, Color feedbackColour)
         {
             if (this.InvokeRequired)
                 this.Invoke(new Action(() => infoBar.PSInfo(level, bFeedbackLevelOk, bCorrectionsBeingApplied, bCalibrationAttemptsChanged, feedbackColour)));
@@ -39461,6 +39462,8 @@ ucInfoBar.updatePSDisplay();
 
         private void chkMOX_CheckedChanged2(object sender, System.EventArgs e)
         {
+            bool bOldMox = mox;
+
             NetworkIO.SendHighPriority(1);
             if (rx_only && chkMOX.Checked)
             {
@@ -39815,6 +39818,10 @@ ucInfoBar.updatePSDisplay();
             {
                 m_PrettySMeterHelpers.moxChanged(chkMOX.Checked);
             }
+          //*  if (bOldMox != tx) MoxChangeHandlers?.Invoke(rx2_enabled && VFOBTX ? 2 : 1, bOldMox, tx); *//
+
+            if (bOldMox != tx)  infoBar.OnMoxChangeHandler(rx2_enabled && VFOBTX ? 2 : 1, bOldMox, tx);
+
         }
 
         private void chkMOX_Click(object sender, System.EventArgs e)

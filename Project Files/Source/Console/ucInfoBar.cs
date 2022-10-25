@@ -601,7 +601,7 @@ namespace Thetis
             setToolTips();
         }
 
-        private void OnMoxChangeHandler(int rx, bool oldMox, bool newMox)
+        public void OnMoxChangeHandler(int rx, bool oldMox, bool newMox)
         {
             _mox = newMox;
             if (!_mox)

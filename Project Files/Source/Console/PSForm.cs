@@ -647,7 +647,9 @@ namespace Thetis
 
                 if (puresignal.HasInfoChanged)
                 {
-                    console.InfoBarFeedbackLevel(puresignal.FeedbackLevel, puresignal.IsFeedbackLevelOK, puresignal.CorrectionsBeingApplied, puresignal.CalibrationAttemptsChanged, puresignal.FeedbackColourLevel);
+                    console.InfoBarFeedbackLevel(puresignal.FeedbackLevel,
+                        puresignal.IsFeedbackLevelOK, puresignal.CorrectionsBeingApplied,
+                        puresignal.CalibrationAttemptsChanged, puresignal.FeedbackColourLevel);
                 }
             }
 
