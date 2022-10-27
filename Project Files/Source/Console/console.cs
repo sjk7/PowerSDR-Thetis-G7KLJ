@@ -69,6 +69,7 @@ namespace Thetis
     using System.Timers;
     using System.Windows.Forms;
     using System.Xml.Linq;
+    using Thetis.Properties;
 
     namespace PowerSDR
     {
@@ -1142,7 +1143,7 @@ namespace Thetis
             booting = true;
 
             InitializeComponent(); // Windows Forms Generated Code
-                        this.infoBar.Button1Clicked += new System.EventHandler<Thetis.ucInfoBar.InfoBarAction>(this.infoBar_Button1Clicked);
+            this.infoBar.Button1Clicked += new System.EventHandler<Thetis.ucInfoBar.InfoBarAction>(this.infoBar_Button1Clicked);
             this.infoBar.Button2Clicked += new System.EventHandler<Thetis.ucInfoBar.InfoBarAction>(this.infoBar_Button2Clicked);
             booting = false;
             this.ucInfoBar.BackColor = this.picDisplay.BackColor;
@@ -1315,7 +1316,7 @@ namespace Thetis
             Splash.SetStatus("Update Diversity values ...");
             UpdateDiversityValues();
 
-              Splash.SetStatus("RX1 meter calibation ...");
+            Splash.SetStatus("RX1 meter calibation ...");
 
             rx1_meter_cal_offset
                 = rx_meter_cal_offset_by_radio[(int)current_hpsdr_model];
@@ -1355,15 +1356,23 @@ namespace Thetis
 
             this.Click += new System.EventHandler(this.form_Click);
             Splash.SetStatus("Sizing and showing main app window ...");
+            this.Opacity = 0;
             this.doResize();
             this.BringToFront();
             this.Activate();
+            Application.DoEvents();
+
+            restoreFromSettings();
+
+            this.Opacity = 1;
 
             this.timer_clock.Enabled = true;
 
             Splash.CloseForm();
             Control.CheckForIllegalCrossThreadCalls = false;
         }
+
+
 
 
         public bool IsSetupFormNull
@@ -1745,7 +1754,7 @@ namespace Thetis
 
         private void InitConsole()
         {
-           // ucInfoBar.updatePSDisplay();
+            // ucInfoBar.updatePSDisplay();
             Splash.SetStatus("Initialising Notch interface ...");
             m_frmNotchPopup = new frmNotchPopup();
             m_frmNotchPopup.NotchDeleteEvent += onNotchDelete;
@@ -2258,7 +2267,7 @@ namespace Thetis
             RX1_band_change = RX1Band;
             //--
 
-           
+
             DumpCap.Initalise(this);
             if (DumpCap.ClearFolderOnRestart) DumpCap.ClearDumpFolder();
             m_frmSeqLog.SetWireSharkPath(DumpCap.WireSharkPath);
@@ -21994,7 +22003,7 @@ namespace Thetis
         public string lblDisplayCursorOffset
         {
             get { return ucInfoBar.Left1LabelText; }
-           set { ucInfoBar.Left1LabelText = value; }
+            set { ucInfoBar.Left1LabelText = value; }
 
         }
         public string lblDisplayCursorPower
@@ -22050,8 +22059,8 @@ namespace Thetis
             set
             {
                 peak_background_color = value;
-               // lblDisplayCursorOffset.BackColor = value;
-               // lblDisplayCursorPower.BackColor = value;
+                // lblDisplayCursorOffset.BackColor = value;
+                // lblDisplayCursorPower.BackColor = value;
                 //lblDisplayCursorFreq.BackColor = value;
                 //lblOverload.BackColor = value;
             }
@@ -30250,11 +30259,13 @@ namespace Thetis
                     lblOverload
                    = "Seq=> " + ooo.ToString() + " (" + s.Trim() + ")";
                 }
-                else if (tx_inhibit) {
+                else if (tx_inhibit)
+                {
                     //lblOverload = "TX Inhibit";
                     infoBar.Warning("TX Inhibit");
-                    }
-                else {
+                }
+                else
+                {
                     infoBar.Warning("");
                 }
             }
@@ -30310,8 +30321,8 @@ namespace Thetis
             if (!chkFWCATUBypass.Checked || !mox)
             {
                 //lblDisplayPeakOffset.BackColor = peak_background_color;
-               // lblDisplayPeakPower.BackColor = peak_background_color;
-               // lblDisplayPeakFreq.BackColor = peak_background_color;
+                // lblDisplayPeakPower.BackColor = peak_background_color;
+                // lblDisplayPeakFreq.BackColor = peak_background_color;
                 switch (Display.CurrentDisplayMode)
                 {
                     case DisplayMode.HISTOGRAM:
@@ -30324,8 +30335,8 @@ namespace Thetis
                         //lblDisplayPeakOffset.ForeColor = peak_text_color;
                         //lblDisplayPeakPower.ForeColor = peak_text_color;
                         //lblDisplayPeakPower.ForeColor = peak_text_color;
-                        lblDisplayPeakOffset= x.ToString("f1") + "Hz";
-                        lblDisplayPeakPower= y.ToString("f1") + "dBm";
+                        lblDisplayPeakOffset = x.ToString("f1") + "Hz";
+                        lblDisplayPeakPower = y.ToString("f1") + "dBm";
                         // txtDisplayPeakPower.Text = "Fuck off";
                         double Freq = double.Parse(txtVFOAFreq.Text);
                         string temp_text;
@@ -30344,7 +30355,7 @@ namespace Thetis
                         lblDisplayPeakFreq = String.Copy(temp_text.Insert(jper, " "));
                         break;
                     default:
-                        lblDisplayPeakOffset= "";
+                        lblDisplayPeakOffset = "";
                         lblDisplayPeakFreq = "";
                         lblDisplayPeakFreq = "";
                         break;
@@ -30370,9 +30381,9 @@ namespace Thetis
                 // txtDisplayOrionMKIIPAVolts.Hide(); // BringToFront();
                 //  txtDisplayOrionMKIIPAAmps.Hide(); // BringToFront();
                 // txtDisplayOrionMKIIBlank.Hide(); // BringToFront();
-               // lblDisplayCursorFreq.BringToFront();
-               // lblDisplayCursorOffset.BringToFront();
-               // lblDisplayCursorPower.BringToFront();
+                // lblDisplayCursorFreq.BringToFront();
+                // lblDisplayCursorOffset.BringToFront();
+                // lblDisplayCursorPower.BringToFront();
             }
         }
 
@@ -34071,7 +34082,7 @@ namespace Thetis
                         int slept = 0;
                         while (objStopWatch.ElapsedMsec < dly)
                         {
-                             Thread.Sleep(1);  // hmmm
+                            Thread.Sleep(1);  // hmmm
                             slept++;
                         }
                         fThreadSleepLate = objStopWatch.ElapsedMsec - dly;
@@ -38554,8 +38565,6 @@ namespace Thetis
         private void Console_Closing(
             object sender, System.ComponentModel.CancelEventArgs e)
         {
-            // this.Hide();
-            // Audio.callback_return = 2;
 
             if (infoBar != null)
                 infoBar.ShutDown();
@@ -38570,25 +38579,11 @@ namespace Thetis
             AriesCATEnabled = false;
             GanymedeCATEnabled = false;
 
-            if (chkPower.Checked == true) // If we're quitting without first
-                                          // clicking off the "Power" button
+            if (chkPower.Checked == true)
                 chkPower.Checked = false;
-
-            // MW0LGE
-            // show a shutdown window
-            ShutdownForm frmShutDownForm = new ShutdownForm();
-            frmShutDownForm.Location = new Point(this.Location.X
-                    + this.Size.Width / 2 - frmShutDownForm.Size.Width / 2,
-                this.Location.Y + this.Size.Height / 2
-                    - frmShutDownForm.Size.Height / 2);
-            frmShutDownForm.Show();
-            Application.DoEvents();
 
             MemoryList.Save();
             SetupForm.SaveNotchesToDatabase();
-
-            Thread.Sleep(100);
-
             SaveState();
 
             if (!IsSetupFormNull) SetupForm.Hide();
@@ -38614,8 +38609,6 @@ namespace Thetis
             // it is possible to crash on save and corrupt settings file
             if (!IsSetupFormNull)
             {
-                // if(SetupForm.CompleteAnyExistingSave())
-                // SetupForm.SaveOptions();
                 SetupForm.IgnoreButtonState
                     = true; // prevents threads from updating controls in the
                             // blocked thead caused by WaitForSaveLoad
@@ -38629,21 +38622,14 @@ namespace Thetis
             if (EQForm != null) EQForm.Close();
             if (memoryForm != null) memoryForm.Close();
             if (diversityForm != null) diversityForm.Close();
-            //  if (preSelForm != null) preSelForm.Close();
             if (psform != null) psform.Close();
 
-            // MW0LGE getwb performs a show, so the window will flash.
-            // as Closewb handles null ref ok, then just call
-            // cmaster.Closewb(0); if (cmaster.Getwb(0).WBdisplay != null)
-            // cmaster.Closewb(0);
+
             cmaster.Closewb(0);
-
             // cmaster.close_rxa();
-
             DumpCap.StopDumpcap();
-
             this.Hide();
-            frmShutDownForm.Close(); // last thing to get rid of
+
         }
 
         private void comboPreamp_SelectedIndexChanged(
@@ -39436,7 +39422,7 @@ namespace Thetis
 
             picNoiseGate.Invalidate();
 
-ucInfoBar.updatePSDisplay();
+            ucInfoBar.updatePSDisplay();
         }
 
         // private HiPerfTimer t1 = new HiPerfTimer();
@@ -39499,7 +39485,7 @@ ucInfoBar.updatePSDisplay();
                 lblDisplayPeakOffset = "PureSignal 2";
                 lblDisplayPeakPower = "Feedback";
                 lblDisplayPeakFreq = "";
-              }
+            }
 
             if (tx)
             {
@@ -39792,7 +39778,7 @@ ucInfoBar.updatePSDisplay();
             if (tx)
             {
                 UIMOXChangedTrue();
-               
+
             }
             else
             {
@@ -39803,9 +39789,9 @@ ucInfoBar.updatePSDisplay();
             {
                 m_PrettySMeterHelpers.moxChanged(chkMOX.Checked);
             }
-          //*  if (bOldMox != tx) MoxChangeHandlers?.Invoke(rx2_enabled && VFOBTX ? 2 : 1, bOldMox, tx); *//
+            //*  if (bOldMox != tx) MoxChangeHandlers?.Invoke(rx2_enabled && VFOBTX ? 2 : 1, bOldMox, tx); *//
 
-            if (bOldMox != tx)  infoBar.OnMoxChangeHandler(rx2_enabled && VFOBTX ? 2 : 1, bOldMox, tx);
+            if (bOldMox != tx) infoBar.OnMoxChangeHandler(rx2_enabled && VFOBTX ? 2 : 1, bOldMox, tx);
 
         }
 
@@ -43645,7 +43631,7 @@ ucInfoBar.updatePSDisplay();
                             rf_freq += (double)cw_pitch * 0.0000010;
                         else if (rx1_dsp_mode == DSPMode.CWU)
                             rf_freq -= (double)cw_pitch * 0.0000010;
-                        lblDisplayCursorOffset= x.ToString("f1") + "Hz";
+                        lblDisplayCursorOffset = x.ToString("f1") + "Hz";
                         lblDisplayCursorPower = y.ToString("f1") + "dBm";
 
                         string temp_text = rf_freq.ToString("f6") + " MHz";
@@ -44018,7 +44004,7 @@ ucInfoBar.updatePSDisplay();
                         }
                         double freq = double.Parse(txtVFOAFreq.Text);
 
-                        lblDisplayCursorOffset= x.ToString("f1") + "Hz";
+                        lblDisplayCursorOffset = x.ToString("f1") + "Hz";
 
                         if (click_tune_display
                             && !mox) // Correct cursor frequency when CTUN on -G3OQD
@@ -44189,7 +44175,7 @@ ucInfoBar.updatePSDisplay();
                         }
                         break;
                     default:
-                        lblDisplayCursorOffset= "";
+                        lblDisplayCursorOffset = "";
                         lblDisplayCursorPower = "";
                         lblDisplayCursorFreq = "";
                         break;
@@ -49834,7 +49820,7 @@ ucInfoBar.updatePSDisplay();
 
             gr_display_size_basis = this.panelDisplay.Size;
             pic_display_size_basis = this.picDisplay.Size;
-            
+
             // pic_waterfall_size_basis = this.picWaterfall.Size;
             //txtOverload_size_basis = this.txtOverload.Size;
             //txtOverload_basis = this.txtOverload.Location;
@@ -49843,7 +49829,7 @@ ucInfoBar.updatePSDisplay();
             gr_multirx_basis = this.panelMultiRX.Location;
             tb_displaypan_basis = this.ptbDisplayPan.Location;
             lbl_displaypan_basis = this.lblDisplayPan.Location;
-            
+
             /*/
             txt_display_cursor_freq_basis = this.txtDisplayCursorFreq.Location;
             txt_display_cursor_power_basis
@@ -54386,9 +54372,9 @@ ucInfoBar.updatePSDisplay();
             picSquelch.Show();
             // panelDateTime.Show();
             panelVFO.Show();
-            
+
             panelDSP.Top = panelVFO.Top;
-            panelDSP.Show(); 
+            panelDSP.Show();
             panelDSP.BringToFront();
             panelDisplay2.Show();
             panelMultiRX.Show();
@@ -59636,8 +59622,47 @@ ucInfoBar.updatePSDisplay();
             SetupForm.Focus();
         }
 
+        private void restoreFromSettings()
+        {
+            var pos = Settings.Default.ConsoleWinPos;
+            var sz = Settings.Default.ConsoleWinSize;
+            var state = Settings.Default.ConsoleWinState;
+            if (pos.X != -100 && pos.Y != -100)
+            {
+                if (Common.IsVisibleOnAnyScreen(sz))
+                {
+                    this.Location = pos;
+                    if (!sz.IsEmpty)
+                    {
+                        this.DesktopBounds = sz;
+                        if (state != FormWindowState.Minimized)
+                        {
+                            this.WindowState = state;
+                        }
+                    }
+                }
+            }
+
+        }
+
+        private void SaveSizeAndPosition()
+        {
+            Settings.Default.ConsoleWinPos = this.DesktopLocation;
+            Settings.Default.ConsoleWinState = this.WindowState;
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                Settings.Default.ConsoleWinSize = this.RestoreBounds;
+            }
+            else
+            {
+                Settings.Default.ConsoleWinSize = this.DesktopBounds;
+            }
+        }
+
         private void Console_FormClosing(object sender, FormClosingEventArgs e)
         {
+
+            SaveSizeAndPosition();
             timer_clock.Enabled = false; // else it loads the SMeter again!
             if (m_frmSMeter != null)
             {
@@ -59797,7 +59822,7 @@ ucInfoBar.updatePSDisplay();
             }
         }
 
- 
+
 
 
 
@@ -59960,14 +59985,14 @@ ucInfoBar.updatePSDisplay();
             if (!IsSetupFormNull) SetupForm.SwapRedBlueChanged();
         }
         #endregion
-         
+
 
         private void PrettySMeter_ValueChanged(object sender, EventArgs e)
         {
 
-                if (m_frmSMeter != null)
-                    m_frmSMeter.Value = ((float)PrettySMeter.Value);
- 
+            if (m_frmSMeter != null)
+                m_frmSMeter.Value = ((float)PrettySMeter.Value);
+
         }
 
         private void PrettySMeter_MaxValueChanged(object sender, EventArgs e)

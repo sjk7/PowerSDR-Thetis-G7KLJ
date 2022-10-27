@@ -20,5 +20,14 @@
     <Setting Name="SplitLoc" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">-1, -1</Value>
     </Setting>
+    <Setting Name="ConsoleWinPos" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">-100, -100</Value>
+    </Setting>
+    <Setting Name="ConsoleWinSize" Type="System.Drawing.Rectangle" Scope="User">
+      <Value Profile="(Default)">0, 0, 0, 0</Value>
+    </Setting>
+    <Setting Name="ConsoleWinState" Type="System.Windows.Forms.FormWindowState" Scope="User">
+      <Value Profile="(Default)">Normal</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

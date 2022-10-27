@@ -118,6 +118,19 @@ namespace Thetis
 
         }
 
+        public static bool IsVisibleOnAnyScreen(Rectangle rect)
+        {
+            foreach (Screen screen in Screen.AllScreens)
+            {
+                if (screen.WorkingArea.IntersectsWith(rect))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
 
         public static bool ShiftKeyDown
         {

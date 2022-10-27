@@ -52,7 +52,7 @@ public partial class frmSMeter : Form {
         }
         // check if the saved bounds are nonzero and visible on any screen
         if (Settings.Default.WindowPosition != Rectangle.Empty
-            && IsVisibleOnAnyScreen(Settings.Default.WindowPosition)) {
+            && Common.IsVisibleOnAnyScreen(Settings.Default.WindowPosition)) {
             // first set the bounds
             this.StartPosition = FormStartPosition.Manual;
             this.DesktopBounds = Settings.Default.WindowPosition;
@@ -81,16 +81,6 @@ public partial class frmSMeter : Form {
             this.Owner = console;
 
         this.alwaysOnTopToolStripMenuItem.Checked = this.TopMost;
-    }
-
-    private bool IsVisibleOnAnyScreen(Rectangle rect) {
-        foreach (Screen screen in Screen.AllScreens) {
-            if (screen.WorkingArea.IntersectsWith(rect)) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     protected override void OnResize(EventArgs e) {
