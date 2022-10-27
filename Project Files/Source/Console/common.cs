@@ -158,7 +158,7 @@ namespace Thetis
                 }
 #if (DEBUG)
                 else if (c.GetType() == typeof(GroupBox) ||
-                    c.GetType() == typeof(CheckBoxTS) ||
+                    c.GetType() == typeof(CheckBox) ||
                     c.GetType() == typeof(ComboBox) ||
                     c.GetType() == typeof(NumericUpDown) ||
                     c.GetType() == typeof(RadioButton) ||
@@ -171,6 +171,7 @@ namespace Thetis
             a.Add("Left/" + form.Left);
             a.Add("Width/" + form.Width);
             a.Add("Height/" + form.Height);
+            // a.Add("WindowState/" + (int)form.WindowState);
 
             DB.SaveVars(tablename, ref a);      // save the values to the DB
         }
@@ -223,6 +224,8 @@ namespace Thetis
 
                 string name = vals[0];
                 string val = vals[1];
+
+
 
                 switch (name)
                 {

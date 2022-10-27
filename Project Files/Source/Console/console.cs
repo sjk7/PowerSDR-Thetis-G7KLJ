@@ -276,7 +276,7 @@ namespace Thetis
         private Thread rx2_sql_update_thread; // polls the RX2 signal strength
         private Thread vox_update_thread; // polls the mic input
         private Thread noise_gate_update_thread; // polls the mic input during TX
-        public bool pause_DisplayThread;
+        public volatile bool pause_DisplayThread;
         private bool calibration_running = false;
         private bool displaydidit = false;
         public Mutex calibration_mutex = new Mutex();
@@ -33709,15 +33709,14 @@ namespace Thetis
 
         unsafe private void RunDisplay()
         {
-
+            Display.dx_running = true;
             try
             {
                 HiPerfTimer objStopWatch = new HiPerfTimer();
                 double fFractionOfMs = 0;
                 double fThreadSleepLate = 0;
-                // uint thread = 0;
-                //			display_running = true;
-                while (true) //(chkPower.Checked)
+
+                while (!Display.shut_dx2) //(chkPower.Checked)
                 {
                     objStopWatch.Reset();
 
@@ -34069,9 +34068,11 @@ namespace Thetis
                     {
                         // wait for the calculated delay
                         objStopWatch.Reset();
+                        int slept = 0;
                         while (objStopWatch.ElapsedMsec < dly)
                         {
-                            // Thread.Sleep(0);  // hmmm
+                             Thread.Sleep(1);  // hmmm
+                            slept++;
                         }
                         fThreadSleepLate = objStopWatch.ElapsedMsec - dly;
                     }
@@ -34095,9 +34096,12 @@ namespace Thetis
             }
             catch (Exception e)
             {
+                Display.dx_running = false;
                 // MessageBox.Show("Error in RunDisplay.\n" + e.Message);
                 Common.LogException(e);
             }
+
+            Display.dx_running = false;
         }
 
         private HiPerfTimer meter_timer = new HiPerfTimer();
@@ -39437,7 +39441,7 @@ ucInfoBar.updatePSDisplay();
 
         // private HiPerfTimer t1 = new HiPerfTimer();
         //  private double timer1 = 0.0;
-        private bool mox = false;
+        private volatile bool mox = false;
         private PreampMode temp_mode = PreampMode.HPSDR_OFF; // HPSDR preamp mode
         private PreampMode temp_mode2 = PreampMode.HPSDR_OFF; // HPSDR preamp mode
 

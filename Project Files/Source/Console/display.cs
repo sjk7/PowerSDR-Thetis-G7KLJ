@@ -62,8 +62,9 @@ using AlphaMode = SharpDX.Direct2D1.AlphaMode;
 using Device = SharpDX.Direct3D11.Device;
 using RectangleF = SharpDX.RectangleF;
 using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
+    using System.Threading;
 
-class Display {
+    class Display {
 #region Variable Declaration
 
     public const float CLEAR_FLAG = -999.999F; // for resetting buffers
@@ -6274,7 +6275,7 @@ class Display {
         get { return m_bHighlightNumberScaleRX2; }
         set { m_bHighlightNumberScaleRX2 = value; }
     }
-    private static bool m_bDX2Setup = false;
+    private static volatile bool m_bDX2Setup = false;
     private static Surface surface;
     private static Device device;
     private static SwapChain swapChain;
@@ -6283,9 +6284,23 @@ class Display {
     private static RenderTarget d2dRenderTarget;
     private static SharpDX.Direct2D1.Factory d2dFactory;
     private static Object m_objDX2Lock = new Object();
+        public static volatile bool shut_dx2 = false;
+        public static volatile bool dx_running = false;
+
     public static void ShutdownDX2D() {
-        lock (m_objDX2Lock) {
             if (!m_bDX2Setup) return;
+
+            shut_dx2 = true;
+            int slept = 0;
+            while (dx_running)
+            {
+                Thread.Sleep(1);
+                if (slept > 1000)
+                    break;
+            }
+        
+        lock (m_objDX2Lock) {
+            
 
             waterfall_bmp_dx2d.Dispose();
             waterfall_bmp2_dx2d.Dispose();
@@ -6453,8 +6468,6 @@ class Display {
     private static Vector2 m_pixelShift = new Vector2(0.5f, 0.5f);
     public static void RenderDX2D() {
         try {
-            // float fTopHeight;
-            // fTopHeight = SpecialPanafall ? 0.8f : 0.5f;
 
             lock (m_objDX2Lock) {
                 if (!m_bDX2Setup)
@@ -6580,10 +6593,7 @@ class Display {
                             DrawScopeDX2D(
                                 displayTargetWidth, m_nRX1DisplayHeight, false);
                             break;
-                        // case DisplayMode.SCOPE2:
-                        //     DrawScope2DX2D(displayTargetWidth,
-                        //     displayTargetHeight / 2, false); break;
-                        case DisplayMode.PHASE:
+                         case DisplayMode.PHASE:
                             DrawPhaseDX2D(
                                 displayTargetWidth, m_nRX1DisplayHeight, false);
                             break;
@@ -6611,35 +6621,12 @@ class Display {
                                 displayTargetWidth, m_nRX1DisplayHeight, 1,
                                 true);
                             break;
-                            // case DisplayMode.PANASCOPE:
-                            //     DrawPanadapterDX2D(displayTargetWidth,
-                            //     displayTargetHeight / 4, 1, false);
-                            //     DrawScopeDX2D(displayTargetWidth,
-                            //     displayTargetHeight / 4, true); break;
-                            // case DisplayMode.SPECTRASCOPE:
-                            //     DrawSpectrumDX2D(displayTargetWidth,
-                            //     displayTargetHeight / 4, false);
-                            //     DrawScopeDX2D(displayTargetWidth,
-                            //     displayTargetHeight / 4, true); break;
+  
                     }
 
                     m_nRX2DisplayHeight = displayTargetHeight / 2;
                     switch (current_display_mode_bottom) {
-                        // case DisplayMode.SPECTRUM:
-                        //     DrawSpectrumDX2D(displayTargetWidth,
-                        //     m_nRX2DisplayHeight, true); break;
-                        // case DisplayMode.SCOPE:
-                        //     DrawScopeDX2D(displayTargetWidth,
-                        //     m_nRX2DisplayHeight, true); break;
-                        // case DisplayMode.SCOPE2:
-                        //     DrawScope2DX2D(displayTargetWidth,
-                        //     displayTargetHeight / 2, true); break;
-                        // case DisplayMode.PHASE:
-                        //     DrawPhaseDX2D(displayTargetWidth,
-                        //     m_nRX2DisplayHeight, true); break;
-                        // case DisplayMode.PHASE2:
-                        //     DrawPhase2DX2D(displayTargetWidth,
-                        //     m_nRX2DisplayHeight, true); break;
+
                         case DisplayMode.PANADAPTER:
                             DrawPanadapterDX2D(m_nRX2DisplayHeight,
                                 displayTargetWidth, m_nRX2DisplayHeight, 2,
@@ -6662,17 +6649,7 @@ class Display {
                                 displayTargetWidth, m_nRX2DisplayHeight, 2,
                                 true);
                             break;
-                            // case DisplayMode.PANASCOPE:
-                            //     DrawPanadapterDX2D(displayTargetWidth,
-                            //     displayTargetHeight / 4, 2, false);
-                            //     DrawScopeDX2D(displayTargetWidth,
-                            //     displayTargetHeight / 4, true); break;
-                            // case DisplayMode.SPECTRASCOPE:
-                            //     DrawSpectrumDX2D(displayTargetWidth,
-                            //     displayTargetHeight / 4, false);
-                            //     DrawScopeDX2D(displayTargetWidth,
-                            //     displayTargetHeight / 4, true);
-                    }
+                        }
                 }
 
                 // HIGH swr display warning
