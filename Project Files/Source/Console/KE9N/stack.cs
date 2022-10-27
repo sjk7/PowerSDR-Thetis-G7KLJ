@@ -763,7 +763,10 @@ namespace Thetis
 
                 try
                 {
-                    if (console.band_stacks[iii] < 3) return;    // dont allow removing all the bandstacks
+                    if (console.band_stacks[iii] < 3)
+                    {
+                        return;    // dont allow removing all the bandstacks
+                    }
 
                     int ii = textBox1.GetCharIndexFromPosition(e.Location);
 

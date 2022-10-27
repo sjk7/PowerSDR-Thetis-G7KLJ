@@ -1150,9 +1150,6 @@ namespace Thetis
             GlobalMouseHandler gmh = new GlobalMouseHandler(); // capture mouse up event
             gmh.MouseUp += new MouseMovedEvent(gmh_MouseUp);
             Application.AddMessageFilter(gmh);
-            // this.ResizeEnd += new EventHandler(this.ResizeComplete);
-            // this.ResizeBegin += new EventHandler(this.ResizeStart);
-            // this.Layout += new LayoutEventHandler(this.LayoutChanged);
 
             foreach (PanelTS control in this.Controls.OfType<PanelTS>())
             {
@@ -1215,7 +1212,7 @@ namespace Thetis
                 }
             }
 
-            Splash.SetStatus("Initializing Radio ..."); // Set progress point
+            Splash.SetStatus("Initialising Radio ..."); // Set progress point
             radio = new Radio(app_data_path); // Initialize the Radio processor
             specRX = new SpecRX();
             Display.specready = true;
@@ -1318,23 +1315,7 @@ namespace Thetis
             Splash.SetStatus("Update Diversity values ...");
             UpdateDiversityValues();
 
-            Splash.SetStatus("Starting Drawing Components ...");
-            if (draw_display_thread == null || !draw_display_thread.IsAlive)
-            {
-                draw_display_thread = new Thread(
-                    new ThreadStart(RunDisplay))
-                {
-                    Name = "Draw Display Thread",
-                    Priority
-                    = m_tpDisplayThreadPriority, // MW0LGE now defaulted with
-                                                 // m_tpDisplayThreadPriority,
-                                                 // and updated by setupform
-                    IsBackground = true
-                };
-                draw_display_thread.Start();
-            }
-
-            Splash.SetStatus("RX1 meter calibation ...");
+              Splash.SetStatus("RX1 meter calibation ...");
 
             rx1_meter_cal_offset
                 = rx_meter_cal_offset_by_radio[(int)current_hpsdr_model];
@@ -59469,6 +59450,26 @@ ucInfoBar.updatePSDisplay();
 
         private void Console_Shown(object sender, EventArgs e)
         {
+
+            this.Refresh();
+            Application.DoEvents();
+
+            // Splash.SetStatus("Starting Drawing Components ...");
+            if (draw_display_thread == null || !draw_display_thread.IsAlive)
+            {
+                draw_display_thread = new Thread(
+                    new ThreadStart(RunDisplay))
+                {
+                    Name = "Draw Display Thread",
+                    Priority
+                    = m_tpDisplayThreadPriority, // MW0LGE now defaulted with
+                                                 // m_tpDisplayThreadPriority,
+                                                 // and updated by setupform
+                    IsBackground = true
+                };
+                draw_display_thread.Start();
+            }
+
 
             this.SetupInfoBar();
             // set the multifunction setting to the status bar
