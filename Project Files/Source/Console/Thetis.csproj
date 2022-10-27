@@ -263,6 +263,14 @@
     <Reference Include="Microsoft.Win32.Registry, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Win32.Registry.4.7.0\lib\net461\Microsoft.Win32.Registry.dll</HintPath>
     </Reference>
+    <Reference Include="Midi2Cat, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\x64\Release\Midi2Cat.dll</HintPath>
+    </Reference>
+    <Reference Include="RawInput, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\x64\Release\RawInput.dll</HintPath>
+    </Reference>
     <Reference Include="SharpDX">
       <HintPath>..\..\lib\SharpDX\SharpDX.dll</HintPath>
     </Reference>
@@ -900,16 +908,6 @@
     <None Include="Properties\app.manifest">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Midi2Cat\Midi2Cat.csproj">
-      <Project>{66ade184-31ba-4f5b-8007-f39ef1b90f95}</Project>
-      <Name>Midi2Cat</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RawInput\RawInput.csproj">
-      <Project>{4143d085-38cf-4640-bb05-2fdffaf94d76}</Project>
-      <Name>RawInput</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
