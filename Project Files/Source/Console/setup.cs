@@ -8305,15 +8305,17 @@ public partial class Setup : Form {
             return;
         }
 
+        /*/
         if (udTXFilterHigh.Focused
             && (udTXFilterHigh.Value - udTXFilterLow.Value) > 3000
             && (console.TXFilterHigh - console.TXFilterLow) <= 3000) {
             (new Thread(new ThreadStart(TXBW))).Start();
         }
-
+        /*/
         console.TXFilterHigh = (int)udTXFilterHigh.Value;
     }
 
+        /*/
     private void TXBW() {
         MessageBox.Show(
             "The transmit bandwidth is being increased beyond 3kHz.\n\n"
@@ -8322,6 +8324,7 @@ public partial class Setup : Form {
             "Warning: Transmit Bandwidth", MessageBoxButtons.OK,
             MessageBoxIcon.Warning);
     }
+        /*/
 
     private void udTXFilterLow_ValueChanged(object sender, System.EventArgs e) {
         if (udTXFilterLow.Value > udTXFilterHigh.Value - 100) {
@@ -8329,13 +8332,16 @@ public partial class Setup : Form {
             return;
         }
 
+        /*/
         if (udTXFilterLow.Focused
             && (udTXFilterHigh.Value - udTXFilterLow.Value) > 3000
             && (console.TXFilterHigh - console.TXFilterLow) <= 3000) {
             (new Thread(new ThreadStart(TXBW))).Start();
         }
-
+        /*/
         console.TXFilterLow = (int)udTXFilterLow.Value;
+           lblVOODOO.Visible = (console.TXFilterLow < 50);
+ 
     }
 
     private void udTransmitTunePower_ValueChanged(

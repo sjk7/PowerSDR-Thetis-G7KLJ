@@ -2154,6 +2154,7 @@
             this.tbCFC1 = new System.Windows.Forms.TrackBarTS();
             this.tbCFC2 = new System.Windows.Forms.TrackBarTS();
             this.tpTransmit = new System.Windows.Forms.TabPage();
+            this.lblVOODOO = new System.Windows.Forms.Label();
             this.btnExportCurrentTXProfile = new System.Windows.Forms.Button();
             this.chkDSPTXMeterPeak = new System.Windows.Forms.CheckBoxTS();
             this.chkLimitExtAmpOnOverload = new System.Windows.Forms.CheckBoxTS();
@@ -34941,6 +34942,7 @@
             // 
             // tpTransmit
             // 
+            this.tpTransmit.Controls.Add(this.lblVOODOO);
             this.tpTransmit.Controls.Add(this.btnExportCurrentTXProfile);
             this.tpTransmit.Controls.Add(this.chkDSPTXMeterPeak);
             this.tpTransmit.Controls.Add(this.chkLimitExtAmpOnOverload);
@@ -34963,6 +34965,19 @@
             this.tpTransmit.Size = new System.Drawing.Size(728, 436);
             this.tpTransmit.TabIndex = 5;
             this.tpTransmit.Text = "Transmit";
+            // 
+            // lblVOODOO
+            // 
+            this.lblVOODOO.AutoSize = true;
+            this.lblVOODOO.BackColor = System.Drawing.Color.Green;
+            this.lblVOODOO.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVOODOO.ForeColor = System.Drawing.Color.Yellow;
+            this.lblVOODOO.Location = new System.Drawing.Point(190, 90);
+            this.lblVOODOO.Name = "lblVOODOO";
+            this.lblVOODOO.Size = new System.Drawing.Size(64, 13);
+            this.lblVOODOO.TabIndex = 74;
+            this.lblVOODOO.Text = "VOODOO!";
+            this.lblVOODOO.Visible = false;
             // 
             // btnExportCurrentTXProfile
             // 
@@ -59910,5 +59925,6 @@
         private CheckBoxTS chkSpecWarningLEDGetPixels;
         private CheckBoxTS chkSpecWarningLEDRenderDelay;
         private CheckBoxTS chkShowMHzOnCursor;
+        private Label lblVOODOO;
     }
 }
