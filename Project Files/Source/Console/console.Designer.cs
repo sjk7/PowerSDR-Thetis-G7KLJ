@@ -708,6 +708,7 @@ partial class Console {
             this.ptbDisplayZoom = new Thetis.PrettyTrackBar();
             this.ptbDisplayPan = new Thetis.PrettyTrackBar();
             this.btnDisplayPanCenter = new System.Windows.Forms.ButtonTS();
+            this.chkFullDuplex = new System.Windows.Forms.CheckBoxTS();
             this.picSquelch = new System.Windows.Forms.PictureBox();
             this.timer_clock = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStripFilterRX1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -1118,7 +1119,6 @@ partial class Console {
             this.lblATUTuneLabel = new System.Windows.Forms.LabelTS();
             this.tmrPrettySMeter = new System.Windows.Forms.Timer(this.components);
             this.PrettySMeter = new LBSoft.IndustrialCtrls.Meters.LBAnalogMeter();
-            this.chkFullDuplex = new System.Windows.Forms.CheckBoxTS();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udFilterHigh)).BeginInit();
@@ -3396,6 +3396,7 @@ partial class Console {
             this.regBox1.ReadOnly = true;
             this.toolTip1.SetToolTip(this.regBox1, resources.GetString("regBox1.ToolTip"));
             this.regBox1.Click += new System.EventHandler(this.regBox1_Click);
+            this.regBox1.TextChanged += new System.EventHandler(this.regBox1_TextChanged);
             // 
             // regBox
             // 
@@ -3767,6 +3768,15 @@ partial class Console {
             this.toolTip1.SetToolTip(this.btnDisplayPanCenter, resources.GetString("btnDisplayPanCenter.ToolTip"));
             this.btnDisplayPanCenter.UseVisualStyleBackColor = false;
             this.btnDisplayPanCenter.Click += new System.EventHandler(this.btnDisplayPanCenter_Click);
+            // 
+            // chkFullDuplex
+            // 
+            resources.ApplyResources(this.chkFullDuplex, "chkFullDuplex");
+            this.chkFullDuplex.FlatAppearance.BorderSize = 0;
+            this.chkFullDuplex.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.chkFullDuplex.Name = "chkFullDuplex";
+            this.toolTip1.SetToolTip(this.chkFullDuplex, resources.GetString("chkFullDuplex.ToolTip"));
+            this.chkFullDuplex.CheckedChanged += new System.EventHandler(this.chkFullDuplex_CheckedChanged);
             // 
             // picSquelch
             // 
@@ -6620,7 +6630,7 @@ partial class Console {
             // 
             this.txtVFOABand.BackColor = System.Drawing.Color.Black;
             resources.ApplyResources(this.txtVFOABand, "txtVFOABand");
-            this.txtVFOABand.ForeColor = System.Drawing.Color.Green;
+            this.txtVFOABand.ForeColor = System.Drawing.Color.MediumSeaGreen;
             this.txtVFOABand.Name = "txtVFOABand";
             this.txtVFOABand.ReadOnly = true;
             this.txtVFOABand.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtVFOABand_KeyPress);
@@ -6681,7 +6691,7 @@ partial class Console {
             // 
             this.txtVFOBBand.BackColor = System.Drawing.Color.Black;
             resources.ApplyResources(this.txtVFOBBand, "txtVFOBBand");
-            this.txtVFOBBand.ForeColor = System.Drawing.Color.Green;
+            this.txtVFOBBand.ForeColor = System.Drawing.Color.MediumSeaGreen;
             this.txtVFOBBand.Name = "txtVFOBBand";
             this.txtVFOBBand.ReadOnly = true;
             this.txtVFOBBand.Click += new System.EventHandler(this.txtVFOBBand_Click);
@@ -7237,15 +7247,6 @@ partial class Console {
             this.PrettySMeter.MaxValueChanged += new System.EventHandler(this.PrettySMeter_MaxValueChanged);
             this.PrettySMeter.MinValueChanged += new System.EventHandler(this.PrettySMeter_MinValueChanged);
             this.PrettySMeter.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PrettySMeter_MouseUp);
-            // 
-            // chkFullDuplex
-            // 
-            resources.ApplyResources(this.chkFullDuplex, "chkFullDuplex");
-            this.chkFullDuplex.FlatAppearance.BorderSize = 0;
-            this.chkFullDuplex.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.chkFullDuplex.Name = "chkFullDuplex";
-            this.toolTip1.SetToolTip(this.chkFullDuplex, resources.GetString("chkFullDuplex.ToolTip"));
-            this.chkFullDuplex.CheckedChanged += new System.EventHandler(this.chkFullDuplex_CheckedChanged);
             // 
             // Console
             // 

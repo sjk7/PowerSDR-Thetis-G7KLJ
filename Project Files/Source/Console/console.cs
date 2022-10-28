@@ -60058,6 +60058,11 @@ namespace Thetis
         {
             have_resize_begin = true;
         }
+
+        private void regBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class DigiMode

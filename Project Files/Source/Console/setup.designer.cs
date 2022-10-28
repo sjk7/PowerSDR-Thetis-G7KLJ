@@ -1491,6 +1491,7 @@
             this.udPeakBlobs = new System.Windows.Forms.NumericUpDownTS();
             this.chkPeakBlobsEnabled = new System.Windows.Forms.CheckBoxTS();
             this.groupBoxTS11 = new System.Windows.Forms.GroupBoxTS();
+            this.chkShowMHzOnCursor = new System.Windows.Forms.CheckBoxTS();
             this.chkSmallModeFilteronVFOs = new System.Windows.Forms.CheckBoxTS();
             this.grpDisplay8000DLE = new System.Windows.Forms.GroupBoxTS();
             this.chkANAN8000DLEDisplayVoltsAmps = new System.Windows.Forms.CheckBoxTS();
@@ -3342,7 +3343,6 @@
             this.panelTS4 = new System.Windows.Forms.PanelTS();
             this.radioButtonTS5 = new System.Windows.Forms.RadioButtonTS();
             this.radioButtonTS6 = new System.Windows.Forms.RadioButtonTS();
-            this.chkShowMHzOnCursor = new System.Windows.Forms.CheckBoxTS();
             tpAlexAntCtrl = new System.Windows.Forms.TabPage();
             numericUpDownTS3 = new System.Windows.Forms.NumericUpDownTS();
             numericUpDownTS4 = new System.Windows.Forms.NumericUpDownTS();
@@ -6728,6 +6728,7 @@
             this.chkRadioProtocolSelect.Text = "Auto Detect Protocol";
             this.chkRadioProtocolSelect.ThreeState = true;
             this.toolTip1.SetToolTip(this.chkRadioProtocolSelect, "Selects Radio Protocol");
+            this.chkRadioProtocolSelect.CheckedChanged += new System.EventHandler(this.chkRadioProtocolSelect_CheckedChanged);
             this.chkRadioProtocolSelect.CheckStateChanged += new System.EventHandler(this.chkRadioProtocolSelect_CheckStateChanged);
             // 
             // chkNetworkWDT
@@ -24367,7 +24368,7 @@
             this.tcDisplay.Location = new System.Drawing.Point(3, 4);
             this.tcDisplay.Name = "tcDisplay";
             this.tcDisplay.SelectedIndex = 0;
-            this.tcDisplay.Size = new System.Drawing.Size(729, 391);
+            this.tcDisplay.Size = new System.Drawing.Size(729, 420);
             this.tcDisplay.TabIndex = 0;
             // 
             // tpDisplayGeneral
@@ -24385,7 +24386,7 @@
             this.tpDisplayGeneral.Location = new System.Drawing.Point(4, 22);
             this.tpDisplayGeneral.Name = "tpDisplayGeneral";
             this.tpDisplayGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tpDisplayGeneral.Size = new System.Drawing.Size(721, 365);
+            this.tpDisplayGeneral.Size = new System.Drawing.Size(721, 394);
             this.tpDisplayGeneral.TabIndex = 0;
             this.tpDisplayGeneral.Text = "General";
             // 
@@ -24393,7 +24394,7 @@
             // 
             this.grpSpectralWarningLeds.Controls.Add(this.chkSpecWarningLEDGetPixels);
             this.grpSpectralWarningLeds.Controls.Add(this.chkSpecWarningLEDRenderDelay);
-            this.grpSpectralWarningLeds.Location = new System.Drawing.Point(333, 293);
+            this.grpSpectralWarningLeds.Location = new System.Drawing.Point(333, 311);
             this.grpSpectralWarningLeds.Name = "grpSpectralWarningLeds";
             this.grpSpectralWarningLeds.Size = new System.Drawing.Size(166, 72);
             this.grpSpectralWarningLeds.TabIndex = 95;
@@ -24435,7 +24436,7 @@
             this.groupBoxTS13.Controls.Add(this.chkPeakBlobInsideFilterOnly);
             this.groupBoxTS13.Controls.Add(this.udPeakBlobs);
             this.groupBoxTS13.Controls.Add(this.chkPeakBlobsEnabled);
-            this.groupBoxTS13.Location = new System.Drawing.Point(6, 287);
+            this.groupBoxTS13.Location = new System.Drawing.Point(6, 311);
             this.groupBoxTS13.Name = "groupBoxTS13";
             this.groupBoxTS13.Size = new System.Drawing.Size(318, 72);
             this.groupBoxTS13.TabIndex = 48;
@@ -24569,6 +24570,19 @@
             this.groupBoxTS11.TabIndex = 47;
             this.groupBoxTS11.TabStop = false;
             this.groupBoxTS11.Text = "Other";
+            // 
+            // chkShowMHzOnCursor
+            // 
+            this.chkShowMHzOnCursor.AutoSize = true;
+            this.chkShowMHzOnCursor.Image = null;
+            this.chkShowMHzOnCursor.Location = new System.Drawing.Point(10, 40);
+            this.chkShowMHzOnCursor.Name = "chkShowMHzOnCursor";
+            this.chkShowMHzOnCursor.Size = new System.Drawing.Size(123, 17);
+            this.chkShowMHzOnCursor.TabIndex = 3;
+            this.chkShowMHzOnCursor.Text = "Show Mhz on cursor";
+            this.toolTip1.SetToolTip(this.chkShowMHzOnCursor, "Show MHz,  dBm/sec info, filter edges and other info  on the cursor (hold shift t" +
+        "o show on demand)");
+            this.chkShowMHzOnCursor.UseVisualStyleBackColor = true;
             // 
             // chkSmallModeFilteronVFOs
             // 
@@ -24737,7 +24751,7 @@
             this.grpDisplayMultimeter.Controls.Add(this.lblDisplayMeterDelay);
             this.grpDisplayMultimeter.Location = new System.Drawing.Point(6, 137);
             this.grpDisplayMultimeter.Name = "grpDisplayMultimeter";
-            this.grpDisplayMultimeter.Size = new System.Drawing.Size(384, 144);
+            this.grpDisplayMultimeter.Size = new System.Drawing.Size(384, 167);
             this.grpDisplayMultimeter.TabIndex = 41;
             this.grpDisplayMultimeter.TabStop = false;
             this.grpDisplayMultimeter.Text = "Multimeter";
@@ -24785,7 +24799,7 @@
             // 
             this.chkSignalHistory.AutoSize = true;
             this.chkSignalHistory.Image = null;
-            this.chkSignalHistory.Location = new System.Drawing.Point(200, 39);
+            this.chkSignalHistory.Location = new System.Drawing.Point(200, 44);
             this.chkSignalHistory.Name = "chkSignalHistory";
             this.chkSignalHistory.Size = new System.Drawing.Size(90, 17);
             this.chkSignalHistory.TabIndex = 45;
@@ -24798,7 +24812,7 @@
             // 
             this.radUV.AutoSize = true;
             this.radUV.Image = null;
-            this.radUV.Location = new System.Drawing.Point(200, 112);
+            this.radUV.Location = new System.Drawing.Point(200, 132);
             this.radUV.Name = "radUV";
             this.radUV.Size = new System.Drawing.Size(63, 17);
             this.radUV.TabIndex = 44;
@@ -24811,7 +24825,7 @@
             // 
             this.radDBM.AutoSize = true;
             this.radDBM.Image = null;
-            this.radDBM.Location = new System.Drawing.Point(200, 88);
+            this.radDBM.Location = new System.Drawing.Point(199, 102);
             this.radDBM.Name = "radDBM";
             this.radDBM.Size = new System.Drawing.Size(46, 17);
             this.radDBM.TabIndex = 43;
@@ -24824,7 +24838,7 @@
             // 
             this.radSReading.AutoSize = true;
             this.radSReading.Image = null;
-            this.radSReading.Location = new System.Drawing.Point(200, 67);
+            this.radSReading.Location = new System.Drawing.Point(200, 73);
             this.radSReading.Name = "radSReading";
             this.radSReading.Size = new System.Drawing.Size(75, 17);
             this.radSReading.TabIndex = 42;
@@ -24851,7 +24865,7 @@
             0,
             0,
             0});
-            this.udMeterDigitalDelay.Location = new System.Drawing.Point(136, 112);
+            this.udMeterDigitalDelay.Location = new System.Drawing.Point(136, 132);
             this.udMeterDigitalDelay.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -24876,7 +24890,7 @@
             // lblMultimeterDigitalDelay
             // 
             this.lblMultimeterDigitalDelay.Image = null;
-            this.lblMultimeterDigitalDelay.Location = new System.Drawing.Point(16, 112);
+            this.lblMultimeterDigitalDelay.Location = new System.Drawing.Point(18, 136);
             this.lblMultimeterDigitalDelay.Name = "lblMultimeterDigitalDelay";
             this.lblMultimeterDigitalDelay.Size = new System.Drawing.Size(112, 16);
             this.lblMultimeterDigitalDelay.TabIndex = 35;
@@ -24889,7 +24903,7 @@
             0,
             0,
             0});
-            this.udDisplayMeterAvg.Location = new System.Drawing.Point(136, 64);
+            this.udDisplayMeterAvg.Location = new System.Drawing.Point(136, 74);
             this.udDisplayMeterAvg.Maximum = new decimal(new int[] {
             99999,
             0,
@@ -24915,7 +24929,7 @@
             // lblDisplayMeterAvg
             // 
             this.lblDisplayMeterAvg.Image = null;
-            this.lblDisplayMeterAvg.Location = new System.Drawing.Point(16, 64);
+            this.lblDisplayMeterAvg.Location = new System.Drawing.Point(16, 76);
             this.lblDisplayMeterAvg.Name = "lblDisplayMeterAvg";
             this.lblDisplayMeterAvg.Size = new System.Drawing.Size(112, 16);
             this.lblDisplayMeterAvg.TabIndex = 7;
@@ -24929,7 +24943,7 @@
             0,
             0,
             0});
-            this.udDisplayMultiTextHoldTime.Location = new System.Drawing.Point(136, 40);
+            this.udDisplayMultiTextHoldTime.Location = new System.Drawing.Point(136, 45);
             this.udDisplayMultiTextHoldTime.Maximum = new decimal(new int[] {
             99999,
             0,
@@ -24956,7 +24970,7 @@
             // lblDisplayMeterTextHoldTime
             // 
             this.lblDisplayMeterTextHoldTime.Image = null;
-            this.lblDisplayMeterTextHoldTime.Location = new System.Drawing.Point(16, 40);
+            this.lblDisplayMeterTextHoldTime.Location = new System.Drawing.Point(16, 46);
             this.lblDisplayMeterTextHoldTime.Name = "lblDisplayMeterTextHoldTime";
             this.lblDisplayMeterTextHoldTime.Size = new System.Drawing.Size(120, 16);
             this.lblDisplayMeterTextHoldTime.TabIndex = 3;
@@ -25008,7 +25022,7 @@
             0,
             0,
             0});
-            this.udDisplayMeterDelay.Location = new System.Drawing.Point(136, 88);
+            this.udDisplayMeterDelay.Location = new System.Drawing.Point(136, 103);
             this.udDisplayMeterDelay.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -25034,7 +25048,7 @@
             // lblDisplayMeterDelay
             // 
             this.lblDisplayMeterDelay.Image = null;
-            this.lblDisplayMeterDelay.Location = new System.Drawing.Point(16, 88);
+            this.lblDisplayMeterDelay.Location = new System.Drawing.Point(16, 106);
             this.lblDisplayMeterDelay.Name = "lblDisplayMeterDelay";
             this.lblDisplayMeterDelay.Size = new System.Drawing.Size(112, 16);
             this.lblDisplayMeterDelay.TabIndex = 33;
@@ -25341,7 +25355,7 @@
             this.tpDisplayTop.Location = new System.Drawing.Point(4, 22);
             this.tpDisplayTop.Name = "tpDisplayTop";
             this.tpDisplayTop.Padding = new System.Windows.Forms.Padding(3);
-            this.tpDisplayTop.Size = new System.Drawing.Size(721, 365);
+            this.tpDisplayTop.Size = new System.Drawing.Size(721, 394);
             this.tpDisplayTop.TabIndex = 1;
             this.tpDisplayTop.Text = " RX 1";
             this.toolTip1.SetToolTip(this.tpDisplayTop, "Normalize to One Hz Bandwidth for Average & Sample Detectors");
@@ -26310,7 +26324,7 @@
             this.tpDisplayBottom.Location = new System.Drawing.Point(4, 22);
             this.tpDisplayBottom.Name = "tpDisplayBottom";
             this.tpDisplayBottom.Padding = new System.Windows.Forms.Padding(3);
-            this.tpDisplayBottom.Size = new System.Drawing.Size(721, 365);
+            this.tpDisplayBottom.Size = new System.Drawing.Size(721, 394);
             this.tpDisplayBottom.TabIndex = 2;
             this.tpDisplayBottom.Text = " RX 2";
             // 
@@ -27269,7 +27283,7 @@
             this.tpDisplayTransmit.Controls.Add(this.grpTXSpectrumGrid);
             this.tpDisplayTransmit.Location = new System.Drawing.Point(4, 22);
             this.tpDisplayTransmit.Name = "tpDisplayTransmit";
-            this.tpDisplayTransmit.Size = new System.Drawing.Size(721, 365);
+            this.tpDisplayTransmit.Size = new System.Drawing.Size(721, 394);
             this.tpDisplayTransmit.TabIndex = 3;
             this.tpDisplayTransmit.Text = "  TX";
             // 
@@ -55382,19 +55396,6 @@
             this.radioButtonTS6.TabStop = true;
             this.radioButtonTS6.Text = "Auto";
             this.radioButtonTS6.UseVisualStyleBackColor = true;
-            // 
-            // chkShowMHzOnCursor
-            // 
-            this.chkShowMHzOnCursor.AutoSize = true;
-            this.chkShowMHzOnCursor.Image = null;
-            this.chkShowMHzOnCursor.Location = new System.Drawing.Point(10, 40);
-            this.chkShowMHzOnCursor.Name = "chkShowMHzOnCursor";
-            this.chkShowMHzOnCursor.Size = new System.Drawing.Size(123, 17);
-            this.chkShowMHzOnCursor.TabIndex = 3;
-            this.chkShowMHzOnCursor.Text = "Show Mhz on cursor";
-            this.toolTip1.SetToolTip(this.chkShowMHzOnCursor, "Show MHz,  dBm/sec info, filter edges and other info  on the cursor (hold shift t" +
-        "o show on demand)");
-            this.chkShowMHzOnCursor.UseVisualStyleBackColor = true;
             // 
             // Setup
             // 

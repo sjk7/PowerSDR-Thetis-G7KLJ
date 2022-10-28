@@ -260,15 +260,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.Controls.Add(this.lblPageNo);
-            this.Controls.Add(this.lblSplitter);
-            this.Controls.Add(this.lblWarning);
             this.Controls.Add(this.lblRight3);
             this.Controls.Add(this.lblRight2);
             this.Controls.Add(this.lblRight1);
             this.Controls.Add(this.lblLeft3);
             this.Controls.Add(this.lblLeft2);
             this.Controls.Add(this.lblLeft1);
+            this.Controls.Add(this.lblPageNo);
+            this.Controls.Add(this.lblSplitter);
+            this.Controls.Add(this.lblWarning);
             this.Controls.Add(this.lblFB);
             this.Controls.Add(this.lblPS);
             this.Controls.Add(this.chkButton2);

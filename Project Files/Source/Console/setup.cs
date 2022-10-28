@@ -694,10 +694,11 @@ public partial class Setup : Form {
         {
             get
             {
-                return chkActivePeakHoldRX1.Checked || (chkActivePeakHoldRX2.Checked && console.RX2Enabled);
+                return chkActivePeakHoldRX1.Checked || (chkActivePeakHoldRX2.Checked && console.RX2Enabled) || (chkBlobPeakHold.Checked);
             }
             set
             {
+                chkBlobPeakHold.Checked = value;
                 chkActivePeakHoldRX1.Checked = value;
                 if (console.RX2Enabled) chkActivePeakHoldRX2.Checked = value;
             }
@@ -10512,11 +10513,19 @@ public partial class Setup : Form {
 
         WaitForSaveLoad();
         m_objSaveLoadThread = null;
+            var TAB_INDEX_DSP = 3;
+            var TAB_INDEX_CFC = 11;
+            // why would this ever not be the case? KLJ I don't want to create any (more) bugs, so check the tab first
+            if (this.TabSetup.SelectedIndex == TAB_INDEX_DSP && TabDSP.SelectedIndex == TAB_INDEX_CFC)
+            {
+                this.SaveTXProfileData(); // CFC not applied on next start if you don't do this!
+            }
 
-        m_objSaveLoadThread = new Thread(
+            m_objSaveLoadThread = new Thread(
             new ThreadStart(ApplyOptions)) { Name = "Apply Options Thread",
             IsBackground = true, Priority = ThreadPriority.Lowest };
-        m_objSaveLoadThread.Start();
+            m_objSaveLoadThread.Start();
+                   
     }
 
     private void PreGetOptions() {
@@ -16899,8 +16908,13 @@ public partial class Setup : Form {
     private void tbCFCPRECOMP_Scroll(object sender, EventArgs e) {
         WDSP.SetTXACFCOMPPrecomp(WDSP.id(1, 0), (double)tbCFCPRECOMP.Value);
     }
+        private void tbCFCPEG_Scroll(object sender, EventArgs e)
+        {
+            WDSP.SetTXACFCOMPPrePeq(WDSP.id(1, 0), (double)tbCFCPEQGAIN.Value);
 
-    private void chkCFCPeqEnable_CheckedChanged(object sender, EventArgs e) {
+        }
+
+        private void chkCFCPeqEnable_CheckedChanged(object sender, EventArgs e) {
         int run;
         if (chkCFCPeqEnable.Checked)
             run = 1;
@@ -16926,9 +16940,7 @@ public partial class Setup : Form {
         WDSP.SetTXAPHROTNstages(WDSP.id(1, 0), (int)udPHROTStages.Value);
     }
 
-    private void tbCFCPEG_Scroll(object sender, EventArgs e) {
-        WDSP.SetTXACFCOMPPrePeq(WDSP.id(1, 0), (double)tbCFCPEQGAIN.Value);
-    }
+
 
     private void chkBoxHTTP_CheckedChanged(object sender, EventArgs e) {
         if (chkBoxHTTP.Checked == true) {
@@ -18513,11 +18525,16 @@ public partial class Setup : Form {
             }
         }
     }
-}
 
-#region PADeviceInfo Helper Class
+        private void chkRadioProtocolSelect_CheckedChanged(object sender, EventArgs e)
+        {
 
-public class PADeviceInfo {
+        }
+    }
+
+    #region PADeviceInfo Helper Class
+
+    public class PADeviceInfo {
     private string _Name;
     private int _Index;
 

@@ -63,7 +63,6 @@ namespace Thetis
         private System.Windows.Forms.GroupBox grpPlaylist;
 #pragma warning restore CS0169 // The field 'StackControl.grpPlaylist' is never used
         private TextBox textBox3;
-        private CheckBoxTS chkAlwaysOnTop;
         public TextBox textBox1;
         private Button buttonSort;
 #pragma warning disable CS0649 // Field 'StackControl.components' is never assigned to, and will always have its default value null
@@ -78,7 +77,7 @@ namespace Thetis
         {
             InitializeComponent();
             console = c;
-
+            this.Owner = c;
             Common.RestoreForm(this, "StackForm", true);
 
 
@@ -113,7 +112,6 @@ namespace Thetis
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonSort = new System.Windows.Forms.Button();
-            this.chkAlwaysOnTop = new System.Windows.Forms.CheckBoxTS();
             this.SuspendLayout();
             // 
             // textBox3
@@ -131,7 +129,7 @@ namespace Thetis
             // 
             // textBox1
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox1.BackColor = System.Drawing.Color.LightYellow;
             this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
@@ -160,28 +158,18 @@ namespace Thetis
             this.buttonSort.UseVisualStyleBackColor = false;
             this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
             // 
-            // chkAlwaysOnTop
-            // 
-            this.chkAlwaysOnTop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chkAlwaysOnTop.Image = null;
-            this.chkAlwaysOnTop.Location = new System.Drawing.Point(12, 280);
-            this.chkAlwaysOnTop.Name = "chkAlwaysOnTop";
-            this.chkAlwaysOnTop.Size = new System.Drawing.Size(104, 24);
-            this.chkAlwaysOnTop.TabIndex = 59;
-            this.chkAlwaysOnTop.Text = "Always On Top";
-            this.chkAlwaysOnTop.CheckedChanged += new System.EventHandler(this.chkAlwaysOnTop_CheckedChanged);
-            // 
             // StackControl
             // 
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(255, 313);
             this.Controls.Add(this.buttonSort);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.chkAlwaysOnTop);
             this.Controls.Add(this.textBox3);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(200, 200);
             this.Name = "StackControl";
+            this.ShowInTaskbar = false;
             this.Text = "Band Stack";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StackControl_FormClosing);
             this.Load += new System.EventHandler(this.StackControl_Load);
@@ -551,10 +539,7 @@ namespace Thetis
         } // updateindex
         //====================================================================================
 
-        private void chkAlwaysOnTop_CheckedChanged(object sender, EventArgs e)
-        {
-            this.TopMost = chkAlwaysOnTop.Checked;
-        }
+
 
         private void textBox1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -764,7 +749,7 @@ namespace Thetis
 
                 try
                 {
-                    if (console.band_stacks[iii] <=1)
+                    if (console.band_stacks[iii] <= 3) // for Peter, VKK -- FINDME! lol!
                     {
                         return;    // dont allow removing all the bandstacks
                     }

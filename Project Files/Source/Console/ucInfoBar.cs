@@ -617,7 +617,11 @@ namespace Thetis
         }
         private void chkButton1_CheckedChanged(object sender, EventArgs e)
         {
-            if (_preventClickEvents) return;
+            if (_preventClickEvents)
+            {
+                return;
+            }
+
             Button1Clicked?.Invoke(this, new InfoBarAction { 
                 Action = _button1Action.Action,
                 ButtonState = chkButton1.Checked,
@@ -1223,7 +1227,8 @@ namespace Thetis
             //lblRight2.Width = _right2Width[_currentFlip];
             //lblRight3.Width = _right3Width[_currentFlip];
 
-            int shift = lblRight1.Width + lblRight2.Width + lblRight3.Width + 4;
+            int shift = lblRight1.Width + lblRight2.Width + lblRight3.Width + lblSplitter.Width;
+            //shift += lblSplitter.Width;
             lblRight1.Left = lblFB.Left - shift;
             lblRight2.Left = lblRight1.Left + lblRight1.Width;
             lblRight3.Left = lblRight1.Left + lblRight1.Width + lblRight2.Width;
@@ -1248,6 +1253,23 @@ namespace Thetis
                 if (lblFB.Text == "FB") lblFB.Text = "Feedback";
                 if (lblPS.Text == "Correct") lblPS.Text = "Correcting";
             }
+
+            /*/
+            Font active_font = _normalFont;
+            if (Width <= 775)
+            {
+                active_font = _smallFont;
+            }
+
+            foreach (Control c in this.Controls)
+            {
+                if (c.GetType() == typeof(LabelTS))
+                {
+                    if (c.Font != active_font)
+                        c.Font = active_font;
+                }
+            }
+            /*/
 
             // check for overlapping anything on left
             lblLeft1.Visible = !lblSplitter.Bounds.IntersectsWith(lblLeft1.Bounds);
