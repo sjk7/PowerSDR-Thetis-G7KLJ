@@ -5723,6 +5723,7 @@ public partial class Setup : Form {
         bool done = console.CalibrateFreq((float)udGeneralCalFreq1.Value);
         if (done) MessageBox.Show("Frequency Calibration complete.");
         btnGeneralCalFreqStart.Enabled = true;
+            save_thread_running = false;
     }
 
     private void CalibrateLevel() {
@@ -5730,6 +5731,7 @@ public partial class Setup : Form {
             (float)udGeneralCalFreq2.Value, progress, false);
         if (done) MessageBox.Show("Level Calibration complete.");
         btnGeneralCalLevelStart.Enabled = true;
+            save_thread_running = false;
     }
 
     private void CalibrateRX2Level() {
@@ -5737,6 +5739,7 @@ public partial class Setup : Form {
             (float)udGeneralCalRX2Freq2.Value, progress, false);
         if (done) MessageBox.Show("Level Calibration complete.");
         btnCalLevel.Enabled = true;
+            save_thread_running = false;
     }
 
     private void chkGeneralDisablePTT_CheckedChanged(
@@ -10476,9 +10479,32 @@ public partial class Setup : Form {
         set { m_bIgnoreButtonState = value; }
     }
     public void WaitForSaveLoad() {
-        if (m_objSaveLoadThread != null && m_objSaveLoadThread.IsAlive)
-            m_objSaveLoadThread.Join();
-    }
+            int ctr = 0;
+            var old_cursor = Cursor.Current;
+            Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+            while (save_thread_running)
+            {
+                Thread.Sleep(1);
+                ctr++;
+                if (ctr > 5000)
+                {
+                    Debug.Assert(false);
+                    break;
+                }
+                if (m_objSaveLoadThread == null)
+                {
+                    break;
+                }
+
+                if (m_objSaveLoadThread.IsAlive)
+                {
+                    break;
+                }
+            }
+            Cursor.Current = old_cursor;
+            save_thread_running = false;
+
+        }
 
     private void btnOK_Click(object sender, System.EventArgs e) {
         setButtonState(true, false);
@@ -10486,6 +10512,7 @@ public partial class Setup : Form {
         WaitForSaveLoad();
         m_objSaveLoadThread = null;
 
+            save_thread_running = true;
         m_objSaveLoadThread = new Thread(
             new ThreadStart(PreSaveOptions)) { Name = "Save Options Thread",
             IsBackground = true, Priority = ThreadPriority.Lowest };
@@ -10500,8 +10527,8 @@ public partial class Setup : Form {
 
         WaitForSaveLoad();
         m_objSaveLoadThread = null;
-
-        m_objSaveLoadThread = new Thread(
+            save_thread_running = true;
+            m_objSaveLoadThread = new Thread(
             new ThreadStart(PreGetOptions)) { Name = "Get Options Thread",
             IsBackground = true, Priority = ThreadPriority.Lowest };
         m_objSaveLoadThread.Start();
@@ -10521,6 +10548,7 @@ public partial class Setup : Form {
                 this.SaveTXProfileData(); // CFC not applied on next start if you don't do this!
             }
 
+            save_thread_running = true; 
             m_objSaveLoadThread = new Thread(
             new ThreadStart(ApplyOptions)) { Name = "Apply Options Thread",
             IsBackground = true, Priority = ThreadPriority.Lowest };
@@ -10531,16 +10559,21 @@ public partial class Setup : Form {
     private void PreGetOptions() {
         getOptions2();
         setButtonState(false, false);
-    }
+            save_thread_running = false;
+        }
+
+        private volatile bool save_thread_running = false;
     private void PreSaveOptions() {
         SaveOptions();
         setButtonState(false, false);
+        save_thread_running = false;
     }
     private void ApplyOptions() {
         SaveOptions();
         DB.Update();
         setButtonState(false, false);
-    }
+            save_thread_running = false;
+        }
 
     private void udGeneralLPTDelay_ValueChanged(
         object sender, System.EventArgs e) {}
