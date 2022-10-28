@@ -443,7 +443,6 @@ partial class Console {
     private LabelTS lblVACRXIndicator;
     private CheckBoxTS chkVAC2;
     private NumericUpDownTS udRX1StepAttData;
-    private CheckBoxTS chkFullDuplex;
     private ToolStripMenuItem RX1AVGToolStripMenuItem;
     private ToolStripMenuItem RX1PeakToolStripMenuItem;
     private ToolStripMenuItem RX2AVGToolStripMenuItem;
@@ -617,7 +616,6 @@ partial class Console {
             this.txtMemoryQuick = new System.Windows.Forms.TextBoxTS();
             this.chkVFOLock = new System.Windows.Forms.CheckBoxTS();
             this.chkVFOSync = new System.Windows.Forms.CheckBoxTS();
-            this.chkFullDuplex = new System.Windows.Forms.CheckBoxTS();
             this.btnTuneStepChangeLarger = new System.Windows.Forms.ButtonTS();
             this.btnTuneStepChangeSmaller = new System.Windows.Forms.ButtonTS();
             this.chkSplitDisplay = new System.Windows.Forms.CheckBoxTS();
@@ -1120,6 +1118,7 @@ partial class Console {
             this.lblATUTuneLabel = new System.Windows.Forms.LabelTS();
             this.tmrPrettySMeter = new System.Windows.Forms.Timer(this.components);
             this.PrettySMeter = new LBSoft.IndustrialCtrls.Meters.LBAnalogMeter();
+            this.chkFullDuplex = new System.Windows.Forms.CheckBoxTS();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterShift)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterWidth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udFilterHigh)).BeginInit();
@@ -2555,15 +2554,6 @@ partial class Console {
             this.chkVFOSync.Name = "chkVFOSync";
             this.toolTip1.SetToolTip(this.chkVFOSync, resources.GetString("chkVFOSync.ToolTip"));
             this.chkVFOSync.CheckedChanged += new System.EventHandler(this.chkVFOSync_CheckedChanged);
-            // 
-            // chkFullDuplex
-            // 
-            resources.ApplyResources(this.chkFullDuplex, "chkFullDuplex");
-            this.chkFullDuplex.FlatAppearance.BorderSize = 0;
-            this.chkFullDuplex.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.chkFullDuplex.Name = "chkFullDuplex";
-            this.toolTip1.SetToolTip(this.chkFullDuplex, resources.GetString("chkFullDuplex.ToolTip"));
-            this.chkFullDuplex.CheckedChanged += new System.EventHandler(this.chkFullDuplex_CheckedChanged);
             // 
             // btnTuneStepChangeLarger
             // 
@@ -7248,6 +7238,15 @@ partial class Console {
             this.PrettySMeter.MinValueChanged += new System.EventHandler(this.PrettySMeter_MinValueChanged);
             this.PrettySMeter.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PrettySMeter_MouseUp);
             // 
+            // chkFullDuplex
+            // 
+            resources.ApplyResources(this.chkFullDuplex, "chkFullDuplex");
+            this.chkFullDuplex.FlatAppearance.BorderSize = 0;
+            this.chkFullDuplex.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.chkFullDuplex.Name = "chkFullDuplex";
+            this.toolTip1.SetToolTip(this.chkFullDuplex, resources.GetString("chkFullDuplex.ToolTip"));
+            this.chkFullDuplex.CheckedChanged += new System.EventHandler(this.chkFullDuplex_CheckedChanged);
+            // 
             // Console
             // 
             resources.ApplyResources(this, "$this");
@@ -7308,10 +7307,13 @@ partial class Console {
             this.Closing += new System.ComponentModel.CancelEventHandler(this.Console_Closing);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Console_FormClosing);
             this.Shown += new System.EventHandler(this.Console_Shown);
+            this.ResizeBegin += new System.EventHandler(this.Console_ResizeBegin);
+            this.ResizeEnd += new System.EventHandler(this.Console_ResizeEnd);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Console_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Console_KeyPress);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Console_KeyUp);
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.Console_MouseWheel);
+            this.Move += new System.EventHandler(this.Console_Move);
             this.Resize += new System.EventHandler(this.Console_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterShift)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbFilterWidth)).EndInit();
@@ -7568,5 +7570,6 @@ partial class Console {
         private ButtonTS btnDisplayPanCenter;
         private LabelTS lblDisplayPan;
         public LBSoft.IndustrialCtrls.Meters.LBAnalogMeter PrettySMeter;
+        private CheckBoxTS chkFullDuplex;
     }
 }

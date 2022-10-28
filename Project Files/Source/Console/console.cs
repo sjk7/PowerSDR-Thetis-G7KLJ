@@ -70,6 +70,7 @@ namespace Thetis
     using System.Windows.Forms;
     using System.Xml.Linq;
     using Thetis.Properties;
+    
 
     namespace PowerSDR
     {
@@ -85,10 +86,7 @@ namespace Thetis
         {
             if (initializing) return;
             updateResolutionStatusBarText();
-
-
-
-
+           
             if (this.WindowState == FormWindowState.Minimized) return;
             pause_DisplayThread = true;
             if (dpi == 0) dpi = (int)picDisplay.CreateGraphics().DpiX;
@@ -132,6 +130,8 @@ namespace Thetis
                 }
             }
 
+
+          
             int h_delta = this.Width - console_basis_size.Width;
             int v_delta = Math.Max(this.Height - console_basis_size.Height, 0);
 
@@ -156,7 +156,9 @@ namespace Thetis
                 }
             }
 
+            
             ResizeConsole(h_delta, v_delta);
+            
             pause_DisplayThread = false;
             SizeAndPositionAnalogSMeter();
 
@@ -839,6 +841,7 @@ namespace Thetis
         // Constructor and Destructor
         // ======================================================
         string[] m_args;
+        private bool constructor_complete = false;
         public Console(string[] args, string app_data_path)
         {
 
@@ -1356,20 +1359,80 @@ namespace Thetis
 
             this.Click += new System.EventHandler(this.form_Click);
             Splash.SetStatus("Sizing and showing main app window ...");
-            this.Opacity = 0;
-            this.doResize();
+  
+            RestoreFromSettings();
+            this.timer_clock.Enabled = true;
             this.BringToFront();
             this.Activate();
-            Application.DoEvents();
-
-            restoreFromSettings();
-
-            this.Opacity = 1;
-
-            this.timer_clock.Enabled = true;
-
             Splash.CloseForm();
             Control.CheckForIllegalCrossThreadCalls = false;
+            this.constructor_complete = true;
+        }
+
+        private void RestoreFromSettings()
+        {
+            Debug.Assert(!this.Visible);
+            // We still want to call Show() here, but we can at least hide it from the user
+            // by setting Opacity to 0 while the form is being shown for the first time.
+            Opacity = 0.2;
+
+            this.doResize();
+             
+
+            var pos = Settings.Default.ConsoleWinPos;
+            var sz = Settings.Default.ConsoleWinSize;
+            var state = Settings.Default.ConsoleWinState;
+            if (pos.X != -100 && pos.Y != -100)
+            {
+                if (Common.IsVisibleOnAnyScreen(sz))
+                {
+                    this.Location = pos;
+                    if (!sz.IsEmpty)
+                    {
+                        this.DesktopBounds = sz;
+                        if (state != FormWindowState.Minimized)
+                        {
+                            this.WindowState = state;
+                        }
+                    }
+                }
+            }
+
+            this.Opacity = 0;
+            Show();
+            Application.DoEvents();
+            Hide();
+            Application.DoEvents();
+   
+            Show();
+            try
+            {
+                while (Opacity < 1.0)
+                {
+                    Application.DoEvents();
+                    Thread.Sleep(1);
+                    Opacity += 0.01;
+                }
+            }catch( Exception)
+            {
+                // ignore
+            }
+
+
+        }
+
+        private void SaveSizeAndPosition()
+        {
+            Settings.Default.ConsoleWinPos = this.DesktopLocation;
+            Settings.Default.ConsoleWinState = this.WindowState;
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                Settings.Default.ConsoleWinSize = this.RestoreBounds;
+            }
+            else
+            {
+                Settings.Default.ConsoleWinSize = this.DesktopBounds;
+            }
         }
 
 
@@ -1410,15 +1473,23 @@ namespace Thetis
         // resize of console window
         private void SuspendDrawing(Control parent)
         {
-            if (initializing) return;
+            if (initializing || !this.Visible) return;
+            if (!constructor_complete)
+            {
+                return;
+            }
             SendMessage(parent.Handle, WM_SETREDRAW, false, 0);
             //parent.SuspendLayout();
         }
         private void ResumeDrawing(Control parent, bool refresh = true)
         {
-            if (initializing) return;
+            if (initializing || !this.Visible) return;
+            if (!constructor_complete)
+            {
+                return;
+            }
             SendMessage(parent.Handle, WM_SETREDRAW, true, 0);
-            //parent.ResumeLayout();
+            
             if (refresh)
             {
                 parent.Refresh();
@@ -49511,7 +49582,11 @@ namespace Thetis
             // MW0LGE changes made to this function so that RX1 meter fills
             // space to right of VFOB box, also delay repaint until all controls
             // moved
-            SuspendDrawing(this); // MW0LGE
+            bool was_visible = this.Visible;
+            if (was_visible)
+            {
+                SuspendDrawing(this); // MW0LGE
+            }
 
             // This routine captures the size and location parameters *after*
             // windows has resized the image, (if the video is set for "120 dpi"
@@ -49591,26 +49666,13 @@ namespace Thetis
                         + (int)(m_fMeterPadRatio
                             * (grpMultimeterMenus.Left - (grpVFOB.Right + 8)));
 
-                    // grpMultimeter.Location = new Point(grpVFOB.Location.X +
-                    // grpVFOB.Size.Width + 8, gr_Multimeter_basis_location.Y);
                     grpMultimeter.Location
                         = new Point(tmp, gr_Multimeter_basis_location.Y);
-                    // grpMultimeter.Size = new Size(gr_multi_meter_size_basis.Width
-                    // + (h_delta/4), gr_multi_meter_size_basis.Height);
+
                     grpMultimeter.Size
                         = new Size(grpMultimeterMenus.Right - grpMultimeter.Left,
                             gr_multi_meter_size_basis.Height);
 
-                    // grpMultimeterMenus.Location = new
-                    // Point(grpMultimeter.Location.X + grpMultimeter.Size.Width -
-                    // gr_multi_meter_menus_size_basis.Width,
-                    // gr_multi_meter_menus_basis.Y);
-
-                    // txtMultiText.Size = new Size(txt_multi_text_size_basis.Width
-                    // + (h_delta / 4), txt_multi_text_size_basis.Height);
-                    // picMultiMeterDigital.Size = new
-                    // Size(pic_multi_meter_size_basis.Width + (h_delta / 4),
-                    // pic_multi_meter_size_basis.Height);
                     txtMultiText.Size = new Size(grpMultimeter.Size.Width
                             - (gr_multi_meter_size_basis.Width
                                 - txt_multi_text_size_basis.Width),
@@ -49619,41 +49681,7 @@ namespace Thetis
                             - (gr_multi_meter_size_basis.Width
                                 - pic_multi_meter_size_basis.Width),
                         pic_multi_meter_size_basis.Height);
-                    //
-
-                    /*/
-               btnDisplayPanCenter.Location
-                   = new Point(btn_display_pan_center_basis.X,
-                       btn_display_pan_center_basis.Y + v_delta);
-               radDisplayZoom4x.Location
-                   = new Point(btn_display_zoom_4x_basis.X + h_delta,
-                       btn_display_zoom_4x_basis.Y + v_delta);
-               radDisplayZoom2x.Location
-                   = new Point(btn_display_zoom_2x_basis.X + h_delta,
-                       btn_display_zoom_2x_basis.Y + v_delta);
-               radDisplayZoom1x.Location
-                   = new Point(btn_display_zoom_1x_basis.X + h_delta,
-                       btn_display_zoom_1x_basis.Y + v_delta);
-               radDisplayZoom05.Location
-                   = new Point(btn_display_zoom_05_basis.X + h_delta,
-                       btn_display_zoom_05_basis.Y + v_delta);
-               ptbDisplayZoom.Location
-                   = new Point(tb_display_zoom_basis.X + h_delta,
-                       tb_display_zoom_basis.Y + v_delta);
-               lblDisplayZoom.Location
-                   = new Point(lbl_display_zoom_basis.X + h_delta,
-                       lbl_display_zoom_basis.Y + v_delta);
-
-               txtDisplayPeakFreq.Location
-                   = new Point(txt_display_peak_freq_basis.X + h_delta,
-                       txt_display_peak_freq_basis.Y + v_delta);
-               txtDisplayPeakPower.Location
-                   = new Point(txt_display_peak_power_basis.X + h_delta,
-                       txt_display_peak_power_basis.Y + v_delta);
-               txtDisplayPeakOffset.Location
-                   = new Point(txt_display_peak_offset_basis.X + h_delta,
-                       txt_display_peak_offset_basis.Y + v_delta);
-                    /*/
+   
                     var wid = (gr_display_size_basis.Width
                         + h_delta); //; - (Width * 0.2);
                     var ht = (pic_display_size_basis.Height + v_delta);// - (pnlDisplayControls.Height + ucInfoBar.Height);
@@ -49668,21 +49696,6 @@ namespace Thetis
                     panelDSP.Location = new Point(
                         gr_dsp_basis.X + (h_delta / 2), gr_dsp_basis.Y + v_delta);
 
-                    /*/
-               ptbDisplayPan.Location = new Point(
-                   tb_displaypan_basis.X, tb_displaypan_basis.Y + v_delta);
-               lblDisplayPan.Location = new Point(
-                   lbl_displaypan_basis.X, lbl_displaypan_basis.Y + v_delta);
-               txtDisplayCursorFreq.Location
-                   = new Point(txt_display_cursor_freq_basis.X,
-                       txt_display_cursor_freq_basis.Y + v_delta);
-               txtDisplayCursorPower.Location
-                   = new Point(txt_display_cursor_power_basis.X,
-                       txt_display_cursor_power_basis.Y + v_delta);
-               txtDisplayCursorOffset.Location
-                   = new Point(txt_display_cursor_offset_basis.X,
-                       txt_display_cursor_offset_basis.Y + v_delta);
-/*/
                     txtDisplayOrionMKIIPAVolts.Location
                         = new Point(txt_display_orion_mkii_pa_volts_basis.X,
                             txt_display_orion_mkii_pa_volts_basis.Y + v_delta);
@@ -49710,8 +49723,6 @@ namespace Thetis
                     = new Point(pic_sql_basis.X, pic_sql_basis.Y + (v_delta / 2));
                 ptbSquelch.Location
                     = new Point(tb_sql_basis.X, tb_sql_basis.Y + (v_delta / 2));
-                // panelDateTime.Location = new Point(gr_date_time_basis.X,
-                // gr_date_time_basis.Y + (v_delta / 2) + (v_delta / 4));
                 grpDisplaySplit.Location
                     = new Point(gr_display_split_basis.X + (h_delta / 2),
                         gr_display_split_basis.Y + v_delta);
@@ -49770,8 +49781,20 @@ namespace Thetis
                 panelAndromedaMisc.Hide();
             }
 
+            this.AfterResizeEnd(FROM_RESIZE_CONSOLE);
+
+            if (was_visible) { 
             ResumeDrawing(this); // MW0LGE
+                }
         }
+
+        private class MyEventArgs : EventArgs
+        {
+            public
+                int code = 0;
+        }
+
+        private int FROM_RESIZE_CONSOLE = 12345678;
 
         public int HDelta
         {
@@ -50268,7 +50291,8 @@ namespace Thetis
                         /*Display.CurrentDisplayMode == DisplayMode.PANAFALL*/); // MW0LGE
                 }
 
-                Console_Resize(this, EventArgs.Empty);
+                // Console_Resize(this, EventArgs.Empty);
+                doResize();
             }
             update_rx2_display = true;
 
@@ -52559,10 +52583,54 @@ namespace Thetis
 
         }
 
+        static Size old_size = new Size();
+        //
+        // this is ONLY called when the _user_ finished sizing the form
+        
+        private void AfterResizeEnd(int x = 0)
+        {
+            if (x == FROM_RESIZE_CONSOLE)
+            {
+                return; // do not recurse
+            }
 
+            if (this.Size != old_size)
+            {
+                old_size = this.Size;
+                doResize();
+            }
+        }
+        private void Console_ResizeEnd(object sender, EventArgs e)
+        {
+            AfterResizeEnd();
+            have_resize_begin = false;
+
+        }
+
+        int lastWindowState = -1;
         private void Console_Resize(object sender, System.EventArgs e)
         {
-            doResize();
+            if (lastWindowState != (int)this.WindowState)
+            {
+                lastWindowState = (int)this.WindowState;
+                if (Visible && this.WindowState != FormWindowState.Minimized)
+                {
+                    this.SaveSizeAndPosition();
+                }
+                doResize();
+            }
+            else
+            {
+                if (!have_resize_begin)
+                {
+                    doResize();
+                }
+                else
+                {
+                    // ok
+                    Debug.Print("we will resize with Resize_End");
+                }
+            }
         }
 
         private void comboRX2AGC_SelectedIndexChanged(
@@ -59622,42 +59690,7 @@ namespace Thetis
             SetupForm.Focus();
         }
 
-        private void restoreFromSettings()
-        {
-            var pos = Settings.Default.ConsoleWinPos;
-            var sz = Settings.Default.ConsoleWinSize;
-            var state = Settings.Default.ConsoleWinState;
-            if (pos.X != -100 && pos.Y != -100)
-            {
-                if (Common.IsVisibleOnAnyScreen(sz))
-                {
-                    this.Location = pos;
-                    if (!sz.IsEmpty)
-                    {
-                        this.DesktopBounds = sz;
-                        if (state != FormWindowState.Minimized)
-                        {
-                            this.WindowState = state;
-                        }
-                    }
-                }
-            }
-
-        }
-
-        private void SaveSizeAndPosition()
-        {
-            Settings.Default.ConsoleWinPos = this.DesktopLocation;
-            Settings.Default.ConsoleWinState = this.WindowState;
-            if (this.WindowState == FormWindowState.Maximized)
-            {
-                Settings.Default.ConsoleWinSize = this.RestoreBounds;
-            }
-            else
-            {
-                Settings.Default.ConsoleWinSize = this.DesktopBounds;
-            }
-        }
+        
 
         private void Console_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -60015,7 +60048,16 @@ namespace Thetis
             }
         }
 
+        private void Console_Move(object sender, EventArgs e)
+        {
+            if (!this.constructor_complete) return;
+        }
 
+        private bool have_resize_begin = false;
+        private void Console_ResizeBegin(object sender, EventArgs e)
+        {
+            have_resize_begin = true;
+        }
     }
 
     public class DigiMode

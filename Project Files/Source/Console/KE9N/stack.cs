@@ -261,6 +261,7 @@ namespace Thetis
 
         //===========================================================================================================
         public void bandstackupdate()
+        
         {
 
             string bigmessage = null; // full textbox string (combine 1 and 2)
@@ -763,7 +764,7 @@ namespace Thetis
 
                 try
                 {
-                    if (console.band_stacks[iii] < 3)
+                    if (console.band_stacks[iii] <=1)
                     {
                         return;    // dont allow removing all the bandstacks
                     }
