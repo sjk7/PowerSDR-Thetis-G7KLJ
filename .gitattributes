@@ -29,4 +29,5 @@
 *.lib binary
 *.exp binary
 *calculus* binary
+*.msm binary
 
