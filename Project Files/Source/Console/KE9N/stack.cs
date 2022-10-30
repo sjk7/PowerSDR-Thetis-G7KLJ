@@ -749,7 +749,7 @@ namespace Thetis
 
                 try
                 {
-                    if (console.band_stacks[iii] <= 3) // for Peter, VKK -- FINDME! lol!
+                     if (console.band_stacks[iii] <= 1) // reduced from <= 3 to allow single bandstack entry, G7VKK //
                     {
                         return;    // dont allow removing all the bandstacks
                     }
