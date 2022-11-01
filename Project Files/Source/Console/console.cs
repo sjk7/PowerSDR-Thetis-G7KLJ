@@ -70,7 +70,7 @@ namespace Thetis
     using System.Windows.Forms;
     using System.Xml.Linq;
     using Thetis.Properties;
-    
+
 
     namespace PowerSDR
     {
@@ -86,7 +86,7 @@ namespace Thetis
         {
             if (initializing) return;
             updateResolutionStatusBarText();
-           
+
             if (this.WindowState == FormWindowState.Minimized) return;
             pause_DisplayThread = true;
             if (dpi == 0) dpi = (int)picDisplay.CreateGraphics().DpiX;
@@ -131,7 +131,7 @@ namespace Thetis
             }
 
 
-          
+
             int h_delta = this.Width - console_basis_size.Width;
             int v_delta = Math.Max(this.Height - console_basis_size.Height, 0);
 
@@ -156,9 +156,9 @@ namespace Thetis
                 }
             }
 
-            
+
             ResizeConsole(h_delta, v_delta);
-            
+
             pause_DisplayThread = false;
             SizeAndPositionAnalogSMeter();
 
@@ -1359,7 +1359,7 @@ namespace Thetis
 
             this.Click += new System.EventHandler(this.form_Click);
             Splash.SetStatus("Sizing and showing main app window ...");
-  
+
             RestoreFromSettings();
             this.timer_clock.Enabled = true;
             this.BringToFront();
@@ -1377,7 +1377,7 @@ namespace Thetis
             Opacity = 0.2;
 
             this.doResize();
-             
+
 
             var pos = Settings.Default.ConsoleWinPos;
             var sz = Settings.Default.ConsoleWinSize;
@@ -1403,7 +1403,7 @@ namespace Thetis
             Application.DoEvents();
             Hide();
             Application.DoEvents();
-   
+
             Show();
             try
             {
@@ -1413,7 +1413,8 @@ namespace Thetis
                     Thread.Sleep(1);
                     Opacity += 0.01;
                 }
-            }catch( Exception)
+            }
+            catch (Exception)
             {
                 // ignore
             }
@@ -1489,7 +1490,7 @@ namespace Thetis
                 return;
             }
             SendMessage(parent.Handle, WM_SETREDRAW, true, 0);
-            
+
             if (refresh)
             {
                 parent.Refresh();
@@ -1658,6 +1659,7 @@ namespace Thetis
                 }
 
                 Common.SetLogPath(app_data_path); // init the logger MW0LGE
+                Common.LogString("App started.");
 
                 Win32.TimeBeginPeriod(
                     1); // set timer resolution to 1ms => freq=1000Hz
@@ -49681,7 +49683,7 @@ namespace Thetis
                             - (gr_multi_meter_size_basis.Width
                                 - pic_multi_meter_size_basis.Width),
                         pic_multi_meter_size_basis.Height);
-   
+
                     var wid = (gr_display_size_basis.Width
                         + h_delta); //; - (Width * 0.2);
                     var ht = (pic_display_size_basis.Height + v_delta);// - (pnlDisplayControls.Height + ucInfoBar.Height);
@@ -49783,9 +49785,10 @@ namespace Thetis
 
             this.AfterResizeEnd(FROM_RESIZE_CONSOLE);
 
-            if (was_visible) { 
-            ResumeDrawing(this); // MW0LGE
-                }
+            if (was_visible)
+            {
+                ResumeDrawing(this); // MW0LGE
+            }
         }
 
         private class MyEventArgs : EventArgs
@@ -52586,7 +52589,7 @@ namespace Thetis
         static Size old_size = new Size();
         //
         // this is ONLY called when the _user_ finished sizing the form
-        
+
         private void AfterResizeEnd(int x = 0)
         {
             if (x == FROM_RESIZE_CONSOLE)
@@ -59690,7 +59693,7 @@ namespace Thetis
             SetupForm.Focus();
         }
 
-        
+
 
         private void Console_FormClosing(object sender, FormClosingEventArgs e)
         {

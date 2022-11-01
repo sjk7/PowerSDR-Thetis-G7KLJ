@@ -519,10 +519,10 @@ namespace Thetis
             // MW0LGE very simple logger
             if (m_sLogPath == "") return;
             if (entry == "") return;
-
+            var fp = m_sLogPath + "\\ErrorLog.txt";
             try
             {
-                using (StreamWriter w = File.AppendText(m_sLogPath + "\\ErrorLog.txt"))
+                using (StreamWriter w = File.AppendText(fp))
                 {
                     //using block will auto close stream
                     w.Write("\r\nEntry : ");
