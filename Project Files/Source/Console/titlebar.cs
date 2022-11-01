@@ -50,12 +50,12 @@ namespace Thetis
             var runtime = DateTime.Now - Process.GetCurrentProcess().StartTime;
             string ret = runtime.ToString(@"hh\:mm\:ss");
             return ret;
-        
+
         }
 
         static string m_customText = "";
-        
-   
+
+
 
         public static DateTime BuildDate()
         {
@@ -83,7 +83,7 @@ namespace Thetis
                 s += " " + BUILDER;
                 s += " " + BuildDate();
                 s += ")";
-            
+
                 m_sTitleString = s;
             }
 
