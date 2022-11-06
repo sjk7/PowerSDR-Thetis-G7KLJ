@@ -922,8 +922,8 @@ namespace Thetis
         }
 
 
-        public static int[] Info = new int[16];
-        private static int[] oldInfo = new int[16];
+        public volatile static int[] Info = new int[16];
+        private volatile static int[] oldInfo = new int[16];
         public static void GetInfo(int txachannel)
         {
             //make copy of old, used in HasInfoChanged & CalibrationAttemptsChanged MW0LGE

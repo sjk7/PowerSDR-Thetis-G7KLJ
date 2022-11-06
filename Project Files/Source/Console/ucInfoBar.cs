@@ -83,10 +83,10 @@ namespace Thetis
         private int[] _right2Width;
         private int[] _right3Width;
 
-       // private frmInfoBarPopup _frmInfoBarPopup_Button1;
-       // private ToolStripDropDown _toolStripForm_Button1;
-       // private ToolStripControlHost _host_Button1;
-       // private frmInfoBarPopup _frmInfoBarPopup_Button2;
+        // private frmInfoBarPopup _frmInfoBarPopup_Button1;
+        // private ToolStripDropDown _toolStripForm_Button1;
+        // private ToolStripControlHost _host_Button1;
+        // private frmInfoBarPopup _frmInfoBarPopup_Button2;
         //private ToolStripDropDown _toolStripForm_Button2;
         //private ToolStripControlHost _host_Button2;
         private Cursor _oldCursor;
@@ -98,7 +98,7 @@ namespace Thetis
         {
             public bool Checked;
             public ActionTypes Action;
-            
+
             public string DisplayString
             {
                 get
@@ -164,7 +164,7 @@ namespace Thetis
         {
             InitializeComponent();
 
-           // Control.CheckForIllegalCrossThreadCalls = true;
+            // Control.CheckForIllegalCrossThreadCalls = true;
             _oldCursor = Cursor.Current;
 
             _psTimer = new System.Timers.Timer();
@@ -198,7 +198,7 @@ namespace Thetis
             _right2Width = new int[MAX_FLIP];
             _right3Width = new int[MAX_FLIP];
 
-            for (int n=0; n<MAX_FLIP; n++)
+            for (int n = 0; n < MAX_FLIP; n++)
             {
                 _left1BaseWidth[n] = lblLeft1.Width;
                 _left2BaseWidth[n] = lblLeft2.Width;
@@ -260,13 +260,13 @@ namespace Thetis
             {
                 return lblFB.Text;
             }
-            set {  lblFB.Text = value; }
+            set { lblFB.Text = value; }
         }
 
         public string Left1LabelText
         {
             get { return lblLeft1.Text; }
-            set {  lblLeft1.Text = value; } 
+            set { lblLeft1.Text = value; }
 
         }
         public string Left2LabelText
@@ -290,7 +290,9 @@ namespace Thetis
 
         }
 
-        public Label WarningLabel { get
+        public Label WarningLabel
+        {
+            get
             {
                 return lblWarning;
             }
@@ -483,7 +485,7 @@ namespace Thetis
             if (_shutDown) return;
             if (this.IsDisposed || this.Disposing) return;
             if (lblWarning.IsDisposed || lblWarning.Disposing) return;
-            
+
             lblWarning.Visible = false;
         }
         private Color _lastColor = Color.SeaGreen;
@@ -501,7 +503,7 @@ namespace Thetis
             //bool bDone = r < 96 && g < 96 && b < 96;
             bool bDone = false;
 
-            if(_lastColor == Color.Red)
+            if (_lastColor == Color.Red)
             {
                 bDone = (r <= 128);
             }
@@ -557,7 +559,7 @@ namespace Thetis
         {
             _console = c;
 
-           // _console.MoxChangeHandlers += OnMoxChangeHandler;
+            // _console.MoxChangeHandlers += OnMoxChangeHandler;
 
             // clear everything
             for (int i = 0; i < MAX_FLIP; i++)
@@ -588,7 +590,7 @@ namespace Thetis
 
             updateLabels();
             System.Drawing.Point pt = Settings.Default.SplitLoc;
-            if (pt.X >0 && pt.X < this.Width)
+            if (pt.X > 0 && pt.X < this.Width)
             {
                 lblSplitter.Location = pt;
                 _dragging = true;
@@ -613,7 +615,7 @@ namespace Thetis
         {
             _bCalibrationAttemptsChanged = false;
             _bCorrectionsBeingApplied = false;
-            _bFeedbackLevelOk = false;            
+            _bFeedbackLevelOk = false;
         }
         private void chkButton1_CheckedChanged(object sender, EventArgs e)
         {
@@ -622,7 +624,8 @@ namespace Thetis
                 return;
             }
 
-            Button1Clicked?.Invoke(this, new InfoBarAction { 
+            Button1Clicked?.Invoke(this, new InfoBarAction
+            {
                 Action = _button1Action.Action,
                 ButtonState = chkButton1.Checked,
                 Button = MouseButtons.None
@@ -632,16 +635,17 @@ namespace Thetis
         private void chkButton2_CheckedChanged(object sender, EventArgs e)
         {
             if (_preventClickEvents) return;
-            Button2Clicked?.Invoke(this, new InfoBarAction { 
+            Button2Clicked?.Invoke(this, new InfoBarAction
+            {
                 Action = _button2Action.Action,
                 ButtonState = chkButton2.Checked,
                 Button = MouseButtons.None
-            });;
+            }); ;
         }
 
         public void UpdateButtonState(ActionTypes action, bool bEnabled, bool bIncludePopup = true)
         {
-            if(!_button1Actions.ContainsKey(action) || !_button2Actions.ContainsKey(action)) return;
+            if (!_button1Actions.ContainsKey(action) || !_button2Actions.ContainsKey(action)) return;
 
             _preventClickEvents = true; // so that events are not fired when the button state is initialised
 
@@ -817,11 +821,11 @@ namespace Thetis
         }
         /*/
 
-        private bool _bCorrectionsBeingApplied = false;
-        private bool _bCalibrationAttemptsChanged = false;
-        private bool _bFeedbackLevelOk = false;
+        private volatile bool _bCorrectionsBeingApplied = false;
+        private volatile bool _bCalibrationAttemptsChanged = false;
+        private volatile bool _bFeedbackLevelOk = false;
         private Color _feedbackColour = Color.Black;
-        private int _nFeedbackLevel = 0;
+        private volatile int _nFeedbackLevel = 0;
 
         public void PSInfo(int level, bool bFeedbackLevelOk, bool bCorrectionsBeingApplied, bool bCalibrationAttemptsChanged, Color feedbackColour)
         {
@@ -845,7 +849,7 @@ namespace Thetis
         public bool PSAEnabled
         {
             set
-            {                
+            {
                 _psEnabled = value;
                 if (!_psEnabled)
                     setPSboolsToFalse();
@@ -964,7 +968,7 @@ namespace Thetis
         private void InfoBar_Click(object sender, EventArgs e)
         {
             flip();
-        }    
+        }
         private void flip()
         {
             _currentFlip++;
@@ -1055,12 +1059,12 @@ namespace Thetis
 
         private void lblFB_MouseDown(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 // swap red/blue
                 SwapRedBlue = !puresignal.InvertRedBlue;
             }
-            else if(e.Button == MouseButtons.Right)
+            else if (e.Button == MouseButtons.Right)
             {
                 // disable/enabled feedback numbers
                 HideFeedback = !HideFeedback;
@@ -1082,8 +1086,8 @@ namespace Thetis
         public bool HideFeedback
         {
             get { return _hideFeedback; }
-            set 
-            { 
+            set
+            {
                 bool bChanged = _hideFeedback != value;
                 _hideFeedback = value;
                 setToolTips();
@@ -1091,7 +1095,7 @@ namespace Thetis
                 if (bChanged) HideFeedbackChanged?.Invoke(this, EventArgs.Empty);
             }
         }
-        
+
         private void setToolTips()
         {
             string fb = "";
@@ -1120,7 +1124,7 @@ namespace Thetis
             else if (button == 2)
             {
                 _button2Action.Action = action; // new action
-            }            
+            }
 
             _preventClickEvents = false;
 
@@ -1154,7 +1158,7 @@ namespace Thetis
         private void lblSplitter_MouseEnter(object sender, EventArgs e)
         {
             lblSplitter.BackColor = Color.White;
-            
+
             _oldCursor = Cursor.Current;
             this.Cursor = Cursors.SizeWE;
         }
@@ -1216,7 +1220,7 @@ namespace Thetis
 
             // align left labels
             //lblLeft1.Width = _left1Width[_currentFlip];
-           // lblLeft2.Width = _left2Width[_currentFlip];
+            // lblLeft2.Width = _left2Width[_currentFlip];
             //lblLeft3.Width = _left3Width[_currentFlip];
 
             lblLeft2.Left = lblLeft1.Left + lblLeft1.Width;
@@ -1234,8 +1238,8 @@ namespace Thetis
             lblRight3.Left = lblRight1.Left + lblRight1.Width + lblRight2.Width;
 
             // warning fills the middle space:
-            lblWarning.Width = (lblRight1.Left - 5) - (lblLeft3.Right+ 5);
-            lblWarning.Left = lblLeft3.Right+ 5;
+            lblWarning.Width = (lblRight1.Left - 5) - (lblLeft3.Right + 5);
+            lblWarning.Left = lblLeft3.Right + 5;
             lblWarning.Visible = true;
             // lblWarning.Text = "respositionControls()";
 
@@ -1288,8 +1292,8 @@ namespace Thetis
                 Debug.Assert(lblRight2.Visible);
                 Debug.Assert(lblLeft3.Visible);
                 Debug.Assert(lblRight3.Visible);
-           }
-        
+            }
+
         }
         private void lblSplitter_MouseUp(object sender, MouseEventArgs e)
         {
@@ -1303,7 +1307,7 @@ namespace Thetis
 
         private void lblPS_Click(object sender, EventArgs e)
         {
-            this._console.setPSOnOff (!this._console.PureSignalEnabled);
+            this._console.setPSOnOff(!this._console.PureSignalEnabled);
         }
     }
 }

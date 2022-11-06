@@ -4336,37 +4336,40 @@ namespace Thetis
 
                     case var nam when name.StartsWith("rx1_preamp_by_band"):
                         list = val.Split('|');
-                        for (int i = 0; i < (int)Band.LAST; i++)
+                        for (int i = 0; i < (Math.Min(list.Length, rx1_preamp_by_band.Length)); i++)
                             rx1_preamp_by_band[i] = (PreampMode)(int.Parse(list[i]));
                         break;
 
                     case var nam when name.StartsWith("rx2_preamp_by_band"):
                         list = val.Split('|');
-                        for (int i = 0; i < (int)Band.LAST; i++)
+                        for (int i = 0; i < (Math.Min(list.Length, rx2_preamp_by_band.Length)); i++)
                             rx2_preamp_by_band[i] = (PreampMode)(int.Parse(list[i]));
                         break;
 
                     case var nam when name.StartsWith("rx1_step_attenuator_by_band"):
                         list = val.Split('|');
-                        for (int i = 0; i < (int)Band.LAST; i++)
+                        for (int i = 0; i < (Math.Min(list.Length, rx1_step_attenuator_by_band.Length)); i++)
+                        {
+
                             rx1_step_attenuator_by_band[i] = int.Parse(list[i]);
+                        }
                         break;
 
                     case var nam when name.StartsWith("rx2_step_attenuator_by_band"):
                         list = val.Split('|');
-                        for (int i = 0; i < (int)Band.LAST; i++)
+                        for (int i = 0; i < (Math.Min(list.Length, rx2_step_attenuator_by_band.Length)); i++)
                             rx2_step_attenuator_by_band[i] = int.Parse(list[i]);
                         break;
 
                     case var nam when name.StartsWith("tx_step_attenuator_by_band"):
                         list = val.Split('|');
-                        for (int i = 0; i < (int)Band.LAST; i++)
+                        for (int i = 0; i < (Math.Min(list.Length, tx_step_attenuator_by_band.Length)); i++)
                             tx_step_attenuator_by_band[i] = int.Parse(list[i]);
                         break;
 
                     case var nam when name.StartsWith("power_by_band"):
                         list = val.Split('|');
-                        for (int i = 0; i < (int)Band.LAST; i++)
+                        for (int i = 0; i < (Math.Min(list.Length, power_by_band.Length)); i++)
                         {
                             power_by_band[i] = int.Parse(list[i]);
                         }
@@ -20600,7 +20603,10 @@ namespace Thetis
                 if (!mox)
                     rx1_step_attenuator_by_band[(int)rx1_band] = rx1_attenuator_data;
 
-                udRX1StepAttData.Value = rx1_attenuator_data;
+                if (rx1_attenuator_data >= udRX1StepAttData.Minimum)
+                {
+                    udRX1StepAttData.Value = rx1_attenuator_data;
+                }
                 lblAttenLabel.Text = rx1_attenuator_data.ToString() + " dB";
                 if (!mox)
                 {
@@ -35733,6 +35739,12 @@ namespace Thetis
         }
         */
 
+        private int TimeSinceMoxEntered()
+        {
+            return timeGetTime() - m_TimeWhenMoxEntered;
+        }
+
+        volatile bool m_bMonTXThreadAlive = false;
         private async void PollPAPWR()
         {
             const float alpha = 0.90f;
@@ -35740,127 +35752,133 @@ namespace Thetis
             float swr = 0;
             int high_swr_count = 0;
             bool swr_pass = false;
+            m_bMonTXThreadAlive = true;
+
 
             while (chkPower.Checked)
             {
-                if (mox)
+
+                if (m_TimeWhenMoxEntered > 0 && TimeSinceMoxEntered() > 500)
                 {
-                    // computeFwdRevPower(out alex_fwd, out alex_rev);
-                    alex_fwd = computeAlexFwdPower(); // high power
-                    alex_rev = computeRefPower();
-
-                    switch (current_hpsdr_model)
+                    if (mox)
                     {
-                        case HPSDRModel.ANAN200D:
-                            drivepwr = computeOrionExciterPower();
-                            break;
-                        case HPSDRModel.ORIONMKII:
-                        case HPSDRModel.ANAN7000D:
-                        case HPSDRModel.ANAN8000D:
-                            drivepwr = computeOrionMkIIExciterPower();
-                            break;
-                        default:
-                            drivepwr = computeExciterPower(); // low power
-                            break;
-                    }
+                        // computeFwdRevPower(out alex_fwd, out alex_rev);
+                        alex_fwd = computeAlexFwdPower(); // high power
+                        alex_rev = computeRefPower();
 
-                    calfwdpower = CalibratedPAPower();
-                    average_drivepwr
-                        = alpha * average_drivepwr + (1.0f - alpha) * drivepwr;
-
-                    rho = (float)Math.Sqrt(alex_rev / alex_fwd);
-                    if (float.IsNaN(rho) || float.IsInfinity(rho))
-                        swr = 1.0f;
-                    else
-                        swr = (1.0f + rho) / (1.0f - rho);
-
-                    if ((alex_fwd <= 2.0f && alex_rev <= 2.0f) || swr < 1.0f)
-                        swr = 1.0f;
-
-                    if (alexpresent || apollopresent)
-                    {
-                        // in following 'if', K2UE recommends not checking open
-                        // antenna for the 8000 model if (swrprotection && alex_fwd
-                        // > 10.0f && (alex_fwd - alex_rev) < 1.0f)
-                        //-W2PA Changed to allow 35w - some amplifier tuners need
-                        // about 30w to reliably start
-                        // working
-                        if (swrprotection && alex_fwd > 35.0f
-                            && (alex_fwd - alex_rev) < 1.0f
-                            && current_hpsdr_model
-                                != HPSDRModel.ANAN8000D) // open ant condition
+                        switch (current_hpsdr_model)
                         {
-                            swr = 50.0f;
-                            NetworkIO.SWRProtect = 0.01f;
-                            chkMOX.Checked = false;
-
-                            MessageBox.Show("Please check your antenna connection.",
-                                "High SWR condition detected", MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning,
-                                MessageBoxDefaultButton.Button1,
-                                (MessageBoxOptions)0x40000); // MB_TOPMOST
-
-                            goto end;
+                            case HPSDRModel.ANAN200D:
+                                drivepwr = computeOrionExciterPower();
+                                break;
+                            case HPSDRModel.ORIONMKII:
+                            case HPSDRModel.ANAN7000D:
+                            case HPSDRModel.ANAN8000D:
+                                drivepwr = computeOrionMkIIExciterPower();
+                                break;
+                            default:
+                                drivepwr = computeExciterPower(); // low power
+                                break;
                         }
-                    }
-                    else
-                    {
-                        swr = 1.0f;
-                        alex_fwd = 0;
-                        alex_rev = 0;
-                    }
 
-                    if (chkTUN.Checked && disable_swr_on_tune
-                        && (alexpresent || apollopresent))
-                    {
-                        if (alex_fwd >= 1.0f && alex_fwd <= 35.0f
-                            && ptbPWR.Value <= 70)
+                        calfwdpower = CalibratedPAPower();
+                        average_drivepwr
+                            = alpha * average_drivepwr + (1.0f - alpha) * drivepwr;
+
+                        rho = (float)Math.Sqrt(alex_rev / alex_fwd);
+                        if (float.IsNaN(rho) || float.IsInfinity(rho))
+                            swr = 1.0f;
+                        else
+                            swr = (1.0f + rho) / (1.0f - rho);
+
+                        if ((alex_fwd <= 2.0f && alex_rev <= 2.0f) || swr < 1.0f)
+                            swr = 1.0f;
+
+                        if (alexpresent || apollopresent)
                         {
-                            swr_pass = true;
+                            // in following 'if', K2UE recommends not checking open
+                            // antenna for the 8000 model if (swrprotection && alex_fwd
+                            // > 10.0f && (alex_fwd - alex_rev) < 1.0f)
+                            //-W2PA Changed to allow 35w - some amplifier tuners need
+                            // about 30w to reliably start
+                            // working
+                            if (swrprotection && alex_fwd > 35.0f
+                                && (alex_fwd - alex_rev) < 1.0f
+                                && current_hpsdr_model
+                                    != HPSDRModel.ANAN8000D) // open ant condition
+                            {
+                                swr = 50.0f;
+                                NetworkIO.SWRProtect = 0.01f;
+                                chkMOX.Checked = false;
+
+                                MessageBox.Show("Please check your antenna connection.",
+                                    "High SWR condition detected", MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning,
+                                    MessageBoxDefaultButton.Button1,
+                                    (MessageBoxOptions)0x40000); // MB_TOPMOST
+
+                                goto end;
+                            }
                         }
                         else
-                            swr_pass = false;
-                    }
+                        {
+                            swr = 1.0f;
+                            alex_fwd = 0;
+                            alex_rev = 0;
+                        }
 
-                    if (tx_xvtr_index >= 0 || hf_tr_relay) swr_pass = true;
+                        if (chkTUN.Checked && disable_swr_on_tune
+                            && (alexpresent || apollopresent))
+                        {
+                            if (alex_fwd >= 1.0f && alex_fwd <= 35.0f
+                                && ptbPWR.Value <= 70)
+                            {
+                                swr_pass = true;
+                            }
+                            else
+                                swr_pass = false;
+                        }
 
-                    float alex_fwd_limit = 5.0f;
-                    if (current_hpsdr_model
-                        == HPSDRModel.ANAN8000D) // K2UE idea:  try to determine if
-                                                 // Hi-Z or Lo-Z load
-                        alex_fwd_limit
-                            = 2.0f * (float)ptbPWR.Value; //    by comparing alex_fwd
-                                                          //    with power setting
+                        if (tx_xvtr_index >= 0 || hf_tr_relay) swr_pass = true;
 
-                    if (swr > 2.0f && alex_fwd > alex_fwd_limit && swrprotection
-                        && !swr_pass)
-                    {
-                        high_swr_count++;
-                        if (high_swr_count >= 4)
+                        float alex_fwd_limit = 5.0f;
+                        if (current_hpsdr_model
+                            == HPSDRModel.ANAN8000D) // K2UE idea:  try to determine if
+                                                     // Hi-Z or Lo-Z load
+                            alex_fwd_limit
+                                = 2.0f * (float)ptbPWR.Value; //    by comparing alex_fwd
+                                                              //    with power setting
+
+                        if (swr > 2.0f && alex_fwd > alex_fwd_limit && swrprotection
+                            && !swr_pass)
+                        {
+                            high_swr_count++;
+                            if (high_swr_count >= 4)
+                            {
+                                high_swr_count = 0;
+                                NetworkIO.SWRProtect = (float)(2.0f / (swr + 1.0f));
+                                HighSWR = true;
+                            }
+                        }
+                        else
                         {
                             high_swr_count = 0;
-                            NetworkIO.SWRProtect = (float)(2.0f / (swr + 1.0f));
-                            HighSWR = true;
+                            NetworkIO.SWRProtect = 1.0f;
+                            HighSWR = false;
                         }
-                    }
-                    else
-                    {
-                        high_swr_count = 0;
-                        NetworkIO.SWRProtect = 1.0f;
-                        HighSWR = false;
-                    }
 
-                end:
-                    swr_pass = false;
-                    if (float.IsNaN(swr) || float.IsInfinity(swr) || swr < 1.0f)
-                        alex_swr = 1.0f;
-                    else
-                        alex_swr = swr;
+                    end:
+                        swr_pass = false;
+                        if (float.IsNaN(swr) || float.IsInfinity(swr) || swr < 1.0f)
+                            alex_swr = 1.0f;
+                        else
+                            alex_swr = swr;
+                    }
+                    else if (high_swr)
+                        HighSWR = false;
+                    // Thread.Sleep(1);
+                    await Task.Delay(1);
                 }
-                else if (high_swr)
-                    HighSWR = false;
-                // Thread.Sleep(1);
-                await Task.Delay(1);
             }
 
             alex_fwd = 0;
@@ -35869,6 +35887,9 @@ namespace Thetis
             calfwdpower = 0;
             alex_swr = 0;
             average_drivepwr = 0;
+            m_bMonTXThreadAlive = false;
+
+
             //  average_drvadc = 0;
             // average_fwdadc = 0;
             //  average_revadc = 0;
@@ -37554,6 +37575,7 @@ namespace Thetis
         {
             if (chkPower.Checked)
             {
+                m_TimeWhenMoxEntered = 0;
                 chkPower.BackColor = button_selected_color;
                 txtVFOAFreq.ForeColor = vfo_text_light_color;
                 txtVFOAMSD.ForeColor = vfo_text_light_color;
@@ -37630,10 +37652,6 @@ namespace Thetis
                         return;
                     }
                 }
-
-                Thread.Sleep(100); // wait for hardware to settle before starting
-                                   // audio (possible sample rate change)
-                psform.ForcePS();
 
                 if (m_bAttontx)
                     NetworkIO.SetTxAttenData(
@@ -37748,6 +37766,16 @@ namespace Thetis
                     poll_cw_thread.Start();
                 }
 
+                int ctr = 0;
+                while (m_bMonTXThreadAlive)
+                {
+                    Thread.Sleep(1);
+                    ctr++;
+                    Debug.Assert(ctr < 500);
+                    if (ctr > 10000)
+                        break;
+                }
+
                 if (poll_pa_pwr_thread == null || !poll_pa_pwr_thread.IsAlive)
                 {
                     poll_pa_pwr_thread = new Thread(
@@ -37758,7 +37786,31 @@ namespace Thetis
                         IsBackground = true
                     };
                     poll_pa_pwr_thread.Start();
+                    ctr = 0;
+                    while (!m_bMonTXThreadAlive)
+                    {
+                        Thread.Sleep(1);
+                        ctr++;
+                        Debug.Assert(ctr < 500);
+                        if (ctr > 10000)
+                            break;
+                    }
+
+
+
+
                 }
+
+                ctr = 0;
+                while (TimeSinceMoxEntered() < 150)
+                {
+                    Thread.Sleep(1);
+                    ctr++;
+                    Debug.Assert(ctr < 500);
+                    if (ctr > 10000)
+                        break;
+                }
+
 
                 if (poll_tx_inhibit_thread == null
                     || !poll_tx_inhibit_thread.IsAlive)
@@ -37958,6 +38010,11 @@ namespace Thetis
 
             panelVFOAHover.Invalidate();
             panelVFOBHover.Invalidate();
+
+            if (chkPower.Checked)
+            {
+                psform.ForcePS();
+            }
         }
 
         unsafe public void UpdateAAudioMixerStates()
@@ -39503,10 +39560,14 @@ namespace Thetis
         private volatile bool mox = false;
         private PreampMode temp_mode = PreampMode.HPSDR_OFF; // HPSDR preamp mode
         private PreampMode temp_mode2 = PreampMode.HPSDR_OFF; // HPSDR preamp mode
-
+        private volatile int m_TimeWhenMoxEntered = 0;
         private void chkMOX_CheckedChanged2(object sender, System.EventArgs e)
         {
             bool bOldMox = mox;
+            m_TimeWhenMoxEntered = 0;
+
+
+
 
             NetworkIO.SendHighPriority(1);
             if (rx_only && chkMOX.Checked)
@@ -39864,7 +39925,17 @@ namespace Thetis
             }
             //*  if (bOldMox != tx) MoxChangeHandlers?.Invoke(rx2_enabled && VFOBTX ? 2 : 1, bOldMox, tx); *//
 
-            if (bOldMox != tx) infoBar.OnMoxChangeHandler(rx2_enabled && VFOBTX ? 2 : 1, bOldMox, tx);
+            if (bOldMox != tx)
+            {
+                infoBar.OnMoxChangeHandler(rx2_enabled && VFOBTX ? 2 : 1, bOldMox, tx);
+            }
+
+            if (tx)
+            {
+                m_TimeWhenMoxEntered = timeGetTime(); // NOW allow tx stuff to be checked out, once everything stabilises
+
+
+            }
 
         }
 
