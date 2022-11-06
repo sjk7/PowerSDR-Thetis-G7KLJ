@@ -282,6 +282,7 @@ namespace Thetis
         {
             console.ForcePureSignalAutoCalDisable();
             if (!OFF) OFF = true;
+            Debug.Assert(true);
             console.PSState = false;
         }
 
