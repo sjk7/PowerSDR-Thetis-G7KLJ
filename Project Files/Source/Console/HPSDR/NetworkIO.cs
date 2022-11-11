@@ -83,6 +83,8 @@ namespace Thetis
 
         private const int IP_SUCCESS = 0;
         private const short VERSION = 2;
+
+        // called when radio powered up
         public static int initRadio()
         {
             int rc;
