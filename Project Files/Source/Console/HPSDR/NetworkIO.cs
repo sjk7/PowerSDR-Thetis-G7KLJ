@@ -112,7 +112,6 @@ namespace Thetis
             // System.Console.WriteLine("Static IP: " + Console.getConsole().HPSDRNetworkIPAddr);
             int adapterIndex = adapterSelected - 1;
             IPAddress[] addr = null;
-            bool cleanup = false;
 
             try
             {
@@ -127,7 +126,6 @@ namespace Thetis
                 if (result != IP_SUCCESS)
                 {
                     System.Console.WriteLine(data.description);
-                    Win32.WSACleanup();
                 }
 
                 addr = Dns.GetHostAddresses(Dns.GetHostName());
@@ -272,8 +270,6 @@ namespace Thetis
 
             if (!foundRadio)
             {
-                if (cleanup)
-                    Win32.WSACleanup();
                 return -1;
             }
 
