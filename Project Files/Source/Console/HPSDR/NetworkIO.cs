@@ -25,6 +25,7 @@ namespace Thetis
     using System.Net;
     using System.Net.Sockets;
     using System.Net.NetworkInformation;
+    using System.Diagnostics;
 
     partial class NetworkIO
     {
@@ -70,16 +71,36 @@ namespace Thetis
         const int LocalPort = 0;
         public static bool enableStaticIP { get; set; } = false;
         public static uint static_host_network { get; set; } = 0;
-        public static bool FastConnect { get; set; } = false;
+        public static bool FastConnect
+        {
+            get;
+            set;
+        } = false;
         public static HPSDRHW BoardID { get; set; } = HPSDRHW.Hermes;
         public static byte FWCodeVersion { get; set; } = 0;
-        public static string EthernetHostIPAddress { get; set; } = "";
+        public static string EthernetHostIPAddress
+        {
+            get;
+            set;
+        } = "";
         public static int EthernetHostPort { get; set; } = 0;
-        public static string HpSdrHwIpAddress { get; set; } = "";
+        public static string HpSdrHwIpAddress
+        {
+            get;
+            set;
+        } = "";
         public static string HpSdrHwMacAddress { get; set; } = "";
         public static byte NumRxs { get; set; } = 0;
-        public static RadioProtocol CurrentRadioProtocol { get; set; } = RadioProtocol.ETH;
-        public static RadioProtocol RadioProtocolSelected { get; set; } = RadioProtocol.ETH;
+        public static RadioProtocol CurrentRadioProtocol
+        {
+            get;
+            set;
+        } = RadioProtocol.ETH;
+        public static RadioProtocol RadioProtocolSelected
+        {
+            get;
+            set;
+        } = RadioProtocol.ETH;
 
         private const int IP_SUCCESS = 0;
         private const short VERSION = 2;
@@ -457,6 +478,7 @@ namespace Thetis
 
         private static bool DiscoverRadioOnPort(ref List<HPSDRDevice> hpsdrdList, IPAddress HostIP, IPAddress targetIP)
         {
+            //Debug.Assert(targetIP != null);
             bool result = false;
 
             // configure a new socket object for each Ethernet port we're scanning
@@ -533,11 +555,13 @@ namespace Thetis
                 }
             }
 
+            static_ip_ok = targetIP != null;
             // send every second until we either find a radio or exceed the number of attempts
             while (!radio_found)            // #### djm should loop for a while in case there are multiple radios
             {
                 // send a broadcast to port 1024
                 // try target ip address 1 time if static
+
                 if (enableStaticIP && static_ip_ok)
                     broadcast = new IPEndPoint(targetIP, DiscoveryPort);
                 else
@@ -702,6 +726,8 @@ namespace Thetis
                         if ((++time_out) > 5)
                         {
                             System.Console.WriteLine("Time out!");
+                            if (RadioProtocolSelected != RadioProtocol.Auto)
+                                RadioProtocolSelected = RadioProtocol.Auto; // you might succeed next time
                             return false;
                         }
                         static_ip_ok = false;

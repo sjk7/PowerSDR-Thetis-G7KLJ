@@ -4095,7 +4095,8 @@ namespace Thetis
                     case "rx2_display_grid_min_xvtr":
                         rx2_display_grid_min_xvtr = float.Parse(val);
                         break;
-                    case "Metis_IP_address": NetworkIO.HpSdrHwIpAddress = val; break;
+                    case "Metis_IP_address": NetworkIO.HpSdrHwIpAddress = val; 
+                        break;
                     case "EthernetHostIPAddress":
                         NetworkIO.EthernetHostIPAddress = val;
                         break;
