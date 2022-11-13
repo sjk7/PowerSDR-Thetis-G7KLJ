@@ -129,7 +129,7 @@ namespace Thetis
                 }
 
                 addr = Dns.GetHostAddresses(Dns.GetHostName());
-                cleanup = true;
+                //cleanup = true;
                 Common.LogException(e);
                 // System.Console.WriteLine("SocketException caught!!!");
                 // System.Console.WriteLine("Source : " + e.Source);

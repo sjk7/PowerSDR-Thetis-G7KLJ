@@ -6075,7 +6075,6 @@ partial class Console {
             this.panelSoundControls.Controls.Add(this.lblRF);
             this.panelSoundControls.Controls.Add(this.lblPWR);
             this.panelSoundControls.Controls.Add(this.lblPreamp);
-            this.panelSoundControls.Controls.Add(this.comboPreamp);
             this.panelSoundControls.Controls.Add(this.udRX1StepAttData);
             this.panelSoundControls.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.panelSoundControls.Name = "panelSoundControls";
@@ -7262,6 +7261,7 @@ partial class Console {
             this.Controls.Add(this.ptbRX2Squelch);
             this.Controls.Add(this.chkRX2Squelch);
             this.Controls.Add(this.panelRX2DSP);
+            this.Controls.Add(this.comboPreamp);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panelOptions);
             this.Controls.Add(this.panelRX2Filter);

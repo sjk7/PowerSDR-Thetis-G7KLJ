@@ -21,7 +21,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #pragma once
 
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -54,7 +53,7 @@ typedef struct _seqLogSnapshot {
 } _seqLogSnapshot_t;
 
 typedef struct CACHE_ALIGN _radionet {
-   volatile DWORD last_time_signalled;
+    volatile DWORD last_time_signalled;
     double** RxBuff;
     double* RxReadBufp;
     double* TxReadBufp;
@@ -413,7 +412,9 @@ int MetisReadDirect(unsigned char* bufp);
 int MetisReadDirectPOLL(unsigned char* bufp);
 int MetisWriteFrame(int endpoint, char* bufp);
 void ForceCandCFrame(int);
-extern __declspec(dllexport) int SendStopToMetis();
+PORT int SendStopToMetis();
+PORT char* GetWindowsErrorString(int errorCode);
+
 int FPGAReadBufSize;
 int FPGAWriteBufSize;
 unsigned char* FPGAReadBufp;

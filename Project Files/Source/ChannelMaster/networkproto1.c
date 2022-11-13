@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
+#include <strsafe.h>
 
 int SeqError = 0;
 int out_control_idx = 0;
@@ -72,6 +73,28 @@ int SendStartToMetis(void) {
     }
 
     return 0;
+}
+
+static char ERROR_STRING_BUFFER[1024] = {0};
+PORT char* GetWindowsErrorString(int err) {
+    const char* s = NULL;
+    FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM
+            | FORMAT_MESSAGE_IGNORE_INSERTS,
+        NULL, err, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&s, 0,
+        NULL);
+    fprintf(stderr, "%s\n", s);
+    HRESULT hr = StringCchCopyA(ERROR_STRING_BUFFER, 1023, s);
+
+    assert(SUCCEEDED(hr));
+    /*/
+    STRSAFEAPI StringCchCopyA(
+    [out] STRSAFE_LPSTR  pszDest,
+    [in]  size_t         cchDest,
+    [in]  STRSAFE_LPCSTR pszSrc
+    );
+    /*/
+    LocalFree(s);
+    return ERROR_STRING_BUFFER;
 }
 
 PORT int SendStopToMetis() {
@@ -150,16 +173,22 @@ volatile static unsigned int reads = 0;
 volatile DWORD time_when_start = 0;
 #endif
 
+#ifndef NDEBUG
+#define ASSERT_ON_METIS_READ_FAIL
+#endif
+
 int MetisReadDirectPOLL(unsigned char* bufp) {
+// #define BUF_SZ_METIS 1074
+#define BUF_SZ_METIS 2048
     struct indgram {
-        unsigned char readbuf[1074];
-    } inpacket;
+        unsigned char readbuf[BUF_SZ_METIS];
+    } inpacket = {0};
 
 #ifdef DEBUG_TIMINGS
     if (time_when_start == 0) time_when_start = timeGetTime();
 #endif
 
-    struct sockaddr_in fromaddr;
+    struct sockaddr_in fromaddr = {0};
     int fromlen;
     int rc = 0;
     unsigned int endpoint;
@@ -207,9 +236,17 @@ int MetisReadDirectPOLL(unsigned char* bufp) {
                         yields++;
                     }
                     continue;
+                } else {
+#ifdef ASSERT_ON_METIS_READ_FAIL
+                    errno = e;
+                    fprintf(stderr, "Socket error was: %s\n",
+                        GetWindowsErrorString(e));
+#endif
                 }
             }
-            assert(0);
+#ifdef ASSERT_ON_METIS_READ_FAIL
+            assert("unexpected socket error in MetisReadDirectPOLL" == NULL);
+#endif
             return rc;
         } else if (rc > 0) {
 #ifdef RIO_SOCK_USEDD
@@ -323,8 +360,11 @@ int MetisReadDirect(unsigned char* bufp) {
     {
         errno = WSAGetLastError();
         if (errno == WSAEWOULDBLOCK || errno == WSAEMSGSIZE) {
-            printf("Error code %d: recvfrom() : %s\n", errno, strerror(errno));
-            assert(0);
+            fprintf(stderr, "Error code %d: recvfrom() : %s\n", errno,
+                strerror(errno));
+#ifdef ASSERT_ON_METIS_READ_FAIL
+            assert("Unexpected Socket Error in MetisReadDirect" == NULL);
+#endif
             fflush(stdout);
             Sleep(0);
             return 0;
