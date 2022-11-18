@@ -376,6 +376,12 @@
     <Compile Include="AnalogSMeter\frmSMeter.Designer.cs">
       <DependentUpon>frmSMeter.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTmp1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTmp1.Designer.cs">
+      <DependentUpon>frmTmp1.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="AnalogSMeter\PrettySMeterHelpers.cs" />
     <Compile Include="NewConsole\NewConsole.cs">
@@ -693,6 +699,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AnalogSMeter\frmSMeter.resx">
       <DependentUpon>frmSMeter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTmp1.resx">
+      <DependentUpon>frmTmp1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KE9N\scan.resx">
       <SubType>Designer</SubType>
