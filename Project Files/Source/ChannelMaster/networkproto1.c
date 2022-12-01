@@ -77,7 +77,7 @@ int SendStartToMetis(void) {
 
 static char ERROR_STRING_BUFFER[1024] = {0};
 PORT char* GetWindowsErrorString(int err) {
-    const char* s = NULL;
+     char* s = NULL;
     FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM
             | FORMAT_MESSAGE_IGNORE_INSERTS,
         NULL, err, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&s, 0,

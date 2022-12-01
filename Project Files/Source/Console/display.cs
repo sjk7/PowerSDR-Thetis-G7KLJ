@@ -6476,7 +6476,7 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
 
                 d2dRenderTarget.BeginDraw();
 
-                // midldle pixel align shift, NOTE: waterfall will switch
+                // middle pixel align shift, NOTE: waterfall will switch
                 // internally to identity, and then restore
                 Matrix3x2 t = d2dRenderTarget.Transform;
                 t.TranslationVector = m_pixelShift;
