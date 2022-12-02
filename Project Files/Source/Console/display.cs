@@ -828,8 +828,7 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
         }
     }
 
-    private static bool
-        data_ready; // True when there is new display data ready from the DSP
+    private static bool data_ready; // True when there is new display data ready from the DSP
     public static bool DataReady {
         get { return data_ready; }
         set { data_ready = value; }
