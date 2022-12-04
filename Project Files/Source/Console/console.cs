@@ -37792,7 +37792,7 @@ namespace Thetis
                     {
                         Thread.Sleep(1);
                         ctr++;
-                        Debug.Assert(ctr < 500);
+                        //Debug.Assert(ctr < 500);
                         if (ctr > 10000)
                             break;
                     }
