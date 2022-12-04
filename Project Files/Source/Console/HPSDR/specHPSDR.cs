@@ -697,6 +697,7 @@ namespace Thetis
                     int max_w
                  );
 
+
         [DllImport("WDSP.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void XCreateAnalyzer(int disp, ref int success, int m_size, int m_LO, int m_stitch, string app_data_path);
         // public static extern void XCreateAnalyzer(int disp, ref int success, int m_size, int m_LO, int m_stitch);
