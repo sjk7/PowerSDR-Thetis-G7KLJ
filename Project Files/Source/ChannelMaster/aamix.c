@@ -687,9 +687,9 @@ PORT void SetAAudioMixState(void* ptr, int id, int stream, int state) {
 // SetAAudioMixStates() is an alternative to SetAAudioMixState() that can be
 // used to set multiple mix states with only a single call.  'streams' has one
 // bit per mix state that you want to set and 'states' has one bit specifying
-// the state of each stream that you want to set.  For example, if you want to
-// set the state of streams 0 and 3 to 1 and 0, respectively: streams = 9
-// [...1001] states =  1 [...0001]
+// the state of each stream that you want to set.  
+// For example, if you want to set the state of streams 0 and 3 to 1 and 0, 
+// respectively: streams = 9 [...1001] states =  1 [...0001]
 PORT void SetAAudioMixStates(void* ptr, int id, int streams, int states) {
     int i;
     AAMIX a;

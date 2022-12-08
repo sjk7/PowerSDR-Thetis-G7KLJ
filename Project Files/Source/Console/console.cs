@@ -37886,7 +37886,7 @@ namespace Thetis
             {
                 DataFlowing = false;
                 SetupForm.TestIMD = false;
-                // cmaster.MONMixState = false;
+
                 if (HaveSync == 1) // fix
                 {
                     WDSP.SetChannelState(WDSP.id(0, 0), 0, 1);
@@ -37895,9 +37895,7 @@ namespace Thetis
                     if (radio.GetDSPRX(1, 0).Active)
                         WDSP.SetChannelState(WDSP.id(2, 0), 0, 1);
                 }
-                // cmaster.SetAAudioMixState((void*)0, 0, 1, false);
-                // cmaster.SetAAudioMixState((void*)0, 0, 2, false);
-                // cmaster.SetAAudioMixState((void*)0, 0, 0, false);
+
                 UpdateAAudioMixerStates();
                 UpdateDDCs(rx2_enabled);
 
