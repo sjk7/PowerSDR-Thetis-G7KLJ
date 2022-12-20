@@ -20,7 +20,7 @@ namespace Thetis
 
         public const int _CMASTER_VERSION = 1001;
         public const int _WDSP_VERSION = 118;
-        public const int _PORTAUDIO_VERSION = 1310720; //1246720; //1899;  // from pa_front.c
+        public const int _PORTAUDIO_VERSION = 1310977; // from pa_front.c
 
 
 #if WIN32

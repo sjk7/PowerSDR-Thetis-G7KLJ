@@ -1,3 +1,8 @@
+// This is an independent project of an individual developer. Dear PVS-Studio,
+// please check it.
+
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java:
+// http://www.viva64.com
 #ifndef INCLUDED_PORTAUDIO_BLOCKINGSTREAM_HXX
 #define INCLUDED_PORTAUDIO_BLOCKINGSTREAM_HXX
 
@@ -7,39 +12,32 @@
 
 // ---------------------------------------------------------------------------------------
 
-namespace portaudio
-{
+namespace portaudio {
 
+//////
+/// @brief Stream class for blocking read/write-style input and output.
+//////
+class BlockingStream : public Stream {
+    public:
+    BlockingStream();
+    BlockingStream(const StreamParameters& parameters);
+    ~BlockingStream();
 
+    void open(const StreamParameters& parameters);
 
-	//////
-	/// @brief Stream class for blocking read/write-style input and output.
-	//////
-	class BlockingStream : public Stream
-	{
-	public:
-		BlockingStream();
-		BlockingStream(const StreamParameters &parameters);
-		~BlockingStream();
+    void read(void* buffer, unsigned long numFrames);
+    void write(const void* buffer, unsigned long numFrames);
 
-		void open(const StreamParameters &parameters);
+    signed long availableReadSize() const;
+    signed long availableWriteSize() const;
 
-		void read(void *buffer, unsigned long numFrames);
-		void write(const void *buffer, unsigned long numFrames);
+    private:
+    BlockingStream(const BlockingStream&); // non-copyable
+    BlockingStream& operator=(const BlockingStream&); // non-copyable
+};
 
-		signed long availableReadSize() const;
-		signed long availableWriteSize() const;
-
-	private:
-		BlockingStream(const BlockingStream &); // non-copyable
-		BlockingStream &operator=(const BlockingStream &); // non-copyable
-	};
-
-
-
-} // portaudio
+} // namespace portaudio
 
 // ---------------------------------------------------------------------------------------
 
 #endif // INCLUDED_PORTAUDIO_BLOCKINGSTREAM_HXX
-

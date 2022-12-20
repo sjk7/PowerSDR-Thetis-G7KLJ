@@ -465,32 +465,29 @@ typedef double PaTime;
 */
 typedef unsigned long PaSampleFormat;
 
-
 // NOTE: these are different from the standard PortAudio #defines:
 
-
-
-#define paFloat64        ((PaSampleFormat) 0x00000001)
-#define paFloat32        ((PaSampleFormat) 0x00000002)
-#define paInt32          ((PaSampleFormat) 0x00000004)
-#define paInt24          ((PaSampleFormat) 0x00000008)
-#define paInt16          ((PaSampleFormat) 0x00000010)
-#define paInt8           ((PaSampleFormat) 0x00000020)
-#define paUInt8          ((PaSampleFormat) 0x00000040)
-#define paCustomFormat   ((PaSampleFormat) 0x00010000)
-#define paNonInterleaved ((PaSampleFormat)0x80000000) 
+#define paFloat64 ((PaSampleFormat)0x00000001)
+#define paFloat32 ((PaSampleFormat)0x00000002)
+#define paInt32 ((PaSampleFormat)0x00000004)
+#define paInt24 ((PaSampleFormat)0x00000008)
+#define paInt16 ((PaSampleFormat)0x00000010)
+#define paInt8 ((PaSampleFormat)0x00000020)
+#define paUInt8 ((PaSampleFormat)0x00000040)
+#define paCustomFormat ((PaSampleFormat)0x00010000)
+#define paNonInterleaved ((PaSampleFormat)0x80000000)
 
 // myformat = paFloat64
 
 /*/ they were, in portaudio original:
-#define paFloat32 ((PaSampleFormat)0x00000001) 
-#define paInt32 ((PaSampleFormat)0x00000002) 
-#define paInt24     ((PaSampleFormat)0x00000004)            
-#define paInt16 ((PaSampleFormat)0x00000008) 
-#define paInt8 ((PaSampleFormat)0x00000010) 
+#define paFloat32 ((PaSampleFormat)0x00000001)
+#define paInt32 ((PaSampleFormat)0x00000002)
+#define paInt24     ((PaSampleFormat)0x00000004)
+#define paInt16 ((PaSampleFormat)0x00000008)
+#define paInt8 ((PaSampleFormat)0x00000010)
 #define paUInt8 ((PaSampleFormat)0x00000020)
-#define paCustomFormat ((PaSampleFormat)0x00010000) 
-#define paNonInterleaved ((PaSampleFormat)0x80000000) 
+#define paCustomFormat ((PaSampleFormat)0x00010000)
+#define paNonInterleaved ((PaSampleFormat)0x80000000)
 /*/
 
 /** A structure providing information and capabilities of PortAudio devices.

@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*
  * $Id$
  * Portable Audio I/O Library skeleton implementation
@@ -31,13 +28,13 @@
  */
 
 /*
- * The text above constitutes the entire PortAudio license; however, 
+ * The text above constitutes the entire PortAudio license; however,
  * the PortAudio community also makes the following non-binding requests:
  *
  * Any person wishing to distribute modifications to the Software is
  * requested to send the modifications to the original developer so that
- * they can be incorporated into the canonical version. It is also 
- * requested that these non-binding requests be included along with the 
+ * they can be incorporated into the canonical version. It is also
+ * requested that these non-binding requests be included along with the
  * license above.
  */
 
@@ -133,7 +130,7 @@ PaError PaSkeleton_Initialize( PaUtilHostApiRepresentation **hostApi, PaHostApiI
     PaSkeletonHostApiRepresentation *skeletonHostApi;
     PaDeviceInfo *deviceInfoArray;
 
-    skeletonHostApi = (PaSkeletonHostApiRepresentation*)PaUtil_AllocateMemory( sizeof(PaSkeletonHostApiRepresentation) );
+    skeletonHostApi = (PaSkeletonHostApiRepresentation*)PaUtil_AllocateZeroInitializedMemory( sizeof(PaSkeletonHostApiRepresentation) );
     if( !skeletonHostApi )
     {
         result = paInsufficientMemory;
@@ -155,13 +152,13 @@ PaError PaSkeleton_Initialize( PaUtilHostApiRepresentation **hostApi, PaHostApiI
     (*hostApi)->info.defaultInputDevice = paNoDevice;  /* IMPLEMENT ME */
     (*hostApi)->info.defaultOutputDevice = paNoDevice; /* IMPLEMENT ME */
 
-    (*hostApi)->info.deviceCount = 0;  
+    (*hostApi)->info.deviceCount = 0;
 
     deviceCount = 0; /* IMPLEMENT ME */
-    
+
     if( deviceCount > 0 )
     {
-        (*hostApi)->deviceInfos = (PaDeviceInfo**)PaUtil_GroupAllocateMemory(
+        (*hostApi)->deviceInfos = (PaDeviceInfo**)PaUtil_GroupAllocateZeroInitializedMemory(
                 skeletonHostApi->allocations, sizeof(PaDeviceInfo*) * deviceCount );
         if( !(*hostApi)->deviceInfos )
         {
@@ -170,7 +167,7 @@ PaError PaSkeleton_Initialize( PaUtilHostApiRepresentation **hostApi, PaHostApiI
         }
 
         /* allocate all device info structs in a contiguous block */
-        deviceInfoArray = (PaDeviceInfo*)PaUtil_GroupAllocateMemory(
+        deviceInfoArray = (PaDeviceInfo*)PaUtil_GroupAllocateZeroInitializedMemory(
                 skeletonHostApi->allocations, sizeof(PaDeviceInfo) * deviceCount );
         if( !deviceInfoArray )
         {
@@ -184,7 +181,7 @@ PaError PaSkeleton_Initialize( PaUtilHostApiRepresentation **hostApi, PaHostApiI
             deviceInfo->structVersion = 2;
             deviceInfo->hostApi = hostApiIndex;
             deviceInfo->name = 0; /* IMPLEMENT ME: allocate block and copy name eg:
-                deviceName = (char*)PaUtil_GroupAllocateMemory( skeletonHostApi->allocations, strlen(srcName) + 1 );
+                deviceName = (char*)PaUtil_GroupAllocateZeroInitializedMemory( skeletonHostApi->allocations, strlen(srcName) + 1 );
                 if( !deviceName )
                 {
                     result = paInsufficientMemory;
@@ -196,14 +193,14 @@ PaError PaSkeleton_Initialize( PaUtilHostApiRepresentation **hostApi, PaHostApiI
 
             deviceInfo->maxInputChannels = 0;  /* IMPLEMENT ME */
             deviceInfo->maxOutputChannels = 0;  /* IMPLEMENT ME */
-            
+
             deviceInfo->defaultLowInputLatency = 0.;  /* IMPLEMENT ME */
             deviceInfo->defaultLowOutputLatency = 0.;  /* IMPLEMENT ME */
             deviceInfo->defaultHighInputLatency = 0.;  /* IMPLEMENT ME */
-            deviceInfo->defaultHighOutputLatency = 0.;  /* IMPLEMENT ME */  
+            deviceInfo->defaultHighOutputLatency = 0.;  /* IMPLEMENT ME */
 
             deviceInfo->defaultSampleRate = 0.; /* IMPLEMENT ME */
-            
+
             (*hostApi)->deviceInfos[i] = deviceInfo;
             ++(*hostApi)->info.deviceCount;
         }
@@ -234,7 +231,7 @@ error:
             PaUtil_FreeAllAllocations( skeletonHostApi->allocations );
             PaUtil_DestroyAllocationGroup( skeletonHostApi->allocations );
         }
-                
+
         PaUtil_FreeMemory( skeletonHostApi );
     }
     return result;
@@ -267,7 +264,7 @@ static PaError IsFormatSupported( struct PaUtilHostApiRepresentation *hostApi,
 {
     int inputChannelCount, outputChannelCount;
     PaSampleFormat inputSampleFormat, outputSampleFormat;
-    
+
     if( inputParameters )
     {
         inputChannelCount = inputParameters->channelCount;
@@ -277,7 +274,7 @@ static PaError IsFormatSupported( struct PaUtilHostApiRepresentation *hostApi,
             this implementation doesn't support any custom sample formats */
         if( inputSampleFormat & paCustomFormat )
             return paSampleFormatNotSupported;
-            
+
         /* unless alternate device specification is supported, reject the use of
             paUseHostApiSpecificDeviceSpecification */
 
@@ -306,7 +303,7 @@ static PaError IsFormatSupported( struct PaUtilHostApiRepresentation *hostApi,
             this implementation doesn't support any custom sample formats */
         if( outputSampleFormat & paCustomFormat )
             return paSampleFormatNotSupported;
-            
+
         /* unless alternate device specification is supported, reject the use of
             paUseHostApiSpecificDeviceSpecification */
 
@@ -325,7 +322,7 @@ static PaError IsFormatSupported( struct PaUtilHostApiRepresentation *hostApi,
     {
         outputChannelCount = 0;
     }
-    
+
     /*
         IMPLEMENT ME:
 
@@ -416,14 +413,14 @@ static PaError OpenStream( struct PaUtilHostApiRepresentation *hostApi,
     else
     {
         inputChannelCount = 0;
-        inputSampleFormat = hostInputSampleFormat = paInt16; /* Surpress 'uninitialised var' warnings. */
+        inputSampleFormat = hostInputSampleFormat = paInt16; /* Suppress 'uninitialised var' warnings. */
     }
 
     if( outputParameters )
     {
         outputChannelCount = outputParameters->channelCount;
         outputSampleFormat = outputParameters->sampleFormat;
-        
+
         /* unless alternate device specification is supported, reject the use of
             paUseHostApiSpecificDeviceSpecification */
 
@@ -445,7 +442,7 @@ static PaError OpenStream( struct PaUtilHostApiRepresentation *hostApi,
     else
     {
         outputChannelCount = 0;
-        outputSampleFormat = hostOutputSampleFormat = paInt16; /* Surpress 'uninitialized var' warnings. */
+        outputSampleFormat = hostOutputSampleFormat = paInt16; /* Suppress 'uninitialized var' warnings. */
     }
 
     /*
@@ -480,7 +477,7 @@ static PaError OpenStream( struct PaUtilHostApiRepresentation *hostApi,
         return paInvalidFlag; /* unexpected platform specific flag */
 
 
-    stream = (PaSkeletonStream*)PaUtil_AllocateMemory( sizeof(PaSkeletonStream) );
+    stream = (PaSkeletonStream*)PaUtil_AllocateZeroInitializedMemory( sizeof(PaSkeletonStream) );
     if( !stream )
     {
         result = paInsufficientMemory;
@@ -502,10 +499,10 @@ static PaError OpenStream( struct PaUtilHostApiRepresentation *hostApi,
 
 
     /* we assume a fixed host buffer size in this example, but the buffer processor
-        can also support bounded and unknown host buffer sizes by passing 
+        can also support bounded and unknown host buffer sizes by passing
         paUtilBoundedHostBufferSize or paUtilUnknownHostBufferSize instead of
         paUtilFixedHostBufferSize below. */
-        
+
     result =  PaUtil_InitializeBufferProcessor( &stream->bufferProcessor,
               inputChannelCount, inputSampleFormat, hostInputSampleFormat,
               outputChannelCount, outputSampleFormat, hostOutputSampleFormat,
@@ -526,7 +523,7 @@ static PaError OpenStream( struct PaUtilHostApiRepresentation *hostApi,
             (PaTime)PaUtil_GetBufferProcessorOutputLatencyFrames(&stream->bufferProcessor) / sampleRate; /* outputLatency is specified in _seconds_ */
     stream->streamRepresentation.streamInfo.sampleRate = sampleRate;
 
-    
+
     /*
         IMPLEMENT ME:
             - additional stream setup + opening
@@ -548,7 +545,7 @@ error:
 /*
     ExampleHostProcessingLoop() illustrates the kind of processing which may
     occur in a host implementation.
- 
+
 */
 static void ExampleHostProcessingLoop( void *inputBuffer, void *outputBuffer, void *userData )
 {
@@ -556,9 +553,9 @@ static void ExampleHostProcessingLoop( void *inputBuffer, void *outputBuffer, vo
     PaStreamCallbackTimeInfo timeInfo = {0,0,0}; /* IMPLEMENT ME */
     int callbackResult;
     unsigned long framesProcessed;
-    
+
     PaUtil_BeginCpuLoadMeasurement( &stream->cpuLoadMeasurer );
-    
+
     /*
         IMPLEMENT ME:
             - generate timing information
@@ -579,7 +576,7 @@ static void ExampleHostProcessingLoop( void *inputBuffer, void *outputBuffer, vo
         or a mixture, you will want to call PaUtil_SetInterleaved*Channels(),
         PaUtil_SetNonInterleaved*Channel() or PaUtil_Set*Channel() here.
     */
-    
+
     PaUtil_SetInputFrameCount( &stream->bufferProcessor, 0 /* default to host buffer size */ );
     PaUtil_SetInterleavedInputChannels( &stream->bufferProcessor,
             0, /* first channel of inputBuffer is channel 0 */
@@ -601,7 +598,7 @@ static void ExampleHostProcessingLoop( void *inputBuffer, void *outputBuffer, vo
     callbackResult = paContinue;
     framesProcessed = PaUtil_EndBufferProcessing( &stream->bufferProcessor, &callbackResult );
 
-    
+
     /*
         If you need to byte swap or shift outputBuffer to convert it to
         host format, do it here.
@@ -623,7 +620,7 @@ static void ExampleHostProcessingLoop( void *inputBuffer, void *outputBuffer, vo
             stream->streamRepresentation.streamFinishedCallback( stream->streamRepresentation.userData );
     }
     else
-    { //-V523
+    {
         /* User callback has asked us to stop with paComplete or other non-zero value */
 
         /* IMPLEMENT ME - finish playback once currently queued audio has completed  */
@@ -690,14 +687,14 @@ static PaError StopStream( PaStream *s )
 }
 
 
-static PaError AbortStream( PaStream *s ) //-V524
+static PaError AbortStream( PaStream *s )
 {
     PaError result = paNoError;
     PaSkeletonStream *stream = (PaSkeletonStream*)s;
 
     /* suppress unused variable warnings */
     (void) stream;
-    
+
     /* IMPLEMENT ME, see portaudio.h for required behavior */
 
     return result;
@@ -710,20 +707,20 @@ static PaError IsStreamStopped( PaStream *s )
 
     /* suppress unused variable warnings */
     (void) stream;
-    
+
     /* IMPLEMENT ME, see portaudio.h for required behavior */
 
     return 0;
 }
 
 
-static PaError IsStreamActive( PaStream *s ) //-V524
+static PaError IsStreamActive( PaStream *s )
 {
     PaSkeletonStream *stream = (PaSkeletonStream*)s;
 
     /* suppress unused variable warnings */
     (void) stream;
-    
+
     /* IMPLEMENT ME, see portaudio.h for required behavior */
 
     return 0;
@@ -736,7 +733,7 @@ static PaTime GetStreamTime( PaStream *s )
 
     /* suppress unused variable warnings */
     (void) stream;
-    
+
     /* IMPLEMENT ME, see portaudio.h for required behavior*/
 
     return 0;
@@ -767,7 +764,7 @@ static PaError ReadStream( PaStream* s,
     (void) buffer;
     (void) frames;
     (void) stream;
-    
+
     /* IMPLEMENT ME, see portaudio.h for required behavior*/
 
     return paNoError;
@@ -784,7 +781,7 @@ static PaError WriteStream( PaStream* s,
     (void) buffer;
     (void) frames;
     (void) stream;
-    
+
     /* IMPLEMENT ME, see portaudio.h for required behavior*/
 
     return paNoError;
@@ -797,7 +794,7 @@ static signed long GetStreamReadAvailable( PaStream* s )
 
     /* suppress unused variable warnings */
     (void) stream;
-    
+
     /* IMPLEMENT ME, see portaudio.h for required behavior*/
 
     return 0;
@@ -810,12 +807,8 @@ static signed long GetStreamWriteAvailable( PaStream* s )
 
     /* suppress unused variable warnings */
     (void) stream;
-    
+
     /* IMPLEMENT ME, see portaudio.h for required behavior*/
 
     return 0;
 }
-
-
-
-

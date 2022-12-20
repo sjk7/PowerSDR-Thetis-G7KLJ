@@ -1434,6 +1434,7 @@ namespace Thetis
             {
                 Settings.Default.ConsoleWinSize = this.DesktopBounds;
             }
+            Settings.Default.Save();
         }
 
 

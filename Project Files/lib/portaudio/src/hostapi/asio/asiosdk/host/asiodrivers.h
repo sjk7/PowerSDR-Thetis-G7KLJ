@@ -10,7 +10,7 @@ class AsioDrivers : public CodeFragments
 
 #elif WINDOWS
 #include <windows.h>
-#include "asiolist.h"
+#include "../host/pc/asiolist.h"
 
 class AsioDrivers : public AsioDriverList
 
@@ -24,18 +24,19 @@ class AsioDrivers : public AsioDriverList
 #endif
 
 {
-public:
-	AsioDrivers();
-	~AsioDrivers();
-	
-	bool getCurrentDriverName(char *name);
-	long getDriverNames(char **names, long maxDrivers);
-	bool loadDriver(char *name);
-	void removeCurrentDriver();
-	long getCurrentDriverIndex() {return curIndex;}
-protected:
-	unsigned long connID;
-	long curIndex;
+    public:
+    AsioDrivers();
+    ~AsioDrivers();
+
+    bool getCurrentDriverName(char* name);
+    long getDriverNames(char** names, long maxDrivers);
+    bool loadDriver(char* name);
+    void removeCurrentDriver();
+    long getCurrentDriverIndex() { return curIndex; }
+
+    protected:
+    unsigned long connID;
+    long curIndex;
 };
 
 #endif

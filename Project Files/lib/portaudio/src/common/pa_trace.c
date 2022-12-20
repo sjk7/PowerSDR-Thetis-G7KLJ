@@ -1,6 +1,3 @@
-// This is an independent project of an individual developer. Dear PVS-Studio, please check it.
-
-// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 /*
  * $Id$
  * Portable Audio I/O Library Trace Facility
@@ -30,13 +27,13 @@
  */
 
 /*
- * The text above constitutes the entire PortAudio license; however, 
+ * The text above constitutes the entire PortAudio license; however,
  * the PortAudio community also makes the following non-binding requests:
  *
  * Any person wishing to distribute modifications to the Software is
  * requested to send the modifications to the original developer so that
- * they can be incorporated into the canonical version. It is also 
- * requested that these non-binding requests be included along with the 
+ * they can be incorporated into the canonical version. It is also
+ * requested that these non-binding requests be included along with the
  * license above.
  */
 
@@ -123,7 +120,7 @@ static const unsigned kMagik = 0xcafebabe;
 
 int PaUtil_InitializeHighSpeedLog( LogHandle* phLog, unsigned maxSizeInBytes )
 {
-    PaHighPerformanceLog* pLog = (PaHighPerformanceLog*)PaUtil_AllocateMemory(sizeof(PaHighPerformanceLog));
+    PaHighPerformanceLog* pLog = (PaHighPerformanceLog*)PaUtil_AllocateZeroInitializedMemory(sizeof(PaHighPerformanceLog));
     if (pLog == 0)
     {
         return paInsufficientMemory;
@@ -131,7 +128,7 @@ int PaUtil_InitializeHighSpeedLog( LogHandle* phLog, unsigned maxSizeInBytes )
     assert(phLog != 0);
     *phLog = pLog;
 
-    pLog->data = (char*)PaUtil_AllocateMemory(maxSizeInBytes);
+    pLog->data = (char*)PaUtil_AllocateZeroInitializedMemory(maxSizeInBytes);
     if (pLog->data == 0)
     {
         PaUtil_FreeMemory(pLog);
@@ -236,6 +233,6 @@ void PaUtil_DiscardHighSpeedLog( LogHandle hLog )
  */
 int PaUtil_TraceStubToSatisfyLinker(void)
 {
-	return 0;
+    return 0;
 }
 #endif /* TRACE_REALTIME_EVENTS */

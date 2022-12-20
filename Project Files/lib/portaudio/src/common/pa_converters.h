@@ -1,7 +1,7 @@
 #ifndef PA_CONVERTERS_H
 #define PA_CONVERTERS_H
 /*
- * $Id: pa_converters.h 1097 2006-08-26 08:27:53Z rossb $
+ * $Id$
  * Portable Audio I/O Library sample conversion mechanism
  *
  * Based on the Open Source API proposed by Ross Bencina
@@ -28,13 +28,13 @@
  */
 
 /*
- * The text above constitutes the entire PortAudio license; however, 
+ * The text above constitutes the entire PortAudio license; however,
  * the PortAudio community also makes the following non-binding requests:
  *
  * Any person wishing to distribute modifications to the Software is
  * requested to send the modifications to the original developer so that
- * they can be incorporated into the canonical version. It is also 
- * requested that these non-binding requests be included along with the 
+ * they can be incorporated into the canonical version. It is also
+ * requested that these non-binding requests be included along with the
  * license above.
  */
 
@@ -45,9 +45,8 @@
  format to another.
 */
 
-// NOTE: different to regular PortAudio header
+
 #include "portaudio.h"  /* for PaSampleFormat */
-#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -60,7 +59,7 @@ struct PaUtilTriangularDitherGenerator;
 
 /** Choose an available sample format which is most appropriate for
  representing the requested format. If the requested format is not available
- higher quality formats are considered before lower quality formates.
+ higher quality formats are considered before lower quality formats.
  @param availableFormats A variable containing the logical OR of all available
  formats.
  @param format The desired format.
@@ -120,7 +119,7 @@ PaUtilConverter* PaUtil_SelectConverter( PaSampleFormat sourceFormat,
 typedef void PaUtilZeroer(
     void *destinationBuffer, signed int destinationStride, unsigned int count );
 
-    
+
 /** Find a buffer zeroer function for the given destination format.
     @return
     A pointer to a PaUtilZeroer which will perform the requested
@@ -136,102 +135,101 @@ PaUtilZeroer* PaUtil_SelectZeroer( PaSampleFormat destinationFormat );
 /** The type used to store all sample conversion functions.
     @see paConverters;
 */
-typedef struct{
-	PaUtilConverter *Float64_To_Float32;
-	PaUtilConverter *Float64_To_Int32;
-	PaUtilConverter *Float64_To_Int24;
-	PaUtilConverter *Float64_To_Int16;
-	PaUtilConverter *Float64_To_Int16_Dither;
-    PaUtilConverter *Float64_To_Int16_Clip;
-    PaUtilConverter *Float64_To_Int16_DitherClip;
+typedef struct {
+    PaUtilConverter* Float64_To_Float32;
+    PaUtilConverter* Float64_To_Int32;
+    PaUtilConverter* Float64_To_Int24;
+    PaUtilConverter* Float64_To_Int16;
+    PaUtilConverter* Float64_To_Int16_Dither;
+    PaUtilConverter* Float64_To_Int16_Clip;
+    PaUtilConverter* Float64_To_Int16_DitherClip;
 
-	PaUtilConverter *Float64_To_Int8;
-	PaUtilConverter *Float64_To_UInt8;
+    PaUtilConverter* Float64_To_Int8;
+    PaUtilConverter* Float64_To_UInt8;
 
-	PaUtilConverter *Float32_To_Float64;
+    PaUtilConverter* Float32_To_Float64;
 
-    PaUtilConverter *Float32_To_Int32;
-    PaUtilConverter *Float32_To_Int32_Dither;
-    PaUtilConverter *Float32_To_Int32_Clip;
-    PaUtilConverter *Float32_To_Int32_DitherClip;
+    PaUtilConverter* Float32_To_Int32;
+    PaUtilConverter* Float32_To_Int32_Dither;
+    PaUtilConverter* Float32_To_Int32_Clip;
+    PaUtilConverter* Float32_To_Int32_DitherClip;
 
-    PaUtilConverter *Float32_To_Int24;
-    PaUtilConverter *Float32_To_Int24_Dither;
-    PaUtilConverter *Float32_To_Int24_Clip;
-    PaUtilConverter *Float32_To_Int24_DitherClip;
-    
-    PaUtilConverter *Float32_To_Int16;
-    PaUtilConverter *Float32_To_Int16_Dither;
-    PaUtilConverter *Float32_To_Int16_Clip;
-    PaUtilConverter *Float32_To_Int16_DitherClip;
+    PaUtilConverter* Float32_To_Int24;
+    PaUtilConverter* Float32_To_Int24_Dither;
+    PaUtilConverter* Float32_To_Int24_Clip;
+    PaUtilConverter* Float32_To_Int24_DitherClip;
 
-    PaUtilConverter *Float32_To_Int8;
-    PaUtilConverter *Float32_To_Int8_Dither;
-    PaUtilConverter *Float32_To_Int8_Clip;
-    PaUtilConverter *Float32_To_Int8_DitherClip;
+    PaUtilConverter* Float32_To_Int16;
+    PaUtilConverter* Float32_To_Int16_Dither;
+    PaUtilConverter* Float32_To_Int16_Clip;
+    PaUtilConverter* Float32_To_Int16_DitherClip;
 
-    PaUtilConverter *Float32_To_UInt8;
-    PaUtilConverter *Float32_To_UInt8_Dither;
-    PaUtilConverter *Float32_To_UInt8_Clip;
-    PaUtilConverter *Float32_To_UInt8_DitherClip;
+    PaUtilConverter* Float32_To_Int8;
+    PaUtilConverter* Float32_To_Int8_Dither;
+    PaUtilConverter* Float32_To_Int8_Clip;
+    PaUtilConverter* Float32_To_Int8_DitherClip;
 
-    PaUtilConverter *Int32_To_Float64;
-    PaUtilConverter *Int32_To_Float32;
-    PaUtilConverter *Int32_To_Int24;
-    PaUtilConverter *Int32_To_Int24_Dither;
-    PaUtilConverter *Int32_To_Int16;
-    PaUtilConverter *Int32_To_Int16_Dither;
-    PaUtilConverter *Int32_To_Int8;
-    PaUtilConverter *Int32_To_Int8_Dither;
-    PaUtilConverter *Int32_To_UInt8;
-    PaUtilConverter *Int32_To_UInt8_Dither;
+    PaUtilConverter* Float32_To_UInt8;
+    PaUtilConverter* Float32_To_UInt8_Dither;
+    PaUtilConverter* Float32_To_UInt8_Clip;
+    PaUtilConverter* Float32_To_UInt8_DitherClip;
 
-    PaUtilConverter *Int24_To_Float64;
-    PaUtilConverter *Int24_To_Float32;
-    PaUtilConverter *Int24_To_Int32;
-    PaUtilConverter *Int24_To_Int16;
-    PaUtilConverter *Int24_To_Int16_Dither;
-    PaUtilConverter *Int24_To_Int8;
-    PaUtilConverter *Int24_To_Int8_Dither;
-    PaUtilConverter *Int24_To_UInt8;
-    PaUtilConverter *Int24_To_UInt8_Dither;
+    PaUtilConverter* Int32_To_Float64;
+    PaUtilConverter* Int32_To_Float32;
+    PaUtilConverter* Int32_To_Int24;
+    PaUtilConverter* Int32_To_Int24_Dither;
+    PaUtilConverter* Int32_To_Int16;
+    PaUtilConverter* Int32_To_Int16_Dither;
+    PaUtilConverter* Int32_To_Int8;
+    PaUtilConverter* Int32_To_Int8_Dither;
+    PaUtilConverter* Int32_To_UInt8;
+    PaUtilConverter* Int32_To_UInt8_Dither;
 
-    PaUtilConverter *Int16_To_Float64;
-    PaUtilConverter *Int16_To_Float32;
-    PaUtilConverter *Int16_To_Int32;
-    PaUtilConverter *Int16_To_Int24;
-    PaUtilConverter *Int16_To_Int8;
-    PaUtilConverter *Int16_To_Int8_Dither;
-    PaUtilConverter *Int16_To_UInt8;
-    PaUtilConverter *Int16_To_UInt8_Dither;
+    PaUtilConverter* Int24_To_Float64;
+    PaUtilConverter* Int24_To_Float32;
+    PaUtilConverter* Int24_To_Int32;
+    PaUtilConverter* Int24_To_Int16;
+    PaUtilConverter* Int24_To_Int16_Dither;
+    PaUtilConverter* Int24_To_Int8;
+    PaUtilConverter* Int24_To_Int8_Dither;
+    PaUtilConverter* Int24_To_UInt8;
+    PaUtilConverter* Int24_To_UInt8_Dither;
 
-    PaUtilConverter *Int8_To_Float64;
-    PaUtilConverter *Int8_To_Float32;
-    PaUtilConverter *Int8_To_Int32;
-    PaUtilConverter *Int8_To_Int24;
-    PaUtilConverter *Int8_To_Int16;
-    PaUtilConverter *Int8_To_UInt8;
-    
-    PaUtilConverter *UInt8_To_Float64;
-    PaUtilConverter *UInt8_To_Float32;
-    PaUtilConverter *UInt8_To_Int32;
-    PaUtilConverter *UInt8_To_Int24;
-    PaUtilConverter *UInt8_To_Int16;
-    PaUtilConverter *UInt8_To_Int8;
+    PaUtilConverter* Int16_To_Float64;
+    PaUtilConverter* Int16_To_Float32;
+    PaUtilConverter* Int16_To_Int32;
+    PaUtilConverter* Int16_To_Int24;
+    PaUtilConverter* Int16_To_Int8;
+    PaUtilConverter* Int16_To_Int8_Dither;
+    PaUtilConverter* Int16_To_UInt8;
+    PaUtilConverter* Int16_To_UInt8_Dither;
 
-    PaUtilConverter *Copy_8_To_8;       /* copy without any conversion */
-    PaUtilConverter *Copy_16_To_16;     /* copy without any conversion */
-    PaUtilConverter *Copy_24_To_24;     /* copy without any conversion */
-    PaUtilConverter *Copy_32_To_32;     /* copy without any conversion */
-    PaUtilConverter *Copy_64_To_64;     /* copy without any conversion */
+    PaUtilConverter* Int8_To_Float64;
+    PaUtilConverter* Int8_To_Float32;
+    PaUtilConverter* Int8_To_Int32;
+    PaUtilConverter* Int8_To_Int24;
+    PaUtilConverter* Int8_To_Int16;
+    PaUtilConverter* Int8_To_UInt8;
+
+    PaUtilConverter* UInt8_To_Float64;
+    PaUtilConverter* UInt8_To_Float32;
+    PaUtilConverter* UInt8_To_Int32;
+    PaUtilConverter* UInt8_To_Int24;
+    PaUtilConverter* UInt8_To_Int16;
+    PaUtilConverter* UInt8_To_Int8;
+
+    PaUtilConverter* Copy_8_To_8; /* copy without any conversion */
+    PaUtilConverter* Copy_16_To_16; /* copy without any conversion */
+    PaUtilConverter* Copy_24_To_24; /* copy without any conversion */
+    PaUtilConverter* Copy_32_To_32; /* copy without any conversion */
+    PaUtilConverter* Copy_64_To_64; /* copy without any conversion */
 } PaUtilConverterTable;
-
 
 /** A table of pointers to all required converter functions.
     PaUtil_SelectConverter() uses this table to lookup the appropriate
     conversion functions. The fields of this structure are initialized
     with default conversion functions. Fields may be NULL, indicating that
-    no conversion function is available. User code may substitue optimised
+    no conversion function is available. User code may substitute optimised
     conversion functions by assigning different function pointers to
     these fields.
 
@@ -250,20 +248,20 @@ extern PaUtilConverterTable paConverters;
 /** The type used to store all buffer zeroing functions.
     @see paZeroers;
 */
-typedef struct{
-    PaUtilZeroer *ZeroU8; /* unsigned 8 bit, zero == 128 */
-    PaUtilZeroer *Zero8;
-    PaUtilZeroer *Zero16;
-    PaUtilZeroer *Zero24;
-    PaUtilZeroer *Zero32;
-	PaUtilZeroer *Zero64;
+typedef struct {
+    PaUtilZeroer* ZeroU8; /* unsigned 8 bit, zero == 128 */
+    PaUtilZeroer* Zero8;
+    PaUtilZeroer* Zero16;
+    PaUtilZeroer* Zero24;
+    PaUtilZeroer* Zero32;
+    PaUtilZeroer* Zero64;
 } PaUtilZeroerTable;
 
 
 /** A table of pointers to all required zeroer functions.
     PaUtil_SelectZeroer() uses this table to lookup the appropriate
     conversion functions. The fields of this structure are initialized
-    with default conversion functions. User code may substitue optimised
+    with default conversion functions. User code may substitute optimised
     conversion functions by assigning different function pointers to
     these fields.
 
