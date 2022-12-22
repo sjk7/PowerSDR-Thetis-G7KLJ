@@ -265,11 +265,11 @@
     </Reference>
     <Reference Include="Midi2Cat, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Midi2Cat\bin\x64\Debug\Midi2Cat.dll</HintPath>
+      <HintPath>..\Midi2Cat\obj\x64\Release\Midi2Cat.dll</HintPath>
     </Reference>
     <Reference Include="RawInput, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\RawInput\bin\x64\Debug\RawInput.dll</HintPath>
+      <HintPath>..\RawInput\obj\x64\Release\RawInput.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX">
       <HintPath>..\..\lib\SharpDX\SharpDX.dll</HintPath>
