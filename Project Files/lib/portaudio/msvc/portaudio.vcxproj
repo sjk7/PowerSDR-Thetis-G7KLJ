@@ -219,8 +219,8 @@
       <OutputFile>$(Platform)\$(Configuration)\portaudio_x64.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>copy /Y "$(OutDir)$(TargetName).dll" "$(PROJECTDIR)../../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(TargetName).dll";</Command>
-      <Message>Copying PortAudioForThetis.dll to correct output directory  "$(PROJECTDIR)../../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(TargetName).dll";</Message>
+      <Command>copy /Y "$(OutDir)$(TargetName).dll" "$(PROJECTDIR)../../../bin/$(Platform)/$(Configuration)/$(TargetName).dll";</Command>
+      <Message>Copying PortAudioForThetis.dll to correct output directory  "$(PROJECTDIR)../../../bin/$(Platform)/$(Configuration)/$(TargetName).dll";</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -306,7 +306,7 @@
       <OutputFile>$(Platform)\$(Configuration)/portaudio_x64.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>copy /Y "$(OutDir)$(TargetName).dll" "$(PROJECTDIR)../../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(TargetName).dll";</Command>
+      <Command>copy /Y "$(OutDir)$(TargetName).dll" "$(PROJECTDIR)../../../bin/$(Platform)/$(Configuration)/$(TargetName).dll";</Command>
       <Message>Copying PortAudioForThetis to output directory</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
