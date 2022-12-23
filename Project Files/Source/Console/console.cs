@@ -35744,6 +35744,8 @@ namespace Thetis
 
         private int TimeSinceMoxEntered()
         {
+            if (m_TimeWhenMoxEntered == 0)
+                return 10000;
             return timeGetTime() - m_TimeWhenMoxEntered;
         }
 
@@ -37798,9 +37800,6 @@ namespace Thetis
                         if (ctr > 10000)
                             break;
                     }
-
-
-
 
                 }
 
