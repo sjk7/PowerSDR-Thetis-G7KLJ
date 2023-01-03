@@ -6878,7 +6878,9 @@ namespace Thetis
             object sender, System.EventArgs e)
         {
             if (comboAudioInput2.SelectedIndex < 0) return;
+            this.toolTip1.SetToolTip(comboAudioInput2, comboAudioInput2.Text);
             if (refreshing) return;
+
             bool output_is_valid = comboAudioOutput2.SelectedIndex >= 0;
 
             if (comboAudioOutput2.Text.Length == 0)
@@ -6940,6 +6942,7 @@ namespace Thetis
             object sender, System.EventArgs e)
         {
             if (comboAudioOutput2.SelectedIndex < 0) return;
+            this.toolTip1.SetToolTip(this.comboAudioOutput2, comboAudioOutput2.Text);
             if (refreshing) return;
 
             int old_output = Audio.Output2;
@@ -21172,10 +21175,6 @@ namespace Thetis
             }
         }
 
-        private void chkRadioProtocolSelect_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 
     #region PADeviceInfo Helper Class

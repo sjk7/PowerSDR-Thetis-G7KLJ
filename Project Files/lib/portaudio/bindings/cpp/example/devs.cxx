@@ -18,9 +18,9 @@ extern int sine_main(void);
 void printSupportedStandardSampleRates(
     const portaudio::DirectionSpecificStreamParameters& inputParameters,
     const portaudio::DirectionSpecificStreamParameters& outputParameters) {
-    static double STANDARD_SAMPLE_RATES[]
-        = {8000.0, 9600.0, 11025.0, 12000.0, 16000.0, 22050.0, 24000.0, 32000.0,
-            44100.0, 48000.0, 88200.0, 96000.0, -1}; // negative terminated list
+    static double STANDARD_SAMPLE_RATES[] = {8000.0, 9600.0, 11025.0, 12000.0,
+        16000.0, 22050.0, 24000.0, 32000.0, 44100.0, 48000.0, 88200.0, 96000.0,
+        192000, -1}; // negative terminated list
 
     int printCount = 0;
 #define FOUR 4
@@ -71,6 +71,10 @@ int main(int, char*[]) {
 
         for (portaudio::System::DeviceIterator i = sys.devicesBegin();
              i != sys.devicesEnd(); ++i) {
+
+            if ((*i).index() == 34) {
+                std::cout << "OK" << std::endl;
+            }
             std::cout << "-------- device # --------" << (*i).index()
                       << std::endl;
 

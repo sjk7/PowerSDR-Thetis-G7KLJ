@@ -183,6 +183,14 @@ AsioDriverList::AsioDriverList() {
     (void)hr;
 
     if (numdrv) hr = CoInitialize(0); // initialize COM
+    if (FAILED(hr)) {
+
+        CoUninitialize();
+        hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
+        assert(SUCCEEDED(hr));
+        // otherwise if you call Pa_Initialize on a non-STA thread, you get no
+        // devices in ASIO!
+    }
     assert(SUCCEEDED(hr));
 }
 
@@ -200,7 +208,7 @@ LONG AsioDriverList::asioGetNumDev(VOID) {
 LONG AsioDriverList::asioOpenDriver(int drvID, LPVOID* asiodrv) {
     LPASIODRVSTRUCT lpdrv = 0;
     long rc;
-
+    HRESULT hr = ::CoInitialize(NULL);
     if (!asiodrv) return DRVERR_INVALID_PARAM;
 
     if ((lpdrv = getDrvStruct(drvID, lpdrvlist)) != 0) {

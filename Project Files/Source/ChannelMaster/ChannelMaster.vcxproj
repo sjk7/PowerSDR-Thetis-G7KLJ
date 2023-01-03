@@ -232,7 +232,7 @@
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <OutputFile>$(OutDir)ChannelMaster.dll</OutputFile>
       <AdditionalLibraryDirectories>$(PROJECTDIR)../../lib/portaudio/msvc/$(HPSDR_PLATFORM)/$(Configuration);$(PROJECTDIR)../../build/$(HPSDR_PLATFORM)/$(Configuration)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>winmm.lib;wdsp.lib;PortAudioForThetis.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;wdsp.lib;portAudioForCoolSDR.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(OutDir)$(ProjectName).dll" "$(PROJECTDIR)../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(ProjectName).dll";</Command>
@@ -353,7 +353,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)ChannelMaster.dll</OutputFile>
       <AdditionalLibraryDirectories>$(PROJECTDIR)../../lib/portaudio/msvc/$(HPSDR_PLATFORM)/$(Configuration);$(PROJECTDIR)../../build/$(HPSDR_PLATFORM)/$(Configuration)/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>winmm.lib;wdsp.lib;portAudioForThetis.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>winmm.lib;wdsp.lib;portAudioForCoolSDR.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkErrorReporting>QueueForNextLogin</LinkErrorReporting>
     </Link>
     <ProjectReference>
@@ -370,6 +370,7 @@
   <ItemGroup>
     <ClInclude Include="aamix.h" />
     <ClInclude Include="amix.h" />
+    <ClInclude Include="BitDepthConvert.hpp" />
     <ClInclude Include="cmaster.h" />
     <ClInclude Include="cmbuffs.h" />
     <ClInclude Include="cmcomm.h" />

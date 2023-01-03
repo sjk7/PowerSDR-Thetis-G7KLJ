@@ -224,5 +224,14 @@
     <ClInclude Include="..\..\include\portaudiocpp\SystemHostApiIterator.hxx">
       <Filter>LibHeaderFiles</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\src\hostapi\asio\asiosdk\host\asiodrivers.h">
+      <Filter>asio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\hostapi\asio\asiosdk\common\asiosys.h">
+      <Filter>asio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\src\hostapi\asio\asiosdk\common\iasiodrv.h">
+      <Filter>asio</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

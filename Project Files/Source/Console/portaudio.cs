@@ -149,10 +149,10 @@ namespace Thetis
 #pragma warning disable CS0414 // The field 'PortAudioForThetis.PaNoError' is assigned but its value is never used
         static readonly int PaNoError = 0;
 #pragma warning restore CS0414 // The field 'PortAudioForThetis.PaNoError' is assigned but its value is never used
-        [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_GetVersion", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("PortAudioForCoolSDR.dll", EntryPoint = "Pa_GetVersion", CallingConvention = CallingConvention.Cdecl)]
         public static extern int PA_GetVersion();
 
-        [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_GetVersionText", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("PortAudioForCoolSDR.dll", EntryPoint = "Pa_GetVersionText", CallingConvention = CallingConvention.Cdecl)]
         public static extern String PA_GetVersionText();
 
         // note that using the stock source and calling this function
@@ -160,7 +160,7 @@ namespace Thetis
         // reference.  To fix this, I added a single statement in
         // pa_front.c.  The new line 444 is below.
         // case paNoError:                  result = "1"; result = "Success"; break;
-        [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_GetErrorText", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("PortAudioForCoolSDR.dll", EntryPoint = "Pa_GetErrorText", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr IntPtr_PA_GetErrorText(PaError error);
 
         public static string PA_GetErrorText(PaError error)
@@ -169,22 +169,22 @@ namespace Thetis
             return Marshal.PtrToStringAnsi(strptr);
         }
 
-        [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_Initialize", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("PortAudioForCoolSDR.dll", EntryPoint = "Pa_Initialize", CallingConvention = CallingConvention.Cdecl)]
         public static extern PaError PA_Initialize();
 
-        [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_Terminate", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("PortAudioForCoolSDR.dll", EntryPoint = "Pa_Terminate", CallingConvention = CallingConvention.Cdecl)]
         public static extern PaError PA_Terminate();
 
-        [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_GetHostApiCount", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("PortAudioForCoolSDR.dll", EntryPoint = "Pa_GetHostApiCount", CallingConvention = CallingConvention.Cdecl)]
         public static extern PaHostApiIndex PA_GetHostApiCount();
 
-        [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_GetDefaultHostApi", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("PortAudioForCoolSDR.dll", EntryPoint = "Pa_GetDefaultHostApi", CallingConvention = CallingConvention.Cdecl)]
         public static extern PaHostApiIndex PA_GetDefaultHostApi();
 
 
         // Added layer to convert from the struct pointer to a C# 
         // struct automatically.
-        [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_GetHostApiInfo", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("PortAudioForCoolSDR.dll", EntryPoint = "Pa_GetHostApiInfo", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr PA_GetHostApiInfoPtr(int hostId);
         public static PaHostApiInfo PA_GetHostApiInfo(int hostId)
         {
@@ -193,10 +193,10 @@ namespace Thetis
             return info;
         }
 
-        [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_HostApiDeviceIndexToDeviceIndex", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("PortAudioForCoolSDR.dll", EntryPoint = "Pa_HostApiDeviceIndexToDeviceIndex", CallingConvention = CallingConvention.Cdecl)]
         public static extern PaDeviceIndex PA_HostApiDeviceIndexToDeviceIndex(int hostAPI, int hostApiDeviceIndex);
 
-        [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_GetLastHostErrorInfo", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("PortAudioForCoolSDR.dll", EntryPoint = "Pa_GetLastHostErrorInfo", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr PA_GetLastHostErrorInfoPtr();
         public static PaHostErrorInfo PA_GetLastHostErrorInfo()
         {
@@ -205,10 +205,10 @@ namespace Thetis
             return info;
         }
 
-        [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_GetDeviceCount", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("PortAudioForCoolSDR.dll", EntryPoint = "Pa_GetDeviceCount", CallingConvention = CallingConvention.Cdecl)]
         public static extern PaDeviceIndex PA_GetDeviceCount();
 
-        [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_GetDeviceInfo", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("PortAudioForCoolSDR.dll", EntryPoint = "Pa_GetDeviceInfo", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr PA_GetDeviceInfoPtr(int device);
         public static PaDeviceInfo PA_GetDeviceInfo(int device)
         {
@@ -217,7 +217,7 @@ namespace Thetis
             return info;
         }
 
-        [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_GetStreamInfo", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("PortAudioForCoolSDR.dll", EntryPoint = "Pa_GetStreamInfo", CallingConvention = CallingConvention.Cdecl)]
         unsafe public static extern IntPtr PA_GetStreamInfoPtr(void* stream);
         unsafe public static PaStreamInfo PA_GetStreamInfo(void* stream)
         {
@@ -227,7 +227,7 @@ namespace Thetis
         }
 
 
-        [DllImport("PortAudioForThetis.dll", EntryPoint = "Pa_Sleep", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("PortAudioForCoolSDR.dll", EntryPoint = "Pa_Sleep", CallingConvention = CallingConvention.Cdecl)]
         public static extern void PA_Sleep(int msec);
 
 

@@ -6728,7 +6728,6 @@
             this.chkRadioProtocolSelect.Text = "Auto Detect Protocol";
             this.chkRadioProtocolSelect.ThreeState = true;
             this.toolTip1.SetToolTip(this.chkRadioProtocolSelect, "Selects Radio Protocol");
-            this.chkRadioProtocolSelect.CheckedChanged += new System.EventHandler(this.chkRadioProtocolSelect_CheckedChanged);
             this.chkRadioProtocolSelect.CheckStateChanged += new System.EventHandler(this.chkRadioProtocolSelect_CheckStateChanged);
             // 
             // chkNetworkWDT
@@ -59673,7 +59672,7 @@
         private LabelTS lblLED02;
         private LabelTS lblLED01;
         private Timer timer_LED_Mirror;
-	private CheckBoxTS chkVAC2onSplit;
+        private CheckBoxTS chkVAC2onSplit;
         private TabPage tpDSPVOXDE;
         private GroupBoxTS grpSCF;
         private LabelTS lblSCFHighCut;

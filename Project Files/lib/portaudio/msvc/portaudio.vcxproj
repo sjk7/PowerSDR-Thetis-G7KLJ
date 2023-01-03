@@ -31,7 +31,7 @@
     <ProjectGuid>{0A18A071-125E-442F-AFF7-A3F68ABECF99}</ProjectGuid>
     <RootNamespace>portaudio</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>PortAudioForThetis</ProjectName>
+    <ProjectName>PortAudioForCoolSDR</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMinDependency|Win32'" Label="Configuration">
@@ -105,7 +105,7 @@
     <OutDir>$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>PortAudioForThetis</TargetName>
+    <TargetName>PortAudioForCoolSDR</TargetName>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
@@ -118,7 +118,7 @@
     <OutDir>$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>PortAudioForThetis</TargetName>
+    <TargetName>PortAudioForCoolSDR</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMinDependency|Win32'">
     <OutDir>$(Platform)\$(Configuration)\</OutDir>
@@ -220,7 +220,7 @@
     </Bscmake>
     <PostBuildEvent>
       <Command>copy /Y "$(OutDir)$(TargetName).dll" "$(PROJECTDIR)../../../bin/$(Platform)/$(Configuration)/$(TargetName).dll";</Command>
-      <Message>Copying PortAudioForThetis.dll to correct output directory  "$(PROJECTDIR)../../../bin/$(Platform)/$(Configuration)/$(TargetName).dll";</Message>
+      <Message>Copying PortAudioForThetis.dll to correct output directory  "$(PROJECTDIR)../../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(TargetName).dll";</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

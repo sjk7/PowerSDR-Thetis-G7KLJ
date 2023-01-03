@@ -105,7 +105,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../include/;../../../../include/;../../../../src/common/;C:\Users\coolie\Desktop\CoolSDR\lib\portaudio\src\os\win;C:\Users\coolie\Desktop\CoolSDR\lib\portaudio\src\hostapi\asio\ASIOSDK\common;C:\Users\coolie\Desktop\CoolSDR\lib\portaudio\src\hostapi\asio\ASIOSDK\host;C:\Users\coolie\Desktop\CoolSDR\lib\portaudio\src\hostapi\asio\ASIOSDK\host\pc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include/;../../../../include/;../../../../src/common/;..\..\..\..\src\os\win\;..\..\..\..\src\hostapi\asio\asiosdk\host\;..\..\..\..\src\hostapi\asio\asiosdk\common\;..\..\..\..\src\hostapi\asio\asiosdk\host\common;..\..\..\..\src\hostapi\asio\asiosdk\host\pc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;PAWIN_USE_WDMKS_DEVICE_INFO;PA_USE_ASIO=1;PA_USE_DS=1;PA_USE_WMME=1;PA_USE_WASAPI=1;PA_USE_WDMKS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -211,6 +211,9 @@
     <ClCompile Include="..\..\source\portaudiocpp\SystemHostApiIterator.cxx" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\src\hostapi\asio\asiosdk\common\asiosys.h" />
+    <ClInclude Include="..\..\..\..\src\hostapi\asio\asiosdk\common\iasiodrv.h" />
+    <ClInclude Include="..\..\..\..\src\hostapi\asio\asiosdk\host\asiodrivers.h" />
     <ClInclude Include="..\..\..\..\src\os\win\pa_win_coinitialize.h" />
     <ClInclude Include="..\..\..\..\src\os\win\pa_win_util.h" />
     <ClInclude Include="..\..\..\..\src\os\win\pa_win_wdmks_utils.h" />

@@ -964,6 +964,7 @@ void MetisReadThreadMainLoop(void) {
                 continue;
             }
 
+#ifndef NDEBUG
             DWORD waited = dw2 - dw1;
             if (waited > 10) {
                 volatile DWORD since_signalled
@@ -972,6 +973,7 @@ void MetisReadThreadMainLoop(void) {
                        "signalled %ld ms ago.\n",
                     (int)waited, (int)since_signalled);
             }
+#endif
             // if ((nddc == 2) || (nddc == 4))
             {
                 for (i = 0; i < 4 * 63;

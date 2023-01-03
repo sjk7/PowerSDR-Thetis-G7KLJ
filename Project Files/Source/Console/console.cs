@@ -59487,7 +59487,7 @@ namespace Thetis
             }
             catch (Exception e)
             {
-                DebugMissingDLL("PortAudioForThetis.dll");
+                DebugMissingDLL("PortAudioForCoolSDR.dll");
                 MessageBox.Show("System error was : " + e.Message);
                 DialogResult dr = MessageBox.Show(
                     "Could not find PA_GetVersion() in portaudio.dll .\nEnsure correct version installed.",
