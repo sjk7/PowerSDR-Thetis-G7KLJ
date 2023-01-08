@@ -228,7 +228,8 @@ static inline void size_64_bit_buffer(IVAC a, size_t sz_bytes) {
         }
         a->convbuf = malloc(tmpsz * sizeof(double));
         a->convbuf_size = tmpsz;
-        memset(a->convbuf, 0, a->convbuf_size);
+        if (a->convbuf)
+            memset(a->convbuf, 0, a->convbuf_size);
     }
 }
 
@@ -294,6 +295,8 @@ PORT int StartAudioIVAC(int id) {
     const PaHostApiInfo* hinf = Pa_GetHostApiInfo(a->host_api_index);
     PaWasapiStreamInfo w = {0};
     PaWinWDMKSInfo x = {0};
+    // FIXME: There is a possibilty that w and x do not live long enough!
+    // they should be in the a-> struct, probably.
 
     if (hinf->type == paWASAPI) {
 

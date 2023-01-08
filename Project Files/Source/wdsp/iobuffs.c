@@ -515,7 +515,7 @@ void dexchange(int channel, double* in, double* out) {
     memcpy(a->r2_baseptr + 2 * a->r2_inidx, in,
         a->r2_insize * sizeof(WDSP_COMPLEX));
     if ((a->r2_inidx += a->r2_insize) == a->r2_active_buffsize) a->r2_inidx = 0;
-    if (a->bfo && (a->r2_unqueuedsamps += a->r2_insize) >= a->out_size) {
+    if (a->bfo && (a->r2_unqueuedsamps += a->r2_insize) >= a->out_size) { //-V1019
         n = a->r2_unqueuedsamps / a->out_size;
         ReleaseSemaphore(a->Sem_OutReady, n, 0);
         a->r2_unqueuedsamps -= n * a->out_size;
