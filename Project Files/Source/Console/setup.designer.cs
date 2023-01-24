@@ -34328,7 +34328,8 @@
             this.tbCFCEQ9.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ9.LargeChange = 2;
             this.tbCFCEQ9.Location = new System.Drawing.Point(540, 190);
-            this.tbCFCEQ9.Minimum = -10;
+            this.tbCFCEQ9.Maximum = 30;
+            this.tbCFCEQ9.Minimum = -30;
             this.tbCFCEQ9.Name = "tbCFCEQ9";
             this.tbCFCEQ9.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ9.Size = new System.Drawing.Size(20, 128);
@@ -34342,7 +34343,8 @@
             this.tbCFCEQ6.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ6.LargeChange = 2;
             this.tbCFCEQ6.Location = new System.Drawing.Point(450, 190);
-            this.tbCFCEQ6.Minimum = -10;
+            this.tbCFCEQ6.Maximum = 30;
+            this.tbCFCEQ6.Minimum = -30;
             this.tbCFCEQ6.Name = "tbCFCEQ6";
             this.tbCFCEQ6.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ6.Size = new System.Drawing.Size(20, 128);
@@ -34356,7 +34358,8 @@
             this.tbCFCEQ7.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ7.LargeChange = 2;
             this.tbCFCEQ7.Location = new System.Drawing.Point(480, 190);
-            this.tbCFCEQ7.Minimum = -10;
+            this.tbCFCEQ7.Maximum = 30;
+            this.tbCFCEQ7.Minimum = -30;
             this.tbCFCEQ7.Name = "tbCFCEQ7";
             this.tbCFCEQ7.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ7.Size = new System.Drawing.Size(20, 128);
@@ -34370,7 +34373,8 @@
             this.tbCFCEQ8.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ8.LargeChange = 2;
             this.tbCFCEQ8.Location = new System.Drawing.Point(510, 189);
-            this.tbCFCEQ8.Minimum = -10;
+            this.tbCFCEQ8.Maximum = 30;
+            this.tbCFCEQ8.Minimum = -30;
             this.tbCFCEQ8.Name = "tbCFCEQ8";
             this.tbCFCEQ8.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ8.Size = new System.Drawing.Size(20, 128);
@@ -34384,7 +34388,8 @@
             this.tbCFCEQ3.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ3.LargeChange = 2;
             this.tbCFCEQ3.Location = new System.Drawing.Point(360, 190);
-            this.tbCFCEQ3.Minimum = -10;
+            this.tbCFCEQ3.Maximum = 30;
+            this.tbCFCEQ3.Minimum = -30;
             this.tbCFCEQ3.Name = "tbCFCEQ3";
             this.tbCFCEQ3.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ3.Size = new System.Drawing.Size(20, 128);
@@ -34398,7 +34403,8 @@
             this.tbCFCEQ4.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ4.LargeChange = 2;
             this.tbCFCEQ4.Location = new System.Drawing.Point(390, 190);
-            this.tbCFCEQ4.Minimum = -10;
+            this.tbCFCEQ4.Maximum = 30;
+            this.tbCFCEQ4.Minimum = -30;
             this.tbCFCEQ4.Name = "tbCFCEQ4";
             this.tbCFCEQ4.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ4.Size = new System.Drawing.Size(20, 128);
@@ -34412,7 +34418,8 @@
             this.tbCFCEQ5.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ5.LargeChange = 2;
             this.tbCFCEQ5.Location = new System.Drawing.Point(420, 190);
-            this.tbCFCEQ5.Minimum = -10;
+            this.tbCFCEQ5.Maximum = 30;
+            this.tbCFCEQ5.Minimum = -30;
             this.tbCFCEQ5.Name = "tbCFCEQ5";
             this.tbCFCEQ5.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ5.Size = new System.Drawing.Size(20, 128);
@@ -34426,7 +34433,8 @@
             this.tbCFCEQ0.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ0.LargeChange = 2;
             this.tbCFCEQ0.Location = new System.Drawing.Point(270, 190);
-            this.tbCFCEQ0.Minimum = -10;
+            this.tbCFCEQ0.Maximum = 30;
+            this.tbCFCEQ0.Minimum = -30;
             this.tbCFCEQ0.Name = "tbCFCEQ0";
             this.tbCFCEQ0.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ0.Size = new System.Drawing.Size(20, 128);
@@ -34440,7 +34448,8 @@
             this.tbCFCEQ1.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ1.LargeChange = 2;
             this.tbCFCEQ1.Location = new System.Drawing.Point(300, 190);
-            this.tbCFCEQ1.Minimum = -10;
+            this.tbCFCEQ1.Maximum = 30;
+            this.tbCFCEQ1.Minimum = -30;
             this.tbCFCEQ1.Name = "tbCFCEQ1";
             this.tbCFCEQ1.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ1.Size = new System.Drawing.Size(20, 128);
@@ -34454,7 +34463,8 @@
             this.tbCFCEQ2.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ2.LargeChange = 2;
             this.tbCFCEQ2.Location = new System.Drawing.Point(330, 190);
-            this.tbCFCEQ2.Minimum = -10;
+            this.tbCFCEQ2.Maximum = 30;
+            this.tbCFCEQ2.Minimum = -30;
             this.tbCFCEQ2.Name = "tbCFCEQ2";
             this.tbCFCEQ2.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ2.Size = new System.Drawing.Size(20, 128);
@@ -34804,6 +34814,8 @@
             this.tbCFC9.BackColor = System.Drawing.Color.Black;
             this.tbCFC9.LargeChange = 2;
             this.tbCFC9.Location = new System.Drawing.Point(540, 6);
+            this.tbCFC9.Maximum = 30;
+            this.tbCFC9.Minimum = -30;
             this.tbCFC9.Name = "tbCFC9";
             this.tbCFC9.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC9.Size = new System.Drawing.Size(20, 128);
@@ -34818,6 +34830,8 @@
             this.tbCFC6.BackColor = System.Drawing.Color.Black;
             this.tbCFC6.LargeChange = 2;
             this.tbCFC6.Location = new System.Drawing.Point(450, 6);
+            this.tbCFC6.Maximum = 30;
+            this.tbCFC6.Minimum = -30;
             this.tbCFC6.Name = "tbCFC6";
             this.tbCFC6.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC6.Size = new System.Drawing.Size(20, 128);
@@ -34832,6 +34846,8 @@
             this.tbCFC7.BackColor = System.Drawing.Color.Black;
             this.tbCFC7.LargeChange = 2;
             this.tbCFC7.Location = new System.Drawing.Point(480, 6);
+            this.tbCFC7.Maximum = 30;
+            this.tbCFC7.Minimum = -30;
             this.tbCFC7.Name = "tbCFC7";
             this.tbCFC7.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC7.Size = new System.Drawing.Size(20, 128);
@@ -34846,6 +34862,8 @@
             this.tbCFC8.BackColor = System.Drawing.Color.Black;
             this.tbCFC8.LargeChange = 2;
             this.tbCFC8.Location = new System.Drawing.Point(510, 5);
+            this.tbCFC8.Maximum = 30;
+            this.tbCFC8.Minimum = -30;
             this.tbCFC8.Name = "tbCFC8";
             this.tbCFC8.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC8.Size = new System.Drawing.Size(20, 128);
@@ -34860,6 +34878,8 @@
             this.tbCFC3.BackColor = System.Drawing.Color.Black;
             this.tbCFC3.LargeChange = 2;
             this.tbCFC3.Location = new System.Drawing.Point(360, 6);
+            this.tbCFC3.Maximum = 30;
+            this.tbCFC3.Minimum = -30;
             this.tbCFC3.Name = "tbCFC3";
             this.tbCFC3.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC3.Size = new System.Drawing.Size(20, 128);
@@ -34874,6 +34894,8 @@
             this.tbCFC4.BackColor = System.Drawing.Color.Black;
             this.tbCFC4.LargeChange = 2;
             this.tbCFC4.Location = new System.Drawing.Point(390, 6);
+            this.tbCFC4.Maximum = 30;
+            this.tbCFC4.Minimum = -30;
             this.tbCFC4.Name = "tbCFC4";
             this.tbCFC4.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC4.Size = new System.Drawing.Size(20, 128);
@@ -34888,6 +34910,8 @@
             this.tbCFC5.BackColor = System.Drawing.Color.Black;
             this.tbCFC5.LargeChange = 2;
             this.tbCFC5.Location = new System.Drawing.Point(420, 6);
+            this.tbCFC5.Maximum = 30;
+            this.tbCFC5.Minimum = -30;
             this.tbCFC5.Name = "tbCFC5";
             this.tbCFC5.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC5.Size = new System.Drawing.Size(20, 128);
@@ -34902,6 +34926,8 @@
             this.tbCFC0.BackColor = System.Drawing.Color.Black;
             this.tbCFC0.LargeChange = 2;
             this.tbCFC0.Location = new System.Drawing.Point(270, 6);
+            this.tbCFC0.Maximum = 30;
+            this.tbCFC0.Minimum = -30;
             this.tbCFC0.Name = "tbCFC0";
             this.tbCFC0.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC0.Size = new System.Drawing.Size(20, 128);
@@ -34916,6 +34942,8 @@
             this.tbCFC1.BackColor = System.Drawing.Color.Black;
             this.tbCFC1.LargeChange = 2;
             this.tbCFC1.Location = new System.Drawing.Point(300, 6);
+            this.tbCFC1.Maximum = 30;
+            this.tbCFC1.Minimum = -30;
             this.tbCFC1.Name = "tbCFC1";
             this.tbCFC1.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC1.Size = new System.Drawing.Size(20, 128);
@@ -34930,6 +34958,8 @@
             this.tbCFC2.BackColor = System.Drawing.Color.Black;
             this.tbCFC2.LargeChange = 2;
             this.tbCFC2.Location = new System.Drawing.Point(330, 6);
+            this.tbCFC2.Maximum = 30;
+            this.tbCFC2.Minimum = -30;
             this.tbCFC2.Name = "tbCFC2";
             this.tbCFC2.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFC2.Size = new System.Drawing.Size(20, 128);

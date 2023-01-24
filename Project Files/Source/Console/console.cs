@@ -56293,18 +56293,7 @@ namespace Thetis
                     + comboDisplayMode.Width + 5 + lblDisplayZoom.Width
                     + radDisplayZoom05.Width * 4);
 
-            /*/
-            lblDisplayPan.Location = new Point(picDisplay.Location.X, top);
-            ptbDisplayPan.Location = new Point(
-                lblDisplayPan.Location.X + lblDisplayPan.Width, top);
-            ptbDisplayPan.Size
-                = new Size(dynamicWidth / 2, tb_display_pan_size_basis.Height);
-            btnDisplayPanCenter.Location = new Point(
-                ptbDisplayPan.Location.X + ptbDisplayPan.Width, top);
-            //			btnDisplayPanCenter_Click(this, EventArgs.Empty);
-
-            // :NOTE: Force update on pan control
-            /*/
+   
             ptbDisplayPan.Value = ptbDisplayPan.Value;
             ptbDisplayPan_Scroll(this, EventArgs.Empty);
 
