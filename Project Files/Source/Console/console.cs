@@ -1064,8 +1064,7 @@ namespace Thetis
                                 if (DB.ImportAndMergeDatabase(
                                         autoMergeFileName, AppDataPath))
                                 {
-                                    string versionName = TitleBar.GetString();
-                                    versionName
+                                    string versionName
                                         = Common
                                               .VersionName(); // versionName.Remove(versionName.LastIndexOf("("));
                                                               // // strip off date
