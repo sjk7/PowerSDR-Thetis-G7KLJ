@@ -1038,7 +1038,7 @@ namespace Thetis
             this.lblTXEQ15db2.Name = "lblTXEQ15db2";
             this.lblTXEQ15db2.Size = new System.Drawing.Size(32, 16);
             this.lblTXEQ15db2.TabIndex = 129;
-            this.lblTXEQ15db2.Text = "30dB";
+            this.lblTXEQ15db2.Text = "40dB";
             this.lblTXEQ15db2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblTXEQ15db2.Click += new System.EventHandler(this.lblTXEQ15db2_Click);
             // 
@@ -1059,7 +1059,7 @@ namespace Thetis
             this.lblTXEQminus12db2.Name = "lblTXEQminus12db2";
             this.lblTXEQminus12db2.Size = new System.Drawing.Size(38, 16);
             this.lblTXEQminus12db2.TabIndex = 130;
-            this.lblTXEQminus12db2.Text = "-30dB";
+            this.lblTXEQminus12db2.Text = "-40dB";
             this.lblTXEQminus12db2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tbTXEQ9
@@ -1067,8 +1067,8 @@ namespace Thetis
             this.tbTXEQ9.AutoSize = false;
             this.tbTXEQ9.LargeChange = 3;
             this.tbTXEQ9.Location = new System.Drawing.Point(448, 81);
-            this.tbTXEQ9.Maximum = 30;
-            this.tbTXEQ9.Minimum = -30;
+            this.tbTXEQ9.Maximum = 40;
+            this.tbTXEQ9.Minimum = -40;
             this.tbTXEQ9.Name = "tbTXEQ9";
             this.tbTXEQ9.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbTXEQ9.Size = new System.Drawing.Size(32, 128);
@@ -1081,8 +1081,8 @@ namespace Thetis
             this.tbTXEQ6.AutoSize = false;
             this.tbTXEQ6.LargeChange = 3;
             this.tbTXEQ6.Location = new System.Drawing.Point(328, 81);
-            this.tbTXEQ6.Maximum = 30;
-            this.tbTXEQ6.Minimum = -30;
+            this.tbTXEQ6.Maximum = 40;
+            this.tbTXEQ6.Minimum = -40;
             this.tbTXEQ6.Name = "tbTXEQ6";
             this.tbTXEQ6.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbTXEQ6.Size = new System.Drawing.Size(32, 128);
@@ -1095,8 +1095,8 @@ namespace Thetis
             this.tbTXEQ7.AutoSize = false;
             this.tbTXEQ7.LargeChange = 3;
             this.tbTXEQ7.Location = new System.Drawing.Point(368, 81);
-            this.tbTXEQ7.Maximum = 30;
-            this.tbTXEQ7.Minimum = -30;
+            this.tbTXEQ7.Maximum = 40;
+            this.tbTXEQ7.Minimum = -40;
             this.tbTXEQ7.Name = "tbTXEQ7";
             this.tbTXEQ7.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbTXEQ7.Size = new System.Drawing.Size(32, 128);
@@ -1109,8 +1109,8 @@ namespace Thetis
             this.tbTXEQ8.AutoSize = false;
             this.tbTXEQ8.LargeChange = 3;
             this.tbTXEQ8.Location = new System.Drawing.Point(408, 81);
-            this.tbTXEQ8.Maximum = 30;
-            this.tbTXEQ8.Minimum = -30;
+            this.tbTXEQ8.Maximum = 40;
+            this.tbTXEQ8.Minimum = -40;
             this.tbTXEQ8.Name = "tbTXEQ8";
             this.tbTXEQ8.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbTXEQ8.Size = new System.Drawing.Size(32, 128);
@@ -1123,8 +1123,8 @@ namespace Thetis
             this.tbTXEQ3.AutoSize = false;
             this.tbTXEQ3.LargeChange = 3;
             this.tbTXEQ3.Location = new System.Drawing.Point(208, 81);
-            this.tbTXEQ3.Maximum = 30;
-            this.tbTXEQ3.Minimum = -30;
+            this.tbTXEQ3.Maximum = 40;
+            this.tbTXEQ3.Minimum = -40;
             this.tbTXEQ3.Name = "tbTXEQ3";
             this.tbTXEQ3.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbTXEQ3.Size = new System.Drawing.Size(32, 128);
@@ -1137,8 +1137,8 @@ namespace Thetis
             this.tbTXEQ4.AutoSize = false;
             this.tbTXEQ4.LargeChange = 3;
             this.tbTXEQ4.Location = new System.Drawing.Point(248, 81);
-            this.tbTXEQ4.Maximum = 30;
-            this.tbTXEQ4.Minimum = -30;
+            this.tbTXEQ4.Maximum = 40;
+            this.tbTXEQ4.Minimum = -40;
             this.tbTXEQ4.Name = "tbTXEQ4";
             this.tbTXEQ4.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbTXEQ4.Size = new System.Drawing.Size(32, 128);
@@ -1151,8 +1151,8 @@ namespace Thetis
             this.tbTXEQ5.AutoSize = false;
             this.tbTXEQ5.LargeChange = 3;
             this.tbTXEQ5.Location = new System.Drawing.Point(288, 81);
-            this.tbTXEQ5.Maximum = 30;
-            this.tbTXEQ5.Minimum = -30;
+            this.tbTXEQ5.Maximum = 40;
+            this.tbTXEQ5.Minimum = -40;
             this.tbTXEQ5.Name = "tbTXEQ5";
             this.tbTXEQ5.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbTXEQ5.Size = new System.Drawing.Size(32, 128);
@@ -1175,8 +1175,8 @@ namespace Thetis
             this.tbTXEQ0.AutoSize = false;
             this.tbTXEQ0.LargeChange = 3;
             this.tbTXEQ0.Location = new System.Drawing.Point(88, 81);
-            this.tbTXEQ0.Maximum = 30;
-            this.tbTXEQ0.Minimum = -30;
+            this.tbTXEQ0.Maximum = 40;
+            this.tbTXEQ0.Minimum = -40;
             this.tbTXEQ0.Name = "tbTXEQ0";
             this.tbTXEQ0.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbTXEQ0.Size = new System.Drawing.Size(32, 128);
@@ -1189,8 +1189,8 @@ namespace Thetis
             this.tbTXEQ1.AutoSize = false;
             this.tbTXEQ1.LargeChange = 3;
             this.tbTXEQ1.Location = new System.Drawing.Point(128, 81);
-            this.tbTXEQ1.Maximum = 30;
-            this.tbTXEQ1.Minimum = -30;
+            this.tbTXEQ1.Maximum = 40;
+            this.tbTXEQ1.Minimum = -40;
             this.tbTXEQ1.Name = "tbTXEQ1";
             this.tbTXEQ1.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbTXEQ1.Size = new System.Drawing.Size(32, 128);
@@ -1203,8 +1203,8 @@ namespace Thetis
             this.tbTXEQ2.AutoSize = false;
             this.tbTXEQ2.LargeChange = 3;
             this.tbTXEQ2.Location = new System.Drawing.Point(168, 81);
-            this.tbTXEQ2.Maximum = 30;
-            this.tbTXEQ2.Minimum = -30;
+            this.tbTXEQ2.Maximum = 40;
+            this.tbTXEQ2.Minimum = -40;
             this.tbTXEQ2.Name = "tbTXEQ2";
             this.tbTXEQ2.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbTXEQ2.Size = new System.Drawing.Size(32, 128);

@@ -73,7 +73,6 @@ partial class Console {
     private System.Windows.Forms.ButtonTS btnXITReset;
     private System.Windows.Forms.ButtonTS btnRITReset;
     private System.Windows.Forms.ComboBoxTS comboTuneMode;
-    private System.Windows.Forms.ComboBoxTS comboPreamp;
     private System.Windows.Forms.LabelTS lblPreamp;
     private System.Windows.Forms.CheckBoxTS chkDSPNB2;
     private System.Windows.Forms.CheckBoxTS chkVFOLock;
@@ -578,7 +577,6 @@ partial class Console {
             this.chkRX1Preamp = new System.Windows.Forms.CheckBoxTS();
             this.comboAGC = new System.Windows.Forms.ComboBoxTS();
             this.lblAGC = new System.Windows.Forms.LabelTS();
-            this.comboPreamp = new System.Windows.Forms.ComboBoxTS();
             this.lblRF = new System.Windows.Forms.LabelTS();
             this.chkShowTXFilter = new System.Windows.Forms.CheckBoxTS();
             this.chkDX = new System.Windows.Forms.CheckBoxTS();
@@ -709,6 +707,7 @@ partial class Console {
             this.ptbDisplayPan = new Thetis.PrettyTrackBar();
             this.btnDisplayPanCenter = new System.Windows.Forms.ButtonTS();
             this.chkFullDuplex = new System.Windows.Forms.CheckBoxTS();
+            this.comboPreamp = new System.Windows.Forms.ComboBoxTS();
             this.picSquelch = new System.Windows.Forms.PictureBox();
             this.timer_clock = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStripFilterRX1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -2165,17 +2164,6 @@ partial class Console {
             resources.ApplyResources(this.lblAGC, "lblAGC");
             this.lblAGC.Name = "lblAGC";
             this.toolTip1.SetToolTip(this.lblAGC, resources.GetString("lblAGC.ToolTip"));
-            // 
-            // comboPreamp
-            // 
-            this.comboPreamp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
-            this.comboPreamp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboPreamp.DropDownWidth = 48;
-            this.comboPreamp.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            resources.ApplyResources(this.comboPreamp, "comboPreamp");
-            this.comboPreamp.Name = "comboPreamp";
-            this.toolTip1.SetToolTip(this.comboPreamp, resources.GetString("comboPreamp.ToolTip"));
-            this.comboPreamp.SelectedIndexChanged += new System.EventHandler(this.comboPreamp_SelectedIndexChanged);
             // 
             // lblRF
             // 
@@ -3777,6 +3765,17 @@ partial class Console {
             this.chkFullDuplex.Name = "chkFullDuplex";
             this.toolTip1.SetToolTip(this.chkFullDuplex, resources.GetString("chkFullDuplex.ToolTip"));
             this.chkFullDuplex.CheckedChanged += new System.EventHandler(this.chkFullDuplex_CheckedChanged);
+            // 
+            // comboPreamp
+            // 
+            this.comboPreamp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(46)))), ((int)(((byte)(46)))));
+            this.comboPreamp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboPreamp.DropDownWidth = 48;
+            this.comboPreamp.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            resources.ApplyResources(this.comboPreamp, "comboPreamp");
+            this.comboPreamp.Name = "comboPreamp";
+            this.toolTip1.SetToolTip(this.comboPreamp, resources.GetString("comboPreamp.ToolTip"));
+            this.comboPreamp.SelectedIndexChanged += new System.EventHandler(this.comboPreamp_SelectedIndexChanged);
             // 
             // picSquelch
             // 
@@ -6075,6 +6074,7 @@ partial class Console {
             this.panelSoundControls.Controls.Add(this.lblRF);
             this.panelSoundControls.Controls.Add(this.lblPWR);
             this.panelSoundControls.Controls.Add(this.lblPreamp);
+            this.panelSoundControls.Controls.Add(this.comboPreamp);
             this.panelSoundControls.Controls.Add(this.udRX1StepAttData);
             this.panelSoundControls.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.panelSoundControls.Name = "panelSoundControls";
@@ -7261,7 +7261,6 @@ partial class Console {
             this.Controls.Add(this.ptbRX2Squelch);
             this.Controls.Add(this.chkRX2Squelch);
             this.Controls.Add(this.panelRX2DSP);
-            this.Controls.Add(this.comboPreamp);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panelOptions);
             this.Controls.Add(this.panelRX2Filter);
@@ -7572,5 +7571,6 @@ partial class Console {
         private LabelTS lblDisplayPan;
         public LBSoft.IndustrialCtrls.Meters.LBAnalogMeter PrettySMeter;
         private CheckBoxTS chkFullDuplex;
+        private ComboBoxTS comboPreamp;
     }
 }

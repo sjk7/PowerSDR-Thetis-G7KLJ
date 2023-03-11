@@ -20522,20 +20522,13 @@ namespace Thetis
             {
                 case "HERMES":
                     console.CurrentHPSDRModel = HPSDRModel.HERMES;
-                    // chkPennyPresent.Checked = false;
-                    // chkPennyPresent.Enabled = false;
-                    // chkPennyPresent.Visible = false;
-                    // chkMercuryPresent.Checked = true;
-                    // chkMercuryPresent.Enabled = false;
-                    // chkMercuryPresent.Visible = false;
-                    // chkPennyLane.Checked = true;
-                    // chkPennyLane.Enabled = false;
-                    // chkPennyLane.Visible = false;
+                    chkHermesStepAttenuator.Enabled = true;
+                    chkHermesStepAttenuator.Checked = true;
                     chkAlexPresent.Enabled = true;
                     chkApolloPresent.Enabled = true;
                     chkApolloPresent.Visible = true;
                     chkGeneralRXOnly.Visible = true;
-                    chkHermesStepAttenuator.Enabled = true;
+                    
                     groupBoxRXOptions.Text = "Hermes Options";
                     grpMetisAddr.Text = "Hermes Address";
                     grpHermesStepAttenuator.Text = "Hermes Step Attenuator";
@@ -20637,6 +20630,8 @@ namespace Thetis
                     break;
 
                 case "ANAN-100":
+                    chkHermesStepAttenuator.Enabled = true;
+                    chkHermesStepAttenuator.Checked = true;
                     console.CurrentHPSDRModel = HPSDRModel.ANAN100;
                     chkPennyPresent.Checked = false;
                     chkPennyPresent.Enabled = false;
@@ -20675,6 +20670,8 @@ namespace Thetis
                     break;
 
                 case "ANAN-100B":
+                    chkHermesStepAttenuator.Enabled = true;
+                    chkHermesStepAttenuator.Checked = true;
                     console.CurrentHPSDRModel = HPSDRModel.ANAN100B;
                     comboAudioSampleRateRX2.SelectedIndex
                         = comboAudioSampleRate1.SelectedIndex;
@@ -20720,6 +20717,8 @@ namespace Thetis
                     break;
 
                 case "ANAN-100D":
+                    chkHermesStepAttenuator.Enabled = true;
+                    chkHermesStepAttenuator.Checked = true;
                     console.CurrentHPSDRModel = HPSDRModel.ANAN100D;
                     chkPennyPresent.Checked = false;
                     chkPennyPresent.Enabled = false;
@@ -20735,7 +20734,7 @@ namespace Thetis
                     chkApolloPresent.Enabled = false;
                     chkApolloPresent.Checked = false;
                     chkGeneralRXOnly.Visible = true;
-                    chkHermesStepAttenuator.Enabled = true;
+                    
                     groupBoxRXOptions.Text = "ANAN Options";
                     grpMetisAddr.Text = "ANAN Address";
                     grpHermesStepAttenuator.Text = "ANAN Step Attenuator";
@@ -20797,6 +20796,8 @@ namespace Thetis
                     groupBoxRXOptions.Text = "ANAN Options";
                     grpMetisAddr.Text = "ANAN Address";
                     grpHermesStepAttenuator.Text = "ANAN Step Attenuator";
+                    chkHermesStepAttenuator.Enabled = true;
+                    chkHermesStepAttenuator.Checked = true;
                     // chkAlexPresent_CheckedChanged(this, EventArgs.Empty);
                     // chkAlexAntCtrl_CheckedChanged(this, EventArgs.Empty);
                     chkAutoPACalibrate.Checked = false;
@@ -20846,6 +20847,8 @@ namespace Thetis
                     groupBoxRXOptions.Text = "ANAN Options";
                     grpMetisAddr.Text = "ANAN Address";
                     grpHermesStepAttenuator.Text = "ANAN Step Attenuator";
+                    chkHermesStepAttenuator.Enabled = true;
+                    chkHermesStepAttenuator.Checked = true;
                     chkAlexPresent_CheckedChanged(this, EventArgs.Empty);
                     chkAlexAntCtrl_CheckedChanged(this, EventArgs.Empty);
                     chkAutoPACalibrate.Checked = false;
@@ -20901,6 +20904,8 @@ namespace Thetis
                     groupBoxRXOptions.Text = "ANAN Options";
                     grpMetisAddr.Text = "ANAN Address";
                     grpHermesStepAttenuator.Text = "ANAN Step Attenuator";
+                    chkHermesStepAttenuator.Enabled = true;
+                    chkHermesStepAttenuator.Checked = true;
                     chkAlexPresent_CheckedChanged(this, EventArgs.Empty);
                     chkAlexAntCtrl_CheckedChanged(this, EventArgs.Empty);
                     chkAutoPACalibrate.Checked = false;
@@ -21175,6 +21180,10 @@ namespace Thetis
             }
         }
 
+        private void lblCFCEQ10dB_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     #region PADeviceInfo Helper Class

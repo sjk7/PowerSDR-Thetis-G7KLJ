@@ -9341,7 +9341,7 @@
             this.udRX2FilterDefaultLowCut.TabIndex = 17;
             this.toolTip1.SetToolTip(this.udRX2FilterDefaultLowCut, "Sets the default low cut filter for filter changes");
             this.udRX2FilterDefaultLowCut.Value = new decimal(new int[] {
-            100,
+            0,
             0,
             0,
             0});
@@ -9515,7 +9515,7 @@
             this.udFilterDefaultLowCut.TabIndex = 17;
             this.toolTip1.SetToolTip(this.udFilterDefaultLowCut, "Sets the default low cut filter for filter changes");
             this.udFilterDefaultLowCut.Value = new decimal(new int[] {
-            100,
+            0,
             0,
             0,
             0});
@@ -28376,6 +28376,7 @@
             this.comboDSPPhoneTXFiltSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboDSPPhoneTXFiltSize.DropDownWidth = 64;
             this.comboDSPPhoneTXFiltSize.Items.AddRange(new object[] {
+            "512",
             "1024",
             "2048",
             "4096",
@@ -28404,6 +28405,10 @@
             this.comboDSPPhoneRXFiltSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboDSPPhoneRXFiltSize.DropDownWidth = 64;
             this.comboDSPPhoneRXFiltSize.Items.AddRange(new object[] {
+            "64",
+            "128",
+            "256",
+            "512",
             "1024",
             "2048",
             "4096",
@@ -34309,7 +34314,8 @@
             this.lblCFCEQ10dB.Name = "lblCFCEQ10dB";
             this.lblCFCEQ10dB.Size = new System.Drawing.Size(41, 13);
             this.lblCFCEQ10dB.TabIndex = 163;
-            this.lblCFCEQ10dB.Text = "+10 dB";
+            this.lblCFCEQ10dB.Text = "+40 dB";
+            this.lblCFCEQ10dB.Click += new System.EventHandler(this.lblCFCEQ10dB_Click);
             // 
             // lblCFCEQ0dB
             // 
@@ -34320,7 +34326,7 @@
             this.lblCFCEQ0dB.Name = "lblCFCEQ0dB";
             this.lblCFCEQ0dB.Size = new System.Drawing.Size(38, 13);
             this.lblCFCEQ0dB.TabIndex = 162;
-            this.lblCFCEQ0dB.Text = "-10 dB";
+            this.lblCFCEQ0dB.Text = "-40 dB";
             // 
             // tbCFCEQ9
             // 
@@ -34328,8 +34334,8 @@
             this.tbCFCEQ9.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ9.LargeChange = 2;
             this.tbCFCEQ9.Location = new System.Drawing.Point(540, 190);
-            this.tbCFCEQ9.Maximum = 30;
-            this.tbCFCEQ9.Minimum = -30;
+            this.tbCFCEQ9.Maximum = 40;
+            this.tbCFCEQ9.Minimum = -40;
             this.tbCFCEQ9.Name = "tbCFCEQ9";
             this.tbCFCEQ9.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ9.Size = new System.Drawing.Size(20, 128);
@@ -34343,8 +34349,8 @@
             this.tbCFCEQ6.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ6.LargeChange = 2;
             this.tbCFCEQ6.Location = new System.Drawing.Point(450, 190);
-            this.tbCFCEQ6.Maximum = 30;
-            this.tbCFCEQ6.Minimum = -30;
+            this.tbCFCEQ6.Maximum = 40;
+            this.tbCFCEQ6.Minimum = -40;
             this.tbCFCEQ6.Name = "tbCFCEQ6";
             this.tbCFCEQ6.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ6.Size = new System.Drawing.Size(20, 128);
@@ -34358,8 +34364,8 @@
             this.tbCFCEQ7.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ7.LargeChange = 2;
             this.tbCFCEQ7.Location = new System.Drawing.Point(480, 190);
-            this.tbCFCEQ7.Maximum = 30;
-            this.tbCFCEQ7.Minimum = -30;
+            this.tbCFCEQ7.Maximum = 40;
+            this.tbCFCEQ7.Minimum = -40;
             this.tbCFCEQ7.Name = "tbCFCEQ7";
             this.tbCFCEQ7.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ7.Size = new System.Drawing.Size(20, 128);
@@ -34373,8 +34379,8 @@
             this.tbCFCEQ8.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ8.LargeChange = 2;
             this.tbCFCEQ8.Location = new System.Drawing.Point(510, 189);
-            this.tbCFCEQ8.Maximum = 30;
-            this.tbCFCEQ8.Minimum = -30;
+            this.tbCFCEQ8.Maximum = 40;
+            this.tbCFCEQ8.Minimum = -40;
             this.tbCFCEQ8.Name = "tbCFCEQ8";
             this.tbCFCEQ8.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ8.Size = new System.Drawing.Size(20, 128);
@@ -34388,8 +34394,8 @@
             this.tbCFCEQ3.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ3.LargeChange = 2;
             this.tbCFCEQ3.Location = new System.Drawing.Point(360, 190);
-            this.tbCFCEQ3.Maximum = 30;
-            this.tbCFCEQ3.Minimum = -30;
+            this.tbCFCEQ3.Maximum = 40;
+            this.tbCFCEQ3.Minimum = -40;
             this.tbCFCEQ3.Name = "tbCFCEQ3";
             this.tbCFCEQ3.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ3.Size = new System.Drawing.Size(20, 128);
@@ -34403,8 +34409,8 @@
             this.tbCFCEQ4.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ4.LargeChange = 2;
             this.tbCFCEQ4.Location = new System.Drawing.Point(390, 190);
-            this.tbCFCEQ4.Maximum = 30;
-            this.tbCFCEQ4.Minimum = -30;
+            this.tbCFCEQ4.Maximum = 40;
+            this.tbCFCEQ4.Minimum = -40;
             this.tbCFCEQ4.Name = "tbCFCEQ4";
             this.tbCFCEQ4.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ4.Size = new System.Drawing.Size(20, 128);
@@ -34418,8 +34424,8 @@
             this.tbCFCEQ5.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ5.LargeChange = 2;
             this.tbCFCEQ5.Location = new System.Drawing.Point(420, 190);
-            this.tbCFCEQ5.Maximum = 30;
-            this.tbCFCEQ5.Minimum = -30;
+            this.tbCFCEQ5.Maximum = 40;
+            this.tbCFCEQ5.Minimum = -40;
             this.tbCFCEQ5.Name = "tbCFCEQ5";
             this.tbCFCEQ5.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ5.Size = new System.Drawing.Size(20, 128);
@@ -34433,8 +34439,8 @@
             this.tbCFCEQ0.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ0.LargeChange = 2;
             this.tbCFCEQ0.Location = new System.Drawing.Point(270, 190);
-            this.tbCFCEQ0.Maximum = 30;
-            this.tbCFCEQ0.Minimum = -30;
+            this.tbCFCEQ0.Maximum = 40;
+            this.tbCFCEQ0.Minimum = -40;
             this.tbCFCEQ0.Name = "tbCFCEQ0";
             this.tbCFCEQ0.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ0.Size = new System.Drawing.Size(20, 128);
@@ -34448,8 +34454,8 @@
             this.tbCFCEQ1.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ1.LargeChange = 2;
             this.tbCFCEQ1.Location = new System.Drawing.Point(300, 190);
-            this.tbCFCEQ1.Maximum = 30;
-            this.tbCFCEQ1.Minimum = -30;
+            this.tbCFCEQ1.Maximum = 40;
+            this.tbCFCEQ1.Minimum = -40;
             this.tbCFCEQ1.Name = "tbCFCEQ1";
             this.tbCFCEQ1.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ1.Size = new System.Drawing.Size(20, 128);
@@ -34463,8 +34469,8 @@
             this.tbCFCEQ2.BackColor = System.Drawing.Color.Black;
             this.tbCFCEQ2.LargeChange = 2;
             this.tbCFCEQ2.Location = new System.Drawing.Point(330, 190);
-            this.tbCFCEQ2.Maximum = 30;
-            this.tbCFCEQ2.Minimum = -30;
+            this.tbCFCEQ2.Maximum = 40;
+            this.tbCFCEQ2.Minimum = -40;
             this.tbCFCEQ2.Name = "tbCFCEQ2";
             this.tbCFCEQ2.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbCFCEQ2.Size = new System.Drawing.Size(20, 128);
@@ -34515,7 +34521,7 @@
             0});
             this.udCFC9.Location = new System.Drawing.Point(525, 141);
             this.udCFC9.Maximum = new decimal(new int[] {
-            10000,
+            20000,
             0,
             0,
             0});
@@ -34543,7 +34549,7 @@
             0});
             this.udCFC8.Location = new System.Drawing.Point(495, 164);
             this.udCFC8.Maximum = new decimal(new int[] {
-            10000,
+            20000,
             0,
             0,
             0});
@@ -34571,7 +34577,7 @@
             0});
             this.udCFC7.Location = new System.Drawing.Point(465, 141);
             this.udCFC7.Maximum = new decimal(new int[] {
-            10000,
+            20000,
             0,
             0,
             0});
@@ -34599,7 +34605,7 @@
             0});
             this.udCFC6.Location = new System.Drawing.Point(435, 164);
             this.udCFC6.Maximum = new decimal(new int[] {
-            10000,
+            20000,
             0,
             0,
             0});
@@ -34627,7 +34633,7 @@
             0});
             this.udCFC5.Location = new System.Drawing.Point(405, 141);
             this.udCFC5.Maximum = new decimal(new int[] {
-            10000,
+            20000,
             0,
             0,
             0});
@@ -34655,7 +34661,7 @@
             0});
             this.udCFC4.Location = new System.Drawing.Point(375, 164);
             this.udCFC4.Maximum = new decimal(new int[] {
-            10000,
+            20000,
             0,
             0,
             0});
@@ -34683,7 +34689,7 @@
             0});
             this.udCFC3.Location = new System.Drawing.Point(345, 141);
             this.udCFC3.Maximum = new decimal(new int[] {
-            10000,
+            20000,
             0,
             0,
             0});
@@ -34711,7 +34717,7 @@
             0});
             this.udCFC2.Location = new System.Drawing.Point(315, 164);
             this.udCFC2.Maximum = new decimal(new int[] {
-            10000,
+            20000,
             0,
             0,
             0});
@@ -34739,7 +34745,7 @@
             0});
             this.udCFC1.Location = new System.Drawing.Point(285, 141);
             this.udCFC1.Maximum = new decimal(new int[] {
-            10000,
+            20000,
             0,
             0,
             0});
@@ -34767,7 +34773,7 @@
             0});
             this.udCFC0.Location = new System.Drawing.Point(255, 164);
             this.udCFC0.Maximum = new decimal(new int[] {
-            10000,
+            20000,
             0,
             0,
             0});
