@@ -29861,13 +29861,10 @@ namespace Thetis
                 }
                 // return cpu_usage.NextValue();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 timer_cpu_meter.Enabled = false;
-                // lblCPUMeter.Visible = false;
-                // txtCPUMeter.Visible = false;
-                // return 0.0f;
-
+                Common.LogException(ex);
                 systemToolStripMenuItem.Checked = false;
                 thetisOnlyToolStripMenuItem.Checked = false;
                 toolStripDropDownButton_CPU.Visible = false;
@@ -30172,7 +30169,8 @@ namespace Thetis
         private int oload_select
             = 0; // selection of which overload to display this time
         private const int num_oloads = 2; // number of possible overload displays
-
+        private int m_NetworkRestarts = 0;
+        public int m_NetworkRestartsMax = 10;
         private async void UpdatePeakText()
         {
             // return;
@@ -30184,7 +30182,36 @@ namespace Thetis
             int ooo = 0;
             ooo = NetworkIO.getOOO();
             HaveSync = NetworkIO.getHaveSync();
-            if (HaveSync == 0) chkPower.Checked = false;
+            if (HaveSync == 0)
+            {
+                if (m_NetworkRestarts < m_NetworkRestartsMax)
+                {
+                    m_NetworkRestarts++;
+                    var was_in_tx = this.mox;
+                    chkPower.Checked = false;
+                    chkPower.Checked = true;
+                    if (this.PowerOn)
+                    {
+                        if (was_in_tx)
+                        {
+                            chkMOX.Checked = true;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Trying to restart network, but power would not come on again. Check radio connection");
+                    }
+                    return;
+
+                }
+                else
+                {
+                    MessageBox.Show("The network has been restarted too many times. Check radio connection");
+                    chkPower.Checked = false;
+                    return;
+
+                }
+            }
 
             int adc_oload_num = NetworkIO.getAndResetADC_Overload();
             bool adc_oload = adc_oload_num > 0;
@@ -37907,6 +37934,7 @@ namespace Thetis
             }
             else
             {
+                SetupForm.lblProt.Text = "Not connected.";
                 DataFlowing = false;
                 SetupForm.TestIMD = false;
 
@@ -39588,9 +39616,6 @@ namespace Thetis
         {
             bool bOldMox = mox;
             m_TimeWhenMoxEntered = 0;
-
-
-
 
             NetworkIO.SendHighPriority(1);
             if (rx_only && chkMOX.Checked)

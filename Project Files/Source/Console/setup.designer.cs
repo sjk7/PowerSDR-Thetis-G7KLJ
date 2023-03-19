@@ -3343,6 +3343,7 @@
             this.panelTS4 = new System.Windows.Forms.PanelTS();
             this.radioButtonTS5 = new System.Windows.Forms.RadioButtonTS();
             this.radioButtonTS6 = new System.Windows.Forms.RadioButtonTS();
+            this.lblProt = new System.Windows.Forms.LabelTS();
             tpAlexAntCtrl = new System.Windows.Forms.TabPage();
             numericUpDownTS3 = new System.Windows.Forms.NumericUpDownTS();
             numericUpDownTS4 = new System.Windows.Forms.NumericUpDownTS();
@@ -7403,6 +7404,7 @@
             // 
             // grpMetisAddr
             // 
+            this.grpMetisAddr.Controls.Add(this.lblProt);
             this.grpMetisAddr.Controls.Add(this.lblMetisBoardID);
             this.grpMetisAddr.Controls.Add(this.labelTS88);
             this.grpMetisAddr.Controls.Add(this.lblMetisCodeVersion);
@@ -7411,9 +7413,9 @@
             this.grpMetisAddr.Controls.Add(this.labelTS9);
             this.grpMetisAddr.Controls.Add(this.lblMetisIP);
             this.grpMetisAddr.Controls.Add(this.lblMetisMAC);
-            this.grpMetisAddr.Location = new System.Drawing.Point(427, 309);
+            this.grpMetisAddr.Location = new System.Drawing.Point(427, 288);
             this.grpMetisAddr.Name = "grpMetisAddr";
-            this.grpMetisAddr.Size = new System.Drawing.Size(251, 77);
+            this.grpMetisAddr.Size = new System.Drawing.Size(251, 98);
             this.grpMetisAddr.TabIndex = 35;
             this.grpMetisAddr.TabStop = false;
             this.grpMetisAddr.Text = "Metis  Address";
@@ -55432,6 +55434,15 @@
             this.radioButtonTS6.Text = "Auto";
             this.radioButtonTS6.UseVisualStyleBackColor = true;
             // 
+            // lblProt
+            // 
+            this.lblProt.Image = null;
+            this.lblProt.Location = new System.Drawing.Point(8, 67);
+            this.lblProt.Name = "lblProt";
+            this.lblProt.Size = new System.Drawing.Size(110, 16);
+            this.lblProt.TabIndex = 8;
+            this.lblProt.Text = "Current Protocol:";
+            // 
             // Setup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -59945,5 +59956,6 @@
         private CheckBoxTS chkSpecWarningLEDGetPixels;
         private CheckBoxTS chkSpecWarningLEDRenderDelay;
         private CheckBoxTS chkShowMHzOnCursor;
+        public LabelTS lblProt;
     }
 }

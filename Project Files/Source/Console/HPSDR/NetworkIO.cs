@@ -701,7 +701,10 @@ namespace Thetis
 
                                 if (targetIP != null)
                                 {
-                                    if (hpsdrd.IPAddress.CompareTo(targetIP.ToString()) == 0)
+                                    //if (hpsdrd.IPAddress.CompareTo(targetIP.ToString()) == 0)
+                                    var deviceIP = hpsdrd.IPAddress;
+                                    var target = targetIP.ToString();
+                                    if (deviceIP == target)
                                     {
                                         radio_found = true;
                                         hpsdrdList.Add(hpsdrd);

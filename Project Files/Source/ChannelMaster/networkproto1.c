@@ -482,7 +482,7 @@ void twist(int nsamples, int stream0, int stream1, int port) {
     xrouter(0, 0, port, 2 * nsamples, prn->RxReadBufp);
 }
 
-#define POLL_INSTEAD
+//#define POLL_INSTEAD
 
 void MetisReadThreadMainLoop(void) {
     mic_decimation_count = 0;
@@ -526,6 +526,8 @@ void MetisReadThreadMainLoop(void) {
                     prn->wsaProcessEvents.iErrorCode[FD_READ_BIT]);
                 break;
             }
+        }
+            
             MetisReadDirect(FPGAReadBufp);
 #else
         MetisReadDirectPOLL(FPGAReadBufp);
@@ -953,6 +955,7 @@ void MetisReadThreadMainLoop(void) {
         double* pbuffs[2];
         pbuffs[0] = prn->outLRbufp;
         pbuffs[1] = prn->outIQbufp;
+        int consecutive_timeouts = 0;
 
         while (io_keep_running != 0) {
             DWORD dw1 = timeGetTime();
@@ -961,7 +964,14 @@ void MetisReadThreadMainLoop(void) {
                 = WaitForMultipleObjects(2, prn->hsendEventHandles, TRUE, 250);
             DWORD dw2 = timeGetTime();
             if (dwWait == WAIT_TIMEOUT) {
+                consecutive_timeouts++;
+                if (consecutive_timeouts >= 10) {
+                    // network not responding, we are in a tizzy. All we can do is notify caller and he can do what he wants.
+                    HaveSync = 0;
+                }
                 continue;
+            } else {
+                consecutive_timeouts = 0;
             }
 
 #ifndef NDEBUG
@@ -969,9 +979,11 @@ void MetisReadThreadMainLoop(void) {
             if (waited > 10) {
                 volatile DWORD since_signalled
                     = timeGetTime() - prn->last_time_signalled;
+                #ifdef _DEBUG
                 printf("waited ages for send event handles: %ld ms. Was "
                        "signalled %ld ms ago.\n",
                     (int)waited, (int)since_signalled);
+                #endif
             }
 #endif
             // if ((nddc == 2) || (nddc == 4))
@@ -1004,7 +1016,7 @@ void MetisReadThreadMainLoop(void) {
                             = (char)(temp & 0xff);
                     }
             WriteMainLoop(prn->OutBufp);
-        }
+        } // while (io_keep_running != 0) 
 
         if (hpri && hpri != INVALID_HANDLE_VALUE)
             prioritise_thread_cleanup(hpri);

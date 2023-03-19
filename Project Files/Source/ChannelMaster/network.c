@@ -1108,7 +1108,9 @@ int sendPacket(SOCKET sock, char* data, int length, int port) {
     if (last_send_time) {
         time_between = timeGetTime() - last_send_time;
         if (time_between > 10) {
+            #ifdef _DEBUG
             printf("Long time between sends: %ld\n", (int)time_between);
+            #endif
         }
     }
 

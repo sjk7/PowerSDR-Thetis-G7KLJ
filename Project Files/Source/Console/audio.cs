@@ -33,6 +33,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security;
 using System.Windows.Forms;
+using Thetis.Midi2Cat;
 //using ProjectCeilidh.PortAudio;
 //using ProjectCeilidh.PortAudio.Native;
 //using static ProjectCeilidh.PortAudio.Native.PortAudio;
@@ -1387,94 +1388,112 @@ namespace Thetis
         public static bool Start()
         {
             bool retval = false;
-            int rc;
-            phase_buf_l = new float[2048];
-            phase_buf_r = new float[2048];
+            int rc = 0;
             Console c = Console.getConsole();
-            rc = NetworkIO.initRadio();
 
-            if (rc != 0)
+            try
             {
-                if (rc == -101) // firmware version error; 
+                
+                phase_buf_l = new float[2048];
+                phase_buf_r = new float[2048];
+                
+                c.pause_DisplayThread = true;
+                rc = NetworkIO.initRadio();
+
+                if (rc != 0)
                 {
-                    string fw_err = NetworkIO.getFWVersionErrorMsg();
-                    if (fw_err == null)
+                    if (rc == -101) // firmware version error; 
                     {
-                        fw_err = "Bad Firmware levels";
+                        string fw_err = NetworkIO.getFWVersionErrorMsg();
+                        if (fw_err == null)
+                        {
+                            fw_err = "Bad Firmware levels";
+                        }
+                        MessageBox.Show(fw_err, "Firmware Error",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                        return false;
                     }
-                    MessageBox.Show(fw_err, "Firmware Error",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                    return false;
+                    else
+                    {
+                        MessageBox.Show("Error starting SDR hardware, is it connected and powered?", "Network Error",
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+
+
+                double peakval = 0;
+                bool setpeak = false;
+                var saved = Common.GetSavedPSPeakValue();
+                if (saved.Length > 0)
+                {
+                    if (Double.TryParse(saved, out peakval))
+                    {
+                        puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), peakval);
+                        setpeak = true;
+                    }
+                }
+
+                // add setup calls that are needed to change between P1 & P2 before startup
+                if (NetworkIO.CurrentRadioProtocol == RadioProtocol.USB)
+                {
+                    c.SetupForm.lblProt.Text = "Current Protocol: P1";
+                    console.SampleRateTX = 48000; // set tx audio sampling rate  
+                    WDSP.SetTXACFIRRun(cmaster.chid(cmaster.inid(1, 0), 0), false);
+
+                    if (!setpeak)
+                        peakval = 0.4072;
+
+                    if (!setpeak && Common.RadioModel == HPSDRModel.HERMES)
+                    {
+                        peakval = 0.243290600682013;
+                        puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), peakval);
+                        setpeak = true;
+
+                    }
+
+                    if (!setpeak)
+                    {
+                        peakval = 0.4072;
+                        puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), peakval);
+                    }
+
+
+                    console.psform.PSdefpeak = Convert.ToString(peakval);
                 }
                 else
                 {
-                    MessageBox.Show("Error starting SDR hardware, is it connected and powered?", "Network Error",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                    return false;
+                    c.SetupForm.lblProt.Text = "Current Protocol: P2";
+                    console.SampleRateTX = 192000;
+                    WDSP.SetTXACFIRRun(cmaster.chid(cmaster.inid(1, 0), 0), true);
+                    if (!setpeak)
+                    {
+                        puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), 0.2899);
+                        setpeak = true;
+                    }
+                    console.psform.PSdefpeak = "0.2899";
                 }
-            }
 
 
-            double peakval = 0;
-            bool setpeak = false;
-            var saved = Common.GetSavedPSPeakValue();
-            if (saved.Length > 0)
+                Debug.Assert(setpeak);
+                c.SetupForm.InitAudioTab();
+                c.SetupForm.ForceReset = true;
+                cmaster.PSLoopback = cmaster.PSLoopback;
+
+                int result = NetworkIO.StartAudioNative();
+                if (result == 0) retval = true;
+            }catch(Exception e)
             {
-                if (Double.TryParse(saved, out peakval))
-                {
-                    puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), peakval);
-                    setpeak = true;
-                }
+                c.SetupForm.lblProt.Text = "None";
+                Common.LogException(e);
+                MessageBox.Show(e.Message);
             }
-
-            // add setup calls that are needed to change between P1 & P2 before startup
-            if (NetworkIO.CurrentRadioProtocol == RadioProtocol.USB)
+            finally
             {
-                console.SampleRateTX = 48000; // set tx audio sampling rate  
-                WDSP.SetTXACFIRRun(cmaster.chid(cmaster.inid(1, 0), 0), false);
-
-                if (!setpeak)
-                    peakval = 0.4072;
-
-                if (!setpeak && Common.RadioModel == HPSDRModel.HERMES)
-                {
-                    peakval = 0.243290600682013;
-                    puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), peakval);
-                    setpeak = true;
-
-                }
-
-                if (!setpeak)
-                {
-                    peakval = 0.4072;
-                    puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), peakval);
-                }
-
-
-                console.psform.PSdefpeak = Convert.ToString(peakval);
+                c.pause_DisplayThread = false;
             }
-            else
-            {
-                console.SampleRateTX = 192000;
-                WDSP.SetTXACFIRRun(cmaster.chid(cmaster.inid(1, 0), 0), true);
-                if (!setpeak)
-                {
-                    puresignal.SetPSHWPeak(cmaster.chid(cmaster.inid(1, 0), 0), 0.2899);
-                    setpeak = true;
-                }
-                console.psform.PSdefpeak = "0.2899";
-            }
-
-
-            Debug.Assert(setpeak);
-            c.SetupForm.InitAudioTab();
-            c.SetupForm.ForceReset = true;
-            cmaster.PSLoopback = cmaster.PSLoopback;
-
-            int result = NetworkIO.StartAudioNative();
-            if (result == 0) retval = true;
 
             return retval;
         }
