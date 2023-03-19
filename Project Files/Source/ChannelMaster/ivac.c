@@ -112,6 +112,7 @@ void destroy_resamps(IVAC a) {
     if (a->convbuf_size) {
         a->convbuf_size = 0;
         free(a->convbuf);
+        a->convbuf = 0;
     }
 }
 
@@ -228,8 +229,7 @@ static inline void size_64_bit_buffer(IVAC a, size_t sz_bytes) {
         }
         a->convbuf = malloc(tmpsz * sizeof(double));
         a->convbuf_size = tmpsz;
-        if (a->convbuf)
-            memset(a->convbuf, 0, a->convbuf_size);
+        if (a->convbuf) memset(a->convbuf, 0, a->convbuf_size);
     }
 }
 

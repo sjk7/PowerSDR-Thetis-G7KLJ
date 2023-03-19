@@ -22999,9 +22999,9 @@ namespace Thetis
                 {
                     case DisplayEngine.GDI_PLUS:
                         {
-                            Display.ShutdownDX2D();
-
-                            // Thread.Sleep(100);
+                            //Display.ShutdownDX2D();
+                            // I think this thread has to run in gdi as it calls refresh() on the picturebox KLJ
+                            Thread.Sleep(100);
                             // Display.Init();
 
                             PicDisplayBackgroundImage
@@ -33799,6 +33799,14 @@ namespace Thetis
             set { m_bUseAccurateFrameTiming = value; }
         }
 
+        private unsafe void RefreshPic()
+        {
+            picDisplay.Refresh();
+        }
+
+        [DllImport("user32.dll")]
+        static extern bool InvalidateRect(IntPtr hWnd, IntPtr lpRect, bool bErase);
+
         unsafe private void RunDisplay()
         {
             Display.dx_running = true;
@@ -34136,7 +34144,18 @@ namespace Thetis
                     {
                         switch (current_display_engine)
                         {
-                            case DisplayEngine.GDI_PLUS: picDisplay.Refresh(); break;
+                            case DisplayEngine.GDI_PLUS:
+                                if (picDisplay.InvokeRequired)
+                                {
+                                    // picDisplay.BeginInvoke(new MethodInvoker(delegate () { RefreshPic(); }));
+                                    picDisplay.Refresh();
+
+                                }
+                                else
+                                {
+                                    picDisplay.Refresh();
+                                }
+                                break;
                             case DisplayEngine.DIRECT_X: Display.RenderDX2D(); break;
                         }
                     }
@@ -34184,7 +34203,7 @@ namespace Thetis
                             nWantToWait); // not guaranteed to be the delay we want
                         fThreadSleepLate = objStopWatch.ElapsedMsec - nWantToWait;
                     }
-                }
+                } // while (!Display.shut_dx2)
             }
             catch (Exception e)
             {
@@ -35162,7 +35181,7 @@ namespace Thetis
                         }
                     }
                 }
-                await Task.Delay(1);
+                await Task.Delay(10);
             }
         }
 
@@ -35192,7 +35211,7 @@ namespace Thetis
                 }
 
                 last_dash = last_dot = dotdashptt;
-                await Task.Delay(1);
+                await Task.Delay(10);
             }
         }
 
@@ -35766,7 +35785,7 @@ namespace Thetis
                 {
                     if (mox)
                     {
-                        // computeFwdRevPower(out alex_fwd, out alex_rev);
+
                         alex_fwd = computeAlexFwdPower(); // high power
                         alex_rev = computeRefPower();
 
@@ -35880,9 +35899,10 @@ namespace Thetis
                     }
                     else if (high_swr)
                         HighSWR = false;
-                    // Thread.Sleep(1);
+                    //Thread.Sleep(1);
                     await Task.Delay(1);
                 }
+                await Task.Delay(1);
             }
 
             alex_fwd = 0;
@@ -56292,7 +56312,7 @@ namespace Thetis
                     + comboDisplayMode.Width + 5 + lblDisplayZoom.Width
                     + radDisplayZoom05.Width * 4);
 
-   
+
             ptbDisplayPan.Value = ptbDisplayPan.Value;
             ptbDisplayPan_Scroll(this, EventArgs.Empty);
 

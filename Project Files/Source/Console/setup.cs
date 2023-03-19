@@ -10726,7 +10726,7 @@ namespace Thetis
             console.CATDataBits = int.Parse((string)comboCATdatabits.SelectedItem);
             console.CATStopBits = SDRSerialPort.StringToStopBits(
                 (string)comboCATstopbits.SelectedItem);
-            console.CATEnabled = chkCATEnable.Checked;
+            console.CATEnabled = chkCATEnable.Checked && chkCATEnable.Enabled;
 
             // make sure the enabled state of bitbang ptt is correct
             if (chkCATPTT_RTS.Checked || chkCATPTT_DTR.Checked)
@@ -10747,7 +10747,7 @@ namespace Thetis
                 = int.Parse((string)comboCAT2databits.SelectedItem);
             console.CAT2StopBits = SDRSerialPort.StringToStopBits(
                 (string)comboCAT2stopbits.SelectedItem);
-            console.CAT2Enabled = chkCAT2Enable.Checked;
+            console.CAT2Enabled = chkCAT2Enable.Checked && chkCAT2Enable.Enabled;
 
             if (comboCAT3Port.Text.StartsWith("COM"))
                 console.CAT3Port = Int32.Parse(comboCAT3Port.Text.Substring(3));
@@ -20528,7 +20528,7 @@ namespace Thetis
                     chkApolloPresent.Enabled = true;
                     chkApolloPresent.Visible = true;
                     chkGeneralRXOnly.Visible = true;
-                    
+
                     groupBoxRXOptions.Text = "Hermes Options";
                     grpMetisAddr.Text = "Hermes Address";
                     grpHermesStepAttenuator.Text = "Hermes Step Attenuator";
@@ -20734,7 +20734,7 @@ namespace Thetis
                     chkApolloPresent.Enabled = false;
                     chkApolloPresent.Checked = false;
                     chkGeneralRXOnly.Visible = true;
-                    
+
                     groupBoxRXOptions.Text = "ANAN Options";
                     grpMetisAddr.Text = "ANAN Address";
                     grpHermesStepAttenuator.Text = "ANAN Step Attenuator";
