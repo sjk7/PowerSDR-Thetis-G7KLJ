@@ -851,6 +851,24 @@ namespace Thetis
             m_args = args;
 
 
+            Debug.Assert(app_data_path.Length > 0); // done in main()
+            Debug.Assert(!String.IsNullOrEmpty(AppDataPath));
+
+            // check versions of DLL/etc
+            if (!checkVersions())
+            {
+                // version incorrect
+                DialogResult dr = MessageBox.Show(
+                    "An incorrect version of a required dll has been found.\n"
+                        + "Please resolve the issue otherwise unexpected behaviour may occur.",
+                    "Version error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                failed = true;
+                Environment.Exit(0);
+                return;
+            }
+
+
+
             Splash.SetStatus("Launching PortAudio initialisation, please wait ...");
             bool db = this.DoubleBuffered;
             this.DoubleBuffered = true;
@@ -896,21 +914,7 @@ namespace Thetis
             Thread.CurrentThread.CurrentUICulture = ci;
             //
 
-            // check versions of DLL/etc
-            if (!checkVersions())
-            {
-                // version incorrect
-                DialogResult dr = MessageBox.Show(
-                    "An incorrect version of a required dll has been found.\n"
-                        + "Please resolve the issue otherwise unexpected behaviour may occur.",
-                    "Version error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                failed = true;
-                Environment.Exit(0);
-                return;
-            }
 
-            Debug.Assert(app_data_path.Length > 0); // done in main()
-            Debug.Assert(!String.IsNullOrEmpty(AppDataPath));
 
             foreach (string s in args)
             {

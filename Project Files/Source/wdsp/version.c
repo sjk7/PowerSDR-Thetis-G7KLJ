@@ -10,6 +10,6 @@ PORT int GetWDSPVersion() {
     // the decimal point. For easy comparison with expected version values, the
     // value returned by this function is
     //    version_number * 100.  E.g., Version 1.14 will return 114.
-    const int version = 118;
+    const int version = 119;
     return version;
 }
