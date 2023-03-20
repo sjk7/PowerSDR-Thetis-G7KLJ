@@ -124,7 +124,7 @@ namespace LBSoft.IndustrialCtrls.Meters {
   }
 
   /// <summary>
-  /// Default renderer class for the analog meter
+  /// NewVFOAnalogSignalGauge renderer class for the analog meter
   /// </summary>
   public class LBDefaultAnalogMeterRenderer : LBAnalogMeterRenderer {
 

@@ -895,6 +895,7 @@ partial class Console {
             this.toolStripStatusLabel_UTCTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_Date = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_LocalTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusNetRestarts = new System.Windows.Forms.ToolStripStatusLabel();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.txtMultiTextMnu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuBigSMeter = new System.Windows.Forms.ToolStripMenuItem();
@@ -1602,6 +1603,8 @@ partial class Console {
             this.toolTip1.SetToolTip(this.chkPower, resources.GetString("chkPower.ToolTip"));
             this.chkPower.UseVisualStyleBackColor = false;
             this.chkPower.CheckedChanged += new System.EventHandler(this.chkPower_CheckedChanged);
+            this.chkPower.CheckStateChanged += new System.EventHandler(this.chkPower_CheckStateChanged);
+            this.chkPower.Click += new System.EventHandler(this.chkPower_Click);
             // 
             // ptbCWSpeed
             // 
@@ -4772,7 +4775,8 @@ partial class Console {
             this.toolStripStatusLabel_timer,
             this.toolStripStatusLabel_UTCTime,
             this.toolStripStatusLabel_Date,
-            this.toolStripStatusLabel_LocalTime});
+            this.toolStripStatusLabel_LocalTime,
+            this.toolStripStatusNetRestarts});
             this.statusStripMain.Name = "statusStripMain";
             this.statusStripMain.ShowItemToolTips = true;
             // 
@@ -5102,6 +5106,14 @@ partial class Console {
             resources.ApplyResources(this.toolStripStatusLabel_LocalTime, "toolStripStatusLabel_LocalTime");
             this.toolStripStatusLabel_LocalTime.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.toolStripStatusLabel_LocalTime.Name = "toolStripStatusLabel_LocalTime";
+            // 
+            // toolStripStatusNetRestarts
+            // 
+            resources.ApplyResources(this.toolStripStatusNetRestarts, "toolStripStatusNetRestarts");
+            this.toolStripStatusNetRestarts.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.toolStripStatusNetRestarts.Image = global::Thetis.Properties.Resources.warning4;
+            this.toolStripStatusNetRestarts.Name = "toolStripStatusNetRestarts";
+            this.toolStripStatusNetRestarts.Spring = true;
             // 
             // fileSystemWatcher1
             // 
@@ -7572,5 +7584,6 @@ partial class Console {
         public LBSoft.IndustrialCtrls.Meters.LBAnalogMeter PrettySMeter;
         private CheckBoxTS chkFullDuplex;
         private ComboBoxTS comboPreamp;
+        private ToolStripStatusLabel toolStripStatusNetRestarts;
     }
 }

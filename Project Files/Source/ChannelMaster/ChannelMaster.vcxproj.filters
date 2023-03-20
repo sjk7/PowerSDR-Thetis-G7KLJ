@@ -172,5 +172,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+    <None Include="ChannelMaster.def">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

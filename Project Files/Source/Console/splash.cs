@@ -147,7 +147,7 @@ public class Splash : System.Windows.Forms.Form {
             this.labelTS1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTS1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.labelTS1.Image = null;
-            this.labelTS1.Location = new System.Drawing.Point(331, 24);
+            this.labelTS1.Location = new System.Drawing.Point(338, 20);
             this.labelTS1.Name = "labelTS1";
             this.labelTS1.Size = new System.Drawing.Size(89, 16);
             this.labelTS1.TabIndex = 3;
@@ -191,9 +191,9 @@ public class Splash : System.Windows.Forms.Form {
             this.labelTS2.Image = null;
             this.labelTS2.Location = new System.Drawing.Point(12, 9);
             this.labelTS2.Name = "labelTS2";
-            this.labelTS2.Size = new System.Drawing.Size(291, 34);
+            this.labelTS2.Size = new System.Drawing.Size(313, 34);
             this.labelTS2.TabIndex = 4;
-            this.labelTS2.Text = "CoolSDR -- Thetis --";
+            this.labelTS2.Text = "PowerSDR -- Thetis --";
             this.labelTS2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelTS3

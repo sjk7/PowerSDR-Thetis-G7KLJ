@@ -30,14 +30,14 @@
     <ProjectGuid>{8E5759EA-1D4E-46DA-9B3C-3577A98301C1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ChannelMaster</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -152,15 +152,16 @@
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <OutputFile>$(OutDir)ChannelMaster.dll</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>winmm.lib;wdsp.lib;portaudioforThetis.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>U:\hamcode\COOLSDR\PowerSDR-Thetis-G7KLJ\Project Files\lib\portaudio\msvc\Win32\Debug;$(PROJECTDIR)../../lib/portaudio/msvc/$(HPSDR_PLATFORM)/$(Configuration);$(PROJECTDIR)../../build/$(HPSDR_PLATFORM)/$(Configuration)/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>winmm.lib;wdsp.lib;portaudioforCoolSDR.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <ModuleDefinitionFile>ChannelMaster.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(OutDir)$(ProjectName).dll" "$(PROJECTDIR)../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(ProjectName).dll";</Command>
@@ -233,6 +234,7 @@
       <OutputFile>$(OutDir)ChannelMaster.dll</OutputFile>
       <AdditionalLibraryDirectories>$(PROJECTDIR)../../lib/portaudio/msvc/$(HPSDR_PLATFORM)/$(Configuration);$(PROJECTDIR)../../build/$(HPSDR_PLATFORM)/$(Configuration)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>winmm.lib;wdsp.lib;portAudioForCoolSDR.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>ChannelMaster.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(OutDir)$(ProjectName).dll" "$(PROJECTDIR)../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(ProjectName).dll";</Command>
@@ -274,6 +276,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\;</AdditionalLibraryDirectories>
       <AdditionalDependencies>winmm.lib;wdsp.lib;portAudioForThetis.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <ModuleDefinitionFile>ChannelMaster.def</ModuleDefinitionFile>
     </Link>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
@@ -355,6 +358,7 @@
       <AdditionalLibraryDirectories>$(PROJECTDIR)../../lib/portaudio/msvc/$(HPSDR_PLATFORM)/$(Configuration);$(PROJECTDIR)../../build/$(HPSDR_PLATFORM)/$(Configuration)/</AdditionalLibraryDirectories>
       <AdditionalDependencies>winmm.lib;wdsp.lib;portAudioForCoolSDR.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkErrorReporting>QueueForNextLogin</LinkErrorReporting>
+      <ModuleDefinitionFile>ChannelMaster.def</ModuleDefinitionFile>
     </Link>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
@@ -436,6 +440,7 @@
     <ResourceCompile Include="ChannelMaster.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ChannelMaster.def" />
     <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

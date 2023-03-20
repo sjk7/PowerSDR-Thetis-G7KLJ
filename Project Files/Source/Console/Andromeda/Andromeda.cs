@@ -979,7 +979,7 @@ namespace Thetis
             DataTable EncoderRXOverrideTable = new DataTable("Encoder RX Override Strings");
             EncoderRXOverrideTable.Columns.Add("OvrId", typeof(int));          // front panel pushbutton number
             EncoderRXOverrideTable.Columns.Add("OvrString", typeof(String));   // descriptive text
-            EncoderRXOverrideTable.Rows.Add(0, "Default setting");
+            EncoderRXOverrideTable.Rows.Add(0, "NewVFOAnalogSignalGauge setting");
             EncoderRXOverrideTable.Rows.Add(1, "RX1 only");
             EncoderRXOverrideTable.Rows.Add(2, "RX2 only");
             ComboSet.Tables.Add(EncoderRXOverrideTable);
@@ -1132,7 +1132,7 @@ namespace Thetis
             DataTable PushbuttonRXOverrideTable = new DataTable("Pushbutton RX Override Strings");
             PushbuttonRXOverrideTable.Columns.Add("OvrId", typeof(int));          // front panel pushbutton number
             PushbuttonRXOverrideTable.Columns.Add("OvrString", typeof(String));   // descriptive text
-            PushbuttonRXOverrideTable.Rows.Add(0, "Default setting");
+            PushbuttonRXOverrideTable.Rows.Add(0, "NewVFOAnalogSignalGauge setting");
             PushbuttonRXOverrideTable.Rows.Add(1, "RX1 only");
             PushbuttonRXOverrideTable.Rows.Add(2, "RX2 only");
             PushbuttonRXOverrideTable.Rows.Add(11, "Execute softkey 1");

@@ -34,7 +34,7 @@ public partial class frmSMeter : Form {
         this.StartPosition = FormStartPosition.WindowsDefaultBounds;
         this.Owner = the_console;
 
-        // Properties.Settings.Default.Reset();
+        // Properties.Settings.NewVFOAnalogSignalGauge.Reset();
 
         // this.ControlBox = false;
         // this.Text = String.Empty;
@@ -70,7 +70,8 @@ public partial class frmSMeter : Form {
         }
         windowInitialized = true;
         Settings.Default.BigSMeterOpen = true;
-        BigSMeter.ToggleBackGroundImage(Settings.Default.SMeterBackgroundImg);
+            // BigSMeter.ToggleBackGroundImage(Settings.Default.SMeterBackgroundImg);
+            BigSMeter.ToggleBackGroundImage((LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices)Settings.Default.SMeterBackgroundImg);
 
         Settings.Default.Save();
         if (Settings.Default.TopMost) this.TopMost = true;
@@ -142,22 +143,21 @@ public partial class frmSMeter : Form {
     private void frmSMeter_Load(object sender, EventArgs e) {}
 
     private void originalToolStripMenuItem_Click(object sender, EventArgs e) {
-        BigSMeter.ToggleBackGroundImage(0);
+        BigSMeter.ToggleBackGroundImage(LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices.NewVFOAnalogSignalGauge);
     }
 
     private void blueToolStripMenuItem_Click(object sender, EventArgs e) {
-        BigSMeter.ToggleBackGroundImage(1);
+        BigSMeter.ToggleBackGroundImage(LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices.Blue);
     }
 
     private void youKnowWhenYouveBeenTangodToolStripMenuItem_Click(
         object sender, EventArgs e) {
-        BigSMeter.ToggleBackGroundImage(2);
+        BigSMeter.ToggleBackGroundImage(LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices.Tango);
     }
 
     private void BigSMeter_BackGndImgChanged(object sender, EventArgs e) {
         if (m_console != null) {
-            m_console.PrettySMeter.ToggleBackGroundImage(
-                Settings.Default.SMeterBackgroundImg);
+            m_console.PrettySMeter.ToggleBackGroundImage((LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices)Settings.Default.SMeterBackgroundImg);
         }
     }
 

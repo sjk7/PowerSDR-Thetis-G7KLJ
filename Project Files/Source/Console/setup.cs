@@ -1027,8 +1027,8 @@ namespace Thetis
 
             if (skin == "")
             {
-                // if (comboAppSkin.Items.Contains("Default"))
-                //    comboAppSkin.Text = "Default";
+                // if (comboAppSkin.Items.Contains("NewVFOAnalogSignalGauge"))
+                //    comboAppSkin.Text = "NewVFOAnalogSignalGauge";
                 // else
                 //    comboAppSkin.Text = "IK3VIG Special"; //"OpenHPSDR-Gray";
                 if (comboAppSkin.Items.Contains("IK3VIG Special"))

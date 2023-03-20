@@ -3864,7 +3864,7 @@ namespace Thetis
                     // txtVFOAFreq_LostFocus(this, EventArgs.Empty);
                 }
                 // rx2_spectrum_drag = false;
-                //Cursor = Cursors.Default;
+                //Cursor = Cursors.NewVFOAnalogSignalGauge;
             }
 
             if (e.Button == MouseButtons.Right)

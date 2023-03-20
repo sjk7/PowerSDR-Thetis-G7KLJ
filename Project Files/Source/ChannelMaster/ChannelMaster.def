@@ -1,0 +1,4 @@
+EXPORTS
+
+;
+GetCMVersion                      @1

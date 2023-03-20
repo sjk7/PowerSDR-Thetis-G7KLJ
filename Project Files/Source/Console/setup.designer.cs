@@ -9356,7 +9356,7 @@
             this.labelTS39.Name = "labelTS39";
             this.labelTS39.Size = new System.Drawing.Size(120, 23);
             this.labelTS39.TabIndex = 16;
-            this.labelTS39.Text = "Default Low Cut (Hz):";
+            this.labelTS39.Text = "NewVFOAnalogSignalGauge Low Cut (Hz):";
             // 
             // udRX2OptMaxFilterShift
             // 
@@ -9531,7 +9531,7 @@
             this.lblDefaultLowCut.Name = "lblDefaultLowCut";
             this.lblDefaultLowCut.Size = new System.Drawing.Size(120, 23);
             this.lblDefaultLowCut.TabIndex = 16;
-            this.lblDefaultLowCut.Text = "Default Low Cut (Hz):";
+            this.lblDefaultLowCut.Text = "NewVFOAnalogSignalGauge Low Cut (Hz):";
             // 
             // udOptMaxFilterShift
             // 
@@ -9848,7 +9848,7 @@
             this.btnResetP2ADC.Name = "btnResetP2ADC";
             this.btnResetP2ADC.Size = new System.Drawing.Size(68, 37);
             this.btnResetP2ADC.TabIndex = 14;
-            this.btnResetP2ADC.Text = "Reset To Default";
+            this.btnResetP2ADC.Text = "Reset To NewVFOAnalogSignalGauge";
             this.btnResetP2ADC.UseVisualStyleBackColor = true;
             this.btnResetP2ADC.Click += new System.EventHandler(this.btnResetP2ADC_Click);
             // 
@@ -10430,7 +10430,7 @@
             this.btnResetP1ADC.Name = "btnResetP1ADC";
             this.btnResetP1ADC.Size = new System.Drawing.Size(68, 37);
             this.btnResetP1ADC.TabIndex = 17;
-            this.btnResetP1ADC.Text = "Reset to Default";
+            this.btnResetP1ADC.Text = "Reset to NewVFOAnalogSignalGauge";
             this.btnResetP1ADC.UseVisualStyleBackColor = true;
             this.btnResetP1ADC.Click += new System.EventHandler(this.btnResetP1ADC_Click);
             // 
@@ -12920,7 +12920,7 @@
             this.btnPennyCtrlReset.Size = new System.Drawing.Size(60, 23);
             this.btnPennyCtrlReset.TabIndex = 4;
             this.btnPennyCtrlReset.Text = "HF Reset";
-            this.toolTip1.SetToolTip(this.btnPennyCtrlReset, "Clears to Default");
+            this.toolTip1.SetToolTip(this.btnPennyCtrlReset, "Clears to NewVFOAnalogSignalGauge");
             this.btnPennyCtrlReset.UseVisualStyleBackColor = true;
             this.btnPennyCtrlReset.Click += new System.EventHandler(this.btnPennyCtrlReset_Click);
             // 
@@ -15293,7 +15293,7 @@
             this.btnPennyCtrlVHFReset.Size = new System.Drawing.Size(70, 23);
             this.btnPennyCtrlVHFReset.TabIndex = 7;
             this.btnPennyCtrlVHFReset.Text = "VHF Reset";
-            this.toolTip1.SetToolTip(this.btnPennyCtrlVHFReset, "Clears to Default");
+            this.toolTip1.SetToolTip(this.btnPennyCtrlVHFReset, "Clears to NewVFOAnalogSignalGauge");
             this.btnPennyCtrlVHFReset.UseVisualStyleBackColor = true;
             this.btnPennyCtrlVHFReset.Click += new System.EventHandler(this.btnPennyCtrlVHFReset_Click);
             // 
@@ -15338,7 +15338,7 @@
             this.btnCtrlSWLReset.Size = new System.Drawing.Size(62, 23);
             this.btnCtrlSWLReset.TabIndex = 9;
             this.btnCtrlSWLReset.Text = "SWL Reset";
-            this.toolTip1.SetToolTip(this.btnCtrlSWLReset, "Clears to Default");
+            this.toolTip1.SetToolTip(this.btnCtrlSWLReset, "Clears to NewVFOAnalogSignalGauge");
             this.btnCtrlSWLReset.UseVisualStyleBackColor = true;
             this.btnCtrlSWLReset.Click += new System.EventHandler(this.btnCtrlSWLReset_Click);
             // 

@@ -66,9 +66,10 @@ public partial class LBAnalogMeter : UserControl {
 #endregion
     public enum BackGroundChoices {
         Skin = -1,
-        Default = 0,
+        NewVFOAnalogSignalGauge = 0,
         Blue = 1,
-        Tango = 2
+        Tango = 2,
+        PPM = 3
     }
 
     BackGroundChoices m_backGroundChoice;
@@ -185,9 +186,7 @@ public partial class LBAnalogMeter : UserControl {
         }
     }
 
-    public void setValue(float newVal) {
-        Value = newVal;
-    }
+    public void setValue(float newVal) { Value = newVal; }
 
     [Category("Behavior"), Description("Minimum value of the data")]
     public double MinValue {
@@ -247,21 +246,13 @@ public partial class LBAnalogMeter : UserControl {
 #endregion
 
 #region Public methods
-    public float GetDrawRatio() {
-        return this.drawRatio;
-    }
+    public float GetDrawRatio() { return this.drawRatio; }
 
-    public float GetStartAngle() {
-        return this.startAngle;
-    }
+    public float GetStartAngle() { return this.startAngle; }
 
-    public float GetEndAngle() {
-        return this.endAngle;
-    }
+    public float GetEndAngle() { return this.endAngle; }
 
-    public PointF GetNeedleCenter() {
-        return this.needleCenter;
-    }
+    public PointF GetNeedleCenter() { return this.needleCenter; }
 #endregion
 
 #region Events delegates
@@ -424,12 +415,16 @@ public partial class LBAnalogMeter : UserControl {
         }
     }
 
-    public void ToggleBackGroundImage(int which = -1) {
+    public void ToggleBackGroundImage(
+        BackGroundChoices which = BackGroundChoices.Blue) {
 
         int cur = Settings.Default.SMeterBackgroundImg;
         var renderer = Renderer;
+        bool force = false;
         if (renderer == null) {
-            renderer = this.defaultRenderer;
+            force = true;
+            Renderer = this.defaultRenderer;
+            renderer = Renderer;
         }
         if (m_console != null) {
             Image skinpic = m_console.PrettySMeterSkin();
@@ -441,15 +436,30 @@ public partial class LBAnalogMeter : UserControl {
         }
 
         if (which >= 0) {
-            Settings.Default.SMeterBackgroundImg = which;
-            if (which == 1) {
+            // do not save something that is only for Tx, like PPM
+            if (which == BackGroundChoices.Skin
+                || which == BackGroundChoices.Tango
+                || which == BackGroundChoices.NewVFOAnalogSignalGauge
+                || which == BackGroundChoices.NewVFOAnalogSignalGauge) {
+                Settings.Default.SMeterBackgroundImg = (int)which;
+            }
+
+            if (which == m_backGroundChoice && !force) {
+                goto done;
+            }
+
+            if (which == BackGroundChoices.Blue) {
                 renderer.BackGroundCustomImage
                     = Thetis.Properties.Resources.OLDAnalogSignalGauge;
-                m_backGroundChoice = BackGroundChoices.Default;
+                m_backGroundChoice = BackGroundChoices.NewVFOAnalogSignalGauge;
             } else if (which == 0) {
                 renderer.BackGroundCustomImage
                     = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
-                m_backGroundChoice = BackGroundChoices.Default;
+                m_backGroundChoice = BackGroundChoices.NewVFOAnalogSignalGauge;
+            } else if (which == BackGroundChoices.PPM) {
+                renderer.BackGroundCustomImage
+                    = Thetis.Properties.Resources.PPM;
+                m_backGroundChoice = BackGroundChoices.PPM;
             } else {
                 renderer.BackGroundCustomImage
                     = Thetis.Properties.Resources.SMeterTango;
@@ -468,7 +478,7 @@ public partial class LBAnalogMeter : UserControl {
                 Settings.Default.SMeterBackgroundImg = 0;
                 renderer.BackGroundCustomImage
                     = Resources.NewVFOAnalogSignalGauge;
-                m_backGroundChoice = BackGroundChoices.Default;
+                m_backGroundChoice = BackGroundChoices.NewVFOAnalogSignalGauge;
             }
         }
     done:
