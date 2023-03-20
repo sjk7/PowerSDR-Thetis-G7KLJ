@@ -52445,6 +52445,7 @@ private bool checkVersions() {
             }
 
             } catch (Exception e) {
+
             Splash.HideForm();
             DebugMissingDLL("PortAudioForCoolSDR.dll");
             MessageBox.Show("System error was : " + e.Message);

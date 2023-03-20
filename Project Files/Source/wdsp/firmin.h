@@ -39,7 +39,7 @@ warren@wpratt.com
 #ifndef _firmin_h
 #define _firmin_h
 
-typedef struct _firmin {
+typedef struct _firmin { //-V802
     int run; // run control
     int position; // position at which to execute
     int size; // input/output buffer size, power of two

@@ -32,7 +32,7 @@ warren@wpratt.com
 #ifndef _nbp_h
 #define _nbp_h
 #include "firmin.h"
-typedef struct _notchdb {
+typedef struct _notchdb { //-V802
     int master_run;
     double tunefreq;
     double shift;

@@ -39,7 +39,7 @@ warren@wpratt.com
 #ifndef _eqp_h
 #define _eqp_h
 #include "firmin.h"
-typedef struct _eqp {
+typedef struct _eqp { //-V802
     int run;
     int size;
     int nc;

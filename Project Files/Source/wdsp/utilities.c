@@ -161,8 +161,8 @@ void print_iqc_values(const char* filename, int state, double env_in, double I,
         if (seqnum == 0)
             fprintf(
                 file, "seqnum\tstate\tenv_in\t\tenv_out\t\tym\t\tyc\t\tys\n");
-        fprintf(file, "%d\t%d\t%f\t%f\t%f\t%f\t%f\n", (int)seqnum, state, env_in,
-            env_out, ym, yc, ys);
+        fprintf(file, "%d\t%d\t%f\t%f\t%f\t%f\t%f\n", (int)seqnum, state,
+            env_in, env_out, ym, yc, ys);
         fflush(file);
         fclose(file);
         seqnum++;
@@ -388,6 +388,11 @@ void WriteScaledAudioFile(void* arg) {
     double abs_val;
     const double conv = 2147483647.0;
     int* idata = (int*)malloc0(dstruct->n * sizeof(int));
+    assert(idata);
+    if (!idata) {
+        _endthread();
+        return;
+    }
 
     for (i = 0; i < dstruct->n; i++) {
         abs_val = fabs(dstruct->ddata[i]);

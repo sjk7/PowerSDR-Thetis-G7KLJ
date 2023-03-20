@@ -97,7 +97,7 @@ PORT void WDSPwisdom(char* directory) {
         }
         psize = 64;
         while (psize <= MAX_WISDOM_SIZE_DISPLAY) {
-            if (psize > MAX_WISDOM_SIZE_FILTER) {
+            if (psize > MAX_WISDOM_SIZE_FILTER) { //-V547
                 fprintf(
                     stdout, "Planning COMPLEX FORWARD  FFT size %d\n", psize);
                 fflush(stdout);

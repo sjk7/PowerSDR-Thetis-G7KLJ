@@ -927,9 +927,14 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>copy /Y "..\..\..\lib\fftw_$(PlatformName)\libfftw3-3.dll" "$(ProjectDir)$(OutDir)";
+    <PostBuildEvent>echo "Copying correct libfftw3-3.dll ...";
+copy /Y "..\..\..\lib\fftw_$(PlatformName)\libfftw3-3.dll" "$(ProjectDir)$(OutDir)";
+if ERRORLEVEL 1 exit(-1);
+echo "Copying CATStructs.xml ...";
 copy /Y "$(ProjectDir)CAT\CATStructs.xml" "$(ProjectDir)$(OutDir)";
+echo "Copying calculus resources ...";
 copy /Y "..\..\..\lib\Thetis-resources\calculus" "$(ProjectDir)$(OutDir)"
+echo "Post-Build Event in Thetis.exe (in Project Properties) is complete."
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -195,7 +195,7 @@ void StreamFinishedCallback(void* userData) {
         a->MMThreadApiHandle = 0;
     }
 
-#pragma warning(default : 4311)
+#pragma warning(default : 4311) //-V665
 }
 
 // KLJ
@@ -351,7 +351,7 @@ PORT int StartAudioIVAC(int id) {
             a->have_set_thread_priority = 0;
         }
     }
-#pragma warning(default : 4312)
+#pragma warning(default : 4312) //-V665
 
     if (error != paNoError) return error;
 

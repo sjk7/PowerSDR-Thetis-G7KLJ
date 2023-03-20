@@ -762,6 +762,11 @@ void __cdecl SaveCorrection(void* pargs) {
     double* ps = (double*)malloc0(4 * a->util.ints * sizeof(double));
     FILE* file = fopen(a->util.savefile, "w");
     GetTXAiqcValues(a->util.channel, pm, pc, ps);
+    assert(file);
+    if (!file) {
+        _endthread();
+        return;
+    }
     for (i = 0; i < a->util.ints; i++) {
         for (k = 0; k < 4; k++) fprintf(file, "%.17e\t", pm[4 * i + k]);
         fprintf(file, "\n");
@@ -785,6 +790,11 @@ void __cdecl RestoreCorrection(void* pargs) {
     double* pc = (double*)malloc0(4 * a->util.ints * sizeof(double));
     double* ps = (double*)malloc0(4 * a->util.ints * sizeof(double));
     FILE* file = fopen(a->util.restfile, "r");
+    assert(file);
+    if (!file) {
+        _endthread();
+        return;
+    }
     for (i = 0; i < a->util.ints; i++) {
         for (k = 0; k < 4; k++) (void)fscanf(file, "%le", &(pm[4 * i + k]));
         for (k = 0; k < 4; k++) (void)fscanf(file, "%le", &(pc[4 * i + k]));

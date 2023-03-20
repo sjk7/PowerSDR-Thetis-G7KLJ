@@ -151,4 +151,20 @@
     <CodeCurrent>2096091679</CodeCurrent>
     <CodeNext>237686087</CodeNext>
   </wdsp>
+  <wdsp>
+    <FileName>analyzer.c</FileName>
+    <ErrorCode>V1008</ErrorCode>
+    <Message>Consider inspecting the 'for' operator. No more than one iteration of the loop will be performed.</Message>
+    <CodePrev>1350502954</CodePrev>
+    <CodeCurrent>1048045874</CodeCurrent>
+    <CodeNext>54167693</CodeNext>
+  </wdsp>
+  <wdsp>
+    <FileName>analyzer.c</FileName>
+    <ErrorCode>V1008</ErrorCode>
+    <Message>Consider inspecting the 'for' operator. No more than one iteration of the loop will be performed.</Message>
+    <CodePrev>4129020228</CodePrev>
+    <CodeCurrent>166965981</CodeCurrent>
+    <CodeNext>3963079326</CodeNext>
+  </wdsp>
 </NewDataSet>
