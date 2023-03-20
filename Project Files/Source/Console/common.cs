@@ -49,7 +49,7 @@ namespace Thetis
             set { txachannel = value; }
         }
 
-        public static Thetis.Console console;
+        public static Console console;
 
 
         public static string PSPeakValueFilePath()
@@ -63,8 +63,7 @@ namespace Thetis
             string filepath = PSPeakValueFilePath();
             try
             {
-                Double dbl = 0;
-                if (Double.TryParse(value, out dbl))
+                if (Double.TryParse(value, out double dbl))
                     File.WriteAllText(filepath, value);
             }
             catch (Exception e)
@@ -484,7 +483,7 @@ namespace Thetis
         public static string[] SortedComPorts()
         {
             string[] ports = SerialPort.GetPortNames();
-            Array.Sort<string>(ports, delegate (string strA, string strB)
+            Array.Sort(ports, delegate (string strA, string strB)
             {
                 try
                 {

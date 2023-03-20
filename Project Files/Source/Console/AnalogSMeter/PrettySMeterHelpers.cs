@@ -15,7 +15,7 @@ public class PrettySMeterHelpers
 
 {
 
-    private Console m_console;
+    private readonly Console m_console;
     private MeterRXMode m_meterRxMode;
     private MeterTXMode m_meterTXMode;
     private bool m_Mox = false;
@@ -24,11 +24,11 @@ public class PrettySMeterHelpers
     private ImageStruct m_Background;
 
     private ImageStruct m_AudioBackground;
-    private metering.helpers m_helper;
-    public PrettySMeterHelpers(Thetis.Console console) {
+    private helpers m_helper;
+    public PrettySMeterHelpers(Console console) {
 
         m_console = console;
-        m_helper = new metering.helpers(console);
+        m_helper = new helpers(console);
         test();
 
         ImageStructEx img = new ImageStructEx();

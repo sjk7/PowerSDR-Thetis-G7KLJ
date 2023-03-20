@@ -39,8 +39,8 @@ namespace Thetis
     {
         private const int NUM_RX_THREADS = 2;
         private const int NUM_RX_PER_THREAD = 2;
-        private RadioDSPRX[][] dsp_rx;
-        private RadioDSPTX[] dsp_tx;
+        private readonly RadioDSPRX[][] dsp_rx;
+        private readonly RadioDSPTX[] dsp_tx;
 
         public Radio(string datapath)
         {
@@ -160,8 +160,8 @@ namespace Thetis
 
     public class RadioDSPRX
     {
-        private uint thread;
-        private uint subrx;
+        private readonly uint thread;
+        private readonly uint subrx;
 
         public RadioDSPRX(uint t, uint rx)
         {
@@ -1168,8 +1168,8 @@ namespace Thetis
         }
 
 
-        private bool[] notch_on = new bool[9];
-        private bool[] notch_on_dsp = new bool[9];
+        private readonly bool[] notch_on = new bool[9];
+        private readonly bool[] notch_on_dsp = new bool[9];
         public bool GetNotchOn(int index)
         {
             return notch_on[index];
@@ -1187,8 +1187,8 @@ namespace Thetis
             }
         }
 
-        private double[] notch_freq = new double[9];
-        private double[] notch_freq_dsp = new double[9];
+        private readonly double[] notch_freq = new double[9];
+        private readonly double[] notch_freq_dsp = new double[9];
         public double GetNotchFreq(uint index)
         {
             return notch_freq[index];
@@ -1206,8 +1206,8 @@ namespace Thetis
             }
         }
 
-        private double[] notch_bw = new double[9];
-        private double[] notch_bw_dsp = new double[9];
+        private readonly double[] notch_bw = new double[9];
+        private readonly double[] notch_bw_dsp = new double[9];
         public double GetNotchBW(uint index)
         {
             return notch_bw[index];
@@ -1774,7 +1774,7 @@ namespace Thetis
 
     public class RadioDSPTX
     {
-        private uint thread;
+        private readonly uint thread;
 
         public RadioDSPTX(uint t)
         {
@@ -3196,7 +3196,7 @@ namespace Thetis
 
     class MNotchDB
     {
-        private static List<MNotch> list = new List<MNotch>();
+        private static readonly List<MNotch> list = new List<MNotch>();
         public static List<MNotch> List
         {
             get { return list; }

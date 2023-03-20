@@ -132,55 +132,55 @@ namespace Thetis
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SliderSettingsForm));
-            this.btnClose = new System.Windows.Forms.ButtonTS();
-            this.lblMasterAF = new System.Windows.Forms.LabelTS();
-            this.lblDrive = new System.Windows.Forms.LabelTS();
-            this.grpSubRX = new System.Windows.Forms.GroupBoxTS();
-            this.chkSubRX = new System.Windows.Forms.CheckBoxTS();
-            this.labelTS5 = new System.Windows.Forms.LabelTS();
-            this.labelTS4 = new System.Windows.Forms.LabelTS();
-            this.tbSubRXPan = new System.Windows.Forms.TrackBarTS();
-            this.tbSubRXAF = new System.Windows.Forms.TrackBarTS();
-            this.tbDrive = new System.Windows.Forms.TrackBarTS();
-            this.grpRX2 = new System.Windows.Forms.GroupBoxTS();
-            this.labelTS15 = new System.Windows.Forms.LabelTS();
-            this.labelTS14 = new System.Windows.Forms.LabelTS();
-            this.chkRX2VAC = new System.Windows.Forms.CheckBoxTS();
-            this.tbRX2VACTX = new System.Windows.Forms.TrackBarTS();
-            this.tbRX2VACRX = new System.Windows.Forms.TrackBarTS();
-            this.lblPan = new System.Windows.Forms.LabelTS();
-            this.labelTS11 = new System.Windows.Forms.LabelTS();
-            this.tbRX2Atten = new System.Windows.Forms.TrackBarTS();
-            this.chkRX2Mute = new System.Windows.Forms.CheckBoxTS();
-            this.labelTS3 = new System.Windows.Forms.LabelTS();
-            this.labelTS2 = new System.Windows.Forms.LabelTS();
-            this.labelTS1 = new System.Windows.Forms.LabelTS();
-            this.chkRX2Sql = new System.Windows.Forms.CheckBoxTS();
-            this.tbRX2Pan = new System.Windows.Forms.TrackBarTS();
-            this.tbRX2Sql = new System.Windows.Forms.TrackBarTS();
-            this.tbRX2RF = new System.Windows.Forms.TrackBarTS();
-            this.tbRX2AF = new System.Windows.Forms.TrackBarTS();
-            this.tbMasterAF = new System.Windows.Forms.TrackBarTS();
-            this.grpRX1 = new System.Windows.Forms.GroupBoxTS();
-            this.chkRX1VAC = new System.Windows.Forms.CheckBoxTS();
-            this.labelTS13 = new System.Windows.Forms.LabelTS();
-            this.tbRX1VACTX = new System.Windows.Forms.TrackBarTS();
-            this.labelTS12 = new System.Windows.Forms.LabelTS();
-            this.tbRX1VACRX = new System.Windows.Forms.TrackBarTS();
-            this.labelTS10 = new System.Windows.Forms.LabelTS();
-            this.tbRX1Atten = new System.Windows.Forms.TrackBarTS();
-            this.labelTS7 = new System.Windows.Forms.LabelTS();
-            this.chkRX1Mute = new System.Windows.Forms.CheckBoxTS();
-            this.labelTS8 = new System.Windows.Forms.LabelTS();
-            this.labelTS9 = new System.Windows.Forms.LabelTS();
-            this.labelTS6 = new System.Windows.Forms.LabelTS();
-            this.chkRX1Sql = new System.Windows.Forms.CheckBoxTS();
-            this.tbRX1Pan = new System.Windows.Forms.TrackBarTS();
-            this.tbRX1Sql = new System.Windows.Forms.TrackBarTS();
-            this.tbRX1RF = new System.Windows.Forms.TrackBarTS();
-            this.tbRX1AF = new System.Windows.Forms.TrackBarTS();
-            this.tbMicGain = new System.Windows.Forms.TrackBarTS();
-            this.labelTS16 = new System.Windows.Forms.LabelTS();
+            this.btnClose = new ButtonTS();
+            this.lblMasterAF = new LabelTS();
+            this.lblDrive = new LabelTS();
+            this.grpSubRX = new GroupBoxTS();
+            this.chkSubRX = new CheckBoxTS();
+            this.labelTS5 = new LabelTS();
+            this.labelTS4 = new LabelTS();
+            this.tbSubRXPan = new TrackBarTS();
+            this.tbSubRXAF = new TrackBarTS();
+            this.tbDrive = new TrackBarTS();
+            this.grpRX2 = new GroupBoxTS();
+            this.labelTS15 = new LabelTS();
+            this.labelTS14 = new LabelTS();
+            this.chkRX2VAC = new CheckBoxTS();
+            this.tbRX2VACTX = new TrackBarTS();
+            this.tbRX2VACRX = new TrackBarTS();
+            this.lblPan = new LabelTS();
+            this.labelTS11 = new LabelTS();
+            this.tbRX2Atten = new TrackBarTS();
+            this.chkRX2Mute = new CheckBoxTS();
+            this.labelTS3 = new LabelTS();
+            this.labelTS2 = new LabelTS();
+            this.labelTS1 = new LabelTS();
+            this.chkRX2Sql = new CheckBoxTS();
+            this.tbRX2Pan = new TrackBarTS();
+            this.tbRX2Sql = new TrackBarTS();
+            this.tbRX2RF = new TrackBarTS();
+            this.tbRX2AF = new TrackBarTS();
+            this.tbMasterAF = new TrackBarTS();
+            this.grpRX1 = new GroupBoxTS();
+            this.chkRX1VAC = new CheckBoxTS();
+            this.labelTS13 = new LabelTS();
+            this.tbRX1VACTX = new TrackBarTS();
+            this.labelTS12 = new LabelTS();
+            this.tbRX1VACRX = new TrackBarTS();
+            this.labelTS10 = new LabelTS();
+            this.tbRX1Atten = new TrackBarTS();
+            this.labelTS7 = new LabelTS();
+            this.chkRX1Mute = new CheckBoxTS();
+            this.labelTS8 = new LabelTS();
+            this.labelTS9 = new LabelTS();
+            this.labelTS6 = new LabelTS();
+            this.chkRX1Sql = new CheckBoxTS();
+            this.tbRX1Pan = new TrackBarTS();
+            this.tbRX1Sql = new TrackBarTS();
+            this.tbRX1RF = new TrackBarTS();
+            this.tbRX1AF = new TrackBarTS();
+            this.tbMicGain = new TrackBarTS();
+            this.labelTS16 = new LabelTS();
             this.grpSubRX.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbSubRXPan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbSubRXAF)).BeginInit();
@@ -214,7 +214,7 @@ namespace Thetis
             this.btnClose.TabIndex = 11;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnClose.Click += new EventHandler(this.btnClose_Click);
             // 
             // lblMasterAF
             // 
@@ -265,7 +265,7 @@ namespace Thetis
             this.chkSubRX.Text = "Enable Sub RX";
             this.chkSubRX.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkSubRX.UseVisualStyleBackColor = true;
-            this.chkSubRX.CheckedChanged += new System.EventHandler(this.chkSubRX_CheckedChanged);
+            this.chkSubRX.CheckedChanged += new EventHandler(this.chkSubRX_CheckedChanged);
             // 
             // labelTS5
             // 
@@ -294,7 +294,7 @@ namespace Thetis
             this.tbSubRXPan.Name = "tbSubRXPan";
             this.tbSubRXPan.Size = new System.Drawing.Size(144, 45);
             this.tbSubRXPan.TabIndex = 4;
-            this.tbSubRXPan.Scroll += new System.EventHandler(this.tbSubRXPan_Scroll);
+            this.tbSubRXPan.Scroll += new EventHandler(this.tbSubRXPan_Scroll);
             // 
             // tbSubRXAF
             // 
@@ -304,7 +304,7 @@ namespace Thetis
             this.tbSubRXAF.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbSubRXAF.Size = new System.Drawing.Size(45, 131);
             this.tbSubRXAF.TabIndex = 1;
-            this.tbSubRXAF.Scroll += new System.EventHandler(this.tbSubRXAF_Scroll);
+            this.tbSubRXAF.Scroll += new EventHandler(this.tbSubRXAF_Scroll);
             // 
             // tbDrive
             // 
@@ -313,7 +313,7 @@ namespace Thetis
             this.tbDrive.Name = "tbDrive";
             this.tbDrive.Size = new System.Drawing.Size(131, 45);
             this.tbDrive.TabIndex = 3;
-            this.tbDrive.Scroll += new System.EventHandler(this.tbDrive_Scroll);
+            this.tbDrive.Scroll += new EventHandler(this.tbDrive_Scroll);
             // 
             // grpRX2
             // 
@@ -374,7 +374,7 @@ namespace Thetis
             this.chkRX2VAC.Text = "VAC2";
             this.chkRX2VAC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkRX2VAC.UseVisualStyleBackColor = true;
-            this.chkRX2VAC.CheckedChanged += new System.EventHandler(this.ChkRX2VAC_CheckedChanged);
+            this.chkRX2VAC.CheckedChanged += new EventHandler(this.ChkRX2VAC_CheckedChanged);
             // 
             // tbRX2VACTX
             // 
@@ -386,7 +386,7 @@ namespace Thetis
             this.tbRX2VACTX.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbRX2VACTX.Size = new System.Drawing.Size(30, 131);
             this.tbRX2VACTX.TabIndex = 17;
-            this.tbRX2VACTX.Scroll += new System.EventHandler(this.TbRX2VACTX_Scroll);
+            this.tbRX2VACTX.Scroll += new EventHandler(this.TbRX2VACTX_Scroll);
             // 
             // tbRX2VACRX
             // 
@@ -398,7 +398,7 @@ namespace Thetis
             this.tbRX2VACRX.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbRX2VACRX.Size = new System.Drawing.Size(30, 131);
             this.tbRX2VACRX.TabIndex = 16;
-            this.tbRX2VACRX.Scroll += new System.EventHandler(this.TbRX2VACRX_Scroll);
+            this.tbRX2VACRX.Scroll += new EventHandler(this.TbRX2VACRX_Scroll);
             // 
             // lblPan
             // 
@@ -429,7 +429,7 @@ namespace Thetis
             this.tbRX2Atten.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbRX2Atten.Size = new System.Drawing.Size(30, 131);
             this.tbRX2Atten.TabIndex = 15;
-            this.tbRX2Atten.Scroll += new System.EventHandler(this.tbRX2Atten_Scroll);
+            this.tbRX2Atten.Scroll += new EventHandler(this.tbRX2Atten_Scroll);
             // 
             // chkRX2Mute
             // 
@@ -443,7 +443,7 @@ namespace Thetis
             this.chkRX2Mute.Text = "Mute";
             this.chkRX2Mute.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkRX2Mute.UseVisualStyleBackColor = true;
-            this.chkRX2Mute.CheckedChanged += new System.EventHandler(this.chkRX2Mute_CheckedChanged);
+            this.chkRX2Mute.CheckedChanged += new EventHandler(this.chkRX2Mute_CheckedChanged);
             // 
             // labelTS3
             // 
@@ -487,7 +487,7 @@ namespace Thetis
             this.chkRX2Sql.Text = "SQL";
             this.chkRX2Sql.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkRX2Sql.UseVisualStyleBackColor = true;
-            this.chkRX2Sql.CheckedChanged += new System.EventHandler(this.chkRX2Sql_CheckedChanged);
+            this.chkRX2Sql.CheckedChanged += new EventHandler(this.chkRX2Sql_CheckedChanged);
             // 
             // tbRX2Pan
             // 
@@ -496,7 +496,7 @@ namespace Thetis
             this.tbRX2Pan.Name = "tbRX2Pan";
             this.tbRX2Pan.Size = new System.Drawing.Size(150, 45);
             this.tbRX2Pan.TabIndex = 4;
-            this.tbRX2Pan.Scroll += new System.EventHandler(this.tbRX2Pan_Scroll);
+            this.tbRX2Pan.Scroll += new EventHandler(this.tbRX2Pan_Scroll);
             // 
             // tbRX2Sql
             // 
@@ -508,7 +508,7 @@ namespace Thetis
             this.tbRX2Sql.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbRX2Sql.Size = new System.Drawing.Size(30, 131);
             this.tbRX2Sql.TabIndex = 3;
-            this.tbRX2Sql.Scroll += new System.EventHandler(this.tbRX2Sql_Scroll);
+            this.tbRX2Sql.Scroll += new EventHandler(this.tbRX2Sql_Scroll);
             // 
             // tbRX2RF
             // 
@@ -520,7 +520,7 @@ namespace Thetis
             this.tbRX2RF.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbRX2RF.Size = new System.Drawing.Size(30, 131);
             this.tbRX2RF.TabIndex = 2;
-            this.tbRX2RF.Scroll += new System.EventHandler(this.tbRX2RF_Scroll);
+            this.tbRX2RF.Scroll += new EventHandler(this.tbRX2RF_Scroll);
             // 
             // tbRX2AF
             // 
@@ -531,7 +531,7 @@ namespace Thetis
             this.tbRX2AF.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbRX2AF.Size = new System.Drawing.Size(30, 131);
             this.tbRX2AF.TabIndex = 1;
-            this.tbRX2AF.Scroll += new System.EventHandler(this.tbRX2AF_Scroll);
+            this.tbRX2AF.Scroll += new EventHandler(this.tbRX2AF_Scroll);
             // 
             // tbMasterAF
             // 
@@ -540,7 +540,7 @@ namespace Thetis
             this.tbMasterAF.Name = "tbMasterAF";
             this.tbMasterAF.Size = new System.Drawing.Size(131, 45);
             this.tbMasterAF.TabIndex = 2;
-            this.tbMasterAF.Scroll += new System.EventHandler(this.tbMasterAF_Scroll);
+            this.tbMasterAF.Scroll += new EventHandler(this.tbMasterAF_Scroll);
             // 
             // grpRX1
             // 
@@ -581,7 +581,7 @@ namespace Thetis
             this.chkRX1VAC.Text = "VAC1";
             this.chkRX1VAC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkRX1VAC.UseVisualStyleBackColor = true;
-            this.chkRX1VAC.CheckedChanged += new System.EventHandler(this.ChkRX1VAC_CheckedChanged);
+            this.chkRX1VAC.CheckedChanged += new EventHandler(this.ChkRX1VAC_CheckedChanged);
             // 
             // labelTS13
             // 
@@ -603,7 +603,7 @@ namespace Thetis
             this.tbRX1VACTX.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbRX1VACTX.Size = new System.Drawing.Size(30, 131);
             this.tbRX1VACTX.TabIndex = 17;
-            this.tbRX1VACTX.Scroll += new System.EventHandler(this.TbRX1VACTX_Scroll);
+            this.tbRX1VACTX.Scroll += new EventHandler(this.TbRX1VACTX_Scroll);
             // 
             // labelTS12
             // 
@@ -625,7 +625,7 @@ namespace Thetis
             this.tbRX1VACRX.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbRX1VACRX.Size = new System.Drawing.Size(30, 131);
             this.tbRX1VACRX.TabIndex = 15;
-            this.tbRX1VACRX.Scroll += new System.EventHandler(this.TbRX1VACRX_Scroll);
+            this.tbRX1VACRX.Scroll += new EventHandler(this.TbRX1VACRX_Scroll);
             // 
             // labelTS10
             // 
@@ -645,7 +645,7 @@ namespace Thetis
             this.tbRX1Atten.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbRX1Atten.Size = new System.Drawing.Size(30, 131);
             this.tbRX1Atten.TabIndex = 13;
-            this.tbRX1Atten.Scroll += new System.EventHandler(this.tbRX1Atten_Scroll);
+            this.tbRX1Atten.Scroll += new EventHandler(this.tbRX1Atten_Scroll);
             // 
             // labelTS7
             // 
@@ -669,7 +669,7 @@ namespace Thetis
             this.chkRX1Mute.Text = "Mute";
             this.chkRX1Mute.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkRX1Mute.UseVisualStyleBackColor = true;
-            this.chkRX1Mute.CheckedChanged += new System.EventHandler(this.chkRX1Mute_CheckedChanged);
+            this.chkRX1Mute.CheckedChanged += new EventHandler(this.chkRX1Mute_CheckedChanged);
             // 
             // labelTS8
             // 
@@ -713,7 +713,7 @@ namespace Thetis
             this.chkRX1Sql.Text = "SQL";
             this.chkRX1Sql.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkRX1Sql.UseVisualStyleBackColor = true;
-            this.chkRX1Sql.CheckedChanged += new System.EventHandler(this.chkRX1Sql_CheckedChanged);
+            this.chkRX1Sql.CheckedChanged += new EventHandler(this.chkRX1Sql_CheckedChanged);
             // 
             // tbRX1Pan
             // 
@@ -722,7 +722,7 @@ namespace Thetis
             this.tbRX1Pan.Name = "tbRX1Pan";
             this.tbRX1Pan.Size = new System.Drawing.Size(150, 45);
             this.tbRX1Pan.TabIndex = 4;
-            this.tbRX1Pan.Scroll += new System.EventHandler(this.tbRX1Pan_Scroll);
+            this.tbRX1Pan.Scroll += new EventHandler(this.tbRX1Pan_Scroll);
             // 
             // tbRX1Sql
             // 
@@ -734,7 +734,7 @@ namespace Thetis
             this.tbRX1Sql.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbRX1Sql.Size = new System.Drawing.Size(30, 131);
             this.tbRX1Sql.TabIndex = 3;
-            this.tbRX1Sql.Scroll += new System.EventHandler(this.tbRX1Sql_Scroll);
+            this.tbRX1Sql.Scroll += new EventHandler(this.tbRX1Sql_Scroll);
             // 
             // tbRX1RF
             // 
@@ -746,7 +746,7 @@ namespace Thetis
             this.tbRX1RF.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbRX1RF.Size = new System.Drawing.Size(30, 131);
             this.tbRX1RF.TabIndex = 2;
-            this.tbRX1RF.Scroll += new System.EventHandler(this.tbRX1RF_Scroll);
+            this.tbRX1RF.Scroll += new EventHandler(this.tbRX1RF_Scroll);
             // 
             // tbRX1AF
             // 
@@ -757,7 +757,7 @@ namespace Thetis
             this.tbRX1AF.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.tbRX1AF.Size = new System.Drawing.Size(30, 131);
             this.tbRX1AF.TabIndex = 1;
-            this.tbRX1AF.Scroll += new System.EventHandler(this.tbRX1AF_Scroll);
+            this.tbRX1AF.Scroll += new EventHandler(this.tbRX1AF_Scroll);
             // 
             // tbMicGain
             // 
@@ -767,7 +767,7 @@ namespace Thetis
             this.tbMicGain.Name = "tbMicGain";
             this.tbMicGain.Size = new System.Drawing.Size(131, 45);
             this.tbMicGain.TabIndex = 12;
-            this.tbMicGain.Scroll += new System.EventHandler(this.TbMicGain_Scroll);
+            this.tbMicGain.Scroll += new EventHandler(this.TbMicGain_Scroll);
             // 
             // labelTS16
             // 
@@ -803,9 +803,9 @@ namespace Thetis
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Analogue Gain Control Settings";
             this.TopMost = true;
-            this.Activated += new System.EventHandler(this.SliderSettingsForm_Activated);
+            this.Activated += new EventHandler(this.SliderSettingsForm_Activated);
             this.Closing += new System.ComponentModel.CancelEventHandler(this.SliderSettingsForm_Closing);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SliderSettingsForm_FormClosing);
+            this.FormClosing += new FormClosingEventHandler(this.SliderSettingsForm_FormClosing);
             this.grpSubRX.ResumeLayout(false);
             this.grpSubRX.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbSubRXPan)).EndInit();

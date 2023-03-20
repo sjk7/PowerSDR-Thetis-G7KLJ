@@ -50,10 +50,10 @@ namespace Thetis
         }
 
 
-        private byte[] TXABitMasks = new byte[41]; //25
-        private byte[] RXABitMasks = new byte[41];
-        private byte[] TXBBitMasks = new byte[41];
-        private byte[] RXBBitMasks = new byte[41];
+        private readonly byte[] TXABitMasks = new byte[41]; //25
+        private readonly byte[] RXABitMasks = new byte[41];
+        private readonly byte[] TXBBitMasks = new byte[41];
+        private readonly byte[] RXBBitMasks = new byte[41];
 
 
         public void setBandABitMask(Band band, byte mask, bool tx)

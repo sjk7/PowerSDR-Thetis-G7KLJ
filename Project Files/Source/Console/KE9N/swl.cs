@@ -38,7 +38,7 @@ using System.Threading.Tasks;
 
 namespace Thetis
 {
-    public class SwlControl : System.Windows.Forms.Form
+    public class SwlControl : Form
     {
 
         public SpotControl SpotForm;                     // ke9ns add  communications with spot.cs 
@@ -48,7 +48,7 @@ namespace Thetis
         public Setup setupForm;   // ke9ns communications with setupform  (i.e. allow combometertype.text update from inside console.cs) 
 
         //   private ArrayList file_list;
-        private string wave_folder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\Thetis";
+        private readonly string wave_folder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\Thetis";
 
         private TextBox textBox3;
         private CheckBoxTS chkAlwaysOnTop;
@@ -102,103 +102,103 @@ namespace Thetis
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SwlControl));
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.chkAlwaysOnTop = new System.Windows.Forms.CheckBoxTS();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(SwlControl));
+            this.textBox3 = new TextBox();
+            this.button1 = new Button();
+            this.richTextBox1 = new RichTextBox();
+            this.button2 = new Button();
+            this.richTextBox2 = new RichTextBox();
+            this.chkAlwaysOnTop = new CheckBoxTS();
             this.SuspendLayout();
             // 
             // textBox3
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(12, 12);
+            this.textBox3.Font = new Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.Location = new Point(12, 12);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(394, 97);
+            this.textBox3.Size = new Size(394, 97);
             this.textBox3.TabIndex = 9;
             this.textBox3.TabStop = false;
             this.textBox3.Text = resources.GetString("textBox3.Text");
             // 
             // button1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.Location = new System.Drawing.Point(12, 509);
+            this.button1.Location = new Point(12, 509);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new Size(75, 23);
             this.button1.TabIndex = 61;
             this.button1.Text = "Update List";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new EventHandler(this.button1_Click);
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(97, 123);
+            this.richTextBox1.Location = new Point(97, 123);
             this.richTextBox1.MaxLength = 20;
             this.richTextBox1.Multiline = false;
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.richTextBox1.Size = new System.Drawing.Size(175, 25);
+            this.richTextBox1.Size = new Size(175, 25);
             this.richTextBox1.TabIndex = 62;
             this.richTextBox1.Text = "";
-            this.richTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.richTextBox1_KeyPress);
+            this.richTextBox1.KeyPress += new KeyPressEventHandler(this.richTextBox1_KeyPress);
             // 
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button2.Location = new System.Drawing.Point(287, 125);
+            this.button2.Location = new Point(287, 125);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new Size(75, 23);
             this.button2.TabIndex = 63;
             this.button2.Text = "Search";
             this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new EventHandler(this.button2_Click);
             // 
             // richTextBox2
             // 
-            this.richTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.richTextBox2.Anchor = ((AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.richTextBox2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.richTextBox2.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox2.Location = new System.Drawing.Point(12, 163);
+            this.richTextBox2.Font = new Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox2.Location = new Point(12, 163);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox2.Size = new System.Drawing.Size(394, 331);
+            this.richTextBox2.Size = new Size(394, 331);
             this.richTextBox2.TabIndex = 64;
             this.richTextBox2.Text = "";
-            this.richTextBox2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.richTextBox2_MouseDown);
-            this.richTextBox2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.richTextBox2_MouseUp);
+            this.richTextBox2.MouseDown += new MouseEventHandler(this.richTextBox2_MouseDown);
+            this.richTextBox2.MouseUp += new MouseEventHandler(this.richTextBox2_MouseUp);
             // 
             // chkAlwaysOnTop
             // 
-            this.chkAlwaysOnTop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkAlwaysOnTop.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkAlwaysOnTop.Image = null;
-            this.chkAlwaysOnTop.Location = new System.Drawing.Point(302, 509);
+            this.chkAlwaysOnTop.Location = new Point(302, 509);
             this.chkAlwaysOnTop.Name = "chkAlwaysOnTop";
-            this.chkAlwaysOnTop.Size = new System.Drawing.Size(104, 24);
+            this.chkAlwaysOnTop.Size = new Size(104, 24);
             this.chkAlwaysOnTop.TabIndex = 59;
             this.chkAlwaysOnTop.Text = "Always On Top";
-            this.chkAlwaysOnTop.CheckedChanged += new System.EventHandler(this.chkAlwaysOnTop_CheckedChanged);
+            this.chkAlwaysOnTop.CheckedChanged += new EventHandler(this.chkAlwaysOnTop_CheckedChanged);
             // 
             // SwlControl
             // 
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(418, 542);
+            this.ClientSize = new Size(418, 542);
             this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.chkAlwaysOnTop);
             this.Controls.Add(this.textBox3);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(434, 200);
+            this.Icon = ((Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new Size(434, 200);
             this.Name = "SwlControl";
             this.Text = "SWL";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SwlControl_FormClosing);
-            this.Load += new System.EventHandler(this.SwlControl_Load);
+            this.FormClosing += new FormClosingEventHandler(this.SwlControl_FormClosing);
+            this.Load += new EventHandler(this.SwlControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -247,7 +247,7 @@ namespace Thetis
         //===================================================================================
         //===================================================================================
 
-        int[] swl_index = new int[20000];
+        readonly int[] swl_index = new int[20000];
 
         public void bandSwlupdate()
         {

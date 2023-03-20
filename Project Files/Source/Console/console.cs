@@ -1104,12 +1104,10 @@ public partial class Console : Form {
     booting = true;
 
     InitializeComponent(); // Windows Forms Generated Code
-    this.infoBar.Button1Clicked
-        += new System.EventHandler<Thetis.ucInfoBar.InfoBarAction>(
-            this.infoBar_Button1Clicked);
-    this.infoBar.Button2Clicked
-        += new System.EventHandler<Thetis.ucInfoBar.InfoBarAction>(
-            this.infoBar_Button2Clicked);
+    this.infoBar.Button1Clicked += new EventHandler<ucInfoBar.InfoBarAction>(
+        this.infoBar_Button1Clicked);
+    this.infoBar.Button2Clicked += new EventHandler<ucInfoBar.InfoBarAction>(
+        this.infoBar_Button2Clicked);
     booting = false;
     this.ucInfoBar.BackColor = this.picDisplay.BackColor;
 
@@ -1295,7 +1293,7 @@ public partial class Console : Form {
             m_PrettySMeterHelpers = new PrettySMeterHelpers(this);
     }
 
-    this.Click += new System.EventHandler(this.form_Click);
+    this.Click += new EventHandler(this.form_Click);
     Splash.SetStatus("Sizing and showing main app window ...");
 
     RestoreFromSettings();
@@ -1375,8 +1373,7 @@ public Setup SetupForm {
                 if (IsSetupFormNull) {
                     Debug.Print("__setup form new()__");
 
-                    m_frmSetupForm = new Setup(this);
-                    m_frmSetupForm.Owner = this;
+                    m_frmSetupForm = new Setup(this) { Owner = this };
                 }
                 return m_frmSetupForm;
             }
@@ -1710,8 +1707,7 @@ private void InitConsole() {
     m_frmSeqLog.ClearButtonEvent += onClearButton;
 
     Splash.SetStatus("Initialising PureSignal interface ...");
-    psform = new PSForm(this);
-    psform.Owner = this;
+    psform = new PSForm(this) { Owner = this };
     booting = true;
     // Thread.Sleep(100);
     Splash.SetStatus("Initialising Band Stack Regsiters ...");
@@ -2209,16 +2205,14 @@ private void selectFilters() {
             for (int i = 1; i < 11; i++) {
             string s = "radFilter" + i.ToString();
             if (panelFilter.Controls.ContainsKey(s)) {
-                RadioButtonTS b = panelFilter.Controls[s] as RadioButtonTS;
-                if (b == null) break;
+                if (!(panelFilter.Controls[s] is RadioButtonTS b)) break;
                 if (b.Checked) radFilter_CheckedChanged(b, EventArgs.Empty);
             }
             }
             for (int i = 1; i < 3; i++) {
             string s = "radFilterVar" + i.ToString();
             if (panelFilter.Controls.ContainsKey(s)) {
-                RadioButtonTS b = panelFilter.Controls[s] as RadioButtonTS;
-                if (b == null) break;
+                if (!(panelFilter.Controls[s] is RadioButtonTS b)) break;
                 if (b.Checked) radFilter_CheckedChanged(b, EventArgs.Empty);
             }
             }
@@ -2226,16 +2220,14 @@ private void selectFilters() {
             for (int i = 1; i < 8; i++) {
             string s = "radRX2Filter" + i.ToString();
             if (panelRX2Filter.Controls.ContainsKey(s)) {
-                RadioButtonTS b = panelRX2Filter.Controls[s] as RadioButtonTS;
-                if (b == null) break;
+                if (!(panelRX2Filter.Controls[s] is RadioButtonTS b)) break;
                 if (b.Checked) radFilter_CheckedChanged(b, EventArgs.Empty);
             }
             }
             for (int i = 1; i < 3; i++) {
             string s = "radRX2FilterVar" + i.ToString();
             if (panelRX2Filter.Controls.ContainsKey(s)) {
-                RadioButtonTS b = panelRX2Filter.Controls[s] as RadioButtonTS;
-                if (b == null) break;
+                if (!(panelRX2Filter.Controls[s] is RadioButtonTS b)) break;
                 if (b.Checked) radFilter_CheckedChanged(b, EventArgs.Empty);
             }
             }
@@ -2248,8 +2240,7 @@ private void selectModes() {
             for (int i = 0; i < sModes.Length; i++) {
             string s = "radMode" + sModes[i];
             if (panelMode.Controls.ContainsKey(s)) {
-                RadioButtonTS b = panelMode.Controls[s] as RadioButtonTS;
-                if (b == null) break;
+                if (!(panelMode.Controls[s] is RadioButtonTS b)) break;
                 if (b.Checked) radModeButton_CheckedChanged(b, EventArgs.Empty);
             }
             }
@@ -2257,8 +2248,7 @@ private void selectModes() {
             for (int i = 0; i < sModes.Length; i++) {
             string s = "radRX2Mode" + sModes[i];
             if (panelRX2Mode.Controls.ContainsKey(s)) {
-                RadioButtonTS b = panelRX2Mode.Controls[s] as RadioButtonTS;
-                if (b == null) break;
+                if (!(panelRX2Mode.Controls[s] is RadioButtonTS b)) break;
                 if (b.Checked)
                     radRX2ModeButton_CheckedChanged(b, EventArgs.Empty);
             }
@@ -15374,14 +15364,9 @@ private void radBandGEN0_Click(object sender, EventArgs e) {
             }
             last_band = "LMF";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_LMF_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_LMF_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@"))
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -15411,15 +15396,9 @@ private void radBandGEN1_Click(object sender, EventArgs e) {
             }
             last_band = "120M";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_120m_index, out mode,
-                    out filter, out freq, out CTUN, out ZoomFactor,
-                    out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_120m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@"))
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -15444,14 +15423,9 @@ private void radBandGEN2_Click(object sender, EventArgs e) {
             }
             last_band = "90M";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_90m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_90m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@"))
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -15476,14 +15450,9 @@ private void radBandGEN3_Click(object sender, EventArgs e) {
             }
             last_band = "61M";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_61m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_61m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@"))
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -15508,14 +15477,9 @@ private void radBandGEN4_Click(object sender, EventArgs e) {
             }
             last_band = "49M";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_49m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_49m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@"))
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -15540,14 +15504,9 @@ private void radBandGEN5_Click(object sender, EventArgs e) {
             }
             last_band = "41M";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_41m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_41m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@"))
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -15572,14 +15531,9 @@ private void radBandGEN6_Click(object sender, EventArgs e) {
             }
             last_band = "31M";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_31m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_31m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@"))
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -15604,14 +15558,9 @@ private void radBandGEN7_Click(object sender, EventArgs e) {
             }
             last_band = "25M";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_25m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_25m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@"))
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -15636,14 +15585,9 @@ private void radBandGEN8_Click(object sender, EventArgs e) {
             }
             last_band = "22M";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_22m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_22m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@"))
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -15668,14 +15612,9 @@ private void radBandGEN9_Click(object sender, EventArgs e) {
             }
             last_band = "19M";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_19m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_19m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@"))
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -15700,14 +15639,9 @@ private void radBandGEN10_Click(object sender, EventArgs e) {
             }
             last_band = "16M";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_16m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_16m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@"))
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -15732,14 +15666,9 @@ private void radBandGEN11_Click(object sender, EventArgs e) {
             }
             last_band = "14M";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_14m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_14m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@"))
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -15764,14 +15693,9 @@ private void radBandGEN12_Click(object sender, EventArgs e) {
             }
             last_band = "13M";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_13m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_13m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@"))
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -15796,14 +15720,9 @@ private void radBandGEN13_Click(object sender, EventArgs e) {
             }
             last_band = "11M";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_11m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_11m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@"))
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -26503,10 +26422,10 @@ private async void UpdatePeakText() {
 
                         int n = 0;
                         bool bInit = true;
-                        uint rec_seq; //= 0;
-                        uint last_seq; // = 0;
+                        // = 0;
                         while (NetworkIO.getSeqInDelta(bInit, nDCC, nSeqLogData,
-                            sDateTimeStamp, out rec_seq, out last_seq)) {
+                            sDateTimeStamp, out uint rec_seq,
+                            out uint last_seq)) {
                             bInit = false;
                             ss += "s" + n.ToString() + "=";
                             for (int ff = 0; ff < nSeqLogData.Length; ff++) {
@@ -28803,8 +28722,7 @@ private float calcSMeterValue(float dbm) {
             return s_meter_value;
 }
 
-private void picMultiMeterDigital_Paint(
-    object sender, System.Windows.Forms.PaintEventArgs e) {
+private void picMultiMeterDigital_Paint(object sender, PaintEventArgs e) {
             int H = picMultiMeterDigital.ClientSize.Height;
             int W = picMultiMeterDigital.ClientSize.Width;
             Graphics g = e.Graphics;
@@ -29125,8 +29043,7 @@ private void picMultiMeterDigital_Paint(
 }
 
 private double rx2_avg_num = Display.CLEAR_FLAG; //- 130.0;
-private void picRX2Meter_Paint(
-    object sender, System.Windows.Forms.PaintEventArgs e) {
+private void picRX2Meter_Paint(object sender, PaintEventArgs e) {
             int H = picRX2Meter.ClientSize.Height;
             int W = picRX2Meter.ClientSize.Width;
             Graphics g = e.Graphics;
@@ -29338,8 +29255,7 @@ private void ResetRX2MeterPeak() {
             rx2_meter_peak_count = multimeter_peak_hold_samples;
 }
 
-private void panelVFOAHover_Paint(
-    object sender, System.Windows.Forms.PaintEventArgs e) {
+private void panelVFOAHover_Paint(object sender, PaintEventArgs e) {
             if (vfoa_hover_digit < 0) return;
 
             int x = 0;
@@ -29366,8 +29282,7 @@ private void panelVFOAHover_Paint(
             e.Graphics.DrawLine(txtvfoafreq_forecolor_pen, x, 1, width, 1);
 }
 
-private void panelVFOBHover_Paint(
-    object sender, System.Windows.Forms.PaintEventArgs e) {
+private void panelVFOBHover_Paint(object sender, PaintEventArgs e) {
             if (vfob_hover_digit < 0) return;
 
             int x = 0;
@@ -31608,7 +31523,7 @@ private double SWRScale(double ref_pow) {
                 0.25); // mx+b found using 80% at 19, 25% at 50
 }
 
-private void timer_cpu_meter_Tick(object sender, System.EventArgs e) {
+private void timer_cpu_meter_Tick(object sender, EventArgs e) {
             // if ((anan7000dpresent || anan8000dpresent) &&
             // ANAN8000DLEDisplayVoltsAmps)
             //{
@@ -31654,13 +31569,13 @@ private void timer_cpu_meter_Tick(object sender, System.EventArgs e) {
             }
 }
 
-private void timer_peak_text_Tick(object sender, System.EventArgs e) {
+private void timer_peak_text_Tick(object sender, EventArgs e) {
             UpdatePeakText();
 }
 
 // private int last_sec;		// for time of day clock
 // private DateTime last_date;	// for date
-private void timer_clock_Tick(object sender, System.EventArgs e) {
+private void timer_clock_Tick(object sender, EventArgs e) {
 
             DateTime now = DateTime.Now;
             DateTime UTCnow = DateTime.UtcNow;
@@ -31705,8 +31620,7 @@ public bool TXCal {
 
 // Console Events
 
-private void Console_KeyPress(
-    object sender, System.Windows.Forms.KeyPressEventArgs e) {
+private void Console_KeyPress(object sender, KeyPressEventArgs e) {
             if (callsignfocus == 1)
             return; // ke9ns add to focus on waterfall ID text
             if (e.KeyChar == (char)Keys.Enter) {
@@ -31719,7 +31633,7 @@ private void Console_KeyPress(
             }
 }
 
-private void Console_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e) {
+private void Console_KeyUp(object sender, KeyEventArgs e) {
             // MW0LGE
             m_bShiftKeyDown = e.Shift;
             m_bControlKeyDown = e.Control;
@@ -31755,8 +31669,7 @@ private static bool m_bControlKeyDown
              // function: add bandstacking and hyperlinking) //
              // MW0LGE changed to bool
 public static bool ALTM = false; // ke9ns add
-private void Console_KeyDown(
-    object sender, System.Windows.Forms.KeyEventArgs e) {
+private void Console_KeyDown(object sender, KeyEventArgs e) {
             // MW0LGE
             m_bShiftKeyDown = e.Shift;
             m_bControlKeyDown = e.Control;
@@ -33011,7 +32924,7 @@ private void Console_KeyDown(
 private bool DataFlowing = false;
 private byte[] id_bytes = new byte[1];
 
-private void chkPower_CheckedChanged(object sender, System.EventArgs e) {
+private void chkPower_CheckedChanged(object sender, EventArgs e) {
 
             if (chkPower.Checked) {
             m_TimeWhenMoxEntered = 0;
@@ -33519,8 +33432,7 @@ private void resizeWaterfallBitmaps2(/*bool bIsPanafall*/) {
             //}
 }
 
-public void comboDisplayMode_SelectedIndexChanged(
-    object sender, System.EventArgs e) {
+public void comboDisplayMode_SelectedIndexChanged(object sender, EventArgs e) {
             pause_DisplayThread = true;
             DisplayMode old_mode = Display.CurrentDisplayMode;
 
@@ -33791,7 +33703,7 @@ public void comboDisplayMode_SelectedIndexChanged(
             picDisplay.Invalidate();
 }
 
-private void chkBIN_CheckedChanged(object sender, System.EventArgs e) {
+private void chkBIN_CheckedChanged(object sender, EventArgs e) {
             if (chkBIN.Checked)
             chkBIN.BackColor = button_selected_color;
             else
@@ -33801,7 +33713,7 @@ private void chkBIN_CheckedChanged(object sender, System.EventArgs e) {
             BINToolStripMenuItem.Checked = chkBIN.Checked;
 }
 
-private void comboAGC_SelectedIndexChanged(object sender, System.EventArgs e) {
+private void comboAGC_SelectedIndexChanged(object sender, EventArgs e) {
             if (comboAGC.SelectedIndex < 0) return;
             radio.GetDSPRX(0, 0).RXAGCMode = (AGCMode)comboAGC.SelectedIndex;
             radio.GetDSPRX(0, 1).RXAGCMode = (AGCMode)comboAGC.SelectedIndex;
@@ -34065,8 +33977,7 @@ private void Console_Closing(
             this.Hide();
 }
 
-private void comboPreamp_SelectedIndexChanged(
-    object sender, System.EventArgs e) {
+private void comboPreamp_SelectedIndexChanged(object sender, EventArgs e) {
             // if (initializing) return;
             PreampMode mode = PreampMode.FIRST;
             bool exit = false;
@@ -34117,8 +34028,7 @@ private void comboPreamp_SelectedIndexChanged(
             }
 }
 
-private void comboRX2Preamp_SelectedIndexChanged(
-    object sender, System.EventArgs e) {
+private void comboRX2Preamp_SelectedIndexChanged(object sender, EventArgs e) {
             // if (initializing) return;
             PreampMode mode = PreampMode.FIRST;
             bool exit = false;
@@ -34148,7 +34058,7 @@ private void comboRX2Preamp_SelectedIndexChanged(
             }
 }
 
-private void chkMUT_CheckedChanged(object sender, System.EventArgs e) {
+private void chkMUT_CheckedChanged(object sender, EventArgs e) {
 
             if (chkMUT.Checked) {
             Audio.MuteRX1 = true;
@@ -34179,7 +34089,7 @@ public bool ModelIsHPSDRorHermes() {
             return false;
 }
 
-private void ptbPWR_Scroll(object sender, System.EventArgs e) {
+private void ptbPWR_Scroll(object sender, EventArgs e) {
             lblPWR.Text = "Drive:  " + ptbPWR.Value.ToString();
 
             if (IsSetupFormNull) return;
@@ -34245,7 +34155,7 @@ private void ptbPWR_Scroll(object sender, System.EventArgs e) {
             if (sliderForm != null) sliderForm.TXDrive = ptbPWR.Value;
 }
 
-private void ptbAF_Scroll(object sender, System.EventArgs e) {
+private void ptbAF_Scroll(object sender, EventArgs e) {
             lblAF.Text = "Master AF:  " + ptbAF.Value.ToString();
 
             if ((mox) && !chkMON.Checked) {
@@ -34273,7 +34183,7 @@ private void ptbAF_Scroll(object sender, System.EventArgs e) {
             if (sliderForm != null) sliderForm.MasterAFGain = ptbAF.Value;
 }
 
-private void ptbRF_Scroll(object sender, System.EventArgs e) {
+private void ptbRF_Scroll(object sender, EventArgs e) {
             switch (RX1AGCMode) {
             case AGCMode.FIXD:
                 lblRF.Text = "Fixed Gain:  " + ptbRF.Value.ToString();
@@ -34298,14 +34208,14 @@ private void ptbRF_Scroll(object sender, System.EventArgs e) {
             if (sliderForm != null) sliderForm.RX1RFGainAGC = ptbRF.Value;
 }
 
-private void chkMicMute_CheckedChanged(object sender, System.EventArgs e) {
+private void chkMicMute_CheckedChanged(object sender, EventArgs e) {
             if (chkMicMute.Checked)
             ptbMic_Scroll(this, EventArgs.Empty);
             else
             Audio.MicPreamp = 0.0;
 }
 
-private void ptbMic_Scroll(object sender, System.EventArgs e) {
+private void ptbMic_Scroll(object sender, EventArgs e) {
             ptbMic.Minimum = mic_gain_min;
             ptbMic.Maximum = mic_gain_max;
             lblMicVal.Text = ptbMic.Value.ToString() + " dB";
@@ -34331,7 +34241,7 @@ private void ptbMic_Scroll(object sender, System.EventArgs e) {
             if (sliderForm != null) sliderForm.MicGain = ptbMic.Value;
 }
 
-private void ptbCWSpeed_Scroll(object sender, System.EventArgs e) {
+private void ptbCWSpeed_Scroll(object sender, EventArgs e) {
             lblCWSpeed.Text = "Speed:  " + ptbCWSpeed.Value.ToString() + " WPM";
             NetworkIO.SetCWKeyerSpeed(ptbCWSpeed.Value);
             if (sender.GetType() == typeof(PrettyTrackBar)) {
@@ -34346,7 +34256,7 @@ private void ptbCWSpeed_Scroll(object sender, System.EventArgs e) {
             Midi2Cat.SendUpdateToMidi(CatCmd.CWSpeed_inc, pct);
 }
 
-private void chkVOX_CheckedChanged(object sender, System.EventArgs e) {
+private void chkVOX_CheckedChanged(object sender, EventArgs e) {
             if (!IsSetupFormNull) SetupForm.VOXEnable = chkVOX.Checked;
 
             if (chkVOX.Checked) {
@@ -34359,7 +34269,7 @@ private void chkVOX_CheckedChanged(object sender, System.EventArgs e) {
             LineInBoost = line_in_boost;
 }
 
-private void ptbSquelch_Scroll(object sender, System.EventArgs e) {
+private void ptbSquelch_Scroll(object sender, EventArgs e) {
             chkSquelch.Text = "SQL:  " + ptbSquelch.Value.ToString();
 
             if (rx1_dsp_mode == DSPMode.FM) // FM Squelch
@@ -34390,8 +34300,7 @@ private void ptbSquelch_Scroll(object sender, System.EventArgs e) {
             if (sliderForm != null) sliderForm.RX1Squelch = ptbSquelch.Value;
 }
 
-private void picSquelch_Paint(
-    object sender, System.Windows.Forms.PaintEventArgs e) {
+private void picSquelch_Paint(object sender, PaintEventArgs e) {
             int signal_x
                 = (int)((sql_data + 160.0) * (picSquelch.Width - 1) / 160.0);
             int sql_x = (int)(((float)ptbSquelch.Value + 160.0)
@@ -34405,7 +34314,7 @@ private void picSquelch_Paint(
                 signal_x - sql_x - 1, picSquelch.Height);
 }
 
-private void chkNoiseGate_CheckedChanged(object sender, System.EventArgs e) {
+private void chkNoiseGate_CheckedChanged(object sender, EventArgs e) {
             if (!IsSetupFormNull)
             SetupForm.NoiseGateEnabled = chkNoiseGate.Checked;
 
@@ -34415,7 +34324,7 @@ private void chkNoiseGate_CheckedChanged(object sender, System.EventArgs e) {
             chkNoiseGate.BackColor = SystemColors.Control;
 }
 
-private void ptbVACRXGain_Scroll(object sender, System.EventArgs e) {
+private void ptbVACRXGain_Scroll(object sender, EventArgs e) {
             lblRXGain.Text = "RX Gain:  " + ptbVACRXGain.Value.ToString();
             if (!IsSetupFormNull)
             if (!(chkRX2.Checked && chkVAC2.Checked && chkVFOBTX.Checked)) {
@@ -34435,7 +34344,7 @@ private void ptbVACRXGain_Scroll(object sender, System.EventArgs e) {
             }
 }
 
-private void ptbVACTXGain_Scroll(object sender, System.EventArgs e) {
+private void ptbVACTXGain_Scroll(object sender, EventArgs e) {
             lblTXGain.Text = "TX Gain:  " + ptbVACTXGain.Value.ToString();
             if (!IsSetupFormNull) {
             if (!(chkRX2.Checked && chkVAC2.Checked && chkVFOBTX.Checked)) {
@@ -34456,7 +34365,7 @@ private void ptbVACTXGain_Scroll(object sender, System.EventArgs e) {
             }
 }
 
-private void ptbVOX_Scroll(object sender, System.EventArgs e) {
+private void ptbVOX_Scroll(object sender, EventArgs e) {
             lblVOXVal.Text = ptbVOX.Value.ToString();
             if (!IsSetupFormNull) SetupForm.VOXSens = ptbVOX.Value;
             // if (ptbVOX.Focused) btnHidden.Focus();
@@ -34465,8 +34374,7 @@ private void ptbVOX_Scroll(object sender, System.EventArgs e) {
             }
 }
 
-unsafe private void picVOX_Paint(
-    object sender, System.Windows.Forms.PaintEventArgs e) {
+unsafe private void picVOX_Paint(object sender, PaintEventArgs e) {
             double audio_peak = 0.0;
             cmaster.GetDEXPPeakSignal(0, &audio_peak);
             if (mic_boost) audio_peak /= Audio.VOXGain;
@@ -34483,7 +34391,7 @@ unsafe private void picVOX_Paint(
                 Brushes.Red, vox_x + 1, 0, peak_x - vox_x - 1, picVOX.Height);
 }
 
-private void ptbNoiseGate_Scroll(object sender, System.EventArgs e) {
+private void ptbNoiseGate_Scroll(object sender, EventArgs e) {
             lblNoiseGateVal.Text = ptbNoiseGate.Value.ToString();
             // if (!IsSetupNull) SetupForm.NoiseGate = ptbNoiseGate.Value;
             // if (ptbNoiseGate.Focused) btnHidden.Focus();
@@ -34492,8 +34400,7 @@ private void ptbNoiseGate_Scroll(object sender, System.EventArgs e) {
             }
 }
 
-private void picNoiseGate_Paint(
-    object sender, System.Windows.Forms.PaintEventArgs e) {
+private void picNoiseGate_Paint(object sender, PaintEventArgs e) {
             int signal_x = (int)((noise_gate_data + 160.0)
                 * (picNoiseGate.Width - 1) / 160.0);
             int noise_x = (int)(((float)ptbNoiseGate.Value + 160.0)
@@ -34507,12 +34414,11 @@ private void picNoiseGate_Paint(
                 signal_x - noise_x - 1, picNoiseGate.Height);
 }
 
-private void WheelTune_MouseDown(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void WheelTune_MouseDown(object sender, MouseEventArgs e) {
             if (e.Button == MouseButtons.Left) ChangeTuneStepUp();
 }
 
-private void chkMON_CheckedChanged(object sender, System.EventArgs e) {
+private void chkMON_CheckedChanged(object sender, EventArgs e) {
             Audio.MON = chkMON.Checked;
 
             if (chkMON.Checked)
@@ -34767,7 +34673,7 @@ private volatile bool mox = false;
 private PreampMode temp_mode = PreampMode.HPSDR_OFF; // HPSDR preamp mode
 private PreampMode temp_mode2 = PreampMode.HPSDR_OFF; // HPSDR preamp mode
 private volatile int m_TimeWhenMoxEntered = 0;
-private void chkMOX_CheckedChanged2(object sender, System.EventArgs e) {
+private void chkMOX_CheckedChanged2(object sender, EventArgs e) {
             bool bOldMox = mox;
             m_TimeWhenMoxEntered = 0;
 
@@ -35095,7 +35001,7 @@ private void chkMOX_CheckedChanged2(object sender, System.EventArgs e) {
             }
 }
 
-private void chkMOX_Click(object sender, System.EventArgs e) {
+private void chkMOX_Click(object sender, EventArgs e) {
             if (chkMOX.Checked) // because the CheckedChanged event fires first
             {
             manual_mox = true;
@@ -35108,8 +35014,7 @@ private void chkMOX_Click(object sender, System.EventArgs e) {
             }
 }
 
-private void comboMeterRXMode_SelectedIndexChanged(
-    object sender, System.EventArgs e) {
+private void comboMeterRXMode_SelectedIndexChanged(object sender, EventArgs e) {
             if (comboMeterRXMode.Items.Count == 0
                 || comboMeterRXMode.SelectedIndex < 0) {
             current_meter_rx_mode = MeterRXMode.FIRST;
@@ -35142,8 +35047,7 @@ private void comboMeterRXMode_SelectedIndexChanged(
             if (comboMeterRXMode.Focused) btnHidden.Focus();
 }
 
-private void comboMeterTXMode_SelectedIndexChanged(
-    object sender, System.EventArgs e) {
+private void comboMeterTXMode_SelectedIndexChanged(object sender, EventArgs e) {
             MeterTXMode mode = MeterTXMode.FIRST;
 
             switch (comboMeterTXMode.Text) {
@@ -35184,7 +35088,7 @@ private void comboMeterTXMode_SelectedIndexChanged(
             if (comboMeterTXMode.Focused) btnHidden.Focus();
 }
 
-private void chkDisplayAVG_CheckedChanged(object sender, System.EventArgs e) {
+private void chkDisplayAVG_CheckedChanged(object sender, EventArgs e) {
             Display.AverageOn = chkDisplayAVG.Checked;
             specRX.GetSpecRX(0).AverageOn = chkDisplayAVG.Checked;
             UpdateRXSpectrumDisplayVars();
@@ -35200,7 +35104,7 @@ private void chkDisplayAVG_CheckedChanged(object sender, System.EventArgs e) {
             RX1AVGToolStripMenuItem.Checked = chkDisplayAVG.Checked;
 }
 
-private void chkDisplayPeak_CheckedChanged(object sender, System.EventArgs e) {
+private void chkDisplayPeak_CheckedChanged(object sender, EventArgs e) {
             Display.PeakOn = chkDisplayPeak.Checked;
             specRX.GetSpecRX(0).PeakOn = chkDisplayPeak.Checked;
             UpdateRXSpectrumDisplayVars();
@@ -35216,7 +35120,7 @@ private void chkDisplayPeak_CheckedChanged(object sender, System.EventArgs e) {
             RX1PeakToolStripMenuItem.Checked = chkDisplayPeak.Checked;
 }
 
-private void chkSquelch_CheckedChanged(object sender, System.EventArgs e) {
+private void chkSquelch_CheckedChanged(object sender, EventArgs e) {
             if (initializing) return;
 
             if (chkSquelch.Checked) {
@@ -35251,7 +35155,7 @@ private void chkSquelch_CheckedChanged(object sender, System.EventArgs e) {
 
 private MeterTXMode old_tune_meter_tx_mode;
 private DSPMode old_dsp_mode;
-private async void chkTUN_CheckedChanged(object sender, System.EventArgs e) {
+private async void chkTUN_CheckedChanged(object sender, EventArgs e) {
             if (chkTUN.Checked) {
             if (!PowerOn) {
                 MessageBox.Show(
@@ -35429,8 +35333,7 @@ private async void ATUTune(CancellationToken t) {
             }
 }
 
-private void comboTuneMode_SelectedIndexChanged(
-    object sender, System.EventArgs e) {
+private void comboTuneMode_SelectedIndexChanged(object sender, EventArgs e) {
             if (comboTuneMode.Focused) btnHidden.Focus();
 }
 
@@ -35454,7 +35357,7 @@ private void combo_CloseDropDown(object sender, EventArgs e) {
             SetFocusMaster(true);
 }
 
-private void chkVFOLock_CheckedChanged(object sender, System.EventArgs e) {
+private void chkVFOLock_CheckedChanged(object sender, EventArgs e) {
             VFOALock = chkVFOLock.Checked;
             if (chkVFOLock.Checked == true)
             lblLockLabel.BackColor = System.Drawing.Color.Blue;
@@ -35474,7 +35377,7 @@ private void chkVFOBLock_CheckedChanged(object sender, EventArgs e) {
                 EIndicatorActions.eINVFOLock, false, chkVFOBLock.Checked);
 }
 
-private void btnBandVHF_Click(object sender, System.EventArgs e) {
+private void btnBandVHF_Click(object sender, EventArgs e) {
             panelBandVHF.Visible = true;
             panelBandHF.Visible = false;
             panelBandGEN.Visible = false; // ke9ns add
@@ -35503,7 +35406,7 @@ private void btnBandVHF_Click(object sender, System.EventArgs e) {
             if (filterPopupForm != null) filterPopupForm.RepopulateForm();
 }
 
-private void btnBandHF_Click(object sender, System.EventArgs e) {
+private void btnBandHF_Click(object sender, EventArgs e) {
             panelBandVHF.Visible = false;
             panelBandGEN.Visible = false; // ke9ns add
             panelBandHF.Visible = true;
@@ -35566,18 +35469,17 @@ private void udXIT_LostFocus(object sender, EventArgs e) {
             udXIT_ValueChanged(sender, e);
 }
 
-private void chkSR_CheckedChanged(object sender, System.EventArgs e) {}
+private void chkSR_CheckedChanged(object sender, EventArgs e) {}
 
-private void btnChangeTuneStepSmaller_Click(object sender, System.EventArgs e) {
+private void btnChangeTuneStepSmaller_Click(object sender, EventArgs e) {
             ChangeTuneStepDown();
 }
 
-private void btnChangeTuneStepLarger_Click(object sender, System.EventArgs e) {
+private void btnChangeTuneStepLarger_Click(object sender, EventArgs e) {
             ChangeTuneStepUp();
 }
 
-private void comboTXProfile_SelectedIndexChanged(
-    object sender, System.EventArgs e) {
+private void comboTXProfile_SelectedIndexChanged(object sender, EventArgs e) {
             if (IsSetupFormNull || initializing || rx1_dsp_mode == DSPMode.DIGL
                 || rx1_dsp_mode == DSPMode.DIGU || rx1_dsp_mode == DSPMode.FM
                 || rx1_dsp_mode == DSPMode.AM || rx1_dsp_mode == DSPMode.SAM)
@@ -35610,7 +35512,7 @@ private void comboTXProfile_SelectedIndexChanged(
 }
 
 private void comboDigTXProfile_SelectedIndexChanged(
-    object sender, System.EventArgs e) {
+    object sender, EventArgs e) {
             if (IsSetupFormNull || initializing
                 || (rx1_dsp_mode != DSPMode.DIGL
                     && rx1_dsp_mode != DSPMode.DIGU))
@@ -35679,11 +35581,11 @@ private void comboAMTXProfile_SelectedIndexChanged(object sender, EventArgs e) {
             if (comboAMTXProfile.Focused) btnHidden.Focus();
 }
 
-private void chkShowTXFilter_CheckedChanged(object sender, System.EventArgs e) {
+private void chkShowTXFilter_CheckedChanged(object sender, EventArgs e) {
             Display.DrawTXFilter = chkShowTXFilter.Checked;
 }
 
-private void chkVACStereo_CheckedChanged(object sender, System.EventArgs e) {
+private void chkVACStereo_CheckedChanged(object sender, EventArgs e) {
             if (!IsSetupFormNull) {
             if (!(chkRX2.Checked && chkVAC2.Checked && chkVFOBTX.Checked)) {
                 SetupForm.VACStereo = chkVACStereo.Checked;
@@ -35695,22 +35597,22 @@ private void chkVACStereo_CheckedChanged(object sender, System.EventArgs e) {
             }
 }
 
-private void chkCWIambic_CheckedChanged(object sender, System.EventArgs e) {
+private void chkCWIambic_CheckedChanged(object sender, EventArgs e) {
             if (!IsSetupFormNull) SetupForm.CWIambic = chkCWIambic.Checked;
 }
 
-private void chkCWSidetone_CheckedChanged(object sender, System.EventArgs e) {
+private void chkCWSidetone_CheckedChanged(object sender, EventArgs e) {
             if (!IsSetupFormNull)
             SetupForm.CWDisableMonitor = chkCWSidetone.Checked;
 }
 
-private void udCWPitch_ValueChanged(object sender, System.EventArgs e) {
+private void udCWPitch_ValueChanged(object sender, EventArgs e) {
             if (!IsSetupFormNull) SetupForm.CWPitch = (int)udCWPitch.Value;
             if (udCWPitch.Focused) btnHidden.Focus();
 }
 
 private void comboVACSampleRate_SelectedIndexChanged(
-    object sender, System.EventArgs e) {
+    object sender, EventArgs e) {
             if (!IsSetupFormNull) {
             // G8NJJ: change so that it sets the correct VAC 1 or 2 sample
             // rate in setup
@@ -35722,7 +35624,7 @@ private void comboVACSampleRate_SelectedIndexChanged(
             if (comboVACSampleRate.Focused) btnHidden.Focus();
 }
 
-private void chkX2TR_CheckedChanged(object sender, System.EventArgs e) {
+private void chkX2TR_CheckedChanged(object sender, EventArgs e) {
             ClickTuneRX2Display = chkX2TR.Checked;
 
             if (chkX2TR.Checked && chkVFOSync.Checked) {
@@ -35738,16 +35640,15 @@ private void chkX2TR_CheckedChanged(object sender, System.EventArgs e) {
                 EIndicatorActions.eINCTune, false, chkX2TR.Checked);
 }
 
-private void chkShowTXCWFreq_CheckedChanged(object sender, System.EventArgs e) {
+private void chkShowTXCWFreq_CheckedChanged(object sender, EventArgs e) {
             Display.DrawTXCWFreq = chkShowTXCWFreq.Checked;
 }
 
-private void chkShowCWZero_CheckedChanged(object sender, System.EventArgs e) {
+private void chkShowCWZero_CheckedChanged(object sender, EventArgs e) {
             Display.ShowCWZeroLine = chkShowCWZero.Checked;
 }
 
-private void chkCWBreakInEnabled_CheckedChanged(
-    object sender, System.EventArgs e) {
+private void chkCWBreakInEnabled_CheckedChanged(object sender, EventArgs e) {
             // if (!IsSetupNull) SetupForm.BreakInEnabled =
             // chkCWBreakInEnabled.Checked;
 }
@@ -35757,17 +35658,17 @@ private void chkCWBreakInEnabled_CheckStateChanged(object sender, EventArgs e) {
             //  chkCWBreakInEnabled.CheckState;
 }
 
-private void udCWBreakInDelay_ValueChanged(object sender, System.EventArgs e) {
+private void udCWBreakInDelay_ValueChanged(object sender, EventArgs e) {
             if (!IsSetupFormNull)
             SetupForm.BreakInDelay = (int)udCWBreakInDelay.Value;
             if (udCWBreakInDelay.Focused) btnHidden.Focus();
 }
 
-private void udCWBreakInDelay_LostFocus(object sender, System.EventArgs e) {
+private void udCWBreakInDelay_LostFocus(object sender, EventArgs e) {
             udCWBreakInDelay_ValueChanged(sender, e);
 }
 
-private void chkCWAPFEnabled_CheckedChanged(object sender, System.EventArgs e) {
+private void chkCWAPFEnabled_CheckedChanged(object sender, EventArgs e) {
             // if (!IsSetupNull) SetupForm.APFEnabled = chkCWAPFEnabled.Checked;
             if (!IsSetupFormNull) {
             if (SetupForm.RX1APFControls)
@@ -35786,7 +35687,7 @@ private void chkCWAPFEnabled_CheckedChanged(object sender, System.EventArgs e) {
             }
 }
 
-private void ptbCWAPFFreq_Scroll(object sender, System.EventArgs e) {
+private void ptbCWAPFFreq_Scroll(object sender, EventArgs e) {
             // if (!IsSetupNull) SetupForm.APFFreq = ptbCWAPFFreq.Value;
             if (!IsSetupFormNull) {
             if (SetupForm.RX1APFControls)
@@ -35802,7 +35703,7 @@ private void ptbCWAPFFreq_Scroll(object sender, System.EventArgs e) {
             }
 }
 
-private void ptbCWAPFBandwidth_Scroll(object sender, System.EventArgs e) {
+private void ptbCWAPFBandwidth_Scroll(object sender, EventArgs e) {
             // if (!IsSetupNull) SetupForm.APFBandwidth =
             // ptbCWAPFBandwidth.Value;
             if (!IsSetupFormNull) {
@@ -35821,7 +35722,7 @@ private void ptbCWAPFBandwidth_Scroll(object sender, System.EventArgs e) {
             }
 }
 
-private void ptbCWAPFGain_Scroll(object sender, System.EventArgs e) {
+private void ptbCWAPFGain_Scroll(object sender, EventArgs e) {
             if (!IsSetupFormNull) {
             if (SetupForm.RX1APFControls)
                 SetupForm.RX1APFGain = ptbCWAPFGain.Value;
@@ -35855,7 +35756,7 @@ public void EnableDAX() {
                                      // dax_audio_enum = true;
 }
 
-private void chkVAC1_CheckedChanged(object sender, System.EventArgs e) {
+private void chkVAC1_CheckedChanged(object sender, EventArgs e) {
             if (!IsSetupFormNull) SetupForm.VACEnable = chkVAC1.Checked;
             if (chkVAC1.Checked) {
             chkVAC1.BackColor = button_selected_color;
@@ -35910,7 +35811,7 @@ private void chkVAC2_CheckedChanged(object sender, EventArgs e) {
             chkVAC2.BackColor = SystemColors.Control;
 }
 
-private void chkRXEQ_CheckedChanged(object sender, System.EventArgs e) {
+private void chkRXEQ_CheckedChanged(object sender, EventArgs e) {
             if (chkRXEQ.Checked)
             chkRXEQ.BackColor = button_selected_color;
             else
@@ -35918,7 +35819,7 @@ private void chkRXEQ_CheckedChanged(object sender, System.EventArgs e) {
             if (EQForm != null) EQForm.RXEQEnabled = chkRXEQ.Checked;
 }
 
-private void chkTXEQ_CheckedChanged(object sender, System.EventArgs e) {
+private void chkTXEQ_CheckedChanged(object sender, EventArgs e) {
             if (chkTXEQ.Checked)
             chkTXEQ.BackColor = button_selected_color;
             else
@@ -35985,8 +35886,7 @@ private TuneLocation TuneHitTest(int x, int y) {
             return TuneLocation.Other;
 }
 
-private void Console_MouseWheel(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void Console_MouseWheel(object sender, MouseEventArgs e) {
             if (this.ActiveControl is PrettyTrackBar) {
             btnHidden.Focus();
             return;
@@ -36183,7 +36083,7 @@ private bool m_bVFOAChangedByKeys = false; // true if frequency has been changed
 private bool m_bVFOBChangedByKeys = false;
 private bool m_bVFOABandChangedByKeys = false;
 
-private void txtVFOAFreq_LostFocus(object sender, System.EventArgs e) {
+private void txtVFOAFreq_LostFocus(object sender, EventArgs e) {
             if (initializing) return; // MW0LGE
 
             if (current_hpsdr_model == HPSDRModel.ANAN200D
@@ -36486,11 +36386,10 @@ private void txtVFOAFreq_LostFocus(object sender, System.EventArgs e) {
             }
 
             // update Band Info
-            string bandInfo;
             double db_freq = freq;
             if (RX1IsIn60m() && current_region == FRSRegion.US)
             db_freq -= ModeFreqOffset(rx1_dsp_mode);
-            bool transmit_allowed = DB.BandText(db_freq, out bandInfo);
+            bool transmit_allowed = DB.BandText(db_freq, out string bandInfo);
             if (!transmit_allowed) {
             txtVFOABand.BackColor = out_of_band_color;
             } else
@@ -36824,8 +36723,7 @@ private void txtVFOAFreq_LostFocus(object sender, System.EventArgs e) {
 #pragma warning disable CS0169 // The field 'Console.tuned_freq' is never used
 private static double tuned_freq;
 #pragma warning restore CS0169 // The field 'Console.tuned_freq' is never used
-private void txtVFOAFreq_KeyPress(
-    object sender, System.Windows.Forms.KeyPressEventArgs e) {
+private void txtVFOAFreq_KeyPress(object sender, KeyPressEventArgs e) {
             string separator = System.Globalization.CultureInfo.CurrentCulture
                                    .NumberFormat.NumberDecimalSeparator;
             int KeyCode = (int)e.KeyChar;
@@ -36853,8 +36751,7 @@ private void txtVFOAFreq_KeyPress(
             }
 }
 
-private void txtVFOAFreq_MouseMove(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void txtVFOAFreq_MouseMove(object sender, MouseEventArgs e) {
             if (this.ContainsFocus) {
             int old_digit = vfoa_hover_digit;
             int digit_index = 0;
@@ -36889,12 +36786,12 @@ private void txtVFOAFreq_MouseMove(
             }
 }
 
-private void txtVFOAFreq_MouseLeave(object sender, System.EventArgs e) {
+private void txtVFOAFreq_MouseLeave(object sender, EventArgs e) {
             vfoa_hover_digit = -1;
             panelVFOAHover.Invalidate();
 }
 
-private void txtVFOABand_LostFocus(object sender, System.EventArgs e) {
+private void txtVFOABand_LostFocus(object sender, EventArgs e) {
             if (!rx2_enabled
                 || (!chkEnableMultiRX.Checked && !chkVFOSplit.Checked))
             return;
@@ -36936,8 +36833,7 @@ private void txtVFOABand_LostFocus(object sender, System.EventArgs e) {
             // if(chkVFOSplit.Checked)
             //	SetTXBand(b);
 
-            string bandInfo;
-            bool transmit_allowed = DB.BandText(freq, out bandInfo);
+            bool transmit_allowed = DB.BandText(freq, out string bandInfo);
             if (!CheckValidTXFreq(
                     current_region, freq, radio.GetDSPTX(0).CurrentDSPMode)) {
             if (chkVFOSplit.Checked && mox && !extended) chkMOX.Checked = false;
@@ -37065,8 +36961,7 @@ private void txtVFOABand_LostFocus(object sender, System.EventArgs e) {
             }
 }
 
-private void txtVFOABand_KeyPress(
-    object sender, System.Windows.Forms.KeyPressEventArgs e) {
+private void txtVFOABand_KeyPress(object sender, KeyPressEventArgs e) {
             if (!rx2_enabled
                 || (!chkEnableMultiRX.Checked && !chkVFOSplit.Checked)) {
             e.Handled = true;
@@ -37098,7 +36993,7 @@ private void txtVFOABand_KeyPress(
 }
 
 // txtVFOBFreq
-private void txtVFOBFreq_LostFocus(object sender, System.EventArgs e) {
+private void txtVFOBFreq_LostFocus(object sender, EventArgs e) {
             if (initializing) return; // MW0LGE
 
             if (txtVFOBFreq.Text == "" || txtVFOBFreq.Text == ".") {
@@ -37439,7 +37334,6 @@ private void txtVFOBFreq_LostFocus(object sender, System.EventArgs e) {
             }
 
             // update Band Info
-            string bandInfo;
             double db_freq = freq;
             if (current_region == FRSRegion.US) {
             if (RX2IsIn60m())
@@ -37448,7 +37342,7 @@ private void txtVFOBFreq_LostFocus(object sender, System.EventArgs e) {
                 db_freq -= ModeFreqOffset(rx1_dsp_mode);
             }
 
-            bool transmit = DB.BandText(db_freq, out bandInfo);
+            bool transmit = DB.BandText(db_freq, out string bandInfo);
             if (transmit == false) {
             txtVFOBBand.BackColor = Color.DimGray;
             // if (chkVFOSplit.Checked && mox)
@@ -37732,8 +37626,7 @@ end:
             last_rx2_xvtr_index = rx2_xvtr_index;
 }
 
-private void txtVFOBFreq_KeyPress(
-    object sender, System.Windows.Forms.KeyPressEventArgs e) {
+private void txtVFOBFreq_KeyPress(object sender, KeyPressEventArgs e) {
             string separator = System.Globalization.CultureInfo.CurrentCulture
                                    .NumberFormat.NumberDecimalSeparator;
             int KeyCode = (int)e.KeyChar;
@@ -37760,8 +37653,7 @@ private void txtVFOBFreq_KeyPress(
             }
 }
 
-private void txtVFOBFreq_MouseMove(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void txtVFOBFreq_MouseMove(object sender, MouseEventArgs e) {
             if (this.ContainsFocus) {
             int old_digit = vfob_hover_digit;
             int digit_index = 0;
@@ -37796,13 +37688,12 @@ private void txtVFOBFreq_MouseMove(
             }
 }
 
-private void txtVFOBFreq_MouseLeave(object sender, System.EventArgs e) {
+private void txtVFOBFreq_MouseLeave(object sender, EventArgs e) {
             vfob_hover_digit = -1;
             panelVFOBHover.Invalidate();
 }
 
-private void panelVFOAHover_MouseMove(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void panelVFOAHover_MouseMove(object sender, MouseEventArgs e) {
             Control c1 = (Control)sender;
             Control c2 = txtVFOAFreq;
             int client_width = (c1.Size.Width - c1.ClientSize.Width)
@@ -37820,8 +37711,7 @@ private void panelVFOAHover_MouseMove(
                e.Y+panelVFOAHover.Top, 0));*/
 }
 
-private void panelVFOBHover_MouseMove(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void panelVFOBHover_MouseMove(object sender, MouseEventArgs e) {
             Control c1 = (Control)sender;
             Control c2 = txtVFOBFreq;
             int client_width = (c1.Size.Width - c1.ClientSize.Width)
@@ -37839,16 +37729,14 @@ private void panelVFOBHover_MouseMove(
                e.Y+panelVFOBHover.Top, 0));*/
 }
 
-private void txtVFOALSD_MouseDown(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void txtVFOALSD_MouseDown(object sender, MouseEventArgs e) {
             txtVFOAMSD.Visible = false;
             txtVFOALSD.Visible = false;
             txtVFOAFreq.Focus();
             txtVFOAFreq.SelectAll();
 }
 
-private void txtVFOALSD_MouseMove(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void txtVFOALSD_MouseMove(object sender, MouseEventArgs e) {
             Control c1 = (Control)sender;
             Control c2 = txtVFOAFreq;
             int client_width = (c1.Size.Width - c1.ClientSize.Width)
@@ -37866,52 +37754,46 @@ private void txtVFOALSD_MouseMove(
                e.Delta));*/
 }
 
-private void txtVFOAMSD_MouseDown(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void txtVFOAMSD_MouseDown(object sender, MouseEventArgs e) {
             txtVFOAMSD.Visible = false;
             txtVFOALSD.Visible = false;
             txtVFOAFreq.Focus();
             txtVFOAFreq.SelectAll();
 }
 
-private void txtVFOAMSD_MouseMove(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void txtVFOAMSD_MouseMove(object sender, MouseEventArgs e) {
             txtVFOAFreq_MouseMove(txtVFOAMSD,
                 new MouseEventArgs(e.Button, e.Clicks, e.X, e.Y, e.Delta));
 }
 
-private void txtVFOAMSD_MouseLeave(object sender, System.EventArgs e) {
+private void txtVFOAMSD_MouseLeave(object sender, EventArgs e) {
             txtVFOAFreq_MouseLeave(txtVFOAMSD, e);
 }
 
-private void txtVFOBMSD_MouseDown(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void txtVFOBMSD_MouseDown(object sender, MouseEventArgs e) {
             txtVFOBMSD.Visible = false;
             txtVFOBLSD.Visible = false;
             txtVFOBFreq.Focus();
             txtVFOBFreq.SelectAll();
 }
 
-private void txtVFOBMSD_MouseLeave(object sender, System.EventArgs e) {
+private void txtVFOBMSD_MouseLeave(object sender, EventArgs e) {
             txtVFOBFreq_MouseLeave(txtVFOBMSD, e);
 }
 
-private void txtVFOBMSD_MouseMove(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void txtVFOBMSD_MouseMove(object sender, MouseEventArgs e) {
             txtVFOBFreq_MouseMove(txtVFOBMSD,
                 new MouseEventArgs(e.Button, e.Clicks, e.X, e.Y, e.Delta));
 }
 
-private void txtVFOBLSD_MouseDown(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void txtVFOBLSD_MouseDown(object sender, MouseEventArgs e) {
             txtVFOBMSD.Visible = false;
             txtVFOBLSD.Visible = false;
             txtVFOBFreq.Focus();
             txtVFOBFreq.SelectAll();
 }
 
-private void txtVFOBLSD_MouseMove(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void txtVFOBLSD_MouseMove(object sender, MouseEventArgs e) {
             Control c1 = (Control)sender;
             Control c2 = txtVFOBFreq;
             int client_width = (c1.Size.Width - c1.ClientSize.Width)
@@ -39054,7 +38936,7 @@ unsafe private void picDisplay_MouseMove(object sender, MouseEventArgs e) {
             picDisplay.Cursor = next_cursor;
 }
 
-private void picDisplay_MouseLeave(object sender, System.EventArgs e) {
+private void picDisplay_MouseLeave(object sender, EventArgs e) {
             if (!m_frmNotchPopup.Visible)
             SelectedNotch = null; // clear the selected notch (if there was one)
             m_bDraggingPanafallSplit = false;
@@ -40082,7 +39964,7 @@ private void picDisplay_DoubleClick(object sender, EventArgs e) {
             }
 }
 
-private async void picDisplay_Resize(object sender, System.EventArgs e) {
+private async void picDisplay_Resize(object sender, EventArgs e) {
             if (chkPower.Checked) pause_DisplayThread = true;
 
             Display.Target = picDisplay;
@@ -40122,7 +40004,7 @@ private async void picDisplay_Resize(object sender, System.EventArgs e) {
             }
 }
 
-private void ptbDisplayPan_Scroll(object sender, System.EventArgs e) {
+private void ptbDisplayPan_Scroll(object sender, EventArgs e) {
             specRX.GetSpecRX(0).PanSlider
                 = (double)ptbDisplayPan.Value / 1000.0;
             specRX.GetSpecRX(1).PanSlider
@@ -40141,7 +40023,7 @@ private void form_Click(object sender, EventArgs e) {}
 
 private frmSMeter m_frmSMeter = null;
 
-private void btnDisplayPanCenter_Click(object sender, System.EventArgs e) {
+private void btnDisplayPanCenter_Click(object sender, EventArgs e) {
             // double edge_alias = 7200.0;
             // double if_freq = 11025.0;
             double spur_tune_width = 200e6 / Math.Pow(2, 16);
@@ -40179,7 +40061,7 @@ private void btnDisplayPanCenter_Click(object sender, System.EventArgs e) {
 
 private double lastZoom = 1.0;
 
-private void ptbDisplayZoom_Scroll(object sender, System.EventArgs e) {
+private void ptbDisplayZoom_Scroll(object sender, EventArgs e) {
             specRX.GetSpecRX(0).ZoomSlider
                 = ((double)ptbDisplayZoom.Value - 10.0) / 230.0;
             specRX.GetSpecRX(1).ZoomSlider
@@ -40244,8 +40126,7 @@ private void ptbDisplayZoom_Scroll(object sender, System.EventArgs e) {
             }
 }
 
-private void radDisplayZoom05_CheckedChanged(
-    object sender, System.EventArgs e) {
+private void radDisplayZoom05_CheckedChanged(object sender, EventArgs e) {
             if (radDisplayZoom05.Checked) {
             ptbDisplayZoom.Value = ptbDisplayZoom.Maximum
                 + ptbDisplayZoom.Minimum - (int)(100.0 / 0.5);
@@ -40254,8 +40135,7 @@ private void radDisplayZoom05_CheckedChanged(
             }
 }
 
-private void radDisplayZoom1x_CheckedChanged(
-    object sender, System.EventArgs e) {
+private void radDisplayZoom1x_CheckedChanged(object sender, EventArgs e) {
             if (radDisplayZoom1x.Checked) {
             ptbDisplayZoom.Value = ptbDisplayZoom.Maximum
                 + ptbDisplayZoom.Minimum - (int)(100.0 / 1.0);
@@ -40264,8 +40144,7 @@ private void radDisplayZoom1x_CheckedChanged(
             }
 }
 
-private void radDisplayZoom2x_CheckedChanged(
-    object sender, System.EventArgs e) {
+private void radDisplayZoom2x_CheckedChanged(object sender, EventArgs e) {
             if (radDisplayZoom2x.Checked) {
             ptbDisplayZoom.Value = ptbDisplayZoom.Maximum
                 + ptbDisplayZoom.Minimum - (int)(100.0 / 2.0);
@@ -40274,8 +40153,7 @@ private void radDisplayZoom2x_CheckedChanged(
             }
 }
 
-private void radDisplayZoom4x_CheckedChanged(
-    object sender, System.EventArgs e) {
+private void radDisplayZoom4x_CheckedChanged(object sender, EventArgs e) {
             if (radDisplayZoom4x.Checked) {
             ptbDisplayZoom.Value = ptbDisplayZoom.Maximum
                 + ptbDisplayZoom.Minimum - (int)(100.0 / 4.0);
@@ -40303,15 +40181,9 @@ private void radBand160_Click(object sender, EventArgs e) {
             }
             last_band = "160M";
 
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-
-            if (DB.GetBandStack(last_band, band_160m_index, out mode,
-                    out filter, out freq, out CTUN, out ZoomFactor,
-                    out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_160m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@")) {
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -40335,14 +40207,9 @@ private void radBand80_Click(object sender, EventArgs e) {
                 band_80m_index = (band_80m_index + 1) % band_80m_register;
             }
             last_band = "80M";
-
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-            if (DB.GetBandStack(last_band, band_80m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_80m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@")) {
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -40389,14 +40256,9 @@ private void radBand60_Click(object sender, EventArgs e) {
                     band_60m_index = (band_60m_index + 1) % band_60m_register;
             }
             last_band = "60M";
-
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-            if (DB.GetBandStack(last_band, band_60m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_60m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
                 if (filter.Contains("@")) {
                     filter = filter.Substring(0,
                         (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -40421,14 +40283,9 @@ private void radBand40_Click(object sender, EventArgs e) {
                 band_40m_index = (band_40m_index + 1) % band_40m_register;
             }
             last_band = "40M";
-
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-            if (DB.GetBandStack(last_band, band_40m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_40m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@")) {
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -40452,14 +40309,9 @@ private void radBand30_Click(object sender, EventArgs e) {
                 band_30m_index = (band_30m_index + 1) % band_30m_register;
             }
             last_band = "30M";
-
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-            if (DB.GetBandStack(last_band, band_30m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_30m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@")) {
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -40483,14 +40335,9 @@ private void radBand20_Click(object sender, EventArgs e) {
                 band_20m_index = (band_20m_index + 1) % band_20m_register;
             }
             last_band = "20M";
-
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-            if (DB.GetBandStack(last_band, band_20m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_20m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@")) {
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -40514,14 +40361,9 @@ private void radBand17_Click(object sender, EventArgs e) {
                 band_17m_index = (band_17m_index + 1) % band_17m_register;
             }
             last_band = "17M";
-
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-            if (DB.GetBandStack(last_band, band_17m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_17m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@")) {
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -40545,14 +40387,9 @@ private void radBand15_Click(object sender, EventArgs e) {
                 band_15m_index = (band_15m_index + 1) % band_15m_register;
             }
             last_band = "15M";
-
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-            if (DB.GetBandStack(last_band, band_15m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_15m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@")) {
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -40576,14 +40413,9 @@ private void radBand12_Click(object sender, EventArgs e) {
                 band_12m_index = (band_12m_index + 1) % band_12m_register;
             }
             last_band = "12M";
-
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-            if (DB.GetBandStack(last_band, band_12m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_12m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@")) {
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -40607,14 +40439,9 @@ private void radBand10_Click(object sender, EventArgs e) {
                 band_10m_index = (band_10m_index + 1) % band_10m_register;
             }
             last_band = "10M";
-
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-            if (DB.GetBandStack(last_band, band_10m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_10m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@")) {
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -40638,14 +40465,9 @@ private void radBand6_Click(object sender, EventArgs e) {
                 band_6m_index = (band_6m_index + 1) % band_6m_register;
             }
             last_band = "6M";
-
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-            if (DB.GetBandStack(last_band, band_6m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_6m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@")) {
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -40668,14 +40490,9 @@ private void radBand2_Click(object sender, EventArgs e) {
                 band_2m_index = (band_2m_index + 1) % band_2m_register;
             }
             last_band = "2M";
-
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-            if (DB.GetBandStack(last_band, band_2m_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_2m_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@")) {
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -40697,14 +40514,9 @@ private void radBandWWV_Click(object sender, EventArgs e) {
                 band_wwv_index = (band_wwv_index + 1) % band_wwv_register;
             }
             last_band = "WWV";
-
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-            if (DB.GetBandStack(last_band, band_wwv_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_wwv_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@")) {
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -40728,14 +40540,9 @@ private void radBandGEN_Click(object sender, EventArgs e) {
                 band_gen_index = (band_gen_index + 1) % band_gen_register;
             }
             last_band = "GEN";
-
-            string filter, mode;
-            double freq;
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
-            if (DB.GetBandStack(last_band, band_gen_index, out mode, out filter,
-                    out freq, out CTUN, out ZoomFactor, out CenterFreq)) {
+            if (DB.GetBandStack(last_band, band_gen_index, out string mode,
+                    out string filter, out double freq, out bool CTUN,
+                    out int ZoomFactor, out double CenterFreq)) {
             if (filter.Contains("@")) {
                 filter = filter.Substring(
                     0, (filter.Length) - 1); // ke9ns add for bandstack lockout
@@ -41560,7 +41367,7 @@ private void SetRX1Mode(DSPMode new_mode) {
             // end powersdr chunk
 }
 
-private void radModeButton_CheckedChanged(object sender, System.EventArgs e) {
+private void radModeButton_CheckedChanged(object sender, EventArgs e) {
             if (sender == null) return;
             if (sender.GetType() != typeof(RadioButtonTS)) return;
             RadioButtonTS radioBtnTS = (RadioButtonTS)sender;
@@ -41930,7 +41737,7 @@ private void radFilter_CheckedChanged(object sender, EventArgs e) {
             setSmallRX2ModeFilterLabels();
 }
 
-private void udFilterLow_ValueChanged(object sender, System.EventArgs e) {
+private void udFilterLow_ValueChanged(object sender, EventArgs e) {
             if (udFilterLow.Focused) {
             if (udFilterLow.Value >= udFilterHigh.Value - 10) {
                 udFilterLow.Value = udFilterHigh.Value - 10;
@@ -41953,7 +41760,7 @@ private void udFilterLow_ValueChanged(object sender, System.EventArgs e) {
                 btnHidden.Focus();*/
 }
 
-private void udFilterHigh_ValueChanged(object sender, System.EventArgs e) {
+private void udFilterHigh_ValueChanged(object sender, EventArgs e) {
             if (udFilterHigh.Focused) {
             if (udFilterHigh.Value <= udFilterLow.Value + 10) {
                 udFilterHigh.Value = udFilterLow.Value + 10;
@@ -42041,7 +41848,7 @@ private void DoFilterShift(int shift, bool redraw) {
             btnFilterShiftReset.BackColor = button_selected_color;
 }
 
-private void ptbFilterShift_Scroll(object sender, System.EventArgs e) {
+private void ptbFilterShift_Scroll(object sender, EventArgs e) {
             SelectRX1VarFilter();
 
             int bw = (int)udFilterHigh.Value - (int)udFilterLow.Value;
@@ -42136,7 +41943,7 @@ private void ptbFilterShift_Update(int low, int high) {
                 btnHidden.Focus();
         }
 */
-private void btnFilterShiftReset_Click(object sender, System.EventArgs e) {
+private void btnFilterShiftReset_Click(object sender, EventArgs e) {
             int bw = (int)udFilterHigh.Value - (int)udFilterLow.Value;
             int low, high;
             switch (rx1_dsp_mode) {
@@ -42274,7 +42081,7 @@ private int Var1WidthAtLimit {
 }
 
 private Boolean beyondLimit = false;
-private void ptbFilterWidth_Scroll(object sender, System.EventArgs e) {
+private void ptbFilterWidth_Scroll(object sender, EventArgs e) {
             if (rx1_dsp_mode == DSPMode.DRM || rx1_dsp_mode == DSPMode.SPEC) {
             return; // no good in this mode
             }
@@ -42471,7 +42278,7 @@ public void CopyVFOAtoB() {
             btnVFOAtoB_Click(this, EventArgs.Empty);
 }
 
-private void btnVFOAtoB_Click(object sender, System.EventArgs e) {
+private void btnVFOAtoB_Click(object sender, EventArgs e) {
             if (rx2_enabled) {
             RX2DSPMode = rx1_dsp_mode;
             // MW0LGE txtVFOBFreq.Text = txtVFOAFreq.Text;
@@ -42507,7 +42314,7 @@ public void CopyVFOBtoA() {
             btnVFOBtoA_Click(this, EventArgs.Empty);
 }
 
-private void btnVFOBtoA_Click(object sender, System.EventArgs e) {
+private void btnVFOBtoA_Click(object sender, EventArgs e) {
             if (!rx2_enabled) {
             if (!chkEnableMultiRX.Checked) {
                 RX1DSPMode = vfob_dsp_mode;
@@ -42547,7 +42354,7 @@ public void VFOSwap() {
             btnVFOSwap_Click(this, EventArgs.Empty);
 }
 
-private void btnVFOSwap_Click(object sender, System.EventArgs e) {
+private void btnVFOSwap_Click(object sender, EventArgs e) {
             if (!rx2_enabled) {
             // MW0LGE string temp = txtVFOAFreq.Text;
             double temp = VFOAFreq;
@@ -42669,7 +42476,7 @@ private void UpdateVFOASub() {
             }
 }
 
-private void chkVFOSplit_CheckedChanged(object sender, System.EventArgs e) {
+private void chkVFOSplit_CheckedChanged(object sender, EventArgs e) {
             Display.SplitEnabled = chkVFOSplit.Checked;
             if (chkVFOSplit.Checked) {
             chkVFOSplit.BackColor = button_selected_color;
@@ -42776,7 +42583,7 @@ private void chkVFOSplit_CheckedChanged(object sender, System.EventArgs e) {
                 EIndicatorActions.eINSplit, false, chkVFOSplit.Checked);
 }
 
-private void chkXIT_CheckedChanged(object sender, System.EventArgs e) {
+private void chkXIT_CheckedChanged(object sender, EventArgs e) {
             if (chkXIT.Checked) {
             chkXIT.BackColor = button_selected_color;
             chkXIT.ForeColor = Color.Red;
@@ -42820,7 +42627,7 @@ private void chkXIT_CheckedChanged(object sender, System.EventArgs e) {
                 }*/
 }
 
-private void chkRIT_CheckedChanged(object sender, System.EventArgs e) {
+private void chkRIT_CheckedChanged(object sender, EventArgs e) {
             if (chkRIT.Checked) {
             chkRIT.BackColor = button_selected_color;
             chkRIT.ForeColor = Color.Red;
@@ -42842,7 +42649,7 @@ private void chkRIT_CheckedChanged(object sender, System.EventArgs e) {
                 EIndicatorActions.eINRIT, false, chkRIT.Checked);
 }
 
-private void udRIT_ValueChanged(object sender, System.EventArgs e) {
+private void udRIT_ValueChanged(object sender, EventArgs e) {
             if (chkRIT.Checked && !mox) {
             txtVFOAFreq_LostFocus(this, EventArgs.Empty);
             txtVFOBFreq_LostFocus(this, EventArgs.Empty);
@@ -42861,7 +42668,7 @@ private void udRIT_ValueChanged(object sender, System.EventArgs e) {
             }
 }
 
-private void udXIT_ValueChanged(object sender, System.EventArgs e) {
+private void udXIT_ValueChanged(object sender, EventArgs e) {
             if (chkXIT.Checked) {
             if (chkVFOSplit.Checked)
                 txtVFOBFreq_LostFocus(this, EventArgs.Empty);
@@ -42891,11 +42698,11 @@ private void udXIT_ValueChanged(object sender, System.EventArgs e) {
             }
 }
 
-private void btnXITReset_Click(object sender, System.EventArgs e) {
+private void btnXITReset_Click(object sender, EventArgs e) {
             udXIT.Value = 0;
 }
 
-private void btnRITReset_Click(object sender, System.EventArgs e) {
+private void btnRITReset_Click(object sender, EventArgs e) {
             udRIT.Value = 0;
 }
 
@@ -42963,7 +42770,7 @@ public void ZeroBeat() {
             btnZeroBeat_Click(this, EventArgs.Empty);
 }
 
-private void btnZeroBeat_Click(object sender, System.EventArgs e) {
+private void btnZeroBeat_Click(object sender, EventArgs e) {
             if (!PowerOn) return;
 
             int peak_hz = FindPeakFreqInPassband();
@@ -43092,7 +42899,7 @@ unsafe private int FindPeakFreqInPassband() {
             return peak_hz;
 }
 
-private void btnIFtoVFO_Click(object sender, System.EventArgs e) {
+private void btnIFtoVFO_Click(object sender, EventArgs e) {
             int current_if_shift;
 
             bool is_centered_mode = false;
@@ -43191,7 +42998,7 @@ private void btnIFtoVFO_Click(object sender, System.EventArgs e) {
 
 #region DSP Button Events
 
-private void chkANF_CheckedChanged(object sender, System.EventArgs e) {
+private void chkANF_CheckedChanged(object sender, EventArgs e) {
             if (chkANF.Checked) {
             chkANF.BackColor = button_selected_color;
             lblANFLabel.Text = "ANF";
@@ -43253,7 +43060,7 @@ public bool TxOsctrl {
             set { txosctrl = value; }
 }
 
-private void chkCPDR_CheckedChanged(object sender, System.EventArgs e) {
+private void chkCPDR_CheckedChanged(object sender, EventArgs e) {
             if (chkCPDR.Checked) {
             chkCPDR.BackColor = button_selected_color;
             // chkDX.Checked = false;
@@ -43280,7 +43087,7 @@ private void chkCPDR_CheckedChanged(object sender, System.EventArgs e) {
                 EIndicatorActions.eINCompanderEnabled, false, chkCPDR.Checked);
 }
 
-private void ptbCPDR_Scroll(object sender, System.EventArgs e) {
+private void ptbCPDR_Scroll(object sender, EventArgs e) {
             lblCPDRVal.Text = ptbCPDR.Value.ToString() + " dB";
 
             if (chkCPDR.Checked)
@@ -43292,7 +43099,7 @@ private void ptbCPDR_Scroll(object sender, System.EventArgs e) {
             }
 }
 
-private void chkDX_CheckedChanged(object sender, System.EventArgs e) {
+private void chkDX_CheckedChanged(object sender, EventArgs e) {
             StereoDiversity = chkDX.Checked;
 
             // if (!initializing && RX2Enabled && chkDX.Checked)
@@ -43325,7 +43132,7 @@ private void chkDX_CheckedChanged(object sender, System.EventArgs e) {
             // else radio.GetDSPTX(0).TXCompandOn = false;
 }
 
-private void ptbDX_Scroll(object sender, System.EventArgs e) {
+private void ptbDX_Scroll(object sender, EventArgs e) {
             lblDXVal.Text = ptbDX.Value.ToString();
             if (sender.GetType() == typeof(PrettyTrackBar)) {
             ptbDX.Focus();
@@ -43343,13 +43150,13 @@ private void ptbDX_Scroll(object sender, System.EventArgs e) {
 // Memory Events
 // ======================================================
 
-private void btnMemoryQuickSave_Click(object sender, System.EventArgs e) {
+private void btnMemoryQuickSave_Click(object sender, EventArgs e) {
             txtMemoryQuick.Text = txtVFOAFreq.Text;
             quick_save_mode = RX1DSPMode;
             quick_save_filter = RX1Filter;
 }
 
-private void btnMemoryQuickRestore_Click(object sender, System.EventArgs e) {
+private void btnMemoryQuickRestore_Click(object sender, EventArgs e) {
             SaveBand();
             last_band = "";
             RX1DSPMode = quick_save_mode;
@@ -43364,24 +43171,24 @@ private void btnMemoryQuickRestore_Click(object sender, System.EventArgs e) {
 
 #region Menu Events
 
-private void menu_setup_Click(object sender, System.EventArgs e) {
+private void menu_setup_Click(object sender, EventArgs e) {
             SetupForm.Show();
             SetupForm.Focus();
 }
 
-private void menu_wave_Click(object sender, System.EventArgs e) {
+private void menu_wave_Click(object sender, EventArgs e) {
             if (WaveForm.IsDisposed) WaveForm = new WaveControl(this);
             WaveForm.Show();
             WaveForm.Focus();
 }
 
-private void mnuEQ_Click(object sender, System.EventArgs e) {
+private void mnuEQ_Click(object sender, EventArgs e) {
             if (EQForm == null || EQForm.IsDisposed) EQForm = new EQForm(this);
             EQForm.Show(this);
             EQForm.Focus();
 }
 
-private void mnuXVTR_Click(object sender, System.EventArgs e) {
+private void mnuXVTR_Click(object sender, EventArgs e) {
             if (XVTRForm == null || XVTRForm.IsDisposed)
             XVTRForm = new XVTRForm(this);
 
@@ -43389,7 +43196,7 @@ private void mnuXVTR_Click(object sender, System.EventArgs e) {
             XVTRForm.Focus();
 }
 
-private void menuItemFilterConfigure_Click(object sender, System.EventArgs e) {
+private void menuItemFilterConfigure_Click(object sender, EventArgs e) {
             if (rx1_dsp_mode == DSPMode.DRM || rx1_dsp_mode == DSPMode.SPEC)
             return;
 
@@ -43402,8 +43209,7 @@ private void menuItemFilterConfigure_Click(object sender, System.EventArgs e) {
             filterRX1Form.Focus();
 }
 
-private void menuItemRX2FilterConfigure_Click(
-    object sender, System.EventArgs e) {
+private void menuItemRX2FilterConfigure_Click(object sender, EventArgs e) {
             if (rx2_dsp_mode == DSPMode.DRM || rx2_dsp_mode == DSPMode.SPEC)
             return;
 
@@ -43420,7 +43226,7 @@ private void menuItemRX2FilterConfigure_Click(
 
 #region Sub RX Events
 
-private void ptbPanMainRX_Scroll(object sender, System.EventArgs e) {
+private void ptbPanMainRX_Scroll(object sender, EventArgs e) {
             // if(chkEnableMultiRX.Checked)
             {
             float val = (int)ptbPanMainRX.Value / 100.0f;
@@ -43438,7 +43244,7 @@ private void ptbPanMainRX_Scroll(object sender, System.EventArgs e) {
             if (sliderForm != null) sliderForm.RX1LRPan = ptbPanMainRX.Value;
 }
 
-private void ptbPanSubRX_Scroll(object sender, System.EventArgs e) {
+private void ptbPanSubRX_Scroll(object sender, EventArgs e) {
             float val = (int)ptbPanSubRX.Value / 100.0f;
             if (chkPanSwap.Checked) val = 1.0f - val;
             radio.GetDSPRX(0, 1).Pan = val;
@@ -43452,7 +43258,7 @@ private void ptbPanSubRX_Scroll(object sender, System.EventArgs e) {
 }
 
 unsafe private void chkEnableMultiRX_CheckedChanged(
-    object sender, System.EventArgs e) {
+    object sender, EventArgs e) {
             radio.GetDSPRX(0, 1).Active = chkEnableMultiRX.Checked;
             if (chkEnableMultiRX.Checked) {
             cmaster.SetAAudioMixWhat((void*)0, 0, 1, true);
@@ -43514,7 +43320,7 @@ unsafe private void chkEnableMultiRX_CheckedChanged(
             setSmallRX2ModeFilterLabels();
 }
 
-private void chkPanSwap_CheckedChanged(object sender, System.EventArgs e) {
+private void chkPanSwap_CheckedChanged(object sender, EventArgs e) {
             // if(chkEnableMultiRX.Checked)
             {
             ptbPanMainRX_Scroll(this, EventArgs.Empty);
@@ -43522,7 +43328,7 @@ private void chkPanSwap_CheckedChanged(object sender, System.EventArgs e) {
             }
 }
 
-private void ptbRX0Gain_Scroll(object sender, System.EventArgs e) {
+private void ptbRX0Gain_Scroll(object sender, EventArgs e) {
             // if(chkEnableMultiRX.Checked)
             lblRX1Vol.Text = "Vol";
 
@@ -43551,7 +43357,7 @@ private void ptbRX0Gain_Scroll(object sender, System.EventArgs e) {
             }
 }
 
-private void ptbRX1Gain_Scroll(object sender, System.EventArgs e) {
+private void ptbRX1Gain_Scroll(object sender, EventArgs e) {
             radio.GetDSPRX(0, 1).RXOutputGain
                 = (double)ptbRX1Gain.Value / ptbRX1Gain.Maximum;
 
@@ -43572,7 +43378,7 @@ public bool FullDuplex {
             }
 }
 
-private void chkFullDuplex_CheckedChanged(object sender, System.EventArgs e) {
+private void chkFullDuplex_CheckedChanged(object sender, EventArgs e) {
             FullDuplex = chkFullDuplex.Checked;
             Audio.FullDuplex = chkFullDuplex.Checked;
             if (chkFullDuplex.Checked) {
@@ -43639,7 +43445,7 @@ public void SetATUFeedback(string s) {
             // toolTip1.SetToolTip(chkFWCATU, s);
 }
 
-private void chkFWCATU_Click(object sender, System.EventArgs e) {
+private void chkFWCATU_Click(object sender, EventArgs e) {
             // if (!IsSetupNull) SetupForm.X2TR = chkX2TR.Checked;
             ClickTuneDisplay = chkFWCATU.Checked;
             if (ClickTuneDisplay == true)
@@ -43653,9 +43459,9 @@ private void chkFWCATU_Click(object sender, System.EventArgs e) {
             //  txtVFOBFreq_LostFocus(this, EventArgs.Empty);
 }
 
-private void chkFWCATUBypass_Click(object sender, System.EventArgs e) {}
+private void chkFWCATUBypass_Click(object sender, EventArgs e) {}
 
-private void chkSplitDisplay_CheckedChanged(object sender, System.EventArgs e) {
+private void chkSplitDisplay_CheckedChanged(object sender, EventArgs e) {
             if (chkSplitDisplay.Checked)
             chkSplitDisplay.BackColor = button_selected_color;
             else
@@ -43665,7 +43471,7 @@ private void chkSplitDisplay_CheckedChanged(object sender, System.EventArgs e) {
 }
 
 private DateTime m_quick_start_time;
-private void ckQuickPlay_CheckedChanged(object sender, System.EventArgs e) {
+private void ckQuickPlay_CheckedChanged(object sender, EventArgs e) {
             // if (!mox)
             //  {
             //     ckQuickPlay.Checked = false;
@@ -43685,7 +43491,7 @@ private void ckQuickPlay_CheckedChanged(object sender, System.EventArgs e) {
             ckQuickRec.Enabled = !ckQuickPlay.Checked;
 }
 
-private void ckQuickRec_CheckedChanged(object sender, System.EventArgs e) {
+private void ckQuickRec_CheckedChanged(object sender, EventArgs e) {
             if (ckQuickRec.Checked) {
             WaveForm.QuickRec = true;
             ckQuickPlay.Enabled = true;
@@ -44293,7 +44099,7 @@ public bool RX2Enabled {
 }
 
 private bool update_rx2_display = false;
-private void chkRX2_CheckedChanged(object sender, System.EventArgs e) {
+private void chkRX2_CheckedChanged(object sender, EventArgs e) {
             RX2Enabled = chkRX2.Checked;
 
             if (chkVFOBTX.Checked && chkVAC2.Checked && chkRX2.Checked) {
@@ -44389,7 +44195,7 @@ private void setSmallRX2ModeFilterLabels() {
             }
 }
 
-private void chkRX2SR_CheckedChanged(object sender, System.EventArgs e) {
+private void chkRX2SR_CheckedChanged(object sender, EventArgs e) {
             if (chkRX2SR.Checked)
             chkRX2SR.BackColor = button_selected_color;
             else
@@ -44401,8 +44207,7 @@ private void chkRX2SR_CheckedChanged(object sender, System.EventArgs e) {
             if (path_Illustrator != null) path_Illustrator.pi_Changed();
 }
 
-private void panelVFOASubHover_Paint(
-    object sender, System.Windows.Forms.PaintEventArgs e) {
+private void panelVFOASubHover_Paint(object sender, PaintEventArgs e) {
             if (!rx2_enabled
                 || (!chkEnableMultiRX.Checked && !chkVFOSplit.Checked))
             return;
@@ -44439,8 +44244,7 @@ private void panelVFOASubHover_Paint(
                 new Pen(txtVFOABand.ForeColor, 2.0f), x, 1, width, 1);
 }
 
-private void panelVFOASubHover_MouseMove(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void panelVFOASubHover_MouseMove(object sender, MouseEventArgs e) {
             if (!rx2_enabled
                 || (!chkEnableMultiRX.Checked && !chkVFOSplit.Checked))
             return;
@@ -44457,8 +44261,7 @@ private void panelVFOASubHover_MouseMove(
                     e.Y + y_offset, e.Delta));
 }
 
-private void txtVFOABand_MouseMove(
-    object sender, System.Windows.Forms.MouseEventArgs e) {
+private void txtVFOABand_MouseMove(object sender, MouseEventArgs e) {
             if (!rx2_enabled
                 || (!chkEnableMultiRX.Checked && !chkVFOSplit.Checked)
                 || !chkPower.Checked)
@@ -44504,7 +44307,7 @@ private void txtVFOABand_MouseMove(
             }
 }
 
-private void txtVFOABand_MouseLeave(object sender, System.EventArgs e) {
+private void txtVFOABand_MouseLeave(object sender, EventArgs e) {
             vfoa_sub_hover_digit = -1;
             panelVFOASubHover.Invalidate();
 }
@@ -45014,8 +44817,7 @@ private void setRX2ModeLabels(string sMode) {
             }
 }
 
-private void radRX2ModeButton_CheckedChanged(
-    object sender, System.EventArgs e) {
+private void radRX2ModeButton_CheckedChanged(object sender, EventArgs e) {
             if (sender == null) return;
             if (sender.GetType() != typeof(RadioButtonTS)) return;
             RadioButtonTS radioBtnTS = (RadioButtonTS)sender;
@@ -45053,67 +44855,67 @@ private void radRX2ModeButton_CheckedChanged(
             if (modePopupForm != null) modePopupForm.RepopulateForm();
 }
 
-private void radRX2ModeLSB_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2ModeLSB_CheckedChanged(object sender, EventArgs e) {
             if (radRX2ModeLSB.Checked) {
             SetRX2Mode(DSPMode.LSB);
             }
 }
 
-private void radRX2ModeUSB_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2ModeUSB_CheckedChanged(object sender, EventArgs e) {
             if (radRX2ModeUSB.Checked) {
             SetRX2Mode(DSPMode.USB);
             }
 }
 
-private void radRX2ModeDSB_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2ModeDSB_CheckedChanged(object sender, EventArgs e) {
             if (radRX2ModeDSB.Checked) {
             SetRX2Mode(DSPMode.DSB);
             }
 }
 
-private void radRX2ModeCWL_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2ModeCWL_CheckedChanged(object sender, EventArgs e) {
             if (radRX2ModeCWL.Checked) {
             SetRX2Mode(DSPMode.CWL);
             }
 }
 
-private void radRX2ModeCWU_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2ModeCWU_CheckedChanged(object sender, EventArgs e) {
             if (radRX2ModeCWU.Checked) {
             SetRX2Mode(DSPMode.CWU);
             }
 }
 
-private void radRX2ModeFMN_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2ModeFMN_CheckedChanged(object sender, EventArgs e) {
             if (radRX2ModeFMN.Checked) {
             SetRX2Mode(DSPMode.FM);
             }
 }
 
-private void radRX2ModeAM_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2ModeAM_CheckedChanged(object sender, EventArgs e) {
             if (radRX2ModeAM.Checked) {
             SetRX2Mode(DSPMode.AM);
             }
 }
 
-private void radRX2ModeSAM_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2ModeSAM_CheckedChanged(object sender, EventArgs e) {
             if (radRX2ModeSAM.Checked) {
             SetRX2Mode(DSPMode.SAM);
             }
 }
 
-private void radRX2ModeDIGL_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2ModeDIGL_CheckedChanged(object sender, EventArgs e) {
             if (radRX2ModeDIGL.Checked) {
             SetRX2Mode(DSPMode.DIGL);
             }
 }
 
-private void radRX2ModeDIGU_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2ModeDIGU_CheckedChanged(object sender, EventArgs e) {
             if (radRX2ModeDIGU.Checked) {
             SetRX2Mode(DSPMode.DIGU);
             }
 }
 
-private void radRX2ModeDRM_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2ModeDRM_CheckedChanged(object sender, EventArgs e) {
             if (radRX2ModeDRM.Checked) {
             SetRX2Mode(DSPMode.DRM);
             }
@@ -45225,45 +45027,43 @@ public void SetRX2Filter(Filter new_filter) {
             UpdateRX2Filters(low, high);
 }
 
-private void radRX2Filter1_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2Filter1_CheckedChanged(object sender, EventArgs e) {
             if (radRX2Filter1.Checked) SetRX2Filter(Filter.F1);
 }
 
-private void radRX2Filter2_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2Filter2_CheckedChanged(object sender, EventArgs e) {
             if (radRX2Filter2.Checked) SetRX2Filter(Filter.F2);
 }
 
-private void radRX2Filter3_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2Filter3_CheckedChanged(object sender, EventArgs e) {
             if (radRX2Filter3.Checked) SetRX2Filter(Filter.F3);
 }
 
-private void radRX2Filter4_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2Filter4_CheckedChanged(object sender, EventArgs e) {
             if (radRX2Filter4.Checked) SetRX2Filter(Filter.F4);
 }
 
-private void radRX2Filter5_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2Filter5_CheckedChanged(object sender, EventArgs e) {
             if (radRX2Filter5.Checked) SetRX2Filter(Filter.F5);
 }
 
-private void radRX2Filter6_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2Filter6_CheckedChanged(object sender, EventArgs e) {
             if (radRX2Filter6.Checked) SetRX2Filter(Filter.F6);
 }
 
-private void radRX2Filter7_CheckedChanged(object sender, System.EventArgs e) {
+private void radRX2Filter7_CheckedChanged(object sender, EventArgs e) {
             if (radRX2Filter7.Checked) SetRX2Filter(Filter.F7);
 }
 
-private void radRX2FilterVar1_CheckedChanged(
-    object sender, System.EventArgs e) {
+private void radRX2FilterVar1_CheckedChanged(object sender, EventArgs e) {
             if (radRX2FilterVar1.Checked) SetRX2Filter(Filter.VAR1);
 }
 
-private void radRX2FilterVar2_CheckedChanged(
-    object sender, System.EventArgs e) {
+private void radRX2FilterVar2_CheckedChanged(object sender, EventArgs e) {
             if (radRX2FilterVar2.Checked) SetRX2Filter(Filter.VAR2);
 }
 
-private void udRX2FilterLow_ValueChanged(object sender, System.EventArgs e) {
+private void udRX2FilterLow_ValueChanged(object sender, EventArgs e) {
             if (udRX2FilterLow.Focused) {
             if (udRX2FilterLow.Value >= udRX2FilterHigh.Value - 10) {
                 udRX2FilterLow.Value = udRX2FilterHigh.Value - 10;
@@ -45293,7 +45093,7 @@ public bool BypassVACWhenPlayingRecording {
             set { m_bBypassVACWhenPlayingRecording = value; }
 }
 
-private void udRX2FilterHigh_ValueChanged(object sender, System.EventArgs e) {
+private void udRX2FilterHigh_ValueChanged(object sender, EventArgs e) {
             if (udRX2FilterHigh.Focused) {
             if (udRX2FilterHigh.Value <= udRX2FilterLow.Value + 10) {
                 udRX2FilterHigh.Value = udRX2FilterLow.Value + 10;
@@ -45317,7 +45117,7 @@ private void udRX2FilterHigh_ValueChanged(object sender, System.EventArgs e) {
                 btnHidden.Focus();*/
 }
 
-private void chkRX2ANF_CheckedChanged(object sender, System.EventArgs e) {
+private void chkRX2ANF_CheckedChanged(object sender, EventArgs e) {
             if (chkRX2ANF.Checked) {
             chkRX2ANF.BackColor = button_selected_color;
             lblRX2ANFLabel.Text = "ANF";
@@ -45336,7 +45136,7 @@ private void chkRX2ANF_CheckedChanged(object sender, System.EventArgs e) {
                 EIndicatorActions.eINANF, false, chkRX2ANF.Checked);
 }
 
-private void chkRX2BIN_CheckedChanged(object sender, System.EventArgs e) {
+private void chkRX2BIN_CheckedChanged(object sender, EventArgs e) {
             if (chkRX2BIN.Checked)
             chkRX2BIN.BackColor = button_selected_color;
             else
@@ -45347,7 +45147,7 @@ private void chkRX2BIN_CheckedChanged(object sender, System.EventArgs e) {
 }
 
 private void comboRX2MeterMode_SelectedIndexChanged(
-    object sender, System.EventArgs e) {
+    object sender, EventArgs e) {
             if (comboRX2MeterMode.Items.Count == 0
                 || comboRX2MeterMode.SelectedIndex < 0) {
             rx2_meter_mode = MeterRXMode.FIRST;
@@ -45405,7 +45205,7 @@ private void comboRX2MeterMode_SelectedIndexChanged(
             if (comboRX2MeterMode.Focused) btnHidden.Focus();
 }
 
-private void chkRX2Preamp_CheckedChanged(object sender, System.EventArgs e) {
+private void chkRX2Preamp_CheckedChanged(object sender, EventArgs e) {
             if (chkRX2Preamp.Checked) {
             chkRX2Preamp.BackColor = button_selected_color;
             // RX2PreampMode = PreampMode.HPSDR_ON;
@@ -45415,7 +45215,7 @@ private void chkRX2Preamp_CheckedChanged(object sender, System.EventArgs e) {
             }
 }
 
-private void ptbRX2RF_Scroll(object sender, System.EventArgs e) {
+private void ptbRX2RF_Scroll(object sender, EventArgs e) {
             //  lblRX2RF.Text = "AGC-T:  " + ptbRX2RF.Value.ToString();
             /*  switch (RX2AGCMode)
               {
@@ -45456,7 +45256,7 @@ private void ptbRX2RF_Scroll(object sender, System.EventArgs e) {
             if (sliderForm != null) sliderForm.RX2RFGainAGC = ptbRX2RF.Value;
 }
 
-private void chkRX2Squelch_CheckedChanged(object sender, System.EventArgs e) {
+private void chkRX2Squelch_CheckedChanged(object sender, EventArgs e) {
             if (initializing) return;
 
             if (chkRX2Squelch.Checked)
@@ -45495,7 +45295,7 @@ private void chkRX2Squelch_CheckedChanged(object sender, System.EventArgs e) {
                 EIndicatorActions.eINSquelch, false, chkRX2Squelch.Checked);
 }
 
-private void ptbRX2Squelch_Scroll(object sender, System.EventArgs e) {
+private void ptbRX2Squelch_Scroll(object sender, EventArgs e) {
             chkRX2Squelch.Text = "SQL:  " + ptbRX2Squelch.Value.ToString();
 
             if (rx2_dsp_mode == DSPMode.FM) {
@@ -45524,8 +45324,7 @@ private void ptbRX2Squelch_Scroll(object sender, System.EventArgs e) {
             if (sliderForm != null) sliderForm.RX2Squelch = ptbRX2Squelch.Value;
 }
 
-private void picRX2Squelch_Paint(
-    object sender, System.Windows.Forms.PaintEventArgs e) {
+private void picRX2Squelch_Paint(object sender, PaintEventArgs e) {
             int signal_x = (int)((rx2_sql_data + 160.0)
                 * (picRX2Squelch.Width - 1) / 160.0);
             int sql_x = (int)(((float)ptbRX2Squelch.Value + 160.0)
@@ -45538,7 +45337,7 @@ private void picRX2Squelch_Paint(
                 signal_x - sql_x - 1, picRX2Squelch.Height);
 }
 
-private void chkRX1Preamp_CheckedChanged(object sender, System.EventArgs e) {
+private void chkRX1Preamp_CheckedChanged(object sender, EventArgs e) {
             // if (!fwc_init || current_model != Model.FLEX5000) return;
             if (chkRX1Preamp.Checked) {
             chkRX1Preamp.BackColor = button_selected_color;
@@ -45551,7 +45350,7 @@ private void chkRX1Preamp_CheckedChanged(object sender, System.EventArgs e) {
             }
 }
 
-private void ptbRX2Pan_Scroll(object sender, System.EventArgs e) {
+private void ptbRX2Pan_Scroll(object sender, EventArgs e) {
             float val = (int)ptbRX2Pan.Value / 100.0f;
             radio.GetDSPRX(1, 0).Pan = val;
 
@@ -45563,7 +45362,7 @@ private void ptbRX2Pan_Scroll(object sender, System.EventArgs e) {
             if (sliderForm != null) sliderForm.RX2LRPan = ptbRX2Pan.Value;
 }
 
-private void ptbRX2Gain_Scroll(object sender, System.EventArgs e) {
+private void ptbRX2Gain_Scroll(object sender, EventArgs e) {
             // if (chkRX2Mute.Checked) chkRX2Mute.Checked = false; ;
             radio.GetDSPRX(1, 0).RXOutputGain
                 = (double)ptbRX2Gain.Value / ptbRX2Gain.Maximum;
@@ -45583,7 +45382,7 @@ private void ptbRX2Gain_Scroll(object sender, System.EventArgs e) {
             if (sliderForm != null) sliderForm.RX2Gain = ptbRX2Gain.Value;
 }
 
-private void chkRX2Mute_CheckedChanged(object sender, System.EventArgs e) {
+private void chkRX2Mute_CheckedChanged(object sender, EventArgs e) {
             if (chkRX2Mute.Checked) {
             Audio.MuteRX2 = true;
             //  radio.GetDSPRX(1, 0).RXOutputGain = 0.0;
@@ -45602,7 +45401,7 @@ private void chkRX2Mute_CheckedChanged(object sender, System.EventArgs e) {
 }
 
 private void comboRX2DisplayMode_SelectedIndexChanged(
-    object sender, System.EventArgs e) {
+    object sender, EventArgs e) {
             switch (comboRX2DisplayMode.Text) {
             case "Spectrum":
                 Display.CurrentDisplayModeBottom = DisplayMode.SPECTRUM;
@@ -45649,8 +45448,7 @@ private void comboRX2DisplayMode_SelectedIndexChanged(
             picDisplay.Invalidate();
 }
 
-private void chkRX2DisplayAVG_CheckedChanged(
-    object sender, System.EventArgs e) {
+private void chkRX2DisplayAVG_CheckedChanged(object sender, EventArgs e) {
             Display.RX2AverageOn = chkRX2DisplayAVG.Checked;
             specRX.GetSpecRX(1).AverageOn = chkRX2DisplayAVG.Checked;
 
@@ -45676,8 +45474,7 @@ private void chkRX2DisplayAVG_CheckedChanged(
             RX2AVGToolStripMenuItem.Checked = chkRX2DisplayAVG.Checked;
 }
 
-private void chkRX2DisplayPeak_CheckedChanged(
-    object sender, System.EventArgs e) {
+private void chkRX2DisplayPeak_CheckedChanged(object sender, EventArgs e) {
             Display.RX2PeakOn = chkRX2DisplayPeak.Checked;
             specRX.GetSpecRX(1).PeakOn = chkRX2DisplayPeak.Checked;
 
@@ -46320,8 +46117,7 @@ public void SetupBand(string sBand) {
             }
 }
 
-private void comboRX2Band_SelectedIndexChanged(
-    object sender, System.EventArgs e) {
+private void comboRX2Band_SelectedIndexChanged(object sender, EventArgs e) {
             // G8NJJ to get settings to update from CAT command as well as mouse
             // click
             //            if (true)
@@ -46389,9 +46185,8 @@ private void SizeAndPositionAnalogSMeter() {
 
             if (!this.collapsedDisplay) {
             var gap = this.panelBandHF.Top - grpMultimeterMenus.Bottom;
-            var arg
-                = (LBSoft.IndustrialCtrls.Meters.LBAnalogMeter
-                        .BackGroundChoices)Settings.Default.SMeterBackgroundImg;
+            var arg = (LBAnalogMeter.BackGroundChoices)
+                          Settings.Default.SMeterBackgroundImg;
             PrettySMeter.ToggleBackGroundImage(arg);
 
             if (gap >= 100) {
@@ -46450,7 +46245,7 @@ private void Console_ResizeEnd(object sender, EventArgs e) {
 }
 
 int lastWindowState = -1;
-private void Console_Resize(object sender, System.EventArgs e) {
+private void Console_Resize(object sender, EventArgs e) {
             if (lastWindowState != (int)this.WindowState) {
             lastWindowState = (int)this.WindowState;
             if (Visible && this.WindowState != FormWindowState.Minimized) {
@@ -46467,8 +46262,7 @@ private void Console_Resize(object sender, System.EventArgs e) {
             }
 }
 
-private void comboRX2AGC_SelectedIndexChanged(
-    object sender, System.EventArgs e) {
+private void comboRX2AGC_SelectedIndexChanged(object sender, EventArgs e) {
             if (IsSetupFormNull) return;
             radio.GetDSPRX(1, 0).RXAGCMode = (AGCMode)comboRX2AGC.SelectedIndex;
             lblRX2AGCLabel.Text = "AGC: " + comboRX2AGC.Text;
@@ -46567,7 +46361,7 @@ private void comboRX2AGC_SelectedIndexChanged(
             }
 }
 
-private void chkVFOSync_CheckedChanged(object sender, System.EventArgs e) {
+private void chkVFOSync_CheckedChanged(object sender, EventArgs e) {
             if (chkVFOSync.Checked) {
             chkVFOSync.BackColor = button_selected_color;
             lblVFOSyncLabel.BackColor = System.Drawing.Color.Blue;
@@ -46637,7 +46431,7 @@ public int DSPBufDigTX {
             }
 }
 
-private void chkVFOATX_CheckedChanged(object sender, System.EventArgs e) {
+private void chkVFOATX_CheckedChanged(object sender, EventArgs e) {
             if (chkVFOATX.Focused && !chkVFOATX.Checked)
             chkVFOATX.Checked = true;
             if (chkVFOATX.Checked) {
@@ -46702,7 +46496,7 @@ private void BroadcastVFOChange(string ndx) {
             }
 }
 
-private void chkVFOBTX_CheckedChanged(object sender, System.EventArgs e) {
+private void chkVFOBTX_CheckedChanged(object sender, EventArgs e) {
             if (chkVFOBTX.Focused && !chkVFOBTX.Checked)
             chkVFOBTX.Checked = true;
             Display.TXOnVFOB = chkVFOBTX.Checked;
@@ -46937,7 +46731,7 @@ private static bool TDxCurrentVFO = false; // VFOA
 // but its value is never used
 
 int ticker = 0;
-private void timer_navigate_Tick(object sender, System.EventArgs e) {
+private void timer_navigate_Tick(object sender, EventArgs e) {
             if (ckQuickRec.Checked) {
             var t = DateTime.Now - m_quick_start_time;
             var s = t.ToString(@"hh\:mm\:ss\.fff");
@@ -50854,9 +50648,8 @@ static public Font GetCustomFont(byte[] fontData, float size, FontStyle style) {
             // app shutdown but it will be tidied automatically. We are not
             // doing anything crazy over and over with this so will ignore the
             // ideal world for now
-            uint cFonts;
             AddFontMemResourceEx(
-                fontData, fontData.Length, IntPtr.Zero, out cFonts);
+                fontData, fontData.Length, IntPtr.Zero, out uint cFonts);
             //
 
             Marshal.Copy(fontData, 0, fontPtr, fontData.Length);

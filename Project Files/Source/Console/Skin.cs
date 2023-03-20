@@ -87,8 +87,10 @@ namespace Thetis
         {
             Skin.path = p + "\\" + name;
             Skin.name = name;
-            XmlTextWriter writer = new XmlTextWriter(path + "\\" + name + ".xml", Encoding.UTF8);
-            writer.Formatting = Formatting.Indented;
+            XmlTextWriter writer = new XmlTextWriter(path + "\\" + name + ".xml", Encoding.UTF8)
+            {
+                Formatting = Formatting.Indented
+            };
             writer.WriteStartDocument();
             writer.WriteStartElement("Form");
 

@@ -27,9 +27,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{6DBDF457-8E84-4DFF-B1E4-A9177D15D89F}</ProjectGuid>
+    <ProjectGuid>{8E5759EA-1D4E-46DA-9B3C-3577A98301C1}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>wdsp</RootNamespace>
+    <RootNamespace>ChannelMaster</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -48,10 +48,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>NotSet</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
-    <VCToolsVersion>
-    </VCToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -71,10 +69,8 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>NotSet</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
-    <VCToolsVersion>
-    </VCToolsVersion>
     <EnableASAN>false</EnableASAN>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -108,28 +104,35 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\wdsp\</IntDir>
+    <IntDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\channelmaster\</IntDir>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\wdsp\</IntDir>
+    <IntDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\channelmaster\</IntDir>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\wdsp\</IntDir>
+    <IntDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\channelmaster\</IntDir>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\wdsp\</IntDir>
+    <IntDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\channelmaster\</IntDir>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -138,35 +141,37 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;WDSP_EXPORTS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>.;../../lib/portaudio_VS2008/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_WINDOWS;_USRDLL;CHANNELMASTER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\wdsp;.;../../lib/portaudio/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <AdditionalOptions>/D_ATL_XP_TARGETING %(AdditionalOptions)</AdditionalOptions>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <CompileAs>CompileAsC</CompileAs>
+      <AdditionalOptions>/D_ATL_XP_TARGETING /FS %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
-      <CompileAs>CompileAsC</CompileAs>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FloatingPointModel>Fast</FloatingPointModel>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <LanguageStandard_C>Default</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
-      <AdditionalDependencies>../../lib/fftw_x86-3.3.5/libfftw3-3.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>../Debug;../../lib/portaudio_VS2008/build/msvc/Win32/Debug;../../lib/fftw_$(HPSDR_PLATFORM)</AdditionalLibraryDirectories>
+      <OutputFile>$(OutDir)ChannelMaster.dll</OutputFile>
+      <AdditionalLibraryDirectories>U:\hamcode\COOLSDR\PowerSDR-Thetis-G7KLJ\Project Files\lib\portaudio\msvc\Win32\Debug;$(PROJECTDIR)../../lib/portaudio/msvc/$(HPSDR_PLATFORM)/$(Configuration);$(PROJECTDIR)../../build/$(HPSDR_PLATFORM)/$(Configuration)/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>winmm.lib;wdsp.lib;portaudioforCoolSDR.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <ModuleDefinitionFile>ChannelMaster.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(OutDir)$(ProjectName).dll" "$(PROJECTDIR)../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(ProjectName).dll";</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copying wdsp.dll to working directory</Message>
+      <Message>Copying ChannelMaster to working directory.</Message>
     </PostBuildEvent>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <ClCompile>
@@ -174,35 +179,36 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;WDSP_EXPORTS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
-      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>.;../../lib/portaudio_VS2008/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_WINDOWS;_USRDLL;CHANNELMASTER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\wdsp;.;../../lib/portaudio/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <AdditionalOptions>/D_ATL_XP_TARGETING %(AdditionalOptions)</AdditionalOptions>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <CompileAs>CompileAsC</CompileAs>
+      <AdditionalOptions>/D_ATL_XP_TARGETING /FS %(AdditionalOptions)</AdditionalOptions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
-      <CompileAs>CompileAsC</CompileAs>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FloatingPointModel>Fast</FloatingPointModel>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <LanguageStandard_C>Default</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
-      <AdditionalDependencies>../../lib/fftw_$(HPSDR_PLATFORM)/libfftw3-3.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>../Debug;../../lib/portaudio_VS2008/build/msvc/Win32/Debug;../../lib/fftw_$(HPSDR_PLATFORM)</AdditionalLibraryDirectories>
+      <OutputFile>$(OutDir)ChannelMaster.dll</OutputFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>winmm.lib;wdsp.lib;portaudioforThetis.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(OutDir)$(ProjectName).dll" "$(PROJECTDIR)../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(ProjectName).dll";</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copying wdsp.dll to working directory</Message>
+      <Message>Copying ChannelMaster to working directory.</Message>
     </PostBuildEvent>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -210,273 +216,232 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_WIN64;_DEBUG;_WINDOWS;_USRDLL;WDSP_EXPORTS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <AdditionalIncludeDirectories>.;../../lib/portaudio_VS2008/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_WINDOWS;_USRDLL;CHANNELMASTER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\wdsp;.;../../lib/portaudio/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <AdditionalOptions>/D_ATL_XP_TARGETING %(AdditionalOptions)</AdditionalOptions>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <CompileAs>CompileAsC</CompileAs>
+      <AdditionalOptions>/D_ATL_XP_TARGETING /FS %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
-      <CompileAs>CompileAsC</CompileAs>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
-      <AdditionalDependencies>../../lib/fftw_$(HPSDR_PLATFORM)/libfftw3-3.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>../../lib/fftw_$(HPSDR_PLATFORM)</AdditionalLibraryDirectories>
-      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <OutputFile>$(OutDir)ChannelMaster.dll</OutputFile>
+      <AdditionalLibraryDirectories>$(PROJECTDIR)../../lib/portaudio/msvc/$(HPSDR_PLATFORM)/$(Configuration);$(PROJECTDIR)../../build/$(HPSDR_PLATFORM)/$(Configuration)/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>winmm.lib;wdsp.lib;portAudioForCoolSDR.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>ChannelMaster.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent>
       <Command>copy /Y "$(OutDir)$(ProjectName).dll" "$(PROJECTDIR)../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(ProjectName).dll";</Command>
+      <Message>Copying ChannelMaster to working directory.</Message>
     </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Copying wdsp.dll to working directory</Message>
-    </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>copy /Y "$(OutDir)ChannelMaster.dll" "$(PROJECTDIR)../../build/$(HPSDR_PLATFORM)/$(Configuration)/$(TargetName).dll";</Command>
+    </CustomBuildStep>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;_WIN32;_MBCS;NDEBUG;_WINDOWS;_USRDLL;SPECHPSDR_EXPORTS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>.;../../lib/portaudio_VS2008/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_WINDOWS;_USRDLL;CHANNELMASTER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\wdsp;.;../../lib/portaudio/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <CompileAs>CompileAsC</CompileAs>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalOptions>/D_ATL_XP_TARGETING %(AdditionalOptions)</AdditionalOptions>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/D_ATL_XP_TARGETING /FS %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
-      <FloatingPointModel>Fast</FloatingPointModel>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
-      <AdditionalDependencies>../../lib/fftw_$(HPSDR_PLATFORM)/libfftw3-3.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../Release;../../lib/fftw_$(HPSDR_PLATFORM)</AdditionalLibraryDirectories>
+      <OutputFile>$(OutDir)ChannelMaster.dll</OutputFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>winmm.lib;wdsp.lib;portAudioForThetis.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <ModuleDefinitionFile>ChannelMaster.def</ModuleDefinitionFile>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
     <PostBuildEvent>
       <Command>copy /Y "$(OutDir)$(ProjectName).dll" "$(PROJECTDIR)../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(ProjectName).dll";</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copying wdsp.dll to working directory</Message>
+      <Message>Copying ChannelMaster to working directory.</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;_WIN32;_MBCS;NDEBUG;_WINDOWS;_USRDLL;SPECHPSDR_EXPORTS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>.;../../lib/portaudio_VS2008/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_WINDOWS;_USRDLL;CHANNELMASTER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\wdsp;.;../../lib/portaudio/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <CompileAs>CompileAsC</CompileAs>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalOptions>/D_ATL_XP_TARGETING %(AdditionalOptions)</AdditionalOptions>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/D_ATL_XP_TARGETING /FS %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
-      <FloatingPointModel>Fast</FloatingPointModel>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
-      <AdditionalDependencies>../../lib/fftw_$(HPSDR_PLATFORM)/libfftw3-3.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../Release;../../lib/fftw_$(HPSDR_PLATFORM)</AdditionalLibraryDirectories>
+      <OutputFile>$(OutDir)ChannelMaster.dll</OutputFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>winmm.lib;wdsp.lib;portAudioForThetis.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
     <PostBuildEvent>
       <Command>copy /Y "$(OutDir)$(ProjectName).dll" "$(PROJECTDIR)../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(ProjectName).dll";</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copying wdsp.dll to working directory</Message>
+      <Message>Copying ChannelMaster to working directory.</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;_WIN32;_MBCS;NDEBUG;_WINDOWS;_USRDLL;SPECHPSDR_EXPORTS;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>.;../../lib/portaudio_VS2008/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <CompileAs>CompileAsC</CompileAs>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_WINDOWS;_USRDLL;CHANNELMASTER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\wdsp;.;../../lib/portaudio/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalOptions>/D_ATL_XP_TARGETING %(AdditionalOptions)</AdditionalOptions>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <CompileAs>CompileAsC</CompileAs>
+      <AdditionalOptions>/D_ATL_XP_TARGETING /FS %(AdditionalOptions)</AdditionalOptions>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <FloatingPointModel>Fast</FloatingPointModel>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
-      <AdditionalDependencies>../../lib/fftw_$(HPSDR_PLATFORM)/libfftw3-3.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../lib/fftw_$(HPSDR_PLATFORM)</AdditionalLibraryDirectories>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <OutputFile>$(OutDir)ChannelMaster.dll</OutputFile>
+      <AdditionalLibraryDirectories>$(PROJECTDIR)../../lib/portaudio/msvc/$(HPSDR_PLATFORM)/$(Configuration);$(PROJECTDIR)../../build/$(HPSDR_PLATFORM)/$(Configuration)/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>winmm.lib;wdsp.lib;portAudioForCoolSDR.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkErrorReporting>QueueForNextLogin</LinkErrorReporting>
+      <ModuleDefinitionFile>ChannelMaster.def</ModuleDefinitionFile>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <BuildLog>
+      <Path>$(IntDir)$(MSBuildProjectName).log</Path>
+    </BuildLog>
     <PostBuildEvent>
       <Command>copy /Y "$(OutDir)$(ProjectName).dll" "$(PROJECTDIR)../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(ProjectName).dll";</Command>
-    </PostBuildEvent>
-    <PostBuildEvent>
-      <Message>Copying wdsp.dll to working directory</Message>
+      <Message>Copying ChannelMaster to working directory.</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="amd.h" />
-    <ClInclude Include="ammod.h" />
-    <ClInclude Include="amsq.h" />
-    <ClInclude Include="analyzer.h" />
-    <ClInclude Include="anf.h" />
-    <ClInclude Include="anr.h" />
-    <ClInclude Include="bandpass.h" />
-    <ClInclude Include="calcc.h" />
-    <ClInclude Include="calculus.h" />
-    <ClInclude Include="cblock.h" />
-    <ClInclude Include="cfcomp.h" />
-    <ClInclude Include="cfir.h" />
-    <ClInclude Include="compress.h" />
-    <ClInclude Include="delay.h" />
-    <ClInclude Include="dexp.h" />
-    <ClInclude Include="div.h" />
-    <ClInclude Include="eer.h" />
-    <ClInclude Include="emnr.h" />
-    <ClInclude Include="emph.h" />
-    <ClInclude Include="eq.h" />
-    <ClInclude Include="channel.h" />
-    <ClInclude Include="comm.h" />
-    <ClInclude Include="fcurve.h" />
-    <ClInclude Include="fftw3.h" />
-    <ClInclude Include="fir.h" />
-    <ClInclude Include="firmin.h" />
-    <ClInclude Include="fmd.h" />
-    <ClInclude Include="fmmod.h" />
-    <ClInclude Include="gain.h" />
-    <ClInclude Include="gen.h" />
-    <ClInclude Include="icfir.h" />
-    <ClInclude Include="iir.h" />
-    <ClInclude Include="iobuffs.h" />
-    <ClInclude Include="iqc.h" />
-    <ClInclude Include="lmath.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="meter.h" />
-    <ClInclude Include="meterlog10.h" />
-    <ClInclude Include="nbp.h" />
-    <ClInclude Include="nob.h" />
-    <ClInclude Include="nobII.h" />
-    <ClInclude Include="osctrl.h" />
-    <ClInclude Include="patchpanel.h" />
-    <ClInclude Include="resample.h" />
-    <ClInclude Include="resource1.h" />
-    <ClInclude Include="rmatch.h" />
-    <ClInclude Include="RXA.h" />
-    <ClInclude Include="sender.h" />
-    <ClInclude Include="shift.h" />
-    <ClInclude Include="siphon.h" />
-    <ClInclude Include="fmsq.h" />
-    <ClInclude Include="slew.h" />
-    <ClInclude Include="snb.h" />
-    <ClInclude Include="syncbuffs.h" />
-    <ClInclude Include="TXA.h" />
-    <ClInclude Include="utilities.h" />
-    <ClInclude Include="varsamp.h" />
-    <ClInclude Include="wcpAGC.h" />
+    <ClInclude Include="aamix.h" />
+    <ClInclude Include="amix.h" />
+    <ClInclude Include="BitDepthConvert.hpp" />
+    <ClInclude Include="cmaster.h" />
+    <ClInclude Include="cmbuffs.h" />
+    <ClInclude Include="cmcomm.h" />
+    <ClInclude Include="cmsetup.h" />
+    <ClInclude Include="debug_flags.h" />
+    <ClInclude Include="ilv.h" />
+    <ClInclude Include="ivac.h" />
+    <ClInclude Include="nanotimer.h" />
+    <ClInclude Include="network.h" />
+    <ClInclude Include="obbuffs.h" />
+    <ClInclude Include="pipe.h" />
+    <ClInclude Include="pro.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="ring.h" />
+    <ClInclude Include="router.h" />
+    <ClInclude Include="sync.h" />
+    <ClInclude Include="cmUtilities.h" />
+    <ClInclude Include="txgain.h" />
+    <ClInclude Include="version.h" />
+    <ClInclude Include="vox.h" />
+    <ClInclude Include="znob.h" />
+    <ClInclude Include="znobII.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="amd.c" />
-    <ClCompile Include="ammod.c" />
-    <ClCompile Include="amsq.c" />
-    <ClCompile Include="analyzer.c" />
-    <ClCompile Include="anf.c" />
-    <ClCompile Include="anr.c" />
-    <ClCompile Include="bandpass.c" />
-    <ClCompile Include="calcc.c" />
-    <ClCompile Include="calculus.c" />
-    <ClCompile Include="cblock.c" />
-    <ClCompile Include="cfcomp.c" />
-    <ClCompile Include="cfir.c" />
-    <ClCompile Include="compress.c" />
-    <ClCompile Include="delay.c" />
-    <ClCompile Include="dexp.c" />
-    <ClCompile Include="div.c" />
-    <ClCompile Include="eer.c" />
-    <ClCompile Include="emnr.c" />
-    <ClCompile Include="emph.c" />
-    <ClCompile Include="eq.c" />
-    <ClCompile Include="channel.c" />
-    <ClCompile Include="fcurve.c" />
-    <ClCompile Include="firmin.c" />
-    <ClCompile Include="fmd.c" />
-    <ClCompile Include="gain.c" />
-    <ClCompile Include="gen.c" />
-    <ClCompile Include="icfir.c" />
-    <ClCompile Include="iir.c" />
-    <ClCompile Include="iqc.c" />
-    <ClCompile Include="lmath.c" />
-    <ClCompile Include="meterlog10.c" />
-    <ClCompile Include="fir.c" />
-    <ClCompile Include="fmmod.c" />
-    <ClCompile Include="iobuffs.c" />
-    <ClCompile Include="main.c" />
-    <ClCompile Include="meter.c" />
-    <ClCompile Include="nbp.c" />
-    <ClCompile Include="nob.c" />
-    <ClCompile Include="nobII.c" />
-    <ClCompile Include="osctrl.c" />
-    <ClCompile Include="patchpanel.c" />
-    <ClCompile Include="resample.c" />
-    <ClCompile Include="rmatch.c" />
-    <ClCompile Include="RXA.c" />
-    <ClCompile Include="sender.c" />
-    <ClCompile Include="shift.c" />
-    <ClCompile Include="siphon.c" />
-    <ClCompile Include="fmsq.c" />
-    <ClCompile Include="slew.c" />
-    <ClCompile Include="snb.c" />
-    <ClCompile Include="syncbuffs.c" />
-    <ClCompile Include="TXA.c" />
-    <ClCompile Include="utilities.c" />
-    <ClCompile Include="varsamp.c" />
+    <ClCompile Include="aamix.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="amix.c">
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="cmaster.c" />
+    <ClCompile Include="cmbuffs.c" />
+    <ClCompile Include="cmsetup.c" />
+    <ClCompile Include="ilv.c" />
+    <ClCompile Include="ivac.c" />
+    <ClCompile Include="nanotime.c" />
+    <ClCompile Include="netInterface.c" />
+    <ClCompile Include="network.c" />
+    <ClCompile Include="networkproto1.c" />
+    <ClCompile Include="obbuffs.c" />
+    <ClCompile Include="pipe.c" />
+    <ClCompile Include="pro.c" />
+    <ClCompile Include="ring.c" />
+    <ClCompile Include="router.c" />
+    <ClCompile Include="sync.c" />
+    <ClCompile Include="cmUtilities.c" />
+    <ClCompile Include="txgain.c" />
     <ClCompile Include="version.c" />
-    <ClCompile Include="wcpAGC.c" />
-    <ClCompile Include="wisdom.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="wdsp.rc" />
+    <ClCompile Include="vox.c" />
+    <ClCompile Include="zeer.c" />
+    <ClCompile Include="znob.c" />
+    <ClCompile Include="znobII.c" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\lib\portaudio\msvc\portaudio.vcxproj">
       <Project>{0a18a071-125e-442f-aff7-a3f68abecf99}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\wdsp\wdsp.vcxproj">
+      <Project>{6dbdf457-8e84-4dff-b1e4-a9177d15d89f}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ChannelMaster.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChannelMaster.def" />
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

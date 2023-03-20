@@ -103,7 +103,7 @@ namespace Thetis
         #region Windows Form Designer generated code
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            components = new Container();
         }
         #endregion
 
@@ -175,13 +175,13 @@ namespace Thetis
             panel.Show();
         }
 
-        protected class ColorPanel : System.Windows.Forms.Form
+        protected class ColorPanel : Form
         {
             private ColorButton colorButton;
             private int colorIndex = -1;
             private int keyboardIndex = -50;
 
-            private Color[] colorList = new Color[40]
+            private readonly Color[] colorList = new Color[40]
             {
                 Color.FromArgb( 0x00, 0x00, 0x00 ), Color.FromArgb( 0x99, 0x33, 0x00 ),
                 Color.FromArgb( 0x33, 0x33, 0x00 ), Color.FromArgb( 0x00, 0x33, 0x00 ),
@@ -415,9 +415,11 @@ namespace Thetis
                     colorButton.Color = Color.Transparent;
                 else
                 {
-                    ColorDialog dlg = new ColorDialog();
-                    dlg.Color = colorButton.Color;
-                    dlg.FullOpen = true;
+                    ColorDialog dlg = new ColorDialog
+                    {
+                        Color = colorButton.Color,
+                        FullOpen = true
+                    };
 
                     if (dlg.ShowDialog(this) != DialogResult.OK)
                     {
@@ -455,9 +457,11 @@ namespace Thetis
                 Rectangle rc = new Rectangle(x, y, 137, 16);
                 SolidBrush textBrush = new SolidBrush(SystemColors.ControlText);
 
-                StringFormat textFormat = new StringFormat();
-                textFormat.Alignment = StringAlignment.Center;
-                textFormat.LineAlignment = StringAlignment.Center;
+                StringFormat textFormat = new StringFormat
+                {
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
+                };
 
                 e.Graphics.DrawRectangle(darkPen, rc);
                 e.Graphics.DrawString(text, colorButton.Font, textBrush, rc, textFormat);

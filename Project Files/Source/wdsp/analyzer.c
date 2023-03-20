@@ -643,7 +643,7 @@ DWORD WINAPI Cspectra(void* pargs) {
         return 0;
     }
 
-    if ((ss >= a->begin_ss) && (ss <= a->end_ss)) {
+    if ((ss >= (uintptr_t)a->begin_ss) && (ss <= (uintptr_t)a->end_ss)) {
         for (i = 0; i < a->size; i++) {
             (a->Cfft_in[ss][LO])[i][0] = a->window[i]
                 * (double)((a->I_samples[ss][LO])[a->IQO_idx[ss][LO]]);
@@ -673,7 +673,8 @@ DWORD WINAPI Cspectra(void* pargs) {
     }
 
     EnterCriticalSection(&(a->EliminateSection[ss]));
-    if ((ss >= a->begin_ss) && (ss <= a->end_ss)) Celiminate(disp, ss, LO);
+    if ((ss >= (uintptr_t)a->begin_ss) && (ss <= (uintptr_t)a->end_ss))
+        Celiminate(disp, ss, LO);
     a->spec_flag[ss] |= 1 << LO;
 
     if (a->spec_flag[ss] == ((1 << a->num_fft) - 1)) {

@@ -102,10 +102,12 @@ public partial class LBAnalogMeter : UserControl {
         this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
         this.SetStyle(ControlStyles.UserPaint, true);
 
-        // Create the default renderer
-        this.defaultRenderer = new LBDefaultAnalogMeterRenderer();
-        this.defaultRenderer.AnalogMeter = this;
-    }
+            // Create the default renderer
+            this.defaultRenderer = new LBDefaultAnalogMeterRenderer
+            {
+                AnalogMeter = this
+            };
+        }
 #endregion
 
 #region Properties
@@ -168,9 +170,11 @@ public partial class LBAnalogMeter : UserControl {
 
             if (val < minValue) val = minValue;
 
-            ValueEvent e = new ValueEvent();
-            e.currentVal = (float)val;
-            currValue = val;
+                ValueEvent e = new ValueEvent
+                {
+                    currentVal = (float)val
+                };
+                currValue = val;
             Invalidate();
             this.ValueChanged?.Invoke(this, e);
         }
@@ -358,26 +362,26 @@ public partial class LBAnalogMeter : UserControl {
 #endregion
 
     private void InitializeComponent() {
-        this.components = new System.ComponentModel.Container();
+        this.components = new Container();
         this.mnuBigSMeter
-            = new System.Windows.Forms.ContextMenuStrip(this.components);
+            = new ContextMenuStrip(this.components);
         this.chooseBackgroundImageToolStripMenuItem
-            = new System.Windows.Forms.ToolStripMenuItem();
+            = new ToolStripMenuItem();
         this.version1ToolStripMenuItem
-            = new System.Windows.Forms.ToolStripMenuItem();
+            = new ToolStripMenuItem();
         this.version2ToolStripMenuItem
-            = new System.Windows.Forms.ToolStripMenuItem();
+            = new ToolStripMenuItem();
         this.mnuBigSMeter.SuspendLayout();
         this.SuspendLayout();
         //
         // mnuBigSMeter
         //
         this.mnuBigSMeter.Items.AddRange(
-            new System.Windows.Forms.ToolStripItem[] {
+            new ToolStripItem[] {
                 this.chooseBackgroundImageToolStripMenuItem
             });
         this.mnuBigSMeter.Name = "mnuBigSMeter";
-        this.mnuBigSMeter.Size = new System.Drawing.Size(218, 48);
+        this.mnuBigSMeter.Size = new Size(218, 48);
         //
         // chooseBackgroundImageToolStripMenuItem
         //
@@ -486,9 +490,11 @@ public partial class LBAnalogMeter : UserControl {
         Settings.Default.Save();
         Invalidate();
         Refresh();
-        BackGndChanged e = new BackGndChanged();
-        e.which = Settings.Default.SMeterBackgroundImg;
-        this.BackGndImgChanged?.Invoke(this, e);
+            BackGndChanged e = new BackGndChanged
+            {
+                which = Settings.Default.SMeterBackgroundImg
+            };
+            this.BackGndImgChanged?.Invoke(this, e);
 
         if (m_console != null) {
             m_console.PrettySMeter.defaultRenderer.BackGroundCustomImage

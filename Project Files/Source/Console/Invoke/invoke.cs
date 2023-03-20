@@ -122,12 +122,12 @@ namespace System.Windows.Forms
 
         public static void SetControlBackColor(Control c, object val)
         {
-            c.BackColor = (System.Drawing.Color)val;
+            c.BackColor = (Drawing.Color)val;
         }
 
         public static void SetControlBackgroundImage(Control c, object val)
         {
-            c.BackgroundImage = (System.Drawing.Image)val;
+            c.BackgroundImage = (Drawing.Image)val;
         }
 
         public static void SetControlBindingContext(Control c, object val)
@@ -137,7 +137,7 @@ namespace System.Windows.Forms
 
         public static void SetControlBounds(Control c, object val)
         {
-            c.Bounds = (System.Drawing.Rectangle)val;
+            c.Bounds = (Drawing.Rectangle)val;
         }
 
         public static void SetControlCapture(Control c, object val)
@@ -152,7 +152,7 @@ namespace System.Windows.Forms
 
         public static void SetControlClientSize(Control c, object val)
         {
-            c.ClientSize = (System.Drawing.Size)val;
+            c.ClientSize = (Drawing.Size)val;
         }
 
         public static void SetControlContextMenuStrip(Control c, object val)
@@ -177,12 +177,12 @@ namespace System.Windows.Forms
 
         public static void SetControlFont(Control c, object val)
         {
-            c.Font = (System.Drawing.Font)val;
+            c.Font = (Drawing.Font)val;
         }
 
         public static void SetControlForeColor(Control c, object val)
         {
-            c.ForeColor = (System.Drawing.Color)val;
+            c.ForeColor = (Drawing.Color)val;
         }
 
         public static void SetControlHeight(Control c, object val)
@@ -207,7 +207,7 @@ namespace System.Windows.Forms
 
         public static void SetControlLocation(Control c, object val)
         {
-            c.Location = (System.Drawing.Point)val;
+            c.Location = (Drawing.Point)val;
         }
 
         public static void SetControlName(Control c, object val)
@@ -222,7 +222,7 @@ namespace System.Windows.Forms
 
         public static void SetControlRegion(Control c, object val)
         {
-            c.Region = (System.Drawing.Region)val;
+            c.Region = (Drawing.Region)val;
         }
 
         public static void SetControlRightToLeft(Control c, object val)
@@ -237,7 +237,7 @@ namespace System.Windows.Forms
 
         public static void SetControlSize(Control c, object val)
         {
-            c.Size = (System.Drawing.Size)val;
+            c.Size = (Drawing.Size)val;
         }
 
         public static void SetControlTabIndex(Control c, object val)
@@ -306,7 +306,7 @@ namespace System.Windows.Forms
 
         public static object CallControlGetChildAtPoint(Control c, object[] obj)
         {
-            return c.GetChildAtPoint((System.Drawing.Point)obj[0]);
+            return c.GetChildAtPoint((Drawing.Point)obj[0]);
         }
 
         public static object CallControlGetContainerControl(Control c, object[] obj)
@@ -325,19 +325,19 @@ namespace System.Windows.Forms
             {
                 if (obj[0].GetType() == typeof(bool))
                     c.Invalidate((bool)obj[0]);
-                else if (obj[0].GetType() == typeof(System.Drawing.Rectangle))
-                    c.Invalidate((System.Drawing.Rectangle)obj[0]);
-                else if (obj[0].GetType() == typeof(System.Drawing.Region))
-                    c.Invalidate((System.Drawing.Region)obj[0]);
+                else if (obj[0].GetType() == typeof(Drawing.Rectangle))
+                    c.Invalidate((Drawing.Rectangle)obj[0]);
+                else if (obj[0].GetType() == typeof(Drawing.Region))
+                    c.Invalidate((Drawing.Region)obj[0]);
             }
             else if (obj.Length == 2)
             {
-                if (obj[0].GetType() == typeof(System.Drawing.Rectangle) &&
+                if (obj[0].GetType() == typeof(Drawing.Rectangle) &&
                     obj[1].GetType() == typeof(bool))
-                    c.Invalidate((System.Drawing.Rectangle)obj[0], (bool)obj[1]);
-                else if (obj[0].GetType() == typeof(System.Drawing.Region) &&
+                    c.Invalidate((Drawing.Rectangle)obj[0], (bool)obj[1]);
+                else if (obj[0].GetType() == typeof(Drawing.Region) &&
                     obj[1].GetType() == typeof(bool))
-                    c.Invalidate((System.Drawing.Region)obj[0], (bool)obj[1]);
+                    c.Invalidate((Drawing.Region)obj[0], (bool)obj[1]);
             }
         }
 
@@ -348,12 +348,12 @@ namespace System.Windows.Forms
 
         public static object CallControlPointToClient(Control c, object[] obj)
         {
-            return c.PointToClient((System.Drawing.Point)obj[0]);
+            return c.PointToClient((Drawing.Point)obj[0]);
         }
 
         public static object CallControlPointToScreen(Control c, object[] obj)
         {
-            return c.PointToScreen((System.Drawing.Point)obj[0]);
+            return c.PointToScreen((Drawing.Point)obj[0]);
         }
 
         public static object CallControlPreProcessMessage(Control c, object[] obj)
@@ -364,12 +364,12 @@ namespace System.Windows.Forms
 
         public static object CallControlRectangleToClient(Control c, object[] obj)
         {
-            return c.RectangleToClient((System.Drawing.Rectangle)obj[0]);
+            return c.RectangleToClient((Drawing.Rectangle)obj[0]);
         }
 
         public static object CallControlRectangleToScreen(Control c, object[] obj)
         {
-            return c.RectangleToScreen((System.Drawing.Rectangle)obj[0]);
+            return c.RectangleToScreen((Drawing.Rectangle)obj[0]);
         }
 
         public static void CallControlResumeLayout(Control c, object[] obj)
@@ -380,7 +380,7 @@ namespace System.Windows.Forms
         public static void CallControlScale(Control c, object[] obj)
         {
             if (obj.Length == 1)
-                c.Scale((System.Drawing.SizeF)obj[0]);
+                c.Scale((Drawing.SizeF)obj[0]);
         }
 
         public static object CallControlSelectNextControl(Control c, object[] obj)
@@ -413,17 +413,17 @@ namespace System.Windows.Forms
 
         public static void SetScrollableControlAutoScrollMargin(Control c, object val)
         {
-            ((ScrollableControl)c).AutoScrollMargin = (System.Drawing.Size)val;
+            ((ScrollableControl)c).AutoScrollMargin = (Drawing.Size)val;
         }
 
         public static void SetScrollableControlAutoScrollMinSize(Control c, object val)
         {
-            ((ScrollableControl)c).AutoScrollMinSize = (System.Drawing.Size)val;
+            ((ScrollableControl)c).AutoScrollMinSize = (Drawing.Size)val;
         }
 
         public static void SetScrollableControlAutoScrollPosition(Control c, object val)
         {
-            ((ScrollableControl)c).AutoScrollPosition = (System.Drawing.Point)val;
+            ((ScrollableControl)c).AutoScrollPosition = (Drawing.Point)val;
         }
 
         #endregion
@@ -525,7 +525,7 @@ namespace System.Windows.Forms
 
         public static void SetTextBoxBaseBackColor(Control c, object val)
         {
-            ((TextBoxBase)c).BackColor = (System.Drawing.Color)val;
+            ((TextBoxBase)c).BackColor = (Drawing.Color)val;
         }
 
         public static void SetTextBoxBaseBorderStyle(Control c, object val)
@@ -535,7 +535,7 @@ namespace System.Windows.Forms
 
         public static void SetTextBoxBaseForeColor(Control c, object val)
         {
-            ((TextBoxBase)c).ForeColor = (System.Drawing.Color)val;
+            ((TextBoxBase)c).ForeColor = (Drawing.Color)val;
         }
 
         public static void SetTextBoxBaseHideSelection(Control c, object val)
@@ -644,12 +644,12 @@ namespace System.Windows.Forms
 
         public static void SetButtonBaseImage(Control c, object val)
         {
-            ((ButtonBase)c).Image = (System.Drawing.Image)val;
+            ((ButtonBase)c).Image = (Drawing.Image)val;
         }
 
         public static void SetButtonBaseImageAlign(Control c, object val)
         {
-            ((ButtonBase)c).ImageAlign = (System.Drawing.ContentAlignment)val;
+            ((ButtonBase)c).ImageAlign = (Drawing.ContentAlignment)val;
         }
 
         public static void SetButtonBaseImageIndex(Control c, object val)
@@ -669,7 +669,7 @@ namespace System.Windows.Forms
 
         public static void SetButtonBaseTextAlign(Control c, object val)
         {
-            ((ButtonBase)c).TextAlign = (System.Drawing.ContentAlignment)val;
+            ((ButtonBase)c).TextAlign = (Drawing.ContentAlignment)val;
         }
 
         #endregion
@@ -704,7 +704,7 @@ namespace System.Windows.Forms
 
         public static void SetComboBoxBackColor(Control c, object val)
         {
-            ((ComboBox)c).BackColor = (System.Drawing.Color)val;
+            ((ComboBox)c).BackColor = (Drawing.Color)val;
         }
 
         public static void SetComboBoxDrawMode(Control c, object val)
@@ -729,7 +729,7 @@ namespace System.Windows.Forms
 
         public static void SetComboBoxForeColor(Control c, object val)
         {
-            ((ComboBox)c).ForeColor = (System.Drawing.Color)val;
+            ((ComboBox)c).ForeColor = (Drawing.Color)val;
         }
 
         public static void SetComboBoxIntegralHeight(Control c, object val)
@@ -875,7 +875,7 @@ namespace System.Windows.Forms
 
         public static void SetCheckBoxCheckAlign(Control c, object val)
         {
-            ((CheckBox)c).CheckAlign = (System.Drawing.ContentAlignment)val;
+            ((CheckBox)c).CheckAlign = (Drawing.ContentAlignment)val;
         }
 
         public static void SetCheckBoxChecked(Control c, object val)
@@ -913,7 +913,7 @@ namespace System.Windows.Forms
 
         public static void SetRadioButtonCheckAlign(Control c, object val)
         {
-            ((RadioButton)c).CheckAlign = (System.Drawing.ContentAlignment)val;
+            ((RadioButton)c).CheckAlign = (Drawing.ContentAlignment)val;
         }
 
         public static void SetRadioButtonChecked(Control c, object val)
@@ -923,7 +923,7 @@ namespace System.Windows.Forms
 
         public static void SetRadioButtonTextAlign(Control c, object val)
         {
-            ((RadioButton)c).TextAlign = (System.Drawing.ContentAlignment)val;
+            ((RadioButton)c).TextAlign = (Drawing.ContentAlignment)val;
         }
 
         #endregion
@@ -1061,12 +1061,12 @@ namespace System.Windows.Forms
 
         public static void SetLabelImage(Control c, object val)
         {
-            ((Label)c).Image = (System.Drawing.Image)val;
+            ((Label)c).Image = (Drawing.Image)val;
         }
 
         public static void SetLabelImageAlign(Control c, object val)
         {
-            ((Label)c).ImageAlign = (System.Drawing.ContentAlignment)val;
+            ((Label)c).ImageAlign = (Drawing.ContentAlignment)val;
         }
 
         public static void SetLabelImageIndex(Control c, object val)
@@ -1086,7 +1086,7 @@ namespace System.Windows.Forms
 
         public static void SetLabelTextAlign(Control c, object val)
         {
-            ((Label)c).TextAlign = (System.Drawing.ContentAlignment)val;
+            ((Label)c).TextAlign = (Drawing.ContentAlignment)val;
         }
 
         public static void SetLabelUseMnemonic(Control c, object val)

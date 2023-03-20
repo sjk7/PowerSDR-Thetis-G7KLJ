@@ -53,9 +53,9 @@ namespace Thetis
         }
 
 
-        private byte[] TxAnt = new byte[12];
-        private byte[] RxAnt = new byte[12];
-        private byte[] RxOnlyAnt = new byte[12]; // 1 = rx1, 2 = rx2, 3 = xv, 0 = none selected 
+        private readonly byte[] TxAnt = new byte[12];
+        private readonly byte[] RxAnt = new byte[12];
+        private readonly byte[] RxOnlyAnt = new byte[12]; // 1 = rx1, 2 = rx2, 3 = xv, 0 = none selected 
 
         public static bool RxOutOnTx = false;
         public static bool Ext1OutOnTx = false;

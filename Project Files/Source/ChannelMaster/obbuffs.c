@@ -117,10 +117,10 @@ PORT void OutBound(int id, int nsamples, double* in) {
 
     if (last_outbound_time) {
         volatile DWORD took = timeGetTime() - last_outbound_time;
-        if (took > 10) {
-            #ifdef _DEBUG
+        if (took > 20) {
+#ifdef _DEBUG
             printf("What's the hold-up? %ld\n", (int)took);
-            #endif
+#endif
         }
     }
     DWORD d1 = timeGetTime();

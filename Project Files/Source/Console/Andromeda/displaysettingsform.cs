@@ -42,7 +42,7 @@ namespace Thetis
 
         #region Variable Declaration
 
-        private System.Windows.Forms.ButtonTS btnClose;
+        private ButtonTS btnClose;
         private Console console;
         private ComboBoxTS comboRX1Meter;
         private LabelTS labelTS1;
@@ -96,21 +96,21 @@ namespace Thetis
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DisplaySettingsForm));
-            this.labelTS5 = new System.Windows.Forms.LabelTS();
-            this.comboTXMeter = new System.Windows.Forms.ComboBoxTS();
-            this.labelTS4 = new System.Windows.Forms.LabelTS();
-            this.labelTS3 = new System.Windows.Forms.LabelTS();
-            this.comboRX2Display = new System.Windows.Forms.ComboBoxTS();
-            this.comboRX1Display = new System.Windows.Forms.ComboBoxTS();
-            this.labelTS2 = new System.Windows.Forms.LabelTS();
-            this.comboRX2Meter = new System.Windows.Forms.ComboBoxTS();
-            this.labelTS1 = new System.Windows.Forms.LabelTS();
-            this.comboRX1Meter = new System.Windows.Forms.ComboBoxTS();
-            this.btnClose = new System.Windows.Forms.ButtonTS();
-            this.chkRX1Avg = new System.Windows.Forms.CheckBoxTS();
-            this.chkRX1Peak = new System.Windows.Forms.CheckBoxTS();
-            this.chkRX2Avg = new System.Windows.Forms.CheckBoxTS();
-            this.chkRX2Peak = new System.Windows.Forms.CheckBoxTS();
+            this.labelTS5 = new LabelTS();
+            this.comboTXMeter = new ComboBoxTS();
+            this.labelTS4 = new LabelTS();
+            this.labelTS3 = new LabelTS();
+            this.comboRX2Display = new ComboBoxTS();
+            this.comboRX1Display = new ComboBoxTS();
+            this.labelTS2 = new LabelTS();
+            this.comboRX2Meter = new ComboBoxTS();
+            this.labelTS1 = new LabelTS();
+            this.comboRX1Meter = new ComboBoxTS();
+            this.btnClose = new ButtonTS();
+            this.chkRX1Avg = new CheckBoxTS();
+            this.chkRX1Peak = new CheckBoxTS();
+            this.chkRX2Avg = new CheckBoxTS();
+            this.chkRX2Peak = new CheckBoxTS();
             this.SuspendLayout();
             // 
             // labelTS5
@@ -131,7 +131,7 @@ namespace Thetis
             this.comboTXMeter.Name = "comboTXMeter";
             this.comboTXMeter.Size = new System.Drawing.Size(121, 21);
             this.comboTXMeter.TabIndex = 9;
-            this.comboTXMeter.SelectedIndexChanged += new System.EventHandler(this.ComboTXMeter_SelectedIndexChanged);
+            this.comboTXMeter.SelectedIndexChanged += new EventHandler(this.ComboTXMeter_SelectedIndexChanged);
             // 
             // labelTS4
             // 
@@ -162,7 +162,7 @@ namespace Thetis
             this.comboRX2Display.Name = "comboRX2Display";
             this.comboRX2Display.Size = new System.Drawing.Size(121, 21);
             this.comboRX2Display.TabIndex = 6;
-            this.comboRX2Display.SelectedIndexChanged += new System.EventHandler(this.ComboRX2Display_SelectedIndexChanged);
+            this.comboRX2Display.SelectedIndexChanged += new EventHandler(this.ComboRX2Display_SelectedIndexChanged);
             // 
             // comboRX1Display
             // 
@@ -171,7 +171,7 @@ namespace Thetis
             this.comboRX1Display.Name = "comboRX1Display";
             this.comboRX1Display.Size = new System.Drawing.Size(121, 21);
             this.comboRX1Display.TabIndex = 5;
-            this.comboRX1Display.SelectedIndexChanged += new System.EventHandler(this.ComboRX1Display_SelectedIndexChanged);
+            this.comboRX1Display.SelectedIndexChanged += new EventHandler(this.ComboRX1Display_SelectedIndexChanged);
             // 
             // labelTS2
             // 
@@ -191,7 +191,7 @@ namespace Thetis
             this.comboRX2Meter.Name = "comboRX2Meter";
             this.comboRX2Meter.Size = new System.Drawing.Size(116, 21);
             this.comboRX2Meter.TabIndex = 3;
-            this.comboRX2Meter.SelectedIndexChanged += new System.EventHandler(this.ComboRX2Meter_SelectedIndexChanged);
+            this.comboRX2Meter.SelectedIndexChanged += new EventHandler(this.ComboRX2Meter_SelectedIndexChanged);
             // 
             // labelTS1
             // 
@@ -211,7 +211,7 @@ namespace Thetis
             this.comboRX1Meter.Name = "comboRX1Meter";
             this.comboRX1Meter.Size = new System.Drawing.Size(122, 21);
             this.comboRX1Meter.TabIndex = 1;
-            this.comboRX1Meter.SelectedIndexChanged += new System.EventHandler(this.ComboRX1Meter_SelectedIndexChanged);
+            this.comboRX1Meter.SelectedIndexChanged += new EventHandler(this.ComboRX1Meter_SelectedIndexChanged);
             // 
             // btnClose
             // 
@@ -222,7 +222,7 @@ namespace Thetis
             this.btnClose.TabIndex = 0;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
+            this.btnClose.Click += new EventHandler(this.BtnClose_Click);
             // 
             // chkRX1Avg
             // 
@@ -236,7 +236,7 @@ namespace Thetis
             this.chkRX1Avg.Text = "Avg";
             this.chkRX1Avg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkRX1Avg.UseVisualStyleBackColor = true;
-            this.chkRX1Avg.CheckedChanged += new System.EventHandler(this.ChkRX1Avg_CheckedChanged);
+            this.chkRX1Avg.CheckedChanged += new EventHandler(this.ChkRX1Avg_CheckedChanged);
             // 
             // chkRX1Peak
             // 
@@ -250,7 +250,7 @@ namespace Thetis
             this.chkRX1Peak.Text = "Peak";
             this.chkRX1Peak.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkRX1Peak.UseVisualStyleBackColor = true;
-            this.chkRX1Peak.CheckedChanged += new System.EventHandler(this.ChkRX1Peak_CheckedChanged);
+            this.chkRX1Peak.CheckedChanged += new EventHandler(this.ChkRX1Peak_CheckedChanged);
             // 
             // chkRX2Avg
             // 
@@ -264,7 +264,7 @@ namespace Thetis
             this.chkRX2Avg.Text = "Avg";
             this.chkRX2Avg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkRX2Avg.UseVisualStyleBackColor = true;
-            this.chkRX2Avg.CheckedChanged += new System.EventHandler(this.ChkRX2Avg_CheckedChanged);
+            this.chkRX2Avg.CheckedChanged += new EventHandler(this.ChkRX2Avg_CheckedChanged);
             // 
             // chkRX2Peak
             // 
@@ -278,7 +278,7 @@ namespace Thetis
             this.chkRX2Peak.Text = "Peak";
             this.chkRX2Peak.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.chkRX2Peak.UseVisualStyleBackColor = true;
-            this.chkRX2Peak.CheckedChanged += new System.EventHandler(this.ChkRX2Peak_CheckedChanged);
+            this.chkRX2Peak.CheckedChanged += new EventHandler(this.ChkRX2Peak_CheckedChanged);
             // 
             // DisplaySettingsForm
             // 
@@ -305,8 +305,8 @@ namespace Thetis
             this.Name = "DisplaySettingsForm";
             this.Text = "Display Settings";
             this.TopMost = true;
-            this.Activated += new System.EventHandler(this.DisplaySettingsForm_Activated);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DisplaySettingsForm_FormClosing);
+            this.Activated += new EventHandler(this.DisplaySettingsForm_Activated);
+            this.FormClosing += new FormClosingEventHandler(this.DisplaySettingsForm_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

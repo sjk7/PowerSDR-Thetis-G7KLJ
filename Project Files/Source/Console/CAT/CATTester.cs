@@ -10,24 +10,24 @@ namespace Thetis
     /// <summary>
     /// Summary description for tester.
     /// </summary>
-    public class CATTester : System.Windows.Forms.Form
+    public class CATTester : Form
     {
 
-        private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.TextBoxTS txtInput;
-        private System.Windows.Forms.TextBoxTS txtResult;
-        private Console console;
+        private Button btnExit;
+        private TextBoxTS txtInput;
+        private TextBoxTS txtResult;
+        private readonly Console console;
         private CATParser parser;
-        private System.Windows.Forms.LabelTS label1;
-        private System.Windows.Forms.LabelTS label2;
+        private LabelTS label1;
+        private LabelTS label2;
         private DataSet ds;
-        private System.Windows.Forms.DataGridView dataGrid1;
-        private System.Windows.Forms.Button btnExecute;
+        private DataGridView dataGrid1;
+        private Button btnExecute;
 
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.Container components = null;
+        private Container components = null;
 
         public CATTester(Console c)
         {
@@ -70,47 +70,47 @@ namespace Thetis
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CATTester));
-            this.btnExit = new System.Windows.Forms.Button();
-            this.txtInput = new System.Windows.Forms.TextBoxTS();
-            this.txtResult = new System.Windows.Forms.TextBoxTS();
-            this.label1 = new System.Windows.Forms.LabelTS();
-            this.label2 = new System.Windows.Forms.LabelTS();
-            this.dataGrid1 = new System.Windows.Forms.DataGridView();
-            this.btnExecute = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(CATTester));
+            this.btnExit = new Button();
+            this.txtInput = new TextBoxTS();
+            this.txtResult = new TextBoxTS();
+            this.label1 = new LabelTS();
+            this.label2 = new LabelTS();
+            this.dataGrid1 = new DataGridView();
+            this.btnExecute = new Button();
+            ((ISupportInitialize)(this.dataGrid1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(440, 336);
+            this.btnExit.Location = new Point(440, 336);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(75, 23);
+            this.btnExit.Size = new Size(75, 23);
             this.btnExit.TabIndex = 2;
             this.btnExit.Text = "Exit";
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.Click += new EventHandler(this.btnExit_Click);
             // 
             // txtInput
             // 
-            this.txtInput.Location = new System.Drawing.Point(120, 240);
+            this.txtInput.Location = new Point(120, 240);
             this.txtInput.Name = "txtInput";
-            this.txtInput.Size = new System.Drawing.Size(168, 20);
+            this.txtInput.Size = new Size(168, 20);
             this.txtInput.TabIndex = 0;
-            this.txtInput.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtInput_KeyUp);
+            this.txtInput.KeyUp += new KeyEventHandler(this.txtInput_KeyUp);
             // 
             // txtResult
             // 
-            this.txtResult.Location = new System.Drawing.Point(120, 280);
+            this.txtResult.Location = new Point(120, 280);
             this.txtResult.Name = "txtResult";
-            this.txtResult.Size = new System.Drawing.Size(392, 20);
+            this.txtResult.Size = new Size(392, 20);
             this.txtResult.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.Image = null;
-            this.label1.Location = new System.Drawing.Point(16, 240);
+            this.label1.Location = new Point(16, 240);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 23);
+            this.label1.Size = new Size(88, 23);
             this.label1.TabIndex = 4;
             this.label1.Text = "CAT Command";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomRight;
@@ -118,33 +118,33 @@ namespace Thetis
             // label2
             // 
             this.label2.Image = null;
-            this.label2.Location = new System.Drawing.Point(16, 280);
+            this.label2.Location = new Point(16, 280);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 23);
+            this.label2.Size = new Size(88, 23);
             this.label2.TabIndex = 5;
             this.label2.Text = "CAT Response";
             this.label2.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // dataGrid1
             // 
-            this.dataGrid1.Location = new System.Drawing.Point(8, 0);
+            this.dataGrid1.Location = new Point(8, 0);
             this.dataGrid1.Name = "dataGrid1";
-            this.dataGrid1.Size = new System.Drawing.Size(512, 224);
+            this.dataGrid1.Size = new Size(512, 224);
             this.dataGrid1.TabIndex = 6;
             // 
             // btnExecute
             // 
-            this.btnExecute.Location = new System.Drawing.Point(312, 240);
+            this.btnExecute.Location = new Point(312, 240);
             this.btnExecute.Name = "btnExecute";
-            this.btnExecute.Size = new System.Drawing.Size(75, 23);
+            this.btnExecute.Size = new Size(75, 23);
             this.btnExecute.TabIndex = 7;
             this.btnExecute.Text = "Execute";
-            this.btnExecute.Click += new System.EventHandler(this.btnExecute_Click);
+            this.btnExecute.Click += new EventHandler(this.btnExecute_Click);
             // 
             // CATTester
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(536, 382);
+            this.AutoScaleBaseSize = new Size(5, 13);
+            this.ClientSize = new Size(536, 382);
             this.Controls.Add(this.btnExecute);
             this.Controls.Add(this.dataGrid1);
             this.Controls.Add(this.label2);
@@ -152,10 +152,10 @@ namespace Thetis
             this.Controls.Add(this.txtResult);
             this.Controls.Add(this.txtInput);
             this.Controls.Add(this.btnExit);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CATTester";
             this.Text = "CAT Command Tester";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
+            ((ISupportInitialize)(this.dataGrid1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,12 +163,12 @@ namespace Thetis
         #endregion
 
 
-        private void btnExit_Click(object sender, System.EventArgs e)
+        private void btnExit_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void txtInput_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+        private void txtInput_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -184,7 +184,7 @@ namespace Thetis
 
         }
 
-        private void btnExecute_Click(object sender, System.EventArgs e)
+        private void btnExecute_Click(object sender, EventArgs e)
         {
             CheckText();
         }

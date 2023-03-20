@@ -52,7 +52,7 @@ using System.Globalization;
 
 namespace Thetis
 {
-    public partial class RAForm : System.Windows.Forms.Form
+    public partial class RAForm : Form
     {
         Console console;
 
@@ -274,7 +274,7 @@ namespace Thetis
         }
 
         // RA graphics plot
-        private void picRAGraph_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+        private void picRAGraph_Paint(object sender, PaintEventArgs e)
         {
             // capital "X" or "Y" denotes pixel coordinates whereas "x" or "y" in a variable name denotes user coordinates
             int i;
@@ -662,7 +662,7 @@ namespace Thetis
             picRAGraph.Invalidate();
         }
 
-        private void picRAGraph_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void picRAGraph_MouseMove(object sender, MouseEventArgs e)
         {
             float power;
             float time;
@@ -673,7 +673,7 @@ namespace Thetis
             txtCursorTime.Text = String.Format(nfi, "{0:F1}", time) + " seconds";
         }
 
-        private void RAForm_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void RAForm_MouseMove(object sender, MouseEventArgs e)
         {
             txtCursorPower.Text = "";
             txtCursorTime.Text = "";
@@ -694,8 +694,6 @@ namespace Thetis
                 System.IO.StreamReader reader = new System.IO.StreamReader(file);
                 int i_max = 0;
                 var line = reader.ReadLine();
-                float mSec;
-                float num_meas;
                 for (int i = 0; i < 8; i++)
                 {
                     line = reader.ReadLine();
@@ -710,8 +708,8 @@ namespace Thetis
                     if (i == 6)
                     {
                         var values = line.Split(',');
-                        MyTryParse(values[0], out mSec);
-                        MyTryParse(values[1], out num_meas);
+                        MyTryParse(values[0], out float mSec);
+                        MyTryParse(values[1], out float num_meas);
                         numericUpDown_mSec_between_measurements.Text = Convert.ToString(mSec);
                         numericUpDown_measurements_per_point.Text = Convert.ToString(num_meas);
                     }
@@ -834,7 +832,7 @@ namespace Thetis
 
         private byte[] StrToByteArray(string str)
         {
-            System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+            UTF8Encoding encoding = new UTF8Encoding();
             return encoding.GetBytes(str);
         }
 

@@ -1743,9 +1743,8 @@ namespace Thetis
             bool RoundToStepSize = true;
             parser.nSet = 2;
             parser.nGet = 0;
-            int mode;
             int direction = msg;
-            if (int.TryParse(commands.ZZMD(""), out mode) == false)
+            if (int.TryParse(commands.ZZMD(""), out int mode) == false)
                 return;
             int step = StringToFreq(commands.ZZAC(""));
             parser.nSet = 11;

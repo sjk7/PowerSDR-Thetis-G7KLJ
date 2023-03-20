@@ -167,14 +167,18 @@ namespace Thetis
             // Control.CheckForIllegalCrossThreadCalls = true;
             _oldCursor = Cursor.Current;
 
-            _psTimer = new System.Timers.Timer();
-            _psTimer.AutoReset = false;
-            _psTimer.Interval = 50;
+            _psTimer = new System.Timers.Timer
+            {
+                AutoReset = false,
+                Interval = 50
+            };
             _psTimer.Elapsed += onTick;
 
-            _warningTimer = new System.Timers.Timer();
-            _warningTimer.AutoReset = false;
-            _warningTimer.Interval = 2000;
+            _warningTimer = new System.Timers.Timer
+            {
+                AutoReset = false,
+                Interval = 2000
+            };
             _warningTimer.Elapsed += onWarning;
 
             _left1 = new string[MAX_FLIP];
@@ -480,7 +484,7 @@ namespace Thetis
             }
             /*/
         }
-        private void onWarning(object sender, System.Timers.ElapsedEventArgs e)
+        private void onWarning(object sender, ElapsedEventArgs e)
         {
             if (_shutDown) return;
             if (this.IsDisposed || this.Disposing) return;
@@ -489,7 +493,7 @@ namespace Thetis
             lblWarning.Visible = false;
         }
         private Color _lastColor = Color.SeaGreen;
-        private void onTick(object sender, System.Timers.ElapsedEventArgs e)
+        private void onTick(object sender, ElapsedEventArgs e)
         {
             if (!_psEnabled || _shutDown) return;
             if (this.IsDisposed || this.Disposing) return;
@@ -589,7 +593,7 @@ namespace Thetis
             /*/
 
             updateLabels();
-            System.Drawing.Point pt = Settings.Default.SplitLoc;
+            Point pt = Settings.Default.SplitLoc;
             if (pt.X > 0 && pt.X < this.Width)
             {
                 lblSplitter.Location = pt;

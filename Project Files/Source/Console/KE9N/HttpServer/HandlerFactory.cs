@@ -70,7 +70,7 @@ namespace HttpServer
                     }
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
             }

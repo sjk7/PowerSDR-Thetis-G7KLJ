@@ -30,13 +30,13 @@ namespace Thetis
 {
     public class TuneStep
     {
-        private int step_hz;
+        private readonly int step_hz;
         public int StepHz
         {
             get { return step_hz; }
         }
 
-        private string name;
+        private readonly string name;
         public string Name
         {
             get { return name; }

@@ -14,9 +14,9 @@ using Thetis.Properties;
 namespace Thetis {
 public partial class frmSMeter : Form {
     private bool windowInitialized = false;
-    private Thetis.Console m_console;
+    private Console m_console;
 
-    public Thetis.Console console {
+    public Console console {
         get { return m_console; }
 
         set {
@@ -25,8 +25,7 @@ public partial class frmSMeter : Form {
         }
     }
 
-    public frmSMeter(
-        System.Drawing.Rectangle initPosition, Console the_console) {
+    public frmSMeter(Rectangle initPosition, Console the_console) {
         InitializeComponent();
         // this is the default
         console = the_console;
@@ -70,8 +69,10 @@ public partial class frmSMeter : Form {
         }
         windowInitialized = true;
         Settings.Default.BigSMeterOpen = true;
-            // BigSMeter.ToggleBackGroundImage(Settings.Default.SMeterBackgroundImg);
-            BigSMeter.ToggleBackGroundImage((LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices)Settings.Default.SMeterBackgroundImg);
+        // BigSMeter.ToggleBackGroundImage(Settings.Default.SMeterBackgroundImg);
+        BigSMeter.ToggleBackGroundImage(
+            (LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices)
+                Settings.Default.SMeterBackgroundImg);
 
         Settings.Default.Save();
         if (Settings.Default.TopMost) this.TopMost = true;
@@ -143,21 +144,28 @@ public partial class frmSMeter : Form {
     private void frmSMeter_Load(object sender, EventArgs e) {}
 
     private void originalToolStripMenuItem_Click(object sender, EventArgs e) {
-        BigSMeter.ToggleBackGroundImage(LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices.NewVFOAnalogSignalGauge);
+        BigSMeter.ToggleBackGroundImage(
+            LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices
+                .NewVFOAnalogSignalGauge);
     }
 
     private void blueToolStripMenuItem_Click(object sender, EventArgs e) {
-        BigSMeter.ToggleBackGroundImage(LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices.Blue);
+        BigSMeter.ToggleBackGroundImage(
+            LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices.Blue);
     }
 
     private void youKnowWhenYouveBeenTangodToolStripMenuItem_Click(
         object sender, EventArgs e) {
-        BigSMeter.ToggleBackGroundImage(LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices.Tango);
+        BigSMeter.ToggleBackGroundImage(
+            LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices
+                .Tango);
     }
 
     private void BigSMeter_BackGndImgChanged(object sender, EventArgs e) {
         if (m_console != null) {
-            m_console.PrettySMeter.ToggleBackGroundImage((LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices)Settings.Default.SMeterBackgroundImg);
+            m_console.PrettySMeter.ToggleBackGroundImage(
+                (LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices)
+                    Settings.Default.SMeterBackgroundImg);
         }
     }
 

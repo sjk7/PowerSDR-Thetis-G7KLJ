@@ -86,7 +86,7 @@ namespace Thetis
 
 
     //=======================================================================================
-    public class SpotControl : System.Windows.Forms.Form
+    public class SpotControl : Form
     {
 
         // ke9ns multimedia timer functions copied from cwx.cs file
@@ -193,7 +193,7 @@ namespace Thetis
 
 
         //   private ArrayList file_list;
-        private string wave_folder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\Thetis";
+        private readonly string wave_folder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\Thetis";
 
         private Button SWLbutton;
         private Button SSBbutton;
@@ -248,7 +248,7 @@ namespace Thetis
         public CheckBoxTS chkBoxAnt;
         public TrackBarTS tbPanPower;
 #pragma warning disable CS0169 // The field 'SpotControl.wdsp' is never used
-        private WDSP wdsp;
+        private readonly WDSP wdsp;
 #pragma warning restore CS0169 // The field 'SpotControl.wdsp' is never used
 
         #region Constructor and Destructor
@@ -331,263 +331,263 @@ namespace Thetis
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SpotControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.SWLbutton = new System.Windows.Forms.Button();
-            this.SSBbutton = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.nodeBox1 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.callBox = new System.Windows.Forms.TextBox();
-            this.portBox2 = new System.Windows.Forms.TextBox();
-            this.statusBox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.statusBoxSWL = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnTrack = new System.Windows.Forms.Button();
-            this.nameBox = new System.Windows.Forms.TextBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.SWLbutton2 = new System.Windows.Forms.Button();
-            this.btnBeacon = new System.Windows.Forms.Button();
-            this.btnTime = new System.Windows.Forms.Button();
-            this.checkBoxTone = new System.Windows.Forms.RadioButton();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.chkBoxContour = new System.Windows.Forms.CheckBoxTS();
-            this.tbPanPower = new System.Windows.Forms.TrackBarTS();
-            this.chkBoxAnt = new System.Windows.Forms.CheckBoxTS();
-            this.chkBoxDIG = new System.Windows.Forms.CheckBoxTS();
-            this.checkBoxMUF = new System.Windows.Forms.CheckBoxTS();
-            this.udDisplayWWV = new System.Windows.Forms.NumericUpDownTS();
-            this.checkBoxWWV = new System.Windows.Forms.CheckBoxTS();
-            this.numericUpDownTS1 = new System.Windows.Forms.NumericUpDownTS();
-            this.BoxBFScan = new System.Windows.Forms.CheckBoxTS();
-            this.BoxBScan = new System.Windows.Forms.CheckBoxTS();
-            this.chkBoxBeam = new System.Windows.Forms.CheckBoxTS();
-            this.udDisplayLong = new System.Windows.Forms.NumericUpDownTS();
-            this.udDisplayLat = new System.Windows.Forms.NumericUpDownTS();
-            this.chkBoxMem = new System.Windows.Forms.CheckBoxTS();
-            this.chkBoxPan = new System.Windows.Forms.CheckBoxTS();
-            this.chkBoxSSB = new System.Windows.Forms.CheckBoxTS();
-            this.chkBoxCW = new System.Windows.Forms.CheckBoxTS();
-            this.chkMapBand = new System.Windows.Forms.CheckBoxTS();
-            this.chkMapCountry = new System.Windows.Forms.CheckBoxTS();
-            this.chkMapCall = new System.Windows.Forms.CheckBoxTS();
-            this.chkPanMode = new System.Windows.Forms.CheckBoxTS();
-            this.chkGrayLine = new System.Windows.Forms.CheckBoxTS();
-            this.chkSUN = new System.Windows.Forms.CheckBoxTS();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.chkBoxWrld = new System.Windows.Forms.CheckBoxTS();
-            this.chkBoxNA = new System.Windows.Forms.CheckBoxTS();
-            this.chkAlwaysOnTop = new System.Windows.Forms.CheckBoxTS();
-            this.chkDXMode = new System.Windows.Forms.CheckBoxTS();
-            this.mainMenu1 = new System.Windows.Forms.MenuStrip();
-            this.mnuSpotOptions = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbPanPower)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.udDisplayWWV)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTS1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.udDisplayLong)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.udDisplayLat)).BeginInit();
+            this.components = new Container();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(SpotControl));
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            this.SWLbutton = new Button();
+            this.SSBbutton = new Button();
+            this.textBox1 = new TextBox();
+            this.nodeBox1 = new TextBox();
+            this.textBox3 = new TextBox();
+            this.callBox = new TextBox();
+            this.portBox2 = new TextBox();
+            this.statusBox = new TextBox();
+            this.button1 = new Button();
+            this.statusBoxSWL = new TextBox();
+            this.label1 = new Label();
+            this.label2 = new Label();
+            this.toolTip1 = new ToolTip(this.components);
+            this.btnTrack = new Button();
+            this.nameBox = new TextBox();
+            this.dataGridView1 = new DataGridView();
+            this.dataGridView2 = new DataGridView();
+            this.SWLbutton2 = new Button();
+            this.btnBeacon = new Button();
+            this.btnTime = new Button();
+            this.checkBoxTone = new RadioButton();
+            this.textBox2 = new TextBox();
+            this.chkBoxContour = new CheckBoxTS();
+            this.tbPanPower = new TrackBarTS();
+            this.chkBoxAnt = new CheckBoxTS();
+            this.chkBoxDIG = new CheckBoxTS();
+            this.checkBoxMUF = new CheckBoxTS();
+            this.udDisplayWWV = new NumericUpDownTS();
+            this.checkBoxWWV = new CheckBoxTS();
+            this.numericUpDownTS1 = new NumericUpDownTS();
+            this.BoxBFScan = new CheckBoxTS();
+            this.BoxBScan = new CheckBoxTS();
+            this.chkBoxBeam = new CheckBoxTS();
+            this.udDisplayLong = new NumericUpDownTS();
+            this.udDisplayLat = new NumericUpDownTS();
+            this.chkBoxMem = new CheckBoxTS();
+            this.chkBoxPan = new CheckBoxTS();
+            this.chkBoxSSB = new CheckBoxTS();
+            this.chkBoxCW = new CheckBoxTS();
+            this.chkMapBand = new CheckBoxTS();
+            this.chkMapCountry = new CheckBoxTS();
+            this.chkMapCall = new CheckBoxTS();
+            this.chkPanMode = new CheckBoxTS();
+            this.chkGrayLine = new CheckBoxTS();
+            this.chkSUN = new CheckBoxTS();
+            this.label3 = new Label();
+            this.label4 = new Label();
+            this.label5 = new Label();
+            this.chkBoxWrld = new CheckBoxTS();
+            this.chkBoxNA = new CheckBoxTS();
+            this.chkAlwaysOnTop = new CheckBoxTS();
+            this.chkDXMode = new CheckBoxTS();
+            this.mainMenu1 = new MenuStrip();
+            this.mnuSpotOptions = new ToolStripMenuItem();
+            ((ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((ISupportInitialize)(this.tbPanPower)).BeginInit();
+            ((ISupportInitialize)(this.udDisplayWWV)).BeginInit();
+            ((ISupportInitialize)(this.numericUpDownTS1)).BeginInit();
+            ((ISupportInitialize)(this.udDisplayLong)).BeginInit();
+            ((ISupportInitialize)(this.udDisplayLat)).BeginInit();
             this.mainMenu1.SuspendLayout();
             this.SuspendLayout();
             // 
             // SWLbutton
             // 
-            this.SWLbutton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.SWLbutton.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SWLbutton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.SWLbutton.Location = new System.Drawing.Point(615, 248);
+            this.SWLbutton.Location = new Point(615, 248);
             this.SWLbutton.Name = "SWLbutton";
-            this.SWLbutton.Size = new System.Drawing.Size(75, 23);
+            this.SWLbutton.Size = new Size(75, 23);
             this.SWLbutton.TabIndex = 2;
             this.SWLbutton.Text = "Spot SWL";
             this.toolTip1.SetToolTip(this.SWLbutton, resources.GetString("SWLbutton.ToolTip"));
             this.SWLbutton.UseVisualStyleBackColor = false;
-            this.SWLbutton.Click += new System.EventHandler(this.SWLbutton_Click);
+            this.SWLbutton.Click += new EventHandler(this.SWLbutton_Click);
             // 
             // SSBbutton
             // 
-            this.SSBbutton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.SSBbutton.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SSBbutton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.SSBbutton.Location = new System.Drawing.Point(12, 347);
+            this.SSBbutton.Location = new Point(12, 347);
             this.SSBbutton.Name = "SSBbutton";
-            this.SSBbutton.Size = new System.Drawing.Size(75, 23);
+            this.SSBbutton.Size = new Size(75, 23);
             this.SSBbutton.TabIndex = 1;
             this.SSBbutton.Text = "Spot DX";
             this.toolTip1.SetToolTip(this.SSBbutton, "Click to Turn On/Off Dx Cluster Spotting (on both this DX Spotting window and Pan" +
         "adapter)\r\nRequires Internet to work.\r\n");
             this.SSBbutton.UseVisualStyleBackColor = false;
-            this.SSBbutton.Click += new System.EventHandler(this.spotSSB_Click);
+            this.SSBbutton.Click += new EventHandler(this.spotSSB_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.textBox1.Anchor = ((AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox1.BackColor = System.Drawing.Color.LightYellow;
             this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.HideSelection = false;
-            this.textBox1.Location = new System.Drawing.Point(12, 146);
-            this.textBox1.MaximumSize = new System.Drawing.Size(1000, 1000);
+            this.textBox1.Location = new Point(12, 146);
+            this.textBox1.MaximumSize = new Size(1000, 1000);
             this.textBox1.MaxLength = 10000000;
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(759, 44);
+            this.textBox1.Size = new Size(759, 44);
             this.textBox1.TabIndex = 6;
             this.textBox1.TabStop = false;
-            this.textBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBox1_MouseDown);
-            this.textBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.textBox1_MouseUp);
+            this.textBox1.MouseDown += new MouseEventHandler(this.textBox1_MouseDown);
+            this.textBox1.MouseUp += new MouseEventHandler(this.textBox1_MouseUp);
             // 
             // nodeBox1
             // 
-            this.nodeBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nodeBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nodeBox1.Location = new System.Drawing.Point(658, 246);
+            this.nodeBox1.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.nodeBox1.Font = new Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nodeBox1.Location = new Point(658, 246);
             this.nodeBox1.MaxLength = 50;
             this.nodeBox1.Name = "nodeBox1";
-            this.nodeBox1.Size = new System.Drawing.Size(84, 22);
+            this.nodeBox1.Size = new Size(84, 22);
             this.nodeBox1.TabIndex = 6;
             this.nodeBox1.Text = "spider.ham-radio-deluxe.com";
             this.toolTip1.SetToolTip(this.nodeBox1, "Enter in a DX Cluster URL address here");
             this.nodeBox1.Visible = false;
-            this.nodeBox1.TextChanged += new System.EventHandler(this.nodeBox_TextChanged);
-            this.nodeBox1.Leave += new System.EventHandler(this.nodeBox_Leave);
-            this.nodeBox1.MouseEnter += new System.EventHandler(this.nodeBox_MouseEnter);
+            this.nodeBox1.TextChanged += new EventHandler(this.nodeBox_TextChanged);
+            this.nodeBox1.Leave += new EventHandler(this.nodeBox_Leave);
+            this.nodeBox1.MouseEnter += new EventHandler(this.nodeBox_MouseEnter);
             // 
             // textBox3
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(287, 27);
+            this.textBox3.Font = new Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.Location = new Point(287, 27);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(484, 113);
+            this.textBox3.Size = new Size(484, 113);
             this.textBox3.TabIndex = 8;
             this.textBox3.TabStop = false;
             this.textBox3.Text = resources.GetString("textBox3.Text");
             // 
             // callBox
             // 
-            this.callBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.callBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.callBox.Location = new System.Drawing.Point(682, 350);
+            this.callBox.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.callBox.Font = new Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.callBox.Location = new Point(682, 350);
             this.callBox.MaxLength = 20;
             this.callBox.Name = "callBox";
-            this.callBox.Size = new System.Drawing.Size(87, 22);
+            this.callBox.Size = new Size(87, 22);
             this.callBox.TabIndex = 5;
             this.callBox.Text = "Callsign";
             this.toolTip1.SetToolTip(this.callBox, "Enter Your Call sign to login to the DX Cluster here");
-            this.callBox.TextChanged += new System.EventHandler(this.callBox_TextChanged);
-            this.callBox.Leave += new System.EventHandler(this.callBox_Leave);
-            this.callBox.MouseEnter += new System.EventHandler(this.callBox_MouseEnter);
+            this.callBox.TextChanged += new EventHandler(this.callBox_TextChanged);
+            this.callBox.Leave += new EventHandler(this.callBox_Leave);
+            this.callBox.MouseEnter += new EventHandler(this.callBox_MouseEnter);
             // 
             // portBox2
             // 
-            this.portBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.portBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.portBox2.Location = new System.Drawing.Point(696, 248);
+            this.portBox2.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.portBox2.Font = new Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.portBox2.Location = new Point(696, 248);
             this.portBox2.MaxLength = 7;
             this.portBox2.Name = "portBox2";
-            this.portBox2.Size = new System.Drawing.Size(56, 22);
+            this.portBox2.Size = new Size(56, 22);
             this.portBox2.TabIndex = 7;
             this.portBox2.Text = "0";
             this.toolTip1.SetToolTip(this.portBox2, "Enter in Dx Cluster URL Port# here");
             this.portBox2.Visible = false;
-            this.portBox2.TextChanged += new System.EventHandler(this.portBox_TextChanged);
-            this.portBox2.Leave += new System.EventHandler(this.portBox_Leave);
-            this.portBox2.MouseEnter += new System.EventHandler(this.portBox_MouseEnter);
+            this.portBox2.TextChanged += new EventHandler(this.portBox_TextChanged);
+            this.portBox2.Leave += new EventHandler(this.portBox_Leave);
+            this.portBox2.MouseEnter += new EventHandler(this.portBox_MouseEnter);
             // 
             // statusBox
             // 
-            this.statusBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.statusBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusBox.Location = new System.Drawing.Point(13, 218);
+            this.statusBox.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.statusBox.Font = new Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusBox.Location = new Point(13, 218);
             this.statusBox.Name = "statusBox";
-            this.statusBox.Size = new System.Drawing.Size(156, 22);
+            this.statusBox.Size = new Size(156, 22);
             this.statusBox.TabIndex = 11;
             this.statusBox.Text = "Off";
             this.toolTip1.SetToolTip(this.statusBox, "Click to Test connection\r\nIf it goes back to \"Spotting\" then the connection is go" +
         "od");
-            this.statusBox.Click += new System.EventHandler(this.statusBox_Click);
+            this.statusBox.Click += new EventHandler(this.statusBox_Click);
             // 
             // button1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.Location = new System.Drawing.Point(101, 349);
+            this.button1.Location = new Point(101, 349);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(68, 23);
+            this.button1.Size = new Size(68, 23);
             this.button1.TabIndex = 3;
             this.button1.Text = "Pause";
             this.toolTip1.SetToolTip(this.button1, "Click to Pause the DX Text window (if spots are coming through too fast)\r\nUpdates" +
         " to the Panadapter will still occur");
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new EventHandler(this.button1_Click);
             // 
             // statusBoxSWL
             // 
-            this.statusBoxSWL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.statusBoxSWL.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statusBoxSWL.Location = new System.Drawing.Point(614, 220);
+            this.statusBoxSWL.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.statusBoxSWL.Font = new Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusBoxSWL.Location = new Point(614, 220);
             this.statusBoxSWL.Name = "statusBoxSWL";
-            this.statusBoxSWL.Size = new System.Drawing.Size(156, 22);
+            this.statusBoxSWL.Size = new Size(156, 22);
             this.statusBoxSWL.TabIndex = 16;
             this.statusBoxSWL.Text = "Off";
             this.toolTip1.SetToolTip(this.statusBoxSWL, "Status of ShortWave spotter list transfer to Thetis memory\r\n");
-            this.statusBoxSWL.Click += new System.EventHandler(this.statusBoxSWL_Click);
+            this.statusBoxSWL.Click += new EventHandler(this.statusBoxSWL_Click);
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 201);
+            this.label1.Location = new Point(13, 201);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.Size = new Size(102, 13);
             this.label1.TabIndex = 17;
             this.label1.Text = "Status of DX Cluster";
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(612, 204);
+            this.label2.Location = new Point(612, 204);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(113, 13);
+            this.label2.Size = new Size(113, 13);
             this.label2.TabIndex = 18;
             this.label2.Text = "Status of SWL Spotter";
             // 
             // btnTrack
             // 
-            this.btnTrack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnTrack.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnTrack.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTrack.Location = new System.Drawing.Point(258, 302);
+            this.btnTrack.Location = new Point(258, 302);
             this.btnTrack.Name = "btnTrack";
-            this.btnTrack.Size = new System.Drawing.Size(75, 23);
+            this.btnTrack.Size = new Size(75, 23);
             this.btnTrack.TabIndex = 62;
             this.btnTrack.Text = "Track";
             this.toolTip1.SetToolTip(this.btnTrack, resources.GetString("btnTrack.ToolTip"));
             this.btnTrack.UseVisualStyleBackColor = false;
-            this.btnTrack.Click += new System.EventHandler(this.btnTrack_Click);
+            this.btnTrack.Click += new EventHandler(this.btnTrack_Click);
             // 
             // nameBox
             // 
-            this.nameBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameBox.Location = new System.Drawing.Point(687, 248);
+            this.nameBox.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.nameBox.Font = new Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameBox.Location = new Point(687, 248);
             this.nameBox.MaxLength = 20;
             this.nameBox.Name = "nameBox";
-            this.nameBox.Size = new System.Drawing.Size(46, 22);
+            this.nameBox.Size = new Size(46, 22);
             this.nameBox.TabIndex = 64;
             this.nameBox.Text = "name";
             this.toolTip1.SetToolTip(this.nameBox, "Enter Your Call sign to login to the DX Cluster here");
@@ -603,7 +603,7 @@ namespace Thetis
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.Font = new Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -612,28 +612,28 @@ namespace Thetis
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.Font = new Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.OliveDrab;
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dataGridView1.Location = new System.Drawing.Point(11, 27);
+            this.dataGridView1.Location = new Point(11, 27);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.Font = new Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridView1.Size = new System.Drawing.Size(269, 113);
+            this.dataGridView1.Size = new Size(269, 113);
             this.dataGridView1.TabIndex = 72;
             this.toolTip1.SetToolTip(this.dataGridView1, "Enter DX address : port#\r\nExample:  k1rfi.com:7300\r\n");
-            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            this.dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
+            this.dataGridView1.CellClick += new DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.dataGridView1.DoubleClick += new EventHandler(this.dataGridView1_DoubleClick);
             // 
             // dataGridView2
             // 
@@ -645,7 +645,7 @@ namespace Thetis
             this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.Font = new Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -654,89 +654,89 @@ namespace Thetis
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.Font = new Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.OliveDrab;
             dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle11;
-            this.dataGridView2.Location = new System.Drawing.Point(479, 174);
+            this.dataGridView2.Location = new Point(479, 174);
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.Font = new Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
-            this.dataGridView2.Size = new System.Drawing.Size(254, 94);
+            this.dataGridView2.Size = new Size(254, 94);
             this.dataGridView2.TabIndex = 75;
             this.toolTip1.SetToolTip(this.dataGridView2, "memories");
             this.dataGridView2.Visible = false;
             // 
             // SWLbutton2
             // 
-            this.SWLbutton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.SWLbutton2.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SWLbutton2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.SWLbutton2.Location = new System.Drawing.Point(696, 248);
+            this.SWLbutton2.Location = new Point(696, 248);
             this.SWLbutton2.Name = "SWLbutton2";
-            this.SWLbutton2.Size = new System.Drawing.Size(75, 23);
+            this.SWLbutton2.Size = new Size(75, 23);
             this.SWLbutton2.TabIndex = 76;
             this.SWLbutton2.Text = "SWL list";
             this.toolTip1.SetToolTip(this.SWLbutton2, resources.GetString("SWLbutton2.ToolTip"));
             this.SWLbutton2.UseVisualStyleBackColor = false;
-            this.SWLbutton2.Click += new System.EventHandler(this.SWLbutton2_Click);
+            this.SWLbutton2.Click += new EventHandler(this.SWLbutton2_Click);
             // 
             // btnBeacon
             // 
-            this.btnBeacon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnBeacon.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnBeacon.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnBeacon.Location = new System.Drawing.Point(192, 347);
+            this.btnBeacon.Location = new Point(192, 347);
             this.btnBeacon.Name = "btnBeacon";
-            this.btnBeacon.Size = new System.Drawing.Size(75, 23);
+            this.btnBeacon.Size = new Size(75, 23);
             this.btnBeacon.TabIndex = 85;
             this.btnBeacon.Text = "Beacon Chk";
             this.toolTip1.SetToolTip(this.btnBeacon, resources.GetString("btnBeacon.ToolTip"));
             this.btnBeacon.UseVisualStyleBackColor = false;
-            this.btnBeacon.Click += new System.EventHandler(this.btnBeacon_Click);
+            this.btnBeacon.Click += new EventHandler(this.btnBeacon_Click);
             // 
             // btnTime
             // 
-            this.btnTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnTime.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnTime.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnTime.Location = new System.Drawing.Point(511, 206);
+            this.btnTime.Location = new Point(511, 206);
             this.btnTime.Name = "btnTime";
-            this.btnTime.Size = new System.Drawing.Size(75, 23);
+            this.btnTime.Size = new Size(75, 23);
             this.btnTime.TabIndex = 89;
             this.btnTime.Text = "Time Sync";
             this.toolTip1.SetToolTip(this.btnTime, resources.GetString("btnTime.ToolTip"));
             this.btnTime.UseVisualStyleBackColor = false;
-            this.btnTime.Click += new System.EventHandler(this.btnTime_Click);
+            this.btnTime.Click += new EventHandler(this.btnTime_Click);
             // 
             // checkBoxTone
             // 
-            this.checkBoxTone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxTone.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxTone.AutoSize = true;
-            this.checkBoxTone.Location = new System.Drawing.Point(559, 259);
+            this.checkBoxTone.Location = new Point(559, 259);
             this.checkBoxTone.Name = "checkBoxTone";
-            this.checkBoxTone.Size = new System.Drawing.Size(46, 17);
+            this.checkBoxTone.Size = new Size(46, 17);
             this.checkBoxTone.TabIndex = 93;
             this.checkBoxTone.TabStop = true;
             this.checkBoxTone.Text = "Tick";
             this.toolTip1.SetToolTip(this.checkBoxTone, "ON = BCD sub-Carrier Tick\r\nOFF = no Tick");
             this.checkBoxTone.UseVisualStyleBackColor = true;
-            this.checkBoxTone.CheckedChanged += new System.EventHandler(this.checkBoxTone_CheckedChanged);
+            this.checkBoxTone.CheckedChanged += new EventHandler(this.checkBoxTone_CheckedChanged);
             // 
             // textBox2
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBox2.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox2.Enabled = false;
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(559, 279);
+            this.textBox2.Font = new Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new Point(559, 279);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(37, 20);
+            this.textBox2.Size = new Size(37, 20);
             this.textBox2.TabIndex = 94;
             this.textBox2.Text = "0";
             this.toolTip1.SetToolTip(this.textBox2, "Length of Tone in mSec\r\n");
@@ -744,83 +744,83 @@ namespace Thetis
             // 
             // chkBoxContour
             // 
-            this.chkBoxContour.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkBoxContour.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxContour.Image = null;
-            this.chkBoxContour.Location = new System.Drawing.Point(343, 275);
+            this.chkBoxContour.Location = new Point(343, 275);
             this.chkBoxContour.Name = "chkBoxContour";
-            this.chkBoxContour.Size = new System.Drawing.Size(70, 24);
+            this.chkBoxContour.Size = new Size(70, 24);
             this.chkBoxContour.TabIndex = 98;
             this.chkBoxContour.Text = "Contour";
             this.toolTip1.SetToolTip(this.chkBoxContour, "VOACAP: Check for Contour instead of dots\r\n\r\n");
-            this.chkBoxContour.CheckedChanged += new System.EventHandler(this.chkBoxContour_CheckedChanged);
+            this.chkBoxContour.CheckedChanged += new EventHandler(this.chkBoxContour_CheckedChanged);
             // 
             // tbPanPower
             // 
-            this.tbPanPower.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbPanPower.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tbPanPower.AutoSize = false;
-            this.tbPanPower.Location = new System.Drawing.Point(339, 323);
+            this.tbPanPower.Location = new Point(339, 323);
             this.tbPanPower.Maximum = 1500;
             this.tbPanPower.Minimum = 1;
             this.tbPanPower.Name = "tbPanPower";
-            this.tbPanPower.Size = new System.Drawing.Size(66, 18);
+            this.tbPanPower.Size = new Size(66, 18);
             this.tbPanPower.TabIndex = 97;
             this.tbPanPower.TickFrequency = 90;
             this.toolTip1.SetToolTip(this.tbPanPower, "VOACAP: 400 Watts");
             this.tbPanPower.Value = 400;
-            this.tbPanPower.Scroll += new System.EventHandler(this.tbPanPower_Scroll);
-            this.tbPanPower.MouseEnter += new System.EventHandler(this.tbPanPower_MouseEnter);
-            this.tbPanPower.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tbPanPower_MouseUp);
+            this.tbPanPower.Scroll += new EventHandler(this.tbPanPower_Scroll);
+            this.tbPanPower.MouseEnter += new EventHandler(this.tbPanPower_MouseEnter);
+            this.tbPanPower.MouseUp += new MouseEventHandler(this.tbPanPower_MouseUp);
             // 
             // chkBoxAnt
             // 
-            this.chkBoxAnt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkBoxAnt.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxAnt.Image = null;
-            this.chkBoxAnt.Location = new System.Drawing.Point(343, 299);
+            this.chkBoxAnt.Location = new Point(343, 299);
             this.chkBoxAnt.Name = "chkBoxAnt";
-            this.chkBoxAnt.Size = new System.Drawing.Size(55, 24);
+            this.chkBoxAnt.Size = new Size(55, 24);
             this.chkBoxAnt.TabIndex = 96;
             this.chkBoxAnt.Text = "Beam";
             this.toolTip1.SetToolTip(this.chkBoxAnt, "Check this box if your using a Beam Antenna instead of a Dipole\r\n\r\nUse VOACAP to " +
         "map Signal Strength from your station, \r\nbased on your Lat & Long\r\n\r\nView using " +
         "TRACK button\r\n\r\n");
-            this.chkBoxAnt.CheckedChanged += new System.EventHandler(this.chkBoxAnt_CheckedChanged);
+            this.chkBoxAnt.CheckedChanged += new EventHandler(this.chkBoxAnt_CheckedChanged);
             // 
             // chkBoxDIG
             // 
-            this.chkBoxDIG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkBoxDIG.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxDIG.Checked = true;
             this.chkBoxDIG.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBoxDIG.Image = null;
-            this.chkBoxDIG.Location = new System.Drawing.Point(182, 276);
+            this.chkBoxDIG.Location = new Point(182, 276);
             this.chkBoxDIG.Name = "chkBoxDIG";
-            this.chkBoxDIG.Size = new System.Drawing.Size(85, 24);
+            this.chkBoxDIG.Size = new Size(85, 24);
             this.chkBoxDIG.TabIndex = 70;
             this.chkBoxDIG.Text = "Spot Digital";
             this.toolTip1.SetToolTip(this.chkBoxDIG, "Show Digital spots when checked (like RTTY, PSK, etc)\r\n");
             // 
             // checkBoxMUF
             // 
-            this.checkBoxMUF.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxMUF.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxMUF.Image = null;
-            this.checkBoxMUF.Location = new System.Drawing.Point(273, 272);
+            this.checkBoxMUF.Location = new Point(273, 272);
             this.checkBoxMUF.Name = "checkBoxMUF";
-            this.checkBoxMUF.Size = new System.Drawing.Size(75, 24);
+            this.checkBoxMUF.Size = new Size(75, 24);
             this.checkBoxMUF.TabIndex = 95;
             this.checkBoxMUF.Text = "VOACAP";
             this.toolTip1.SetToolTip(this.checkBoxMUF, "Use VOACAP to map Signal Strength from your station, \r\nbased on your Lat & Long\r\n" +
         "\r\nView using TRACK button\r\n\r\n");
-            this.checkBoxMUF.CheckedChanged += new System.EventHandler(this.checkBoxMUF_CheckedChanged);
-            this.checkBoxMUF.MouseDown += new System.Windows.Forms.MouseEventHandler(this.checkBoxMUF_MouseDown);
+            this.checkBoxMUF.CheckedChanged += new EventHandler(this.checkBoxMUF_CheckedChanged);
+            this.checkBoxMUF.MouseDown += new MouseEventHandler(this.checkBoxMUF_MouseDown);
             // 
             // udDisplayWWV
             // 
-            this.udDisplayWWV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.udDisplayWWV.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.udDisplayWWV.Increment = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.udDisplayWWV.Location = new System.Drawing.Point(511, 256);
+            this.udDisplayWWV.Location = new Point(511, 256);
             this.udDisplayWWV.Maximum = new decimal(new int[] {
             4,
             0,
@@ -832,7 +832,7 @@ namespace Thetis
             0,
             0});
             this.udDisplayWWV.Name = "udDisplayWWV";
-            this.udDisplayWWV.Size = new System.Drawing.Size(39, 20);
+            this.udDisplayWWV.Size = new Size(39, 20);
             this.udDisplayWWV.TabIndex = 91;
             this.toolTip1.SetToolTip(this.udDisplayWWV, "If you check the \"use WWV HF\" Box:\r\nSelect a WWV station with a stron non-fading " +
         "signal.\r\nUsually 10mhz and 15mhz are the cleanest signals\r\n1=2.5mhz \r\n2=5.0mhz\r\n" +
@@ -845,25 +845,25 @@ namespace Thetis
             // 
             // checkBoxWWV
             // 
-            this.checkBoxWWV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxWWV.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxWWV.Image = null;
-            this.checkBoxWWV.Location = new System.Drawing.Point(511, 235);
+            this.checkBoxWWV.Location = new Point(511, 235);
             this.checkBoxWWV.Name = "checkBoxWWV";
-            this.checkBoxWWV.Size = new System.Drawing.Size(98, 24);
+            this.checkBoxWWV.Size = new Size(98, 24);
             this.checkBoxWWV.TabIndex = 90;
             this.checkBoxWWV.Text = "Use WWV HF";
             this.toolTip1.SetToolTip(this.checkBoxWWV, resources.GetString("checkBoxWWV.ToolTip"));
-            this.checkBoxWWV.CheckedChanged += new System.EventHandler(this.checkBoxWWV_CheckedChanged);
+            this.checkBoxWWV.CheckedChanged += new EventHandler(this.checkBoxWWV_CheckedChanged);
             // 
             // numericUpDownTS1
             // 
-            this.numericUpDownTS1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.numericUpDownTS1.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.numericUpDownTS1.Increment = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownTS1.Location = new System.Drawing.Point(417, 350);
+            this.numericUpDownTS1.Location = new Point(417, 350);
             this.numericUpDownTS1.Maximum = new decimal(new int[] {
             5,
             0,
@@ -875,7 +875,7 @@ namespace Thetis
             0,
             0});
             this.numericUpDownTS1.Name = "numericUpDownTS1";
-            this.numericUpDownTS1.Size = new System.Drawing.Size(39, 20);
+            this.numericUpDownTS1.Size = new Size(39, 20);
             this.numericUpDownTS1.TabIndex = 88;
             this.toolTip1.SetToolTip(this.numericUpDownTS1, "Which Band to Start Slow Beacaon Scan on:\r\n1=14.1mhz\r\n2=18.11mhz\r\n3=21.15mhz\r\n4=2" +
         "4.93mhz\r\n5=28.2mhz\r\n");
@@ -884,56 +884,56 @@ namespace Thetis
             0,
             0,
             0});
-            this.numericUpDownTS1.ValueChanged += new System.EventHandler(this.numericUpDownTS1_ValueChanged);
+            this.numericUpDownTS1.ValueChanged += new EventHandler(this.numericUpDownTS1_ValueChanged);
             // 
             // BoxBFScan
             // 
-            this.BoxBFScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.BoxBFScan.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.BoxBFScan.Image = null;
-            this.BoxBFScan.Location = new System.Drawing.Point(343, 347);
+            this.BoxBFScan.Location = new Point(343, 347);
             this.BoxBFScan.Name = "BoxBFScan";
-            this.BoxBFScan.Size = new System.Drawing.Size(87, 24);
+            this.BoxBFScan.Size = new Size(87, 24);
             this.BoxBFScan.TabIndex = 87;
             this.BoxBFScan.Text = "Slow Scan";
             this.toolTip1.SetToolTip(this.BoxBFScan, resources.GetString("BoxBFScan.ToolTip"));
-            this.BoxBFScan.CheckedChanged += new System.EventHandler(this.BoxBFScan_CheckedChanged);
+            this.BoxBFScan.CheckedChanged += new EventHandler(this.BoxBFScan_CheckedChanged);
             // 
             // BoxBScan
             // 
-            this.BoxBScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.BoxBScan.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.BoxBScan.Image = null;
-            this.BoxBScan.Location = new System.Drawing.Point(273, 348);
+            this.BoxBScan.Location = new Point(273, 348);
             this.BoxBScan.Name = "BoxBScan";
-            this.BoxBScan.Size = new System.Drawing.Size(81, 24);
+            this.BoxBScan.Size = new Size(81, 24);
             this.BoxBScan.TabIndex = 86;
             this.BoxBScan.Text = "Fast Scan";
             this.toolTip1.SetToolTip(this.BoxBScan, "Check to Scan all 18 Beacon Stations 5 Frequecies at each 10 second Interval\r\nPow" +
         "erSDR will move across all 5 Beacon Frequencies in 1 sec intervals \r\n\r\nTotal bea" +
         "con map is compled in 3 minutes.\r\n\r\n");
-            this.BoxBScan.CheckedChanged += new System.EventHandler(this.BoxBScan_CheckedChanged);
+            this.BoxBScan.CheckedChanged += new EventHandler(this.BoxBScan_CheckedChanged);
             // 
             // chkBoxBeam
             // 
-            this.chkBoxBeam.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkBoxBeam.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxBeam.Image = null;
-            this.chkBoxBeam.Location = new System.Drawing.Point(417, 299);
+            this.chkBoxBeam.Location = new Point(417, 299);
             this.chkBoxBeam.Name = "chkBoxBeam";
-            this.chkBoxBeam.Size = new System.Drawing.Size(88, 24);
+            this.chkBoxBeam.Size = new Size(88, 24);
             this.chkBoxBeam.TabIndex = 83;
             this.chkBoxBeam.Text = "Map Beam°";
             this.toolTip1.SetToolTip(this.chkBoxBeam, "Check To Show Beam heading on map in (deg)\r\n");
-            this.chkBoxBeam.CheckedChanged += new System.EventHandler(this.chkBoxBeam_CheckedChanged);
+            this.chkBoxBeam.CheckedChanged += new EventHandler(this.chkBoxBeam_CheckedChanged);
             // 
             // udDisplayLong
             // 
-            this.udDisplayLong.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.udDisplayLong.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.udDisplayLong.DecimalPlaces = 2;
             this.udDisplayLong.Increment = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.udDisplayLong.Location = new System.Drawing.Point(614, 351);
+            this.udDisplayLong.Location = new Point(614, 351);
             this.udDisplayLong.Maximum = new decimal(new int[] {
             180,
             0,
@@ -945,7 +945,7 @@ namespace Thetis
             0,
             -2147483648});
             this.udDisplayLong.Name = "udDisplayLong";
-            this.udDisplayLong.Size = new System.Drawing.Size(62, 20);
+            this.udDisplayLong.Size = new Size(62, 20);
             this.udDisplayLong.TabIndex = 80;
             this.toolTip1.SetToolTip(this.udDisplayLong, "Enter Longitude in deg (-180 to 180) for Beam Heading\r\n- for West of 0 GMT line\r\n" +
         "+ for East of 0 GMT line\r\n\r\nLeft Click on Thetis Display and Hit SHIFT key to \r\n" +
@@ -955,18 +955,18 @@ namespace Thetis
             0,
             0,
             0});
-            this.udDisplayLong.ValueChanged += new System.EventHandler(this.udDisplayLong_ValueChanged);
+            this.udDisplayLong.ValueChanged += new EventHandler(this.udDisplayLong_ValueChanged);
             // 
             // udDisplayLat
             // 
-            this.udDisplayLat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.udDisplayLat.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.udDisplayLat.DecimalPlaces = 2;
             this.udDisplayLat.Increment = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.udDisplayLat.Location = new System.Drawing.Point(538, 351);
+            this.udDisplayLat.Location = new Point(538, 351);
             this.udDisplayLat.Maximum = new decimal(new int[] {
             90,
             0,
@@ -978,7 +978,7 @@ namespace Thetis
             0,
             -2147483648});
             this.udDisplayLat.Name = "udDisplayLat";
-            this.udDisplayLat.Size = new System.Drawing.Size(58, 20);
+            this.udDisplayLat.Size = new Size(58, 20);
             this.udDisplayLat.TabIndex = 79;
             this.toolTip1.SetToolTip(this.udDisplayLat, "Enter Latitude in deg (90 to -90) for Beam Heading\r\n+ for Northern Hemisphere\r\n- " +
         "for Southern Hemisphere\r\n\r\nLeft Click on Thetis Display and Hit SHIFT key to \r\nt" +
@@ -988,216 +988,216 @@ namespace Thetis
             0,
             0,
             0});
-            this.udDisplayLat.ValueChanged += new System.EventHandler(this.udDisplayLat_ValueChanged);
+            this.udDisplayLat.ValueChanged += new EventHandler(this.udDisplayLat_ValueChanged);
             // 
             // chkBoxMem
             // 
-            this.chkBoxMem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkBoxMem.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxMem.Image = null;
-            this.chkBoxMem.Location = new System.Drawing.Point(417, 321);
+            this.chkBoxMem.Location = new Point(417, 321);
             this.chkBoxMem.Name = "chkBoxMem";
-            this.chkBoxMem.Size = new System.Drawing.Size(123, 24);
+            this.chkBoxMem.Size = new Size(123, 24);
             this.chkBoxMem.TabIndex = 74;
             this.chkBoxMem.Text = "MEMORIES to Pan";
             this.toolTip1.SetToolTip(this.chkBoxMem, "Show Memories directly on Panadapter.\r\n\r\nLEFT CLICK on visible Memory + CTRL to s" +
         "et Mode\r\n\r\nLEFT CLICK on PAN + ALT + M keys to save New Memory\r\n");
-            this.chkBoxMem.CheckedChanged += new System.EventHandler(this.chkBoxMem_CheckedChanged);
+            this.chkBoxMem.CheckedChanged += new EventHandler(this.chkBoxMem_CheckedChanged);
             // 
             // chkBoxPan
             // 
-            this.chkBoxPan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkBoxPan.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxPan.Image = null;
-            this.chkBoxPan.Location = new System.Drawing.Point(417, 276);
+            this.chkBoxPan.Location = new Point(417, 276);
             this.chkBoxPan.Name = "chkBoxPan";
-            this.chkBoxPan.Size = new System.Drawing.Size(100, 24);
+            this.chkBoxPan.Size = new Size(100, 24);
             this.chkBoxPan.TabIndex = 71;
             this.chkBoxPan.Text = "Map just Pan";
             this.toolTip1.SetToolTip(this.chkBoxPan, "Show Country or Calls on Map for just the Panadapter freq you are viewing.\r\n");
-            this.chkBoxPan.CheckedChanged += new System.EventHandler(this.chkBoxPan_CheckedChanged);
+            this.chkBoxPan.CheckedChanged += new EventHandler(this.chkBoxPan_CheckedChanged);
             // 
             // chkBoxSSB
             // 
-            this.chkBoxSSB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkBoxSSB.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxSSB.Checked = true;
             this.chkBoxSSB.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBoxSSB.Image = null;
-            this.chkBoxSSB.Location = new System.Drawing.Point(182, 246);
+            this.chkBoxSSB.Location = new Point(182, 246);
             this.chkBoxSSB.Name = "chkBoxSSB";
-            this.chkBoxSSB.Size = new System.Drawing.Size(85, 24);
+            this.chkBoxSSB.Size = new Size(85, 24);
             this.chkBoxSSB.TabIndex = 69;
             this.chkBoxSSB.Text = "Spot Phone";
             this.toolTip1.SetToolTip(this.chkBoxSSB, "Show SSB spots when checked\r\n");
             // 
             // chkBoxCW
             // 
-            this.chkBoxCW.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkBoxCW.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxCW.Checked = true;
             this.chkBoxCW.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBoxCW.Image = null;
-            this.chkBoxCW.Location = new System.Drawing.Point(182, 218);
+            this.chkBoxCW.Location = new Point(182, 218);
             this.chkBoxCW.Name = "chkBoxCW";
-            this.chkBoxCW.Size = new System.Drawing.Size(85, 24);
+            this.chkBoxCW.Size = new Size(85, 24);
             this.chkBoxCW.TabIndex = 68;
             this.chkBoxCW.Text = "Spot CW";
             this.toolTip1.SetToolTip(this.chkBoxCW, "Show CW spots when checked\r\n");
             // 
             // chkMapBand
             // 
-            this.chkMapBand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkMapBand.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkMapBand.Checked = true;
             this.chkMapBand.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMapBand.Image = null;
-            this.chkMapBand.Location = new System.Drawing.Point(417, 253);
+            this.chkMapBand.Location = new Point(417, 253);
             this.chkMapBand.Name = "chkMapBand";
-            this.chkMapBand.Size = new System.Drawing.Size(113, 24);
+            this.chkMapBand.Size = new Size(113, 24);
             this.chkMapBand.TabIndex = 67;
             this.chkMapBand.Text = "Map just Band";
             this.toolTip1.SetToolTip(this.chkMapBand, "Show Country or Calls on Map for the Band you are on.\r\n");
-            this.chkMapBand.CheckedChanged += new System.EventHandler(this.chkMapBand_CheckedChanged);
+            this.chkMapBand.CheckedChanged += new EventHandler(this.chkMapBand_CheckedChanged);
             // 
             // chkMapCountry
             // 
-            this.chkMapCountry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkMapCountry.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkMapCountry.Image = null;
-            this.chkMapCountry.Location = new System.Drawing.Point(417, 207);
+            this.chkMapCountry.Location = new Point(417, 207);
             this.chkMapCountry.Name = "chkMapCountry";
-            this.chkMapCountry.Size = new System.Drawing.Size(88, 22);
+            this.chkMapCountry.Size = new Size(88, 22);
             this.chkMapCountry.TabIndex = 66;
             this.chkMapCountry.Text = "Map Country";
             this.toolTip1.SetToolTip(this.chkMapCountry, "Show Dx spot Countries on Map\r\n");
-            this.chkMapCountry.CheckedChanged += new System.EventHandler(this.chkMapCountry_CheckedChanged);
+            this.chkMapCountry.CheckedChanged += new EventHandler(this.chkMapCountry_CheckedChanged);
             // 
             // chkMapCall
             // 
-            this.chkMapCall.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkMapCall.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkMapCall.Checked = true;
             this.chkMapCall.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkMapCall.Image = null;
-            this.chkMapCall.Location = new System.Drawing.Point(417, 230);
+            this.chkMapCall.Location = new Point(417, 230);
             this.chkMapCall.Name = "chkMapCall";
-            this.chkMapCall.Size = new System.Drawing.Size(88, 24);
+            this.chkMapCall.Size = new Size(88, 24);
             this.chkMapCall.TabIndex = 65;
             this.chkMapCall.Text = "Map Calls";
             this.toolTip1.SetToolTip(this.chkMapCall, "Show DX Spot Call signs on Map");
-            this.chkMapCall.CheckedChanged += new System.EventHandler(this.chkMapCall_CheckedChanged);
+            this.chkMapCall.CheckedChanged += new EventHandler(this.chkMapCall_CheckedChanged);
             // 
             // chkPanMode
             // 
-            this.chkPanMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkPanMode.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkPanMode.Checked = true;
             this.chkPanMode.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkPanMode.Image = null;
-            this.chkPanMode.Location = new System.Drawing.Point(273, 249);
+            this.chkPanMode.Location = new Point(273, 249);
             this.chkPanMode.Name = "chkPanMode";
-            this.chkPanMode.Size = new System.Drawing.Size(148, 23);
+            this.chkPanMode.Size = new Size(148, 23);
             this.chkPanMode.TabIndex = 63;
             this.chkPanMode.Text = "Special PanaFall Mode\r\n";
             this.toolTip1.SetToolTip(this.chkPanMode, "When Checked, will Display RX1 in Panafall mode, with a small waterfall for bette" +
         "r viewing of the map");
-            this.chkPanMode.CheckedChanged += new System.EventHandler(this.chkPanMode_CheckedChanged);
+            this.chkPanMode.CheckedChanged += new EventHandler(this.chkPanMode_CheckedChanged);
             // 
             // chkGrayLine
             // 
-            this.chkGrayLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkGrayLine.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkGrayLine.Checked = true;
             this.chkGrayLine.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkGrayLine.Image = null;
-            this.chkGrayLine.Location = new System.Drawing.Point(273, 230);
+            this.chkGrayLine.Location = new Point(273, 230);
             this.chkGrayLine.Name = "chkGrayLine";
-            this.chkGrayLine.Size = new System.Drawing.Size(105, 17);
+            this.chkGrayLine.Size = new Size(105, 17);
             this.chkGrayLine.TabIndex = 61;
             this.chkGrayLine.Text = "GrayLine Track";
             this.toolTip1.SetToolTip(this.chkGrayLine, "GrayLine will show on Panadapter Display\r\nBut only when using KE9SN6_World skin o" +
         "nly\r\nAnd only when RX1 is in Panadapter Mode with RX2 Display OFF");
-            this.chkGrayLine.CheckedChanged += new System.EventHandler(this.chkGrayLine_CheckedChanged);
+            this.chkGrayLine.CheckedChanged += new EventHandler(this.chkGrayLine_CheckedChanged);
             // 
             // chkSUN
             // 
-            this.chkSUN.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkSUN.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkSUN.Checked = true;
             this.chkSUN.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkSUN.Image = null;
-            this.chkSUN.Location = new System.Drawing.Point(273, 205);
+            this.chkSUN.Location = new Point(273, 205);
             this.chkSUN.Name = "chkSUN";
-            this.chkSUN.Size = new System.Drawing.Size(92, 24);
+            this.chkSUN.Size = new Size(92, 24);
             this.chkSUN.TabIndex = 60;
             this.chkSUN.Text = "SunTracking\r\n";
             this.toolTip1.SetToolTip(this.chkSUN, "Sun will show on Panadapter screen \r\nBut only when using KE9SN6_World 3 only\r\nAnd" +
         " only when RX1 is in Panadapter Mode with RX2 Display OFF");
-            this.chkSUN.CheckedChanged += new System.EventHandler(this.chkSUN_CheckedChanged);
+            this.chkSUN.CheckedChanged += new EventHandler(this.chkSUN_CheckedChanged);
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(537, 329);
+            this.label3.Location = new Point(537, 329);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(139, 13);
+            this.label3.Size = new Size(139, 13);
             this.label3.TabIndex = 81;
             this.label3.Text = "Your Lat and Long (+/- deg)\r\n";
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(693, 329);
+            this.label4.Location = new Point(693, 329);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(71, 13);
+            this.label4.Size = new Size(71, 13);
             this.label4.TabIndex = 82;
             this.label4.Text = "Your Call sign";
             // 
             // label5
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(541, 310);
+            this.label5.Location = new Point(541, 310);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(227, 13);
+            this.label5.Size = new Size(227, 13);
             this.label5.TabIndex = 84;
             this.label5.Text = "Setup->CAT Control->DDUtil , for Rotor Control";
             // 
             // chkBoxWrld
             // 
-            this.chkBoxWrld.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkBoxWrld.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxWrld.Image = null;
-            this.chkBoxWrld.Location = new System.Drawing.Point(11, 299);
+            this.chkBoxWrld.Location = new Point(11, 299);
             this.chkBoxWrld.Name = "chkBoxWrld";
-            this.chkBoxWrld.Size = new System.Drawing.Size(194, 24);
+            this.chkBoxWrld.Size = new Size(194, 24);
             this.chkBoxWrld.TabIndex = 78;
             this.chkBoxWrld.Text = "Exclude North American Spotters";
-            this.chkBoxWrld.CheckedChanged += new System.EventHandler(this.chkBoxWrld_CheckedChanged);
+            this.chkBoxWrld.CheckedChanged += new EventHandler(this.chkBoxWrld_CheckedChanged);
             // 
             // chkBoxNA
             // 
-            this.chkBoxNA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkBoxNA.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkBoxNA.Image = null;
-            this.chkBoxNA.Location = new System.Drawing.Point(12, 272);
+            this.chkBoxNA.Location = new Point(12, 272);
             this.chkBoxNA.Name = "chkBoxNA";
-            this.chkBoxNA.Size = new System.Drawing.Size(175, 35);
+            this.chkBoxNA.Size = new Size(175, 35);
             this.chkBoxNA.TabIndex = 77;
             this.chkBoxNA.Text = "North American Spotters only";
-            this.chkBoxNA.CheckedChanged += new System.EventHandler(this.chkBoxNA_CheckedChanged);
+            this.chkBoxNA.CheckedChanged += new EventHandler(this.chkBoxNA_CheckedChanged);
             // 
             // chkAlwaysOnTop
             // 
-            this.chkAlwaysOnTop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkAlwaysOnTop.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkAlwaysOnTop.Image = null;
-            this.chkAlwaysOnTop.Location = new System.Drawing.Point(668, 277);
+            this.chkAlwaysOnTop.Location = new Point(668, 277);
             this.chkAlwaysOnTop.Name = "chkAlwaysOnTop";
-            this.chkAlwaysOnTop.Size = new System.Drawing.Size(103, 24);
+            this.chkAlwaysOnTop.Size = new Size(103, 24);
             this.chkAlwaysOnTop.TabIndex = 58;
             this.chkAlwaysOnTop.Text = "Always On Top";
-            this.chkAlwaysOnTop.CheckedChanged += new System.EventHandler(this.chkAlwaysOnTop_CheckedChanged);
+            this.chkAlwaysOnTop.CheckedChanged += new EventHandler(this.chkAlwaysOnTop_CheckedChanged);
             // 
             // chkDXMode
             // 
-            this.chkDXMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkDXMode.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkDXMode.Checked = true;
             this.chkDXMode.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDXMode.Image = null;
-            this.chkDXMode.Location = new System.Drawing.Point(682, 350);
+            this.chkDXMode.Location = new Point(682, 350);
             this.chkDXMode.Name = "chkDXMode";
-            this.chkDXMode.Size = new System.Drawing.Size(91, 24);
+            this.chkDXMode.Size = new Size(91, 24);
             this.chkDXMode.TabIndex = 59;
             this.chkDXMode.Text = "Parse \"DX Spot\" Mode";
             this.chkDXMode.UseVisualStyleBackColor = true;
@@ -1205,25 +1205,25 @@ namespace Thetis
             // 
             // mainMenu1
             // 
-            this.mainMenu1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainMenu1.Items.AddRange(new ToolStripItem[] {
             this.mnuSpotOptions});
-            this.mainMenu1.Location = new System.Drawing.Point(0, 0);
+            this.mainMenu1.Location = new Point(0, 0);
             this.mainMenu1.Name = "mainMenu1";
-            this.mainMenu1.Size = new System.Drawing.Size(784, 24);
+            this.mainMenu1.Size = new Size(784, 24);
             this.mainMenu1.TabIndex = 99;
             this.mainMenu1.Text = "menuStrip1";
             // 
             // mnuSpotOptions
             // 
             this.mnuSpotOptions.Name = "mnuSpotOptions";
-            this.mnuSpotOptions.Size = new System.Drawing.Size(106, 20);
+            this.mnuSpotOptions.Size = new Size(106, 20);
             this.mnuSpotOptions.Text = "VOCAP Override";
-            this.mnuSpotOptions.Click += new System.EventHandler(this.mnuSpotOptions_Click);
+            this.mnuSpotOptions.Click += new EventHandler(this.mnuSpotOptions_Click);
             // 
             // SpotControl
             // 
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(784, 382);
+            this.ClientSize = new Size(784, 382);
             this.Controls.Add(this.chkBoxContour);
             this.Controls.Add(this.btnTrack);
             this.Controls.Add(this.tbPanPower);
@@ -1276,22 +1276,22 @@ namespace Thetis
             this.Controls.Add(this.chkDXMode);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.mainMenu1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu1;
-            this.MaximumSize = new System.Drawing.Size(800, 1000);
-            this.MinimumSize = new System.Drawing.Size(800, 400);
+            this.MaximumSize = new Size(800, 1000);
+            this.MinimumSize = new Size(800, 400);
             this.Name = "SpotControl";
             this.Text = "DX / SWL Spotter";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SpotControl_FormClosing);
-            this.Load += new System.EventHandler(this.SpotControl_Load);
-            this.Layout += new System.Windows.Forms.LayoutEventHandler(this.SpotControl_Layout);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbPanPower)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.udDisplayWWV)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTS1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.udDisplayLong)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.udDisplayLat)).EndInit();
+            this.FormClosing += new FormClosingEventHandler(this.SpotControl_FormClosing);
+            this.Load += new EventHandler(this.SpotControl_Load);
+            this.Layout += new LayoutEventHandler(this.SpotControl_Layout);
+            ((ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((ISupportInitialize)(this.tbPanPower)).EndInit();
+            ((ISupportInitialize)(this.udDisplayWWV)).EndInit();
+            ((ISupportInitialize)(this.numericUpDownTS1)).EndInit();
+            ((ISupportInitialize)(this.udDisplayLong)).EndInit();
+            ((ISupportInitialize)(this.udDisplayLat)).EndInit();
             this.mainMenu1.ResumeLayout(false);
             this.mainMenu1.PerformLayout();
             this.ResumeLayout(false);
@@ -2398,7 +2398,7 @@ namespace Thetis
         public static int UTCLAST = 0;                                        // last utc time for determining when to check again
         public static int UTCLASTMIN = 0;                                        // last utc time for determining when to check again
 
-        private bool detectEncodingFromByteOrderMarks = true;
+        private readonly bool detectEncodingFromByteOrderMarks = true;
 
         private bool pause = false; // true = pause dx spot window update.
 
@@ -4752,7 +4752,7 @@ namespace Thetis
 
 
 #pragma warning disable CS0414 // The field 'SpotControl.skin1' is assigned but its value is never used
-        private static Image skin1 = null; // temp holder for orignal skin image in picdisplay
+        private static readonly Image skin1 = null; // temp holder for orignal skin image in picdisplay
 #pragma warning restore CS0414 // The field 'SpotControl.skin1' is assigned but its value is never used
 
         //=========================================================================================
@@ -4981,36 +4981,34 @@ namespace Thetis
         public static Color GrayLine_Last = Color.FromArgb(70, Color.Black);                       // used to check if setup.cs changed the color
         public static Band RX1Band_Last = 0;                                                      // to track a change in RX1 band
 
-        private static Font font1 = new Font("Ariel", 10.5f, FontStyle.Regular, GraphicsUnit.Pixel);  // ke9ns add dx spot call sign font style
-        private static Font font2 = new Font("Ariel", 9.0f, FontStyle.Regular, GraphicsUnit.Pixel);  // ke9ns add dx spot call sign font style
+        private static readonly Font font1 = new Font("Ariel", 10.5f, FontStyle.Regular, GraphicsUnit.Pixel);  // ke9ns add dx spot call sign font style
+        private static readonly Font font2 = new Font("Ariel", 9.0f, FontStyle.Regular, GraphicsUnit.Pixel);  // ke9ns add dx spot call sign font style
 
-        private static Color grid_text_color = Color.Yellow;
-        SolidBrush grid_text_brush = new SolidBrush(grid_text_color);
+        private static readonly Color grid_text_color = Color.Yellow;
+        readonly SolidBrush grid_text_brush = new SolidBrush(grid_text_color);
 
-        private static Color Beacon_color = Color.Violet;
-        SolidBrush Beacon_brush = new SolidBrush(Beacon_color);       // color when scanning a beacon station
+        private static readonly Color Beacon_color = Color.Violet;
+        readonly SolidBrush Beacon_brush = new SolidBrush(Beacon_color);       // color when scanning a beacon station
 
-        SolidBrush greenbrush = new SolidBrush(Color.Green);     // beacon signal strength color STRONG
-        SolidBrush orangebrush = new SolidBrush(Color.Orange);        // beacon signal strength color not checked yet
-        SolidBrush yellowbrush = new SolidBrush(Color.Yellow);   // beacon signal strength color LIGHT
-        SolidBrush redbrush = new SolidBrush(Color.Red);              // normal red dot color on map  (beacon signal strength color no signal)
+        readonly SolidBrush greenbrush = new SolidBrush(Color.Green);     // beacon signal strength color STRONG
+        readonly SolidBrush orangebrush = new SolidBrush(Color.Orange);        // beacon signal strength color not checked yet
+        readonly SolidBrush yellowbrush = new SolidBrush(Color.Yellow);   // beacon signal strength color LIGHT
+        readonly SolidBrush redbrush = new SolidBrush(Color.Red);              // normal red dot color on map  (beacon signal strength color no signal)
 
-        SolidBrush graybrush = new SolidBrush(Color.DarkGray);        // beacon signal strength color not checked yet
-        SolidBrush bluebrush = new SolidBrush(Color.Blue);       // beacon signal strength color not checked yet
+        readonly SolidBrush graybrush = new SolidBrush(Color.DarkGray);        // beacon signal strength color not checked yet
+        readonly SolidBrush bluebrush = new SolidBrush(Color.Blue);       // beacon signal strength color not checked yet
 
-        SolidBrush brownbrush = new SolidBrush(Color.SaddleBrown);              // 
+        readonly SolidBrush brownbrush = new SolidBrush(Color.SaddleBrown);              // 
 
         public static Image MAP = null; // holds bitmap image for SUN and GRAY LINE
 
-        private static int[] spots = new int[100];  // holder for all the spots current on your entire band.
+        private static readonly int[] spots = new int[100];  // holder for all the spots current on your entire band.
 
         public static int VFOLOW = 0;   // set in console rx1band for use in the mapper
         public static int VFOHIGH = 0;
-
-        string[] country = new string[200];
-        string[] call = new string[200];
-
-        int[] yy = new int[200];  // increments the y axis down to allow multiple station names under a red dot
+        readonly string[] country = new string[200];
+        readonly string[] call = new string[200];
+        readonly int[] yy = new int[200];  // increments the y axis down to allow multiple station names under a red dot
 
 
 
@@ -7382,7 +7380,7 @@ namespace Thetis
         double LasttsTime = 0;
 
         double tsTime1 = 0;                                             // replaced beacon6 for ant switch glitch which causes S meter spike
-        double BandSwitchDelay = 0.24;                                   // replaced beacon6 amount of delay to get past the ant switch glitch
+        readonly double BandSwitchDelay = 0.24;                                   // replaced beacon6 amount of delay to get past the ant switch glitch
 
         public static string SEC1;                                       // get 24hr 4 digit UTC NOW
 
@@ -8055,9 +8053,10 @@ namespace Thetis
             IPHostEntry iphostinfo;
             IPAddress ip;
             IPEndPoint ipe;
-            Socket c = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);//Create Socket  
-
-            c.ReceiveTimeout = 900;    //Setting the timeout  
+            Socket c = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
+            {
+                ReceiveTimeout = 900    //Setting the timeout  
+            };//Create Socket  
 
             byte[] RecvBuffer = new byte[1024];
 
@@ -8067,7 +8066,7 @@ namespace Thetis
             StringBuilder sb1 = new StringBuilder();
             StringBuilder sb = new StringBuilder();
 
-            System.Text.Encoding myE = Encoding.UTF8;
+            Encoding myE = Encoding.UTF8;
 
             string EX1 = " ";
             TimeSpan k = new TimeSpan();
@@ -8285,8 +8284,8 @@ namespace Thetis
         //====================================================================================================================
         //====================================================================================================================
 
-        double[] WWV_Freq = { 2.500100, 5.000100, 10.000100, 15.000100 };  // listen to 100hz tone
-        double[] WWV_Freq1 = { 2.5, 5.0, 10.0, 15.0 };                     // listen to 1000khz tone
+        readonly double[] WWV_Freq = { 2.500100, 5.000100, 10.000100, 15.000100 };  // listen to 100hz tone
+        readonly double[] WWV_Freq1 = { 2.5, 5.0, 10.0, 15.0 };                     // listen to 1000khz tone
 
         public bool WTime = false;
 
@@ -8295,16 +8294,16 @@ namespace Thetis
 
         public Stopwatch WWVNewTime = new Stopwatch();    // This timer starts when a P frame is detected. If the HOLE is detected immediately after, then this time + .3sec is used as the marker
 
-        DateTime WWVNT = DateTime.Now;
+        readonly DateTime WWVNT = DateTime.Now;
 
         public int WWVThreshold = 0; // the trip point where the PCM BCD data stream from WWV determines a 1 or 0
 
 #pragma warning disable CS0414 // The field 'SpotControl.above_count' is assigned but its value is never used
-        int above_count = 0;
+        readonly int above_count = 0;
 #pragma warning restore CS0414 // The field 'SpotControl.above_count' is assigned but its value is never used
         int below_count = 0; // counter for how many times you got new data and it was below the threshold
 
-        int[] storage = new int[200];
+        readonly int[] storage = new int[200];
 
         public int indexP = 0;  // P frame index (with 10 seconds inside it)
         public int indexS = 0; // seconds index inside a P frame
@@ -9248,10 +9247,10 @@ namespace Thetis
 
 
 #pragma warning disable CS0414 // The field 'SpotControl.sPrev' is assigned but its value is never used
-        double sPrev = 0.0;
+        readonly double sPrev = 0.0;
 #pragma warning restore CS0414 // The field 'SpotControl.sPrev' is assigned but its value is never used
 #pragma warning disable CS0414 // The field 'SpotControl.sPrev2' is assigned but its value is never used
-        double sPrev2 = 0.0;
+        readonly double sPrev2 = 0.0;
 #pragma warning restore CS0414 // The field 'SpotControl.sPrev2' is assigned but its value is never used
 
         double normalizedfreq = 0.0;
@@ -9509,7 +9508,7 @@ namespace Thetis
         string Last_VOALNG;
         string Last_MHZ;
 #pragma warning disable CS0649 // Field 'SpotControl.Last_SSN' is never assigned to, and will always have its default value null
-        string Last_SSN;
+        readonly string Last_SSN;
 #pragma warning restore CS0649 // Field 'SpotControl.Last_SSN' is never assigned to, and will always have its default value null
         string Last_MONTH;
         string Last_DAY;
@@ -9521,10 +9520,10 @@ namespace Thetis
 
 
         // INPUT VOACAP variable to conrec.cs contour mapping
-        private double[,] d1 = new double[31, 31]; // for use with conrec.cs program
-        private double[] x1 = new double[31];  // each x axis location 
-        private double[] y1 = new double[31];  // each y axis location 
-        private double[] z1 = new double[10];  // number of contours for the map
+        private readonly double[,] d1 = new double[31, 31]; // for use with conrec.cs program
+        private readonly double[] x1 = new double[31];  // each x axis location 
+        private readonly double[] y1 = new double[31];  // each y axis location 
+        private readonly double[] z1 = new double[10];  // number of contours for the map
 
         // OUTPUT VOACAP variable from conrec.cs contour mapping
         public static float[] x3 = new float[10000]; // storage for contour.cs map
@@ -10154,11 +10153,11 @@ namespace Thetis
         //======================================================================
         //======================================================================
 
-        static Pen GryPen = new Pen(Color.FromArgb(255, Color.Gray), 1.0f); // S1-2
-        static Pen OrgPen = new Pen(Color.FromArgb(255, Color.Orange), 1.0f); // S3-4
-        static Pen YelPen = new Pen(Color.FromArgb(255, Color.Yellow), 1.0f); // S5-6
-        static Pen GrnPen = new Pen(Color.FromArgb(255, Color.Green), 1.0f); // S7-8
-        static Pen BluPen = new Pen(Color.FromArgb(255, Color.Blue), 1.0f); // S9+
+        static readonly Pen GryPen = new Pen(Color.FromArgb(255, Color.Gray), 1.0f); // S1-2
+        static readonly Pen OrgPen = new Pen(Color.FromArgb(255, Color.Orange), 1.0f); // S3-4
+        static readonly Pen YelPen = new Pen(Color.FromArgb(255, Color.Yellow), 1.0f); // S5-6
+        static readonly Pen GrnPen = new Pen(Color.FromArgb(255, Color.Green), 1.0f); // S7-8
+        static readonly Pen BluPen = new Pen(Color.FromArgb(255, Color.Blue), 1.0f); // S9+
 
 
 

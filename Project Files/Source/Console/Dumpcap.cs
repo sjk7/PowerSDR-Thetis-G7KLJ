@@ -241,7 +241,7 @@ namespace Thetis
 
             try
             {
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                System.Diagnostics.Process.Start(new ProcessStartInfo()
                 {
                     FileName = workingFolder,
                     UseShellExecute = true,

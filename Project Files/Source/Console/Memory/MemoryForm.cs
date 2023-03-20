@@ -102,53 +102,67 @@ namespace Thetis
 
             // Create ComboBox Column
             // DSPMode
-            DataGridViewComboBoxColumn comboboxColumnDSPMode = new DataGridViewComboBoxColumn();
-            comboboxColumnDSPMode.DataPropertyName = "DSPMode";
-            comboboxColumnDSPMode.Name = "DSPMode";
-            comboboxColumnDSPMode.HeaderText = "DSP Mode";
-            comboboxColumnDSPMode.ValueType = typeof(DSPMode);
+            DataGridViewComboBoxColumn comboboxColumnDSPMode = new DataGridViewComboBoxColumn
+            {
+                DataPropertyName = "DSPMode",
+                Name = "DSPMode",
+                HeaderText = "DSP Mode",
+                ValueType = typeof(DSPMode)
+            };
 
             // Tune Step
-            DataGridViewComboBoxColumn comboboxColumnTuneStep = new DataGridViewComboBoxColumn();
-            comboboxColumnTuneStep.DataPropertyName = "TuneStep";
-            comboboxColumnTuneStep.Name = "TuneStep";
-            comboboxColumnTuneStep.HeaderText = "Tune Step";
-            comboboxColumnTuneStep.ValueType = typeof(string);
+            DataGridViewComboBoxColumn comboboxColumnTuneStep = new DataGridViewComboBoxColumn
+            {
+                DataPropertyName = "TuneStep",
+                Name = "TuneStep",
+                HeaderText = "Tune Step",
+                ValueType = typeof(string)
+            };
 
             // RPT repeater mode
-            DataGridViewComboBoxColumn comboboxColumnRPTR = new DataGridViewComboBoxColumn();
-            comboboxColumnRPTR.DataPropertyName = "RPTR";
-            comboboxColumnRPTR.Name = "RPTR";
-            comboboxColumnRPTR.HeaderText = "RPTR";
-            comboboxColumnRPTR.ValueType = typeof(FMTXMode);
+            DataGridViewComboBoxColumn comboboxColumnRPTR = new DataGridViewComboBoxColumn
+            {
+                DataPropertyName = "RPTR",
+                Name = "RPTR",
+                HeaderText = "RPTR",
+                ValueType = typeof(FMTXMode)
+            };
 
             // FM CTCSS
-            DataGridViewComboBoxColumn comboboxColumnCTCSS = new DataGridViewComboBoxColumn();
-            comboboxColumnCTCSS.DataPropertyName = "CTCSSFreq";
-            comboboxColumnCTCSS.Name = "CTCSSFreq";
-            comboboxColumnCTCSS.HeaderText = "CTCSS Freq";
-            comboboxColumnCTCSS.ValueType = typeof(double);
+            DataGridViewComboBoxColumn comboboxColumnCTCSS = new DataGridViewComboBoxColumn
+            {
+                DataPropertyName = "CTCSSFreq",
+                Name = "CTCSSFreq",
+                HeaderText = "CTCSS Freq",
+                ValueType = typeof(double)
+            };
 
             // Dev
-            DataGridViewComboBoxColumn comboboxColumnDeviation = new DataGridViewComboBoxColumn();
-            comboboxColumnDeviation.DataPropertyName = "Deviation";
-            comboboxColumnDeviation.Name = "Deviation";
-            comboboxColumnDeviation.HeaderText = "Deviation";
-            comboboxColumnDeviation.ValueType = typeof(double);
+            DataGridViewComboBoxColumn comboboxColumnDeviation = new DataGridViewComboBoxColumn
+            {
+                DataPropertyName = "Deviation",
+                Name = "Deviation",
+                HeaderText = "Deviation",
+                ValueType = typeof(double)
+            };
 
             // Filter
-            DataGridViewComboBoxColumn comboboxColumnFilter = new DataGridViewComboBoxColumn();
-            comboboxColumnFilter.DataPropertyName = "RXFilter";
-            comboboxColumnFilter.Name = "RXFilter";
-            comboboxColumnFilter.HeaderText = "RXFilter";
-            comboboxColumnFilter.ValueType = typeof(Filter);
+            DataGridViewComboBoxColumn comboboxColumnFilter = new DataGridViewComboBoxColumn
+            {
+                DataPropertyName = "RXFilter",
+                Name = "RXFilter",
+                HeaderText = "RXFilter",
+                ValueType = typeof(Filter)
+            };
 
             // AGCMode
-            DataGridViewComboBoxColumn comboboxColumnAGCMode = new DataGridViewComboBoxColumn();
-            comboboxColumnAGCMode.DataPropertyName = "AGCMode";
-            comboboxColumnAGCMode.Name = "AGCMode";
-            comboboxColumnAGCMode.HeaderText = "AGC Mode";
-            comboboxColumnAGCMode.ValueType = typeof(AGCMode);
+            DataGridViewComboBoxColumn comboboxColumnAGCMode = new DataGridViewComboBoxColumn
+            {
+                DataPropertyName = "AGCMode",
+                Name = "AGCMode",
+                HeaderText = "AGC Mode",
+                ValueType = typeof(AGCMode)
+            };
 
 
             // populate combobox items -- type is important here!
@@ -397,8 +411,7 @@ namespace Thetis
                 dataGridView1.Columns[e.ColumnIndex].Name == "TXFreq" ||
                 dataGridView1.Columns[e.ColumnIndex].Name == "RPTROffset")
             {
-                double temp;
-                if (!double.TryParse((string)e.FormattedValue, out temp)) dataGridView1[e.ColumnIndex, e.RowIndex].Value = 0.0;
+                if (!double.TryParse((string)e.FormattedValue, out double temp)) dataGridView1[e.ColumnIndex, e.RowIndex].Value = 0.0;
                 return;
             }
 
@@ -408,8 +421,7 @@ namespace Thetis
                 dataGridView1.Columns[e.ColumnIndex].Name == "FilterHigh" ||
                 dataGridView1.Columns[e.ColumnIndex].Name == "AGCT")
             {
-                int temp;
-                if (!int.TryParse((string)e.FormattedValue, out temp)) dataGridView1[e.ColumnIndex, e.RowIndex].Value = 0;
+                if (!int.TryParse((string)e.FormattedValue, out int temp)) dataGridView1[e.ColumnIndex, e.RowIndex].Value = 0;
                 return;
             }
 
@@ -947,12 +959,12 @@ namespace Thetis
             try // ke9ns upgrading an old database may fail before its upgraded
             {
 
-                ScheduleStartDate.ValueChanged -= new System.EventHandler(ScheduleStartDate_ValueChanged);  // ke9ns turn off checkchanged temporarily    // ke9ns turn off valuechanged temporarily 
+                ScheduleStartDate.ValueChanged -= new EventHandler(ScheduleStartDate_ValueChanged);  // ke9ns turn off checkchanged temporarily    // ke9ns turn off valuechanged temporarily 
 
                 ScheduleStartDate.Value = (DateTime)dataGridView1["StartDate", RIndex].Value; // ke9ns add put schedule start date in selected in field box
                 ScheduleStartTime.Value = (DateTime)dataGridView1["StartDate", RIndex].Value; // ke9ns add put schedule start date in selected in field box
 
-                ScheduleStartDate.ValueChanged += new System.EventHandler(ScheduleStartDate_ValueChanged);  // ke9ns turn off checkchanged temporarily    // ke9ns turn off valuechanged temporarily 
+                ScheduleStartDate.ValueChanged += new EventHandler(ScheduleStartDate_ValueChanged);  // ke9ns turn off checkchanged temporarily    // ke9ns turn off valuechanged temporarily 
 
                 ScheduleOn.Checked = (bool)dataGridView1["ScheduleOn", RIndex].Value; // ke9ns add put schedule ON/OFF in selected in field box
 
@@ -1466,7 +1478,7 @@ namespace Thetis
         public class AutoClosingMessageBox
         {
             System.Threading.Timer _timeoutTimer;
-            string _caption;
+            readonly string _caption;
 
             AutoClosingMessageBox(string text, string caption, int timeout)
             {

@@ -47,7 +47,7 @@ public class MemoryList {
 
 #region Properties
 
-    private SortableBindingList<MemoryRecord> list
+    private readonly SortableBindingList<MemoryRecord> list
         = new SortableBindingList<MemoryRecord>();
     public SortableBindingList<MemoryRecord> List {
         get { return list; }

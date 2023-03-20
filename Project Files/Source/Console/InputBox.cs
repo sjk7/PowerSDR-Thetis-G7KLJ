@@ -144,8 +144,10 @@ namespace Thetis
 
         public static string Show(string title, string label, string textbox)
         {
-            InputBox box = new InputBox();
-            box.Text = title;
+            InputBox box = new InputBox
+            {
+                Text = title
+            };
             box.label.Text = label;
             box.textbox.Text = textbox;
 

@@ -95,11 +95,11 @@ namespace Thetis
 
         public wbDisplay()
         {
-            this.MouseEnter += new System.EventHandler(this.PanDisplay_MouseEnter);
-            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.PanDisplay_MouseWheel);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PanDisplay_MouseMove);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PanDisplay_MouseDown);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.PanDisplay_MouseUp);
+            this.MouseEnter += new EventHandler(this.PanDisplay_MouseEnter);
+            this.MouseWheel += new MouseEventHandler(this.PanDisplay_MouseWheel);
+            this.MouseMove += new MouseEventHandler(this.PanDisplay_MouseMove);
+            this.MouseDown += new MouseEventHandler(this.PanDisplay_MouseDown);
+            this.MouseUp += new MouseEventHandler(this.PanDisplay_MouseUp);
         }
 
         #region Properties
@@ -190,33 +190,33 @@ namespace Thetis
         }
 
 #pragma warning disable CS0169 // The field 'wbDisplay.filterLeft' is never used
-        private int filterLeft;
+        private readonly int filterLeft;
 #pragma warning restore CS0169 // The field 'wbDisplay.filterLeft' is never used
 #pragma warning disable CS0169 // The field 'wbDisplay.filterRight' is never used
-        private int filterRight;
+        private readonly int filterRight;
 #pragma warning restore CS0169 // The field 'wbDisplay.filterRight' is never used
 #pragma warning disable CS0169 // The field 'wbDisplay.filterTop' is never used
-        private int filterTop;
+        private readonly int filterTop;
 #pragma warning restore CS0169 // The field 'wbDisplay.filterTop' is never used
 #pragma warning disable CS0169 // The field 'wbDisplay.filterBottom' is never used
-        private int filterBottom;
+        private readonly int filterBottom;
 #pragma warning restore CS0169 // The field 'wbDisplay.filterBottom' is never used
 
         //Color notch_on_color = Color.DarkGreen;
         //Color notch_highlight_color = Color.Chartreuse;
         //Color notch_perm_on_color = Color.DarkRed;
         //Color notch_perm_highlight_color = Color.DeepPink;
-        private Color notch_on_color = Color.Olive;
-        private Color notch_on_color_zoomed = Color.FromArgb(190, 128, 128, 0);
-        private Color notch_highlight_color = Color.YellowGreen;
-        private Color notch_highlight_color_zoomed = Color.FromArgb(190, 154, 205, 50);
-        private Color notch_perm_on_color = Color.DarkGreen;
-        private Color notch_perm_highlight_color = Color.Chartreuse;
-        private Color notch_off_color = Color.Gray;
+        private readonly Color notch_on_color = Color.Olive;
+        private readonly Color notch_on_color_zoomed = Color.FromArgb(190, 128, 128, 0);
+        private readonly Color notch_highlight_color = Color.YellowGreen;
+        private readonly Color notch_highlight_color_zoomed = Color.FromArgb(190, 154, 205, 50);
+        private readonly Color notch_perm_on_color = Color.DarkGreen;
+        private readonly Color notch_perm_highlight_color = Color.Chartreuse;
+        private readonly Color notch_off_color = Color.Gray;
 
-        private Color channel_background_on = Color.FromArgb(150, Color.DodgerBlue);
-        private Color channel_background_off = Color.FromArgb(100, Color.RoyalBlue);
-        private Color channel_foreground = Color.Cyan;
+        private readonly Color channel_background_on = Color.FromArgb(150, Color.DodgerBlue);
+        private readonly Color channel_background_off = Color.FromArgb(100, Color.RoyalBlue);
+        private readonly Color channel_foreground = Color.Cyan;
 
         private ColorSheme color_sheme = ColorSheme.enhanced;
         public ColorSheme ColorSheme
@@ -1005,15 +1005,15 @@ namespace Thetis
             }
         }
 
-        private SolidBrush pana_text_brush = new SolidBrush(Color.Khaki);
-        private System.Drawing.Font pana_font = new System.Drawing.Font("Tahoma", 7F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+        private readonly SolidBrush pana_text_brush = new SolidBrush(Color.Khaki);
+        private readonly Font pana_font = new Font("Tahoma", 7F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
 
-        private Pen dhp = new Pen(Color.FromArgb(0, 255, 0)),
+        private readonly Pen dhp = new Pen(Color.FromArgb(0, 255, 0)),
                            dhp1 = new Pen(Color.FromArgb(150, 0, 0, 255)),
                            dhp2 = new Pen(Color.FromArgb(150, 255, 0, 0));
 
-        private System.Drawing.Font font14 = new System.Drawing.Font("Arial", 14, FontStyle.Bold),
-                            font9 = new System.Drawing.Font("Arial", 9);
+        private readonly Font font14 = new Font("Arial", 14, FontStyle.Bold),
+                            font9 = new Font("Arial", 9);
 
 
         #endregion
@@ -1122,7 +1122,7 @@ namespace Thetis
         // ======================================================
 
 #pragma warning disable CS0414 // The field 'wbDisplay.zoom_height' is assigned but its value is never used
-        float zoom_height = 1.5f;   // Should be > 1.  H = H/zoom_height
+        readonly float zoom_height = 1.5f;   // Should be > 1.  H = H/zoom_height
 #pragma warning restore CS0414 // The field 'wbDisplay.zoom_height' is assigned but its value is never used
         unsafe private void DrawWideBandGrid(Graphics g, int rx)
         {
@@ -3370,7 +3370,7 @@ namespace Thetis
         }
 
 #pragma warning disable CS0414 // The field 'wbDisplay.snapMouse' is assigned but its value is never used
-        private int snapMouse = 3;
+        private readonly int snapMouse = 3;
 #pragma warning restore CS0414 // The field 'wbDisplay.snapMouse' is assigned but its value is never used
         public DisplayRegion mouseRegion;
 
@@ -3387,27 +3387,27 @@ namespace Thetis
         private bool rx1_spectrum_drag = false;
 
 #pragma warning disable CS0414 // The field 'wbDisplay.whole_filter_start_x' is assigned but its value is never used
-        private int whole_filter_start_x = 0;
+        private readonly int whole_filter_start_x = 0;
 #pragma warning restore CS0414 // The field 'wbDisplay.whole_filter_start_x' is assigned but its value is never used
 #pragma warning disable CS0414 // The field 'wbDisplay.whole_filter_start_low' is assigned but its value is never used
-        private int whole_filter_start_low = 0;
+        private readonly int whole_filter_start_low = 0;
 #pragma warning restore CS0414 // The field 'wbDisplay.whole_filter_start_low' is assigned but its value is never used
 #pragma warning disable CS0414 // The field 'wbDisplay.whole_filter_start_high' is assigned but its value is never used
-        private int whole_filter_start_high = 0;
+        private readonly int whole_filter_start_high = 0;
 #pragma warning restore CS0414 // The field 'wbDisplay.whole_filter_start_high' is assigned but its value is never used
 #pragma warning disable CS0414 // The field 'wbDisplay.sub_drag_last_x' is assigned but its value is never used
-        private int sub_drag_last_x = 0;
+        private readonly int sub_drag_last_x = 0;
 #pragma warning restore CS0414 // The field 'wbDisplay.sub_drag_last_x' is assigned but its value is never used
         private int spectrum_drag_last_x = 0;
 #pragma warning disable CS0414 // The field 'wbDisplay.sub_drag_start_freq' is assigned but its value is never used
-        private double sub_drag_start_freq = 0.0;
+        private readonly double sub_drag_start_freq = 0.0;
 #pragma warning restore CS0414 // The field 'wbDisplay.sub_drag_start_freq' is assigned but its value is never used
 
 #pragma warning disable CS0414 // The field 'wbDisplay.rx1_click_tune_drag' is assigned but its value is never used
-        private bool rx1_click_tune_drag = false;
+        private readonly bool rx1_click_tune_drag = false;
 #pragma warning restore CS0414 // The field 'wbDisplay.rx1_click_tune_drag' is assigned but its value is never used
 #pragma warning disable CS0414 // The field 'wbDisplay.rx2_click_tune_drag' is assigned but its value is never used
-        private bool rx2_click_tune_drag = false;
+        private readonly bool rx2_click_tune_drag = false;
 #pragma warning restore CS0414 // The field 'wbDisplay.rx2_click_tune_drag' is assigned but its value is never used
 
         private Point grid_minmax_drag_start_point = new Point(0, 0);
@@ -3424,10 +3424,10 @@ namespace Thetis
 #pragma warning restore CS0414 // The field 'wbDisplay.rx1_grid_adjust' is assigned but its value is never used
         private bool gridmaxadjust = false;
 #pragma warning disable CS0414 // The field 'wbDisplay.wfmaxadjust' is assigned but its value is never used
-        private bool wfmaxadjust = false;
+        private readonly bool wfmaxadjust = false;
 #pragma warning restore CS0414 // The field 'wbDisplay.wfmaxadjust' is assigned but its value is never used
 #pragma warning disable CS0414 // The field 'wbDisplay.wfminadjust' is assigned but its value is never used
-        private bool wfminadjust = false;
+        private readonly bool wfminadjust = false;
 #pragma warning restore CS0414 // The field 'wbDisplay.wfminadjust' is assigned but its value is never used
         private bool gridminmaxadjust = false;
 
@@ -3498,10 +3498,10 @@ namespace Thetis
 
         }
 
-        private object m_objBufferLock = new object();
+        private readonly object m_objBufferLock = new object();
 
 #pragma warning disable CS0169 // The field 'wbDisplay.draw_display_thread' is never used
-        private Thread draw_display_thread;
+        private readonly Thread draw_display_thread;
 #pragma warning restore CS0169 // The field 'wbDisplay.draw_display_thread' is never used
         public void StartDisplay(int rx)
         {
@@ -3549,7 +3549,7 @@ namespace Thetis
         }
 
 #pragma warning disable CS0414 // The field 'wbDisplay.Halted' is assigned but its value is never used
-        bool Halted = false;
+        readonly bool Halted = false;
 #pragma warning restore CS0414 // The field 'wbDisplay.Halted' is assigned but its value is never used
         static readonly object wbMonitor = new object();
         unsafe private void RunDisplay(int rx)

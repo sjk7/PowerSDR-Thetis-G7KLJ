@@ -92,20 +92,20 @@ namespace Thetis
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AndromedaEditForm));
-            this.BtnClose = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.EncoderDataGridView = new System.Windows.Forms.DataGridView();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.ButtonDataGridView = new System.Windows.Forms.DataGridView();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.IndicatorDataGridView = new System.Windows.Forms.DataGridView();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.MenuDataGridView = new System.Windows.Forms.DataGridView();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnInsert = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnReset = new System.Windows.Forms.Button();
+            this.BtnClose = new Button();
+            this.tabControl1 = new TabControl();
+            this.tabPage1 = new TabPage();
+            this.EncoderDataGridView = new DataGridView();
+            this.tabPage2 = new TabPage();
+            this.ButtonDataGridView = new DataGridView();
+            this.tabPage3 = new TabPage();
+            this.IndicatorDataGridView = new DataGridView();
+            this.tabPage4 = new TabPage();
+            this.MenuDataGridView = new DataGridView();
+            this.btnDelete = new Button();
+            this.btnInsert = new Button();
+            this.btnSave = new Button();
+            this.btnReset = new Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EncoderDataGridView)).BeginInit();
@@ -125,7 +125,7 @@ namespace Thetis
             this.BtnClose.TabIndex = 0;
             this.BtnClose.Text = "Close";
             this.BtnClose.UseVisualStyleBackColor = true;
-            this.BtnClose.Click += new System.EventHandler(this.BtnClose_Click);
+            this.BtnClose.Click += new EventHandler(this.BtnClose_Click);
             // 
             // tabControl1
             // 
@@ -139,14 +139,14 @@ namespace Thetis
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(780, 330);
             this.tabControl1.TabIndex = 1;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.TabControl1_SelectedIndexChanged);
+            this.tabControl1.SelectedIndexChanged += new EventHandler(this.TabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.EncoderDataGridView);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Padding = new Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(772, 301);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Encoders";
@@ -169,7 +169,7 @@ namespace Thetis
             this.tabPage2.Controls.Add(this.ButtonDataGridView);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Padding = new Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(772, 301);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Pushbuttons";
@@ -229,7 +229,7 @@ namespace Thetis
             this.MenuDataGridView.RowHeadersWidth = 60;
             this.MenuDataGridView.Size = new System.Drawing.Size(769, 301);
             this.MenuDataGridView.TabIndex = 0;
-            this.MenuDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.MenuDataGridView_CellValueChanged);
+            this.MenuDataGridView.CellValueChanged += new DataGridViewCellEventHandler(this.MenuDataGridView_CellValueChanged);
             // 
             // btnDelete
             // 
@@ -240,7 +240,7 @@ namespace Thetis
             this.btnDelete.Text = "Delete Menu";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Visible = false;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.btnDelete.Click += new EventHandler(this.btnDelete_Click);
             // 
             // btnInsert
             // 
@@ -251,7 +251,7 @@ namespace Thetis
             this.btnInsert.Text = "Insert Menu";
             this.btnInsert.UseVisualStyleBackColor = true;
             this.btnInsert.Visible = false;
-            this.btnInsert.Click += new System.EventHandler(this.BtnInsert_Click);
+            this.btnInsert.Click += new EventHandler(this.BtnInsert_Click);
             // 
             // btnSave
             // 
@@ -261,7 +261,7 @@ namespace Thetis
             this.btnSave.TabIndex = 2;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.BtnSave_Click);
+            this.btnSave.Click += new EventHandler(this.BtnSave_Click);
             // 
             // btnReset
             // 
@@ -271,7 +271,7 @@ namespace Thetis
             this.btnReset.TabIndex = 3;
             this.btnReset.Text = "Reset Data";
             this.btnReset.UseVisualStyleBackColor = true;
-            this.btnReset.Click += new System.EventHandler(this.BtnReset_Click);
+            this.btnReset.Click += new EventHandler(this.BtnReset_Click);
             // 
             // AndromedaEditForm
             // 
@@ -287,9 +287,9 @@ namespace Thetis
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AndromedaEditForm";
             this.Text = "Andromeda Settings Editor";
-            this.Activated += new System.EventHandler(this.AndromedaEditForm_Activated);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AndromedaEditForm_FormClosing);
-            this.Load += new System.EventHandler(this.AndromedaEditForm_Load);
+            this.Activated += new EventHandler(this.AndromedaEditForm_Activated);
+            this.FormClosing += new FormClosingEventHandler(this.AndromedaEditForm_FormClosing);
+            this.Load += new EventHandler(this.AndromedaEditForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.EncoderDataGridView)).EndInit();

@@ -36,66 +36,66 @@ namespace Thetis
     /// <summary>
     /// Summary description for EQForm.
     /// </summary>
-    public class EQForm : System.Windows.Forms.Form
+    public class EQForm : Form
     {
         #region Variable Declaration
 
         private Console console;
-        private System.Windows.Forms.GroupBoxTS grpRXEQ;
-        private System.Windows.Forms.GroupBoxTS grpTXEQ;
-        private System.Windows.Forms.TrackBarTS tbRXEQ1;
-        private System.Windows.Forms.TrackBarTS tbRXEQ2;
-        private System.Windows.Forms.TrackBarTS tbRXEQ3;
-        private System.Windows.Forms.TrackBarTS tbTXEQ2;
-        private System.Windows.Forms.TrackBarTS tbTXEQ0;
-        private System.Windows.Forms.TrackBarTS tbTXEQ1;
-        private System.Windows.Forms.LabelTS lblRXEQ0dB;
-        private System.Windows.Forms.LabelTS lblTXEQ0dB;
-        private System.Windows.Forms.LabelTS lblRXEQ1;
-        private System.Windows.Forms.LabelTS lblRXEQ2;
-        private System.Windows.Forms.LabelTS lblRXEQ3;
-        private System.Windows.Forms.LabelTS lblRXEQPreamp;
-        private System.Windows.Forms.LabelTS lblTXEQPreamp;
-        private System.Windows.Forms.CheckBoxTS chkTXEQEnabled;
-        private System.Windows.Forms.TrackBarTS tbRXEQPreamp;
-        private System.Windows.Forms.TrackBarTS tbTXEQPre;
-        private System.Windows.Forms.CheckBoxTS chkRXEQEnabled;
-        private System.Windows.Forms.PictureBox picRXEQ;
-        private System.Windows.Forms.ButtonTS btnRXEQReset;
-        private System.Windows.Forms.LabelTS lblRXEQ15db;
-        private System.Windows.Forms.LabelTS lblTXEQ15db;
-        private System.Windows.Forms.LabelTS lblRXEQminus12db;
-        private System.Windows.Forms.LabelTS lblTXEQminus12db;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.TrackBarTS tbRXEQ4;
-        private System.Windows.Forms.TrackBarTS tbRXEQ5;
-        private System.Windows.Forms.TrackBarTS tbRXEQ6;
-        private System.Windows.Forms.TrackBarTS tbRXEQ7;
-        private System.Windows.Forms.TrackBarTS tbRXEQ8;
-        private System.Windows.Forms.TrackBarTS tbRXEQ9;
-        private System.Windows.Forms.TrackBarTS tbRXEQ10;
-        private System.Windows.Forms.LabelTS lblRXEQ15db2;
-        private System.Windows.Forms.LabelTS lblRXEQ0dB2;
-        private System.Windows.Forms.LabelTS lblRXEQminus12db2;
-        private System.Windows.Forms.LabelTS lblTXEQ15db2;
-        private System.Windows.Forms.LabelTS lblTXEQ0dB2;
-        private System.Windows.Forms.LabelTS lblTXEQminus12db2;
-        private System.Windows.Forms.RadioButtonTS rad3Band;
-        private System.Windows.Forms.RadioButtonTS rad10Band;
-        private System.Windows.Forms.TrackBarTS tbTXEQ3;
-        private System.Windows.Forms.TrackBarTS tbTXEQ4;
-        private System.Windows.Forms.TrackBarTS tbTXEQ5;
-        private System.Windows.Forms.TrackBarTS tbTXEQ6;
-        private System.Windows.Forms.TrackBarTS tbTXEQ7;
-        private System.Windows.Forms.TrackBarTS tbTXEQ8;
-        private System.Windows.Forms.TrackBarTS tbTXEQ9;
-        private System.Windows.Forms.LabelTS lblRXEQ4;
-        private System.Windows.Forms.LabelTS lblRXEQ5;
-        private System.Windows.Forms.LabelTS lblRXEQ6;
-        private System.Windows.Forms.LabelTS lblRXEQ7;
-        private System.Windows.Forms.LabelTS lblRXEQ8;
-        private System.Windows.Forms.LabelTS lblRXEQ9;
-        private System.Windows.Forms.LabelTS lblRXEQ10;
+        private GroupBoxTS grpRXEQ;
+        private GroupBoxTS grpTXEQ;
+        private TrackBarTS tbRXEQ1;
+        private TrackBarTS tbRXEQ2;
+        private TrackBarTS tbRXEQ3;
+        private TrackBarTS tbTXEQ2;
+        private TrackBarTS tbTXEQ0;
+        private TrackBarTS tbTXEQ1;
+        private LabelTS lblRXEQ0dB;
+        private LabelTS lblTXEQ0dB;
+        private LabelTS lblRXEQ1;
+        private LabelTS lblRXEQ2;
+        private LabelTS lblRXEQ3;
+        private LabelTS lblRXEQPreamp;
+        private LabelTS lblTXEQPreamp;
+        private CheckBoxTS chkTXEQEnabled;
+        private TrackBarTS tbRXEQPreamp;
+        private TrackBarTS tbTXEQPre;
+        private CheckBoxTS chkRXEQEnabled;
+        private PictureBox picRXEQ;
+        private ButtonTS btnRXEQReset;
+        private LabelTS lblRXEQ15db;
+        private LabelTS lblTXEQ15db;
+        private LabelTS lblRXEQminus12db;
+        private LabelTS lblTXEQminus12db;
+        private ToolTip toolTip1;
+        private TrackBarTS tbRXEQ4;
+        private TrackBarTS tbRXEQ5;
+        private TrackBarTS tbRXEQ6;
+        private TrackBarTS tbRXEQ7;
+        private TrackBarTS tbRXEQ8;
+        private TrackBarTS tbRXEQ9;
+        private TrackBarTS tbRXEQ10;
+        private LabelTS lblRXEQ15db2;
+        private LabelTS lblRXEQ0dB2;
+        private LabelTS lblRXEQminus12db2;
+        private LabelTS lblTXEQ15db2;
+        private LabelTS lblTXEQ0dB2;
+        private LabelTS lblTXEQminus12db2;
+        private RadioButtonTS rad3Band;
+        private RadioButtonTS rad10Band;
+        private TrackBarTS tbTXEQ3;
+        private TrackBarTS tbTXEQ4;
+        private TrackBarTS tbTXEQ5;
+        private TrackBarTS tbTXEQ6;
+        private TrackBarTS tbTXEQ7;
+        private TrackBarTS tbTXEQ8;
+        private TrackBarTS tbTXEQ9;
+        private LabelTS lblRXEQ4;
+        private LabelTS lblRXEQ5;
+        private LabelTS lblRXEQ6;
+        private LabelTS lblRXEQ7;
+        private LabelTS lblRXEQ8;
+        private LabelTS lblRXEQ9;
+        private LabelTS lblRXEQ10;
         private LabelTS lblCFCFreq;
         private NumericUpDownTS udTXEQ9;
         private NumericUpDownTS udTXEQ8;
@@ -154,73 +154,73 @@ namespace Thetis
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EQForm));
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.lblRXEQ9 = new System.Windows.Forms.LabelTS();
-            this.lblRXEQ5 = new System.Windows.Forms.LabelTS();
-            this.lblRXEQ1 = new System.Windows.Forms.LabelTS();
-            this.rad10Band = new System.Windows.Forms.RadioButtonTS();
-            this.rad3Band = new System.Windows.Forms.RadioButtonTS();
-            this.grpRXEQ = new System.Windows.Forms.GroupBoxTS();
-            this.lblRXEQ15db2 = new System.Windows.Forms.LabelTS();
-            this.lblRXEQ0dB2 = new System.Windows.Forms.LabelTS();
-            this.lblRXEQminus12db2 = new System.Windows.Forms.LabelTS();
-            this.lblRXEQ10 = new System.Windows.Forms.LabelTS();
-            this.tbRXEQ10 = new System.Windows.Forms.TrackBarTS();
-            this.lblRXEQ7 = new System.Windows.Forms.LabelTS();
-            this.lblRXEQ8 = new System.Windows.Forms.LabelTS();
-            this.tbRXEQ7 = new System.Windows.Forms.TrackBarTS();
-            this.tbRXEQ8 = new System.Windows.Forms.TrackBarTS();
-            this.tbRXEQ9 = new System.Windows.Forms.TrackBarTS();
-            this.tbRXEQ4 = new System.Windows.Forms.TrackBarTS();
-            this.tbRXEQ5 = new System.Windows.Forms.TrackBarTS();
-            this.tbRXEQ6 = new System.Windows.Forms.TrackBarTS();
-            this.lblRXEQ4 = new System.Windows.Forms.LabelTS();
-            this.lblRXEQ6 = new System.Windows.Forms.LabelTS();
-            this.picRXEQ = new System.Windows.Forms.PictureBox();
-            this.btnRXEQReset = new System.Windows.Forms.ButtonTS();
-            this.chkRXEQEnabled = new System.Windows.Forms.CheckBoxTS();
-            this.tbRXEQ1 = new System.Windows.Forms.TrackBarTS();
-            this.tbRXEQ2 = new System.Windows.Forms.TrackBarTS();
-            this.tbRXEQ3 = new System.Windows.Forms.TrackBarTS();
-            this.lblRXEQ2 = new System.Windows.Forms.LabelTS();
-            this.lblRXEQ3 = new System.Windows.Forms.LabelTS();
-            this.lblRXEQPreamp = new System.Windows.Forms.LabelTS();
-            this.tbRXEQPreamp = new System.Windows.Forms.TrackBarTS();
-            this.lblRXEQ15db = new System.Windows.Forms.LabelTS();
-            this.lblRXEQ0dB = new System.Windows.Forms.LabelTS();
-            this.lblRXEQminus12db = new System.Windows.Forms.LabelTS();
-            this.grpTXEQ = new System.Windows.Forms.GroupBoxTS();
-            this.btnTXEQReset = new System.Windows.Forms.ButtonTS();
-            this.lblCFCFreq = new System.Windows.Forms.LabelTS();
-            this.udTXEQ9 = new System.Windows.Forms.NumericUpDownTS();
-            this.udTXEQ8 = new System.Windows.Forms.NumericUpDownTS();
-            this.udTXEQ7 = new System.Windows.Forms.NumericUpDownTS();
-            this.udTXEQ6 = new System.Windows.Forms.NumericUpDownTS();
-            this.udTXEQ5 = new System.Windows.Forms.NumericUpDownTS();
-            this.udTXEQ4 = new System.Windows.Forms.NumericUpDownTS();
-            this.udTXEQ3 = new System.Windows.Forms.NumericUpDownTS();
-            this.udTXEQ2 = new System.Windows.Forms.NumericUpDownTS();
-            this.udTXEQ1 = new System.Windows.Forms.NumericUpDownTS();
-            this.udTXEQ0 = new System.Windows.Forms.NumericUpDownTS();
-            this.lblTXEQ15db2 = new System.Windows.Forms.LabelTS();
-            this.lblTXEQ0dB2 = new System.Windows.Forms.LabelTS();
-            this.lblTXEQminus12db2 = new System.Windows.Forms.LabelTS();
-            this.tbTXEQ9 = new System.Windows.Forms.TrackBarTS();
-            this.tbTXEQ6 = new System.Windows.Forms.TrackBarTS();
-            this.tbTXEQ7 = new System.Windows.Forms.TrackBarTS();
-            this.tbTXEQ8 = new System.Windows.Forms.TrackBarTS();
-            this.tbTXEQ3 = new System.Windows.Forms.TrackBarTS();
-            this.tbTXEQ4 = new System.Windows.Forms.TrackBarTS();
-            this.tbTXEQ5 = new System.Windows.Forms.TrackBarTS();
-            this.chkTXEQEnabled = new System.Windows.Forms.CheckBoxTS();
-            this.tbTXEQ0 = new System.Windows.Forms.TrackBarTS();
-            this.tbTXEQ1 = new System.Windows.Forms.TrackBarTS();
-            this.tbTXEQ2 = new System.Windows.Forms.TrackBarTS();
-            this.lblTXEQPreamp = new System.Windows.Forms.LabelTS();
-            this.tbTXEQPre = new System.Windows.Forms.TrackBarTS();
-            this.lblTXEQ15db = new System.Windows.Forms.LabelTS();
-            this.lblTXEQ0dB = new System.Windows.Forms.LabelTS();
-            this.lblTXEQminus12db = new System.Windows.Forms.LabelTS();
+            this.toolTip1 = new ToolTip(this.components);
+            this.lblRXEQ9 = new LabelTS();
+            this.lblRXEQ5 = new LabelTS();
+            this.lblRXEQ1 = new LabelTS();
+            this.rad10Band = new RadioButtonTS();
+            this.rad3Band = new RadioButtonTS();
+            this.grpRXEQ = new GroupBoxTS();
+            this.lblRXEQ15db2 = new LabelTS();
+            this.lblRXEQ0dB2 = new LabelTS();
+            this.lblRXEQminus12db2 = new LabelTS();
+            this.lblRXEQ10 = new LabelTS();
+            this.tbRXEQ10 = new TrackBarTS();
+            this.lblRXEQ7 = new LabelTS();
+            this.lblRXEQ8 = new LabelTS();
+            this.tbRXEQ7 = new TrackBarTS();
+            this.tbRXEQ8 = new TrackBarTS();
+            this.tbRXEQ9 = new TrackBarTS();
+            this.tbRXEQ4 = new TrackBarTS();
+            this.tbRXEQ5 = new TrackBarTS();
+            this.tbRXEQ6 = new TrackBarTS();
+            this.lblRXEQ4 = new LabelTS();
+            this.lblRXEQ6 = new LabelTS();
+            this.picRXEQ = new PictureBox();
+            this.btnRXEQReset = new ButtonTS();
+            this.chkRXEQEnabled = new CheckBoxTS();
+            this.tbRXEQ1 = new TrackBarTS();
+            this.tbRXEQ2 = new TrackBarTS();
+            this.tbRXEQ3 = new TrackBarTS();
+            this.lblRXEQ2 = new LabelTS();
+            this.lblRXEQ3 = new LabelTS();
+            this.lblRXEQPreamp = new LabelTS();
+            this.tbRXEQPreamp = new TrackBarTS();
+            this.lblRXEQ15db = new LabelTS();
+            this.lblRXEQ0dB = new LabelTS();
+            this.lblRXEQminus12db = new LabelTS();
+            this.grpTXEQ = new GroupBoxTS();
+            this.btnTXEQReset = new ButtonTS();
+            this.lblCFCFreq = new LabelTS();
+            this.udTXEQ9 = new NumericUpDownTS();
+            this.udTXEQ8 = new NumericUpDownTS();
+            this.udTXEQ7 = new NumericUpDownTS();
+            this.udTXEQ6 = new NumericUpDownTS();
+            this.udTXEQ5 = new NumericUpDownTS();
+            this.udTXEQ4 = new NumericUpDownTS();
+            this.udTXEQ3 = new NumericUpDownTS();
+            this.udTXEQ2 = new NumericUpDownTS();
+            this.udTXEQ1 = new NumericUpDownTS();
+            this.udTXEQ0 = new NumericUpDownTS();
+            this.lblTXEQ15db2 = new LabelTS();
+            this.lblTXEQ0dB2 = new LabelTS();
+            this.lblTXEQminus12db2 = new LabelTS();
+            this.tbTXEQ9 = new TrackBarTS();
+            this.tbTXEQ6 = new TrackBarTS();
+            this.tbTXEQ7 = new TrackBarTS();
+            this.tbTXEQ8 = new TrackBarTS();
+            this.tbTXEQ3 = new TrackBarTS();
+            this.tbTXEQ4 = new TrackBarTS();
+            this.tbTXEQ5 = new TrackBarTS();
+            this.chkTXEQEnabled = new CheckBoxTS();
+            this.tbTXEQ0 = new TrackBarTS();
+            this.tbTXEQ1 = new TrackBarTS();
+            this.tbTXEQ2 = new TrackBarTS();
+            this.lblTXEQPreamp = new LabelTS();
+            this.tbTXEQPre = new TrackBarTS();
+            this.lblTXEQ15db = new LabelTS();
+            this.lblTXEQ0dB = new LabelTS();
+            this.lblTXEQminus12db = new LabelTS();
             this.grpRXEQ.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbRXEQ10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbRXEQ7)).BeginInit();
@@ -261,9 +261,9 @@ namespace Thetis
             // lblRXEQ9
             // 
             this.lblRXEQ9.Image = null;
-            this.lblRXEQ9.Location = new System.Drawing.Point(400, 56);
+            this.lblRXEQ9.Location = new Point(400, 56);
             this.lblRXEQ9.Name = "lblRXEQ9";
-            this.lblRXEQ9.Size = new System.Drawing.Size(40, 16);
+            this.lblRXEQ9.Size = new Size(40, 16);
             this.lblRXEQ9.TabIndex = 123;
             this.lblRXEQ9.Text = "High";
             this.lblRXEQ9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -272,9 +272,9 @@ namespace Thetis
             // lblRXEQ5
             // 
             this.lblRXEQ5.Image = null;
-            this.lblRXEQ5.Location = new System.Drawing.Point(240, 56);
+            this.lblRXEQ5.Location = new Point(240, 56);
             this.lblRXEQ5.Name = "lblRXEQ5";
-            this.lblRXEQ5.Size = new System.Drawing.Size(40, 16);
+            this.lblRXEQ5.Size = new Size(40, 16);
             this.lblRXEQ5.TabIndex = 116;
             this.lblRXEQ5.Text = "Mid";
             this.lblRXEQ5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -282,11 +282,11 @@ namespace Thetis
             // 
             // lblRXEQ1
             // 
-            this.lblRXEQ1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRXEQ1.Font = new Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRXEQ1.Image = null;
-            this.lblRXEQ1.Location = new System.Drawing.Point(80, 56);
+            this.lblRXEQ1.Location = new Point(80, 56);
             this.lblRXEQ1.Name = "lblRXEQ1";
-            this.lblRXEQ1.Size = new System.Drawing.Size(40, 16);
+            this.lblRXEQ1.Size = new Size(40, 16);
             this.lblRXEQ1.TabIndex = 43;
             this.lblRXEQ1.Text = "Low";
             this.lblRXEQ1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -296,23 +296,23 @@ namespace Thetis
             // 
             this.rad10Band.Checked = true;
             this.rad10Band.Image = null;
-            this.rad10Band.Location = new System.Drawing.Point(144, 8);
+            this.rad10Band.Location = new Point(144, 8);
             this.rad10Band.Name = "rad10Band";
-            this.rad10Band.Size = new System.Drawing.Size(120, 24);
+            this.rad10Band.Size = new Size(120, 24);
             this.rad10Band.TabIndex = 3;
             this.rad10Band.TabStop = true;
             this.rad10Band.Text = "10-Band Equalizer";
-            this.rad10Band.CheckedChanged += new System.EventHandler(this.rad10Band_CheckedChanged);
+            this.rad10Band.CheckedChanged += new EventHandler(this.rad10Band_CheckedChanged);
             // 
             // rad3Band
             // 
             this.rad3Band.Image = null;
-            this.rad3Band.Location = new System.Drawing.Point(16, 8);
+            this.rad3Band.Location = new Point(16, 8);
             this.rad3Band.Name = "rad3Band";
-            this.rad3Band.Size = new System.Drawing.Size(120, 24);
+            this.rad3Band.Size = new Size(120, 24);
             this.rad3Band.TabIndex = 2;
             this.rad3Band.Text = "3-Band Equalizer";
-            this.rad3Band.CheckedChanged += new System.EventHandler(this.rad3Band_CheckedChanged);
+            this.rad3Band.CheckedChanged += new EventHandler(this.rad3Band_CheckedChanged);
             // 
             // grpRXEQ
             // 
@@ -347,9 +347,9 @@ namespace Thetis
             this.grpRXEQ.Controls.Add(this.lblRXEQ15db);
             this.grpRXEQ.Controls.Add(this.lblRXEQ0dB);
             this.grpRXEQ.Controls.Add(this.lblRXEQminus12db);
-            this.grpRXEQ.Location = new System.Drawing.Point(8, 40);
+            this.grpRXEQ.Location = new Point(8, 40);
             this.grpRXEQ.Name = "grpRXEQ";
-            this.grpRXEQ.Size = new System.Drawing.Size(528, 224);
+            this.grpRXEQ.Size = new Size(528, 224);
             this.grpRXEQ.TabIndex = 1;
             this.grpRXEQ.TabStop = false;
             this.grpRXEQ.Text = "Receive Equalizer";
@@ -357,9 +357,9 @@ namespace Thetis
             // lblRXEQ15db2
             // 
             this.lblRXEQ15db2.Image = null;
-            this.lblRXEQ15db2.Location = new System.Drawing.Point(483, 78);
+            this.lblRXEQ15db2.Location = new Point(483, 78);
             this.lblRXEQ15db2.Name = "lblRXEQ15db2";
-            this.lblRXEQ15db2.Size = new System.Drawing.Size(32, 16);
+            this.lblRXEQ15db2.Size = new Size(32, 16);
             this.lblRXEQ15db2.TabIndex = 126;
             this.lblRXEQ15db2.Text = "15dB";
             this.lblRXEQ15db2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -367,9 +367,9 @@ namespace Thetis
             // lblRXEQ0dB2
             // 
             this.lblRXEQ0dB2.Image = null;
-            this.lblRXEQ0dB2.Location = new System.Drawing.Point(483, 134);
+            this.lblRXEQ0dB2.Location = new Point(483, 134);
             this.lblRXEQ0dB2.Name = "lblRXEQ0dB2";
-            this.lblRXEQ0dB2.Size = new System.Drawing.Size(32, 16);
+            this.lblRXEQ0dB2.Size = new Size(32, 16);
             this.lblRXEQ0dB2.TabIndex = 127;
             this.lblRXEQ0dB2.Text = "  0dB";
             this.lblRXEQ0dB2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -377,9 +377,9 @@ namespace Thetis
             // lblRXEQminus12db2
             // 
             this.lblRXEQminus12db2.Image = null;
-            this.lblRXEQminus12db2.Location = new System.Drawing.Point(480, 178);
+            this.lblRXEQminus12db2.Location = new Point(480, 178);
             this.lblRXEQminus12db2.Name = "lblRXEQminus12db2";
-            this.lblRXEQminus12db2.Size = new System.Drawing.Size(38, 16);
+            this.lblRXEQminus12db2.Size = new Size(38, 16);
             this.lblRXEQminus12db2.TabIndex = 128;
             this.lblRXEQminus12db2.Text = "-12dB";
             this.lblRXEQminus12db2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -387,9 +387,9 @@ namespace Thetis
             // lblRXEQ10
             // 
             this.lblRXEQ10.Image = null;
-            this.lblRXEQ10.Location = new System.Drawing.Point(440, 56);
+            this.lblRXEQ10.Location = new Point(440, 56);
             this.lblRXEQ10.Name = "lblRXEQ10";
-            this.lblRXEQ10.Size = new System.Drawing.Size(40, 16);
+            this.lblRXEQ10.Size = new Size(40, 16);
             this.lblRXEQ10.TabIndex = 125;
             this.lblRXEQ10.Text = "16K";
             this.lblRXEQ10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -399,23 +399,23 @@ namespace Thetis
             // 
             this.tbRXEQ10.AutoSize = false;
             this.tbRXEQ10.LargeChange = 3;
-            this.tbRXEQ10.Location = new System.Drawing.Point(448, 72);
+            this.tbRXEQ10.Location = new Point(448, 72);
             this.tbRXEQ10.Maximum = 15;
             this.tbRXEQ10.Minimum = -12;
             this.tbRXEQ10.Name = "tbRXEQ10";
             this.tbRXEQ10.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbRXEQ10.Size = new System.Drawing.Size(32, 128);
+            this.tbRXEQ10.Size = new Size(32, 128);
             this.tbRXEQ10.TabIndex = 124;
             this.tbRXEQ10.TickFrequency = 3;
-            this.tbRXEQ10.Scroll += new System.EventHandler(this.tbRXEQ_Scroll);
+            this.tbRXEQ10.Scroll += new EventHandler(this.tbRXEQ_Scroll);
             // 
             // lblRXEQ7
             // 
-            this.lblRXEQ7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRXEQ7.Font = new Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRXEQ7.Image = null;
-            this.lblRXEQ7.Location = new System.Drawing.Point(320, 56);
+            this.lblRXEQ7.Location = new Point(320, 56);
             this.lblRXEQ7.Name = "lblRXEQ7";
-            this.lblRXEQ7.Size = new System.Drawing.Size(40, 16);
+            this.lblRXEQ7.Size = new Size(40, 16);
             this.lblRXEQ7.TabIndex = 121;
             this.lblRXEQ7.Text = "2K";
             this.lblRXEQ7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -424,9 +424,9 @@ namespace Thetis
             // lblRXEQ8
             // 
             this.lblRXEQ8.Image = null;
-            this.lblRXEQ8.Location = new System.Drawing.Point(360, 56);
+            this.lblRXEQ8.Location = new Point(360, 56);
             this.lblRXEQ8.Name = "lblRXEQ8";
-            this.lblRXEQ8.Size = new System.Drawing.Size(40, 16);
+            this.lblRXEQ8.Size = new Size(40, 16);
             this.lblRXEQ8.TabIndex = 122;
             this.lblRXEQ8.Text = "4K";
             this.lblRXEQ8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -436,93 +436,93 @@ namespace Thetis
             // 
             this.tbRXEQ7.AutoSize = false;
             this.tbRXEQ7.LargeChange = 3;
-            this.tbRXEQ7.Location = new System.Drawing.Point(328, 72);
+            this.tbRXEQ7.Location = new Point(328, 72);
             this.tbRXEQ7.Maximum = 15;
             this.tbRXEQ7.Minimum = -12;
             this.tbRXEQ7.Name = "tbRXEQ7";
             this.tbRXEQ7.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbRXEQ7.Size = new System.Drawing.Size(32, 128);
+            this.tbRXEQ7.Size = new Size(32, 128);
             this.tbRXEQ7.TabIndex = 118;
             this.tbRXEQ7.TickFrequency = 3;
-            this.tbRXEQ7.Scroll += new System.EventHandler(this.tbRXEQ_Scroll);
+            this.tbRXEQ7.Scroll += new EventHandler(this.tbRXEQ_Scroll);
             // 
             // tbRXEQ8
             // 
             this.tbRXEQ8.AutoSize = false;
             this.tbRXEQ8.LargeChange = 3;
-            this.tbRXEQ8.Location = new System.Drawing.Point(368, 72);
+            this.tbRXEQ8.Location = new Point(368, 72);
             this.tbRXEQ8.Maximum = 15;
             this.tbRXEQ8.Minimum = -12;
             this.tbRXEQ8.Name = "tbRXEQ8";
             this.tbRXEQ8.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbRXEQ8.Size = new System.Drawing.Size(32, 128);
+            this.tbRXEQ8.Size = new Size(32, 128);
             this.tbRXEQ8.TabIndex = 119;
             this.tbRXEQ8.TickFrequency = 3;
-            this.tbRXEQ8.Scroll += new System.EventHandler(this.tbRXEQ_Scroll);
+            this.tbRXEQ8.Scroll += new EventHandler(this.tbRXEQ_Scroll);
             // 
             // tbRXEQ9
             // 
             this.tbRXEQ9.AutoSize = false;
             this.tbRXEQ9.LargeChange = 3;
-            this.tbRXEQ9.Location = new System.Drawing.Point(408, 72);
+            this.tbRXEQ9.Location = new Point(408, 72);
             this.tbRXEQ9.Maximum = 15;
             this.tbRXEQ9.Minimum = -12;
             this.tbRXEQ9.Name = "tbRXEQ9";
             this.tbRXEQ9.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbRXEQ9.Size = new System.Drawing.Size(32, 128);
+            this.tbRXEQ9.Size = new Size(32, 128);
             this.tbRXEQ9.TabIndex = 120;
             this.tbRXEQ9.TickFrequency = 3;
-            this.tbRXEQ9.Scroll += new System.EventHandler(this.tbRXEQ_Scroll);
+            this.tbRXEQ9.Scroll += new EventHandler(this.tbRXEQ_Scroll);
             // 
             // tbRXEQ4
             // 
             this.tbRXEQ4.AutoSize = false;
             this.tbRXEQ4.LargeChange = 3;
-            this.tbRXEQ4.Location = new System.Drawing.Point(208, 72);
+            this.tbRXEQ4.Location = new Point(208, 72);
             this.tbRXEQ4.Maximum = 15;
             this.tbRXEQ4.Minimum = -12;
             this.tbRXEQ4.Name = "tbRXEQ4";
             this.tbRXEQ4.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbRXEQ4.Size = new System.Drawing.Size(32, 128);
+            this.tbRXEQ4.Size = new Size(32, 128);
             this.tbRXEQ4.TabIndex = 112;
             this.tbRXEQ4.TickFrequency = 3;
-            this.tbRXEQ4.Scroll += new System.EventHandler(this.tbRXEQ_Scroll);
+            this.tbRXEQ4.Scroll += new EventHandler(this.tbRXEQ_Scroll);
             // 
             // tbRXEQ5
             // 
             this.tbRXEQ5.AutoSize = false;
             this.tbRXEQ5.LargeChange = 3;
-            this.tbRXEQ5.Location = new System.Drawing.Point(248, 72);
+            this.tbRXEQ5.Location = new Point(248, 72);
             this.tbRXEQ5.Maximum = 15;
             this.tbRXEQ5.Minimum = -12;
             this.tbRXEQ5.Name = "tbRXEQ5";
             this.tbRXEQ5.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbRXEQ5.Size = new System.Drawing.Size(32, 128);
+            this.tbRXEQ5.Size = new Size(32, 128);
             this.tbRXEQ5.TabIndex = 113;
             this.tbRXEQ5.TickFrequency = 3;
-            this.tbRXEQ5.Scroll += new System.EventHandler(this.tbRXEQ_Scroll);
+            this.tbRXEQ5.Scroll += new EventHandler(this.tbRXEQ_Scroll);
             // 
             // tbRXEQ6
             // 
             this.tbRXEQ6.AutoSize = false;
             this.tbRXEQ6.LargeChange = 3;
-            this.tbRXEQ6.Location = new System.Drawing.Point(288, 72);
+            this.tbRXEQ6.Location = new Point(288, 72);
             this.tbRXEQ6.Maximum = 15;
             this.tbRXEQ6.Minimum = -12;
             this.tbRXEQ6.Name = "tbRXEQ6";
             this.tbRXEQ6.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbRXEQ6.Size = new System.Drawing.Size(32, 128);
+            this.tbRXEQ6.Size = new Size(32, 128);
             this.tbRXEQ6.TabIndex = 114;
             this.tbRXEQ6.TickFrequency = 3;
-            this.tbRXEQ6.Scroll += new System.EventHandler(this.tbRXEQ_Scroll);
+            this.tbRXEQ6.Scroll += new EventHandler(this.tbRXEQ_Scroll);
             // 
             // lblRXEQ4
             // 
-            this.lblRXEQ4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRXEQ4.Font = new Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRXEQ4.Image = null;
-            this.lblRXEQ4.Location = new System.Drawing.Point(200, 56);
+            this.lblRXEQ4.Location = new Point(200, 56);
             this.lblRXEQ4.Name = "lblRXEQ4";
-            this.lblRXEQ4.Size = new System.Drawing.Size(40, 16);
+            this.lblRXEQ4.Size = new Size(40, 16);
             this.lblRXEQ4.TabIndex = 115;
             this.lblRXEQ4.Text = "250";
             this.lblRXEQ4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -531,9 +531,9 @@ namespace Thetis
             // lblRXEQ6
             // 
             this.lblRXEQ6.Image = null;
-            this.lblRXEQ6.Location = new System.Drawing.Point(280, 56);
+            this.lblRXEQ6.Location = new Point(280, 56);
             this.lblRXEQ6.Name = "lblRXEQ6";
-            this.lblRXEQ6.Size = new System.Drawing.Size(40, 16);
+            this.lblRXEQ6.Size = new Size(40, 16);
             this.lblRXEQ6.TabIndex = 117;
             this.lblRXEQ6.Text = "1K";
             this.lblRXEQ6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -542,82 +542,82 @@ namespace Thetis
             // picRXEQ
             // 
             this.picRXEQ.BackColor = System.Drawing.Color.Black;
-            this.picRXEQ.Location = new System.Drawing.Point(88, 24);
+            this.picRXEQ.Location = new Point(88, 24);
             this.picRXEQ.Name = "picRXEQ";
-            this.picRXEQ.Size = new System.Drawing.Size(384, 24);
+            this.picRXEQ.Size = new Size(384, 24);
             this.picRXEQ.TabIndex = 111;
             this.picRXEQ.TabStop = false;
-            this.picRXEQ.Paint += new System.Windows.Forms.PaintEventHandler(this.picRXEQ_Paint);
+            this.picRXEQ.Paint += new PaintEventHandler(this.picRXEQ_Paint);
             // 
             // btnRXEQReset
             // 
-            this.btnRXEQReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRXEQReset.Font = new Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRXEQReset.Image = null;
-            this.btnRXEQReset.Location = new System.Drawing.Point(478, 28);
+            this.btnRXEQReset.Location = new Point(478, 28);
             this.btnRXEQReset.Name = "btnRXEQReset";
-            this.btnRXEQReset.Size = new System.Drawing.Size(42, 20);
+            this.btnRXEQReset.Size = new Size(42, 20);
             this.btnRXEQReset.TabIndex = 110;
             this.btnRXEQReset.Text = "Reset";
-            this.btnRXEQReset.Click += new System.EventHandler(this.btnRXEQReset_Click);
+            this.btnRXEQReset.Click += new EventHandler(this.btnRXEQReset_Click);
             // 
             // chkRXEQEnabled
             // 
             this.chkRXEQEnabled.Image = null;
-            this.chkRXEQEnabled.Location = new System.Drawing.Point(16, 24);
+            this.chkRXEQEnabled.Location = new Point(16, 24);
             this.chkRXEQEnabled.Name = "chkRXEQEnabled";
-            this.chkRXEQEnabled.Size = new System.Drawing.Size(72, 16);
+            this.chkRXEQEnabled.Size = new Size(72, 16);
             this.chkRXEQEnabled.TabIndex = 109;
             this.chkRXEQEnabled.Text = "Enabled";
-            this.chkRXEQEnabled.CheckedChanged += new System.EventHandler(this.chkRXEQEnabled_CheckedChanged);
+            this.chkRXEQEnabled.CheckedChanged += new EventHandler(this.chkRXEQEnabled_CheckedChanged);
             // 
             // tbRXEQ1
             // 
             this.tbRXEQ1.AutoSize = false;
             this.tbRXEQ1.LargeChange = 3;
-            this.tbRXEQ1.Location = new System.Drawing.Point(88, 72);
+            this.tbRXEQ1.Location = new Point(88, 72);
             this.tbRXEQ1.Maximum = 15;
             this.tbRXEQ1.Minimum = -12;
             this.tbRXEQ1.Name = "tbRXEQ1";
             this.tbRXEQ1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbRXEQ1.Size = new System.Drawing.Size(32, 128);
+            this.tbRXEQ1.Size = new Size(32, 128);
             this.tbRXEQ1.TabIndex = 4;
             this.tbRXEQ1.TickFrequency = 3;
-            this.tbRXEQ1.Scroll += new System.EventHandler(this.tbRXEQ_Scroll);
+            this.tbRXEQ1.Scroll += new EventHandler(this.tbRXEQ_Scroll);
             // 
             // tbRXEQ2
             // 
             this.tbRXEQ2.AutoSize = false;
             this.tbRXEQ2.LargeChange = 3;
-            this.tbRXEQ2.Location = new System.Drawing.Point(128, 72);
+            this.tbRXEQ2.Location = new Point(128, 72);
             this.tbRXEQ2.Maximum = 15;
             this.tbRXEQ2.Minimum = -12;
             this.tbRXEQ2.Name = "tbRXEQ2";
             this.tbRXEQ2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbRXEQ2.Size = new System.Drawing.Size(32, 128);
+            this.tbRXEQ2.Size = new Size(32, 128);
             this.tbRXEQ2.TabIndex = 5;
             this.tbRXEQ2.TickFrequency = 3;
-            this.tbRXEQ2.Scroll += new System.EventHandler(this.tbRXEQ_Scroll);
+            this.tbRXEQ2.Scroll += new EventHandler(this.tbRXEQ_Scroll);
             // 
             // tbRXEQ3
             // 
             this.tbRXEQ3.AutoSize = false;
             this.tbRXEQ3.LargeChange = 3;
-            this.tbRXEQ3.Location = new System.Drawing.Point(168, 72);
+            this.tbRXEQ3.Location = new Point(168, 72);
             this.tbRXEQ3.Maximum = 15;
             this.tbRXEQ3.Minimum = -12;
             this.tbRXEQ3.Name = "tbRXEQ3";
             this.tbRXEQ3.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbRXEQ3.Size = new System.Drawing.Size(32, 128);
+            this.tbRXEQ3.Size = new Size(32, 128);
             this.tbRXEQ3.TabIndex = 6;
             this.tbRXEQ3.TickFrequency = 3;
-            this.tbRXEQ3.Scroll += new System.EventHandler(this.tbRXEQ_Scroll);
+            this.tbRXEQ3.Scroll += new EventHandler(this.tbRXEQ_Scroll);
             // 
             // lblRXEQ2
             // 
             this.lblRXEQ2.Image = null;
-            this.lblRXEQ2.Location = new System.Drawing.Point(120, 56);
+            this.lblRXEQ2.Location = new Point(120, 56);
             this.lblRXEQ2.Name = "lblRXEQ2";
-            this.lblRXEQ2.Size = new System.Drawing.Size(40, 16);
+            this.lblRXEQ2.Size = new Size(40, 16);
             this.lblRXEQ2.TabIndex = 44;
             this.lblRXEQ2.Text = "63";
             this.lblRXEQ2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -626,9 +626,9 @@ namespace Thetis
             // lblRXEQ3
             // 
             this.lblRXEQ3.Image = null;
-            this.lblRXEQ3.Location = new System.Drawing.Point(160, 56);
+            this.lblRXEQ3.Location = new Point(160, 56);
             this.lblRXEQ3.Name = "lblRXEQ3";
-            this.lblRXEQ3.Size = new System.Drawing.Size(40, 16);
+            this.lblRXEQ3.Size = new Size(40, 16);
             this.lblRXEQ3.TabIndex = 45;
             this.lblRXEQ3.Text = "125";
             this.lblRXEQ3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -636,11 +636,11 @@ namespace Thetis
             // 
             // lblRXEQPreamp
             // 
-            this.lblRXEQPreamp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRXEQPreamp.Font = new Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRXEQPreamp.Image = null;
-            this.lblRXEQPreamp.Location = new System.Drawing.Point(8, 56);
+            this.lblRXEQPreamp.Location = new Point(8, 56);
             this.lblRXEQPreamp.Name = "lblRXEQPreamp";
-            this.lblRXEQPreamp.Size = new System.Drawing.Size(48, 16);
+            this.lblRXEQPreamp.Size = new Size(48, 16);
             this.lblRXEQPreamp.TabIndex = 74;
             this.lblRXEQPreamp.Text = "Preamp";
             this.lblRXEQPreamp.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -649,22 +649,22 @@ namespace Thetis
             // 
             this.tbRXEQPreamp.AutoSize = false;
             this.tbRXEQPreamp.LargeChange = 3;
-            this.tbRXEQPreamp.Location = new System.Drawing.Point(16, 72);
+            this.tbRXEQPreamp.Location = new Point(16, 72);
             this.tbRXEQPreamp.Maximum = 15;
             this.tbRXEQPreamp.Minimum = -12;
             this.tbRXEQPreamp.Name = "tbRXEQPreamp";
             this.tbRXEQPreamp.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbRXEQPreamp.Size = new System.Drawing.Size(32, 128);
+            this.tbRXEQPreamp.Size = new Size(32, 128);
             this.tbRXEQPreamp.TabIndex = 35;
             this.tbRXEQPreamp.TickFrequency = 3;
-            this.tbRXEQPreamp.Scroll += new System.EventHandler(this.tbRXEQ_Scroll);
+            this.tbRXEQPreamp.Scroll += new EventHandler(this.tbRXEQ_Scroll);
             // 
             // lblRXEQ15db
             // 
             this.lblRXEQ15db.Image = null;
-            this.lblRXEQ15db.Location = new System.Drawing.Point(56, 78);
+            this.lblRXEQ15db.Location = new Point(56, 78);
             this.lblRXEQ15db.Name = "lblRXEQ15db";
-            this.lblRXEQ15db.Size = new System.Drawing.Size(32, 16);
+            this.lblRXEQ15db.Size = new Size(32, 16);
             this.lblRXEQ15db.TabIndex = 40;
             this.lblRXEQ15db.Text = "15dB";
             this.lblRXEQ15db.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -672,9 +672,9 @@ namespace Thetis
             // lblRXEQ0dB
             // 
             this.lblRXEQ0dB.Image = null;
-            this.lblRXEQ0dB.Location = new System.Drawing.Point(56, 134);
+            this.lblRXEQ0dB.Location = new Point(56, 134);
             this.lblRXEQ0dB.Name = "lblRXEQ0dB";
-            this.lblRXEQ0dB.Size = new System.Drawing.Size(32, 16);
+            this.lblRXEQ0dB.Size = new Size(32, 16);
             this.lblRXEQ0dB.TabIndex = 41;
             this.lblRXEQ0dB.Text = "  0dB";
             this.lblRXEQ0dB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -682,9 +682,9 @@ namespace Thetis
             // lblRXEQminus12db
             // 
             this.lblRXEQminus12db.Image = null;
-            this.lblRXEQminus12db.Location = new System.Drawing.Point(52, 178);
+            this.lblRXEQminus12db.Location = new Point(52, 178);
             this.lblRXEQminus12db.Name = "lblRXEQminus12db";
-            this.lblRXEQminus12db.Size = new System.Drawing.Size(38, 16);
+            this.lblRXEQminus12db.Size = new Size(38, 16);
             this.lblRXEQminus12db.TabIndex = 42;
             this.lblRXEQminus12db.Text = "-12dB";
             this.lblRXEQminus12db.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -722,32 +722,32 @@ namespace Thetis
             this.grpTXEQ.Controls.Add(this.lblTXEQ15db);
             this.grpTXEQ.Controls.Add(this.lblTXEQ0dB);
             this.grpTXEQ.Controls.Add(this.lblTXEQminus12db);
-            this.grpTXEQ.Location = new System.Drawing.Point(8, 272);
+            this.grpTXEQ.Location = new Point(8, 272);
             this.grpTXEQ.Name = "grpTXEQ";
-            this.grpTXEQ.Size = new System.Drawing.Size(528, 224);
+            this.grpTXEQ.Size = new Size(528, 224);
             this.grpTXEQ.TabIndex = 1;
             this.grpTXEQ.TabStop = false;
             this.grpTXEQ.Text = "Transmit Equalizer";
             // 
             // btnTXEQReset
             // 
-            this.btnTXEQReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTXEQReset.Font = new Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTXEQReset.Image = null;
-            this.btnTXEQReset.Location = new System.Drawing.Point(478, 14);
+            this.btnTXEQReset.Location = new Point(478, 14);
             this.btnTXEQReset.Name = "btnTXEQReset";
-            this.btnTXEQReset.Size = new System.Drawing.Size(42, 20);
+            this.btnTXEQReset.Size = new Size(42, 20);
             this.btnTXEQReset.TabIndex = 160;
             this.btnTXEQReset.Text = "Reset";
-            this.btnTXEQReset.Click += new System.EventHandler(this.btnTXEQReset_Click);
+            this.btnTXEQReset.Click += new EventHandler(this.btnTXEQReset_Click);
             // 
             // lblCFCFreq
             // 
             this.lblCFCFreq.AutoSize = true;
-            this.lblCFCFreq.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCFCFreq.Font = new Font("Microsoft Sans Serif", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCFCFreq.Image = null;
-            this.lblCFCFreq.Location = new System.Drawing.Point(38, 50);
+            this.lblCFCFreq.Location = new Point(38, 50);
             this.lblCFCFreq.Name = "lblCFCFreq";
-            this.lblCFCFreq.Size = new System.Drawing.Size(35, 13);
+            this.lblCFCFreq.Size = new Size(35, 13);
             this.lblCFCFreq.TabIndex = 159;
             this.lblCFCFreq.Text = "FREQ";
             // 
@@ -758,7 +758,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udTXEQ9.Location = new System.Drawing.Point(438, 37);
+            this.udTXEQ9.Location = new Point(438, 37);
             this.udTXEQ9.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -770,14 +770,14 @@ namespace Thetis
             0,
             0});
             this.udTXEQ9.Name = "udTXEQ9";
-            this.udTXEQ9.Size = new System.Drawing.Size(50, 20);
+            this.udTXEQ9.Size = new Size(50, 20);
             this.udTXEQ9.TabIndex = 158;
             this.udTXEQ9.Value = new decimal(new int[] {
             16000,
             0,
             0,
             0});
-            this.udTXEQ9.ValueChanged += new System.EventHandler(this.setTXEQProfile);
+            this.udTXEQ9.ValueChanged += new EventHandler(this.setTXEQProfile);
             // 
             // udTXEQ8
             // 
@@ -786,7 +786,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udTXEQ8.Location = new System.Drawing.Point(398, 60);
+            this.udTXEQ8.Location = new Point(398, 60);
             this.udTXEQ8.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -798,14 +798,14 @@ namespace Thetis
             0,
             0});
             this.udTXEQ8.Name = "udTXEQ8";
-            this.udTXEQ8.Size = new System.Drawing.Size(50, 20);
+            this.udTXEQ8.Size = new Size(50, 20);
             this.udTXEQ8.TabIndex = 157;
             this.udTXEQ8.Value = new decimal(new int[] {
             8000,
             0,
             0,
             0});
-            this.udTXEQ8.ValueChanged += new System.EventHandler(this.setTXEQProfile);
+            this.udTXEQ8.ValueChanged += new EventHandler(this.setTXEQProfile);
             // 
             // udTXEQ7
             // 
@@ -814,7 +814,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udTXEQ7.Location = new System.Drawing.Point(358, 37);
+            this.udTXEQ7.Location = new Point(358, 37);
             this.udTXEQ7.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -826,14 +826,14 @@ namespace Thetis
             0,
             0});
             this.udTXEQ7.Name = "udTXEQ7";
-            this.udTXEQ7.Size = new System.Drawing.Size(50, 20);
+            this.udTXEQ7.Size = new Size(50, 20);
             this.udTXEQ7.TabIndex = 156;
             this.udTXEQ7.Value = new decimal(new int[] {
             4000,
             0,
             0,
             0});
-            this.udTXEQ7.ValueChanged += new System.EventHandler(this.setTXEQProfile);
+            this.udTXEQ7.ValueChanged += new EventHandler(this.setTXEQProfile);
             // 
             // udTXEQ6
             // 
@@ -842,7 +842,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udTXEQ6.Location = new System.Drawing.Point(318, 60);
+            this.udTXEQ6.Location = new Point(318, 60);
             this.udTXEQ6.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -854,14 +854,14 @@ namespace Thetis
             0,
             0});
             this.udTXEQ6.Name = "udTXEQ6";
-            this.udTXEQ6.Size = new System.Drawing.Size(50, 20);
+            this.udTXEQ6.Size = new Size(50, 20);
             this.udTXEQ6.TabIndex = 155;
             this.udTXEQ6.Value = new decimal(new int[] {
             2000,
             0,
             0,
             0});
-            this.udTXEQ6.ValueChanged += new System.EventHandler(this.setTXEQProfile);
+            this.udTXEQ6.ValueChanged += new EventHandler(this.setTXEQProfile);
             // 
             // udTXEQ5
             // 
@@ -870,7 +870,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udTXEQ5.Location = new System.Drawing.Point(278, 37);
+            this.udTXEQ5.Location = new Point(278, 37);
             this.udTXEQ5.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -882,14 +882,14 @@ namespace Thetis
             0,
             0});
             this.udTXEQ5.Name = "udTXEQ5";
-            this.udTXEQ5.Size = new System.Drawing.Size(50, 20);
+            this.udTXEQ5.Size = new Size(50, 20);
             this.udTXEQ5.TabIndex = 154;
             this.udTXEQ5.Value = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.udTXEQ5.ValueChanged += new System.EventHandler(this.setTXEQProfile);
+            this.udTXEQ5.ValueChanged += new EventHandler(this.setTXEQProfile);
             // 
             // udTXEQ4
             // 
@@ -898,7 +898,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udTXEQ4.Location = new System.Drawing.Point(238, 60);
+            this.udTXEQ4.Location = new Point(238, 60);
             this.udTXEQ4.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -910,14 +910,14 @@ namespace Thetis
             0,
             0});
             this.udTXEQ4.Name = "udTXEQ4";
-            this.udTXEQ4.Size = new System.Drawing.Size(50, 20);
+            this.udTXEQ4.Size = new Size(50, 20);
             this.udTXEQ4.TabIndex = 153;
             this.udTXEQ4.Value = new decimal(new int[] {
             500,
             0,
             0,
             0});
-            this.udTXEQ4.ValueChanged += new System.EventHandler(this.setTXEQProfile);
+            this.udTXEQ4.ValueChanged += new EventHandler(this.setTXEQProfile);
             // 
             // udTXEQ3
             // 
@@ -926,7 +926,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udTXEQ3.Location = new System.Drawing.Point(198, 37);
+            this.udTXEQ3.Location = new Point(198, 37);
             this.udTXEQ3.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -938,14 +938,14 @@ namespace Thetis
             0,
             0});
             this.udTXEQ3.Name = "udTXEQ3";
-            this.udTXEQ3.Size = new System.Drawing.Size(50, 20);
+            this.udTXEQ3.Size = new Size(50, 20);
             this.udTXEQ3.TabIndex = 152;
             this.udTXEQ3.Value = new decimal(new int[] {
             250,
             0,
             0,
             0});
-            this.udTXEQ3.ValueChanged += new System.EventHandler(this.setTXEQProfile);
+            this.udTXEQ3.ValueChanged += new EventHandler(this.setTXEQProfile);
             // 
             // udTXEQ2
             // 
@@ -954,7 +954,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udTXEQ2.Location = new System.Drawing.Point(158, 60);
+            this.udTXEQ2.Location = new Point(158, 60);
             this.udTXEQ2.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -966,14 +966,14 @@ namespace Thetis
             0,
             0});
             this.udTXEQ2.Name = "udTXEQ2";
-            this.udTXEQ2.Size = new System.Drawing.Size(50, 20);
+            this.udTXEQ2.Size = new Size(50, 20);
             this.udTXEQ2.TabIndex = 151;
             this.udTXEQ2.Value = new decimal(new int[] {
             125,
             0,
             0,
             0});
-            this.udTXEQ2.ValueChanged += new System.EventHandler(this.setTXEQProfile);
+            this.udTXEQ2.ValueChanged += new EventHandler(this.setTXEQProfile);
             // 
             // udTXEQ1
             // 
@@ -982,7 +982,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udTXEQ1.Location = new System.Drawing.Point(118, 37);
+            this.udTXEQ1.Location = new Point(118, 37);
             this.udTXEQ1.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -994,14 +994,14 @@ namespace Thetis
             0,
             0});
             this.udTXEQ1.Name = "udTXEQ1";
-            this.udTXEQ1.Size = new System.Drawing.Size(50, 20);
+            this.udTXEQ1.Size = new Size(50, 20);
             this.udTXEQ1.TabIndex = 150;
             this.udTXEQ1.Value = new decimal(new int[] {
             63,
             0,
             0,
             0});
-            this.udTXEQ1.ValueChanged += new System.EventHandler(this.setTXEQProfile);
+            this.udTXEQ1.ValueChanged += new EventHandler(this.setTXEQProfile);
             // 
             // udTXEQ0
             // 
@@ -1010,7 +1010,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udTXEQ0.Location = new System.Drawing.Point(78, 60);
+            this.udTXEQ0.Location = new Point(78, 60);
             this.udTXEQ0.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -1022,32 +1022,32 @@ namespace Thetis
             0,
             0});
             this.udTXEQ0.Name = "udTXEQ0";
-            this.udTXEQ0.Size = new System.Drawing.Size(50, 20);
+            this.udTXEQ0.Size = new Size(50, 20);
             this.udTXEQ0.TabIndex = 149;
             this.udTXEQ0.Value = new decimal(new int[] {
             32,
             0,
             0,
             0});
-            this.udTXEQ0.ValueChanged += new System.EventHandler(this.setTXEQProfile);
+            this.udTXEQ0.ValueChanged += new EventHandler(this.setTXEQProfile);
             // 
             // lblTXEQ15db2
             // 
             this.lblTXEQ15db2.Image = null;
-            this.lblTXEQ15db2.Location = new System.Drawing.Point(483, 87);
+            this.lblTXEQ15db2.Location = new Point(483, 87);
             this.lblTXEQ15db2.Name = "lblTXEQ15db2";
-            this.lblTXEQ15db2.Size = new System.Drawing.Size(32, 16);
+            this.lblTXEQ15db2.Size = new Size(32, 16);
             this.lblTXEQ15db2.TabIndex = 129;
             this.lblTXEQ15db2.Text = "40dB";
             this.lblTXEQ15db2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblTXEQ15db2.Click += new System.EventHandler(this.lblTXEQ15db2_Click);
+            this.lblTXEQ15db2.Click += new EventHandler(this.lblTXEQ15db2_Click);
             // 
             // lblTXEQ0dB2
             // 
             this.lblTXEQ0dB2.Image = null;
-            this.lblTXEQ0dB2.Location = new System.Drawing.Point(483, 138);
+            this.lblTXEQ0dB2.Location = new Point(483, 138);
             this.lblTXEQ0dB2.Name = "lblTXEQ0dB2";
-            this.lblTXEQ0dB2.Size = new System.Drawing.Size(32, 16);
+            this.lblTXEQ0dB2.Size = new Size(32, 16);
             this.lblTXEQ0dB2.TabIndex = 128;
             this.lblTXEQ0dB2.Text = "  0dB";
             this.lblTXEQ0dB2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1055,9 +1055,9 @@ namespace Thetis
             // lblTXEQminus12db2
             // 
             this.lblTXEQminus12db2.Image = null;
-            this.lblTXEQminus12db2.Location = new System.Drawing.Point(480, 187);
+            this.lblTXEQminus12db2.Location = new Point(480, 187);
             this.lblTXEQminus12db2.Name = "lblTXEQminus12db2";
-            this.lblTXEQminus12db2.Size = new System.Drawing.Size(38, 16);
+            this.lblTXEQminus12db2.Size = new Size(38, 16);
             this.lblTXEQminus12db2.TabIndex = 130;
             this.lblTXEQminus12db2.Text = "-40dB";
             this.lblTXEQminus12db2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1066,159 +1066,159 @@ namespace Thetis
             // 
             this.tbTXEQ9.AutoSize = false;
             this.tbTXEQ9.LargeChange = 3;
-            this.tbTXEQ9.Location = new System.Drawing.Point(448, 81);
+            this.tbTXEQ9.Location = new Point(448, 81);
             this.tbTXEQ9.Maximum = 40;
             this.tbTXEQ9.Minimum = -40;
             this.tbTXEQ9.Name = "tbTXEQ9";
             this.tbTXEQ9.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbTXEQ9.Size = new System.Drawing.Size(32, 128);
+            this.tbTXEQ9.Size = new Size(32, 128);
             this.tbTXEQ9.TabIndex = 126;
             this.tbTXEQ9.TickFrequency = 3;
-            this.tbTXEQ9.Scroll += new System.EventHandler(this.setTXEQProfile);
+            this.tbTXEQ9.Scroll += new EventHandler(this.setTXEQProfile);
             // 
             // tbTXEQ6
             // 
             this.tbTXEQ6.AutoSize = false;
             this.tbTXEQ6.LargeChange = 3;
-            this.tbTXEQ6.Location = new System.Drawing.Point(328, 81);
+            this.tbTXEQ6.Location = new Point(328, 81);
             this.tbTXEQ6.Maximum = 40;
             this.tbTXEQ6.Minimum = -40;
             this.tbTXEQ6.Name = "tbTXEQ6";
             this.tbTXEQ6.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbTXEQ6.Size = new System.Drawing.Size(32, 128);
+            this.tbTXEQ6.Size = new Size(32, 128);
             this.tbTXEQ6.TabIndex = 120;
             this.tbTXEQ6.TickFrequency = 3;
-            this.tbTXEQ6.Scroll += new System.EventHandler(this.setTXEQProfile);
+            this.tbTXEQ6.Scroll += new EventHandler(this.setTXEQProfile);
             // 
             // tbTXEQ7
             // 
             this.tbTXEQ7.AutoSize = false;
             this.tbTXEQ7.LargeChange = 3;
-            this.tbTXEQ7.Location = new System.Drawing.Point(368, 81);
+            this.tbTXEQ7.Location = new Point(368, 81);
             this.tbTXEQ7.Maximum = 40;
             this.tbTXEQ7.Minimum = -40;
             this.tbTXEQ7.Name = "tbTXEQ7";
             this.tbTXEQ7.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbTXEQ7.Size = new System.Drawing.Size(32, 128);
+            this.tbTXEQ7.Size = new Size(32, 128);
             this.tbTXEQ7.TabIndex = 121;
             this.tbTXEQ7.TickFrequency = 3;
-            this.tbTXEQ7.Scroll += new System.EventHandler(this.setTXEQProfile);
+            this.tbTXEQ7.Scroll += new EventHandler(this.setTXEQProfile);
             // 
             // tbTXEQ8
             // 
             this.tbTXEQ8.AutoSize = false;
             this.tbTXEQ8.LargeChange = 3;
-            this.tbTXEQ8.Location = new System.Drawing.Point(408, 81);
+            this.tbTXEQ8.Location = new Point(408, 81);
             this.tbTXEQ8.Maximum = 40;
             this.tbTXEQ8.Minimum = -40;
             this.tbTXEQ8.Name = "tbTXEQ8";
             this.tbTXEQ8.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbTXEQ8.Size = new System.Drawing.Size(32, 128);
+            this.tbTXEQ8.Size = new Size(32, 128);
             this.tbTXEQ8.TabIndex = 122;
             this.tbTXEQ8.TickFrequency = 3;
-            this.tbTXEQ8.Scroll += new System.EventHandler(this.setTXEQProfile);
+            this.tbTXEQ8.Scroll += new EventHandler(this.setTXEQProfile);
             // 
             // tbTXEQ3
             // 
             this.tbTXEQ3.AutoSize = false;
             this.tbTXEQ3.LargeChange = 3;
-            this.tbTXEQ3.Location = new System.Drawing.Point(208, 81);
+            this.tbTXEQ3.Location = new Point(208, 81);
             this.tbTXEQ3.Maximum = 40;
             this.tbTXEQ3.Minimum = -40;
             this.tbTXEQ3.Name = "tbTXEQ3";
             this.tbTXEQ3.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbTXEQ3.Size = new System.Drawing.Size(32, 128);
+            this.tbTXEQ3.Size = new Size(32, 128);
             this.tbTXEQ3.TabIndex = 114;
             this.tbTXEQ3.TickFrequency = 3;
-            this.tbTXEQ3.Scroll += new System.EventHandler(this.setTXEQProfile);
+            this.tbTXEQ3.Scroll += new EventHandler(this.setTXEQProfile);
             // 
             // tbTXEQ4
             // 
             this.tbTXEQ4.AutoSize = false;
             this.tbTXEQ4.LargeChange = 3;
-            this.tbTXEQ4.Location = new System.Drawing.Point(248, 81);
+            this.tbTXEQ4.Location = new Point(248, 81);
             this.tbTXEQ4.Maximum = 40;
             this.tbTXEQ4.Minimum = -40;
             this.tbTXEQ4.Name = "tbTXEQ4";
             this.tbTXEQ4.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbTXEQ4.Size = new System.Drawing.Size(32, 128);
+            this.tbTXEQ4.Size = new Size(32, 128);
             this.tbTXEQ4.TabIndex = 115;
             this.tbTXEQ4.TickFrequency = 3;
-            this.tbTXEQ4.Scroll += new System.EventHandler(this.setTXEQProfile);
+            this.tbTXEQ4.Scroll += new EventHandler(this.setTXEQProfile);
             // 
             // tbTXEQ5
             // 
             this.tbTXEQ5.AutoSize = false;
             this.tbTXEQ5.LargeChange = 3;
-            this.tbTXEQ5.Location = new System.Drawing.Point(288, 81);
+            this.tbTXEQ5.Location = new Point(288, 81);
             this.tbTXEQ5.Maximum = 40;
             this.tbTXEQ5.Minimum = -40;
             this.tbTXEQ5.Name = "tbTXEQ5";
             this.tbTXEQ5.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbTXEQ5.Size = new System.Drawing.Size(32, 128);
+            this.tbTXEQ5.Size = new Size(32, 128);
             this.tbTXEQ5.TabIndex = 116;
             this.tbTXEQ5.TickFrequency = 3;
-            this.tbTXEQ5.Scroll += new System.EventHandler(this.setTXEQProfile);
+            this.tbTXEQ5.Scroll += new EventHandler(this.setTXEQProfile);
             // 
             // chkTXEQEnabled
             // 
             this.chkTXEQEnabled.Image = null;
-            this.chkTXEQEnabled.Location = new System.Drawing.Point(16, 18);
+            this.chkTXEQEnabled.Location = new Point(16, 18);
             this.chkTXEQEnabled.Name = "chkTXEQEnabled";
-            this.chkTXEQEnabled.Size = new System.Drawing.Size(72, 16);
+            this.chkTXEQEnabled.Size = new Size(72, 16);
             this.chkTXEQEnabled.TabIndex = 106;
             this.chkTXEQEnabled.Text = "Enabled";
-            this.chkTXEQEnabled.CheckedChanged += new System.EventHandler(this.chkTXEQEnabled_CheckedChanged);
+            this.chkTXEQEnabled.CheckedChanged += new EventHandler(this.chkTXEQEnabled_CheckedChanged);
             // 
             // tbTXEQ0
             // 
             this.tbTXEQ0.AutoSize = false;
             this.tbTXEQ0.LargeChange = 3;
-            this.tbTXEQ0.Location = new System.Drawing.Point(88, 81);
+            this.tbTXEQ0.Location = new Point(88, 81);
             this.tbTXEQ0.Maximum = 40;
             this.tbTXEQ0.Minimum = -40;
             this.tbTXEQ0.Name = "tbTXEQ0";
             this.tbTXEQ0.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbTXEQ0.Size = new System.Drawing.Size(32, 128);
+            this.tbTXEQ0.Size = new Size(32, 128);
             this.tbTXEQ0.TabIndex = 4;
             this.tbTXEQ0.TickFrequency = 3;
-            this.tbTXEQ0.Scroll += new System.EventHandler(this.setTXEQProfile);
+            this.tbTXEQ0.Scroll += new EventHandler(this.setTXEQProfile);
             // 
             // tbTXEQ1
             // 
             this.tbTXEQ1.AutoSize = false;
             this.tbTXEQ1.LargeChange = 3;
-            this.tbTXEQ1.Location = new System.Drawing.Point(128, 81);
+            this.tbTXEQ1.Location = new Point(128, 81);
             this.tbTXEQ1.Maximum = 40;
             this.tbTXEQ1.Minimum = -40;
             this.tbTXEQ1.Name = "tbTXEQ1";
             this.tbTXEQ1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbTXEQ1.Size = new System.Drawing.Size(32, 128);
+            this.tbTXEQ1.Size = new Size(32, 128);
             this.tbTXEQ1.TabIndex = 5;
             this.tbTXEQ1.TickFrequency = 3;
-            this.tbTXEQ1.Scroll += new System.EventHandler(this.setTXEQProfile);
+            this.tbTXEQ1.Scroll += new EventHandler(this.setTXEQProfile);
             // 
             // tbTXEQ2
             // 
             this.tbTXEQ2.AutoSize = false;
             this.tbTXEQ2.LargeChange = 3;
-            this.tbTXEQ2.Location = new System.Drawing.Point(168, 81);
+            this.tbTXEQ2.Location = new Point(168, 81);
             this.tbTXEQ2.Maximum = 40;
             this.tbTXEQ2.Minimum = -40;
             this.tbTXEQ2.Name = "tbTXEQ2";
             this.tbTXEQ2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbTXEQ2.Size = new System.Drawing.Size(32, 128);
+            this.tbTXEQ2.Size = new Size(32, 128);
             this.tbTXEQ2.TabIndex = 6;
             this.tbTXEQ2.TickFrequency = 3;
-            this.tbTXEQ2.Scroll += new System.EventHandler(this.setTXEQProfile);
+            this.tbTXEQ2.Scroll += new EventHandler(this.setTXEQProfile);
             // 
             // lblTXEQPreamp
             // 
-            this.lblTXEQPreamp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTXEQPreamp.Font = new Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTXEQPreamp.Image = null;
-            this.lblTXEQPreamp.Location = new System.Drawing.Point(13, 69);
+            this.lblTXEQPreamp.Location = new Point(13, 69);
             this.lblTXEQPreamp.Name = "lblTXEQPreamp";
-            this.lblTXEQPreamp.Size = new System.Drawing.Size(48, 16);
+            this.lblTXEQPreamp.Size = new Size(48, 16);
             this.lblTXEQPreamp.TabIndex = 105;
             this.lblTXEQPreamp.Text = "Preamp";
             this.lblTXEQPreamp.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -1227,22 +1227,22 @@ namespace Thetis
             // 
             this.tbTXEQPre.AutoSize = false;
             this.tbTXEQPre.LargeChange = 3;
-            this.tbTXEQPre.Location = new System.Drawing.Point(34, 81);
+            this.tbTXEQPre.Location = new Point(34, 81);
             this.tbTXEQPre.Maximum = 15;
             this.tbTXEQPre.Minimum = -12;
             this.tbTXEQPre.Name = "tbTXEQPre";
             this.tbTXEQPre.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbTXEQPre.Size = new System.Drawing.Size(32, 128);
+            this.tbTXEQPre.Size = new Size(32, 128);
             this.tbTXEQPre.TabIndex = 36;
             this.tbTXEQPre.TickFrequency = 3;
-            this.tbTXEQPre.Scroll += new System.EventHandler(this.setTXEQProfile);
+            this.tbTXEQPre.Scroll += new EventHandler(this.setTXEQProfile);
             // 
             // lblTXEQ15db
             // 
             this.lblTXEQ15db.Image = null;
-            this.lblTXEQ15db.Location = new System.Drawing.Point(2, 89);
+            this.lblTXEQ15db.Location = new Point(2, 89);
             this.lblTXEQ15db.Name = "lblTXEQ15db";
-            this.lblTXEQ15db.Size = new System.Drawing.Size(32, 16);
+            this.lblTXEQ15db.Size = new Size(32, 16);
             this.lblTXEQ15db.TabIndex = 43;
             this.lblTXEQ15db.Text = "15dB";
             this.lblTXEQ15db.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1250,9 +1250,9 @@ namespace Thetis
             // lblTXEQ0dB
             // 
             this.lblTXEQ0dB.Image = null;
-            this.lblTXEQ0dB.Location = new System.Drawing.Point(2, 142);
+            this.lblTXEQ0dB.Location = new Point(2, 142);
             this.lblTXEQ0dB.Name = "lblTXEQ0dB";
-            this.lblTXEQ0dB.Size = new System.Drawing.Size(32, 16);
+            this.lblTXEQ0dB.Size = new Size(32, 16);
             this.lblTXEQ0dB.TabIndex = 0;
             this.lblTXEQ0dB.Text = "  0dB";
             this.lblTXEQ0dB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1260,22 +1260,22 @@ namespace Thetis
             // lblTXEQminus12db
             // 
             this.lblTXEQminus12db.Image = null;
-            this.lblTXEQminus12db.Location = new System.Drawing.Point(-2, 185);
+            this.lblTXEQminus12db.Location = new Point(-2, 185);
             this.lblTXEQminus12db.Name = "lblTXEQminus12db";
-            this.lblTXEQminus12db.Size = new System.Drawing.Size(38, 16);
+            this.lblTXEQminus12db.Size = new Size(38, 16);
             this.lblTXEQminus12db.TabIndex = 45;
             this.lblTXEQminus12db.Text = "-12dB";
             this.lblTXEQminus12db.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // EQForm
             // 
-            this.ClientSize = new System.Drawing.Size(544, 502);
+            this.ClientSize = new Size(544, 502);
             this.Controls.Add(this.rad10Band);
             this.Controls.Add(this.rad3Band);
             this.Controls.Add(this.grpRXEQ);
             this.Controls.Add(this.grpTXEQ);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "EQForm";
             this.Text = "Equalizer Settings";
@@ -1537,7 +1537,7 @@ namespace Thetis
             Common.SaveForm(this, "EQForm");
         }
 
-        private void tbRXEQ_Scroll(object sender, System.EventArgs e) {
+        private void tbRXEQ_Scroll(object sender, EventArgs e) {
           int[] rxeq = RXEQ;
           if (rad3Band.Checked) {
             console.radio.GetDSPRX(0, 0).RXEQ3 = rxeq;
@@ -1565,7 +1565,7 @@ namespace Thetis
         //    picTXEQ.Invalidate();
         //}
 
-        private void picRXEQ_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+        private void picRXEQ_Paint(object sender, PaintEventArgs e)
         {
             int[] rxeq = RXEQ;
             if (!chkRXEQEnabled.Checked)
@@ -1609,21 +1609,21 @@ namespace Thetis
         //    e.Graphics.DrawLines(new Pen(Color.LightGreen), points);
         //}
 
-        private void chkRXEQEnabled_CheckedChanged(object sender, System.EventArgs e)
+        private void chkRXEQEnabled_CheckedChanged(object sender, EventArgs e)
         {
             console.radio.GetDSPRX(0, 0).RXEQOn = chkRXEQEnabled.Checked;
             picRXEQ.Invalidate();
             console.RXEQ = chkRXEQEnabled.Checked;
         }
 
-        private void chkTXEQEnabled_CheckedChanged(object sender, System.EventArgs e)
+        private void chkTXEQEnabled_CheckedChanged(object sender, EventArgs e)
         {
             console.radio.GetDSPTX(0).TXEQOn = chkTXEQEnabled.Checked;
             //picTXEQ.Invalidate();
             console.TXEQ = chkTXEQEnabled.Checked;
         }
 
-        private void btnRXEQReset_Click(object sender, System.EventArgs e)
+        private void btnRXEQReset_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show(
                 "Are you sure you want to reset the Receive Equalizer\n" +
@@ -1665,7 +1665,7 @@ namespace Thetis
         //    //tbTXEQ_Scroll(this, EventArgs.Empty);
         //}
 
-        private void rad3Band_CheckedChanged(object sender, System.EventArgs e)
+        private void rad3Band_CheckedChanged(object sender, EventArgs e)
         {
             if (rad3Band.Checked)
             {
@@ -1737,7 +1737,7 @@ namespace Thetis
             }
         }
 
-        private void rad10Band_CheckedChanged(object sender, System.EventArgs e)
+        private void rad10Band_CheckedChanged(object sender, EventArgs e)
         {
             if (rad10Band.Checked)
             {

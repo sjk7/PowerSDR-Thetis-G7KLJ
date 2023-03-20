@@ -109,7 +109,7 @@ namespace Thetis
             public string name => _name == IntPtr.Zero ? null : Marshal.PtrToStringAnsi(_name);
 
             public int structVersion;
-            private IntPtr _name;
+            private readonly IntPtr _name;
             // [MarshalAs(UnmanagedType.LPStr)]
             // public string name;
             public PaHostApiIndex hostApi;

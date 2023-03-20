@@ -36,7 +36,7 @@ namespace Thetis
 
         // instance vars 
         // 
-        private int portNum = 0;
+        private readonly int portNum = 0;
         private bool rtsIsPTT = false;
         public bool RTSIsPTT
         {

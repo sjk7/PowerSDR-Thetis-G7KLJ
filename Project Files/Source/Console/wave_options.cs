@@ -35,15 +35,15 @@ namespace Thetis {
 public class WaveOptions : Form {
 #region Variable Declaration
 
-  private System.Windows.Forms.GroupBoxTS grpReceive;
-  public System.Windows.Forms.RadioButtonTS radRXPreProcessed;
-  private System.Windows.Forms.GroupBoxTS groupBox1;
-  private System.Windows.Forms.ToolTip toolTip1;
-  private System.Windows.Forms.RadioButtonTS radRXPostProcessed;
-  private System.Windows.Forms.RadioButtonTS radTXPostProcessed;
-  public System.Windows.Forms.RadioButtonTS radTXPreProcessed;
-  private System.Windows.Forms.GroupBoxTS grpAudioSampleRate1;
-  public System.Windows.Forms.ComboBoxTS comboSampleRate;
+  private GroupBoxTS grpReceive;
+  public RadioButtonTS radRXPreProcessed;
+  private GroupBoxTS groupBox1;
+  private ToolTip toolTip1;
+  private RadioButtonTS radRXPostProcessed;
+  private RadioButtonTS radTXPostProcessed;
+  public RadioButtonTS radTXPreProcessed;
+  private GroupBoxTS grpAudioSampleRate1;
+  public ComboBoxTS comboSampleRate;
   private GroupBoxTS grpBitDepth;
   private RadioButtonTS radBitDepth8PCM;
   private RadioButtonTS radBitDepth16PCM;
@@ -103,24 +103,24 @@ public class WaveOptions : Form {
     this.components = new System.ComponentModel.Container();
     System.ComponentModel.ComponentResourceManager resources =
         new System.ComponentModel.ComponentResourceManager(typeof(WaveOptions));
-    this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-    this.chkWaveDither = new System.Windows.Forms.CheckBoxTS();
-    this.comboSampleRate = new System.Windows.Forms.ComboBoxTS();
-    this.radTXPostProcessed = new System.Windows.Forms.RadioButtonTS();
-    this.radTXPreProcessed = new System.Windows.Forms.RadioButtonTS();
-    this.radRXPostProcessed = new System.Windows.Forms.RadioButtonTS();
-    this.radRXPreProcessed = new System.Windows.Forms.RadioButtonTS();
-    this.grpWaveDither = new System.Windows.Forms.GroupBoxTS();
-    this.udWaveDitherBits = new System.Windows.Forms.NumericUpDownTS();
-    this.grpBitDepth = new System.Windows.Forms.GroupBoxTS();
-    this.radBitDepth8PCM = new System.Windows.Forms.RadioButtonTS();
-    this.radBitDepth16PCM = new System.Windows.Forms.RadioButtonTS();
-    this.radBitDepth24PCM = new System.Windows.Forms.RadioButtonTS();
-    this.radBitDepth32PCM = new System.Windows.Forms.RadioButtonTS();
-    this.radBitDepthIEEE = new System.Windows.Forms.RadioButtonTS();
-    this.grpAudioSampleRate1 = new System.Windows.Forms.GroupBoxTS();
-    this.groupBox1 = new System.Windows.Forms.GroupBoxTS();
-    this.grpReceive = new System.Windows.Forms.GroupBoxTS();
+    this.toolTip1 = new ToolTip(this.components);
+    this.chkWaveDither = new CheckBoxTS();
+    this.comboSampleRate = new ComboBoxTS();
+    this.radTXPostProcessed = new RadioButtonTS();
+    this.radTXPreProcessed = new RadioButtonTS();
+    this.radRXPostProcessed = new RadioButtonTS();
+    this.radRXPreProcessed = new RadioButtonTS();
+    this.grpWaveDither = new GroupBoxTS();
+    this.udWaveDitherBits = new NumericUpDownTS();
+    this.grpBitDepth = new GroupBoxTS();
+    this.radBitDepth8PCM = new RadioButtonTS();
+    this.radBitDepth16PCM = new RadioButtonTS();
+    this.radBitDepth24PCM = new RadioButtonTS();
+    this.radBitDepth32PCM = new RadioButtonTS();
+    this.radBitDepthIEEE = new RadioButtonTS();
+    this.grpAudioSampleRate1 = new GroupBoxTS();
+    this.groupBox1 = new GroupBoxTS();
+    this.grpReceive = new GroupBoxTS();
     this.grpWaveDither.SuspendLayout();
     ((System.ComponentModel.ISupportInitialize)(this.udWaveDitherBits)).BeginInit();
     this.grpBitDepth.SuspendLayout();

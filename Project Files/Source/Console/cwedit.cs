@@ -36,17 +36,17 @@ using System.Windows.Forms;
 public class cwedit : Form {
 #region startup / exit stuff
     private System.ComponentModel.IContainer components;
-    private System.Windows.Forms.TextBox txtElements;
-    private System.Windows.Forms.TextBox txtComments;
-    private System.Windows.Forms.Label label2;
-    private System.Windows.Forms.Label label3;
-    private System.Windows.Forms.Label label4;
-    private System.Windows.Forms.Button saveButton;
-    private System.Windows.Forms.Label label5;
-    private System.Windows.Forms.ToolTip toolTip1;
-    private System.Windows.Forms.Button cancelButton;
-    private System.Windows.Forms.TextBox txtOriginal;
-    private System.Windows.Forms.TextBox txtCurrent;
+    private TextBox txtElements;
+    private TextBox txtComments;
+    private Label label2;
+    private Label label3;
+    private Label label4;
+    private Button saveButton;
+    private Label label5;
+    private ToolTip toolTip1;
+    private Button cancelButton;
+    private TextBox txtOriginal;
+    private TextBox txtCurrent;
     private Console console;
 
     public cwedit(Console c) {
@@ -80,17 +80,17 @@ public class cwedit : Form {
     /// </summary>
     private void InitializeComponent() {
         this.components = new System.ComponentModel.Container();
-        this.saveButton = new System.Windows.Forms.Button();
-        this.txtElements = new System.Windows.Forms.TextBox();
-        this.txtComments = new System.Windows.Forms.TextBox();
-        this.label2 = new System.Windows.Forms.Label();
-        this.label3 = new System.Windows.Forms.Label();
-        this.label4 = new System.Windows.Forms.Label();
-        this.label5 = new System.Windows.Forms.Label();
-        this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-        this.cancelButton = new System.Windows.Forms.Button();
-        this.txtOriginal = new System.Windows.Forms.TextBox();
-        this.txtCurrent = new System.Windows.Forms.TextBox();
+        this.saveButton = new Button();
+        this.txtElements = new TextBox();
+        this.txtComments = new TextBox();
+        this.label2 = new Label();
+        this.label3 = new Label();
+        this.label4 = new Label();
+        this.label5 = new Label();
+        this.toolTip1 = new ToolTip(this.components);
+        this.cancelButton = new Button();
+        this.txtOriginal = new TextBox();
+        this.txtCurrent = new TextBox();
         this.SuspendLayout();
         //
         // saveButton

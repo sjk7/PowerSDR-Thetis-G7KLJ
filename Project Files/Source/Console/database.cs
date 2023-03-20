@@ -15797,8 +15797,8 @@ class DB {
                             col.ColumnName)) // Don't import a row having a
                                              // colummn that's no longer used
                 {
-                    System.Type oldType = OldRow[col.ColumnName].GetType();
-                    System.Type newType = newRow[col.ColumnName].GetType();
+                        Type oldType = OldRow[col.ColumnName].GetType();
+                        Type newType = newRow[col.ColumnName].GetType();
                     if (newType.FullName
                         == oldType.FullName) // Don't assign a value of a
                                              // different type

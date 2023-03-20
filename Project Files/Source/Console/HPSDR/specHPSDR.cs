@@ -28,7 +28,7 @@ namespace Thetis
     public class SpecRX
     {
         private const int NUM_RX_DISP = 8;
-        private SpecHPSDR[] spec_rx;
+        private readonly SpecHPSDR[] spec_rx;
 
         public SpecRX()
         {
@@ -50,7 +50,7 @@ namespace Thetis
 
     public class SpecHPSDR
     {
-        private int disp;
+        private readonly int disp;
         public SpecHPSDR(int d)
         {
             disp = d;
@@ -464,7 +464,7 @@ namespace Thetis
 
         const double KEEP_TIME = 0.1;
         private int max_w;
-        private double freq_offset = 12000.0;
+        private readonly double freq_offset = 12000.0;
         //private struct FlipStruct
         //{
         //    public int[] flip;

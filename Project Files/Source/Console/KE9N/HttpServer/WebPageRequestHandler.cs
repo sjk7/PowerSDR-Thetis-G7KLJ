@@ -16,7 +16,7 @@ namespace HttpServer
 
         }
 
-        private string UPDATE_TIME = "#UPDATE_TIME";
+        private readonly string UPDATE_TIME = "#UPDATE_TIME";
 
         public override void handle()
         {
