@@ -66,7 +66,10 @@ PORT void WDSPwisdom(char* directory) {
         fprintf(stdout, "Optimizing FFT sizes through %d\n\n", maxsize);
         fprintf(stdout,
             "Please do not close this window until wisdom plans are "
-            "completed.\n\n");
+            "completed.\nYou might want to grab some coffee and maybe even a "
+            "cigarette!\n\n** This slow operation only needs to happen once "
+            "***, not "
+            "every time you open the program\n\n");
         sprintf(status, "Optimizing FFT sizes through %d", maxsize);
         psize = 64;
         while (psize <= MAX_WISDOM_SIZE_FILTER) {

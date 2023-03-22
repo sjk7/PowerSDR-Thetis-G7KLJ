@@ -176,6 +176,9 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(Platform)\$(Configuration)\portaudio.bsc</OutputFile>
     </Bscmake>
+    <PostBuildEvent>
+      <Command>copy /Y "$(OutDir)$(TargetName).dll" "$(PROJECTDIR)../../../bin/$(PlatformTarget)/$(Configuration)/$(TargetName).dll";</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Midl>
@@ -271,7 +274,7 @@
       <Command>copy /Y "$(OutDir)$(TargetName).dll" "$(PROJECTDIR)../../../bin/$(PlatformTarget)/$(Configuration)/$(TargetName).dll";</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copying PortAudioForCoolSDR ...</Message>
+      <Message>Copying PortAudioForCoolSDR to working directory ...</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
