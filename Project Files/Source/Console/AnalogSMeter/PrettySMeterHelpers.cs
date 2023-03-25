@@ -42,16 +42,18 @@ public class PrettySMeterHelpers
         LBAnalogMeter PrettySMeter, Console c) {
 
         // val is a float representing SWR, multiplied by 100.
-        Debug.Print(val.ToString());
+        // Debug.Print(val.ToString());
         PrettySMeter.MinValue = 0;
         PrettySMeter.MaxValue = 600;
-        var below = 150 - val;
+        var below = 160 - val;
         if (below > 1.0) {
-            val -= below;
-            if (val < 0) val = 0;
+            val -= (below * 4);
+            if (val < 0) {
+                val = 0;
+            }
         }
 
-        Debug.Print(val.ToString());
+        // Debug.Print(val.ToString());
 
         PrettySMeter.Value = val;
     }
