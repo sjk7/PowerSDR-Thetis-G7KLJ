@@ -647,6 +647,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Content Include="hpsdr4-64.ico" />
+    <None Include="Resources\vucropped.jpg" />
     <None Include="packages.config" />
     <None Include="Resources\SMeterTango.jpg" />
     <None Include="Resources\SMeterOrange.bmp" />
@@ -658,6 +659,7 @@
     <None Include="Resources\OLDVFOAnalogSignalGauge.JPG" />
     <None Include="Resources\PPM.jpg" />
     <None Include="Resources\HL2 - front_sml.jpg" />
+    <None Include="Resources\kenwood-s-meter.png" />
     <Content Include="Resources\screen4.png" />
     <None Include="Resources\openhpsdrnotastall.bmp" />
     <None Include="Resources\openhpsdrnotastall.png" />

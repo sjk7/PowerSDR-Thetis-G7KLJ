@@ -244,7 +244,7 @@ public class Splash : Form
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
-            this.BackgroundImage = global::Thetis.Properties.Resources.HL2___front_sml;
+            this.BackgroundImage = global::Thetis.Properties.Resources.HL2Front;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new Size(677, 416);
             this.Controls.Add(this.labelTS5);

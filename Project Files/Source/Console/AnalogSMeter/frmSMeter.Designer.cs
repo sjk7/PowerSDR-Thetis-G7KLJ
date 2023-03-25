@@ -41,6 +41,7 @@ partial class frmSMeter {
             this.doNotShowBigSMeterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BigSMeter = new LBSoft.IndustrialCtrls.Meters.LBAnalogMeter();
             this.Grip = new System.Windows.Forms.PictureBox();
+            this.kenwoodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBigSMeter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Grip)).BeginInit();
             this.SuspendLayout();
@@ -51,7 +52,7 @@ partial class frmSMeter {
             this.chooseBackgroundToolStripMenuItem,
             this.windowStateToolStripMenuItem});
             this.mnuBigSMeter.Name = "mnuBigSMeter";
-            this.mnuBigSMeter.Size = new System.Drawing.Size(182, 48);
+            this.mnuBigSMeter.Size = new System.Drawing.Size(182, 70);
             // 
             // chooseBackgroundToolStripMenuItem
             // 
@@ -59,7 +60,8 @@ partial class frmSMeter {
             this.whyCantIChooseTheBackgroundToolStripMenuItem,
             this.originalToolStripMenuItem,
             this.blueToolStripMenuItem,
-            this.youKnowWhenYouveBeenTangodToolStripMenuItem});
+            this.youKnowWhenYouveBeenTangodToolStripMenuItem,
+            this.kenwoodToolStripMenuItem});
             this.chooseBackgroundToolStripMenuItem.Name = "chooseBackgroundToolStripMenuItem";
             this.chooseBackgroundToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.chooseBackgroundToolStripMenuItem.Text = "Choose Background";
@@ -183,6 +185,13 @@ partial class frmSMeter {
             this.Grip.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Grip_MouseMove);
             this.Grip.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Grip_MouseUp);
             // 
+            // kenwoodToolStripMenuItem
+            // 
+            this.kenwoodToolStripMenuItem.Name = "kenwoodToolStripMenuItem";
+            this.kenwoodToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.kenwoodToolStripMenuItem.Text = "Kenwood";
+            this.kenwoodToolStripMenuItem.Click += new System.EventHandler(this.kenwoodToolStripMenuItem_Click);
+            // 
             // frmSMeter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -217,5 +226,6 @@ partial class frmSMeter {
   private System.Windows.Forms.ToolStripMenuItem doNotShowBigSMeterToolStripMenuItem;
   private System.Windows.Forms.ToolStripMenuItem whyCantIChooseTheBackgroundToolStripMenuItem;
   private System.Windows.Forms.ToolStripMenuItem youKnowWhenYouveBeenTangodToolStripMenuItem;
-}
+        private System.Windows.Forms.ToolStripMenuItem kenwoodToolStripMenuItem;
+    }
 }

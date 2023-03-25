@@ -103,9 +103,19 @@ namespace Thetis.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap HL2___front_sml {
+        internal static System.Drawing.Bitmap HL2Front {
             get {
-                object obj = ResourceManager.GetObject("HL2 - front_sml", resourceCulture);
+                object obj = ResourceManager.GetObject("HL2Front", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Kenwood {
+            get {
+                object obj = ResourceManager.GetObject("Kenwood", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -600,6 +610,16 @@ namespace Thetis.Properties {
         internal static System.Drawing.Bitmap txant {
             get {
                 object obj = ResourceManager.GetObject("txant", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap VU {
+            get {
+                object obj = ResourceManager.GetObject("VU", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

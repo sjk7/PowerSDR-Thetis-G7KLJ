@@ -284,5 +284,11 @@ public partial class frmSMeter : Form {
             += "You must first rename or move this file, then restart this application.";
         MessageBox.Show(msg1, "Pretty S-Meter Message");
     }
+
+    private void kenwoodToolStripMenuItem_Click(object sender, EventArgs e) {
+        BigSMeter.ToggleBackGroundImage(
+            LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices
+                .Kenwood);
+    }
 }
 }

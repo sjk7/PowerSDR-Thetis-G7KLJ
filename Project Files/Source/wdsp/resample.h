@@ -71,6 +71,7 @@ __declspec(dllexport) void flush_resample(RESAMPLE a);
 
 __declspec(dllexport) int xresample(RESAMPLE a);
 
+
 extern void setBuffers_resample(RESAMPLE a, double* in, double* out);
 
 extern void setSize_resample(RESAMPLE a, int size);

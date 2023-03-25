@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -64,12 +65,16 @@ public partial class LBAnalogMeter : UserControl {
     private ToolStripMenuItem version2ToolStripMenuItem;
     protected LBAnalogMeterRenderer defaultRenderer;
 #endregion
+    // choices below zero are temporary (likely only used in MOX, so we don't
+    // save them)
     public enum BackGroundChoices {
-        Skin = -1,
-        NewVFOAnalogSignalGauge = 0,
-        Blue = 1,
-        Tango = 2,
-        PPM = 3
+        VU = -3,
+        PPM = -2,
+        Skin = 0,
+        NewVFOAnalogSignalGauge = 1,
+        Blue = 2,
+        Tango = 3,
+        Kenwood = 4
     }
 
     BackGroundChoices m_backGroundChoice;
@@ -102,12 +107,10 @@ public partial class LBAnalogMeter : UserControl {
         this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
         this.SetStyle(ControlStyles.UserPaint, true);
 
-            // Create the default renderer
-            this.defaultRenderer = new LBDefaultAnalogMeterRenderer
-            {
-                AnalogMeter = this
-            };
-        }
+        // Create the default renderer
+        this.defaultRenderer
+            = new LBDefaultAnalogMeterRenderer { AnalogMeter = this };
+    }
 #endregion
 
 #region Properties
@@ -170,11 +173,8 @@ public partial class LBAnalogMeter : UserControl {
 
             if (val < minValue) val = minValue;
 
-                ValueEvent e = new ValueEvent
-                {
-                    currentVal = (float)val
-                };
-                currValue = val;
+            ValueEvent e = new ValueEvent { currentVal = (float)val };
+            currValue = val;
             Invalidate();
             this.ValueChanged?.Invoke(this, e);
         }
@@ -363,23 +363,18 @@ public partial class LBAnalogMeter : UserControl {
 
     private void InitializeComponent() {
         this.components = new Container();
-        this.mnuBigSMeter
-            = new ContextMenuStrip(this.components);
-        this.chooseBackgroundImageToolStripMenuItem
-            = new ToolStripMenuItem();
-        this.version1ToolStripMenuItem
-            = new ToolStripMenuItem();
-        this.version2ToolStripMenuItem
-            = new ToolStripMenuItem();
+        this.mnuBigSMeter = new ContextMenuStrip(this.components);
+        this.chooseBackgroundImageToolStripMenuItem = new ToolStripMenuItem();
+        this.version1ToolStripMenuItem = new ToolStripMenuItem();
+        this.version2ToolStripMenuItem = new ToolStripMenuItem();
         this.mnuBigSMeter.SuspendLayout();
         this.SuspendLayout();
         //
         // mnuBigSMeter
         //
-        this.mnuBigSMeter.Items.AddRange(
-            new ToolStripItem[] {
-                this.chooseBackgroundImageToolStripMenuItem
-            });
+        this.mnuBigSMeter.Items.AddRange(new ToolStripItem[] {
+            this.chooseBackgroundImageToolStripMenuItem
+        });
         this.mnuBigSMeter.Name = "mnuBigSMeter";
         this.mnuBigSMeter.Size = new Size(218, 48);
         //
@@ -419,6 +414,8 @@ public partial class LBAnalogMeter : UserControl {
         }
     }
 
+    public void SaveBackGroundImage() {}
+
     public void ToggleBackGroundImage(
         BackGroundChoices which = BackGroundChoices.Blue) {
 
@@ -438,63 +435,68 @@ public partial class LBAnalogMeter : UserControl {
                 goto done;
             }
         }
+        if (which == BackGroundChoices.Skin) {
+            // here, Skin is being requested, but we know from the lines above
+            // that there _is_ no skin pic available
+            which = BackGroundChoices.NewVFOAnalogSignalGauge;
+        }
 
-        if (which >= 0) {
-            // do not save something that is only for Tx, like PPM
-            if (which == BackGroundChoices.Skin
-                || which == BackGroundChoices.Tango
-                || which == BackGroundChoices.NewVFOAnalogSignalGauge
-                || which == BackGroundChoices.NewVFOAnalogSignalGauge) {
-                Settings.Default.SMeterBackgroundImg = (int)which;
-            }
+        if (which == m_backGroundChoice && !force) {
+            goto done;
+        }
 
-            if (which == m_backGroundChoice && !force) {
-                goto done;
-            }
-
-            if (which == BackGroundChoices.Blue) {
+        switch (which) {
+            case BackGroundChoices.Blue:
                 renderer.BackGroundCustomImage
                     = Thetis.Properties.Resources.OLDAnalogSignalGauge;
-                m_backGroundChoice = BackGroundChoices.NewVFOAnalogSignalGauge;
-            } else if (which == 0) {
-                renderer.BackGroundCustomImage
-                    = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
-                m_backGroundChoice = BackGroundChoices.NewVFOAnalogSignalGauge;
-            } else if (which == BackGroundChoices.PPM) {
+                break;
+
+            case BackGroundChoices.PPM:
                 renderer.BackGroundCustomImage
                     = Thetis.Properties.Resources.PPM;
-                m_backGroundChoice = BackGroundChoices.PPM;
-            } else {
+                break;
+
+            case BackGroundChoices.NewVFOAnalogSignalGauge:
+                renderer.BackGroundCustomImage
+                    = Thetis.Properties.Resources.NewVFOAnalogSignalGauge;
+                break;
+
+            case BackGroundChoices.Tango:
                 renderer.BackGroundCustomImage
                     = Thetis.Properties.Resources.SMeterTango;
-                m_backGroundChoice = BackGroundChoices.Tango;
-            }
-        } else {
-            if (cur == 0) {
-                Settings.Default.SMeterBackgroundImg = 1;
-                renderer.BackGroundCustomImage = Resources.OLDAnalogSignalGauge;
-                m_backGroundChoice = BackGroundChoices.Blue;
-            } else if (cur == 1) {
-                Settings.Default.SMeterBackgroundImg = 2;
-                renderer.BackGroundCustomImage = Resources.SMeterTango;
-                m_backGroundChoice = BackGroundChoices.Tango;
-            } else {
-                Settings.Default.SMeterBackgroundImg = 0;
-                renderer.BackGroundCustomImage
-                    = Resources.NewVFOAnalogSignalGauge;
-                m_backGroundChoice = BackGroundChoices.NewVFOAnalogSignalGauge;
-            }
-        }
-    done:
+                break;
 
-        Settings.Default.Save();
+            case BackGroundChoices.VU:
+                renderer.BackGroundCustomImage = Thetis.Properties.Resources.VU;
+                break;
+            case BackGroundChoices.Kenwood:
+                renderer.BackGroundCustomImage
+                    = Thetis.Properties.Resources.Kenwood;
+                break;
+
+            default: Debug.Assert(false); break;
+        }
+
+    done:
+        m_backGroundChoice = which;
+        // do not save something that is only for Tx, like PPM
+        // Achieved here because any mox ones have which <= 0
+        if (which > 0) {
+            Settings.Default.SMeterBackgroundImg = (int)which;
+            Settings.Default.Save();
+        }
+
         Invalidate();
         Refresh();
-            BackGndChanged e = new BackGndChanged
-            {
-                which = Settings.Default.SMeterBackgroundImg
-            };
+        BackGndChanged e = new BackGndChanged { which
+            = Settings.Default.SMeterBackgroundImg };
+        if (this.InvokeRequired) {
             this.BackGndImgChanged?.Invoke(this, e);
+        } else {
+            if (this.BackGndImgChanged != null) {
+                this.BackGndImgChanged(this, e);
+            }
+        }
 
         if (m_console != null) {
             m_console.PrettySMeter.defaultRenderer.BackGroundCustomImage

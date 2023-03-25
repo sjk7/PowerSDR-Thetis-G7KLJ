@@ -841,8 +841,10 @@ public partial class Setup : Form {
         set { chkDisplayPanFill.Checked = value; }
     }
     public bool ShowTCISpots {
-        get { return false; } // chkShowTCISpots.Checked; }
-    // set { chkShowTCISpots.Checked = value; }
+        get {
+            return false;
+        } // chkShowTCISpots.Checked; }
+          // set { chkShowTCISpots.Checked = value; }
     }
 #endregion
 
@@ -8974,10 +8976,10 @@ public partial class Setup : Form {
             udPAGain160.Value = 41.0M;
             udPAGain80.Value = 41.2M;
             udPAGain60.Value = 41.3M;
-            udPAGain40.Value = 41.3M;
-            udPAGain30.Value = 41.0M;
-            udPAGain20.Value = 40.5M;
-            udPAGain17.Value = 39.9M;
+            udPAGain40.Value = 41.0M;
+            udPAGain30.Value = 40.5M;
+            udPAGain20.Value = 39.9M;
+            udPAGain17.Value = 38.8M;
             udPAGain15.Value = 38.8M;
             udPAGain12.Value = 38.8M;
             udPAGain10.Value = 38.8M;
@@ -9058,13 +9060,13 @@ public partial class Setup : Form {
         }
 
         if (console.CurrentHPSDRModel == HPSDRModel.HERMES) {
-            HermesPAGain160 = 41.0f;
-            HermesPAGain80 = 41.2f;
-            HermesPAGain60 = 41.3f;
-            HermesPAGain40 = 41.3f;
-            HermesPAGain30 = 41.0f;
-            HermesPAGain20 = 40.5f;
-            HermesPAGain17 = 39.9f;
+            HermesPAGain160 = 38.8f;
+            HermesPAGain80 = 38.8f;
+            HermesPAGain60 = 38.8f;
+            HermesPAGain40 = 38.8f;
+            HermesPAGain30 = 38.8f;
+            HermesPAGain20 = 38.8f;
+            HermesPAGain17 = 38.8f;
             HermesPAGain15 = 38.8f;
             HermesPAGain12 = 38.8f;
             HermesPAGain10 = 38.8f;
@@ -17759,9 +17761,11 @@ public partial class Setup : Form {
         bool power = console.PowerOn;
         HPSDRModel old_model = console.CurrentHPSDRModel;
         comboAudioSampleRateRX2.Enabled = true;
+        lblPwrHermesLite.Visible = false;
 
         switch (comboRadioModel.Text) {
             case "HERMES":
+                lblPwrHermesLite.Visible = true;
                 console.CurrentHPSDRModel = HPSDRModel.HERMES;
                 chkHermesStepAttenuator.Enabled = true;
                 chkHermesStepAttenuator.Checked = true;
@@ -18385,6 +18389,10 @@ public partial class Setup : Form {
     }
 
     private void lblCFCEQ10dB_Click(object sender, EventArgs e) {}
+
+    private void ud10PA1W_ValueChanged(object sender, EventArgs e) {
+        Debug.Print(ud10PA1W.Maximum.ToString());
+    }
 }
 
 #region PADeviceInfo Helper Class
