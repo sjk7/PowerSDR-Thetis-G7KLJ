@@ -58,8 +58,19 @@ unsafe class cmaster {
   [DllImport("ChannelMaster.dll", EntryPoint = "SetXmtrChannelOutrate",
              CallingConvention = CallingConvention.Cdecl)]
   public static extern void SetXmtrChannelOutrate(int xmtr_id, int rate, bool state);
+        //
 
-  [DllImport("ChannelMaster.dll", EntryPoint = "getbuffsize",
+        [DllImport("ChannelMaster.dll", EntryPoint = "GetInputLatencyMs",
+           CallingConvention = CallingConvention.Cdecl)]
+        public static extern int GetInputLatencyMsActual(int id);
+
+
+        [DllImport("ChannelMaster.dll", EntryPoint = "GetOutputLatencyMs",
+           CallingConvention = CallingConvention.Cdecl)]
+        public static extern int GetOutputLatencyMsActual(int id);
+
+
+        [DllImport("ChannelMaster.dll", EntryPoint = "getbuffsize",
              CallingConvention = CallingConvention.Cdecl)]
   public static extern int GetBuffSize(int rate);
 

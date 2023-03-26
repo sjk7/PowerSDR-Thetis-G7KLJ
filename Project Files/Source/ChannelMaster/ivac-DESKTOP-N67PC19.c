@@ -195,7 +195,7 @@ void StreamFinishedCallback(void* userData) {
         a->MMThreadApiHandle = 0;
     }
 
-#pragma warning(default : 4311) //-V665
+#pragma warning(default : 4311)
 }
 
 // KLJ
@@ -242,9 +242,7 @@ int CallbackIVAC(const void* input, void* output, unsigned long frameCount,
     const unsigned int dblSz = sizeof(double);
     const unsigned int fltSz = sizeof(float);
 
-    if (a->have_set_thread_priority == -1) {
-        make_ivac_thread_max_priority(a);
-    }
+    if (a->have_set_thread_priority == -1) make_ivac_thread_max_priority(a);
 
     const size_t floatBufferSize = fltSz * frameCount * a->num_channels;
     const size_t dblBufferSize = max(a->INringsize, a->OUTringsize);
@@ -353,7 +351,7 @@ PORT int StartAudioIVAC(int id) {
             a->have_set_thread_priority = 0;
         }
     }
-#pragma warning(default : 4312) //-V665
+#pragma warning(default : 4312)
 
     if (error != paNoError) return error;
 
@@ -361,11 +359,7 @@ PORT int StartAudioIVAC(int id) {
 
     if (error != paNoError) return error;
 
-    a->streamInfo = Pa_GetStreamInfo(a->Stream);
-    printf("Stream Info input latency %f\n", a->streamInfo->inputLatency);
-    printf("Stream Info output latency %f\n", a->streamInfo->outputLatency);
-    fflush(stdout);
-   
+    // const PaStreamInfo* inf = Pa_GetStreamInfo(a->Stream);
     return paNoError;
 }
 
@@ -550,24 +544,6 @@ PORT void SetIVACExclusive(int id, int excl) {
 PORT int GetIVACExclusive(int id) {
     IVAC a = pvac[id];
     return a->exclusive;
-}
-
-PORT int GetInputLatencyMs(int id) {
-    IVAC a = pvac[id];
-    if (a->streamInfo) {
-        PaTime ret = a->streamInfo->inputLatency;
-        return (int)(ret * 1000.0f);
-    }
-    return 0;
-}
-
-PORT int GetOutputLatencyMs(int id) {
-    IVAC a = pvac[id];
-    if (a->streamInfo) {
-        PaTime ret = a->streamInfo->outputLatency;
-        return (int)(ret * 1000.0f);
-    }
-    return 0;
 }
 
 PORT void SetIVACPAOutLatency(int id, double lat, int reset) {

@@ -86,6 +86,7 @@ typedef struct _ivac {
     volatile int have_set_thread_priority;
     double* convbuf;
     size_t convbuf_size;
+   const PaStreamInfo* streamInfo;
 } ivac, *IVAC;
 
 void combinebuff(int n, double* a, double* combined);
@@ -127,5 +128,8 @@ extern __declspec(dllexport) void SetIVACaudioSize(int id, int size);
 
 PORT void SetIVACExclusive(int id, int excl);
 PORT int GetIVACExclusive(int id);
+PORT int GetInputLatencyMs(int id);
+PORT int GetOutputLatencyMs(int id);
+
 
 #endif

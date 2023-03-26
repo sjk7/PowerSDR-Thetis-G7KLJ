@@ -6514,37 +6514,30 @@ public partial class Setup : Form {
             Audio.VACEnabled = chkAudioEnableVAC.Checked;
     }
 
-    private void udAudioLatencyPAIn_ValueChanged(object sender, EventArgs e) {
-        // PortAudio In
-        bool power = console.PowerOn;
-        if (power && chkAudioEnableVAC.Checked) {
-            // console.PowerOn = false;
-            // Thread.Sleep(100);
-            Audio.EnableVAC1(false);
+    private void restartVACForLatencyChange()
+        {
+            bool power = console.PowerOn;
+            if (power && chkAudioEnableVAC.Checked)
+            {
+                Audio.EnableVAC1(false);
+            }
+
+            Audio.LatencyPAIn = (int)udAudioLatencyPAIn.Value;
+            Audio.LatencyPAOut = (int)udAudioLatencyPAOut.Value;
+
+            if (power && chkAudioEnableVAC.Checked)
+                Audio.VACEnabled = chkAudioEnableVAC.Checked;
         }
 
-        Audio.LatencyPAIn = (int)udAudioLatencyPAIn.Value;
-
-        if (power && chkAudioEnableVAC.Checked)
-            // console.PowerOn = true;
-            Audio.VACEnabled = chkAudioEnableVAC.Checked;
+    private void udAudioLatencyPAIn_ValueChanged(object sender, EventArgs e) {
+            // PortAudio In
+            restartVACForLatencyChange();
     }
 
     private void udAudioLatencyPAOut_ValueChanged(object sender, EventArgs e) {
-        // PortAudio Out
-        bool power = console.PowerOn;
-        if (power && chkAudioEnableVAC.Checked) {
-            // console.PowerOn = false;
-            // Thread.Sleep(100);
-            Audio.EnableVAC1(false);
-        }
-
-        Audio.LatencyPAOut = (int)udAudioLatencyPAOut.Value;
-
-        if (power && chkAudioEnableVAC.Checked)
-            // console.PowerOn = true;
-            Audio.VACEnabled = chkAudioEnableVAC.Checked;
-    }
+            // PortAudio Out
+            restartVACForLatencyChange()
+;    }
 
     private void udVAC2Latency_ValueChanged(object sender, EventArgs e) {
         bool power = console.PowerOn;
@@ -10460,7 +10453,21 @@ public partial class Setup : Form {
     }
 
     private volatile bool save_thread_running = false;
-    private void PreSaveOptions() {
+
+        internal void showActualPALatency(bool show = true)
+        {
+            lblPAInLatency.Visible = show;
+            lblPAOutLatency.Visible = show;
+            if (show)
+            {
+                var msIn = cmaster.GetInputLatencyMsActual(0);
+                var msOut = cmaster.GetOutputLatencyMsActual(0);
+                lblPAInLatency.Text = "Reported hardware input latency: " + msIn.ToString() + " ms";
+                lblPAOutLatency.Text = "Reported hardware output latency: " + msOut.ToString() + " ms";
+            }
+
+        }
+        private void PreSaveOptions() {
         SaveOptions();
         setButtonState(false, false);
         save_thread_running = false;

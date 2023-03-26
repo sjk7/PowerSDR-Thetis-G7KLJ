@@ -61,8 +61,8 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,18
- PRODUCTVERSION 1,0,0,18
+ FILEVERSION 1,0,0,16
+ PRODUCTVERSION 1,0,0,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -79,12 +79,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "G7KLJ"
             VALUE "FileDescription", "SDR Radio Audio DLL"
-            VALUE "FileVersion", "1.0.0.18"
+            VALUE "FileVersion", "1.0.0.16"
             VALUE "InternalName", "ChannelM.dll"
             VALUE "LegalCopyright", "Copyright (C) 2020"
             VALUE "OriginalFilename", "ChannelM.dll"
             VALUE "ProductName", "Thetis"
-            VALUE "ProductVersion", "1.0.0.18"
+            VALUE "ProductVersion", "1.0.0.1"
         END
     END
     BLOCK "VarFileInfo"
