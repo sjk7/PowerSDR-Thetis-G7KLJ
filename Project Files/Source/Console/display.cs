@@ -129,7 +129,8 @@ class Display {
     public static Rectangle AGCRX2Hang = new Rectangle();
 
     private static readonly Color notch_callout_active_color = Color.Chartreuse;
-    private static readonly Color notch_callout_inactive_color = Color.OrangeRed;
+    private static readonly Color notch_callout_inactive_color
+        = Color.OrangeRed;
 
     private static readonly Color notch_highlight_color = Color.Chartreuse;
     private static readonly Color notch_tnf_off_colour = Color.Olive;
@@ -1389,13 +1390,14 @@ class Display {
         set { _linlog_corr = value; }
     }
 
-    private static readonly SolidBrush pana_text_brush = new SolidBrush(Color.Khaki);
+    private static readonly SolidBrush pana_text_brush
+        = new SolidBrush(Color.Khaki);
     private static Font pana_font = new Font(
         "Tahoma", 7F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
-        private static Pen dhp = new Pen(Color.FromArgb(0, 255, 0));
-        private static readonly Pen dhp1 = new Pen(Color.FromArgb(150, 0, 0, 255));
-        private static readonly Pen dhp2 = new Pen(Color.FromArgb(150, 255, 0, 0));
-        private static Font font14 = new Font("Arial", 14, FontStyle.Bold),
+    private static Pen dhp = new Pen(Color.FromArgb(0, 255, 0));
+    private static readonly Pen dhp1 = new Pen(Color.FromArgb(150, 0, 0, 255));
+    private static readonly Pen dhp2 = new Pen(Color.FromArgb(150, 255, 0, 0));
+    private static Font font14 = new Font("Arial", 14, FontStyle.Bold),
                         font9 = new Font("Arial", 9);
 
 #endregion
@@ -6647,8 +6649,18 @@ class Display {
                     }
                 }
 
+                bool should_show_swr = high_swr;
+                if (!should_show_swr) {
+                    if (console.swr_protected != 0) {
+                        should_show_swr = Thetis.Console.timeGetTime()
+                                - console.swr_protected
+                            <= 5000;
+                    }
+                }
+
                 // HIGH swr display warning
-                if (high_swr) {
+                if (should_show_swr) {
+
                     drawStringDX2D(
                         "High SWR", fontDX2d_font14, m_bDX2_Red, 245, 20);
                     d2dRenderTarget.DrawRectangle(

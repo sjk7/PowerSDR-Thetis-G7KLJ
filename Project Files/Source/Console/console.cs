@@ -184,7 +184,7 @@ public partial class Console : Form {
         ref TimerCaps caps, int sizeOfTimerCaps);
 
     [DllImport("winmm.dll")]
-    private static extern int timeGetTime();
+    public static extern int timeGetTime();
 
     // Creates and starts the timer.
     [DllImport("winmm.dll")]
@@ -26285,6 +26285,9 @@ private double SecondsSincePoweredUp() {
 }
 
 private void attemptReconnect() {
+            if (swr_protected != 0) {
+            if (timeGetTime() - swr_protected <= 5000) return;
+            }
             var secsSincePoweredUp = SecondsSincePoweredUp();
 
             if (m_NetworkRestarts < m_NetworkRestartsMax
@@ -31388,7 +31391,9 @@ private int TimeSinceMoxEntered() {
             return timeGetTime() - m_TimeWhenMoxEntered;
 }
 
+volatile public int swr_protected = 0;
 volatile bool m_bMonTXThreadAlive = false;
+
 private async void PollPAPWR() {
             const float alpha = 0.90f;
             float rho = 0;
@@ -31399,7 +31404,7 @@ private async void PollPAPWR() {
 
             while (chkPower.Checked) {
 
-            if (m_TimeWhenMoxEntered > 0 && TimeSinceMoxEntered() > 500) {
+            if (m_TimeWhenMoxEntered > 0 && TimeSinceMoxEntered() > 200) {
                 if (mox) {
 
                     alex_fwd = computeAlexFwdPower(); // high power
@@ -31447,15 +31452,18 @@ private async void PollPAPWR() {
                         {
                             swr = 50.0f;
                             NetworkIO.SWRProtect = 0.01f;
+                            m_bMonTXThreadAlive = false;
+                            swr_protected = timeGetTime();
                             chkMOX.Checked = false;
 
-                            MessageBox.Show(
-                                "Please check your antenna connection.",
-                                "High SWR condition detected",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning,
-                                MessageBoxDefaultButton.Button1,
-                                (MessageBoxOptions)0x40000); // MB_TOPMOST
-
+                            /*/
+                        MessageBox.Show(
+                            "Please check your antenna connection.",
+                            "High SWR condition detected",
+                            MessageBoxButtons.OK, MessageBoxIcon.Warning,
+                            MessageBoxDefaultButton.Button1,
+                            (MessageBoxOptions)0x40000); // MB_TOPMOST
+                            /*/
                             goto end;
                         }
                     } else {
@@ -31490,11 +31498,16 @@ private async void PollPAPWR() {
                             high_swr_count = 0;
                             NetworkIO.SWRProtect = (float)(2.0f / (swr + 1.0f));
                             HighSWR = true;
+                            swr_protected = timeGetTime();
+                            m_bMonTXThreadAlive = false;
+                            chkMOX.Checked = false;
+                            goto end;
                         }
                     } else {
                         high_swr_count = 0;
                         NetworkIO.SWRProtect = 1.0f;
                         HighSWR = false;
+                        swr_protected = 0;
                     }
 
                 end:
@@ -33292,6 +33305,7 @@ private void chkPower_CheckedChanged(object sender, EventArgs e) {
 
             if (chkPower.Checked) {
             psform.ForcePS();
+            swr_protected = 0;
             }
             toolStripStatusNetRestarts.Visible = m_NetworkRestarts > 0;
 }
@@ -34685,7 +34699,9 @@ private volatile int m_TimeWhenMoxEntered = 0;
 private void chkMOX_CheckedChanged2(object sender, EventArgs e) {
             bool bOldMox = mox;
             m_TimeWhenMoxEntered = 0;
-
+            if (chkMOX.Checked) {
+            swr_protected = 0;
+            }
             NetworkIO.SendHighPriority(1);
             if (rx_only && chkMOX.Checked) {
             chkMOX.Checked = false;
