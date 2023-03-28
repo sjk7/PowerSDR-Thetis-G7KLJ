@@ -40,7 +40,7 @@ PRO prop;
 int SendStartToMetis(void) {
     int i;
     int starting_seq;
-    prop = create_pro(1, 1024, 16, 5);
+    prop = create_pro(1, 1024, 16, 8);
     struct outdgram {
         unsigned char packetbuf[64];
     } outpacket;
@@ -975,7 +975,7 @@ DWORD WINAPI sendProtocol1Samples(LPVOID n) {
                    "signalled %ld ms ago.\n",
                 (int)waited, (int)since_signalled);
 #endif
-        } 
+        }
 #endif
         // if ((nddc == 2) || (nddc == 4))
         {

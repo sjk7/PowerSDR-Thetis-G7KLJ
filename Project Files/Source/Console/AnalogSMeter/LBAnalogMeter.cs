@@ -74,7 +74,8 @@ public partial class LBAnalogMeter : UserControl {
         NewVFOAnalogSignalGauge = 1,
         Blue = 2,
         Tango = 3,
-        Kenwood = 4
+        Kenwood = 4,
+        VKK = 5
     }
 
     BackGroundChoices m_backGroundChoice;
@@ -92,7 +93,7 @@ public partial class LBAnalogMeter : UserControl {
         this.needleColor = Color.Yellow;
         this.scaleColor = Color.White;
         this.meterStyle = AnalogMeterStyle.Circular;
-        this.viewGlass = false;
+        this.viewGlass = Settings.Default.SMeterGlass;
         this.startAngle = 225;
         this.endAngle = 315;
         this.minValue = 0;
@@ -147,6 +148,17 @@ public partial class LBAnalogMeter : UserControl {
         set {
             viewGlass = value;
             Invalidate();
+            BackGndChanged e = new BackGndChanged { which
+                = Settings.Default.SMeterBackgroundImg };
+            if (this.InvokeRequired) {
+                this.BackGndImgChanged?.Invoke(this, e);
+            } else {
+                if (this.BackGndImgChanged != null) {
+                    this.BackGndImgChanged(this, e);
+                }
+            }
+            Settings.Default.SMeterGlass = value;
+            Settings.Default.Save();
         }
     }
 
@@ -386,6 +398,7 @@ public partial class LBAnalogMeter : UserControl {
         //
         this.Name = "LBAnalogMeter";
         this.mnuBigSMeter.ResumeLayout(false);
+        this.viewGlass = Settings.Default.SMeterGlass;
         this.ResumeLayout(false);
     }
     public Thetis.Console m_console;
@@ -473,12 +486,17 @@ public partial class LBAnalogMeter : UserControl {
                 renderer.BackGroundCustomImage
                     = Thetis.Properties.Resources.Kenwood;
                 break;
+            case BackGroundChoices.VKK:
+                renderer.BackGroundCustomImage
+                    = Thetis.Properties.Resources.VKK;
+                break;
 
             default: Debug.Assert(false); break;
         }
 
     done:
         m_backGroundChoice = which;
+        this.ViewGlass = Settings.Default.SMeterGlass;
         // do not save something that is only for Tx, like PPM
         // Achieved here because any mox ones have which <= 0
         if (which > 0) {

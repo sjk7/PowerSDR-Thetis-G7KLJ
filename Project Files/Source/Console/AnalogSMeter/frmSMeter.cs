@@ -166,6 +166,7 @@ public partial class frmSMeter : Form {
             m_console.PrettySMeter.ToggleBackGroundImage(
                 (LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices)
                     Settings.Default.SMeterBackgroundImg);
+            m_console.PrettySMeter.ViewGlass = BigSMeter.ViewGlass;
         }
     }
 
@@ -178,11 +179,19 @@ public partial class frmSMeter : Form {
                 this.blueToolStripMenuItem.Enabled = false;
                 this.whyCantIChooseTheBackgroundToolStripMenuItem.Enabled
                     = true;
+                this.kenwoodToolStripMenuItem.Enabled = false;
+                this.vKKMeterToolStripMenuItem.Enabled = false;
+                this.youKnowWhenYouveBeenTangodToolStripMenuItem.Enabled
+                    = false;
+
             } else {
                 this.originalToolStripMenuItem.Enabled = true;
                 this.blueToolStripMenuItem.Enabled = true;
                 this.whyCantIChooseTheBackgroundToolStripMenuItem.Enabled
                     = false;
+                this.kenwoodToolStripMenuItem.Enabled = true;
+                this.vKKMeterToolStripMenuItem.Enabled = true;
+                this.youKnowWhenYouveBeenTangodToolStripMenuItem.Enabled = true;
             }
         }
     }
@@ -289,6 +298,19 @@ public partial class frmSMeter : Form {
         BigSMeter.ToggleBackGroundImage(
             LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices
                 .Kenwood);
+    }
+
+    private void vKKMeterToolStripMenuItem_Click(object sender, EventArgs e) {
+        BigSMeter.ToggleBackGroundImage(
+            LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices.VKK);
+    }
+
+    private void onToolStripMenuItem_Click(object sender, EventArgs e) {
+        BigSMeter.ViewGlass = true;
+    }
+
+    private void offToolStripMenuItem_Click(object sender, EventArgs e) {
+        BigSMeter.ViewGlass = false;
     }
 }
 }

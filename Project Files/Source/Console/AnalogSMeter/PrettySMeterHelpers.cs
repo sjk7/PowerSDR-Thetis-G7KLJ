@@ -158,7 +158,12 @@ public class PrettySMeterHelpers
         if (this.m_console != null) {
             switch (m_meterTXMode) {
                 case MeterTXMode.MIC:
-                    choice = LBSoft.IndustrialCtrls.Meters.LBAnalogMeter
+                    case MeterTXMode.ALC:
+                    case MeterTXMode.LEVELER:
+                    case MeterTXMode.CFC_PK:
+                    case MeterTXMode.COMP:
+
+                        choice = LBSoft.IndustrialCtrls.Meters.LBAnalogMeter
                                  .BackGroundChoices.VU;
                     break;
 

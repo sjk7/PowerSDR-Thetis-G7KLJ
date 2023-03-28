@@ -5888,6 +5888,10 @@ public partial class Setup : Form {
         string new_driver_name
             = ((PADeviceInfo)comboAudioDriver2.SelectedItem).Name;
 
+        if (!string.IsNullOrEmpty(new_driver_name)) {
+            chkExclusive.Visible = new_driver_name.Contains("WASAPI");
+        }
+
         console.AudioDriverIndex2 = new_driver;
         Audio.Host2 = new_driver;
         GetDevices2();
@@ -6514,30 +6518,28 @@ public partial class Setup : Form {
             Audio.VACEnabled = chkAudioEnableVAC.Checked;
     }
 
-    private void restartVACForLatencyChange()
-        {
-            bool power = console.PowerOn;
-            if (power && chkAudioEnableVAC.Checked)
-            {
-                Audio.EnableVAC1(false);
-            }
-
-            Audio.LatencyPAIn = (int)udAudioLatencyPAIn.Value;
-            Audio.LatencyPAOut = (int)udAudioLatencyPAOut.Value;
-
-            if (power && chkAudioEnableVAC.Checked)
-                Audio.VACEnabled = chkAudioEnableVAC.Checked;
+    private void restartVACForLatencyChange() {
+        bool power = console.PowerOn;
+        if (power && chkAudioEnableVAC.Checked) {
+            Audio.EnableVAC1(false);
         }
 
+        Audio.LatencyPAIn = (int)udAudioLatencyPAIn.Value;
+        Audio.LatencyPAOut = (int)udAudioLatencyPAOut.Value;
+
+        if (power && chkAudioEnableVAC.Checked)
+            Audio.VACEnabled = chkAudioEnableVAC.Checked;
+    }
+
     private void udAudioLatencyPAIn_ValueChanged(object sender, EventArgs e) {
-            // PortAudio In
-            restartVACForLatencyChange();
+        // PortAudio In
+        restartVACForLatencyChange();
     }
 
     private void udAudioLatencyPAOut_ValueChanged(object sender, EventArgs e) {
-            // PortAudio Out
-            restartVACForLatencyChange()
-;    }
+        // PortAudio Out
+        restartVACForLatencyChange();
+    }
 
     private void udVAC2Latency_ValueChanged(object sender, EventArgs e) {
         bool power = console.PowerOn;
@@ -10454,20 +10456,19 @@ public partial class Setup : Form {
 
     private volatile bool save_thread_running = false;
 
-        internal void showActualPALatency(bool show = true)
-        {
-            lblPAInLatency.Visible = show;
-            lblPAOutLatency.Visible = show;
-            if (show)
-            {
-                var msIn = cmaster.GetInputLatencyMsActual(0);
-                var msOut = cmaster.GetOutputLatencyMsActual(0);
-                lblPAInLatency.Text = "Reported hardware input latency: " + msIn.ToString() + " ms";
-                lblPAOutLatency.Text = "Reported hardware output latency: " + msOut.ToString() + " ms";
-            }
-
+    internal void showActualPALatency(bool show = true) {
+        lblPAInLatency.Visible = show;
+        lblPAOutLatency.Visible = show;
+        if (show) {
+            var msIn = cmaster.GetInputLatencyMsActual(0);
+            var msOut = cmaster.GetOutputLatencyMsActual(0);
+            lblPAInLatency.Text
+                = "Reported hardware input latency: " + msIn.ToString() + " ms";
+            lblPAOutLatency.Text = "Reported hardware output latency: "
+                + msOut.ToString() + " ms";
         }
-        private void PreSaveOptions() {
+    }
+    private void PreSaveOptions() {
         SaveOptions();
         setButtonState(false, false);
         save_thread_running = false;
@@ -16731,6 +16732,11 @@ public partial class Setup : Form {
     }
 
     private void setCFCProfile(object sender, EventArgs e) {
+        if (sender is TrackBarTS) {
+            var tb = (TrackBarTS)sender;
+            toolTip1.SetToolTip(tb, tb.Value.ToString());
+        }
+
         const int nfreqs = 10;
         double[] F = new double[nfreqs];
         double[] G = new double[nfreqs];

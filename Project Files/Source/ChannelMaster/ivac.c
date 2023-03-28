@@ -37,12 +37,18 @@ warren@wpratt.com
 
 __declspec(align(16)) IVAC pvac[MAX_EXT_VACS];
 
+int nextPowerOfTwo(int x) {
+    double next = pow(2, ceil(log(x) / log(2)));
+    return (int)next;
+}
+
 void create_resamps(IVAC a) {
     a->MMThreadApiHandle = 0;
     // a->exclusive = 0; <-- overriding checkbox setting!
-    a->INringsize = (int)(2 * a->mic_rate * a->in_latency); // FROM VAC to mic
-    a->OUTringsize
-        = (int)(2 * a->vac_rate * a->out_latency); // TO VAC from rx audio
+    int sz = nextPowerOfTwo((int)(2 * a->mic_rate * a->in_latency));
+    a->INringsize = sz; // FROM VAC to mic
+    sz = nextPowerOfTwo((int)(2 * a->vac_rate * a->out_latency));
+    a->OUTringsize = sz; // TO VAC from rx audio
 
     a->rmatchIN = create_rmatchV(a->vac_size, a->mic_size, a->vac_rate,
         a->mic_rate, a->INringsize); // data FROM VAC TO TX MIC INPUT
@@ -229,7 +235,7 @@ static inline void size_64_bit_buffer(IVAC a, size_t sz_bytes) {
         }
         a->convbuf = malloc(tmpsz * sizeof(double));
         a->convbuf_size = tmpsz;
-        if (a->convbuf) memset(a->convbuf, 0, a->convbuf_size);
+        if (a->convbuf) memset(a->convbuf, 0, a->convbuf_size * sizeof(double));
     }
 }
 
@@ -365,7 +371,7 @@ PORT int StartAudioIVAC(int id) {
     printf("Stream Info input latency %f\n", a->streamInfo->inputLatency);
     printf("Stream Info output latency %f\n", a->streamInfo->outputLatency);
     fflush(stdout);
-   
+
     return paNoError;
 }
 
@@ -526,7 +532,7 @@ PORT void SetIVACInLatency(int id, double lat, int reset) {
 
 PORT void SetIVACOutLatency(int id, double lat, int reset) {
     IVAC a = pvac[id];
-
+    assert(!a->run);
     if (a->out_latency != lat) {
         a->out_latency = lat;
         destroy_resamps(a);
@@ -536,7 +542,7 @@ PORT void SetIVACOutLatency(int id, double lat, int reset) {
 
 PORT void SetIVACPAInLatency(int id, double lat, int reset) {
     IVAC a = pvac[id];
-
+    assert(!a->run);
     if (a->pa_in_latency != lat) {
         a->pa_in_latency = lat;
     }
