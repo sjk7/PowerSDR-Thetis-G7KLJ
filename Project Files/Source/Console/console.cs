@@ -833,7 +833,7 @@ public partial class Console : Form {
         // check versions of DLL/etc
         if (!checkVersions()) {
             // version incorrect
-            DialogResult dr = MessageBox.Show(
+            DialogResult dr = MessageBox.Show(this,
                 "An incorrect version of a required dll has been found.\n"
                     + "Please resolve the issue otherwise unexpected behaviour may occur.",
                 "Version error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -841,8 +841,7 @@ public partial class Console : Form {
             Environment.Exit(0);
             return;
         }
-
-        Splash.SetStatus("Launching PortAudio initialisation, please wait ...");
+  
         bool db = this.DoubleBuffered;
         this.DoubleBuffered = true;
 
@@ -866,7 +865,7 @@ public partial class Console : Form {
                 ApartmentState = ApartmentState.STA // no ASIO devices without Apartment state
             }.Start();
 
-    Splash.SetStatus("Initializing Components ...");
+
 
     // MW0LGE
     // Problems with CultureInfo.
@@ -894,7 +893,7 @@ public partial class Console : Form {
                 if (File.Exists(path)) {
                     DBFileName = path;
                 } else {
-                    DialogResult dr = MessageBox.Show(
+                    DialogResult dr = MessageBox.Show(this,
                         "-dbfilename: command line option found, but the file specified was not found.\n"
                             + "Would you like to create this file?  If not, the default database will be used.\n\n"
                             + "(" + s + ")",
@@ -924,7 +923,7 @@ public partial class Console : Form {
                 Thread.Sleep(500); // ensure this is intentional
                 if (Keyboard.IsKeyDown(Keys.LShiftKey)
                     || Keyboard.IsKeyDown(Keys.RShiftKey)) {
-                    DialogResult dr = MessageBox.Show(
+                    DialogResult dr = MessageBox.Show(this,
                         "The database reset function has been triggered.  Would you like to reset your database?\n\n"
                             + "If so, a copy of the current database will be placed in the DB_Archive folder with\n"
                             + "a date and time stamp in the file name, before creating a brand new\n"
@@ -982,7 +981,7 @@ public partial class Console : Form {
                             + datetime + ".xml",
                         true);
                     File.Delete(m_db_file_name);
-                    MessageBox.Show(
+                    MessageBox.Show(this,
                         "The database file could not be read. It has been copied to the DB_Archive folder\n\n"
                             + "Current database has been reset and initialized.  After the reset, "
                             + "you can try importing another working database file using Setup - Import Database.",
@@ -1047,7 +1046,7 @@ public partial class Console : Form {
                                 File.Delete(m_db_file_name);
                                 File.Delete(autoMergeFileName);
                                 Thread.Sleep(100);
-                                MessageBox.Show(
+                                MessageBox.Show(this,
                                     "A previous version database file could not be imported. It has been copied to the DB_Archive folder\n\n. "
                                         + "The current database has been reset and initialized.\n"
                                         + "You can try importing another working database file using Setup - Import Database.",
@@ -1086,7 +1085,7 @@ public partial class Console : Form {
                             File.Delete(m_db_file_name);
                             resetForAutoMerge = true; // a flag to main()
                             Splash.HideForm();
-                            MessageBox.Show(
+                            MessageBox.Show(this,
                                 "Your database file is from a different version.\nMerging it into a new database will now be attempted.\n\n"
                                     + "First your old database will be saved in DB_Archive folder,\nand a database reset will happen.\n\n"
                                     + "Please RE-START this app when the reset finishes.",
@@ -1102,8 +1101,13 @@ public partial class Console : Form {
     CmdLineArgs = args;
 
     booting = true;
+            Splash.ShowSplashScreen(); // Start splash screen
+            Splash.SetStatus(
+                "Initializing Components ..."); // Set progress point
 
-    InitializeComponent(); // Windows Forms Generated Code
+            Splash.SetStatus("Launching PortAudio initialisation, please wait ...");
+
+            InitializeComponent(); // Windows Forms Generated Code
     this.infoBar.Button1Clicked += new EventHandler<ucInfoBar.InfoBarAction>(
         this.infoBar_Button1Clicked);
     this.infoBar.Button2Clicked += new EventHandler<ucInfoBar.InfoBarAction>(
@@ -1269,10 +1273,13 @@ public partial class Console : Form {
         = rx_display_cal_offset_by_radio[(int)current_hpsdr_model];
 
     if (resetForAutoMerge) {
-            MessageBox.Show(
+                Splash.HideForm();
+            MessageBox.Show(this,
                 "After you see this instance of the app complete,\nPlease RE-START the application.",
                 "Note", MessageBoxButtons.OK, MessageBoxIcon.Information);
-    } else {
+                Splash.ShowAgain();
+
+            } else {
             foreach (string s in CmdLineArgs) {
                 if (s == "-autostart") {
                     autoStartTimer = new System.Timers.Timer(2000);
@@ -1549,9 +1556,7 @@ static void Main(string[] args) {
             Application.EnableVisualStyles();
             Application.DoEvents();
 
-            Splash.ShowSplashScreen(); // Start splash screen
-            Splash.SetStatus(
-                "Initializing Components ..."); // Set progress point
+
 
             theConsole = new Console(args, app_data_path);
 
@@ -2043,7 +2048,9 @@ private void InitConsole() {
 
     Splash.SetStatus("Calculating CPU Usage ...");
 
-    // this is incredibly slow and affects start-up time dramatically
+    // this is incredibly slow and affects start-up time dramatically,
+    // so I bunged it on another thread
+    // KLJ
             new Thread(() =>
             {
                 CpuUsage(m_bShowSystemCPUUsage, true);

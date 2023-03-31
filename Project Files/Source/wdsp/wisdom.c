@@ -70,6 +70,9 @@ PORT void WDSPwisdom(char* directory) {
             "cigarette!\n\n** This slow operation only needs to happen once "
             "***, not "
             "every time you open the program\n\n");
+        fprintf(stdout, "Writing to wisdom file:\n");
+        fprintf(stdout, wisdom_file);
+        fprintf(stdout, "\n\n\n");
         sprintf(status, "Optimizing FFT sizes through %d", maxsize);
         psize = 64;
         while (psize <= MAX_WISDOM_SIZE_FILTER) {

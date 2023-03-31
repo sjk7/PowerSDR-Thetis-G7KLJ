@@ -87,6 +87,7 @@ typedef struct _ivac {
     double* convbuf;
     size_t convbuf_size;
     const PaStreamInfo* streamInfo;
+
 } ivac, *IVAC;
 
 void combinebuff(int n, double* a, double* combined);

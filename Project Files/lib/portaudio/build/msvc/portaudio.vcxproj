@@ -340,7 +340,7 @@
       <OutputFile>$(Platform)\$(Configuration)\portaudio_x64.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>copy /Y "$(OutDir)$(TargetName).dll" "$(PROJECTDIR)../../../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(TargetName).dll";</Command>
+      <Command>copy /Y "$(OutDir)$(TargetName).dll" "../../../../$(ProjectDir) /bin/$(PlatformTarget)/$(Configuration)/$(TargetName).dll";</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copying PortaudioforThetis to working Directory</Message>
@@ -504,7 +504,7 @@
       <OutputFile>$(Platform)\$(Configuration)/portaudio_x64.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>copy /Y "$(OutDir)$(TargetName).dll" "$(PROJECTDIR)../../../../bin/$(PlatformTarget)/$(Configuration)/$(TargetName).dll";</Command>
+      <Command>copy /Y "$(OutDir)$(TargetName).dll" "$(SolutionDir)../bin/$(PlatformTarget)/$(Configuration)/$(TargetName).dll";</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copying PortaudioforThetis to working Directory</Message>
