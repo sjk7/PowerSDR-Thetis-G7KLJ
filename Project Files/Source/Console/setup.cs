@@ -421,8 +421,6 @@ public partial class Setup : Form {
 
         // AddHPSDRPages();
 
-            
-
         if (chkKWAI.Checked)
             AllowFreqBroadcast = true;
         else
@@ -681,197 +679,181 @@ public partial class Setup : Form {
         clrbtnOutOfBand.Color = console.OutOfBandColor;
     }
 
-        #endregion
+#endregion
 
-        #region "InfoBarStuff"
-        public bool PeakBlobsEnabled
-        {
-            get { return chkPeakBlobsEnabled.Checked; }
-            set { chkPeakBlobsEnabled.Checked = value; }
+#region "InfoBarStuff"
+    public bool PeakBlobsEnabled {
+        get { return chkPeakBlobsEnabled.Checked; }
+        set { chkPeakBlobsEnabled.Checked = value; }
+    }
+
+    public bool ActivePeakHoldsEnabled {
+        get {
+            return chkActivePeakHoldRX1.Checked
+                || (chkActivePeakHoldRX2.Checked && console.RX2Enabled)
+                || (chkBlobPeakHold.Checked);
         }
-
-        public bool ActivePeakHoldsEnabled
-        {
-            get
-            {
-                return chkActivePeakHoldRX1.Checked || (chkActivePeakHoldRX2.Checked && console.RX2Enabled) || (chkBlobPeakHold.Checked);
-            }
-            set
-            {
-                chkBlobPeakHold.Checked = value;
-                chkActivePeakHoldRX1.Checked = value;
-                if (console.RX2Enabled) chkActivePeakHoldRX2.Checked = value;
-            }
+        set {
+            chkBlobPeakHold.Checked = value;
+            chkActivePeakHoldRX1.Checked = value;
+            if (console.RX2Enabled) chkActivePeakHoldRX2.Checked = value;
         }
+    }
 
-        public bool CFCPEQEnabled
-        {
-            get
-            {
-                return chkCFCPeqEnable.Checked;
-            }
-            set
-            {
-                if (chkCFCPeqEnable != null)
-                {
-                    chkCFCPeqEnable.Checked = value;
-                }
+    public bool CFCPEQEnabled {
+        get { return chkCFCPeqEnable.Checked; }
+        set {
+            if (chkCFCPeqEnable != null) {
+                chkCFCPeqEnable.Checked = value;
             }
         }
+    }
 
-        public bool ShowDisplayMHzCursorInfo
-        {
-            get { return chkShowMHzOnCursor.Checked; }
-            set
-            {
-                chkShowMHzOnCursor.Checked = value;
-            }
-        }
-        private void chkShowMHzOnCursor_CheckedChanged(object sender, EventArgs e)
-        {
+    public bool ShowDisplayMHzCursorInfo {
+        get { return chkShowMHzOnCursor.Checked; }
+        set { chkShowMHzOnCursor.Checked = value; }
+    }
+    private void chkShowMHzOnCursor_CheckedChanged(object sender, EventArgs e) {
 
-        }
+    }
 
-        public bool HideFeedbackChanged
-        {
-            // get { return chkHideFeebackLevel.Checked; }
-            // set { chkHideFeebackLevel.Checked = value; }
-            get { return false; }
-            set { }
+    public bool HideFeedbackChanged {
+        // get { return chkHideFeebackLevel.Checked; }
+        // set { chkHideFeebackLevel.Checked = value; }
+        get {
+            return false;
         }
-        public void SwapRedBlueChanged()
-        {
-           //  chkSwapREDBluePSAColours.Checked = puresignal.InvertRedBlue;
-        }
-        public enum SetupTab
-        {
-            ALCAGC_Tab = 0,
-            Transmit_Tab,
-            NR_Tab,
-            NB_Tab,
-            CW_Tab,
-            AM_Tab,
-            FM_Tab,
-            DSPAudio_Tab,
-            MNF_Tab,
-            VOXDE_Tab,
-            CFC_Tab,
-            VAC1_Tab,
-            VAC2_Tab,
-            TEST_Tab,
-            OC_Tab,
-            DISPGEN_Tab,
-            DISPRX1_Tab,
-            DISPRX2_Tab,
-            SpotTCI,
-            SMeter_Calib_Tab
-        }
-        public void ShowSetupTab(SetupTab eTab)
-        {
-            Show();
-            Focus();
-            WindowState = FormWindowState.Normal;
+        set {}
+    }
+    public void SwapRedBlueChanged() {
+        //  chkSwapREDBluePSAColours.Checked = puresignal.InvertRedBlue;
+    }
+    public enum SetupTab {
+        ALCAGC_Tab = 0,
+        Transmit_Tab,
+        NR_Tab,
+        NB_Tab,
+        CW_Tab,
+        AM_Tab,
+        FM_Tab,
+        DSPAudio_Tab,
+        MNF_Tab,
+        VOXDE_Tab,
+        CFC_Tab,
+        VAC1_Tab,
+        VAC2_Tab,
+        TEST_Tab,
+        OC_Tab,
+        DISPGEN_Tab,
+        DISPRX1_Tab,
+        DISPRX2_Tab,
+        SpotTCI,
+        SMeter_Calib_Tab
+    }
+    public void ShowSetupTab(SetupTab eTab) {
+        Show();
+        Focus();
+        WindowState = FormWindowState.Normal;
 
-            switch (eTab)
-            {
-                case SetupTab.SMeter_Calib_Tab:
-                    TabSetup.SelectedIndex = 0;
-                    TabGeneral.SelectedIndex = 3;
-                    break;
-                case SetupTab.ALCAGC_Tab:
-                    TabSetup.SelectedIndex = 3;
-                    TabDSP.SelectedIndex = 2; // select AGC/ALC tab
-                    break;
-                case SetupTab.Transmit_Tab:
-                    TabSetup.SelectedIndex = 4; // select Transmit tab
-                    break;
-                case SetupTab.NR_Tab:
-                    TabSetup.SelectedIndex = 3;
-                    TabDSP.SelectedIndex = 7; // select NR tab
-                    break;
-                case SetupTab.NB_Tab:
-                    TabSetup.SelectedIndex = 3;
-                    TabDSP.SelectedIndex = 9; // select NB tab
-                    break;
-                case SetupTab.CW_Tab:
-                    TabSetup.SelectedIndex = 3;
-                    TabDSP.SelectedIndex = 1; // select CW tab
-                    break;
-                case SetupTab.AM_Tab:
-                    TabSetup.SelectedIndex = 3;
-                    TabDSP.SelectedIndex = 3; // select AM tab
-                    break;
-                case SetupTab.FM_Tab:
-                    TabSetup.SelectedIndex = 3;
-                    TabDSP.SelectedIndex = 4; // select FM tab
-                    break;
-                case SetupTab.DSPAudio_Tab:
-                    TabSetup.SelectedIndex = 3;
-                    TabDSP.SelectedIndex = 5; // select DSP/Audio tab
-                    break;
-                case SetupTab.MNF_Tab:
-                    TabSetup.SelectedIndex = 3;
-                    TabDSP.SelectedIndex = 8; // select MNF tab
-                    break;
-                case SetupTab.VOXDE_Tab:
-                    TabSetup.SelectedIndex = 3;
-                    TabDSP.SelectedIndex = 10; // select VOX/DE tab
-                    break;
-                case SetupTab.CFC_Tab:
-                    TabSetup.SelectedIndex = 3;
-                    TabDSP.SelectedIndex = 11; // select CFC tab
-                    break;
-                case SetupTab.VAC1_Tab:
-                    TabSetup.SelectedIndex = 1; // vac1
-                    TabAudio.SelectedIndex = 0;
-                    break;
-                case SetupTab.VAC2_Tab:
-                    TabSetup.SelectedIndex = 1; // vac2
-                    TabAudio.SelectedIndex = 1;
-                    break;
-                case SetupTab.OC_Tab:
-                    TabSetup.SelectedIndex = 0; // general
-                    TabGeneral.SelectedIndex = 5; // OC pins
-                    break;
-                case SetupTab.TEST_Tab:
-                    TabSetup.SelectedIndex = 9; // tests
-                    break;
-                case SetupTab.DISPGEN_Tab:
-                    TabSetup.SelectedIndex = 2; // display
-                    TabDisplay.SelectedIndex = 0; // general
-                    break;
-                case SetupTab.DISPRX1_Tab:
-                    TabSetup.SelectedIndex = 2; // display
-                    TabDisplay.SelectedIndex = 1; // rx1
-                    break;
-                case SetupTab.DISPRX2_Tab:
-                    TabSetup.SelectedIndex = 2; // display
-                    TabDisplay.SelectedIndex = 2; // rx2
-                    break;
-                case SetupTab.SpotTCI:
-                    TabSetup.SelectedIndex = 8; // cat
-                    TabCAT.SelectedIndex = 2; // user
-                    break;
-            }
+        switch (eTab) {
+            case SetupTab.SMeter_Calib_Tab:
+                TabSetup.SelectedIndex = 0;
+                TabGeneral.SelectedIndex = 3;
+                break;
+            case SetupTab.ALCAGC_Tab:
+                TabSetup.SelectedIndex = 3;
+                TabDSP.SelectedIndex = 2; // select AGC/ALC tab
+                break;
+            case SetupTab.Transmit_Tab:
+                TabSetup.SelectedIndex = 4; // select Transmit tab
+                break;
+            case SetupTab.NR_Tab:
+                TabSetup.SelectedIndex = 3;
+                TabDSP.SelectedIndex = 7; // select NR tab
+                break;
+            case SetupTab.NB_Tab:
+                TabSetup.SelectedIndex = 3;
+                TabDSP.SelectedIndex = 9; // select NB tab
+                break;
+            case SetupTab.CW_Tab:
+                TabSetup.SelectedIndex = 3;
+                TabDSP.SelectedIndex = 1; // select CW tab
+                break;
+            case SetupTab.AM_Tab:
+                TabSetup.SelectedIndex = 3;
+                TabDSP.SelectedIndex = 3; // select AM tab
+                break;
+            case SetupTab.FM_Tab:
+                TabSetup.SelectedIndex = 3;
+                TabDSP.SelectedIndex = 4; // select FM tab
+                break;
+            case SetupTab.DSPAudio_Tab:
+                TabSetup.SelectedIndex = 3;
+                TabDSP.SelectedIndex = 5; // select DSP/Audio tab
+                break;
+            case SetupTab.MNF_Tab:
+                TabSetup.SelectedIndex = 3;
+                TabDSP.SelectedIndex = 8; // select MNF tab
+                break;
+            case SetupTab.VOXDE_Tab:
+                TabSetup.SelectedIndex = 3;
+                TabDSP.SelectedIndex = 10; // select VOX/DE tab
+                break;
+            case SetupTab.CFC_Tab:
+                TabSetup.SelectedIndex = 3;
+                TabDSP.SelectedIndex = 11; // select CFC tab
+                break;
+            case SetupTab.VAC1_Tab:
+                TabSetup.SelectedIndex = 1; // vac1
+                TabAudio.SelectedIndex = 0;
+                break;
+            case SetupTab.VAC2_Tab:
+                TabSetup.SelectedIndex = 1; // vac2
+                TabAudio.SelectedIndex = 1;
+                break;
+            case SetupTab.OC_Tab:
+                TabSetup.SelectedIndex = 0; // general
+                TabGeneral.SelectedIndex = 5; // OC pins
+                break;
+            case SetupTab.TEST_Tab:
+                TabSetup.SelectedIndex = 9; // tests
+                break;
+            case SetupTab.DISPGEN_Tab:
+                TabSetup.SelectedIndex = 2; // display
+                TabDisplay.SelectedIndex = 0; // general
+                break;
+            case SetupTab.DISPRX1_Tab:
+                TabSetup.SelectedIndex = 2; // display
+                TabDisplay.SelectedIndex = 1; // rx1
+                break;
+            case SetupTab.DISPRX2_Tab:
+                TabSetup.SelectedIndex = 2; // display
+                TabDisplay.SelectedIndex = 2; // rx2
+                break;
+            case SetupTab.SpotTCI:
+                TabSetup.SelectedIndex = 8; // cat
+                TabCAT.SelectedIndex = 2; // user
+                break;
         }
-        public bool DisplayPanFill
-        {
-            get { return chkDisplayPanFill.Checked; }
-            set { chkDisplayPanFill.Checked = value; }
-        }
-        public bool ShowTCISpots
-        {
-            get { return false; } //chkShowTCISpots.Checked; }
-            // set { chkShowTCISpots.Checked = value; }
-        }
-        #endregion
+    }
+    public bool DisplayPanFill {
+        get { return chkDisplayPanFill.Checked; }
+        set { chkDisplayPanFill.Checked = value; }
+    }
+    public bool ShowTCISpots {
+        get {
+            return false;
+        } // chkShowTCISpots.Checked; }
+          // set { chkShowTCISpots.Checked = value; }
+    }
+#endregion
 
-        #region Misc Routines
-        // ======================================================
-        // Misc Routines
-        // ======================================================
+#region Misc Routines
+    // ======================================================
+    // Misc Routines
+    // ======================================================
 
-        public void PerformDelayedInitalistion() {
+    public void PerformDelayedInitalistion() {
         EventArgs e = EventArgs.Empty;
 
         chkDisable6mLNAonTX_CheckedChanged(this, e);
@@ -979,8 +961,8 @@ public partial class Setup : Form {
         string skin = comboAppSkin.Text;
 
         if (skin == "") {
-            // if (comboAppSkin.Items.Contains("Default"))
-            //    comboAppSkin.Text = "Default";
+            // if (comboAppSkin.Items.Contains("NewVFOAnalogSignalGauge"))
+            //    comboAppSkin.Text = "NewVFOAnalogSignalGauge";
             // else
             //    comboAppSkin.Text = "IK3VIG Special"; //"OpenHPSDR-Gray";
             if (comboAppSkin.Items.Contains("IK3VIG Special"))
@@ -5378,24 +5360,21 @@ public partial class Setup : Form {
         set { lblGanymedeStatus.Text = value; }
     }
 
-
-        public TabControl TabCAT
-        {
-            get { return tcCAT; }
-            //set { tcCAT = value; }
-        }
-        public TabControl TabSetup {
+    public TabControl TabCAT {
+        get { return tcCAT; }
+    // set { tcCAT = value; }
+    }
+    public TabControl TabSetup {
         get { return tcSetup; }
         set { tcSetup = value; }
     }
 
-        public TabControl TabDisplay
-        {
-            get { return tcDisplay; }
-            //set { tcDisplay = value; }
-        }
+    public TabControl TabDisplay {
+        get { return tcDisplay; }
+    // set { tcDisplay = value; }
+    }
 
-        public TabControl TabGeneral {
+    public TabControl TabGeneral {
         get { return tcGeneral; }
         set { tcGeneral = value; }
     }
@@ -5662,8 +5641,7 @@ public partial class Setup : Form {
         console.MaxFreq = (double)udMaxFreq.Value;
     }
 
-    private void chkGeneralRXOnly_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkGeneralRXOnly_CheckedChanged(object sender, EventArgs e) {
         if (chkGeneralRXOnly.Focused && !chkGeneralRXOnly.Checked) {
             DialogResult dr = MessageBox.Show(
                 "Unchecking Receive Only while in Unsupported Card mode may \n"
@@ -5682,8 +5660,7 @@ public partial class Setup : Form {
         grpTestTXIMD.Enabled = !chkGeneralRXOnly.Checked;
     }
 
-    private void btnGeneralCalFreqStart_Click(
-        object sender, System.EventArgs e) {
+    private void btnGeneralCalFreqStart_Click(object sender, EventArgs e) {
         btnGeneralCalFreqStart.Enabled = false;
         Thread t = new Thread(
             new ThreadStart(CalibrateFreq)) { Name = "Freq Calibration Thread",
@@ -5691,8 +5668,7 @@ public partial class Setup : Form {
         t.Start();
     }
 
-    private void btnGeneralCalLevelStart_Click(
-        object sender, System.EventArgs e) {
+    private void btnGeneralCalLevelStart_Click(object sender, EventArgs e) {
         btnGeneralCalLevelStart.Enabled = false;
         progress = new Progress("Calibrate RX Level");
 
@@ -5704,7 +5680,7 @@ public partial class Setup : Form {
         if (console.PowerOn) progress.Show();
     }
 
-    private void btnCalLevel_Click(object sender, System.EventArgs e) {
+    private void btnCalLevel_Click(object sender, EventArgs e) {
         btnCalLevel.Enabled = false;
         progress = new Progress("Calibrate RX2 Level");
 
@@ -5716,14 +5692,13 @@ public partial class Setup : Form {
         if (console.PowerOn) progress.Show();
     }
 
-    private void btnGeneralCalImageStart_Click(
-        object sender, System.EventArgs e) {}
+    private void btnGeneralCalImageStart_Click(object sender, EventArgs e) {}
 
     private void CalibrateFreq() {
         bool done = console.CalibrateFreq((float)udGeneralCalFreq1.Value);
         if (done) MessageBox.Show("Frequency Calibration complete.");
         btnGeneralCalFreqStart.Enabled = true;
-            save_thread_running = false;
+        save_thread_running = false;
     }
 
     private void CalibrateLevel() {
@@ -5731,7 +5706,7 @@ public partial class Setup : Form {
             (float)udGeneralCalFreq2.Value, progress, false);
         if (done) MessageBox.Show("Level Calibration complete.");
         btnGeneralCalLevelStart.Enabled = true;
-            save_thread_running = false;
+        save_thread_running = false;
     }
 
     private void CalibrateRX2Level() {
@@ -5739,19 +5714,19 @@ public partial class Setup : Form {
             (float)udGeneralCalRX2Freq2.Value, progress, false);
         if (done) MessageBox.Show("Level Calibration complete.");
         btnCalLevel.Enabled = true;
-            save_thread_running = false;
+        save_thread_running = false;
     }
 
     private void chkGeneralDisablePTT_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DisablePTT = chkGeneralDisablePTT.Checked;
     }
 
     private void comboGeneralXVTR_SelectedIndexChanged(
-        object sender, System.EventArgs e) {}
+        object sender, EventArgs e) {}
 
     private void comboGeneralProcessPriority_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         Process p = Process.GetCurrentProcess();
 
         if (comboGeneralProcessPriority.Text == "Real Time"
@@ -5798,33 +5773,30 @@ public partial class Setup : Form {
         }
     }
 
-    private void chkOptQuickQSY_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkOptQuickQSY_CheckedChanged(object sender, EventArgs e) {
         console.QuickQSY = chkOptQuickQSY.Checked;
     }
 
-    private void chkOptAlwaysOnTop_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkOptAlwaysOnTop_CheckedChanged(object sender, EventArgs e) {
         console.AlwaysOnTop = chkOptAlwaysOnTop.Checked;
     }
 
     private void udOptClickTuneOffsetDIGL_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DIGLClickTuneOffset = (int)udOptClickTuneOffsetDIGL.Value;
     }
 
     private void udOptClickTuneOffsetDIGU_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DIGUClickTuneOffset = (int)udOptClickTuneOffsetDIGU.Value;
     }
 
-    private void udOptMaxFilterWidth_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udOptMaxFilterWidth_ValueChanged(object sender, EventArgs e) {
         console.MaxFilterWidth = (int)udOptMaxFilterWidth.Value;
     }
 
     private void comboOptFilterWidthMode_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         switch (comboOptFilterWidthMode.Text) {
             case "Linear":
                 console.CurrentFilterWidthMode = FilterWidthMode.Linear;
@@ -5838,29 +5810,28 @@ public partial class Setup : Form {
         }
     }
 
-    private void udOptMaxFilterShift_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udOptMaxFilterShift_ValueChanged(object sender, EventArgs e) {
         console.MaxFilterShift = (int)udOptMaxFilterShift.Value;
     }
 
     private void chkOptFilterSaveChanges_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.SaveFilterChanges = chkOptFilterSaveChanges.Checked;
     }
 
     private void chkOptEnableKBShortcuts_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.EnableKBShortcuts = chkOptEnableKBShortcuts.Checked;
         chkOptQuickQSY.Enabled = chkOptEnableKBShortcuts.Checked;
     }
 
     private void udFilterDefaultLowCut_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DefaultLowCut = (int)udFilterDefaultLowCut.Value;
     }
 
     private void udRX2FilterDefaultLowCut_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DefaultRX2LowCut = (int)udRX2FilterDefaultLowCut.Value;
     }
 
@@ -5871,8 +5842,7 @@ public partial class Setup : Form {
     // Audio Tab Event Handlers
     // ======================================================
 
-    private void chkAudioEnableVAC_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkAudioEnableVAC_CheckedChanged(object sender, EventArgs e) {
         bool val = chkAudioEnableVAC.Checked;
         bool old_val = console.VACEnabled;
 
@@ -5886,8 +5856,7 @@ public partial class Setup : Form {
         if (console.sliderForm != null) console.sliderForm.RX1VACOnOff = val;
     }
 
-    private void chkVAC2Enable_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkVAC2Enable_CheckedChanged(object sender, EventArgs e) {
         bool val = chkVAC2Enable.Checked;
         bool old_val = console.VAC2Enabled;
 
@@ -5902,7 +5871,7 @@ public partial class Setup : Form {
     }
 
     private void comboAudioDriver2_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboAudioDriver2.SelectedIndex < 0) return;
         if (refreshing) return;
 
@@ -5919,6 +5888,10 @@ public partial class Setup : Form {
         string new_driver_name
             = ((PADeviceInfo)comboAudioDriver2.SelectedItem).Name;
 
+        if (!string.IsNullOrEmpty(new_driver_name)) {
+            chkExclusive.Visible = new_driver_name.Contains("WASAPI");
+        }
+
         console.AudioDriverIndex2 = new_driver;
         Audio.Host2 = new_driver;
         GetDevices2();
@@ -5934,7 +5907,7 @@ public partial class Setup : Form {
     }
 
     private void comboAudioDriver3_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboAudioDriver3.SelectedIndex < 0) return;
 
         int old_driver = Audio.Host3;
@@ -5966,9 +5939,11 @@ public partial class Setup : Form {
     }
 
     private void comboAudioInput2_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboAudioInput2.SelectedIndex < 0) return;
+        this.toolTip1.SetToolTip(comboAudioInput2, comboAudioInput2.Text);
         if (refreshing) return;
+
         bool output_is_valid = comboAudioOutput2.SelectedIndex >= 0;
 
         if (comboAudioOutput2.Text.Length == 0) {
@@ -5997,7 +5972,7 @@ public partial class Setup : Form {
     }
 
     private void comboAudioInput3_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboAudioInput3.SelectedIndex < 0) return;
 
         int old_input = Audio.Input3;
@@ -6021,8 +5996,10 @@ public partial class Setup : Form {
     }
 
     private void comboAudioOutput2_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboAudioOutput2.SelectedIndex < 0) return;
+        this.toolTip1.SetToolTip(
+            this.comboAudioOutput2, comboAudioOutput2.Text);
         if (refreshing) return;
 
         int old_output = Audio.Output2;
@@ -6045,7 +6022,7 @@ public partial class Setup : Form {
     }
 
     private void comboAudioOutput3_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboAudioOutput3.SelectedIndex < 0) return;
 
         int old_output = Audio.Output3;
@@ -6116,7 +6093,7 @@ public partial class Setup : Form {
     }
 
     private void comboAudioSampleRate1_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboAudioSampleRate1.SelectedIndex < 0) return;
 
         int old_rate = console.SampleRateRX1;
@@ -6326,7 +6303,7 @@ public partial class Setup : Form {
     }
 
     private void comboAudioSampleRateRX2_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboAudioSampleRateRX2.SelectedIndex < 0) return;
 
         int old_rate = console.SampleRateRX2;
@@ -6371,7 +6348,7 @@ public partial class Setup : Form {
                 console.UpdateDDCs(true);
                 // wait for samples at the new rate to be received
                 Thread.Sleep(1); // need to experiment with this time
-                // add the RX2 audio stream to the mix set
+                                 // add the RX2 audio stream to the mix set
                 unsafe {
                     cmaster.SetAAudioMixState((void*)0, 0, 2, true);
                 }
@@ -6391,7 +6368,7 @@ public partial class Setup : Form {
     }
 
     private void comboAudioSampleRate2_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboAudioSampleRate2.SelectedIndex < 0) return;
 
         int old_rate = console.SampleRate2;
@@ -6416,7 +6393,7 @@ public partial class Setup : Form {
     }
 
     private void comboAudioSampleRate3_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboAudioSampleRate3.SelectedIndex < 0) return;
 
         int old_rate = console.SampleRate3;
@@ -6441,7 +6418,7 @@ public partial class Setup : Form {
     }
 
     private void comboAudioBuffer1_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         /*if (comboAudioBuffer1.SelectedIndex < 0) return;
 
         int old_size = console.BlockSize1;
@@ -6462,7 +6439,7 @@ public partial class Setup : Form {
     }
 
     private void comboAudioBuffer2_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboAudioBuffer2.SelectedIndex < 0) return;
 
         int old_size = console.BlockSize2;
@@ -6487,7 +6464,7 @@ public partial class Setup : Form {
     }
 
     private void comboAudioBuffer3_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboAudioBuffer3.SelectedIndex < 0) return;
 
         int old_size = console.BlockSize3;
@@ -6509,8 +6486,7 @@ public partial class Setup : Form {
         }
     }
 
-    private void udAudioLatency2_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udAudioLatency2_ValueChanged(object sender, EventArgs e) {
         // RingBuffer In
         bool power = console.PowerOn;
         if (power && chkAudioEnableVAC.Checked) {
@@ -6526,8 +6502,7 @@ public partial class Setup : Form {
             Audio.VACEnabled = chkAudioEnableVAC.Checked;
     }
 
-    private void udAudioLatency2_Out_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udAudioLatency2_Out_ValueChanged(object sender, EventArgs e) {
         // RingBuffer Out
         bool power = console.PowerOn;
         if (power && chkAudioEnableVAC.Checked) {
@@ -6543,41 +6518,30 @@ public partial class Setup : Form {
             Audio.VACEnabled = chkAudioEnableVAC.Checked;
     }
 
-    private void udAudioLatencyPAIn_ValueChanged(
-        object sender, System.EventArgs e) {
-        // PortAudio In
+    private void restartVACForLatencyChange() {
         bool power = console.PowerOn;
         if (power && chkAudioEnableVAC.Checked) {
-            // console.PowerOn = false;
-            // Thread.Sleep(100);
             Audio.EnableVAC1(false);
         }
 
         Audio.LatencyPAIn = (int)udAudioLatencyPAIn.Value;
-
-        if (power && chkAudioEnableVAC.Checked)
-            // console.PowerOn = true;
-            Audio.VACEnabled = chkAudioEnableVAC.Checked;
-    }
-
-    private void udAudioLatencyPAOut_ValueChanged(
-        object sender, System.EventArgs e) {
-        // PortAudio Out
-        bool power = console.PowerOn;
-        if (power && chkAudioEnableVAC.Checked) {
-            // console.PowerOn = false;
-            // Thread.Sleep(100);
-            Audio.EnableVAC1(false);
-        }
-
         Audio.LatencyPAOut = (int)udAudioLatencyPAOut.Value;
 
         if (power && chkAudioEnableVAC.Checked)
-            // console.PowerOn = true;
             Audio.VACEnabled = chkAudioEnableVAC.Checked;
     }
 
-    private void udVAC2Latency_ValueChanged(object sender, System.EventArgs e) {
+    private void udAudioLatencyPAIn_ValueChanged(object sender, EventArgs e) {
+        // PortAudio In
+        restartVACForLatencyChange();
+    }
+
+    private void udAudioLatencyPAOut_ValueChanged(object sender, EventArgs e) {
+        // PortAudio Out
+        restartVACForLatencyChange();
+    }
+
+    private void udVAC2Latency_ValueChanged(object sender, EventArgs e) {
         bool power = console.PowerOn;
         if (power && chkVAC2Enable.Checked) {
             // console.PowerOn = false;
@@ -6592,8 +6556,7 @@ public partial class Setup : Form {
             Audio.VAC2Enabled = chkVAC2Enable.Checked;
     }
 
-    private void udVAC2LatencyOut_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udVAC2LatencyOut_ValueChanged(object sender, EventArgs e) {
         bool power = console.PowerOn;
         if (power && chkVAC2Enable.Checked) {
             // console.PowerOn = false;
@@ -6608,8 +6571,7 @@ public partial class Setup : Form {
             Audio.VAC2Enabled = chkVAC2Enable.Checked;
     }
 
-    private void udVAC2LatencyPAIn_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udVAC2LatencyPAIn_ValueChanged(object sender, EventArgs e) {
         bool power = console.PowerOn;
         if (power && chkVAC2Enable.Checked) {
             // console.PowerOn = false;
@@ -6624,8 +6586,7 @@ public partial class Setup : Form {
             Audio.VAC2Enabled = chkVAC2Enable.Checked;
     }
 
-    private void udVAC2LatencyPAOut_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udVAC2LatencyPAOut_ValueChanged(object sender, EventArgs e) {
         bool power = console.PowerOn;
         if (power && chkVAC2Enable.Checked) {
             // console.PowerOn = false;
@@ -6640,8 +6601,7 @@ public partial class Setup : Form {
             Audio.VAC2Enabled = chkVAC2Enable.Checked;
     }
 
-    private void chkAudio2Stereo_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkAudio2Stereo_CheckedChanged(object sender, EventArgs e) {
         // bool power = console.PowerOn;
         // if (power && chkAudioEnableVAC.Checked)
         //{
@@ -6657,8 +6617,7 @@ public partial class Setup : Form {
         //    console.PowerOn = true;
     }
 
-    private void chkAudioStereo3_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkAudioStereo3_CheckedChanged(object sender, EventArgs e) {
         // bool power = console.PowerOn;
         // if (power && chkVAC2Enable.Checked)
         //{
@@ -6674,30 +6633,28 @@ public partial class Setup : Form {
         //    console.PowerOn = true;
     }
 
-    private void udAudioVACGainRX_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udAudioVACGainRX_ValueChanged(object sender, EventArgs e) {
         Audio.VACRXScale = Math.Pow(10.0, (int)udAudioVACGainRX.Value / 20.0);
         console.VACRXGain = (int)udAudioVACGainRX.Value;
         if (console.sliderForm != null)
             console.sliderForm.RX1VACRX = (int)udAudioVACGainRX.Value;
     }
 
-    private void udVAC2GainRX_ValueChanged(object sender, System.EventArgs e) {
+    private void udVAC2GainRX_ValueChanged(object sender, EventArgs e) {
         Audio.VAC2RXScale = Math.Pow(10.0, (int)udVAC2GainRX.Value / 20.0);
         console.VAC2RXGain = (int)udVAC2GainRX.Value;
         if (console.sliderForm != null)
             console.sliderForm.RX2VACRX = (int)udVAC2GainRX.Value;
     }
 
-    private void udAudioVACGainTX_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udAudioVACGainTX_ValueChanged(object sender, EventArgs e) {
         Audio.VACPreamp = Math.Pow(10.0, (int)udAudioVACGainTX.Value / 20.0);
         console.VACTXGain = (int)udAudioVACGainTX.Value;
         if (console.sliderForm != null)
             console.sliderForm.RX1VACTX = (int)udAudioVACGainTX.Value;
     }
 
-    private void udVAC2GainTX_ValueChanged(object sender, System.EventArgs e) {
+    private void udVAC2GainTX_ValueChanged(object sender, EventArgs e) {
         Audio.VAC2TXScale = Math.Pow(10.0, (int)udVAC2GainTX.Value / 20.0);
         console.VAC2TXGain = (int)udVAC2GainTX.Value;
         if (console.sliderForm != null)
@@ -6705,17 +6662,16 @@ public partial class Setup : Form {
     }
 
     private void chkAudioVACAutoEnable_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.VACAutoEnable = chkAudioVACAutoEnable.Checked;
     }
 
-    private void chkVAC2AutoEnable_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkVAC2AutoEnable_CheckedChanged(object sender, EventArgs e) {
         console.VAC2AutoEnable = chkVAC2AutoEnable.Checked;
     }
 
     private void chkAudioLatencyManual2_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         bool power = console.PowerOn;
         if (power && chkAudioEnableVAC.Checked) {
             // console.PowerOn = false;
@@ -6736,7 +6692,7 @@ public partial class Setup : Form {
     }
 
     private void chkAudioLatencyManual2_Out_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         bool power = console.PowerOn;
         if (power && chkAudioEnableVAC.Checked) {
             // console.PowerOn = false;
@@ -6757,7 +6713,7 @@ public partial class Setup : Form {
     }
 
     private void chkAudioLatencyPAInManual_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         bool power = console.PowerOn;
         if (power && chkAudioEnableVAC.Checked) {
             // console.PowerOn = false;
@@ -6778,7 +6734,7 @@ public partial class Setup : Form {
     }
 
     private void chkAudioLatencyPAOutManual_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         bool power = console.PowerOn;
         if (power && chkAudioEnableVAC.Checked) {
             // console.PowerOn = false;
@@ -6799,7 +6755,7 @@ public partial class Setup : Form {
     }
 
     private void chkVAC2LatencyManual_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         bool power = console.PowerOn;
         if (power && chkVAC2Enable.Checked) {
             // console.PowerOn = false;
@@ -6820,7 +6776,7 @@ public partial class Setup : Form {
     }
 
     private void chkVAC2LatencyOutManual_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         bool power = console.PowerOn;
         if (power && chkVAC2Enable.Checked) {
             // console.PowerOn = false;
@@ -6841,7 +6797,7 @@ public partial class Setup : Form {
     }
 
     private void chkVAC2LatencyPAInManual_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         bool power = console.PowerOn;
         if (power && chkVAC2Enable.Checked) {
             ivac.SetIVACrun(1, 0);
@@ -6856,7 +6812,7 @@ public partial class Setup : Form {
     }
 
     private void chkVAC2LatencyPAOutManual_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         bool power = console.PowerOn;
         if (power && chkVAC2Enable.Checked) {
             ivac.SetIVACrun(1, 0);
@@ -6870,8 +6826,7 @@ public partial class Setup : Form {
             Audio.VAC2Enabled = chkVAC2Enable.Checked;
     }
 
-    private void chk20dbMicBoost_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chk20dbMicBoost_CheckedChanged(object sender, EventArgs e) {
         if (chk20dbMicBoost.Checked) udVOXGain_ValueChanged(this, e);
         console.MicBoost = chk20dbMicBoost.Checked;
     }
@@ -6883,24 +6838,23 @@ public partial class Setup : Form {
     // Display Tab Event Handlers
     // ======================================================
 
-    private void udDisplayGridMax_LostFocus(object sender, System.EventArgs e) {
+    private void udDisplayGridMax_LostFocus(object sender, EventArgs e) {
         Display.SpectrumGridMax = (int)udDisplayGridMax.Value;
     }
 
-    private void udTXGridMax_LostFocus(object sender, System.EventArgs e) {
+    private void udTXGridMax_LostFocus(object sender, EventArgs e) {
         Display.TXSpectrumGridMax = (int)udTXGridMax.Value;
     }
 
-    private void udDisplayGridMax_Click(object sender, System.EventArgs e) {
+    private void udDisplayGridMax_Click(object sender, EventArgs e) {
         udDisplayGridMax_LostFocus(sender, e);
     }
 
-    private void udDisplayGridMax_MouseWheel(
-        object sender, System.Windows.Forms.MouseEventArgs e) {
-        udDisplayGridMax_LostFocus(sender, new System.EventArgs());
+    private void udDisplayGridMax_MouseWheel(object sender, MouseEventArgs e) {
+        udDisplayGridMax_LostFocus(sender, new EventArgs());
     }
 
-    private void udDisplayFPS_ValueChanged(object sender, System.EventArgs e) {
+    private void udDisplayFPS_ValueChanged(object sender, EventArgs e) {
         console.DisplayFPS = (int)udDisplayFPS.Value;
 
         if (console.CurrentDisplayEngine == DisplayEngine.DIRECT_X)
@@ -6917,8 +6871,7 @@ public partial class Setup : Form {
         setWaterFallCalculatedDelayText();
     }
 
-    private void udDisplayGridMax_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDisplayGridMax_ValueChanged(object sender, EventArgs e) {
         UpdateDisplayGridBandInfo();
         switch (console.RX1Band) {
             case Band.B160M:
@@ -6980,8 +6933,7 @@ public partial class Setup : Form {
         }
     }
 
-    private void udDisplayGridMin_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDisplayGridMin_ValueChanged(object sender, EventArgs e) {
 
         UpdateDisplayGridBandInfo();
         switch (console.RX1Band) {
@@ -7045,13 +6997,11 @@ public partial class Setup : Form {
         console.UpdateDisplayGridLevelMinValues(); // MW0LGE
     }
 
-    private void udDisplayGridStep_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDisplayGridStep_ValueChanged(object sender, EventArgs e) {
         Display.SpectrumGridStep = (int)udDisplayGridStep.Value;
     }
 
-    private void udRX2DisplayGridMax_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udRX2DisplayGridMax_ValueChanged(object sender, EventArgs e) {
         // if (udRX2DisplayGridMax.Value <= udRX2DisplayGridMin.Value)
         //    udRX2DisplayGridMax.Value = udRX2DisplayGridMin.Value + 10;
         // Display.RX2SpectrumGridMax = (int)udRX2DisplayGridMax.Value;
@@ -7121,8 +7071,7 @@ public partial class Setup : Form {
         console.UpdateDisplayGridLevelMaxValues(); // MW0LGE
     }
 
-    private void udRX2DisplayGridMin_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udRX2DisplayGridMin_ValueChanged(object sender, EventArgs e) {
         UpdateDisplayGridBandInfo();
         switch (console.RX2Band) {
             case Band.B160M:
@@ -7186,13 +7135,12 @@ public partial class Setup : Form {
         }
     }
 
-    private void udRX2DisplayGridStep_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udRX2DisplayGridStep_ValueChanged(object sender, EventArgs e) {
         Display.RX2SpectrumGridStep = (int)udRX2DisplayGridStep.Value;
     }
 
     private void comboDisplayLabelAlign_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         switch (comboDisplayLabelAlign.Text) {
             case "Left":
                 Display.DisplayLabelAlign = DisplayLabelAlignment.LEFT;
@@ -7215,13 +7163,11 @@ public partial class Setup : Form {
         }
     }
 
-    private void udDisplayPhasePts_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDisplayPhasePts_ValueChanged(object sender, EventArgs e) {
         Display.PhaseNumPts = (int)udDisplayPhasePts.Value;
     }
 
-    private void udDisplayAVGTime_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDisplayAVGTime_ValueChanged(object sender, EventArgs e) {
         console.specRX.GetSpecRX(0).AvTau
             = 0.001 * (double)udDisplayAVGTime.Value;
         console.UpdateRXSpectrumDisplayVars();
@@ -7235,42 +7181,37 @@ public partial class Setup : Form {
         // not needed
     }
 
-    private void udRX2DisplayAVGTime_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udRX2DisplayAVGTime_ValueChanged(object sender, EventArgs e) {
         console.specRX.GetSpecRX(1).AvTau
             = 0.001 * (double)udRX2DisplayAVGTime.Value;
     }
 
-    private void udDisplayMeterDelay_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDisplayMeterDelay_ValueChanged(object sender, EventArgs e) {
         console.MeterDelay = (int)udDisplayMeterDelay.Value;
     }
 
-    private void udDisplayPeakText_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDisplayPeakText_ValueChanged(object sender, EventArgs e) {
         console.PeakTextDelay = (int)udDisplayPeakText.Value;
     }
 
-    private void udDisplayCPUMeter_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDisplayCPUMeter_ValueChanged(object sender, EventArgs e) {
         console.CPUMeterDelay = (int)udDisplayCPUMeter.Value;
     }
 
-    private void clrbtnWaterfallLow_Changed(object sender, System.EventArgs e) {
+    private void clrbtnWaterfallLow_Changed(object sender, EventArgs e) {
         Display.WaterfallLowColor = clrbtnWaterfallLow.Color;
     }
 
-    private void clrbtnWaterfallHigh_Changed(
-        object sender, System.EventArgs e) {
+    private void clrbtnWaterfallHigh_Changed(object sender, EventArgs e) {
         Display.WaterfallHighColor = clrbtnWaterfallHigh.Color;
     }
 
-    private void clrbtnWaterfallMid_Changed(object sender, System.EventArgs e) {
+    private void clrbtnWaterfallMid_Changed(object sender, EventArgs e) {
         Display.WaterfallMidColor = clrbtnWaterfallMid.Color;
     }
 
     private void udDisplayWaterfallLowLevel_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         UpdateWaterfallBandInfo();
         switch (console.RX1Band) {
             case Band.B160M:
@@ -7360,7 +7301,7 @@ public partial class Setup : Form {
     }
 
     private void udDisplayWaterfallHighLevel_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         UpdateWaterfallBandInfo();
         switch (console.RX1Band) {
             case Band.B160M:
@@ -7451,33 +7392,30 @@ public partial class Setup : Form {
     }
 
     private void udDisplayMultiPeakHoldTime_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.MultimeterPeakHoldTime = (int)udDisplayMultiPeakHoldTime.Value;
     }
 
     private void udDisplayMultiTextHoldTime_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.MultimeterTextPeakTime = (int)udDisplayMultiTextHoldTime.Value;
     }
 
     // RX2 WaterFall
-    private void clrbtnRX2WaterfallLow_Changed(
-        object sender, System.EventArgs e) {
+    private void clrbtnRX2WaterfallLow_Changed(object sender, EventArgs e) {
         Display.RX2WaterfallLowColor = clrbtnRX2WaterfallLow.Color;
     }
 
-    private void clrbtnRX2WaterfallHigh_Changed(
-        object sender, System.EventArgs e) {
+    private void clrbtnRX2WaterfallHigh_Changed(object sender, EventArgs e) {
         Display.RX2WaterfallHighColor = clrbtnRX2WaterfallHigh.Color;
     }
 
-    private void clrbtnRX2WaterfallMid_Changed(
-        object sender, System.EventArgs e) {
+    private void clrbtnRX2WaterfallMid_Changed(object sender, EventArgs e) {
         Display.RX2WaterfallMidColor = clrbtnRX2WaterfallMid.Color;
     }
 
     private void udRX2DisplayWaterfallLowLevel_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         UpdateWaterfallBandInfo();
         switch (console.RX2Band) {
             case Band.B160M:
@@ -7568,7 +7506,7 @@ public partial class Setup : Form {
     }
 
     private void udRX2DisplayWaterfallHighLevel_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         UpdateWaterfallBandInfo();
         switch (console.RX2Band) {
             case Band.B160M:
@@ -7660,8 +7598,7 @@ public partial class Setup : Form {
         // (float)udDisplayWaterfallHighLevel.Value;
     }
 
-    private void udDisplayScopeTime_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDisplayScopeTime_ValueChanged(object sender, EventArgs e) {
         // console.ScopeTime = (int)udDisplayScopeTime.Value;
         int samples = (int)((double)udDisplayScopeTime.Value * Audio.OutRate
             / 1000000.0);
@@ -7669,8 +7606,7 @@ public partial class Setup : Form {
         Audio.ScopeSamplesPerPixel = samples;
     }
 
-    private void udDisplayMeterAvg_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDisplayMeterAvg_ValueChanged(object sender, EventArgs e) {
         double block_time = (double)udDisplayMeterDelay.Value * 0.001;
         int blocksToAvg
             = (int)((float)udDisplayMeterAvg.Value * 0.001 / block_time);
@@ -7679,7 +7615,7 @@ public partial class Setup : Form {
     }
 
     private void comboDisplayDriver_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         switch (comboDisplayDriver.Text) {
             case "GDI+":
                 console.CurrentDisplayEngine = DisplayEngine.GDI_PLUS;
@@ -7692,19 +7628,19 @@ public partial class Setup : Form {
         }
     }
 
-    private void udTXGridMax_ValueChanged(object sender, System.EventArgs e) {
+    private void udTXGridMax_ValueChanged(object sender, EventArgs e) {
         if (udTXGridMax.Value <= udTXGridMin.Value)
             udTXGridMax.Value = udTXGridMin.Value + 10;
         Display.TXSpectrumGridMax = (int)udTXGridMax.Value;
     }
 
-    private void udTXGridMin_ValueChanged(object sender, System.EventArgs e) {
+    private void udTXGridMin_ValueChanged(object sender, EventArgs e) {
         if (udTXGridMin.Value >= udTXGridMax.Value)
             udTXGridMin.Value = udTXGridMax.Value - 10;
         Display.TXSpectrumGridMin = (int)udTXGridMin.Value;
     }
 
-    private void udTXGridStep_ValueChanged(object sender, System.EventArgs e) {
+    private void udTXGridStep_ValueChanged(object sender, EventArgs e) {
         Display.TXSpectrumGridStep = (int)udTXGridStep.Value;
     }
 
@@ -7721,7 +7657,7 @@ public partial class Setup : Form {
     }
 
     private void comboTXLabelAlign_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         switch (comboTXLabelAlign.Text) {
             case "Left":
                 Display.TXDisplayLabelAlign = DisplayLabelAlignment.LEFT;
@@ -7751,7 +7687,7 @@ public partial class Setup : Form {
     // DSP Tab Event Handlers
     // ======================================================
 
-    private void udLMSNR_ValueChanged(object sender, System.EventArgs e) {
+    private void udLMSNR_ValueChanged(object sender, EventArgs e) {
         console.radio.GetDSPRX(0, 0).SetNRVals((int)udLMSNRtaps.Value,
             (int)udLMSNRdelay.Value, 1e-6 * (double)udLMSNRgain.Value,
             1e-3 * (double)udLMSNRLeak.Value);
@@ -7760,7 +7696,7 @@ public partial class Setup : Form {
             1e-3 * (double)udLMSNRLeak.Value);
     }
 
-    private void udLMSNR2_ValueChanged(object sender, System.EventArgs e) {
+    private void udLMSNR2_ValueChanged(object sender, EventArgs e) {
         console.radio.GetDSPRX(1, 0).SetNRVals((int)udLMSNR2taps.Value,
             (int)udLMSNR2delay.Value, 1e-6 * (double)udLMSNR2gain.Value,
             1e-3 * (double)udLMSNR2Leak.Value);
@@ -7769,7 +7705,7 @@ public partial class Setup : Form {
             1e-3 * (double)udLMSNR2Leak.Value);
     }
 
-    private void udDSPNB_ValueChanged(object sender, System.EventArgs e) {
+    private void udDSPNB_ValueChanged(object sender, EventArgs e) {
         console.radio.GetDSPRX(0, 0).NBThreshold
             = 0.165 * (double)(udDSPNB.Value);
         console.radio.GetDSPRX(1, 0).NBThreshold
@@ -7777,120 +7713,120 @@ public partial class Setup : Form {
     }
 
     private void comboDSPPhoneRXBuf_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPBufPhoneRX = int.Parse(comboDSPPhoneRXBuf.Text);
     }
 
     private void comboDSPPhoneTXBuf_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPBufPhoneTX = int.Parse(comboDSPPhoneTXBuf.Text);
     }
 
     private void comboDSPFMRXBuf_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPBufFMRX = int.Parse(comboDSPFMRXBuf.Text);
     }
 
     private void comboDSPFMTXBuf_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPBufFMTX = int.Parse(comboDSPFMTXBuf.Text);
     }
 
     private void comboDSPCWRXBuf_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPBufCWRX = int.Parse(comboDSPCWRXBuf.Text);
     }
 
     private void comboDSPDigRXBuf_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPBufDigRX = int.Parse(comboDSPDigRXBuf.Text);
     }
 
     private void comboDSPDigTXBuf_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPBufDigTX = int.Parse(comboDSPDigTXBuf.Text);
     }
 
     private void comboDSPPhoneRXFiltSize_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPFiltSizePhoneRX = int.Parse(comboDSPPhoneRXFiltSize.Text);
     }
 
     private void comboDSPPhoneTXFiltSize_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPFiltSizePhoneTX = int.Parse(comboDSPPhoneTXFiltSize.Text);
     }
 
     private void comboDSPFMRXFiltSize_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPFiltSizeFMRX = int.Parse(comboDSPFMRXFiltSize.Text);
     }
 
     private void comboDSPFMTXFiltSize_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPFiltSizeFMTX = int.Parse(comboDSPFMTXFiltSize.Text);
     }
 
     private void comboDSPCWRXFiltSize_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPFiltSizeCWRX = int.Parse(comboDSPCWRXFiltSize.Text);
     }
 
     private void comboDSPDigRXFiltSize_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPFiltSizeDigRX = int.Parse(comboDSPDigRXFiltSize.Text);
     }
 
     private void comboDSPDigTXFiltSize_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPFiltSizeDigTX = int.Parse(comboDSPDigTXFiltSize.Text);
     }
 
     private void comboDSPPhoneRXFiltType_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPFiltTypePhoneRX
             = (DSPFilterType)comboDSPPhoneRXFiltType.SelectedIndex;
     }
 
     private void comboDSPPhoneTXFiltType_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPFiltTypePhoneTX
             = (DSPFilterType)comboDSPPhoneTXFiltType.SelectedIndex;
     }
 
     private void comboDSPFMRXFiltType_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPFiltTypeFMRX
             = (DSPFilterType)comboDSPFMRXFiltType.SelectedIndex;
     }
 
     private void comboDSPFMTXFiltType_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPFiltTypeFMTX
             = (DSPFilterType)comboDSPFMTXFiltType.SelectedIndex;
     }
 
     private void comboDSPCWRXFiltType_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPFiltTypeCWRX
             = (DSPFilterType)comboDSPCWRXFiltType.SelectedIndex;
     }
 
     private void comboDSPDigRXFiltType_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPFiltTypeDigRX
             = (DSPFilterType)comboDSPDigRXFiltType.SelectedIndex;
     }
 
     private void comboDSPDigTXFiltType_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.DSPFiltTypeDigTX
             = (DSPFilterType)comboDSPDigTXFiltType.SelectedIndex;
     }
 
 #region Image Reject
 
-    private void udLMSANF_ValueChanged(object sender, System.EventArgs e) {
+    private void udLMSANF_ValueChanged(object sender, EventArgs e) {
         console.radio.GetDSPRX(0, 0).SetANFVals((int)udLMSANFtaps.Value,
             (int)udLMSANFdelay.Value, 1e-6 * (double)udLMSANFgain.Value,
             1e-3 * (double)udLMSANFLeak.Value);
@@ -7899,7 +7835,7 @@ public partial class Setup : Form {
             1e-3 * (double)udLMSANFLeak.Value);
     }
 
-    private void udLMSANF2_ValueChanged(object sender, System.EventArgs e) {
+    private void udLMSANF2_ValueChanged(object sender, EventArgs e) {
         console.radio.GetDSPRX(1, 0).SetANFVals((int)udLMSANF2taps.Value,
             (int)udLMSANF2delay.Value, 1e-6 * (double)udLMSANF2gain.Value,
             1e-3 * (double)udLMSANF2Leak.Value);
@@ -7937,12 +7873,11 @@ public partial class Setup : Form {
 
 #region Keyer
 
-    private void udDSPCWPitch_ValueChanged(object sender, System.EventArgs e) {
+    private void udDSPCWPitch_ValueChanged(object sender, EventArgs e) {
         console.CWPitch = (int)udDSPCWPitch.Value;
     }
 
-    private void chkCWKeyerIambic_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkCWKeyerIambic_CheckedChanged(object sender, EventArgs e) {
         console.CWIambic = chkCWKeyerIambic.Checked;
         if (chkCWKeyerIambic.Checked)
             NetworkIO.SetCWIambic(1);
@@ -7950,18 +7885,17 @@ public partial class Setup : Form {
             NetworkIO.SetCWIambic(0);
     }
 
-    private void udCWKeyerWeight_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udCWKeyerWeight_ValueChanged(object sender, EventArgs e) {
         NetworkIO.SetCWKeyerWeight((int)udCWKeyerWeight.Value);
     }
 
     private void udCWKeyerSemiBreakInDelay_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.BreakInDelay = (double)udCWBreakInDelay.Value;
     }
 
     private void chkDSPKeyerSemiBreakInEnabled_CheckedChanged(
-        object sender, System.EventArgs e) {}
+        object sender, EventArgs e) {}
 
     private void chkCWBreakInEnabled_CheckStateChanged(
         object sender, EventArgs e) {
@@ -8001,7 +7935,7 @@ public partial class Setup : Form {
     }
 
     private void chkDSPKeyerSidetone_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.CWSidetone = chkDSPKeyerSidetone.Checked;
         if (chkDSPKeyerSidetone.Checked)
             NetworkIO.SetCWSidetone(1);
@@ -8009,13 +7943,12 @@ public partial class Setup : Form {
             NetworkIO.SetCWSidetone(0);
     }
 
-    private void chkCWKeyerRevPdl_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkCWKeyerRevPdl_CheckedChanged(object sender, EventArgs e) {
         console.ReversePaddles = chkCWKeyerRevPdl.Checked;
     }
 
     private void comboKeyerConnPrimary_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (!CWInput.SetPrimaryInput(comboKeyerConnPrimary.Text)) {
             MessageBox.Show("Error using " + comboKeyerConnPrimary.Text
                     + " for Keyer Primary Input.\n"
@@ -8027,7 +7960,7 @@ public partial class Setup : Form {
     }
 
     private void comboKeyerConnSecondary_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (initializing) return;
 
         if (comboKeyerConnSecondary.Text == "CAT") {
@@ -8092,7 +8025,7 @@ public partial class Setup : Form {
     }
 
     private void comboKeyerConnKeyLine_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboKeyerConnKeyLine.SelectedIndex < 0) return;
 
         if (comboKeyerConnSecondary.Text == "CAT") {
@@ -8116,7 +8049,7 @@ public partial class Setup : Form {
     }
 
     private void comboKeyerConnPTTLine_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboKeyerConnPTTLine.SelectedIndex < 0) return;
 
         if (comboKeyerConnSecondary.Text == "CAT") {
@@ -8143,8 +8076,7 @@ public partial class Setup : Form {
 
 #region AGC
 
-    private void udDSPAGCFixedGaindB_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDSPAGCFixedGaindB_ValueChanged(object sender, EventArgs e) {
         console.radio.GetDSPRX(0, 0).RXFixedAGC
             = (double)udDSPAGCFixedGaindB.Value;
         console.radio.GetDSPRX(0, 1).RXFixedAGC
@@ -8154,8 +8086,7 @@ public partial class Setup : Form {
             console.RF = (int)udDSPAGCFixedGaindB.Value;
     }
 
-    private void udDSPAGCMaxGaindB_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDSPAGCMaxGaindB_ValueChanged(object sender, EventArgs e) {
         console.radio.GetDSPRX(0, 0).RXAGCMaxGain
             = (double)udDSPAGCMaxGaindB.Value;
         console.radio.GetDSPRX(0, 1).RXAGCMaxGain
@@ -8186,7 +8117,7 @@ public partial class Setup : Form {
             console.RX2RF = (int)udDSPAGCRX2FixedGaindB.Value;
     }
 
-    private void udDSPAGCDecay_ValueChanged(object sender, System.EventArgs e) {
+    private void udDSPAGCDecay_ValueChanged(object sender, EventArgs e) {
         // if (udDSPAGCDecay.Enabled)
         {
             console.radio.GetDSPRX(0, 0).RXAGCDecay = (int)udDSPAGCDecay.Value;
@@ -8194,8 +8125,7 @@ public partial class Setup : Form {
         }
     }
 
-    private void udDSPAGCRX2Decay_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDSPAGCRX2Decay_ValueChanged(object sender, EventArgs e) {
         //  if (udDSPAGCRX2Decay.Enabled)
         {
             console.radio.GetDSPRX(1, 0).RXAGCDecay
@@ -8205,23 +8135,21 @@ public partial class Setup : Form {
         }
     }
 
-    private void udDSPAGCSlope_ValueChanged(object sender, System.EventArgs e) {
+    private void udDSPAGCSlope_ValueChanged(object sender, EventArgs e) {
         console.radio.GetDSPRX(0, 0).RXAGCSlope
             = 10 * (int)(udDSPAGCSlope.Value);
         console.radio.GetDSPRX(0, 1).RXAGCSlope
             = 10 * (int)(udDSPAGCSlope.Value);
     }
 
-    private void udDSPAGCRX2Slope_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDSPAGCRX2Slope_ValueChanged(object sender, EventArgs e) {
         console.radio.GetDSPRX(1, 0).RXAGCSlope
             = 10 * (int)(udDSPAGCRX2Slope.Value);
         //    console.radio.GetDSPRX(1, 1).RXAGCSlope = 10 *
         //    (int)(udDSPAGCRX2Slope.Value);
     }
 
-    private void udDSPAGCHangTime_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDSPAGCHangTime_ValueChanged(object sender, EventArgs e) {
         // if (udDSPAGCHangTime.Enabled)
         {
             console.radio.GetDSPRX(0, 0).RXAGCHang
@@ -8231,8 +8159,7 @@ public partial class Setup : Form {
         }
     }
 
-    private void udDSPAGCRX2HangTime_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDSPAGCRX2HangTime_ValueChanged(object sender, EventArgs e) {
         // if (udDSPAGCRX2HangTime.Enabled)
         {
             console.radio.GetDSPRX(1, 0).RXAGCHang
@@ -8242,16 +8169,14 @@ public partial class Setup : Form {
         }
     }
 
-    private void tbDSPAGCHangThreshold_Scroll(
-        object sender, System.EventArgs e) {
+    private void tbDSPAGCHangThreshold_Scroll(object sender, EventArgs e) {
         console.radio.GetDSPRX(0, 0).RXAGCHangThreshold
             = (int)tbDSPAGCHangThreshold.Value;
         console.radio.GetDSPRX(0, 1).RXAGCHangThreshold
             = (int)tbDSPAGCHangThreshold.Value;
     }
 
-    private void tbDSPAGCRX2HangThreshold_Scroll(
-        object sender, System.EventArgs e) {
+    private void tbDSPAGCRX2HangThreshold_Scroll(object sender, EventArgs e) {
         console.radio.GetDSPRX(1, 0).RXAGCHangThreshold
             = (int)tbDSPAGCRX2HangThreshold.Value;
         //   console.radio.GetDSPRX(1, 1).RXAGCHangThreshold =
@@ -8263,18 +8188,17 @@ public partial class Setup : Form {
 #region Leveler
 
     private void udDSPLevelerThreshold_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.radio.GetDSPTX(0).TXLevelerMaxGain
             = (double)udDSPLevelerThreshold.Value;
     }
 
-    private void udDSPLevelerDecay_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDSPLevelerDecay_ValueChanged(object sender, EventArgs e) {
         console.radio.GetDSPTX(0).TXLevelerDecay = (int)udDSPLevelerDecay.Value;
     }
 
     private void chkDSPLevelerEnabled_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.radio.GetDSPTX(0).TXLevelerOn = chkDSPLevelerEnabled.Checked;
     }
 
@@ -8282,13 +8206,12 @@ public partial class Setup : Form {
 
 #region ALC
 
-    private void udDSPALCMaximumGain_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDSPALCMaximumGain_ValueChanged(object sender, EventArgs e) {
         WDSP.SetTXAALCMaxGain(WDSP.id(1, 0), (double)udDSPALCMaximumGain.Value);
         WDSP.ALCGain = (double)udDSPALCMaximumGain.Value;
     }
 
-    private void udDSPALCDecay_ValueChanged(object sender, System.EventArgs e) {
+    private void udDSPALCDecay_ValueChanged(object sender, EventArgs e) {
         console.radio.GetDSPTX(0).TXALCDecay = (int)udDSPALCDecay.Value;
     }
 
@@ -8298,24 +8221,21 @@ public partial class Setup : Form {
 
 #region Transmit Tab Event Handlers
 
-    private void udTXFilterHigh_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udTXFilterHigh_ValueChanged(object sender, EventArgs e) {
         if (udTXFilterHigh.Value < udTXFilterLow.Value + 100) {
             udTXFilterHigh.Value = udTXFilterLow.Value + 100;
             return;
         }
 
-        /*/
         if (udTXFilterHigh.Focused
             && (udTXFilterHigh.Value - udTXFilterLow.Value) > 3000
             && (console.TXFilterHigh - console.TXFilterLow) <= 3000) {
             (new Thread(new ThreadStart(TXBW))).Start();
         }
-        /*/
+
         console.TXFilterHigh = (int)udTXFilterHigh.Value;
     }
 
-        /*/
     private void TXBW() {
         MessageBox.Show(
             "The transmit bandwidth is being increased beyond 3kHz.\n\n"
@@ -8324,33 +8244,27 @@ public partial class Setup : Form {
             "Warning: Transmit Bandwidth", MessageBoxButtons.OK,
             MessageBoxIcon.Warning);
     }
-        /*/
 
-    private void udTXFilterLow_ValueChanged(object sender, System.EventArgs e) {
+    private void udTXFilterLow_ValueChanged(object sender, EventArgs e) {
         if (udTXFilterLow.Value > udTXFilterHigh.Value - 100) {
             udTXFilterLow.Value = udTXFilterHigh.Value - 100;
             return;
         }
 
-        /*/
         if (udTXFilterLow.Focused
             && (udTXFilterHigh.Value - udTXFilterLow.Value) > 3000
             && (console.TXFilterHigh - console.TXFilterLow) <= 3000) {
             (new Thread(new ThreadStart(TXBW))).Start();
         }
-        /*/
+
         console.TXFilterLow = (int)udTXFilterLow.Value;
-           lblVOODOO.Visible = (console.TXFilterLow < 50);
- 
     }
 
-    private void udTransmitTunePower_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udTransmitTunePower_ValueChanged(object sender, EventArgs e) {
         console.TunePower = (int)udTXTunePower.Value;
     }
 
-    private void chkTXTunePower_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkTXTunePower_CheckedChanged(object sender, EventArgs e) {
         console.TXTunePower = chkTXTunePower.Checked;
     }
 
@@ -8537,7 +8451,7 @@ public partial class Setup : Form {
 
     private string current_profile = "";
     private void comboTXProfileName_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboTXProfileName.SelectedIndex < 0 || initializing) return;
 
         if (chkAutoSaveTXProfile.Checked) {
@@ -8564,7 +8478,7 @@ public partial class Setup : Form {
             current_profile = "";
     }
 
-    private void btnTXProfileSave_Click(object sender, System.EventArgs e) {
+    private void btnTXProfileSave_Click(object sender, EventArgs e) {
         string name = InputBox.Show(
             "Save Profile", "Please enter a profile name:", current_profile);
 
@@ -8739,7 +8653,7 @@ public partial class Setup : Form {
     }
 
     private bool profile_deleted = false;
-    private void btnTXProfileDelete_Click(object sender, System.EventArgs e) {
+    private void btnTXProfileDelete_Click(object sender, EventArgs e) {
         DialogResult dr = MessageBox.Show("Are you sure you want to delete the "
                 + comboTXProfileName.Text + " TX Profile?",
             "Delete Profile?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -8764,16 +8678,15 @@ public partial class Setup : Form {
         console.UpdateTXProfile(comboTXProfileName.Text);
     }
 
-    private void udVOXGain_ValueChanged(object sender, System.EventArgs e) {
+    private void udVOXGain_ValueChanged(object sender, EventArgs e) {
         // Audio.VOXGain = (float)udVOXGain.Value;// / 10000.0f;
     }
 
-    private void udTXAF_ValueChanged(object sender, System.EventArgs e) {
+    private void udTXAF_ValueChanged(object sender, EventArgs e) {
         console.TXAF = (int)udTXAF.Value;
     }
 
-    private void udTXAMCarrierLevel_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udTXAMCarrierLevel_ValueChanged(object sender, EventArgs e) {
         console.radio.GetDSPTX(0).TXAMCarrierLevel
             = Math.Sqrt(0.01 * (double)udTXAMCarrierLevel.Value) * 0.5;
     }
@@ -8783,15 +8696,15 @@ public partial class Setup : Form {
         console.SaveTXProfileOnExit = chkSaveTXProfileOnExit.Checked;
     }
 
-    private void udMicGainMin_ValueChanged(object sender, System.EventArgs e) {
+    private void udMicGainMin_ValueChanged(object sender, EventArgs e) {
         console.MicGainMin = (int)udMicGainMin.Value;
     }
 
-    private void udMicGainMax_ValueChanged(object sender, System.EventArgs e) {
+    private void udMicGainMax_ValueChanged(object sender, EventArgs e) {
         console.MicGainMax = (int)udMicGainMax.Value;
     }
 
-    private void udLineInBoost_ValueChanged(object sender, System.EventArgs e) {
+    private void udLineInBoost_ValueChanged(object sender, EventArgs e) {
         console.LineInBoost = (double)udLineInBoost.Value;
     }
 
@@ -8835,7 +8748,7 @@ public partial class Setup : Form {
 
 #region PA Settings Tab Event Handlers
 
-    private void btnPAGainCalibration_Click(object sender, System.EventArgs e) {
+    private void btnPAGainCalibration_Click(object sender, EventArgs e) {
         string s
             = "NOTE: this routine works well with Penelope. At present this calibration\n"
             + "routine is NOT recommended if you are using PennyLane, Hermes or \n"
@@ -8899,11 +8812,11 @@ public partial class Setup : Form {
         btnPAGainCalibration.Enabled = true;
     }
 
-    private void udPAGain_ValueChanged(object sender, System.EventArgs e) {
+    private void udPAGain_ValueChanged(object sender, EventArgs e) {
         console.PWR = console.PWR;
     }
 
-    private void btnPAGainReset_Click(object sender, System.EventArgs e) {
+    private void btnPAGainReset_Click(object sender, EventArgs e) {
         if (console.CurrentHPSDRModel == HPSDRModel.ANAN10
             || console.CurrentHPSDRModel == HPSDRModel.ANAN10E) {
             ANAN10PAGain160 = 41.0f;
@@ -9058,10 +8971,10 @@ public partial class Setup : Form {
             udPAGain160.Value = 41.0M;
             udPAGain80.Value = 41.2M;
             udPAGain60.Value = 41.3M;
-            udPAGain40.Value = 41.3M;
-            udPAGain30.Value = 41.0M;
-            udPAGain20.Value = 40.5M;
-            udPAGain17.Value = 39.9M;
+            udPAGain40.Value = 41.0M;
+            udPAGain30.Value = 40.5M;
+            udPAGain20.Value = 39.9M;
+            udPAGain17.Value = 38.8M;
             udPAGain15.Value = 38.8M;
             udPAGain12.Value = 38.8M;
             udPAGain10.Value = 38.8M;
@@ -9142,13 +9055,13 @@ public partial class Setup : Form {
         }
 
         if (console.CurrentHPSDRModel == HPSDRModel.HERMES) {
-            HermesPAGain160 = 41.0f;
-            HermesPAGain80 = 41.2f;
-            HermesPAGain60 = 41.3f;
-            HermesPAGain40 = 41.3f;
-            HermesPAGain30 = 41.0f;
-            HermesPAGain20 = 40.5f;
-            HermesPAGain17 = 39.9f;
+            HermesPAGain160 = 38.8f;
+            HermesPAGain80 = 38.8f;
+            HermesPAGain60 = 38.8f;
+            HermesPAGain40 = 38.8f;
+            HermesPAGain30 = 38.8f;
+            HermesPAGain20 = 38.8f;
+            HermesPAGain17 = 38.8f;
             HermesPAGain15 = 38.8f;
             HermesPAGain12 = 38.8f;
             HermesPAGain10 = 38.8f;
@@ -9175,139 +9088,131 @@ public partial class Setup : Form {
 
 #region Appearance Tab Event Handlers
 
-    private void clrbtnBackground_Changed(object sender, System.EventArgs e) {
+    private void clrbtnBackground_Changed(object sender, EventArgs e) {
         Display.DisplayBackgroundColor
             = Color.FromArgb(tbBackgroundAlpha.Value, clrbtnBackground.Color);
     }
 
-    private void clrbtnTXBackground_Changed(object sender, System.EventArgs e) {
+    private void clrbtnTXBackground_Changed(object sender, EventArgs e) {
         Display.TXDisplayBackgroundColor = Color.FromArgb(
             tbTXBackgroundAlpha.Value, clrbtnTXBackground.Color);
     }
 
-    private void clrbtnGrid_Changed(object sender, System.EventArgs e) {
+    private void clrbtnGrid_Changed(object sender, EventArgs e) {
         Display.GridColor
             = Color.FromArgb(tbGridCourseAlpha.Value, clrbtnGrid.Color);
     }
 
-    private void clrbtnTXVGrid_Changed(object sender, System.EventArgs e) {
+    private void clrbtnTXVGrid_Changed(object sender, EventArgs e) {
         Display.TXVGridColor
             = Color.FromArgb(tbTXVGridCourseAlpha.Value, clrbtnTXVGrid.Color);
     }
 
-    private void clrbtnZeroLine_Changed(object sender, System.EventArgs e) {
+    private void clrbtnZeroLine_Changed(object sender, EventArgs e) {
         Display.GridZeroColor = clrbtnZeroLine.Color;
     }
 
-    private void clrbtnTXZeroLine_Changed(object sender, System.EventArgs e) {
+    private void clrbtnTXZeroLine_Changed(object sender, EventArgs e) {
         Display.TXGridZeroColor
             = Color.FromArgb(tbTXZeroLineAlpha.Value, clrbtnTXZeroLine.Color);
     }
 
-    private void clrbtnText_Changed(object sender, System.EventArgs e) {
+    private void clrbtnText_Changed(object sender, EventArgs e) {
         Display.GridTextColor = clrbtnText.Color;
     }
 
-    private void clrbtnTXText_Changed(object sender, System.EventArgs e) {
+    private void clrbtnTXText_Changed(object sender, EventArgs e) {
         Display.GridTXTextColor
             = Color.FromArgb(tbTXTextAlpha.Value, clrbtnTXText.Color);
     }
 
-    private void clrbtnDataLine_Changed(object sender, System.EventArgs e) {
+    private void clrbtnDataLine_Changed(object sender, EventArgs e) {
         Display.DataLineColor = clrbtnDataLine.Color;
     }
 
-    private void clrbtnTXDataLine_Changed(object sender, System.EventArgs e) {
+    private void clrbtnTXDataLine_Changed(object sender, EventArgs e) {
         Display.TXDataLineColor = clrbtnTXDataLine.Color;
     }
 
-    private void clrbtnFilter_Changed(object sender, System.EventArgs e) {
+    private void clrbtnFilter_Changed(object sender, EventArgs e) {
         Display.DisplayFilterColor
             = Color.FromArgb(tbRX1FilterAlpha.Value, clrbtnFilter.Color);
     }
 
-    private void clrbtnGridTXFilter_Changed(object sender, System.EventArgs e) {
+    private void clrbtnGridTXFilter_Changed(object sender, EventArgs e) {
         Display.TXFilterColor
             = Color.FromArgb(tbTXFilterAlpha.Value, clrbtnGridTXFilter.Color);
     }
 
-    private void udDisplayLineWidth_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udDisplayLineWidth_ValueChanged(object sender, EventArgs e) {
         Display.DisplayLineWidth = (float)udDisplayLineWidth.Value;
     }
 
-    private void udTXLineWidth_ValueChanged(object sender, System.EventArgs e) {
+    private void udTXLineWidth_ValueChanged(object sender, EventArgs e) {
         Display.TXDisplayLineWidth = (float)udTXLineWidth.Value;
     }
 
-    private void clrbtnMeterLeft_Changed(object sender, System.EventArgs e) {
+    private void clrbtnMeterLeft_Changed(object sender, EventArgs e) {
         console.MeterLeftColor = clrbtnMeterLeft.Color;
     }
 
-    private void clrbtnMeterRight_Changed(object sender, System.EventArgs e) {
+    private void clrbtnMeterRight_Changed(object sender, EventArgs e) {
         console.MeterRightColor = clrbtnMeterRight.Color;
     }
 
-    private void clrbtnBtnSel_Changed(object sender, System.EventArgs e) {
+    private void clrbtnBtnSel_Changed(object sender, EventArgs e) {
         console.ButtonSelectedColor = clrbtnBtnSel.Color;
     }
 
-    private void clrbtnVFODark_Changed(object sender, System.EventArgs e) {
+    private void clrbtnVFODark_Changed(object sender, EventArgs e) {
         console.VFOTextDarkColor = clrbtnVFODark.Color;
     }
 
-    private void clrbtnVFOLight_Changed(object sender, System.EventArgs e) {
+    private void clrbtnVFOLight_Changed(object sender, EventArgs e) {
         console.VFOTextLightColor = clrbtnVFOLight.Color;
     }
 
-    private void clrbtnBandDark_Changed(object sender, System.EventArgs e) {
+    private void clrbtnBandDark_Changed(object sender, EventArgs e) {
         console.BandTextDarkColor = clrbtnBandDark.Color;
     }
 
-    private void clrbtnBandLight_Changed(object sender, System.EventArgs e) {
+    private void clrbtnBandLight_Changed(object sender, EventArgs e) {
         console.BandTextLightColor = clrbtnBandLight.Color;
     }
 
-    private void clrbtnPeakText_Changed(object sender, System.EventArgs e) {
+    private void clrbtnPeakText_Changed(object sender, EventArgs e) {
         console.PeakTextColor = clrbtnPeakText.Color;
     }
 
-    private void clrbtnOutOfBand_Changed(object sender, System.EventArgs e) {
+    private void clrbtnOutOfBand_Changed(object sender, EventArgs e) {
         console.OutOfBandColor = clrbtnOutOfBand.Color;
     }
 
-    private void chkVFOSmallLSD_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkVFOSmallLSD_CheckedChanged(object sender, EventArgs e) {
         console.SmallLSD = chkVFOSmallLSD.Checked;
     }
 
-    private void clrbtnVFOSmallColor_Changed(
-        object sender, System.EventArgs e) {
+    private void clrbtnVFOSmallColor_Changed(object sender, EventArgs e) {
         console.SmallVFOColor = clrbtnVFOSmallColor.Color;
     }
 
-    private void clrbtnInfoButtonsColor_Changed(
-        object sender, System.EventArgs e) {
+    private void clrbtnInfoButtonsColor_Changed(object sender, EventArgs e) {
         console.InfoButtonsColor = clrbtnInfoButtonsColor.Color;
     }
 
-    private void clrbtnPeakBackground_Changed(
-        object sender, System.EventArgs e) {
+    private void clrbtnPeakBackground_Changed(object sender, EventArgs e) {
         console.PeakBackgroundColor = clrbtnPeakBackground.Color;
     }
 
-    private void clrbtnMeterBackground_Changed(
-        object sender, System.EventArgs e) {
+    private void clrbtnMeterBackground_Changed(object sender, EventArgs e) {
         console.MeterBackgroundColor = clrbtnMeterBackground.Color;
     }
 
-    private void clrbtnBandBackground_Changed(
-        object sender, System.EventArgs e) {
+    private void clrbtnBandBackground_Changed(object sender, EventArgs e) {
         console.BandBackgroundColor = clrbtnBandBackground.Color;
     }
 
-    private void clrbtnVFOBackground_Changed(
-        object sender, System.EventArgs e) {
+    private void clrbtnVFOBackground_Changed(object sender, EventArgs e) {
         console.VFOBackgroundColor = clrbtnVFOBackground.Color;
     }
 
@@ -9316,142 +9221,137 @@ public partial class Setup : Form {
 #region Keyboard Tab Event Handlers
 
     private void comboKBTuneUp1_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyTuneUp1 = (Keys)KeyList[comboKBTuneUp1.SelectedIndex];
     }
 
     private void comboKBTuneDown1_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyTuneDown1 = (Keys)KeyList[comboKBTuneDown1.SelectedIndex];
     }
 
     private void comboKBTuneUp2_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyTuneUp2 = (Keys)KeyList[comboKBTuneUp2.SelectedIndex];
     }
 
     private void comboKBTuneDown2_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyTuneDown2 = (Keys)KeyList[comboKBTuneDown2.SelectedIndex];
     }
 
     private void comboKBTuneUp3_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyTuneUp3 = (Keys)KeyList[comboKBTuneUp3.SelectedIndex];
     }
 
     private void comboKBTuneDown3_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyTuneDown3 = (Keys)KeyList[comboKBTuneDown3.SelectedIndex];
     }
 
     private void comboKBTuneUp4_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyTuneUp4 = (Keys)KeyList[comboKBTuneUp4.SelectedIndex];
     }
 
     private void comboKBTuneDown4_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyTuneDown4 = (Keys)KeyList[comboKBTuneDown4.SelectedIndex];
     }
 
     private void comboKBTuneUp5_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyTuneUp5 = (Keys)KeyList[comboKBTuneUp5.SelectedIndex];
     }
 
     private void comboKBTuneDown5_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyTuneDown5 = (Keys)KeyList[comboKBTuneDown5.SelectedIndex];
     }
 
     private void comboKBTuneUp6_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyTuneUp6 = (Keys)KeyList[comboKBTuneUp6.SelectedIndex];
     }
 
     private void comboKBTuneDown6_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyTuneDown6 = (Keys)KeyList[comboKBTuneDown6.SelectedIndex];
     }
 
     private void comboKBTuneUp7_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyTuneUp7 = (Keys)KeyList[comboKBTuneUp7.SelectedIndex];
     }
 
     private void comboKBTuneDown7_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyTuneDown7 = (Keys)KeyList[comboKBTuneDown7.SelectedIndex];
     }
 
     private void comboKBBandUp_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyBandUp = (Keys)KeyList[comboKBBandUp.SelectedIndex];
     }
 
     private void comboKBBandDown_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyBandDown = (Keys)KeyList[comboKBBandDown.SelectedIndex];
     }
 
     private void comboKBFilterUp_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyFilterUp = (Keys)KeyList[comboKBFilterUp.SelectedIndex];
     }
 
     private void comboKBFilterDown_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyFilterDown = (Keys)KeyList[comboKBFilterDown.SelectedIndex];
     }
 
     private void comboKBModeUp_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyModeUp = (Keys)KeyList[comboKBModeUp.SelectedIndex];
     }
 
     private void comboKBModeDown_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyModeDown = (Keys)KeyList[comboKBModeDown.SelectedIndex];
     }
 
-    private void comboKBCWDot_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+    private void comboKBCWDot_SelectedIndexChanged(object sender, EventArgs e) {
         console.KeyCWDot = (Keys)KeyList[comboKBCWDot.SelectedIndex];
     }
 
     private void comboKBCWDash_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyCWDash = (Keys)KeyList[comboKBCWDash.SelectedIndex];
     }
 
-    private void comboKBRITUp_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+    private void comboKBRITUp_SelectedIndexChanged(object sender, EventArgs e) {
         console.KeyRITUp = (Keys)KeyList[comboKBRITUp.SelectedIndex];
     }
 
     private void comboKBRITDown_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyRITDown = (Keys)KeyList[comboKBRITDown.SelectedIndex];
     }
 
-    private void comboKBXITUp_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+    private void comboKBXITUp_SelectedIndexChanged(object sender, EventArgs e) {
         console.KeyXITUp = (Keys)KeyList[comboKBXITUp.SelectedIndex];
     }
 
     private void comboKBXITDown_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.KeyXITDown = (Keys)KeyList[comboKBXITDown.SelectedIndex];
     }
 
-    private void comboKBPTTTx_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+    private void comboKBPTTTx_SelectedIndexChanged(object sender, EventArgs e) {
         console.KeyPTTTx = (Keys)KeyList[comboKBPTTTx.SelectedIndex];
     }
 
-    private void comboKBPTTRx_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+    private void comboKBPTTRx_SelectedIndexChanged(object sender, EventArgs e) {
         console.KeyPTTRx = (Keys)KeyList[comboKBPTTRx.SelectedIndex];
     }
 
@@ -9479,7 +9379,7 @@ public partial class Setup : Form {
         console.CATDataBits = int.Parse((string)comboCATdatabits.SelectedItem);
         console.CATStopBits = SDRSerialPort.StringToStopBits(
             (string)comboCATstopbits.SelectedItem);
-        console.CATEnabled = chkCATEnable.Checked;
+        console.CATEnabled = chkCATEnable.Checked && chkCATEnable.Enabled;
 
         // make sure the enabled state of bitbang ptt is correct
         if (chkCATPTT_RTS.Checked || chkCATPTT_DTR.Checked) {
@@ -9497,7 +9397,7 @@ public partial class Setup : Form {
             = int.Parse((string)comboCAT2databits.SelectedItem);
         console.CAT2StopBits = SDRSerialPort.StringToStopBits(
             (string)comboCAT2stopbits.SelectedItem);
-        console.CAT2Enabled = chkCAT2Enable.Checked;
+        console.CAT2Enabled = chkCAT2Enable.Checked && chkCAT2Enable.Enabled;
 
         if (comboCAT3Port.Text.StartsWith("COM"))
             console.CAT3Port = Int32.Parse(comboCAT3Port.Text.Substring(3));
@@ -9589,8 +9489,7 @@ public partial class Setup : Form {
             comboGanymedeCATPort.Text = port;
     }
 
-    private void chkCATEnable_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkCATEnable_CheckedChanged(object sender, EventArgs e) {
         if (initializing) return;
 
         if (comboCATPort.Text == "" || !comboCATPort.Text.StartsWith("COM")) {
@@ -9656,8 +9555,7 @@ public partial class Setup : Form {
         }
     }
 
-    private void chkCAT2Enable_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkCAT2Enable_CheckedChanged(object sender, EventArgs e) {
         if (initializing) return;
 
         if (comboCAT2Port.Text == "" || !comboCAT2Port.Text.StartsWith("COM")) {
@@ -9704,8 +9602,7 @@ public partial class Setup : Form {
         }
     }
 
-    private void chkCAT3Enable_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkCAT3Enable_CheckedChanged(object sender, EventArgs e) {
         if (initializing) return;
 
         if (comboCAT3Port.Text == "" || !comboCAT3Port.Text.StartsWith("COM")) {
@@ -9752,8 +9649,7 @@ public partial class Setup : Form {
         }
     }
 
-    private void chkCAT4Enable_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkCAT4Enable_CheckedChanged(object sender, EventArgs e) {
         if (initializing) return;
 
         if (comboCAT4Port.Text == "" || !comboCAT4Port.Text.StartsWith("COM")) {
@@ -9909,22 +9805,19 @@ public partial class Setup : Form {
         }
     }
 
-    private void chkCATPTT_RTS_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkCATPTT_RTS_CheckedChanged(object sender, EventArgs e) {
         console.Siolisten.PTTOnRTS = chkCATPTT_RTS.Checked;
         console.CATPTTRTS = chkCATPTT_RTS.Checked;
         doEnablementOnBitBangEnable();
     }
 
-    private void chkCATPTT_DTR_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkCATPTT_DTR_CheckedChanged(object sender, EventArgs e) {
         console.Siolisten.PTTOnDTR = chkCATPTT_DTR.Checked;
         console.CATPTTDTR = chkCATPTT_DTR.Checked;
         doEnablementOnBitBangEnable();
     }
 
-    private void chkCATPTTEnabled_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkCATPTTEnabled_CheckedChanged(object sender, EventArgs e) {
         if (initializing) return;
 
         bool enable_sub_fields;
@@ -9972,7 +9865,7 @@ public partial class Setup : Form {
     }
 
     private void comboCATparity_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         string selection = comboCATparity.SelectedText;
         if (selection == null) return;
 
@@ -9980,7 +9873,7 @@ public partial class Setup : Form {
     }
 
     private void comboCAT2parity_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         string selection = comboCAT2parity.SelectedText;
         if (selection == null) return;
 
@@ -9988,7 +9881,7 @@ public partial class Setup : Form {
     }
 
     private void comboCAT3parity_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         string selection = comboCAT3parity.SelectedText;
         if (selection == null) return;
 
@@ -9996,15 +9889,14 @@ public partial class Setup : Form {
     }
 
     private void comboCAT4parity_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         string selection = comboCAT4parity.SelectedText;
         if (selection == null) return;
 
         console.CAT4Parity = SDRSerialPort.StringToParity(selection);
     }
 
-    private void comboCATPort_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+    private void comboCATPort_SelectedIndexChanged(object sender, EventArgs e) {
         if (comboCATPort.Text == "None") {
             if (chkCATEnable.Checked) {
                 if (comboCATPort.Focused) chkCATEnable.Checked = false;
@@ -10019,7 +9911,7 @@ public partial class Setup : Form {
     }
 
     private void comboCAT2Port_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCAT2Port.Text == "None") {
             if (chkCAT2Enable.Checked) {
                 if (comboCAT2Port.Focused) chkCAT2Enable.Checked = false;
@@ -10034,7 +9926,7 @@ public partial class Setup : Form {
     }
 
     private void comboCAT3Port_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCAT3Port.Text == "None") {
             if (chkCAT3Enable.Checked) {
                 if (comboCAT3Port.Focused) chkCAT3Enable.Checked = false;
@@ -10049,7 +9941,7 @@ public partial class Setup : Form {
     }
 
     private void comboCAT4Port_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCAT4Port.Text == "None") {
             if (chkCAT4Enable.Checked) {
                 if (comboCAT4Port.Focused) chkCAT4Enable.Checked = false;
@@ -10081,7 +9973,7 @@ public partial class Setup : Form {
     }
 
     private void comboCATPTTPort_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCATPTTPort.Text == "None") {
             if (chkCATPTTEnabled.Checked) {
                 if (comboCATPTTPort.Focused) chkCATPTTEnabled.Checked = false;
@@ -10118,83 +10010,82 @@ public partial class Setup : Form {
             chkCATPTTEnabled_CheckedChanged(sender, e);
     }
 
-    private void comboCATbaud_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+    private void comboCATbaud_SelectedIndexChanged(object sender, EventArgs e) {
         if (comboCATbaud.SelectedIndex >= 0)
             console.CATBaudRate = Int32.Parse(comboCATbaud.Text);
     }
 
     private void comboCAT2baud_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCAT2baud.SelectedIndex >= 0)
             console.CAT2BaudRate = Int32.Parse(comboCAT2baud.Text);
     }
 
     private void comboCAT3baud_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCAT3baud.SelectedIndex >= 0)
             console.CAT3BaudRate = Int32.Parse(comboCAT3baud.Text);
     }
 
     private void comboCAT4baud_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCAT4baud.SelectedIndex >= 0)
             console.CAT4BaudRate = Int32.Parse(comboCAT4baud.Text);
     }
 
     private void comboCATdatabits_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCATdatabits.SelectedIndex >= 0)
             console.CATDataBits = int.Parse(comboCATdatabits.Text);
     }
 
     private void comboCAT2databits_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCAT2databits.SelectedIndex >= 0)
             console.CAT2DataBits = int.Parse(comboCAT2databits.Text);
     }
 
     private void comboCAT3databits_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCAT3databits.SelectedIndex >= 0)
             console.CAT3DataBits = int.Parse(comboCAT3databits.Text);
     }
 
     private void comboCAT4databits_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCAT4databits.SelectedIndex >= 0)
             console.CAT4DataBits = int.Parse(comboCAT4databits.Text);
     }
 
     private void comboCATstopbits_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCATstopbits.SelectedIndex >= 0)
             console.CATStopBits
                 = SDRSerialPort.StringToStopBits(comboCATstopbits.Text);
     }
 
     private void comboCAT2stopbits_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCAT2stopbits.SelectedIndex >= 0)
             console.CAT2StopBits
                 = SDRSerialPort.StringToStopBits(comboCAT2stopbits.Text);
     }
 
     private void comboCAT3stopbits_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCAT3stopbits.SelectedIndex >= 0)
             console.CAT3StopBits
                 = SDRSerialPort.StringToStopBits(comboCAT3stopbits.Text);
     }
 
     private void comboCAT4stopbits_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboCAT4stopbits.SelectedIndex >= 0)
             console.CAT4StopBits
                 = SDRSerialPort.StringToStopBits(comboCAT4stopbits.Text);
     }
 
-    private void btnCATTest_Click(object sender, System.EventArgs e) {
+    private void btnCATTest_Click(object sender, EventArgs e) {
         CATTester cat = new CATTester(console);
         // this.Close();
         cat.Show();
@@ -10203,7 +10094,7 @@ public partial class Setup : Form {
 
     // Modified 10/12/08 BT to change "SDR-1000" to "PowerSDR"
     private void comboCATRigType_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         switch (comboCATRigType.Text) {
             case "PowerSDR": console.CATRigType = 900; break;
             case "TS-2000": console.CATRigType = 19; break;
@@ -10231,7 +10122,7 @@ public partial class Setup : Form {
         }
     }
 
-    private void chkTestIMD_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkTestIMD_CheckedChanged(object sender, EventArgs e) {
         if (chkTestIMD.Checked) {
             udTestIMDFreq1.Enabled = false;
             udTestIMDFreq2.Enabled = false;
@@ -10305,7 +10196,7 @@ public partial class Setup : Form {
     }
 
     private void cmboSigGenRXMode_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (cmboSigGenRXMode.SelectedIndex < 0) return;
         console.radio.GetDSPRX(0, 0).RXPreGenRun = 0;
         console.radio.GetDSPRX(1, 0).RXPreGenRun = 0;
@@ -10348,13 +10239,12 @@ public partial class Setup : Form {
             console.radio.GetDSPRX(1, 0).RXPreGenRun = 1;
     }
 
-    private void chkSigGenRX2_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkSigGenRX2_CheckedChanged(object sender, EventArgs e) {
         cmboSigGenRXMode_SelectedIndexChanged(this, EventArgs.Empty);
     }
 
     private void cmboSigGenTXMode_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (cmboSigGenTXMode.SelectedIndex < 0) return;
         console.radio.GetDSPTX(0).TXPreGenRun = 0;
 
@@ -10423,7 +10313,7 @@ public partial class Setup : Form {
         }
     }
 
-    private void btnImpulse_Click(object sender, System.EventArgs e) {
+    private void btnImpulse_Click(object sender, EventArgs e) {
         Thread t
             = new Thread(new ThreadStart(ImpulseFunction)) { Name = "Impulse",
                   Priority = ThreadPriority.Highest, IsBackground = true };
@@ -10485,40 +10375,35 @@ public partial class Setup : Form {
         set { m_bIgnoreButtonState = value; }
     }
     public void WaitForSaveLoad() {
-            int ctr = 0;
-            var old_cursor = Cursor.Current;
-            Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
-            while (save_thread_running)
-            {
-                Thread.Sleep(1);
-                ctr++;
-                if (ctr > 5000)
-                {
-                    Debug.Assert(false);
-                    break;
-                }
-                if (m_objSaveLoadThread == null)
-                {
-                    break;
-                }
-
-                if (m_objSaveLoadThread.IsAlive)
-                {
-                    break;
-                }
+        int ctr = 0;
+        var old_cursor = Cursor.Current;
+        Cursor.Current = System.Windows.Forms.Cursors.WaitCursor;
+        while (save_thread_running) {
+            Thread.Sleep(1);
+            ctr++;
+            if (ctr > 5000) {
+                Debug.Assert(false);
+                break;
             }
-            Cursor.Current = old_cursor;
-            save_thread_running = false;
+            if (m_objSaveLoadThread == null) {
+                break;
+            }
 
+            if (m_objSaveLoadThread.IsAlive) {
+                break;
+            }
         }
+        Cursor.Current = old_cursor;
+        save_thread_running = false;
+    }
 
-    private void btnOK_Click(object sender, System.EventArgs e) {
+    private void btnOK_Click(object sender, EventArgs e) {
         setButtonState(true, false);
         console.SetFocusMaster(true);
         WaitForSaveLoad();
         m_objSaveLoadThread = null;
 
-            save_thread_running = true;
+        save_thread_running = true;
         m_objSaveLoadThread = new Thread(
             new ThreadStart(PreSaveOptions)) { Name = "Save Options Thread",
             IsBackground = true, Priority = ThreadPriority.Lowest };
@@ -10526,49 +10411,63 @@ public partial class Setup : Form {
         this.Hide();
     }
 
-    private void btnCancel_Click(object sender, System.EventArgs e) {
+    private void btnCancel_Click(object sender, EventArgs e) {
         setButtonState(false, true);
 
         console.SetFocusMaster(true);
 
         WaitForSaveLoad();
         m_objSaveLoadThread = null;
-            save_thread_running = true;
-            m_objSaveLoadThread = new Thread(
+        save_thread_running = true;
+        m_objSaveLoadThread = new Thread(
             new ThreadStart(PreGetOptions)) { Name = "Get Options Thread",
             IsBackground = true, Priority = ThreadPriority.Lowest };
         m_objSaveLoadThread.Start();
         this.Hide();
     }
 
-    private void btnApply_Click(object sender, System.EventArgs e) {
+    private void btnApply_Click(object sender, EventArgs e) {
         setButtonState(true, false);
 
         WaitForSaveLoad();
         m_objSaveLoadThread = null;
-            var TAB_INDEX_DSP = 3;
-            var TAB_INDEX_CFC = 11;
-            // why would this ever not be the case? KLJ I don't want to create any (more) bugs, so check the tab first
-            if (this.TabSetup.SelectedIndex == TAB_INDEX_DSP && TabDSP.SelectedIndex == TAB_INDEX_CFC)
-            {
-                this.SaveTXProfileData(); // CFC not applied on next start if you don't do this!
-            }
+        var TAB_INDEX_DSP = 3;
+        var TAB_INDEX_CFC = 11;
+        // why would this ever not be the case? KLJ I don't want to create any
+        // (more) bugs, so check the tab first
+        if (this.TabSetup.SelectedIndex == TAB_INDEX_DSP
+            && TabDSP.SelectedIndex == TAB_INDEX_CFC) {
+            this.SaveTXProfileData(); // CFC not applied on next start if you
+                                      // don't do this!
+        }
 
-            save_thread_running = true; 
-            m_objSaveLoadThread = new Thread(
+        save_thread_running = true;
+        m_objSaveLoadThread = new Thread(
             new ThreadStart(ApplyOptions)) { Name = "Apply Options Thread",
             IsBackground = true, Priority = ThreadPriority.Lowest };
-            m_objSaveLoadThread.Start();
-                   
+        m_objSaveLoadThread.Start();
     }
 
     private void PreGetOptions() {
         getOptions2();
         setButtonState(false, false);
-            save_thread_running = false;
-        }
+        save_thread_running = false;
+    }
 
-        private volatile bool save_thread_running = false;
+    private volatile bool save_thread_running = false;
+
+    internal void showActualPALatency(bool show = true) {
+        lblPAInLatency.Visible = show;
+        lblPAOutLatency.Visible = show;
+        if (show) {
+            var msIn = cmaster.GetInputLatencyMsActual(0);
+            var msOut = cmaster.GetOutputLatencyMsActual(0);
+            lblPAInLatency.Text
+                = "Reported hardware input latency: " + msIn.ToString() + " ms";
+            lblPAOutLatency.Text = "Reported hardware output latency: "
+                + msOut.ToString() + " ms";
+        }
+    }
     private void PreSaveOptions() {
         SaveOptions();
         setButtonState(false, false);
@@ -10578,20 +10477,18 @@ public partial class Setup : Form {
         SaveOptions();
         DB.Update();
         setButtonState(false, false);
-            save_thread_running = false;
-        }
+        save_thread_running = false;
+    }
 
-    private void udGeneralLPTDelay_ValueChanged(
-        object sender, System.EventArgs e) {}
+    private void udGeneralLPTDelay_ValueChanged(object sender, EventArgs e) {}
 
-    private void Setup_Closing(
-        object sender, System.ComponentModel.CancelEventArgs e) {
+    private void Setup_Closing(object sender, CancelEventArgs e) {
         console.SetFocusMaster(true);
         this.Hide();
         e.Cancel = true;
     }
 
-    private void btnImportDB_Click(object sender, System.EventArgs e) {
+    private void btnImportDB_Click(object sender, EventArgs e) {
         string path = console.AppDataPath;
         path = path.Substring(0, path.LastIndexOf("\\"));
         openFileDialog1.InitialDirectory = path;
@@ -10603,8 +10500,7 @@ public partial class Setup : Form {
         if (ok) console.Close(); // Save everything
     }
 
-    private void openFileDialog1_FileOk(
-        object sender, System.ComponentModel.CancelEventArgs e) {
+    private void openFileDialog1_FileOk(object sender, CancelEventArgs e) {
         // CompleteImport();
     }
 
@@ -10618,7 +10514,7 @@ public partial class Setup : Form {
         if (DB.ImportAndMergeDatabase(
                 openFileDialog1.FileName, console.AppDataPath)) {
             MessageBox.Show(
-                "Database Imported Successfully. Thetis will now close.\n\nPlease RE-START.");
+                "Database Imported Successfully. Thetis will now close.\n\nPlease RE-START the application once it closes");
             success = true;
         } else {
             MessageBox.Show(
@@ -10653,8 +10549,7 @@ public partial class Setup : Form {
     private bool windows_key = false;
     private bool menu_key = false;
 
-    private void txtKB_KeyDown(
-        object sender, System.Windows.Forms.KeyEventArgs e) {
+    private void txtKB_KeyDown(object sender, KeyEventArgs e) {
         Debug.WriteLine("KeyCode: " + e.KeyCode + " KeyData: " + e.KeyData
             + " KeyValue: " + e.KeyValue);
         shift_key = e.Shift;
@@ -10686,13 +10581,11 @@ public partial class Setup : Form {
         e.Handled = true;
     }
 
-    private void txtKB_KeyPress(
-        object sender, System.Windows.Forms.KeyPressEventArgs e) {
+    private void txtKB_KeyPress(object sender, KeyPressEventArgs e) {
         e.Handled = true;
     }
 
-    private void txtKB_KeyUp(
-        object sender, System.Windows.Forms.KeyEventArgs e) {
+    private void txtKB_KeyUp(object sender, KeyEventArgs e) {
         // Debug.WriteLine("KeyUp: "+e.KeyCode.ToString());
         shift_key = e.Shift;
         ctrl_key = e.Control;
@@ -10721,7 +10614,7 @@ public partial class Setup : Form {
         }
     }
 
-    private void clrbtnTXFilter_Changed(object sender, System.EventArgs e) {
+    private void clrbtnTXFilter_Changed(object sender, EventArgs e) {
         Display.DisplayFilterTXColor = clrbtnTXFilter.Color;
     }
 
@@ -11079,26 +10972,24 @@ public partial class Setup : Form {
 
 #endregion
 
-    private void chkShowFreqOffset_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkShowFreqOffset_CheckedChanged(object sender, EventArgs e) {
         Display.ShowFreqOffset = chkShowFreqOffset.Checked;
     }
 
-    private void chkShowZeroLine_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkShowZeroLine_CheckedChanged(object sender, EventArgs e) {
         Display.ShowZeroLine = chkShowZeroLine.Checked;
     }
 
-    private void clrbtnBandEdge_Changed(object sender, System.EventArgs e) {
+    private void clrbtnBandEdge_Changed(object sender, EventArgs e) {
         Display.BandEdgeColor = clrbtnBandEdge.Color;
     }
 
-    private void clrbtnTXBandEdge_Changed(object sender, System.EventArgs e) {
+    private void clrbtnTXBandEdge_Changed(object sender, EventArgs e) {
         Display.TXBandEdgeColor = clrbtnTXBandEdge.Color;
     }
 
     private void comboMeterType_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         if (comboMeterType.Text == "") return;
         switch (comboMeterType.Text) {
             case "Original":
@@ -11114,74 +11005,69 @@ public partial class Setup : Form {
         }
     }
 
-    private void clrbtnMeterEdgeLow_Changed(object sender, System.EventArgs e) {
+    private void clrbtnMeterEdgeLow_Changed(object sender, EventArgs e) {
         console.EdgeLowColor = clrbtnMeterEdgeLow.Color;
     }
 
-    private void clrbtnMeterEdgeHigh_Changed(
-        object sender, System.EventArgs e) {
+    private void clrbtnMeterEdgeHigh_Changed(object sender, EventArgs e) {
         console.EdgeHighColor = clrbtnMeterEdgeHigh.Color;
     }
 
-    private void clrbtnMeterEdgeBackground_Changed(
-        object sender, System.EventArgs e) {
+    private void clrbtnMeterEdgeBackground_Changed(object sender, EventArgs e) {
         console.EdgeMeterBackgroundColor = Color.FromArgb(
             tbMeterEdgeBackgroundAlpha.Value, clrbtnMeterEdgeBackground.Color);
         // console.EdgeMeterBackgroundColor = clrbtnMeterEdgeBackground.Color;
     }
 
-    private void clrbtnEdgeIndicator_Changed(
-        object sender, System.EventArgs e) {
+    private void clrbtnEdgeIndicator_Changed(object sender, EventArgs e) {
         console.EdgeAVGColor = clrbtnEdgeIndicator.Color;
     }
 
-    private void clrbtnMeterDigText_Changed(object sender, System.EventArgs e) {
+    private void clrbtnMeterDigText_Changed(object sender, EventArgs e) {
         console.MeterDigitalTextColor = clrbtnMeterDigText.Color;
     }
 
-    private void clrbtnMeterDigBackground_Changed(
-        object sender, System.EventArgs e) {
+    private void clrbtnMeterDigBackground_Changed(object sender, EventArgs e) {
         console.MeterDigitalBackgroundColor = clrbtnMeterDigBackground.Color;
     }
 
-    private void clrbtnSubRXFilter_Changed(object sender, System.EventArgs e) {
+    private void clrbtnSubRXFilter_Changed(object sender, EventArgs e) {
         Display.SubRXFilterColor = Color.FromArgb(
             tbMultiRXFilterAlpha.Value, clrbtnSubRXFilter.Color);
     }
 
-    private void clrbtnSubRXZero_Changed(object sender, System.EventArgs e) {
+    private void clrbtnSubRXZero_Changed(object sender, EventArgs e) {
         Display.SubRXZeroLine = clrbtnSubRXZero.Color;
     }
 
-    private void chkCWKeyerMode_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkCWKeyerMode_CheckedChanged(object sender, EventArgs e) {
         // if (console.NewProtocol)
         // {
         if (chkCWKeyerMode.Checked)
             NetworkIO.SetCWKeyerMode(1); // mode b
         else
-            NetworkIO.SetCWKeyerMode(0); // mode a
-                                         // }
-                                         // else
-        //{
-        //    if (chkCWKeyerIambic.Checked)
-        //    {
-        //        if (chkCWKeyerMode.Checked)
-        //        {
-        //            JanusAudio.SetCWKeyerMode(2); // mode b
-        //        }
-        //        else
-        //        {
-        //            JanusAudio.SetCWKeyerMode(1); // mode a
-        //        }
-        //    }
-        //    else
-        //        JanusAudio.SetCWKeyerMode(0); // straight/bug mode
-        //}
+            NetworkIO.SetCWKeyerMode(
+                0); // mode a
+                    // }
+                    // else
+                    //{
+                    //    if (chkCWKeyerIambic.Checked)
+                    //    {
+                    //        if (chkCWKeyerMode.Checked)
+                    //        {
+                    //            JanusAudio.SetCWKeyerMode(2); // mode b
+                    //        }
+                    //        else
+                    //        {
+                    //            JanusAudio.SetCWKeyerMode(1); // mode a
+                    //        }
+                    //    }
+                    //    else
+                    //        JanusAudio.SetCWKeyerMode(0); // straight/bug mode
+                    //}
     }
 
-    private void chkDisableToolTips_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkDisableToolTips_CheckedChanged(object sender, EventArgs e) {
         toolTip1.Active = !chkDisableToolTips.Checked;
         console.DisableToolTips = chkDisableToolTips.Checked;
     }
@@ -11321,7 +11207,7 @@ public partial class Setup : Form {
     }
 
     private void udDisplayWaterfallAvgTime_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         // double buffer_time = (double)console.BlockSize1 /
         // (double)console.SampleRateRX1; int buffersToAvg =
         // (int)((float)udDisplayWaterfallAvgTime.Value * 0.001 / buffer_time);
@@ -11341,14 +11227,14 @@ public partial class Setup : Form {
     }
 
     private void udDisplayWaterfallUpdatePeriod_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         Display.WaterfallUpdatePeriod
             = (int)udDisplayWaterfallUpdatePeriod.Value;
         setWaterFallCalculatedDelayText();
     }
 
     private void udRX2DisplayWaterfallAvgTime_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         // double buffer_time = (double)console.BlockSize2 /
         // (double)console.SampleRateRX2; int buffersToAvg =
         // (int)((float)udRX2DisplayWaterfallAvgTime.Value * 0.001 /
@@ -11357,30 +11243,26 @@ public partial class Setup : Form {
     }
 
     private void udRX2DisplayWaterfallUpdatePeriod_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         Display.RX2WaterfallUpdatePeriod
             = (int)udRX2DisplayWaterfallUpdatePeriod.Value;
         setWaterFallCalculatedDelayText();
     }
 
-    private void chkSnapClickTune_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkSnapClickTune_CheckedChanged(object sender, EventArgs e) {
         console.SnapToClickTuning = chkSnapClickTune.Checked;
     }
 
-    private void chkClickTuneFilter_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkClickTuneFilter_CheckedChanged(object sender, EventArgs e) {
         console.ClickTuneFilter = chkClickTuneFilter.Checked;
         Display.ClickTuneFilter = chkClickTuneFilter.Checked;
     }
 
-    private void chkShowCTHLine_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkShowCTHLine_CheckedChanged(object sender, EventArgs e) {
         Display.ShowCTHLine = chkShowCTHLine.Checked;
     }
 
-    private void radPACalAllBands_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void radPACalAllBands_CheckedChanged(object sender, EventArgs e) {
         foreach (Control c in panelAutoPACalibrate.Controls)
         // foreach (Control c in grpPAGainByBand.Controls)
         {
@@ -11390,12 +11272,11 @@ public partial class Setup : Form {
         }
     }
 
-    private void chkZeroBeatRIT_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkZeroBeatRIT_CheckedChanged(object sender, EventArgs e) {
         console.ZeroBeatRIT = chkZeroBeatRIT.Checked;
     }
 
-    private void chkPANewCal_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkPANewCal_CheckedChanged(object sender, EventArgs e) {
         bool b = chkPANewCal.Checked;
 
         console.NewPowerCal = b;
@@ -11431,13 +11312,11 @@ public partial class Setup : Form {
         }
     }
 
-    private void udMeterDigitalDelay_ValueChanged(
-        object sender, System.EventArgs e) {
+    private void udMeterDigitalDelay_ValueChanged(object sender, EventArgs e) {
         console.MeterDigDelay = (int)udMeterDigitalDelay.Value;
     }
 
-    private void chkMouseTuneStep_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkMouseTuneStep_CheckedChanged(object sender, EventArgs e) {
         console.MouseTuneStep = chkMouseTuneStep.Checked;
     }
 
@@ -11449,21 +11328,20 @@ public partial class Setup : Form {
         txtGenCustomTitle_TextChanged(this, EventArgs.Empty);
     }
 
-    private void txtGenCustomTitle_TextChanged(
-        object sender, System.EventArgs e) {
-            Thetis.TitleBar.CustomText = txtGenCustomTitle.Text;
+    private void txtGenCustomTitle_TextChanged(object sender, EventArgs e) {
+        Thetis.TitleBar.CustomText = txtGenCustomTitle.Text;
     }
 
     private void chkGenAllModeMicPTT_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.AllModeMicPTT = chkGenAllModeMicPTT.Checked;
     }
 
-    private void chkKWAI_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkKWAI_CheckedChanged(object sender, EventArgs e) {
         AllowFreqBroadcast = chkKWAI.Checked;
     }
 
-    private void chkSplitOff_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkSplitOff_CheckedChanged(object sender, EventArgs e) {
         console.DisableSplitOnBandchange = chkSplitOff.Checked;
     }
 
@@ -11472,43 +11350,38 @@ public partial class Setup : Form {
         set { chkEnableRFEPATR.Checked = value; }
     }
 
-    private void chkEnableRFEPATR_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkEnableRFEPATR_CheckedChanged(object sender, EventArgs e) {
         console.RFE_PA_TR_enable = chkEnableRFEPATR.Checked;
     }
 
-    private void chkVACAllowBypass_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkVACAllowBypass_CheckedChanged(object sender, EventArgs e) {
         console.AllowVACBypass = chkVACAllowBypass.Checked;
     }
 
     private void chkSPACEAllowBypass_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.AllowSPACEBypass = chkSPACEAllowBypass.Checked;
     }
 
-    private void chkMOXAllowBypass_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkMOXAllowBypass_CheckedChanged(object sender, EventArgs e) {
         console.AllowMOXBypass = chkMOXAllowBypass.Checked;
     }
 
-    private void chkDSPTXMeterPeak_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkDSPTXMeterPeak_CheckedChanged(object sender, EventArgs e) {
         console.PeakTXMeter = chkDSPTXMeterPeak.Checked;
     }
 
-    private void chkVACCombine_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkVACCombine_CheckedChanged(object sender, EventArgs e) {
         Audio.VACCombineInput = chkVACCombine.Checked;
     }
 
     private void chkCWAutoSwitchMode_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.CWAutoModeSwitch = chkCWAutoSwitchMode.Checked;
     }
 
     private void clrbtnGenBackground_Changed(
-        object sender, System.EventArgs e) // k6jca 1/13/08
+        object sender, EventArgs e) // k6jca 1/13/08
     {
         // console.GenBackgroundColor = clrbtnGenBackground.Color;
     }
@@ -11532,7 +11405,7 @@ public partial class Setup : Form {
     }
 
     private void comboTXTUNMeter_SelectedIndexChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         switch (comboTXTUNMeter.Text) {
             case "Fwd Pwr":
                 console.TuneTXMeterMode = MeterTXMode.FORWARD_POWER;
@@ -11548,7 +11421,7 @@ public partial class Setup : Form {
         }
     }
 
-    private void btnResetDB_Click(object sender, System.EventArgs e) {
+    private void btnResetDB_Click(object sender, EventArgs e) {
         DialogResult dr = MessageBox.Show(
             "This will close the program, make a copy of the current\n"
                 + "database to the DB_Archive folder and reset the active database\n"
@@ -11563,36 +11436,34 @@ public partial class Setup : Form {
     }
 
     private void chkDisplayMeterShowDecimal_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.MeterDetail = chkDisplayMeterShowDecimal.Checked;
     }
 
     private void chkRTTYOffsetEnableA_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         rtty_offset_enabled_a = chkRTTYOffsetEnableA.Checked;
     }
 
     private void chkRTTYOffsetEnableB_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         rtty_offset_enabled_b = chkRTTYOffsetEnableB.Checked;
     }
 
-    private void udRTTYL_ValueChanged(object sender, System.EventArgs e) {
+    private void udRTTYL_ValueChanged(object sender, EventArgs e) {
         rtty_offset_low = (int)udRTTYL.Value;
     }
 
-    private void udRTTYU_ValueChanged(object sender, System.EventArgs e) {
+    private void udRTTYU_ValueChanged(object sender, EventArgs e) {
         rtty_offset_high = (int)udRTTYU.Value;
     }
 
-    private void chkRX2AutoMuteTX_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkRX2AutoMuteTX_CheckedChanged(object sender, EventArgs e) {
         // Audio.RX2AutoMuteTX = chkRX2AutoMuteTX.Checked;
         console.MuteRX2OnVFOATX = chkRX2AutoMuteTX.Checked;
     }
 
-    private void chkAudioIQtoVAC_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkAudioIQtoVAC_CheckedChanged(object sender, EventArgs e) {
         bool power = console.PowerOn;
         if (power && chkAudioEnableVAC.Checked) {
             // console.PowerOn = false;
@@ -11612,8 +11483,7 @@ public partial class Setup : Form {
         chkAudioRX2toVAC.Enabled = chkAudioIQtoVAC.Checked;
     }
 
-    private void chkVAC2DirectIQ_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkVAC2DirectIQ_CheckedChanged(object sender, EventArgs e) {
         bool power = console.PowerOn;
         if (power && chkVAC2Enable.Checked) {
             // console.PowerOn = false;
@@ -11632,36 +11502,34 @@ public partial class Setup : Form {
         chkVAC2DirectIQCal.Enabled = chkVAC2DirectIQ.Checked;
     }
 
-    private void chkAudioCorrectIQ_CheckChanged(
-        object sender, System.EventArgs e) {
+    private void chkAudioCorrectIQ_CheckChanged(object sender, EventArgs e) {
         Audio.VACCorrectIQ = chkAudioCorrectIQ.Checked;
     }
 
-    private void chkVAC2IQCal_CheckChanged(object sender, System.EventArgs e) {
+    private void chkVAC2IQCal_CheckChanged(object sender, EventArgs e) {
         Audio.VAC2CorrectIQ = chkVAC2DirectIQCal.Checked;
     }
 
     private void chkRX2AutoMuteRX1OnVFOBTX_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.MuteRX1OnVFOBTX = chkRX2AutoMuteRX1OnVFOBTX.Checked;
     }
 
     private void chkRX1BlankDisplayOnVFOBTX_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.BlankRX1OnVFOBTX = chkRX1BlankDisplayOnVFOBTX.Checked;
     }
 
     private void chkRX2BlankDisplayOnVFOATX_CheckedChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         console.BlankRX2OnVFOATX = chkRX2BlankDisplayOnVFOATX.Checked;
     }
 
-    private void chkTXExpert_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkTXExpert_CheckedChanged(object sender, EventArgs e) {
         grpTXProfileDef.Visible = chkTXExpert.Checked;
     }
 
-    private void btnTXProfileDefImport_Click(
-        object sender, System.EventArgs e) {
+    private void btnTXProfileDefImport_Click(object sender, EventArgs e) {
         if (lstTXProfileDef.SelectedIndex < 0) return;
 
         DialogResult result = MessageBox.Show(
@@ -11767,8 +11635,7 @@ public partial class Setup : Form {
             "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
     }
 
-    private void Setup_KeyDown(
-        object sender, System.Windows.Forms.KeyEventArgs e) {
+    private void Setup_KeyDown(object sender, KeyEventArgs e) {
         if (e.Control == true && e.Alt == true) {
             switch (e.KeyCode) {
                 case Keys.A:
@@ -11782,13 +11649,11 @@ public partial class Setup : Form {
         }
     }
 
-    private void chkDisplayPanFill_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkDisplayPanFill_CheckedChanged(object sender, EventArgs e) {
         Display.PanFill = chkDisplayPanFill.Checked;
     }
 
-    private void chkTXPanFill_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkTXPanFill_CheckedChanged(object sender, EventArgs e) {
         Display.TXPanFill = chkTXPanFill.Checked;
     }
 
@@ -11805,7 +11670,8 @@ public partial class Setup : Form {
                        Environment.SpecialFolder.ApplicationData)
                 + "\\OpenHPSDR\\Skins\\";
 
-        if (!string.IsNullOrEmpty(comboAppSkin.Text) && Directory.Exists(path + comboAppSkin.Text)) {
+        if (!string.IsNullOrEmpty(comboAppSkin.Text)
+            && Directory.Exists(path + comboAppSkin.Text)) {
             Skin.Restore(comboAppSkin.Text, path, console);
         }
 
@@ -11881,8 +11747,7 @@ public partial class Setup : Form {
         DB.ds.WriteXml(saveFileDialog1.FileName, XmlWriteMode.WriteSchema);
     }
 
-    private void chkPennyLane_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPennyLane_CheckedChanged(object sender, EventArgs e) {
         // int bits = NetworkIO.GetC1Bits();
         // if (!chkPennyLane.Checked)
         // {
@@ -11924,8 +11789,7 @@ public partial class Setup : Form {
         // NetworkIO.fwVersionsChecked = false;
     }
 
-    private void chkPennyPresent_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPennyPresent_CheckedChanged(object sender, EventArgs e) {
         // int bits = NetworkIO.GetC1Bits();
         // if (!chkPennyPresent.Checked)
         //{
@@ -11966,7 +11830,7 @@ public partial class Setup : Form {
         // NetworkIO.fwVersionsChecked = false;
     }
 
-    private void checkHPSDRDefaults(object sender, System.EventArgs e) {
+    private void checkHPSDRDefaults(object sender, EventArgs e) {
         // if (chkPennyPresent.Checked || chkPennyLane.Checked)
         //{
         //    radPennyMic.Checked = true;
@@ -12009,8 +11873,7 @@ public partial class Setup : Form {
         // return;
     }
 
-    private void chkMercuryPresent_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkMercuryPresent_CheckedChanged(object sender, EventArgs e) {
         // int bits = NetworkIO.GetC1Bits();
         // if (!chkMercuryPresent.Checked)
         //{
@@ -12035,8 +11898,7 @@ public partial class Setup : Form {
                                        // NetworkIO.fwVersionsChecked = false;
     }
 
-    private void chkAlexPresent_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkAlexPresent_CheckedChanged(object sender, EventArgs e) {
         if (chkAlexPresent.Checked) {
             if (chkApolloPresent.Checked) chkApolloPresent.Checked = false;
         }
@@ -12103,8 +11965,7 @@ public partial class Setup : Form {
         chkPenOCxmit2_CheckedChanged(this, EventArgs.Empty);
     }
 
-    private void chkPenOCrcv160_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCrcv160_CheckedChanged(object sender, EventArgs e) {
         int val = 0;
         if (chkPenOCrcv1601.Checked) val += 1 << 0;
         if (chkPenOCrcv1602.Checked) val += 1 << 1;
@@ -12122,8 +11983,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCxmit160_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCxmit160_CheckedChanged(object sender, EventArgs e) {
         int val = 0;
         if (chkPenOCxmit1601.Checked) val += 1 << 0;
         if (chkPenOCxmit1602.Checked) val += 1 << 1;
@@ -12141,8 +12001,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCrcv80_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCrcv80_CheckedChanged(object sender, EventArgs e) {
         int val = 0;
         if (chkPenOCrcv801.Checked) val += 1 << 0;
         if (chkPenOCrcv802.Checked) val += 1 << 1;
@@ -12160,8 +12019,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCxmit80_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCxmit80_CheckedChanged(object sender, EventArgs e) {
         int val = 0;
         if (chkPenOCxmit801.Checked) val += 1 << 0;
         if (chkPenOCxmit802.Checked) val += 1 << 1;
@@ -12179,8 +12037,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCrcv60_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCrcv60_CheckedChanged(object sender, EventArgs e) {
         int val = 0;
         if (chkPenOCrcv601.Checked) val += 1 << 0;
         if (chkPenOCrcv602.Checked) val += 1 << 1;
@@ -12198,8 +12055,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCxmit60_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCxmit60_CheckedChanged(object sender, EventArgs e) {
         int val = 0;
         if (chkPenOCxmit601.Checked) val += 1 << 0;
         if (chkPenOCxmit602.Checked) val += 1 << 1;
@@ -12217,8 +12073,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCrcv40_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCrcv40_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCrcv401.Checked) val += 1 << 0;
@@ -12237,8 +12092,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCxmit40_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCxmit40_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCxmit401.Checked) val += 1 << 0;
@@ -12257,8 +12111,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCrcv30_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCrcv30_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCrcv301.Checked) val += 1 << 0;
@@ -12277,8 +12130,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCxmit30_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCxmit30_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCxmit301.Checked) val += 1 << 0;
@@ -12297,8 +12149,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCrcv20_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCrcv20_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCrcv201.Checked) val += 1 << 0;
@@ -12317,8 +12168,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCxmit20_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCxmit20_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCxmit201.Checked) val += 1 << 0;
@@ -12337,8 +12187,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCrcv17_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCrcv17_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCrcv171.Checked) val += 1 << 0;
@@ -12357,8 +12206,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCxmit17_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCxmit17_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCxmit171.Checked) val += 1 << 0;
@@ -12377,8 +12225,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCrcv15_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCrcv15_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCrcv151.Checked) val += 1 << 0;
@@ -12397,8 +12244,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCxmit15_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCxmit15_CheckedChanged(object sender, EventArgs e) {
         int val = 0;
         if (chkPenOCxmit151.Checked) val += 1 << 0;
         if (chkPenOCxmit152.Checked) val += 1 << 1;
@@ -12416,8 +12262,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCrcv12_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCrcv12_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCrcv121.Checked) val += 1 << 0;
@@ -12436,8 +12281,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCxmit12_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCxmit12_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCxmit121.Checked) val += 1 << 0;
@@ -12456,8 +12300,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCrcv10_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCrcv10_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCrcv101.Checked) val += 1 << 0;
@@ -12476,8 +12319,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCxmit10_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCxmit10_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCxmit101.Checked) val += 1 << 0;
@@ -12496,8 +12338,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCrcv6_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCrcv6_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCrcv61.Checked) val += 1 << 0;
@@ -12516,8 +12357,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCxmit6_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCxmit6_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCxmit61.Checked) val += 1 << 0;
@@ -12536,8 +12376,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCrcv2_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCrcv2_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCrcv21.Checked) val += 1 << 0;
@@ -12556,8 +12395,7 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPenOCxmit2_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPenOCxmit2_CheckedChanged(object sender, EventArgs e) {
 
         int val = 0;
         if (chkPenOCxmit21.Checked) val += 1 << 0;
@@ -12576,30 +12414,26 @@ public partial class Setup : Form {
                                        // change to native code
     }
 
-    private void chkPennyExtCtrl_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkPennyExtCtrl_CheckedChanged(object sender, EventArgs e) {
         grpPennyExtCtrl.Enabled = chkPennyExtCtrl.Checked;
         grpPennyExtCtrlVHF.Enabled = chkPennyExtCtrl.Checked;
         grpExtCtrlSWL.Enabled = chkPennyExtCtrl.Checked;
         console.PennyExtCtrlEnabled = chkPennyExtCtrl.Checked;
     }
 
-    private void chkAlexAntCtrl_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkAlexAntCtrl_CheckedChanged(object sender, EventArgs e) {
         grpAlexAntCtrl.Enabled = true; // chkAlexAntCtrl.Checked;
         console.AlexAntCtrlEnabled = chkAlexAntCtrl.Checked;
         // if (radGenModelANAN10.Checked) panelAlexRXAntControl.Enabled = false;
         panelAlexRXAntControl.Enabled = true;
     }
 
-    private void chkMercDither_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkMercDither_CheckedChanged(object sender, EventArgs e) {
         int v = chkMercDither.Checked ? 1 : 0;
         NetworkIO.SetADCDither(v);
     }
 
-    private void chkMercRandom_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void chkMercRandom_CheckedChanged(object sender, EventArgs e) {
         int v = chkMercRandom.Checked ? 1 : 0;
         NetworkIO.SetADCRandom(v);
     }
@@ -12656,8 +12490,7 @@ public partial class Setup : Form {
         return orig_state;
     }
 
-    private void radAlexR_160_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void radAlexR_160_CheckedChanged(object sender, EventArgs e) {
         if (radAlexR2_160.Checked) {
             if (chkBlockTxAnt2.Checked) {
                 if (radAlexT2_160.Checked) radAlexT1_160.Checked = true;
@@ -12679,7 +12512,7 @@ public partial class Setup : Form {
         ProcessAlexAntRadioButton(sender, Band.B160M, false);
     }
 
-    private void radAlexR_80_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexR_80_CheckedChanged(object sender, EventArgs e) {
         if (radAlexR2_80.Checked) {
             if (chkBlockTxAnt2.Checked) {
                 if (radAlexT2_80.Checked) radAlexT1_80.Checked = true;
@@ -12701,7 +12534,7 @@ public partial class Setup : Form {
         ProcessAlexAntRadioButton(sender, Band.B80M, false);
     }
 
-    private void radAlexR_60_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexR_60_CheckedChanged(object sender, EventArgs e) {
         if (radAlexR2_60.Checked) {
             if (chkBlockTxAnt2.Checked) {
                 if (radAlexT2_60.Checked) radAlexT1_60.Checked = true;
@@ -12723,7 +12556,7 @@ public partial class Setup : Form {
         ProcessAlexAntRadioButton(sender, Band.B60M, false);
     }
 
-    private void radAlexR_40_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexR_40_CheckedChanged(object sender, EventArgs e) {
         if (radAlexR2_40.Checked) {
             if (chkBlockTxAnt2.Checked) {
                 if (radAlexT2_40.Checked) radAlexT1_40.Checked = true;
@@ -12745,7 +12578,7 @@ public partial class Setup : Form {
         ProcessAlexAntRadioButton(sender, Band.B40M, false);
     }
 
-    private void radAlexR_30_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexR_30_CheckedChanged(object sender, EventArgs e) {
         if (radAlexR2_30.Checked) {
             if (chkBlockTxAnt2.Checked) {
                 if (radAlexT2_30.Checked) radAlexT1_30.Checked = true;
@@ -12767,7 +12600,7 @@ public partial class Setup : Form {
         ProcessAlexAntRadioButton(sender, Band.B30M, false);
     }
 
-    private void radAlexR_20_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexR_20_CheckedChanged(object sender, EventArgs e) {
         if (radAlexR2_20.Checked) {
             if (chkBlockTxAnt2.Checked) {
                 if (radAlexT2_20.Checked) radAlexT1_20.Checked = true;
@@ -12789,7 +12622,7 @@ public partial class Setup : Form {
         ProcessAlexAntRadioButton(sender, Band.B20M, false);
     }
 
-    private void radAlexR_17_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexR_17_CheckedChanged(object sender, EventArgs e) {
         if (radAlexR2_17.Checked) {
             if (chkBlockTxAnt2.Checked) {
                 if (radAlexT2_17.Checked) radAlexT1_17.Checked = true;
@@ -12811,7 +12644,7 @@ public partial class Setup : Form {
         ProcessAlexAntRadioButton(sender, Band.B17M, false);
     }
 
-    private void radAlexR_15_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexR_15_CheckedChanged(object sender, EventArgs e) {
         if (radAlexR2_15.Checked) {
             if (chkBlockTxAnt2.Checked) {
                 if (radAlexT2_15.Checked) radAlexT1_15.Checked = true;
@@ -12833,7 +12666,7 @@ public partial class Setup : Form {
         ProcessAlexAntRadioButton(sender, Band.B15M, false);
     }
 
-    private void radAlexR_12_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexR_12_CheckedChanged(object sender, EventArgs e) {
         if (radAlexR2_12.Checked) {
             if (chkBlockTxAnt2.Checked) {
                 if (radAlexT2_12.Checked) radAlexT1_12.Checked = true;
@@ -12855,7 +12688,7 @@ public partial class Setup : Form {
         ProcessAlexAntRadioButton(sender, Band.B12M, false);
     }
 
-    private void radAlexR_10_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexR_10_CheckedChanged(object sender, EventArgs e) {
         if (radAlexR2_10.Checked) {
             if (chkBlockTxAnt2.Checked) {
                 if (radAlexT2_10.Checked) radAlexT1_10.Checked = true;
@@ -12877,7 +12710,7 @@ public partial class Setup : Form {
         ProcessAlexAntRadioButton(sender, Band.B10M, false);
     }
 
-    private void radAlexR_6_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexR_6_CheckedChanged(object sender, EventArgs e) {
         if (radAlexR2_6.Checked) {
             if (chkBlockTxAnt2.Checked) {
                 if (radAlexT2_6.Checked) radAlexT1_6.Checked = true;
@@ -12899,96 +12732,95 @@ public partial class Setup : Form {
         ProcessAlexAntRadioButton(sender, Band.B6M, false);
     }
 
-    private void radAlexT_160_CheckedChanged(
-        object sender, System.EventArgs e) {
+    private void radAlexT_160_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntRadioButton(sender, Band.B160M, true);
     }
 
-    private void radAlexT_80_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexT_80_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntRadioButton(sender, Band.B80M, true);
     }
 
-    private void radAlexT_60_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexT_60_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntRadioButton(sender, Band.B60M, true);
     }
 
-    private void radAlexT_40_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexT_40_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntRadioButton(sender, Band.B40M, true);
     }
 
-    private void radAlexT_30_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexT_30_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntRadioButton(sender, Band.B30M, true);
     }
 
-    private void radAlexT_20_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexT_20_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntRadioButton(sender, Band.B20M, true);
     }
 
-    private void radAlexT_17_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexT_17_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntRadioButton(sender, Band.B17M, true);
     }
 
-    private void radAlexT_15_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexT_15_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntRadioButton(sender, Band.B15M, true);
     }
 
-    private void radAlexT_12_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexT_12_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntRadioButton(sender, Band.B12M, true);
     }
 
-    private void radAlexT_10_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexT_10_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntRadioButton(sender, Band.B10M, true);
     }
 
-    private void radAlexT_6_CheckedChanged(object sender, System.EventArgs e) {
+    private void radAlexT_6_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntRadioButton(sender, Band.B6M, true);
     }
 
-    private void chkAlex160R_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkAlex160R_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntCheckBox(sender, Band.B160M);
     }
 
-    private void chkAlex80R_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkAlex80R_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntCheckBox(sender, Band.B80M);
     }
 
-    private void chkAlex60R_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkAlex60R_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntCheckBox(sender, Band.B60M);
     }
 
-    private void chkAlex40R_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkAlex40R_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntCheckBox(sender, Band.B40M);
     }
 
-    private void chkAlex30R_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkAlex30R_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntCheckBox(sender, Band.B30M);
     }
 
-    private void chkAlex20R_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkAlex20R_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntCheckBox(sender, Band.B20M);
     }
 
-    private void chkAlex17R_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkAlex17R_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntCheckBox(sender, Band.B17M);
     }
 
-    private void chkAlex15R_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkAlex15R_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntCheckBox(sender, Band.B15M);
     }
 
-    private void chkAlex12R_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkAlex12R_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntCheckBox(sender, Band.B12M);
     }
 
-    private void chkAlex10R_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkAlex10R_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntCheckBox(sender, Band.B10M);
     }
 
-    private void chkAlex6R_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkAlex6R_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntCheckBox(sender, Band.B6M);
     }
 
-    private void chkAlex2R_CheckedChanged(object sender, System.EventArgs e) {
+    private void chkAlex2R_CheckedChanged(object sender, EventArgs e) {
         ProcessAlexAntCheckBox(sender, Band.B2M);
     }
 
@@ -13153,12 +12985,11 @@ public partial class Setup : Form {
         }
     }
 
-    private void btnHPSDRFreqCalReset_Click(object sender, System.EventArgs e) {
+    private void btnHPSDRFreqCalReset_Click(object sender, EventArgs e) {
         HPSDRFreqCorrectFactor = 1.0;
     }
 
-    private void tpHPSDR_Paint(
-        object sender, System.Windows.Forms.PaintEventArgs e) {
+    private void tpHPSDR_Paint(object sender, PaintEventArgs e) {
         if (console.PowerOn && console.CurrentHPSDRModel == HPSDRModel.HPSDR) {
             grpVersion.Visible = true;
             lblMercury2FWVer.Visible = console.RX2PreampPresent;
@@ -13233,8 +13064,7 @@ public partial class Setup : Form {
         //}
     }
 
-    private void tpGeneralHardware_Paint(
-        object sender, System.Windows.Forms.PaintEventArgs e) {
+    private void tpGeneralHardware_Paint(object sender, PaintEventArgs e) {
         // int metis_ip_addr = JanusAudio.GetMetisIPAddr();
         // lblMetisIP.Text = IPStringFromInt(metis_ip_addr);
         lblMetisIP.Text = NetworkIO.HpSdrHwIpAddress;
@@ -13257,12 +13087,12 @@ public partial class Setup : Form {
 
     public void UpdateGeneraHardware() { tpGeneralHardware.Invalidate(); }
 
-    private void udMaxFreq_ValueChanged(object sender, System.EventArgs e) {
+    private void udMaxFreq_ValueChanged(object sender, EventArgs e) {
         console.MaxFreq = (double)udMaxFreq.Value;
     }
 
     private void udHPSDRFreqCorrectFactor_ValueChanged(
-        object sender, System.EventArgs e) {
+        object sender, EventArgs e) {
         NetworkIO.FreqCorrectionFactor = (double)udHPSDRFreqCorrectFactor.Value;
     }
 
@@ -15638,21 +15468,21 @@ public partial class Setup : Form {
             val += 1 << 0; // bits 1 & 0 set to 01 => DDC0 to ADC1
         if (radDDC0ADC2.Checked)
             val += 1 << 1; // bits 1 & 0 set to 10 => DDC0 to ADC2
-        // DDC1 ADC control: bits 3 & 2
+                           // DDC1 ADC control: bits 3 & 2
         if (radDDC1ADC0.Checked)
             val += 0; // bits 3 & 2 set to 00 => DDC1 to ADC0
         if (radDDC1ADC1.Checked)
             val += 1 << 2; // bits 3 & 2 set to 01 => DDC1 to ADC1
         if (radDDC1ADC2.Checked)
             val += 1 << 3; // bits 3 & 2 set to 10 => DDC1 to ADC2
-        // DDC2 ADC control: bits 5 & 4
+                           // DDC2 ADC control: bits 5 & 4
         if (radDDC2ADC0.Checked)
             val += 0; // bits 5 & 4 set to 00 => DDC2 to ADC0
         if (radDDC2ADC1.Checked)
             val += 1 << 4; // bits 5 & 4 set to 01 => DDC2 to ADC1
         if (radDDC2ADC2.Checked)
             val += 1 << 5; // bits 5 & 4 set to 10 => DDC2 to ADC2
-        // DDC3 ADC control: bits 7 & 6
+                           // DDC3 ADC control: bits 7 & 6
         if (radDDC3ADC0.Checked)
             val += 0; // bits 7 & 6 set to 00 => DDC3 to ADC0
         if (radDDC3ADC1.Checked)
@@ -15671,14 +15501,14 @@ public partial class Setup : Form {
             val += 1 << 0; // bits 1 & 0 set to 01 => DDC4 to ADC1
         if (radDDC4ADC2.Checked)
             val += 1 << 1; // bits 1 & 0 set to 10 => DDC4 to ADC2
-        // DDC5 ADC control: bits 3 & 2
+                           // DDC5 ADC control: bits 3 & 2
         if (radDDC5ADC0.Checked)
             val += 0; // bits 3 & 2 set to 00 => DDC5 to ADC0
         if (radDDC5ADC1.Checked)
             val += 1 << 2; // bits 3 & 2 set to 01 => DDC5 to ADC1
         if (radDDC5ADC2.Checked)
             val += 1 << 3; // bits 3 & 2 set to 10 => DDC5 to ADC2
-        // DDC6 ADC control: bits 5 & 4
+                           // DDC6 ADC control: bits 5 & 4
         if (radDDC6ADC0.Checked)
             val += 0; // bits 5 & 4 set to 00 => DDC6 to ADC0
         if (radDDC6ADC1.Checked)
@@ -15702,42 +15532,42 @@ public partial class Setup : Form {
             val += 1 << 0; // bits 1 & 0 set to 01 => DDC0 to ADC1
         if (radP1DDC0ADC2.Checked)
             val += 1 << 1; // bits 1 & 0 set to 10 => DDC0 to ADC2
-        // protocol 1 DDC1 ADC control: bits 3 & 2
+                           // protocol 1 DDC1 ADC control: bits 3 & 2
         if (radP1DDC1ADC0.Checked)
             val += 0; // bits 3 & 2 set to 00 => DDC1 to ADC0
         if (radP1DDC1ADC1.Checked)
             val += 1 << 2; // bits 3 & 2 set to 01 => DDC1 to ADC1
         if (radP1DDC1ADC2.Checked)
             val += 1 << 3; // bits 3 & 2 set to 10 => DDC1 to ADC2
-        // protocol 1 DDC2 ADC control: bits 5 & 4
+                           // protocol 1 DDC2 ADC control: bits 5 & 4
         if (radP1DDC2ADC0.Checked)
             val += 0; // bits 5 & 4 set to 00 => DDC2 to ADC0
         if (radP1DDC2ADC1.Checked)
             val += 1 << 4; // bits 5 & 4 set to 01 => DDC2 to ADC1
         if (radP1DDC2ADC2.Checked)
             val += 1 << 5; // bits 5 & 4 set to 10 => DDC2 to ADC2
-        // protocol 1 DDC3 ADC control: bits 7 & 6
+                           // protocol 1 DDC3 ADC control: bits 7 & 6
         if (radP1DDC3ADC0.Checked)
             val += 0; // bits 7 & 6 set to 00 => DDC3 to ADC0
         if (radP1DDC3ADC1.Checked)
             val += 1 << 6; // bits 7 & 6 set to 01 => DDC3 to ADC1
         if (radP1DDC3ADC2.Checked)
             val += 1 << 7; // bits 7 & 6 set to 10 => DDC3 to ADC2
-        // protocol 1 DDC4 ADC control: bits 1 & 0
+                           // protocol 1 DDC4 ADC control: bits 1 & 0
         if (radP1DDC4ADC0.Checked)
             val += 0; // bits 9 & 8 set to 00 => DDC4 to ADC0
         if (radP1DDC4ADC1.Checked)
             val += 1 << 8; // bits 9 & 8 set to 01 => DDC4 to ADC1
         if (radP1DDC4ADC2.Checked)
             val += 1 << 9; // bits 9 & 8 set to 10 => DDC4 to ADC2
-        // protocol 1 DDC5 ADC control: bits 3 & 2
+                           // protocol 1 DDC5 ADC control: bits 3 & 2
         if (radP1DDC5ADC0.Checked)
             val += 0; // bits 11 & 10 set to 00 => DDC5 to ADC0
         if (radP1DDC5ADC1.Checked)
             val += 1 << 10; // bits 11 & 10 set to 01 => DDC5 to ADC1
         if (radP1DDC5ADC2.Checked)
             val += 1 << 11; // bits 11 & 10 set to 10 => DDC5 to ADC2
-        // protocol 1 DDC6 ADC control: bits 5 & 4
+                            // protocol 1 DDC6 ADC control: bits 5 & 4
         if (radP1DDC6ADC0.Checked)
             val += 0; // bits 13 & 12 set to 00 => DDC6 to ADC0
         if (radP1DDC6ADC1.Checked)
@@ -16902,6 +16732,11 @@ public partial class Setup : Form {
     }
 
     private void setCFCProfile(object sender, EventArgs e) {
+        if (sender is TrackBarTS) {
+            var tb = (TrackBarTS)sender;
+            toolTip1.SetToolTip(tb, tb.Value.ToString());
+        }
+
         const int nfreqs = 10;
         double[] F = new double[nfreqs];
         double[] G = new double[nfreqs];
@@ -16947,13 +16782,11 @@ public partial class Setup : Form {
     private void tbCFCPRECOMP_Scroll(object sender, EventArgs e) {
         WDSP.SetTXACFCOMPPrecomp(WDSP.id(1, 0), (double)tbCFCPRECOMP.Value);
     }
-        private void tbCFCPEG_Scroll(object sender, EventArgs e)
-        {
-            WDSP.SetTXACFCOMPPrePeq(WDSP.id(1, 0), (double)tbCFCPEQGAIN.Value);
+    private void tbCFCPEG_Scroll(object sender, EventArgs e) {
+        WDSP.SetTXACFCOMPPrePeq(WDSP.id(1, 0), (double)tbCFCPEQGAIN.Value);
+    }
 
-        }
-
-        private void chkCFCPeqEnable_CheckedChanged(object sender, EventArgs e) {
+    private void chkCFCPeqEnable_CheckedChanged(object sender, EventArgs e) {
         int run;
         if (chkCFCPeqEnable.Checked)
             run = 1;
@@ -16978,8 +16811,6 @@ public partial class Setup : Form {
     private void udPHROTStages_ValueChanged(object sender, EventArgs e) {
         WDSP.SetTXAPHROTNstages(WDSP.id(1, 0), (int)udPHROTStages.Value);
     }
-
-
 
     private void chkBoxHTTP_CheckedChanged(object sender, EventArgs e) {
         if (chkBoxHTTP.Checked == true) {
@@ -17943,24 +17774,19 @@ public partial class Setup : Form {
         bool power = console.PowerOn;
         HPSDRModel old_model = console.CurrentHPSDRModel;
         comboAudioSampleRateRX2.Enabled = true;
+        lblPwrHermesLite.Visible = false;
 
         switch (comboRadioModel.Text) {
             case "HERMES":
+                lblPwrHermesLite.Visible = true;
                 console.CurrentHPSDRModel = HPSDRModel.HERMES;
-                // chkPennyPresent.Checked = false;
-                // chkPennyPresent.Enabled = false;
-                // chkPennyPresent.Visible = false;
-                // chkMercuryPresent.Checked = true;
-                // chkMercuryPresent.Enabled = false;
-                // chkMercuryPresent.Visible = false;
-                // chkPennyLane.Checked = true;
-                // chkPennyLane.Enabled = false;
-                // chkPennyLane.Visible = false;
+                chkHermesStepAttenuator.Enabled = true;
+                chkHermesStepAttenuator.Checked = true;
                 chkAlexPresent.Enabled = true;
                 chkApolloPresent.Enabled = true;
                 chkApolloPresent.Visible = true;
                 chkGeneralRXOnly.Visible = true;
-                chkHermesStepAttenuator.Enabled = true;
+
                 groupBoxRXOptions.Text = "Hermes Options";
                 grpMetisAddr.Text = "Hermes Address";
                 grpHermesStepAttenuator.Text = "Hermes Step Attenuator";
@@ -18062,6 +17888,8 @@ public partial class Setup : Form {
                 break;
 
             case "ANAN-100":
+                chkHermesStepAttenuator.Enabled = true;
+                chkHermesStepAttenuator.Checked = true;
                 console.CurrentHPSDRModel = HPSDRModel.ANAN100;
                 chkPennyPresent.Checked = false;
                 chkPennyPresent.Enabled = false;
@@ -18100,6 +17928,8 @@ public partial class Setup : Form {
                 break;
 
             case "ANAN-100B":
+                chkHermesStepAttenuator.Enabled = true;
+                chkHermesStepAttenuator.Checked = true;
                 console.CurrentHPSDRModel = HPSDRModel.ANAN100B;
                 comboAudioSampleRateRX2.SelectedIndex
                     = comboAudioSampleRate1.SelectedIndex;
@@ -18145,6 +17975,8 @@ public partial class Setup : Form {
                 break;
 
             case "ANAN-100D":
+                chkHermesStepAttenuator.Enabled = true;
+                chkHermesStepAttenuator.Checked = true;
                 console.CurrentHPSDRModel = HPSDRModel.ANAN100D;
                 chkPennyPresent.Checked = false;
                 chkPennyPresent.Enabled = false;
@@ -18160,7 +17992,7 @@ public partial class Setup : Form {
                 chkApolloPresent.Enabled = false;
                 chkApolloPresent.Checked = false;
                 chkGeneralRXOnly.Visible = true;
-                chkHermesStepAttenuator.Enabled = true;
+
                 groupBoxRXOptions.Text = "ANAN Options";
                 grpMetisAddr.Text = "ANAN Address";
                 grpHermesStepAttenuator.Text = "ANAN Step Attenuator";
@@ -18222,6 +18054,8 @@ public partial class Setup : Form {
                 groupBoxRXOptions.Text = "ANAN Options";
                 grpMetisAddr.Text = "ANAN Address";
                 grpHermesStepAttenuator.Text = "ANAN Step Attenuator";
+                chkHermesStepAttenuator.Enabled = true;
+                chkHermesStepAttenuator.Checked = true;
                 // chkAlexPresent_CheckedChanged(this, EventArgs.Empty);
                 // chkAlexAntCtrl_CheckedChanged(this, EventArgs.Empty);
                 chkAutoPACalibrate.Checked = false;
@@ -18271,6 +18105,8 @@ public partial class Setup : Form {
                 groupBoxRXOptions.Text = "ANAN Options";
                 grpMetisAddr.Text = "ANAN Address";
                 grpHermesStepAttenuator.Text = "ANAN Step Attenuator";
+                chkHermesStepAttenuator.Enabled = true;
+                chkHermesStepAttenuator.Checked = true;
                 chkAlexPresent_CheckedChanged(this, EventArgs.Empty);
                 chkAlexAntCtrl_CheckedChanged(this, EventArgs.Empty);
                 chkAutoPACalibrate.Checked = false;
@@ -18326,6 +18162,8 @@ public partial class Setup : Form {
                 groupBoxRXOptions.Text = "ANAN Options";
                 grpMetisAddr.Text = "ANAN Address";
                 grpHermesStepAttenuator.Text = "ANAN Step Attenuator";
+                chkHermesStepAttenuator.Enabled = true;
+                chkHermesStepAttenuator.Checked = true;
                 chkAlexPresent_CheckedChanged(this, EventArgs.Empty);
                 chkAlexAntCtrl_CheckedChanged(this, EventArgs.Empty);
                 chkAutoPACalibrate.Checked = false;
@@ -18381,8 +18219,6 @@ public partial class Setup : Form {
             console.PowerOn = true;
         }
     }
-
-    
 
     private void chkRadioProtocolSelect_CheckStateChanged(
         object sender, EventArgs e) {
@@ -18565,17 +18401,18 @@ public partial class Setup : Form {
         }
     }
 
-        private void chkRadioProtocolSelect_CheckedChanged(object sender, EventArgs e)
-        {
+    private void lblCFCEQ10dB_Click(object sender, EventArgs e) {}
 
-        }
+    private void ud10PA1W_ValueChanged(object sender, EventArgs e) {
+        Debug.Print(ud10PA1W.Maximum.ToString());
     }
+}
 
-    #region PADeviceInfo Helper Class
+#region PADeviceInfo Helper Class
 
-    public class PADeviceInfo {
-    private string _Name;
-    private int _Index;
+public class PADeviceInfo {
+    private readonly string _Name;
+    private readonly int _Index;
 
     public string Name {
         get { return _Name; }

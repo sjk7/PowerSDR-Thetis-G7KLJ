@@ -27,7 +27,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <ManifestCertificateThumbprint>AEF2072BFD4E1723668C4A72938E707A73AAFB8B</ManifestCertificateThumbprint>
     <ManifestKeyFile>PowerSDR_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>false</GenerateManifests>
@@ -78,7 +78,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>..\..\bin\Release\</OutputPath>
@@ -106,7 +106,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -121,7 +121,8 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>7</LangVersion>
+    <NoWarn>618</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>..\..\bin\x86\Release\</OutputPath>
@@ -134,7 +135,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Interleaved|AnyCPU'">
     <OutputPath>bin\Interleaved\</OutputPath>
@@ -150,7 +151,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Interleaved|x86'">
     <OutputPath>..\..\bin\Release\</OutputPath>
@@ -165,7 +166,7 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <Prefer32Bit>false</Prefer32Bit>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -182,7 +183,7 @@
     </CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
     <NoWarn>0618</NoWarn>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>..\..\bin\x64\Release\</OutputPath>
@@ -199,7 +200,7 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
     <NoWarn>0618</NoWarn>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Interleaved|x64'">
     <OutputPath>bin\x64\Interleaved\</OutputPath>
@@ -216,7 +217,7 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <Prefer32Bit>false</Prefer32Bit>
     <NoWarn>0618</NoWarn>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>7</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
     <DebugSymbols>true</DebugSymbols>
@@ -228,7 +229,7 @@
     <DebugType>full</DebugType>
     <PlatformTarget>ARM64</PlatformTarget>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>7</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -240,7 +241,7 @@
     <Optimize>true</Optimize>
     <FileAlignment>4096</FileAlignment>
     <PlatformTarget>ARM64</PlatformTarget>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>7</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -252,7 +253,7 @@
     <Optimize>true</Optimize>
     <FileAlignment>4096</FileAlignment>
     <PlatformTarget>ARM64</PlatformTarget>
-    <LangVersion>preview</LangVersion>
+    <LangVersion>7</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
@@ -286,7 +287,9 @@
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -367,6 +370,12 @@
     </Compile>
     <Compile Include="AnalogSMeter\frmSMeter.Designer.cs">
       <DependentUpon>frmSMeter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTmp1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTmp1.Designer.cs">
+      <DependentUpon>frmTmp1.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="AnalogSMeter\PrettySMeterHelpers.cs" />
@@ -638,6 +647,8 @@
       <SubType>Form</SubType>
     </Compile>
     <Content Include="hpsdr4-64.ico" />
+    <None Include="Resources\VKK.jpg" />
+    <None Include="Resources\vucropped.jpg" />
     <None Include="packages.config" />
     <None Include="Resources\SMeterTango.jpg" />
     <None Include="Resources\SMeterOrange.bmp" />
@@ -649,6 +660,7 @@
     <None Include="Resources\OLDVFOAnalogSignalGauge.JPG" />
     <None Include="Resources\PPM.jpg" />
     <None Include="Resources\HL2 - front_sml.jpg" />
+    <None Include="Resources\kenwood-s-meter.png" />
     <Content Include="Resources\screen4.png" />
     <None Include="Resources\openhpsdrnotastall.bmp" />
     <None Include="Resources\openhpsdrnotastall.png" />
@@ -685,6 +697,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AnalogSMeter\frmSMeter.resx">
       <DependentUpon>frmSMeter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTmp1.resx">
+      <DependentUpon>frmTmp1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="KE9N\scan.resx">
       <SubType>Designer</SubType>
@@ -915,9 +930,13 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
-    <PostBuildEvent>copy /Y "..\..\..\lib\fftw_$(PlatformName)\libfftw3-3.dll" "$(ProjectDir)$(OutDir)";
+    <PostBuildEvent>echo "Copying correct libfftw3-3.dll ..."
+copy /Y "..\..\..\lib\fftw_$(PlatformName)\libfftw3-3.dll" "$(ProjectDir)$(OutDir)";
+echo "Copying CATStructs.xml ..."
 copy /Y "$(ProjectDir)CAT\CATStructs.xml" "$(ProjectDir)$(OutDir)";
+echo "Copying calculus resources ..."
 copy /Y "..\..\..\lib\Thetis-resources\calculus" "$(ProjectDir)$(OutDir)"
+echo "Post-Build Event in Thetis.exe (in Project Properties) is complete."
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

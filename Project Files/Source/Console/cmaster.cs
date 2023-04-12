@@ -58,8 +58,19 @@ unsafe class cmaster {
   [DllImport("ChannelMaster.dll", EntryPoint = "SetXmtrChannelOutrate",
              CallingConvention = CallingConvention.Cdecl)]
   public static extern void SetXmtrChannelOutrate(int xmtr_id, int rate, bool state);
+        //
 
-  [DllImport("ChannelMaster.dll", EntryPoint = "getbuffsize",
+        [DllImport("ChannelMaster.dll", EntryPoint = "GetInputLatencyMs",
+           CallingConvention = CallingConvention.Cdecl)]
+        public static extern int GetInputLatencyMsActual(int id);
+
+
+        [DllImport("ChannelMaster.dll", EntryPoint = "GetOutputLatencyMs",
+           CallingConvention = CallingConvention.Cdecl)]
+        public static extern int GetOutputLatencyMsActual(int id);
+
+
+        [DllImport("ChannelMaster.dll", EntryPoint = "getbuffsize",
              CallingConvention = CallingConvention.Cdecl)]
   public static extern int GetBuffSize(int rate);
 
@@ -353,13 +364,13 @@ unsafe class cmaster {
   }
 
   // number of software receivers
-  private static int cmRCVR = 2;
+  private static readonly int cmRCVR = 2;
   public static int CMrcvr {
     get { return cmRCVR; }
   }
 
   // number of sub-receivers per receiver (2 = main + one_sub)
-  private static int cmSubRCVR = 2;
+  private static readonly int cmSubRCVR = 2;
   public static int CMsubrcvr {
     get { return cmSubRCVR; }
   }
@@ -415,10 +426,9 @@ unsafe class cmaster {
     puresignal.SetPSFeedbackRate(txch, ps_rate);
     string PSPeak = Common.GetSavedPSPeakValue();
     if (PSPeak.Length > 0) {
-      double pspeak = 0;
-      if (Double.TryParse(PSPeak, out pspeak))
-        puresignal.SetPSHWPeak(txch, pspeak);
-    } else {
+                if (Double.TryParse(PSPeak, out double pspeak))
+                    puresignal.SetPSHWPeak(txch, pspeak);
+            } else {
       puresignal.SetPSHWPeak(txch, 0.2899);
     }
 
@@ -904,7 +914,7 @@ unsafe class cmaster {
   // declare a delegate that is of the same form as the function which it is to encapsulate
   unsafe public delegate void PushVox(int channel, int active);
   // assign the function 'VOX.PushVox' to an instance of the delegate 'PushVox'
-  unsafe private static PushVox PushVoxDel = VOX.PushVox;
+  private static readonly PushVox PushVoxDel = VOX.PushVox;
   // set-up a method definition to send the function pointer to the dll
   [DllImport("ChannelMaster.dll", EntryPoint = "SendCBPushVox",
              CallingConvention = CallingConvention.Cdecl)]
@@ -914,11 +924,11 @@ unsafe class cmaster {
 
 #region rxa
 
-  private static bool EXPOSE = false;
-  private static bool EXPOSEwb = true;
+  private static readonly bool EXPOSE = false;
+  private static readonly bool EXPOSEwb = true;
   private const int nrxa = 8;
-  private static rxa[] rxa = new rxa[nrxa];
-  private static wideband[] wideband = new wideband[3];
+  private static readonly rxa[] rxa = new rxa[nrxa];
+  private static readonly wideband[] wideband = new wideband[3];
 
   private static void create_rxa() {
     if (EXPOSE) {
@@ -995,7 +1005,7 @@ unsafe static class WaveThing {
   unsafe public delegate void createWplay(int id);
 
   // assign the function to an instance of the delegate
-  unsafe private static createWplay cwpDel = createWavePlayer;
+  private static readonly createWplay cwpDel = createWavePlayer;
 
   // define the method to send the createWavePlayer function pointer
   [DllImport("ChannelMaster.dll", EntryPoint = "SendCBCreateWPlay",
@@ -1003,7 +1013,7 @@ unsafe static class WaveThing {
   unsafe public static extern void SendCBCreateWPlay(createWplay del);
 
   unsafe public delegate void createWrecord(int id);
-  unsafe private static createWrecord cwrDel = createWaveRecorder;
+  private static readonly createWrecord cwrDel = createWaveRecorder;
 
   [DllImport("ChannelMaster.dll", EntryPoint = "SendCBCreateWRecord",
              CallingConvention = CallingConvention.Cdecl)]
@@ -1032,7 +1042,7 @@ unsafe static class WaveThing {
   // initialize an array for the waveplayers
   public static PlayWave[] wplayer = new PlayWave[nplayers];
   // initialize an array for pointers to the wave player method instances
-  static WPlay[] pplay = new WPlay[nplayers];
+  static readonly WPlay[] pplay = new WPlay[nplayers];
   // initialize an array for the wave_file_readers
   public static WaveFileReader1[] wave_file_reader = new WaveFileReader1[nplayers];
 
@@ -1060,7 +1070,7 @@ unsafe static class WaveThing {
 
   const int nrecorders = 16;
   public static RecordWave[] wrecorder = new RecordWave[nrecorders];
-  static WRecord[] precord = new WRecord[nrecorders];
+  static readonly WRecord[] precord = new WRecord[nrecorders];
   public static WaveFileWriter[] wave_file_writer = new WaveFileWriter[nrecorders];
 
   unsafe public static void createWaveRecorder(int id) {
@@ -1095,9 +1105,8 @@ unsafe class PlayWave {
   }
 
   int busy = 0;
-
-  float[] left = new float[2048];
-  float[] right = new float[2048];
+        readonly float[] left = new float[2048];
+        readonly float[] right = new float[2048];
 
   unsafe public void wplay(int state, double *data) {
     if (run && (condx == state)) {
@@ -1157,11 +1166,10 @@ unsafe class RecordWave {
   }
 
   int busy = 0;
-
-  float[] left = new float[2048];
-  float[] right = new float[2048];
-  float[] ltemp = new float[2048];
-  float[] rtemp = new float[2048];
+        readonly float[] left = new float[2048];
+        readonly float[] right = new float[2048];
+        readonly float[] ltemp = new float[2048];
+        readonly float[] rtemp = new float[2048];
   // 'wrecord()' is called by ChannelMaster.dll
 
   unsafe public void wrecord(int state, int pos, double *data) {
@@ -1266,7 +1274,7 @@ unsafe class RecordWave {
 
 unsafe static class Scope {
   unsafe public delegate void createscope(int id);
-  unsafe private static createscope cscDel = createScope;
+  private static readonly createscope cscDel = createScope;
 
   [DllImport("ChannelMaster.dll", EntryPoint = "SendCBCreateScope",
              CallingConvention = CallingConvention.Cdecl)]
@@ -1280,7 +1288,7 @@ unsafe static class Scope {
 
   const int nscopes = 16;
   public static DoScope[] dscope = new DoScope[nscopes];
-  static Xscope[] pscope = new Xscope[nscopes];
+  static readonly Xscope[] pscope = new Xscope[nscopes];
 
   unsafe public static void createScope(int id) {
     dscope[id] = new DoScope();
@@ -1294,8 +1302,8 @@ unsafe static class Scope {
 }
 
 unsafe class DoScope {
-  float[] left = new float[2048];
-  float[] right = new float[2048];
+        readonly float[] left = new float[2048];
+        readonly float[] right = new float[2048];
 
   int busy = 0;
 

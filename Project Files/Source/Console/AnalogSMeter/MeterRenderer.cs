@@ -124,7 +124,7 @@ namespace LBSoft.IndustrialCtrls.Meters {
   }
 
   /// <summary>
-  /// Default renderer class for the analog meter
+  /// NewVFOAnalogSignalGauge renderer class for the analog meter
   /// </summary>
   public class LBDefaultAnalogMeterRenderer : LBAnalogMeterRenderer {
 
@@ -308,10 +308,12 @@ return true;
 
       SolidBrush br = new SolidBrush(Color.Red);
 
-      // Pen pen = new Pen ( this.AnalogMeter.NeedleColor );
-      Pen pen = new Pen(Color.Red);
-      pen.Width = 2;
-      Gr.DrawPath(pen, pth1);
+            // Pen pen = new Pen ( this.AnalogMeter.NeedleColor );
+            Pen pen = new Pen(Color.Red)
+            {
+                Width = 2
+            };
+            Gr.DrawPath(pen, pth1);
       Gr.FillPath(br, pth1);
 
       return true;

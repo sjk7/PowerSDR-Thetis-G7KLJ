@@ -14,9 +14,9 @@ using Thetis.Properties;
 namespace Thetis {
 public partial class frmSMeter : Form {
     private bool windowInitialized = false;
-    private Thetis.Console m_console;
+    private Console m_console;
 
-    public Thetis.Console console {
+    public Console console {
         get { return m_console; }
 
         set {
@@ -25,8 +25,7 @@ public partial class frmSMeter : Form {
         }
     }
 
-    public frmSMeter(
-        System.Drawing.Rectangle initPosition, Console the_console) {
+    public frmSMeter(Rectangle initPosition, Console the_console) {
         InitializeComponent();
         // this is the default
         console = the_console;
@@ -34,7 +33,7 @@ public partial class frmSMeter : Form {
         this.StartPosition = FormStartPosition.WindowsDefaultBounds;
         this.Owner = the_console;
 
-        // Properties.Settings.Default.Reset();
+        // Properties.Settings.NewVFOAnalogSignalGauge.Reset();
 
         // this.ControlBox = false;
         // this.Text = String.Empty;
@@ -70,7 +69,10 @@ public partial class frmSMeter : Form {
         }
         windowInitialized = true;
         Settings.Default.BigSMeterOpen = true;
-        BigSMeter.ToggleBackGroundImage(Settings.Default.SMeterBackgroundImg);
+        // BigSMeter.ToggleBackGroundImage(Settings.Default.SMeterBackgroundImg);
+        BigSMeter.ToggleBackGroundImage(
+            (LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices)
+                Settings.Default.SMeterBackgroundImg);
 
         Settings.Default.Save();
         if (Settings.Default.TopMost) this.TopMost = true;
@@ -142,22 +144,29 @@ public partial class frmSMeter : Form {
     private void frmSMeter_Load(object sender, EventArgs e) {}
 
     private void originalToolStripMenuItem_Click(object sender, EventArgs e) {
-        BigSMeter.ToggleBackGroundImage(0);
+        BigSMeter.ToggleBackGroundImage(
+            LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices
+                .NewVFOAnalogSignalGauge);
     }
 
     private void blueToolStripMenuItem_Click(object sender, EventArgs e) {
-        BigSMeter.ToggleBackGroundImage(1);
+        BigSMeter.ToggleBackGroundImage(
+            LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices.Blue);
     }
 
     private void youKnowWhenYouveBeenTangodToolStripMenuItem_Click(
         object sender, EventArgs e) {
-        BigSMeter.ToggleBackGroundImage(2);
+        BigSMeter.ToggleBackGroundImage(
+            LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices
+                .Tango);
     }
 
     private void BigSMeter_BackGndImgChanged(object sender, EventArgs e) {
         if (m_console != null) {
             m_console.PrettySMeter.ToggleBackGroundImage(
-                Settings.Default.SMeterBackgroundImg);
+                (LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices)
+                    Settings.Default.SMeterBackgroundImg);
+            m_console.PrettySMeter.ViewGlass = BigSMeter.ViewGlass;
         }
     }
 
@@ -170,11 +179,19 @@ public partial class frmSMeter : Form {
                 this.blueToolStripMenuItem.Enabled = false;
                 this.whyCantIChooseTheBackgroundToolStripMenuItem.Enabled
                     = true;
+                this.kenwoodToolStripMenuItem.Enabled = false;
+                this.vKKMeterToolStripMenuItem.Enabled = false;
+                this.youKnowWhenYouveBeenTangodToolStripMenuItem.Enabled
+                    = false;
+
             } else {
                 this.originalToolStripMenuItem.Enabled = true;
                 this.blueToolStripMenuItem.Enabled = true;
                 this.whyCantIChooseTheBackgroundToolStripMenuItem.Enabled
                     = false;
+                this.kenwoodToolStripMenuItem.Enabled = true;
+                this.vKKMeterToolStripMenuItem.Enabled = true;
+                this.youKnowWhenYouveBeenTangodToolStripMenuItem.Enabled = true;
             }
         }
     }
@@ -275,6 +292,25 @@ public partial class frmSMeter : Form {
         msg1
             += "You must first rename or move this file, then restart this application.";
         MessageBox.Show(msg1, "Pretty S-Meter Message");
+    }
+
+    private void kenwoodToolStripMenuItem_Click(object sender, EventArgs e) {
+        BigSMeter.ToggleBackGroundImage(
+            LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices
+                .Kenwood);
+    }
+
+    private void vKKMeterToolStripMenuItem_Click(object sender, EventArgs e) {
+        BigSMeter.ToggleBackGroundImage(
+            LBSoft.IndustrialCtrls.Meters.LBAnalogMeter.BackGroundChoices.VKK);
+    }
+
+    private void onToolStripMenuItem_Click(object sender, EventArgs e) {
+        BigSMeter.ViewGlass = true;
+    }
+
+    private void offToolStripMenuItem_Click(object sender, EventArgs e) {
+        BigSMeter.ViewGlass = false;
     }
 }
 }

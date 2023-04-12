@@ -43,7 +43,7 @@ namespace HttpServer
                     stream.Write(data, 0, data.Length);
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
             }

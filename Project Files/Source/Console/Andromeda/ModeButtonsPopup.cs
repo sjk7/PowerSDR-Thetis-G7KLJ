@@ -88,20 +88,20 @@ namespace Thetis
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModeButtonsPopup));
-            this.btnClose = new System.Windows.Forms.ButtonTS();
-            this.groupBoxTS1 = new System.Windows.Forms.GroupBoxTS();
-            this.radBtn12 = new System.Windows.Forms.RadioButtonTS();
-            this.radBtn11 = new System.Windows.Forms.RadioButtonTS();
-            this.radBtn10 = new System.Windows.Forms.RadioButtonTS();
-            this.radBtn9 = new System.Windows.Forms.RadioButtonTS();
-            this.radBtn8 = new System.Windows.Forms.RadioButtonTS();
-            this.radBtn7 = new System.Windows.Forms.RadioButtonTS();
-            this.radBtn6 = new System.Windows.Forms.RadioButtonTS();
-            this.radBtn5 = new System.Windows.Forms.RadioButtonTS();
-            this.radBtn4 = new System.Windows.Forms.RadioButtonTS();
-            this.radBtn3 = new System.Windows.Forms.RadioButtonTS();
-            this.radBtn2 = new System.Windows.Forms.RadioButtonTS();
-            this.radBtn1 = new System.Windows.Forms.RadioButtonTS();
+            this.btnClose = new ButtonTS();
+            this.groupBoxTS1 = new GroupBoxTS();
+            this.radBtn12 = new RadioButtonTS();
+            this.radBtn11 = new RadioButtonTS();
+            this.radBtn10 = new RadioButtonTS();
+            this.radBtn9 = new RadioButtonTS();
+            this.radBtn8 = new RadioButtonTS();
+            this.radBtn7 = new RadioButtonTS();
+            this.radBtn6 = new RadioButtonTS();
+            this.radBtn5 = new RadioButtonTS();
+            this.radBtn4 = new RadioButtonTS();
+            this.radBtn3 = new RadioButtonTS();
+            this.radBtn2 = new RadioButtonTS();
+            this.radBtn1 = new RadioButtonTS();
             this.groupBoxTS1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -115,7 +115,7 @@ namespace Thetis
             this.btnClose.TabIndex = 0;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            this.btnClose.Click += new EventHandler(this.btnClose_Click);
             // 
             // groupBoxTS1
             // 
@@ -151,7 +151,7 @@ namespace Thetis
             this.radBtn12.Text = "DRM";
             this.radBtn12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radBtn12.UseVisualStyleBackColor = true;
-            this.radBtn12.Click += new System.EventHandler(this.radBtn12_Click);
+            this.radBtn12.Click += new EventHandler(this.radBtn12_Click);
             // 
             // radBtn11
             // 
@@ -167,7 +167,7 @@ namespace Thetis
             this.radBtn11.Text = "DIGU";
             this.radBtn11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radBtn11.UseVisualStyleBackColor = true;
-            this.radBtn11.Click += new System.EventHandler(this.radBtn11_Click);
+            this.radBtn11.Click += new EventHandler(this.radBtn11_Click);
             // 
             // radBtn10
             // 
@@ -183,7 +183,7 @@ namespace Thetis
             this.radBtn10.Text = "DIGL";
             this.radBtn10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radBtn10.UseVisualStyleBackColor = true;
-            this.radBtn10.Click += new System.EventHandler(this.radBtn10_Click);
+            this.radBtn10.Click += new EventHandler(this.radBtn10_Click);
             // 
             // radBtn9
             // 
@@ -199,7 +199,7 @@ namespace Thetis
             this.radBtn9.Text = "SPEC";
             this.radBtn9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radBtn9.UseVisualStyleBackColor = true;
-            this.radBtn9.Click += new System.EventHandler(this.radBtn9_Click);
+            this.radBtn9.Click += new EventHandler(this.radBtn9_Click);
             // 
             // radBtn8
             // 
@@ -215,7 +215,7 @@ namespace Thetis
             this.radBtn8.Text = "SAM";
             this.radBtn8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radBtn8.UseVisualStyleBackColor = true;
-            this.radBtn8.Click += new System.EventHandler(this.radBtn8_Click);
+            this.radBtn8.Click += new EventHandler(this.radBtn8_Click);
             // 
             // radBtn7
             // 
@@ -231,7 +231,7 @@ namespace Thetis
             this.radBtn7.Text = "AM";
             this.radBtn7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radBtn7.UseVisualStyleBackColor = true;
-            this.radBtn7.Click += new System.EventHandler(this.radBtn7_Click);
+            this.radBtn7.Click += new EventHandler(this.radBtn7_Click);
             // 
             // radBtn6
             // 
@@ -247,7 +247,7 @@ namespace Thetis
             this.radBtn6.Text = "FM";
             this.radBtn6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radBtn6.UseVisualStyleBackColor = true;
-            this.radBtn6.Click += new System.EventHandler(this.radBtn6_Click);
+            this.radBtn6.Click += new EventHandler(this.radBtn6_Click);
             // 
             // radBtn5
             // 
@@ -263,7 +263,7 @@ namespace Thetis
             this.radBtn5.Text = "CWU";
             this.radBtn5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radBtn5.UseVisualStyleBackColor = true;
-            this.radBtn5.Click += new System.EventHandler(this.radBtn5_Click);
+            this.radBtn5.Click += new EventHandler(this.radBtn5_Click);
             // 
             // radBtn4
             // 
@@ -279,7 +279,7 @@ namespace Thetis
             this.radBtn4.Text = "CWL";
             this.radBtn4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radBtn4.UseVisualStyleBackColor = true;
-            this.radBtn4.Click += new System.EventHandler(this.radBtn4_Click);
+            this.radBtn4.Click += new EventHandler(this.radBtn4_Click);
             // 
             // radBtn3
             // 
@@ -295,7 +295,7 @@ namespace Thetis
             this.radBtn3.Text = "DSB";
             this.radBtn3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radBtn3.UseVisualStyleBackColor = true;
-            this.radBtn3.Click += new System.EventHandler(this.radBtn3_Click);
+            this.radBtn3.Click += new EventHandler(this.radBtn3_Click);
             // 
             // radBtn2
             // 
@@ -311,7 +311,7 @@ namespace Thetis
             this.radBtn2.Text = "USB";
             this.radBtn2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radBtn2.UseVisualStyleBackColor = true;
-            this.radBtn2.Click += new System.EventHandler(this.radBtn2_Click);
+            this.radBtn2.Click += new EventHandler(this.radBtn2_Click);
             // 
             // radBtn1
             // 
@@ -329,7 +329,7 @@ namespace Thetis
             this.radBtn1.Text = "LSB";
             this.radBtn1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radBtn1.UseVisualStyleBackColor = true;
-            this.radBtn1.Click += new System.EventHandler(this.radBtn1_Click);
+            this.radBtn1.Click += new EventHandler(this.radBtn1_Click);
             // 
             // ModeButtonsPopup
             // 
@@ -343,8 +343,8 @@ namespace Thetis
             this.Name = "ModeButtonsPopup";
             this.Text = "Set Mode";
             this.TopMost = true;
-            this.Activated += new System.EventHandler(this.ModeButtonsPopup_Activated);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModeButtonsPopup_FormClosing);
+            this.Activated += new EventHandler(this.ModeButtonsPopup_Activated);
+            this.FormClosing += new FormClosingEventHandler(this.ModeButtonsPopup_FormClosing);
             this.groupBoxTS1.ResumeLayout(false);
             this.ResumeLayout(false);
 

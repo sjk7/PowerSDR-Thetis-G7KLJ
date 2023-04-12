@@ -48,194 +48,194 @@ namespace Thetis
         private CheckBoxTS[] xvtr_rf;
         private CheckBox[] disable_pa;
 
-        private System.Windows.Forms.TextBoxTS txtBandButton0;
-        private System.Windows.Forms.TextBoxTS txtBandButton1;
-        private System.Windows.Forms.TextBoxTS txtBandButton2;
-        private System.Windows.Forms.TextBoxTS txtBandButton3;
-        private System.Windows.Forms.TextBoxTS txtBandButton4;
-        private System.Windows.Forms.TextBoxTS txtBandButton5;
-        private System.Windows.Forms.TextBoxTS txtBandButton6;
-        private System.Windows.Forms.TextBoxTS txtBandButton7;
-        private System.Windows.Forms.TextBoxTS txtBandButton8;
-        private System.Windows.Forms.TextBoxTS txtBandButton9;
-        private System.Windows.Forms.TextBoxTS txtBandButton10;
-        private System.Windows.Forms.TextBoxTS txtBandButton11;
-        private System.Windows.Forms.TextBoxTS txtBandButton12;
-        private System.Windows.Forms.TextBoxTS txtBandButton13;
-        private System.Windows.Forms.TextBoxTS txtBandButton14;
-        private System.Windows.Forms.TextBoxTS txtBandButton15;
-        private System.Windows.Forms.CheckBoxTS chkEnable0;
-        private System.Windows.Forms.CheckBoxTS chkEnable1;
-        private System.Windows.Forms.CheckBoxTS chkEnable2;
-        private System.Windows.Forms.CheckBoxTS chkEnable3;
-        private System.Windows.Forms.CheckBoxTS chkEnable4;
-        private System.Windows.Forms.CheckBoxTS chkEnable5;
-        private System.Windows.Forms.CheckBoxTS chkEnable6;
-        private System.Windows.Forms.CheckBoxTS chkEnable7;
-        private System.Windows.Forms.CheckBoxTS chkEnable8;
-        private System.Windows.Forms.CheckBoxTS chkEnable9;
-        private System.Windows.Forms.CheckBoxTS chkEnable10;
-        private System.Windows.Forms.CheckBoxTS chkEnable11;
-        private System.Windows.Forms.CheckBoxTS chkEnable12;
-        private System.Windows.Forms.CheckBoxTS chkEnable13;
-        private System.Windows.Forms.CheckBoxTS chkEnable14;
-        private System.Windows.Forms.CheckBoxTS chkEnable15;
-        private System.Windows.Forms.LabelTS lblBandButton;
-        private System.Windows.Forms.LabelTS lblButtonText;
-        private System.Windows.Forms.LabelTS lblEnabled;
-        private System.Windows.Forms.TextBoxTS txtButtonText15;
-        private System.Windows.Forms.TextBoxTS txtButtonText14;
-        private System.Windows.Forms.TextBoxTS txtButtonText13;
-        private System.Windows.Forms.TextBoxTS txtButtonText12;
-        private System.Windows.Forms.TextBoxTS txtButtonText11;
-        private System.Windows.Forms.TextBoxTS txtButtonText10;
-        private System.Windows.Forms.TextBoxTS txtButtonText9;
-        private System.Windows.Forms.TextBoxTS txtButtonText8;
-        private System.Windows.Forms.TextBoxTS txtButtonText7;
-        private System.Windows.Forms.TextBoxTS txtButtonText6;
-        private System.Windows.Forms.TextBoxTS txtButtonText5;
-        private System.Windows.Forms.TextBoxTS txtButtonText4;
-        private System.Windows.Forms.TextBoxTS txtButtonText3;
-        private System.Windows.Forms.TextBoxTS txtButtonText2;
-        private System.Windows.Forms.TextBoxTS txtButtonText1;
-        private System.Windows.Forms.TextBoxTS txtButtonText0;
-        private System.Windows.Forms.LabelTS lblLOOffset;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset15;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset14;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset13;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset12;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset11;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset10;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset9;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset8;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset7;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset6;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset5;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset4;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset3;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset2;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset1;
-        private System.Windows.Forms.NumericUpDownTS udLOOffset0;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin15;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin14;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin13;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin12;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin11;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin10;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin9;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin8;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin7;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin6;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin5;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin4;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin3;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin2;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin1;
-        private System.Windows.Forms.NumericUpDownTS udFreqBegin0;
-        private System.Windows.Forms.LabelTS lblFreqBegin;
-        private System.Windows.Forms.LabelTS lblFreqEnd;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd15;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd14;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd13;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd12;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd11;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd10;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd9;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd8;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd7;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd6;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd5;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd4;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd3;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd2;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd1;
-        private System.Windows.Forms.NumericUpDownTS udFreqEnd0;
-        private System.Windows.Forms.LabelTS lblRXOnly;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly15;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly14;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly13;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly12;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly11;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly10;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly9;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly8;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly7;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly6;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly5;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly4;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly3;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly2;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly1;
-        private System.Windows.Forms.CheckBoxTS chkRXOnly0;
-        private System.Windows.Forms.NumericUpDownTS udLOError15;
-        private System.Windows.Forms.NumericUpDownTS udLOError14;
-        private System.Windows.Forms.NumericUpDownTS udLOError13;
-        private System.Windows.Forms.NumericUpDownTS udLOError12;
-        private System.Windows.Forms.NumericUpDownTS udLOError11;
-        private System.Windows.Forms.NumericUpDownTS udLOError10;
-        private System.Windows.Forms.NumericUpDownTS udLOError9;
-        private System.Windows.Forms.NumericUpDownTS udLOError8;
-        private System.Windows.Forms.NumericUpDownTS udLOError7;
-        private System.Windows.Forms.NumericUpDownTS udLOError6;
-        private System.Windows.Forms.NumericUpDownTS udLOError5;
-        private System.Windows.Forms.NumericUpDownTS udLOError4;
-        private System.Windows.Forms.NumericUpDownTS udLOError3;
-        private System.Windows.Forms.NumericUpDownTS udLOError2;
-        private System.Windows.Forms.NumericUpDownTS udLOError1;
-        private System.Windows.Forms.NumericUpDownTS udLOError0;
-        private System.Windows.Forms.LabelTS lblLOError;
-        private System.Windows.Forms.NumericUpDownTS udPower15;
-        private System.Windows.Forms.NumericUpDownTS udPower14;
-        private System.Windows.Forms.NumericUpDownTS udPower13;
-        private System.Windows.Forms.NumericUpDownTS udPower12;
-        private System.Windows.Forms.NumericUpDownTS udPower11;
-        private System.Windows.Forms.NumericUpDownTS udPower10;
-        private System.Windows.Forms.NumericUpDownTS udPower9;
-        private System.Windows.Forms.NumericUpDownTS udPower8;
-        private System.Windows.Forms.NumericUpDownTS udPower7;
-        private System.Windows.Forms.NumericUpDownTS udPower6;
-        private System.Windows.Forms.NumericUpDownTS udPower5;
-        private System.Windows.Forms.NumericUpDownTS udPower4;
-        private System.Windows.Forms.NumericUpDownTS udPower3;
-        private System.Windows.Forms.NumericUpDownTS udPower2;
-        private System.Windows.Forms.NumericUpDownTS udPower1;
-        private System.Windows.Forms.NumericUpDownTS udPower0;
-        private System.Windows.Forms.LabelTS lblPower;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF15;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF14;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF13;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF12;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF11;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF10;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF9;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF8;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF7;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF6;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF5;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF4;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF3;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF2;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF1;
-        private System.Windows.Forms.CheckBoxTS chkXVTRRF0;
-        private System.Windows.Forms.LabelTS lblXVTRRF;
-        private System.Windows.Forms.NumericUpDownTS udRXGain15;
-        private System.Windows.Forms.NumericUpDownTS udRXGain14;
-        private System.Windows.Forms.NumericUpDownTS udRXGain13;
-        private System.Windows.Forms.NumericUpDownTS udRXGain12;
-        private System.Windows.Forms.NumericUpDownTS udRXGain11;
-        private System.Windows.Forms.NumericUpDownTS udRXGain10;
-        private System.Windows.Forms.NumericUpDownTS udRXGain9;
-        private System.Windows.Forms.NumericUpDownTS udRXGain8;
-        private System.Windows.Forms.NumericUpDownTS udRXGain7;
-        private System.Windows.Forms.NumericUpDownTS udRXGain6;
-        private System.Windows.Forms.NumericUpDownTS udRXGain5;
-        private System.Windows.Forms.NumericUpDownTS udRXGain4;
-        private System.Windows.Forms.NumericUpDownTS udRXGain3;
-        private System.Windows.Forms.NumericUpDownTS udRXGain2;
-        private System.Windows.Forms.NumericUpDownTS udRXGain1;
-        private System.Windows.Forms.NumericUpDownTS udRXGain0;
-        private System.Windows.Forms.LabelTS lblRXGain;
-        private System.Windows.Forms.CheckBoxTS chkUseXVTRTUNPWR;
+        private TextBoxTS txtBandButton0;
+        private TextBoxTS txtBandButton1;
+        private TextBoxTS txtBandButton2;
+        private TextBoxTS txtBandButton3;
+        private TextBoxTS txtBandButton4;
+        private TextBoxTS txtBandButton5;
+        private TextBoxTS txtBandButton6;
+        private TextBoxTS txtBandButton7;
+        private TextBoxTS txtBandButton8;
+        private TextBoxTS txtBandButton9;
+        private TextBoxTS txtBandButton10;
+        private TextBoxTS txtBandButton11;
+        private TextBoxTS txtBandButton12;
+        private TextBoxTS txtBandButton13;
+        private TextBoxTS txtBandButton14;
+        private TextBoxTS txtBandButton15;
+        private CheckBoxTS chkEnable0;
+        private CheckBoxTS chkEnable1;
+        private CheckBoxTS chkEnable2;
+        private CheckBoxTS chkEnable3;
+        private CheckBoxTS chkEnable4;
+        private CheckBoxTS chkEnable5;
+        private CheckBoxTS chkEnable6;
+        private CheckBoxTS chkEnable7;
+        private CheckBoxTS chkEnable8;
+        private CheckBoxTS chkEnable9;
+        private CheckBoxTS chkEnable10;
+        private CheckBoxTS chkEnable11;
+        private CheckBoxTS chkEnable12;
+        private CheckBoxTS chkEnable13;
+        private CheckBoxTS chkEnable14;
+        private CheckBoxTS chkEnable15;
+        private LabelTS lblBandButton;
+        private LabelTS lblButtonText;
+        private LabelTS lblEnabled;
+        private TextBoxTS txtButtonText15;
+        private TextBoxTS txtButtonText14;
+        private TextBoxTS txtButtonText13;
+        private TextBoxTS txtButtonText12;
+        private TextBoxTS txtButtonText11;
+        private TextBoxTS txtButtonText10;
+        private TextBoxTS txtButtonText9;
+        private TextBoxTS txtButtonText8;
+        private TextBoxTS txtButtonText7;
+        private TextBoxTS txtButtonText6;
+        private TextBoxTS txtButtonText5;
+        private TextBoxTS txtButtonText4;
+        private TextBoxTS txtButtonText3;
+        private TextBoxTS txtButtonText2;
+        private TextBoxTS txtButtonText1;
+        private TextBoxTS txtButtonText0;
+        private LabelTS lblLOOffset;
+        private NumericUpDownTS udLOOffset15;
+        private NumericUpDownTS udLOOffset14;
+        private NumericUpDownTS udLOOffset13;
+        private NumericUpDownTS udLOOffset12;
+        private NumericUpDownTS udLOOffset11;
+        private NumericUpDownTS udLOOffset10;
+        private NumericUpDownTS udLOOffset9;
+        private NumericUpDownTS udLOOffset8;
+        private NumericUpDownTS udLOOffset7;
+        private NumericUpDownTS udLOOffset6;
+        private NumericUpDownTS udLOOffset5;
+        private NumericUpDownTS udLOOffset4;
+        private NumericUpDownTS udLOOffset3;
+        private NumericUpDownTS udLOOffset2;
+        private NumericUpDownTS udLOOffset1;
+        private NumericUpDownTS udLOOffset0;
+        private NumericUpDownTS udFreqBegin15;
+        private NumericUpDownTS udFreqBegin14;
+        private NumericUpDownTS udFreqBegin13;
+        private NumericUpDownTS udFreqBegin12;
+        private NumericUpDownTS udFreqBegin11;
+        private NumericUpDownTS udFreqBegin10;
+        private NumericUpDownTS udFreqBegin9;
+        private NumericUpDownTS udFreqBegin8;
+        private NumericUpDownTS udFreqBegin7;
+        private NumericUpDownTS udFreqBegin6;
+        private NumericUpDownTS udFreqBegin5;
+        private NumericUpDownTS udFreqBegin4;
+        private NumericUpDownTS udFreqBegin3;
+        private NumericUpDownTS udFreqBegin2;
+        private NumericUpDownTS udFreqBegin1;
+        private NumericUpDownTS udFreqBegin0;
+        private LabelTS lblFreqBegin;
+        private LabelTS lblFreqEnd;
+        private NumericUpDownTS udFreqEnd15;
+        private NumericUpDownTS udFreqEnd14;
+        private NumericUpDownTS udFreqEnd13;
+        private NumericUpDownTS udFreqEnd12;
+        private NumericUpDownTS udFreqEnd11;
+        private NumericUpDownTS udFreqEnd10;
+        private NumericUpDownTS udFreqEnd9;
+        private NumericUpDownTS udFreqEnd8;
+        private NumericUpDownTS udFreqEnd7;
+        private NumericUpDownTS udFreqEnd6;
+        private NumericUpDownTS udFreqEnd5;
+        private NumericUpDownTS udFreqEnd4;
+        private NumericUpDownTS udFreqEnd3;
+        private NumericUpDownTS udFreqEnd2;
+        private NumericUpDownTS udFreqEnd1;
+        private NumericUpDownTS udFreqEnd0;
+        private LabelTS lblRXOnly;
+        private CheckBoxTS chkRXOnly15;
+        private CheckBoxTS chkRXOnly14;
+        private CheckBoxTS chkRXOnly13;
+        private CheckBoxTS chkRXOnly12;
+        private CheckBoxTS chkRXOnly11;
+        private CheckBoxTS chkRXOnly10;
+        private CheckBoxTS chkRXOnly9;
+        private CheckBoxTS chkRXOnly8;
+        private CheckBoxTS chkRXOnly7;
+        private CheckBoxTS chkRXOnly6;
+        private CheckBoxTS chkRXOnly5;
+        private CheckBoxTS chkRXOnly4;
+        private CheckBoxTS chkRXOnly3;
+        private CheckBoxTS chkRXOnly2;
+        private CheckBoxTS chkRXOnly1;
+        private CheckBoxTS chkRXOnly0;
+        private NumericUpDownTS udLOError15;
+        private NumericUpDownTS udLOError14;
+        private NumericUpDownTS udLOError13;
+        private NumericUpDownTS udLOError12;
+        private NumericUpDownTS udLOError11;
+        private NumericUpDownTS udLOError10;
+        private NumericUpDownTS udLOError9;
+        private NumericUpDownTS udLOError8;
+        private NumericUpDownTS udLOError7;
+        private NumericUpDownTS udLOError6;
+        private NumericUpDownTS udLOError5;
+        private NumericUpDownTS udLOError4;
+        private NumericUpDownTS udLOError3;
+        private NumericUpDownTS udLOError2;
+        private NumericUpDownTS udLOError1;
+        private NumericUpDownTS udLOError0;
+        private LabelTS lblLOError;
+        private NumericUpDownTS udPower15;
+        private NumericUpDownTS udPower14;
+        private NumericUpDownTS udPower13;
+        private NumericUpDownTS udPower12;
+        private NumericUpDownTS udPower11;
+        private NumericUpDownTS udPower10;
+        private NumericUpDownTS udPower9;
+        private NumericUpDownTS udPower8;
+        private NumericUpDownTS udPower7;
+        private NumericUpDownTS udPower6;
+        private NumericUpDownTS udPower5;
+        private NumericUpDownTS udPower4;
+        private NumericUpDownTS udPower3;
+        private NumericUpDownTS udPower2;
+        private NumericUpDownTS udPower1;
+        private NumericUpDownTS udPower0;
+        private LabelTS lblPower;
+        private CheckBoxTS chkXVTRRF15;
+        private CheckBoxTS chkXVTRRF14;
+        private CheckBoxTS chkXVTRRF13;
+        private CheckBoxTS chkXVTRRF12;
+        private CheckBoxTS chkXVTRRF11;
+        private CheckBoxTS chkXVTRRF10;
+        private CheckBoxTS chkXVTRRF9;
+        private CheckBoxTS chkXVTRRF8;
+        private CheckBoxTS chkXVTRRF7;
+        private CheckBoxTS chkXVTRRF6;
+        private CheckBoxTS chkXVTRRF5;
+        private CheckBoxTS chkXVTRRF4;
+        private CheckBoxTS chkXVTRRF3;
+        private CheckBoxTS chkXVTRRF2;
+        private CheckBoxTS chkXVTRRF1;
+        private CheckBoxTS chkXVTRRF0;
+        private LabelTS lblXVTRRF;
+        private NumericUpDownTS udRXGain15;
+        private NumericUpDownTS udRXGain14;
+        private NumericUpDownTS udRXGain13;
+        private NumericUpDownTS udRXGain12;
+        private NumericUpDownTS udRXGain11;
+        private NumericUpDownTS udRXGain10;
+        private NumericUpDownTS udRXGain9;
+        private NumericUpDownTS udRXGain8;
+        private NumericUpDownTS udRXGain7;
+        private NumericUpDownTS udRXGain6;
+        private NumericUpDownTS udRXGain5;
+        private NumericUpDownTS udRXGain4;
+        private NumericUpDownTS udRXGain3;
+        private NumericUpDownTS udRXGain2;
+        private NumericUpDownTS udRXGain1;
+        private NumericUpDownTS udRXGain0;
+        private LabelTS lblRXGain;
+        private CheckBoxTS chkUseXVTRTUNPWR;
         public CheckBoxTS chkAlexTRRelay;
         private CheckBoxTS chkDisablePA15;
         private CheckBoxTS chkDisablePA14;
@@ -318,212 +318,212 @@ namespace Thetis
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XVTRForm));
-            this.chkAlexTRRelay = new System.Windows.Forms.CheckBoxTS();
-            this.chkUseXVTRTUNPWR = new System.Windows.Forms.CheckBoxTS();
-            this.udRXGain15 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain14 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain13 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain12 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain11 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain10 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain9 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain8 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain7 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain6 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain5 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain4 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain3 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain2 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain1 = new System.Windows.Forms.NumericUpDownTS();
-            this.udRXGain0 = new System.Windows.Forms.NumericUpDownTS();
-            this.lblRXGain = new System.Windows.Forms.LabelTS();
-            this.chkXVTRRF15 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF14 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF13 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF12 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF11 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF10 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF9 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF8 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF7 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF6 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF5 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF4 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF3 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF2 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF1 = new System.Windows.Forms.CheckBoxTS();
-            this.chkXVTRRF0 = new System.Windows.Forms.CheckBoxTS();
-            this.lblXVTRRF = new System.Windows.Forms.LabelTS();
-            this.udPower15 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower14 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower13 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower12 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower11 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower10 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower9 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower8 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower7 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower6 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower5 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower4 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower3 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower2 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower1 = new System.Windows.Forms.NumericUpDownTS();
-            this.udPower0 = new System.Windows.Forms.NumericUpDownTS();
-            this.lblPower = new System.Windows.Forms.LabelTS();
-            this.udLOError15 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError14 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError13 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError12 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError11 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError10 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError9 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError8 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError7 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError6 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError5 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError4 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError3 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError2 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError1 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOError0 = new System.Windows.Forms.NumericUpDownTS();
-            this.lblLOError = new System.Windows.Forms.LabelTS();
-            this.chkRXOnly15 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly14 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly13 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly12 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly11 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly10 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly9 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly8 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly7 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly6 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly5 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly4 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly3 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly2 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly1 = new System.Windows.Forms.CheckBoxTS();
-            this.chkRXOnly0 = new System.Windows.Forms.CheckBoxTS();
-            this.lblRXOnly = new System.Windows.Forms.LabelTS();
-            this.udFreqEnd15 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd14 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd13 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd12 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd11 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd10 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd9 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd8 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd7 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd6 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd5 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd4 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd3 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd2 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd1 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqEnd0 = new System.Windows.Forms.NumericUpDownTS();
-            this.lblFreqEnd = new System.Windows.Forms.LabelTS();
-            this.udFreqBegin15 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin14 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin13 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin12 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin11 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin10 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin9 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin8 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin7 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin6 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin5 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin4 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin3 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin2 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin1 = new System.Windows.Forms.NumericUpDownTS();
-            this.udFreqBegin0 = new System.Windows.Forms.NumericUpDownTS();
-            this.lblFreqBegin = new System.Windows.Forms.LabelTS();
-            this.udLOOffset15 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset14 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset13 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset12 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset11 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset10 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset9 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset8 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset7 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset6 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset5 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset4 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset3 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset2 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset1 = new System.Windows.Forms.NumericUpDownTS();
-            this.udLOOffset0 = new System.Windows.Forms.NumericUpDownTS();
-            this.lblLOOffset = new System.Windows.Forms.LabelTS();
-            this.txtButtonText15 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText14 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText13 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText12 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText11 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText10 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText9 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText8 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText7 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText6 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText5 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText4 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText3 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText2 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText1 = new System.Windows.Forms.TextBoxTS();
-            this.txtButtonText0 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton15 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton14 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton13 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton12 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton11 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton10 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton9 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton8 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton7 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton6 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton5 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton4 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton3 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton2 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton1 = new System.Windows.Forms.TextBoxTS();
-            this.txtBandButton0 = new System.Windows.Forms.TextBoxTS();
-            this.lblEnabled = new System.Windows.Forms.LabelTS();
-            this.chkEnable15 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable14 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable13 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable12 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable11 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable10 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable9 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable8 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable7 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable6 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable5 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable4 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable3 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable2 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable1 = new System.Windows.Forms.CheckBoxTS();
-            this.chkEnable0 = new System.Windows.Forms.CheckBoxTS();
-            this.lblButtonText = new System.Windows.Forms.LabelTS();
-            this.lblBandButton = new System.Windows.Forms.LabelTS();
-            this.chkDisablePA15 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA14 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA13 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA12 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA11 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA10 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA9 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA8 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA7 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA6 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA5 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA4 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA3 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA2 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA1 = new System.Windows.Forms.CheckBoxTS();
-            this.chkDisablePA0 = new System.Windows.Forms.CheckBoxTS();
-            this.lblDisablePA = new System.Windows.Forms.LabelTS();
+            this.chkAlexTRRelay = new CheckBoxTS();
+            this.chkUseXVTRTUNPWR = new CheckBoxTS();
+            this.udRXGain15 = new NumericUpDownTS();
+            this.udRXGain14 = new NumericUpDownTS();
+            this.udRXGain13 = new NumericUpDownTS();
+            this.udRXGain12 = new NumericUpDownTS();
+            this.udRXGain11 = new NumericUpDownTS();
+            this.udRXGain10 = new NumericUpDownTS();
+            this.udRXGain9 = new NumericUpDownTS();
+            this.udRXGain8 = new NumericUpDownTS();
+            this.udRXGain7 = new NumericUpDownTS();
+            this.udRXGain6 = new NumericUpDownTS();
+            this.udRXGain5 = new NumericUpDownTS();
+            this.udRXGain4 = new NumericUpDownTS();
+            this.udRXGain3 = new NumericUpDownTS();
+            this.udRXGain2 = new NumericUpDownTS();
+            this.udRXGain1 = new NumericUpDownTS();
+            this.udRXGain0 = new NumericUpDownTS();
+            this.lblRXGain = new LabelTS();
+            this.chkXVTRRF15 = new CheckBoxTS();
+            this.chkXVTRRF14 = new CheckBoxTS();
+            this.chkXVTRRF13 = new CheckBoxTS();
+            this.chkXVTRRF12 = new CheckBoxTS();
+            this.chkXVTRRF11 = new CheckBoxTS();
+            this.chkXVTRRF10 = new CheckBoxTS();
+            this.chkXVTRRF9 = new CheckBoxTS();
+            this.chkXVTRRF8 = new CheckBoxTS();
+            this.chkXVTRRF7 = new CheckBoxTS();
+            this.chkXVTRRF6 = new CheckBoxTS();
+            this.chkXVTRRF5 = new CheckBoxTS();
+            this.chkXVTRRF4 = new CheckBoxTS();
+            this.chkXVTRRF3 = new CheckBoxTS();
+            this.chkXVTRRF2 = new CheckBoxTS();
+            this.chkXVTRRF1 = new CheckBoxTS();
+            this.chkXVTRRF0 = new CheckBoxTS();
+            this.lblXVTRRF = new LabelTS();
+            this.udPower15 = new NumericUpDownTS();
+            this.udPower14 = new NumericUpDownTS();
+            this.udPower13 = new NumericUpDownTS();
+            this.udPower12 = new NumericUpDownTS();
+            this.udPower11 = new NumericUpDownTS();
+            this.udPower10 = new NumericUpDownTS();
+            this.udPower9 = new NumericUpDownTS();
+            this.udPower8 = new NumericUpDownTS();
+            this.udPower7 = new NumericUpDownTS();
+            this.udPower6 = new NumericUpDownTS();
+            this.udPower5 = new NumericUpDownTS();
+            this.udPower4 = new NumericUpDownTS();
+            this.udPower3 = new NumericUpDownTS();
+            this.udPower2 = new NumericUpDownTS();
+            this.udPower1 = new NumericUpDownTS();
+            this.udPower0 = new NumericUpDownTS();
+            this.lblPower = new LabelTS();
+            this.udLOError15 = new NumericUpDownTS();
+            this.udLOError14 = new NumericUpDownTS();
+            this.udLOError13 = new NumericUpDownTS();
+            this.udLOError12 = new NumericUpDownTS();
+            this.udLOError11 = new NumericUpDownTS();
+            this.udLOError10 = new NumericUpDownTS();
+            this.udLOError9 = new NumericUpDownTS();
+            this.udLOError8 = new NumericUpDownTS();
+            this.udLOError7 = new NumericUpDownTS();
+            this.udLOError6 = new NumericUpDownTS();
+            this.udLOError5 = new NumericUpDownTS();
+            this.udLOError4 = new NumericUpDownTS();
+            this.udLOError3 = new NumericUpDownTS();
+            this.udLOError2 = new NumericUpDownTS();
+            this.udLOError1 = new NumericUpDownTS();
+            this.udLOError0 = new NumericUpDownTS();
+            this.lblLOError = new LabelTS();
+            this.chkRXOnly15 = new CheckBoxTS();
+            this.chkRXOnly14 = new CheckBoxTS();
+            this.chkRXOnly13 = new CheckBoxTS();
+            this.chkRXOnly12 = new CheckBoxTS();
+            this.chkRXOnly11 = new CheckBoxTS();
+            this.chkRXOnly10 = new CheckBoxTS();
+            this.chkRXOnly9 = new CheckBoxTS();
+            this.chkRXOnly8 = new CheckBoxTS();
+            this.chkRXOnly7 = new CheckBoxTS();
+            this.chkRXOnly6 = new CheckBoxTS();
+            this.chkRXOnly5 = new CheckBoxTS();
+            this.chkRXOnly4 = new CheckBoxTS();
+            this.chkRXOnly3 = new CheckBoxTS();
+            this.chkRXOnly2 = new CheckBoxTS();
+            this.chkRXOnly1 = new CheckBoxTS();
+            this.chkRXOnly0 = new CheckBoxTS();
+            this.lblRXOnly = new LabelTS();
+            this.udFreqEnd15 = new NumericUpDownTS();
+            this.udFreqEnd14 = new NumericUpDownTS();
+            this.udFreqEnd13 = new NumericUpDownTS();
+            this.udFreqEnd12 = new NumericUpDownTS();
+            this.udFreqEnd11 = new NumericUpDownTS();
+            this.udFreqEnd10 = new NumericUpDownTS();
+            this.udFreqEnd9 = new NumericUpDownTS();
+            this.udFreqEnd8 = new NumericUpDownTS();
+            this.udFreqEnd7 = new NumericUpDownTS();
+            this.udFreqEnd6 = new NumericUpDownTS();
+            this.udFreqEnd5 = new NumericUpDownTS();
+            this.udFreqEnd4 = new NumericUpDownTS();
+            this.udFreqEnd3 = new NumericUpDownTS();
+            this.udFreqEnd2 = new NumericUpDownTS();
+            this.udFreqEnd1 = new NumericUpDownTS();
+            this.udFreqEnd0 = new NumericUpDownTS();
+            this.lblFreqEnd = new LabelTS();
+            this.udFreqBegin15 = new NumericUpDownTS();
+            this.udFreqBegin14 = new NumericUpDownTS();
+            this.udFreqBegin13 = new NumericUpDownTS();
+            this.udFreqBegin12 = new NumericUpDownTS();
+            this.udFreqBegin11 = new NumericUpDownTS();
+            this.udFreqBegin10 = new NumericUpDownTS();
+            this.udFreqBegin9 = new NumericUpDownTS();
+            this.udFreqBegin8 = new NumericUpDownTS();
+            this.udFreqBegin7 = new NumericUpDownTS();
+            this.udFreqBegin6 = new NumericUpDownTS();
+            this.udFreqBegin5 = new NumericUpDownTS();
+            this.udFreqBegin4 = new NumericUpDownTS();
+            this.udFreqBegin3 = new NumericUpDownTS();
+            this.udFreqBegin2 = new NumericUpDownTS();
+            this.udFreqBegin1 = new NumericUpDownTS();
+            this.udFreqBegin0 = new NumericUpDownTS();
+            this.lblFreqBegin = new LabelTS();
+            this.udLOOffset15 = new NumericUpDownTS();
+            this.udLOOffset14 = new NumericUpDownTS();
+            this.udLOOffset13 = new NumericUpDownTS();
+            this.udLOOffset12 = new NumericUpDownTS();
+            this.udLOOffset11 = new NumericUpDownTS();
+            this.udLOOffset10 = new NumericUpDownTS();
+            this.udLOOffset9 = new NumericUpDownTS();
+            this.udLOOffset8 = new NumericUpDownTS();
+            this.udLOOffset7 = new NumericUpDownTS();
+            this.udLOOffset6 = new NumericUpDownTS();
+            this.udLOOffset5 = new NumericUpDownTS();
+            this.udLOOffset4 = new NumericUpDownTS();
+            this.udLOOffset3 = new NumericUpDownTS();
+            this.udLOOffset2 = new NumericUpDownTS();
+            this.udLOOffset1 = new NumericUpDownTS();
+            this.udLOOffset0 = new NumericUpDownTS();
+            this.lblLOOffset = new LabelTS();
+            this.txtButtonText15 = new TextBoxTS();
+            this.txtButtonText14 = new TextBoxTS();
+            this.txtButtonText13 = new TextBoxTS();
+            this.txtButtonText12 = new TextBoxTS();
+            this.txtButtonText11 = new TextBoxTS();
+            this.txtButtonText10 = new TextBoxTS();
+            this.txtButtonText9 = new TextBoxTS();
+            this.txtButtonText8 = new TextBoxTS();
+            this.txtButtonText7 = new TextBoxTS();
+            this.txtButtonText6 = new TextBoxTS();
+            this.txtButtonText5 = new TextBoxTS();
+            this.txtButtonText4 = new TextBoxTS();
+            this.txtButtonText3 = new TextBoxTS();
+            this.txtButtonText2 = new TextBoxTS();
+            this.txtButtonText1 = new TextBoxTS();
+            this.txtButtonText0 = new TextBoxTS();
+            this.txtBandButton15 = new TextBoxTS();
+            this.txtBandButton14 = new TextBoxTS();
+            this.txtBandButton13 = new TextBoxTS();
+            this.txtBandButton12 = new TextBoxTS();
+            this.txtBandButton11 = new TextBoxTS();
+            this.txtBandButton10 = new TextBoxTS();
+            this.txtBandButton9 = new TextBoxTS();
+            this.txtBandButton8 = new TextBoxTS();
+            this.txtBandButton7 = new TextBoxTS();
+            this.txtBandButton6 = new TextBoxTS();
+            this.txtBandButton5 = new TextBoxTS();
+            this.txtBandButton4 = new TextBoxTS();
+            this.txtBandButton3 = new TextBoxTS();
+            this.txtBandButton2 = new TextBoxTS();
+            this.txtBandButton1 = new TextBoxTS();
+            this.txtBandButton0 = new TextBoxTS();
+            this.lblEnabled = new LabelTS();
+            this.chkEnable15 = new CheckBoxTS();
+            this.chkEnable14 = new CheckBoxTS();
+            this.chkEnable13 = new CheckBoxTS();
+            this.chkEnable12 = new CheckBoxTS();
+            this.chkEnable11 = new CheckBoxTS();
+            this.chkEnable10 = new CheckBoxTS();
+            this.chkEnable9 = new CheckBoxTS();
+            this.chkEnable8 = new CheckBoxTS();
+            this.chkEnable7 = new CheckBoxTS();
+            this.chkEnable6 = new CheckBoxTS();
+            this.chkEnable5 = new CheckBoxTS();
+            this.chkEnable4 = new CheckBoxTS();
+            this.chkEnable3 = new CheckBoxTS();
+            this.chkEnable2 = new CheckBoxTS();
+            this.chkEnable1 = new CheckBoxTS();
+            this.chkEnable0 = new CheckBoxTS();
+            this.lblButtonText = new LabelTS();
+            this.lblBandButton = new LabelTS();
+            this.chkDisablePA15 = new CheckBoxTS();
+            this.chkDisablePA14 = new CheckBoxTS();
+            this.chkDisablePA13 = new CheckBoxTS();
+            this.chkDisablePA12 = new CheckBoxTS();
+            this.chkDisablePA11 = new CheckBoxTS();
+            this.chkDisablePA10 = new CheckBoxTS();
+            this.chkDisablePA9 = new CheckBoxTS();
+            this.chkDisablePA8 = new CheckBoxTS();
+            this.chkDisablePA7 = new CheckBoxTS();
+            this.chkDisablePA6 = new CheckBoxTS();
+            this.chkDisablePA5 = new CheckBoxTS();
+            this.chkDisablePA4 = new CheckBoxTS();
+            this.chkDisablePA3 = new CheckBoxTS();
+            this.chkDisablePA2 = new CheckBoxTS();
+            this.chkDisablePA1 = new CheckBoxTS();
+            this.chkDisablePA0 = new CheckBoxTS();
+            this.lblDisablePA = new LabelTS();
             ((System.ComponentModel.ISupportInitialize)(this.udRXGain15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udRXGain14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udRXGain13)).BeginInit();
@@ -633,7 +633,7 @@ namespace Thetis
             this.chkAlexTRRelay.Text = "Disable ANAN PA ";
             this.chkAlexTRRelay.UseVisualStyleBackColor = true;
             this.chkAlexTRRelay.Visible = false;
-            this.chkAlexTRRelay.CheckedChanged += new System.EventHandler(this.chkAlexTRRelay_CheckedChanged);
+            this.chkAlexTRRelay.CheckedChanged += new EventHandler(this.chkAlexTRRelay_CheckedChanged);
             // 
             // chkUseXVTRTUNPWR
             // 
@@ -644,7 +644,7 @@ namespace Thetis
             this.chkUseXVTRTUNPWR.TabIndex = 204;
             this.chkUseXVTRTUNPWR.Text = "Use XVTR PWR for Tune";
             this.chkUseXVTRTUNPWR.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.chkUseXVTRTUNPWR.CheckedChanged += new System.EventHandler(this.chkUseXVTRTUNPWR_CheckedChanged);
+            this.chkUseXVTRTUNPWR.CheckedChanged += new EventHandler(this.chkUseXVTRTUNPWR_CheckedChanged);
             // 
             // udRXGain15
             // 
@@ -674,7 +674,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain15.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain15.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain14
             // 
@@ -704,7 +704,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain14.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain14.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain13
             // 
@@ -734,7 +734,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain13.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain13.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain12
             // 
@@ -764,7 +764,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain12.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain12.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain11
             // 
@@ -794,7 +794,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain11.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain11.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain10
             // 
@@ -824,7 +824,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain10.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain10.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain9
             // 
@@ -854,7 +854,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain9.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain9.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain8
             // 
@@ -884,7 +884,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain8.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain8.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain7
             // 
@@ -914,7 +914,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain7.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain7.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain6
             // 
@@ -944,7 +944,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain6.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain6.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain5
             // 
@@ -974,7 +974,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain5.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain5.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain4
             // 
@@ -1004,7 +1004,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain4.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain4.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain3
             // 
@@ -1034,7 +1034,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain3.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain3.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain2
             // 
@@ -1064,7 +1064,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain2.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain2.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain1
             // 
@@ -1094,7 +1094,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain1.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain1.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // udRXGain0
             // 
@@ -1124,7 +1124,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udRXGain0.ValueChanged += new System.EventHandler(this.udRXGain_ValueChanged);
+            this.udRXGain0.ValueChanged += new EventHandler(this.udRXGain_ValueChanged);
             // 
             // lblRXGain
             // 
@@ -1145,7 +1145,7 @@ namespace Thetis
             this.chkXVTRRF15.Name = "chkXVTRRF15";
             this.chkXVTRRF15.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF15.TabIndex = 191;
-            this.chkXVTRRF15.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF15.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF14
             // 
@@ -1157,7 +1157,7 @@ namespace Thetis
             this.chkXVTRRF14.Name = "chkXVTRRF14";
             this.chkXVTRRF14.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF14.TabIndex = 179;
-            this.chkXVTRRF14.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF14.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF13
             // 
@@ -1169,7 +1169,7 @@ namespace Thetis
             this.chkXVTRRF13.Name = "chkXVTRRF13";
             this.chkXVTRRF13.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF13.TabIndex = 167;
-            this.chkXVTRRF13.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF13.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF12
             // 
@@ -1181,7 +1181,7 @@ namespace Thetis
             this.chkXVTRRF12.Name = "chkXVTRRF12";
             this.chkXVTRRF12.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF12.TabIndex = 155;
-            this.chkXVTRRF12.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF12.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF11
             // 
@@ -1193,7 +1193,7 @@ namespace Thetis
             this.chkXVTRRF11.Name = "chkXVTRRF11";
             this.chkXVTRRF11.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF11.TabIndex = 143;
-            this.chkXVTRRF11.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF11.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF10
             // 
@@ -1205,7 +1205,7 @@ namespace Thetis
             this.chkXVTRRF10.Name = "chkXVTRRF10";
             this.chkXVTRRF10.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF10.TabIndex = 131;
-            this.chkXVTRRF10.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF10.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF9
             // 
@@ -1217,7 +1217,7 @@ namespace Thetis
             this.chkXVTRRF9.Name = "chkXVTRRF9";
             this.chkXVTRRF9.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF9.TabIndex = 119;
-            this.chkXVTRRF9.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF9.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF8
             // 
@@ -1229,7 +1229,7 @@ namespace Thetis
             this.chkXVTRRF8.Name = "chkXVTRRF8";
             this.chkXVTRRF8.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF8.TabIndex = 107;
-            this.chkXVTRRF8.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF8.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF7
             // 
@@ -1241,7 +1241,7 @@ namespace Thetis
             this.chkXVTRRF7.Name = "chkXVTRRF7";
             this.chkXVTRRF7.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF7.TabIndex = 95;
-            this.chkXVTRRF7.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF7.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF6
             // 
@@ -1253,7 +1253,7 @@ namespace Thetis
             this.chkXVTRRF6.Name = "chkXVTRRF6";
             this.chkXVTRRF6.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF6.TabIndex = 83;
-            this.chkXVTRRF6.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF6.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF5
             // 
@@ -1265,7 +1265,7 @@ namespace Thetis
             this.chkXVTRRF5.Name = "chkXVTRRF5";
             this.chkXVTRRF5.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF5.TabIndex = 71;
-            this.chkXVTRRF5.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF5.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF4
             // 
@@ -1277,7 +1277,7 @@ namespace Thetis
             this.chkXVTRRF4.Name = "chkXVTRRF4";
             this.chkXVTRRF4.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF4.TabIndex = 59;
-            this.chkXVTRRF4.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF4.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF3
             // 
@@ -1289,7 +1289,7 @@ namespace Thetis
             this.chkXVTRRF3.Name = "chkXVTRRF3";
             this.chkXVTRRF3.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF3.TabIndex = 47;
-            this.chkXVTRRF3.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF3.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF2
             // 
@@ -1301,7 +1301,7 @@ namespace Thetis
             this.chkXVTRRF2.Name = "chkXVTRRF2";
             this.chkXVTRRF2.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF2.TabIndex = 35;
-            this.chkXVTRRF2.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF2.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF1
             // 
@@ -1313,7 +1313,7 @@ namespace Thetis
             this.chkXVTRRF1.Name = "chkXVTRRF1";
             this.chkXVTRRF1.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF1.TabIndex = 23;
-            this.chkXVTRRF1.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF1.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // chkXVTRRF0
             // 
@@ -1325,7 +1325,7 @@ namespace Thetis
             this.chkXVTRRF0.Name = "chkXVTRRF0";
             this.chkXVTRRF0.Size = new System.Drawing.Size(16, 16);
             this.chkXVTRRF0.TabIndex = 11;
-            this.chkXVTRRF0.CheckedChanged += new System.EventHandler(this.chkXVTRRF_CheckedChanged);
+            this.chkXVTRRF0.CheckedChanged += new EventHandler(this.chkXVTRRF_CheckedChanged);
             // 
             // lblXVTRRF
             // 
@@ -1363,7 +1363,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower15.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower15.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower14
             // 
@@ -1392,7 +1392,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower14.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower14.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower13
             // 
@@ -1421,7 +1421,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower13.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower13.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower12
             // 
@@ -1450,7 +1450,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower12.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower12.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower11
             // 
@@ -1479,7 +1479,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower11.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower11.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower10
             // 
@@ -1508,7 +1508,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower10.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower10.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower9
             // 
@@ -1537,7 +1537,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower9.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower9.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower8
             // 
@@ -1566,7 +1566,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower8.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower8.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower7
             // 
@@ -1595,7 +1595,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower7.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower7.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower6
             // 
@@ -1624,7 +1624,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower6.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower6.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower5
             // 
@@ -1653,7 +1653,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower5.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower5.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower4
             // 
@@ -1682,7 +1682,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower4.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower4.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower3
             // 
@@ -1711,7 +1711,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower3.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower3.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower2
             // 
@@ -1740,7 +1740,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower2.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower2.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower1
             // 
@@ -1769,7 +1769,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower1.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower1.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // udPower0
             // 
@@ -1798,7 +1798,7 @@ namespace Thetis
             0,
             0,
             0});
-            this.udPower0.ValueChanged += new System.EventHandler(this.udPower_ValueChanged);
+            this.udPower0.ValueChanged += new EventHandler(this.udPower_ValueChanged);
             // 
             // lblPower
             // 
@@ -3864,7 +3864,7 @@ namespace Thetis
             this.txtButtonText15.TabIndex = 183;
             this.txtButtonText15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtButtonText15.Visible = false;
-            this.txtButtonText15.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText15.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText14
             // 
@@ -3876,7 +3876,7 @@ namespace Thetis
             this.txtButtonText14.TabIndex = 171;
             this.txtButtonText14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtButtonText14.Visible = false;
-            this.txtButtonText14.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText14.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText13
             // 
@@ -3888,7 +3888,7 @@ namespace Thetis
             this.txtButtonText13.TabIndex = 159;
             this.txtButtonText13.Text = "13";
             this.txtButtonText13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtButtonText13.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText13.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText12
             // 
@@ -3900,7 +3900,7 @@ namespace Thetis
             this.txtButtonText12.TabIndex = 147;
             this.txtButtonText12.Text = "12";
             this.txtButtonText12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtButtonText12.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText12.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText11
             // 
@@ -3912,7 +3912,7 @@ namespace Thetis
             this.txtButtonText11.TabIndex = 135;
             this.txtButtonText11.Text = "11";
             this.txtButtonText11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtButtonText11.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText11.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText10
             // 
@@ -3924,7 +3924,7 @@ namespace Thetis
             this.txtButtonText10.TabIndex = 123;
             this.txtButtonText10.Text = "10";
             this.txtButtonText10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtButtonText10.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText10.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText9
             // 
@@ -3936,7 +3936,7 @@ namespace Thetis
             this.txtButtonText9.TabIndex = 111;
             this.txtButtonText9.Text = "9";
             this.txtButtonText9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtButtonText9.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText9.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText8
             // 
@@ -3948,7 +3948,7 @@ namespace Thetis
             this.txtButtonText8.TabIndex = 99;
             this.txtButtonText8.Text = "8";
             this.txtButtonText8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtButtonText8.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText8.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText7
             // 
@@ -3960,7 +3960,7 @@ namespace Thetis
             this.txtButtonText7.TabIndex = 87;
             this.txtButtonText7.Text = "7";
             this.txtButtonText7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtButtonText7.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText7.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText6
             // 
@@ -3972,7 +3972,7 @@ namespace Thetis
             this.txtButtonText6.TabIndex = 75;
             this.txtButtonText6.Text = "6";
             this.txtButtonText6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtButtonText6.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText6.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText5
             // 
@@ -3984,7 +3984,7 @@ namespace Thetis
             this.txtButtonText5.TabIndex = 63;
             this.txtButtonText5.Text = "5";
             this.txtButtonText5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtButtonText5.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText5.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText4
             // 
@@ -3996,7 +3996,7 @@ namespace Thetis
             this.txtButtonText4.TabIndex = 51;
             this.txtButtonText4.Text = "4";
             this.txtButtonText4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtButtonText4.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText4.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText3
             // 
@@ -4008,7 +4008,7 @@ namespace Thetis
             this.txtButtonText3.TabIndex = 39;
             this.txtButtonText3.Text = "3";
             this.txtButtonText3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtButtonText3.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText3.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText2
             // 
@@ -4020,7 +4020,7 @@ namespace Thetis
             this.txtButtonText2.TabIndex = 27;
             this.txtButtonText2.Text = "2";
             this.txtButtonText2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtButtonText2.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText2.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText1
             // 
@@ -4032,7 +4032,7 @@ namespace Thetis
             this.txtButtonText1.TabIndex = 15;
             this.txtButtonText1.Text = "1";
             this.txtButtonText1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtButtonText1.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText1.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtButtonText0
             // 
@@ -4044,7 +4044,7 @@ namespace Thetis
             this.txtButtonText0.TabIndex = 3;
             this.txtButtonText0.Text = "0";
             this.txtButtonText0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtButtonText0.TextChanged += new System.EventHandler(this.txtButtonText_TextChanged);
+            this.txtButtonText0.TextChanged += new EventHandler(this.txtButtonText_TextChanged);
             // 
             // txtBandButton15
             // 
@@ -4222,7 +4222,7 @@ namespace Thetis
             this.chkEnable15.Name = "chkEnable15";
             this.chkEnable15.Size = new System.Drawing.Size(16, 16);
             this.chkEnable15.TabIndex = 180;
-            this.chkEnable15.CheckedChanged += new System.EventHandler(this.chkEnable15_CheckedChanged);
+            this.chkEnable15.CheckedChanged += new EventHandler(this.chkEnable15_CheckedChanged);
             // 
             // chkEnable14
             // 
@@ -4231,7 +4231,7 @@ namespace Thetis
             this.chkEnable14.Name = "chkEnable14";
             this.chkEnable14.Size = new System.Drawing.Size(16, 16);
             this.chkEnable14.TabIndex = 168;
-            this.chkEnable14.CheckedChanged += new System.EventHandler(this.chkEnable14_CheckedChanged);
+            this.chkEnable14.CheckedChanged += new EventHandler(this.chkEnable14_CheckedChanged);
             // 
             // chkEnable13
             // 
@@ -4240,7 +4240,7 @@ namespace Thetis
             this.chkEnable13.Name = "chkEnable13";
             this.chkEnable13.Size = new System.Drawing.Size(16, 16);
             this.chkEnable13.TabIndex = 156;
-            this.chkEnable13.CheckedChanged += new System.EventHandler(this.chkEnable13_CheckedChanged);
+            this.chkEnable13.CheckedChanged += new EventHandler(this.chkEnable13_CheckedChanged);
             // 
             // chkEnable12
             // 
@@ -4249,7 +4249,7 @@ namespace Thetis
             this.chkEnable12.Name = "chkEnable12";
             this.chkEnable12.Size = new System.Drawing.Size(16, 16);
             this.chkEnable12.TabIndex = 144;
-            this.chkEnable12.CheckedChanged += new System.EventHandler(this.chkEnable12_CheckedChanged);
+            this.chkEnable12.CheckedChanged += new EventHandler(this.chkEnable12_CheckedChanged);
             // 
             // chkEnable11
             // 
@@ -4258,7 +4258,7 @@ namespace Thetis
             this.chkEnable11.Name = "chkEnable11";
             this.chkEnable11.Size = new System.Drawing.Size(16, 16);
             this.chkEnable11.TabIndex = 132;
-            this.chkEnable11.CheckedChanged += new System.EventHandler(this.chkEnable11_CheckedChanged);
+            this.chkEnable11.CheckedChanged += new EventHandler(this.chkEnable11_CheckedChanged);
             // 
             // chkEnable10
             // 
@@ -4267,7 +4267,7 @@ namespace Thetis
             this.chkEnable10.Name = "chkEnable10";
             this.chkEnable10.Size = new System.Drawing.Size(16, 16);
             this.chkEnable10.TabIndex = 120;
-            this.chkEnable10.CheckedChanged += new System.EventHandler(this.chkEnable10_CheckedChanged);
+            this.chkEnable10.CheckedChanged += new EventHandler(this.chkEnable10_CheckedChanged);
             // 
             // chkEnable9
             // 
@@ -4276,7 +4276,7 @@ namespace Thetis
             this.chkEnable9.Name = "chkEnable9";
             this.chkEnable9.Size = new System.Drawing.Size(16, 16);
             this.chkEnable9.TabIndex = 108;
-            this.chkEnable9.CheckedChanged += new System.EventHandler(this.chkEnable9_CheckedChanged);
+            this.chkEnable9.CheckedChanged += new EventHandler(this.chkEnable9_CheckedChanged);
             // 
             // chkEnable8
             // 
@@ -4285,7 +4285,7 @@ namespace Thetis
             this.chkEnable8.Name = "chkEnable8";
             this.chkEnable8.Size = new System.Drawing.Size(16, 16);
             this.chkEnable8.TabIndex = 96;
-            this.chkEnable8.CheckedChanged += new System.EventHandler(this.chkEnable8_CheckedChanged);
+            this.chkEnable8.CheckedChanged += new EventHandler(this.chkEnable8_CheckedChanged);
             // 
             // chkEnable7
             // 
@@ -4294,7 +4294,7 @@ namespace Thetis
             this.chkEnable7.Name = "chkEnable7";
             this.chkEnable7.Size = new System.Drawing.Size(16, 16);
             this.chkEnable7.TabIndex = 84;
-            this.chkEnable7.CheckedChanged += new System.EventHandler(this.chkEnable7_CheckedChanged);
+            this.chkEnable7.CheckedChanged += new EventHandler(this.chkEnable7_CheckedChanged);
             // 
             // chkEnable6
             // 
@@ -4303,7 +4303,7 @@ namespace Thetis
             this.chkEnable6.Name = "chkEnable6";
             this.chkEnable6.Size = new System.Drawing.Size(16, 16);
             this.chkEnable6.TabIndex = 72;
-            this.chkEnable6.CheckedChanged += new System.EventHandler(this.chkEnable6_CheckedChanged);
+            this.chkEnable6.CheckedChanged += new EventHandler(this.chkEnable6_CheckedChanged);
             // 
             // chkEnable5
             // 
@@ -4312,7 +4312,7 @@ namespace Thetis
             this.chkEnable5.Name = "chkEnable5";
             this.chkEnable5.Size = new System.Drawing.Size(16, 16);
             this.chkEnable5.TabIndex = 60;
-            this.chkEnable5.CheckedChanged += new System.EventHandler(this.chkEnable5_CheckedChanged);
+            this.chkEnable5.CheckedChanged += new EventHandler(this.chkEnable5_CheckedChanged);
             // 
             // chkEnable4
             // 
@@ -4321,7 +4321,7 @@ namespace Thetis
             this.chkEnable4.Name = "chkEnable4";
             this.chkEnable4.Size = new System.Drawing.Size(16, 16);
             this.chkEnable4.TabIndex = 48;
-            this.chkEnable4.CheckedChanged += new System.EventHandler(this.chkEnable4_CheckedChanged);
+            this.chkEnable4.CheckedChanged += new EventHandler(this.chkEnable4_CheckedChanged);
             // 
             // chkEnable3
             // 
@@ -4330,7 +4330,7 @@ namespace Thetis
             this.chkEnable3.Name = "chkEnable3";
             this.chkEnable3.Size = new System.Drawing.Size(16, 16);
             this.chkEnable3.TabIndex = 36;
-            this.chkEnable3.CheckedChanged += new System.EventHandler(this.chkEnable3_CheckedChanged);
+            this.chkEnable3.CheckedChanged += new EventHandler(this.chkEnable3_CheckedChanged);
             // 
             // chkEnable2
             // 
@@ -4339,7 +4339,7 @@ namespace Thetis
             this.chkEnable2.Name = "chkEnable2";
             this.chkEnable2.Size = new System.Drawing.Size(16, 16);
             this.chkEnable2.TabIndex = 24;
-            this.chkEnable2.CheckedChanged += new System.EventHandler(this.chkEnable2_CheckedChanged);
+            this.chkEnable2.CheckedChanged += new EventHandler(this.chkEnable2_CheckedChanged);
             // 
             // chkEnable1
             // 
@@ -4348,7 +4348,7 @@ namespace Thetis
             this.chkEnable1.Name = "chkEnable1";
             this.chkEnable1.Size = new System.Drawing.Size(16, 16);
             this.chkEnable1.TabIndex = 12;
-            this.chkEnable1.CheckedChanged += new System.EventHandler(this.chkEnable1_CheckedChanged);
+            this.chkEnable1.CheckedChanged += new EventHandler(this.chkEnable1_CheckedChanged);
             // 
             // chkEnable0
             // 
@@ -4357,7 +4357,7 @@ namespace Thetis
             this.chkEnable0.Name = "chkEnable0";
             this.chkEnable0.Size = new System.Drawing.Size(16, 16);
             this.chkEnable0.TabIndex = 0;
-            this.chkEnable0.CheckedChanged += new System.EventHandler(this.chkEnable0_CheckedChanged);
+            this.chkEnable0.CheckedChanged += new EventHandler(this.chkEnable0_CheckedChanged);
             // 
             // lblButtonText
             // 
@@ -5178,7 +5178,7 @@ namespace Thetis
 
         #region Enabled
 
-        private void chkEnable0_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable0_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable0.Checked;
             txtButtonText0.Enabled = b;
@@ -5195,7 +5195,7 @@ namespace Thetis
             console.SetVHFEnabled(0, b);
         }
 
-        private void chkEnable1_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable1_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable1.Checked;
             txtButtonText1.Enabled = b;
@@ -5212,7 +5212,7 @@ namespace Thetis
             console.SetVHFEnabled(1, b);
         }
 
-        private void chkEnable2_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable2_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable2.Checked;
 
@@ -5230,7 +5230,7 @@ namespace Thetis
             console.SetVHFEnabled(2, b);
         }
 
-        private void chkEnable3_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable3_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable3.Checked;
 
@@ -5248,7 +5248,7 @@ namespace Thetis
             console.SetVHFEnabled(3, b);
         }
 
-        private void chkEnable4_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable4_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable4.Checked;
 
@@ -5266,7 +5266,7 @@ namespace Thetis
             console.SetVHFEnabled(4, b);
         }
 
-        private void chkEnable5_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable5_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable5.Checked;
 
@@ -5284,7 +5284,7 @@ namespace Thetis
             console.SetVHFEnabled(5, b);
         }
 
-        private void chkEnable6_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable6_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable6.Checked;
 
@@ -5302,7 +5302,7 @@ namespace Thetis
             console.SetVHFEnabled(6, b);
         }
 
-        private void chkEnable7_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable7_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable7.Checked;
 
@@ -5320,7 +5320,7 @@ namespace Thetis
             console.SetVHFEnabled(7, b);
         }
 
-        private void chkEnable8_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable8_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable8.Checked;
 
@@ -5338,7 +5338,7 @@ namespace Thetis
             console.SetVHFEnabled(8, b);
         }
 
-        private void chkEnable9_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable9_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable9.Checked;
 
@@ -5356,7 +5356,7 @@ namespace Thetis
             console.SetVHFEnabled(9, b);
         }
 
-        private void chkEnable10_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable10_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable10.Checked;
 
@@ -5374,7 +5374,7 @@ namespace Thetis
             console.SetVHFEnabled(10, b);
         }
 
-        private void chkEnable11_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable11_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable11.Checked;
 
@@ -5392,7 +5392,7 @@ namespace Thetis
             console.SetVHFEnabled(11, b);
         }
 
-        private void chkEnable12_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable12_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable12.Checked;
 
@@ -5410,7 +5410,7 @@ namespace Thetis
             console.SetVHFEnabled(12, b);
         }
 
-        private void chkEnable13_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable13_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable13.Checked;
 
@@ -5428,7 +5428,7 @@ namespace Thetis
             console.SetVHFEnabled(13, b);
         }
 
-        private void chkEnable14_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable14_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable14.Checked;
 
@@ -5444,7 +5444,7 @@ namespace Thetis
             chkDisablePA14.Enabled = b;
         }
 
-        private void chkEnable15_CheckedChanged(object sender, System.EventArgs e)
+        private void chkEnable15_CheckedChanged(object sender, EventArgs e)
         {
             bool b = chkEnable15.Checked;
 
@@ -5462,7 +5462,7 @@ namespace Thetis
 
         #endregion
 
-        private void txtButtonText_TextChanged(object sender, System.EventArgs e)
+        private void txtButtonText_TextChanged(object sender, EventArgs e)
         {
             int val = Int32.Parse(((Control)sender).Name.Substring(13));
             console.SetVHFText(val, ((TextBoxTS)sender).Text);
@@ -5470,12 +5470,12 @@ namespace Thetis
 
         #endregion
 
-        private void chkUseXVTRTUNPWR_CheckedChanged(object sender, System.EventArgs e)
+        private void chkUseXVTRTUNPWR_CheckedChanged(object sender, EventArgs e)
         {
             console.XVTRTunePower = chkUseXVTRTUNPWR.Checked;
         }
 
-        private void chkXVTRRF_CheckedChanged(object sender, System.EventArgs e)
+        private void chkXVTRRF_CheckedChanged(object sender, EventArgs e)
         {
             int index = int.Parse(((Control)sender).Name.Substring(9));
             if (console.RX1XVTRIndex == index)
@@ -5502,7 +5502,7 @@ namespace Thetis
             }
         }
 
-        private void udRXGain_ValueChanged(object sender, System.EventArgs e)
+        private void udRXGain_ValueChanged(object sender, EventArgs e)
         {
             int index = int.Parse(((Control)sender).Name.Substring(8));
             if (console.RX1XVTRIndex == index)

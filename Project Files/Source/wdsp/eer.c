@@ -10,7 +10,7 @@ This file is part of a program that implements a Software-Defined Radio.
 Copyright (C) 2014 Warren Pratt, NR0V
 
 This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
+modify it under the terms of the GNU General Public License //-V1042
 as published by the Free Software Foundation; either version 2
 of the License, or (at your option) any later version.
 

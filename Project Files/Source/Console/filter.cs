@@ -33,9 +33,9 @@ namespace Thetis
 	/// </summary>
 	public class FilterPreset
     {
-        private int[] low;
-        private int[] high;
-        private string[] name;
+        private readonly int[] low;
+        private readonly int[] high;
+        private readonly string[] name;
 
         public FilterPreset()
         {

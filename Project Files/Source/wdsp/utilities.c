@@ -108,7 +108,7 @@ void print_peak_val(const char* filename, int N, double* buff, double thresh) {
         if (buff[i] > peak) peak = buff[i];
     if (peak >= thresh) {
         file = fopen(filename, "a");
-        fprintf(file, "%d\t\t%.17e\n", seqnum, peak);
+        fprintf(file, "%d\t\t%.17e\n", (int)seqnum, peak);
         fflush(file);
         fclose(file);
     }
@@ -128,7 +128,7 @@ void print_peak_env(const char* filename, int N, double* buff, double thresh) {
     }
     if (peak >= thresh) {
         file = fopen(filename, "a");
-        fprintf(file, "%d\t\t%.17e\n", seqnum, peak);
+        fprintf(file, "%d\t\t%.17e\n", (int)seqnum, peak);
         fflush(file);
         fclose(file);
     }
@@ -161,8 +161,8 @@ void print_iqc_values(const char* filename, int state, double env_in, double I,
         if (seqnum == 0)
             fprintf(
                 file, "seqnum\tstate\tenv_in\t\tenv_out\t\tym\t\tyc\t\tys\n");
-        fprintf(file, "%d\t%d\t%f\t%f\t%f\t%f\t%f\n", seqnum, state, env_in,
-            env_out, ym, yc, ys);
+        fprintf(file, "%d\t%d\t%f\t%f\t%f\t%f\t%f\n", (int)seqnum, state,
+            env_in, env_out, ym, yc, ys);
         fflush(file);
         fclose(file);
         seqnum++;
@@ -349,7 +349,7 @@ void WriteAudioWDSP(
         ready = 1;
     }
     for (i = 0; i < size; i++) {
-        if (audiocount < n) {
+        if (audiocount < n && data) {
             switch (mode) {
                 case 0: // I only (mono)
                     data[audiocount++] = (int)(conv * indata[2 * i + 0]);
@@ -388,6 +388,11 @@ void WriteScaledAudioFile(void* arg) {
     double abs_val;
     const double conv = 2147483647.0;
     int* idata = (int*)malloc0(dstruct->n * sizeof(int));
+    assert(idata);
+    if (!idata) {
+        _endthread();
+        return;
+    }
 
     for (i = 0; i < dstruct->n; i++) {
         abs_val = fabs(dstruct->ddata[i]);

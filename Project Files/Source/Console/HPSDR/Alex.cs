@@ -53,9 +53,9 @@ namespace Thetis
         }
 
 
-        private byte[] TxAnt = new byte[12];
-        private byte[] RxAnt = new byte[12];
-        private byte[] RxOnlyAnt = new byte[12]; // 1 = rx1, 2 = rx2, 3 = xv, 0 = none selected 
+        private readonly byte[] TxAnt = new byte[12];
+        private readonly byte[] RxAnt = new byte[12];
+        private readonly byte[] RxOnlyAnt = new byte[12]; // 1 = rx1, 2 = rx2, 3 = xv, 0 = none selected 
 
         public static bool RxOutOnTx = false;
         public static bool Ext1OutOnTx = false;
@@ -102,18 +102,18 @@ namespace Thetis
 
             Band result;
 
-            Console c = Console.getConsole();
+            Console c = Common.Console;
             if (c == null)
             {
                 System.Console.WriteLine("no console");
                 return Band.LAST;
             }
 
-            double freq = Console.getConsole().VFOAFreq;   //was = 0.0 Vk4xv Txvr fix.
+            double freq = c.VFOAFreq;   //was = 0.0 Vk4xv Txvr fix.
 
             if (c.RX1XVTRIndex >= 0)
                 freq = c.XVTRForm.TranslateFreq(freq);
-            else freq = Console.getConsole().VFOAFreq;
+            else freq = c.VFOAFreq;
 
             System.Console.WriteLine("Freq is: " + freq);
 

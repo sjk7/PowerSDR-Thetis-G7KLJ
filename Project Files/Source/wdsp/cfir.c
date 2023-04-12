@@ -10,7 +10,7 @@ This file is part of a program that implements a Software-Defined Radio.
 Copyright (C) 2014, 2016 Warren Pratt, NR0V
 
 This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
+modify it under the terms of the GNU General Public License //-V1042
 as published by the Free Software Foundation; either version 2
 of the License, or (at your option) any later version.
 
@@ -160,7 +160,7 @@ double* cfir_impulse(int N, int DD, int R, int Pairs, double runrate,
         xistion[i] = 0.5 * (cos(phs) + 1.0);
         phs += delta;
     }
-    if ((tmp = DD * R * sin(PI * ft / R) / sin(PI * DD * ft))
+    if ((tmp = (double)DD * (double)R * sin(PI * ft / R) / sin(PI * DD * ft))
         < 0.0) // normalize by peak gain
         tmp = -tmp;
     local_scale = scale / pow(tmp, Pairs);
@@ -170,7 +170,8 @@ double* cfir_impulse(int N, int DD, int R, int Pairs, double runrate,
             if (fn <= ft) {
                 if (fn == 0.0)
                     tmp = 1.0;
-                else if ((tmp = DD * R * sin(PI * fn / R) / sin(PI * DD * fn))
+                else if ((tmp = (double)DD * (double)R * sin(PI * fn / R)
+                                 / sin(PI * DD * fn))
                     < 0.0)
                     tmp = -tmp;
                 mag = pow(tmp, Pairs) * local_scale;

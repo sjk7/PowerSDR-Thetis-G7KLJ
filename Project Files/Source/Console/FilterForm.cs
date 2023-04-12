@@ -35,38 +35,38 @@ namespace Thetis
     /// <summary>
     /// Summary description for FilterForm.
     /// </summary>
-    public class FilterForm : System.Windows.Forms.Form
+    public class FilterForm : Form
     {
         #region Variable Declaration 
 
         private Console console;
-        private FilterPreset[] preset;
-        private bool rx2;
-        private System.Windows.Forms.ComboBox comboDSPMode;
-        private System.Windows.Forms.RadioButtonTS radFilter1;
-        private System.Windows.Forms.RadioButtonTS radFilter2;
-        private System.Windows.Forms.RadioButtonTS radFilter3;
-        private System.Windows.Forms.RadioButtonTS radFilter4;
-        private System.Windows.Forms.RadioButtonTS radFilter5;
-        private System.Windows.Forms.RadioButtonTS radFilter6;
-        private System.Windows.Forms.RadioButtonTS radFilter7;
-        private System.Windows.Forms.RadioButtonTS radFilter8;
-        private System.Windows.Forms.RadioButtonTS radFilter9;
-        private System.Windows.Forms.RadioButtonTS radFilter10;
-        private System.Windows.Forms.RadioButtonTS radFilterVar1;
-        private System.Windows.Forms.RadioButtonTS radFilterVar2;
-        private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.Label lblMode;
-        private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.NumericUpDown udLow;
-        private System.Windows.Forms.NumericUpDown udHigh;
-        private System.Windows.Forms.Label lblLow;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.PictureBox picDisplay;
-        private System.Windows.Forms.Label lblWidth;
-        private System.Windows.Forms.NumericUpDown udWidth;
+        private readonly FilterPreset[] preset;
+        private readonly bool rx2;
+        private ComboBox comboDSPMode;
+        private RadioButtonTS radFilter1;
+        private RadioButtonTS radFilter2;
+        private RadioButtonTS radFilter3;
+        private RadioButtonTS radFilter4;
+        private RadioButtonTS radFilter5;
+        private RadioButtonTS radFilter6;
+        private RadioButtonTS radFilter7;
+        private RadioButtonTS radFilter8;
+        private RadioButtonTS radFilter9;
+        private RadioButtonTS radFilter10;
+        private RadioButtonTS radFilterVar1;
+        private RadioButtonTS radFilterVar2;
+        private TextBox txtName;
+        private Label lblMode;
+        private Label lblName;
+        private NumericUpDown udLow;
+        private NumericUpDown udHigh;
+        private Label lblLow;
+        private Label label1;
+        private GroupBox groupBox1;
+        private GroupBox groupBox2;
+        private PictureBox picDisplay;
+        private Label lblWidth;
+        private NumericUpDown udWidth;
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -120,31 +120,31 @@ namespace Thetis
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FilterForm));
-            this.comboDSPMode = new System.Windows.Forms.ComboBox();
-            this.radFilter1 = new System.Windows.Forms.RadioButtonTS();
-            this.radFilter2 = new System.Windows.Forms.RadioButtonTS();
-            this.radFilter3 = new System.Windows.Forms.RadioButtonTS();
-            this.radFilter4 = new System.Windows.Forms.RadioButtonTS();
-            this.radFilter5 = new System.Windows.Forms.RadioButtonTS();
-            this.radFilter6 = new System.Windows.Forms.RadioButtonTS();
-            this.radFilter7 = new System.Windows.Forms.RadioButtonTS();
-            this.radFilter8 = new System.Windows.Forms.RadioButtonTS();
-            this.radFilter9 = new System.Windows.Forms.RadioButtonTS();
-            this.radFilter10 = new System.Windows.Forms.RadioButtonTS();
-            this.radFilterVar1 = new System.Windows.Forms.RadioButtonTS();
-            this.radFilterVar2 = new System.Windows.Forms.RadioButtonTS();
-            this.lblMode = new System.Windows.Forms.Label();
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.lblName = new System.Windows.Forms.Label();
-            this.udLow = new System.Windows.Forms.NumericUpDown();
-            this.udHigh = new System.Windows.Forms.NumericUpDown();
-            this.lblLow = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.udWidth = new System.Windows.Forms.NumericUpDown();
-            this.lblWidth = new System.Windows.Forms.Label();
-            this.picDisplay = new System.Windows.Forms.PictureBox();
+            this.comboDSPMode = new ComboBox();
+            this.radFilter1 = new RadioButtonTS();
+            this.radFilter2 = new RadioButtonTS();
+            this.radFilter3 = new RadioButtonTS();
+            this.radFilter4 = new RadioButtonTS();
+            this.radFilter5 = new RadioButtonTS();
+            this.radFilter6 = new RadioButtonTS();
+            this.radFilter7 = new RadioButtonTS();
+            this.radFilter8 = new RadioButtonTS();
+            this.radFilter9 = new RadioButtonTS();
+            this.radFilter10 = new RadioButtonTS();
+            this.radFilterVar1 = new RadioButtonTS();
+            this.radFilterVar2 = new RadioButtonTS();
+            this.lblMode = new Label();
+            this.txtName = new TextBox();
+            this.lblName = new Label();
+            this.udLow = new NumericUpDown();
+            this.udHigh = new NumericUpDown();
+            this.lblLow = new Label();
+            this.label1 = new Label();
+            this.groupBox1 = new GroupBox();
+            this.groupBox2 = new GroupBox();
+            this.udWidth = new NumericUpDown();
+            this.lblWidth = new Label();
+            this.picDisplay = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.udLow)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.udHigh)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -166,196 +166,196 @@ namespace Thetis
             "SAM",
             "DIGL",
             "DIGU"});
-            this.comboDSPMode.Location = new System.Drawing.Point(64, 16);
+            this.comboDSPMode.Location = new Point(64, 16);
             this.comboDSPMode.Name = "comboDSPMode";
-            this.comboDSPMode.Size = new System.Drawing.Size(64, 21);
+            this.comboDSPMode.Size = new Size(64, 21);
             this.comboDSPMode.TabIndex = 0;
-            this.comboDSPMode.SelectedIndexChanged += new System.EventHandler(this.comboDSPMode_SelectedIndexChanged);
+            this.comboDSPMode.SelectedIndexChanged += new EventHandler(this.comboDSPMode_SelectedIndexChanged);
             // 
             // radFilter1
             // 
             this.radFilter1.Appearance = System.Windows.Forms.Appearance.Button;
             this.radFilter1.Image = null;
             this.radFilter1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radFilter1.Location = new System.Drawing.Point(8, 48);
+            this.radFilter1.Location = new Point(8, 48);
             this.radFilter1.Name = "radFilter1";
-            this.radFilter1.Size = new System.Drawing.Size(48, 18);
+            this.radFilter1.Size = new Size(48, 18);
             this.radFilter1.TabIndex = 37;
             this.radFilter1.Text = "6.0k";
             this.radFilter1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radFilter1.CheckedChanged += new System.EventHandler(this.radFilter_CheckedChanged);
+            this.radFilter1.CheckedChanged += new EventHandler(this.radFilter_CheckedChanged);
             // 
             // radFilter2
             // 
             this.radFilter2.Appearance = System.Windows.Forms.Appearance.Button;
             this.radFilter2.Image = null;
             this.radFilter2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radFilter2.Location = new System.Drawing.Point(56, 48);
+            this.radFilter2.Location = new Point(56, 48);
             this.radFilter2.Name = "radFilter2";
-            this.radFilter2.Size = new System.Drawing.Size(48, 18);
+            this.radFilter2.Size = new Size(48, 18);
             this.radFilter2.TabIndex = 39;
             this.radFilter2.Text = "4.0k";
             this.radFilter2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radFilter2.CheckedChanged += new System.EventHandler(this.radFilter_CheckedChanged);
+            this.radFilter2.CheckedChanged += new EventHandler(this.radFilter_CheckedChanged);
             // 
             // radFilter3
             // 
             this.radFilter3.Appearance = System.Windows.Forms.Appearance.Button;
             this.radFilter3.Image = null;
             this.radFilter3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radFilter3.Location = new System.Drawing.Point(104, 48);
+            this.radFilter3.Location = new Point(104, 48);
             this.radFilter3.Name = "radFilter3";
-            this.radFilter3.Size = new System.Drawing.Size(48, 18);
+            this.radFilter3.Size = new Size(48, 18);
             this.radFilter3.TabIndex = 38;
             this.radFilter3.Text = "2.6k";
             this.radFilter3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radFilter3.CheckedChanged += new System.EventHandler(this.radFilter_CheckedChanged);
+            this.radFilter3.CheckedChanged += new EventHandler(this.radFilter_CheckedChanged);
             // 
             // radFilter4
             // 
             this.radFilter4.Appearance = System.Windows.Forms.Appearance.Button;
             this.radFilter4.Image = null;
             this.radFilter4.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radFilter4.Location = new System.Drawing.Point(8, 66);
+            this.radFilter4.Location = new Point(8, 66);
             this.radFilter4.Name = "radFilter4";
-            this.radFilter4.Size = new System.Drawing.Size(48, 18);
+            this.radFilter4.Size = new Size(48, 18);
             this.radFilter4.TabIndex = 40;
             this.radFilter4.Text = "2.1k";
             this.radFilter4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radFilter4.CheckedChanged += new System.EventHandler(this.radFilter_CheckedChanged);
+            this.radFilter4.CheckedChanged += new EventHandler(this.radFilter_CheckedChanged);
             // 
             // radFilter5
             // 
             this.radFilter5.Appearance = System.Windows.Forms.Appearance.Button;
             this.radFilter5.Image = null;
             this.radFilter5.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radFilter5.Location = new System.Drawing.Point(56, 66);
+            this.radFilter5.Location = new Point(56, 66);
             this.radFilter5.Name = "radFilter5";
-            this.radFilter5.Size = new System.Drawing.Size(48, 18);
+            this.radFilter5.Size = new Size(48, 18);
             this.radFilter5.TabIndex = 41;
             this.radFilter5.Text = "1.0k";
             this.radFilter5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radFilter5.CheckedChanged += new System.EventHandler(this.radFilter_CheckedChanged);
+            this.radFilter5.CheckedChanged += new EventHandler(this.radFilter_CheckedChanged);
             // 
             // radFilter6
             // 
             this.radFilter6.Appearance = System.Windows.Forms.Appearance.Button;
             this.radFilter6.Image = null;
             this.radFilter6.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radFilter6.Location = new System.Drawing.Point(104, 66);
+            this.radFilter6.Location = new Point(104, 66);
             this.radFilter6.Name = "radFilter6";
-            this.radFilter6.Size = new System.Drawing.Size(48, 18);
+            this.radFilter6.Size = new Size(48, 18);
             this.radFilter6.TabIndex = 42;
             this.radFilter6.Text = "500";
             this.radFilter6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radFilter6.CheckedChanged += new System.EventHandler(this.radFilter_CheckedChanged);
+            this.radFilter6.CheckedChanged += new EventHandler(this.radFilter_CheckedChanged);
             // 
             // radFilter7
             // 
             this.radFilter7.Appearance = System.Windows.Forms.Appearance.Button;
             this.radFilter7.Image = null;
             this.radFilter7.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radFilter7.Location = new System.Drawing.Point(8, 84);
+            this.radFilter7.Location = new Point(8, 84);
             this.radFilter7.Name = "radFilter7";
-            this.radFilter7.Size = new System.Drawing.Size(48, 18);
+            this.radFilter7.Size = new Size(48, 18);
             this.radFilter7.TabIndex = 43;
             this.radFilter7.Text = "250";
             this.radFilter7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radFilter7.CheckedChanged += new System.EventHandler(this.radFilter_CheckedChanged);
+            this.radFilter7.CheckedChanged += new EventHandler(this.radFilter_CheckedChanged);
             // 
             // radFilter8
             // 
             this.radFilter8.Appearance = System.Windows.Forms.Appearance.Button;
             this.radFilter8.Image = null;
             this.radFilter8.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radFilter8.Location = new System.Drawing.Point(56, 84);
+            this.radFilter8.Location = new Point(56, 84);
             this.radFilter8.Name = "radFilter8";
-            this.radFilter8.Size = new System.Drawing.Size(48, 18);
+            this.radFilter8.Size = new Size(48, 18);
             this.radFilter8.TabIndex = 44;
             this.radFilter8.Text = "100";
             this.radFilter8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radFilter8.CheckedChanged += new System.EventHandler(this.radFilter_CheckedChanged);
+            this.radFilter8.CheckedChanged += new EventHandler(this.radFilter_CheckedChanged);
             // 
             // radFilter9
             // 
             this.radFilter9.Appearance = System.Windows.Forms.Appearance.Button;
             this.radFilter9.Image = null;
             this.radFilter9.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radFilter9.Location = new System.Drawing.Point(104, 84);
+            this.radFilter9.Location = new Point(104, 84);
             this.radFilter9.Name = "radFilter9";
-            this.radFilter9.Size = new System.Drawing.Size(48, 18);
+            this.radFilter9.Size = new Size(48, 18);
             this.radFilter9.TabIndex = 45;
             this.radFilter9.Text = "50";
             this.radFilter9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radFilter9.CheckedChanged += new System.EventHandler(this.radFilter_CheckedChanged);
+            this.radFilter9.CheckedChanged += new EventHandler(this.radFilter_CheckedChanged);
             // 
             // radFilter10
             // 
             this.radFilter10.Appearance = System.Windows.Forms.Appearance.Button;
             this.radFilter10.Image = null;
             this.radFilter10.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radFilter10.Location = new System.Drawing.Point(8, 102);
+            this.radFilter10.Location = new Point(8, 102);
             this.radFilter10.Name = "radFilter10";
-            this.radFilter10.Size = new System.Drawing.Size(48, 18);
+            this.radFilter10.Size = new Size(48, 18);
             this.radFilter10.TabIndex = 46;
             this.radFilter10.Text = "25";
             this.radFilter10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radFilter10.CheckedChanged += new System.EventHandler(this.radFilter_CheckedChanged);
+            this.radFilter10.CheckedChanged += new EventHandler(this.radFilter_CheckedChanged);
             // 
             // radFilterVar1
             // 
             this.radFilterVar1.Appearance = System.Windows.Forms.Appearance.Button;
             this.radFilterVar1.Image = null;
             this.radFilterVar1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radFilterVar1.Location = new System.Drawing.Point(56, 102);
+            this.radFilterVar1.Location = new Point(56, 102);
             this.radFilterVar1.Name = "radFilterVar1";
-            this.radFilterVar1.Size = new System.Drawing.Size(48, 18);
+            this.radFilterVar1.Size = new Size(48, 18);
             this.radFilterVar1.TabIndex = 47;
             this.radFilterVar1.Text = "Var 1";
             this.radFilterVar1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radFilterVar1.CheckedChanged += new System.EventHandler(this.radFilter_CheckedChanged);
+            this.radFilterVar1.CheckedChanged += new EventHandler(this.radFilter_CheckedChanged);
             // 
             // radFilterVar2
             // 
             this.radFilterVar2.Appearance = System.Windows.Forms.Appearance.Button;
             this.radFilterVar2.Image = null;
             this.radFilterVar2.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.radFilterVar2.Location = new System.Drawing.Point(104, 102);
+            this.radFilterVar2.Location = new Point(104, 102);
             this.radFilterVar2.Name = "radFilterVar2";
-            this.radFilterVar2.Size = new System.Drawing.Size(48, 18);
+            this.radFilterVar2.Size = new Size(48, 18);
             this.radFilterVar2.TabIndex = 48;
             this.radFilterVar2.Text = "Var 2";
             this.radFilterVar2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radFilterVar2.CheckedChanged += new System.EventHandler(this.radFilter_CheckedChanged);
+            this.radFilterVar2.CheckedChanged += new EventHandler(this.radFilter_CheckedChanged);
             // 
             // lblMode
             // 
-            this.lblMode.Location = new System.Drawing.Point(24, 16);
+            this.lblMode.Location = new Point(24, 16);
             this.lblMode.Name = "lblMode";
-            this.lblMode.Size = new System.Drawing.Size(40, 23);
+            this.lblMode.Size = new Size(40, 23);
             this.lblMode.TabIndex = 49;
             this.lblMode.Text = "Mode:";
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(72, 16);
+            this.txtName.Location = new Point(72, 16);
             this.txtName.MaxLength = 6;
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(56, 20);
+            this.txtName.Size = new Size(56, 20);
             this.txtName.TabIndex = 50;
-            this.txtName.LostFocus += new System.EventHandler(this.txtName_LostFocus);
+            this.txtName.LostFocus += new EventHandler(this.txtName_LostFocus);
             // 
             // lblName
             // 
-            this.lblName.Location = new System.Drawing.Point(8, 16);
+            this.lblName.Location = new Point(8, 16);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(48, 23);
+            this.lblName.Size = new Size(48, 23);
             this.lblName.TabIndex = 51;
             this.lblName.Text = "Name:";
             // 
             // udLow
             // 
-            this.udLow.Location = new System.Drawing.Point(72, 64);
+            this.udLow.Location = new Point(72, 64);
             this.udLow.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -367,14 +367,14 @@ namespace Thetis
             0,
             -2147483648});
             this.udLow.Name = "udLow";
-            this.udLow.Size = new System.Drawing.Size(64, 20);
+            this.udLow.Size = new Size(64, 20);
             this.udLow.TabIndex = 52;
-            this.udLow.ValueChanged += new System.EventHandler(this.udLow_ValueChanged);
-            this.udLow.LostFocus += new System.EventHandler(this.udLow_LostFocus);
+            this.udLow.ValueChanged += new EventHandler(this.udLow_ValueChanged);
+            this.udLow.LostFocus += new EventHandler(this.udLow_LostFocus);
             // 
             // udHigh
             // 
-            this.udHigh.Location = new System.Drawing.Point(72, 40);
+            this.udHigh.Location = new Point(72, 40);
             this.udHigh.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -386,24 +386,24 @@ namespace Thetis
             0,
             -2147483648});
             this.udHigh.Name = "udHigh";
-            this.udHigh.Size = new System.Drawing.Size(64, 20);
+            this.udHigh.Size = new Size(64, 20);
             this.udHigh.TabIndex = 53;
-            this.udHigh.ValueChanged += new System.EventHandler(this.udHigh_ValueChanged);
-            this.udHigh.LostFocus += new System.EventHandler(this.udHigh_LostFocus);
+            this.udHigh.ValueChanged += new EventHandler(this.udHigh_ValueChanged);
+            this.udHigh.LostFocus += new EventHandler(this.udHigh_LostFocus);
             // 
             // lblLow
             // 
-            this.lblLow.Location = new System.Drawing.Point(8, 64);
+            this.lblLow.Location = new Point(8, 64);
             this.lblLow.Name = "lblLow";
-            this.lblLow.Size = new System.Drawing.Size(48, 23);
+            this.lblLow.Size = new Size(48, 23);
             this.lblLow.TabIndex = 54;
             this.lblLow.Text = "Low:";
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(8, 40);
+            this.label1.Location = new Point(8, 40);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 23);
+            this.label1.Size = new Size(48, 23);
             this.label1.TabIndex = 55;
             this.label1.Text = "High:";
             // 
@@ -423,9 +423,9 @@ namespace Thetis
             this.groupBox1.Controls.Add(this.radFilter7);
             this.groupBox1.Controls.Add(this.radFilter8);
             this.groupBox1.Controls.Add(this.radFilter9);
-            this.groupBox1.Location = new System.Drawing.Point(8, 8);
+            this.groupBox1.Location = new Point(8, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(160, 128);
+            this.groupBox1.Size = new Size(160, 128);
             this.groupBox1.TabIndex = 56;
             this.groupBox1.TabStop = false;
             // 
@@ -439,15 +439,15 @@ namespace Thetis
             this.groupBox2.Controls.Add(this.txtName);
             this.groupBox2.Controls.Add(this.lblName);
             this.groupBox2.Controls.Add(this.udLow);
-            this.groupBox2.Location = new System.Drawing.Point(176, 8);
+            this.groupBox2.Location = new Point(176, 8);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(160, 128);
+            this.groupBox2.Size = new Size(160, 128);
             this.groupBox2.TabIndex = 57;
             this.groupBox2.TabStop = false;
             // 
             // udWidth
             // 
-            this.udWidth.Location = new System.Drawing.Point(72, 88);
+            this.udWidth.Location = new Point(72, 88);
             this.udWidth.Maximum = new decimal(new int[] {
             19998,
             0,
@@ -459,43 +459,43 @@ namespace Thetis
             0,
             0});
             this.udWidth.Name = "udWidth";
-            this.udWidth.Size = new System.Drawing.Size(64, 20);
+            this.udWidth.Size = new Size(64, 20);
             this.udWidth.TabIndex = 56;
             this.udWidth.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.udWidth.ValueChanged += new System.EventHandler(this.udWidth_ValueChanged);
+            this.udWidth.ValueChanged += new EventHandler(this.udWidth_ValueChanged);
             // 
             // lblWidth
             // 
-            this.lblWidth.Location = new System.Drawing.Point(8, 88);
+            this.lblWidth.Location = new Point(8, 88);
             this.lblWidth.Name = "lblWidth";
-            this.lblWidth.Size = new System.Drawing.Size(64, 23);
+            this.lblWidth.Size = new Size(64, 23);
             this.lblWidth.TabIndex = 57;
             this.lblWidth.Text = "Width:";
             // 
             // picDisplay
             // 
             this.picDisplay.BackColor = System.Drawing.SystemColors.ControlText;
-            this.picDisplay.Location = new System.Drawing.Point(8, 144);
+            this.picDisplay.Location = new Point(8, 144);
             this.picDisplay.Name = "picDisplay";
-            this.picDisplay.Size = new System.Drawing.Size(328, 50);
+            this.picDisplay.Size = new Size(328, 50);
             this.picDisplay.TabIndex = 58;
             this.picDisplay.TabStop = false;
-            this.picDisplay.Paint += new System.Windows.Forms.PaintEventHandler(this.picDisplay_Paint);
-            this.picDisplay.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseDown);
-            this.picDisplay.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseMove);
-            this.picDisplay.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picDisplay_MouseUp);
+            this.picDisplay.Paint += new PaintEventHandler(this.picDisplay_Paint);
+            this.picDisplay.MouseDown += new MouseEventHandler(this.picDisplay_MouseDown);
+            this.picDisplay.MouseMove += new MouseEventHandler(this.picDisplay_MouseMove);
+            this.picDisplay.MouseUp += new MouseEventHandler(this.picDisplay_MouseUp);
             // 
             // FilterForm
             // 
-            this.ClientSize = new System.Drawing.Size(344, 206);
+            this.ClientSize = new Size(344, 206);
             this.Controls.Add(this.picDisplay);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FilterForm";
             this.Text = "Filter Setup";
@@ -675,7 +675,7 @@ namespace Thetis
 
         #region Event Handlers
 
-        private void radFilter_CheckedChanged(object sender, System.EventArgs e)
+        private void radFilter_CheckedChanged(object sender, EventArgs e)
         {
             RadioButtonTS r = (RadioButtonTS)sender;
             if (((RadioButtonTS)sender).Checked)
@@ -692,12 +692,12 @@ namespace Thetis
             }
         }
 
-        private void comboDSPMode_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void comboDSPMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             DSPMode = (DSPMode)Enum.Parse(typeof(DSPMode), comboDSPMode.Text);
         }
 
-        private void txtName_LostFocus(object sender, System.EventArgs e)
+        private void txtName_LostFocus(object sender, EventArgs e)
         {
             preset[(int)dsp_mode].SetName(current_filter, txtName.Text);
             GetFilterInfo();
@@ -753,7 +753,7 @@ namespace Thetis
             }
         }
 
-        private void udLow_ValueChanged(object sender, System.EventArgs e)
+        private void udLow_ValueChanged(object sender, EventArgs e)
         {
             if (udLow.Value + 10 > udHigh.Value && !filter_updating) udLow.Value = udHigh.Value - 10;
             preset[(int)dsp_mode].SetLow(current_filter, (int)udLow.Value);
@@ -773,7 +773,7 @@ namespace Thetis
             picDisplay.Invalidate();
         }
 
-        private void udHigh_ValueChanged(object sender, System.EventArgs e)
+        private void udHigh_ValueChanged(object sender, EventArgs e)
         {
             if (udHigh.Value - 10 < udLow.Value && !filter_updating) udHigh.Value = udLow.Value + 10;
             preset[(int)dsp_mode].SetHigh(current_filter, (int)udHigh.Value);
@@ -803,7 +803,7 @@ namespace Thetis
             udHigh_ValueChanged(sender, e);
         }
 
-        private void picDisplay_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
+        private void picDisplay_Paint(object sender, PaintEventArgs e)
         {
             // draw background
             e.Graphics.FillRectangle(
@@ -820,7 +820,7 @@ namespace Thetis
                 picDisplay.Width / 2, 0, picDisplay.Width / 2, picDisplay.Height);
         }
 
-        private void picDisplay_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void picDisplay_MouseMove(object sender, MouseEventArgs e)
         {
             int low = HzToPixel((float)udLow.Value);
             int high = HzToPixel((float)udHigh.Value);
@@ -849,7 +849,7 @@ namespace Thetis
         private int drag_filter_high = -1;
         private int drag_filter_start = -1;
 
-        private void picDisplay_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void picDisplay_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -870,7 +870,7 @@ namespace Thetis
             }
         }
 
-        private void picDisplay_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void picDisplay_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -883,7 +883,7 @@ namespace Thetis
             }
         }
 
-        private void udWidth_ValueChanged(object sender, System.EventArgs e)
+        private void udWidth_ValueChanged(object sender, EventArgs e)
         {
             if (udWidth.Focused)
             {

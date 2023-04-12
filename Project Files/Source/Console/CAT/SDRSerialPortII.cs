@@ -78,10 +78,12 @@ namespace Thetis
 
         public SDRSerialPort(int portidx)
         {
-            commPort = new SerialPort();
-            commPort.Encoding = System.Text.Encoding.ASCII;
-            commPort.RtsEnable = true; // hack for soft rock ptt 
-            commPort.DtrEnable = true; // set dtr off 
+            commPort = new SerialPort
+            {
+                Encoding = System.Text.Encoding.ASCII,
+                RtsEnable = true, // hack for soft rock ptt 
+                DtrEnable = true // set dtr off 
+            };
             //commPort.ErrorReceived += new SerialErrorReceivedEventHandler(this.SerialErrorReceived);
             commPort.DataReceived += new SerialDataReceivedEventHandler(this.SerialReceivedData);
             commPort.PinChanged += new SerialPinChangedEventHandler(this.SerialPinChanged);
@@ -357,10 +359,12 @@ namespace Thetis
 
         public SDRSerialPort2(int portidx) //, SerialDataReceivedEventHandler datareceived)
         {
-            commPort = new SerialPort();
-            commPort.Encoding = System.Text.Encoding.ASCII;
-            commPort.RtsEnable = true; // hack for soft rock ptt 
-            commPort.DtrEnable = true; // set dtr off 
+            commPort = new SerialPort
+            {
+                Encoding = System.Text.Encoding.ASCII,
+                RtsEnable = true, // hack for soft rock ptt 
+                DtrEnable = true // set dtr off 
+            };
             //commPort.ErrorReceived += new SerialErrorReceivedEventHandler(this.SerialErrorReceived);
             commPort.DataReceived += new SerialDataReceivedEventHandler(this.SerialReceivedData);
             // commPort.DataReceived += new SerialDataReceivedEventHandler(datareceived);
@@ -637,10 +641,12 @@ namespace Thetis
 
         public SDRSerialPort3(int portidx) //, SerialDataReceivedEventHandler datareceived)
         {
-            commPort = new SerialPort();
-            commPort.Encoding = System.Text.Encoding.ASCII;
-            commPort.RtsEnable = true; // hack for soft rock ptt 
-            commPort.DtrEnable = true; // set dtr off 
+            commPort = new SerialPort
+            {
+                Encoding = System.Text.Encoding.ASCII,
+                RtsEnable = true, // hack for soft rock ptt 
+                DtrEnable = true // set dtr off 
+            };
             //commPort.ErrorReceived += new SerialErrorReceivedEventHandler(this.SerialErrorReceived);
             commPort.DataReceived += new SerialDataReceivedEventHandler(this.SerialReceivedData);
             // commPort.DataReceived += new SerialDataReceivedEventHandler(datareceived);
@@ -917,10 +923,12 @@ namespace Thetis
 
         public SDRSerialPort4(int portidx) //, SerialDataReceivedEventHandler datareceived)
         {
-            commPort = new SerialPort();
-            commPort.Encoding = System.Text.Encoding.ASCII;
-            commPort.RtsEnable = true; // hack for soft rock ptt 
-            commPort.DtrEnable = true; // set dtr off 
+            commPort = new SerialPort
+            {
+                Encoding = System.Text.Encoding.ASCII,
+                RtsEnable = true, // hack for soft rock ptt 
+                DtrEnable = true // set dtr off 
+            };
             //commPort.ErrorReceived += new SerialErrorReceivedEventHandler(this.SerialErrorReceived);
             commPort.DataReceived += new SerialDataReceivedEventHandler(this.SerialReceivedData);
             // commPort.DataReceived += new SerialDataReceivedEventHandler(datareceived);
@@ -1198,10 +1206,12 @@ namespace Thetis
 
         public SDRSerialPort5(int portidx) //, SerialDataReceivedEventHandler datareceived)
         {
-            commPort = new SerialPort();
-            commPort.Encoding = System.Text.Encoding.ASCII;
-            commPort.RtsEnable = true; // hack for soft rock ptt 
-            commPort.DtrEnable = true; // set dtr off 
+            commPort = new SerialPort
+            {
+                Encoding = System.Text.Encoding.ASCII,
+                RtsEnable = true, // hack for soft rock ptt 
+                DtrEnable = true // set dtr off 
+            };
             //commPort.ErrorReceived += new SerialErrorReceivedEventHandler(this.SerialErrorReceived);
             commPort.DataReceived += new SerialDataReceivedEventHandler(this.SerialReceivedData);
             // commPort.DataReceived += new SerialDataReceivedEventHandler(datareceived);
@@ -1479,10 +1489,12 @@ namespace Thetis
 
         public SDRSerialPort6(int portidx) //, SerialDataReceivedEventHandler datareceived)
         {
-            commPort = new SerialPort();
-            commPort.Encoding = System.Text.Encoding.ASCII;
-            commPort.RtsEnable = true; // hack for soft rock ptt 
-            commPort.DtrEnable = true; // set dtr off 
+            commPort = new SerialPort
+            {
+                Encoding = System.Text.Encoding.ASCII,
+                RtsEnable = true, // hack for soft rock ptt 
+                DtrEnable = true // set dtr off 
+            };
             //commPort.ErrorReceived += new SerialErrorReceivedEventHandler(this.SerialErrorReceived);
             commPort.DataReceived += new SerialDataReceivedEventHandler(this.SerialReceivedData);
             // commPort.DataReceived += new SerialDataReceivedEventHandler(datareceived);
@@ -1760,10 +1772,12 @@ namespace Thetis
 
         public SDRSerialPort7(int portidx) //, SerialDataReceivedEventHandler datareceived)
         {
-            commPort = new SerialPort();
-            commPort.Encoding = System.Text.Encoding.ASCII;
-            commPort.RtsEnable = true; // hack for soft rock ptt 
-            commPort.DtrEnable = true; // set dtr off 
+            commPort = new SerialPort
+            {
+                Encoding = System.Text.Encoding.ASCII,
+                RtsEnable = true, // hack for soft rock ptt 
+                DtrEnable = true // set dtr off 
+            };
             //commPort.ErrorReceived += new SerialErrorReceivedEventHandler(this.SerialErrorReceived);
             commPort.DataReceived += new SerialDataReceivedEventHandler(this.SerialReceivedData);
             // commPort.DataReceived += new SerialDataReceivedEventHandler(datareceived);

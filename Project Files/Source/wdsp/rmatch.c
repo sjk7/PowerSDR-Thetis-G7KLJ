@@ -181,6 +181,10 @@ void decalc_rmatch(RMATCH a) {
     _aligned_free(a->ring);
 }
 
+int IsPowerOfTwo(unsigned long x) {
+    return (x & (x - 1)) == 0;
+}
+
 RMATCH create_rmatch(
     int run, // 0 - input and output calls do nothing; 1 - operates normally
     double* in, // pointer to input buffer
@@ -230,6 +234,9 @@ RMATCH create_rmatch(
     a->var = var;
     a->ff_ringmin = ffmav_min;
     a->ff_ringmax = ffmav_max; // must be a power of two
+    assert(IsPowerOfTwo(ffmav_min));
+    assert(IsPowerOfTwo(ffmav_max));
+
     a->ff_alpha = ff_alpha;
     a->prop_ringmin = prop_ringmin;
     a->prop_ringmax = prop_ringmax; // must be a power of two

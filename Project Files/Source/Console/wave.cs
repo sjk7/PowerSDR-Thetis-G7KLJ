@@ -53,31 +53,31 @@ public class WaveControl : Form {
   private WaveOptions waveOptionsForm;
   private ArrayList file_list;
 
-  private string wave_folder =
+  private readonly string wave_folder =
       Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\Thetis";
 
-  private System.Windows.Forms.OpenFileDialog openFileDialog1;
-  private System.Windows.Forms.CheckBoxTS checkBoxPlay;
-  private System.Windows.Forms.GroupBoxTS groupBox2;
-  public System.Windows.Forms.CheckBoxTS checkBoxRecord;
-  private System.Windows.Forms.GroupBoxTS grpPlayback;
-  private System.Windows.Forms.ButtonTS btnStop;
-  private System.Windows.Forms.CheckBoxTS checkBoxPause;
-  private System.Windows.Forms.ButtonTS btnPrevious;
-  private System.Windows.Forms.ButtonTS btnNext;
-  private System.Windows.Forms.ListBox lstPlaylist;
-  private System.Windows.Forms.ButtonTS btnAdd;
-  private System.Windows.Forms.ButtonTS btnRemove;
-  private System.Windows.Forms.CheckBoxTS checkBoxRandom;
-  private System.Windows.Forms.GroupBox grpPlaylist;
-  private System.Windows.Forms.TextBoxTS txtCurrentFile;
-  private System.Windows.Forms.LabelTS lblCurrentlyPlaying;
-  private System.Windows.Forms.CheckBoxTS checkBoxLoop;
-  private System.Windows.Forms.NumericUpDownTS udPreamp;
-  private System.Windows.Forms.GroupBoxTS groupBoxTS1;
-  private System.Windows.Forms.CheckBoxTS chkQuickRec;
-  private System.Windows.Forms.CheckBoxTS chkQuickPlay;
-  private System.Windows.Forms.TrackBar tbPreamp;
+  private OpenFileDialog openFileDialog1;
+  private CheckBoxTS checkBoxPlay;
+  private GroupBoxTS groupBox2;
+  public CheckBoxTS checkBoxRecord;
+  private GroupBoxTS grpPlayback;
+  private ButtonTS btnStop;
+  private CheckBoxTS checkBoxPause;
+  private ButtonTS btnPrevious;
+  private ButtonTS btnNext;
+  private ListBox lstPlaylist;
+  private ButtonTS btnAdd;
+  private ButtonTS btnRemove;
+  private CheckBoxTS checkBoxRandom;
+  private GroupBox grpPlaylist;
+  private TextBoxTS txtCurrentFile;
+  private LabelTS lblCurrentlyPlaying;
+  private CheckBoxTS checkBoxLoop;
+  private NumericUpDownTS udPreamp;
+  private GroupBoxTS groupBoxTS1;
+  private CheckBoxTS chkQuickRec;
+  private CheckBoxTS chkQuickPlay;
+  private TrackBar tbPreamp;
 
 #endregion
   private LabelTS labelTS1;
@@ -119,42 +119,42 @@ public class WaveControl : Form {
   /// the contents of this method with the code editor.
   /// </summary>
   private void InitializeComponent() {
-    System.ComponentModel.ComponentResourceManager resources =
-        new System.ComponentModel.ComponentResourceManager(typeof(WaveControl));
-    this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-    this.grpPlaylist = new System.Windows.Forms.GroupBox();
-    this.checkBoxRandom = new System.Windows.Forms.CheckBoxTS();
-    this.checkBoxLoop = new System.Windows.Forms.CheckBoxTS();
-    this.btnAdd = new System.Windows.Forms.ButtonTS();
-    this.lstPlaylist = new System.Windows.Forms.ListBox();
-    this.btnRemove = new System.Windows.Forms.ButtonTS();
-    this.textBox1 = new System.Windows.Forms.TextBox();
-    this.createBoxTS = new System.Windows.Forms.CheckBoxTS();
-    this.TXIDBoxTS = new System.Windows.Forms.CheckBoxTS();
-    this.chkBoxMP3 = new System.Windows.Forms.CheckBoxTS();
-    this.chkQuickAudioFolder = new System.Windows.Forms.CheckBoxTS();
-    this.labelTS1 = new System.Windows.Forms.LabelTS();
-    this.chkQuickPlay = new System.Windows.Forms.CheckBoxTS();
-    this.chkQuickRec = new System.Windows.Forms.CheckBoxTS();
-    this.groupBoxTS1 = new System.Windows.Forms.GroupBoxTS();
-    this.tbPreamp = new System.Windows.Forms.TrackBar();
-    this.udPreamp = new System.Windows.Forms.NumericUpDownTS();
-    this.groupBox2 = new System.Windows.Forms.GroupBoxTS();
-    this.checkBoxRecord = new System.Windows.Forms.CheckBoxTS();
-    this.grpPlayback = new System.Windows.Forms.GroupBoxTS();
-    this.txtCurrentFile = new System.Windows.Forms.TextBoxTS();
-    this.lblCurrentlyPlaying = new System.Windows.Forms.LabelTS();
-    this.btnNext = new System.Windows.Forms.ButtonTS();
-    this.btnPrevious = new System.Windows.Forms.ButtonTS();
-    this.checkBoxPause = new System.Windows.Forms.CheckBoxTS();
-    this.btnStop = new System.Windows.Forms.ButtonTS();
-    this.checkBoxPlay = new System.Windows.Forms.CheckBoxTS();
-    this.menuStripOptions = new System.Windows.Forms.MenuStrip();
-    this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            ComponentResourceManager resources =
+        new ComponentResourceManager(typeof(WaveControl));
+    this.openFileDialog1 = new OpenFileDialog();
+    this.grpPlaylist = new GroupBox();
+    this.checkBoxRandom = new CheckBoxTS();
+    this.checkBoxLoop = new CheckBoxTS();
+    this.btnAdd = new ButtonTS();
+    this.lstPlaylist = new ListBox();
+    this.btnRemove = new ButtonTS();
+    this.textBox1 = new TextBox();
+    this.createBoxTS = new CheckBoxTS();
+    this.TXIDBoxTS = new CheckBoxTS();
+    this.chkBoxMP3 = new CheckBoxTS();
+    this.chkQuickAudioFolder = new CheckBoxTS();
+    this.labelTS1 = new LabelTS();
+    this.chkQuickPlay = new CheckBoxTS();
+    this.chkQuickRec = new CheckBoxTS();
+    this.groupBoxTS1 = new GroupBoxTS();
+    this.tbPreamp = new TrackBar();
+    this.udPreamp = new NumericUpDownTS();
+    this.groupBox2 = new GroupBoxTS();
+    this.checkBoxRecord = new CheckBoxTS();
+    this.grpPlayback = new GroupBoxTS();
+    this.txtCurrentFile = new TextBoxTS();
+    this.lblCurrentlyPlaying = new LabelTS();
+    this.btnNext = new ButtonTS();
+    this.btnPrevious = new ButtonTS();
+    this.checkBoxPause = new CheckBoxTS();
+    this.btnStop = new ButtonTS();
+    this.checkBoxPlay = new CheckBoxTS();
+    this.menuStripOptions = new MenuStrip();
+    this.optionsToolStripMenuItem = new ToolStripMenuItem();
     this.grpPlaylist.SuspendLayout();
     this.groupBoxTS1.SuspendLayout();
-    ((System.ComponentModel.ISupportInitialize)(this.tbPreamp)).BeginInit();
-    ((System.ComponentModel.ISupportInitialize)(this.udPreamp)).BeginInit();
+    ((ISupportInitialize)(this.tbPreamp)).BeginInit();
+    ((ISupportInitialize)(this.udPreamp)).BeginInit();
     this.groupBox2.SuspendLayout();
     this.grpPlayback.SuspendLayout();
     this.menuStripOptions.SuspendLayout();
@@ -165,7 +165,7 @@ public class WaveControl : Form {
     this.openFileDialog1.Filter = "WAV files (*.wav)|*.wav|All files (*.*)|*.*";
     this.openFileDialog1.Multiselect = true;
     this.openFileDialog1.FileOk +=
-        new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+        new CancelEventHandler(this.openFileDialog1_FileOk);
     //
     // grpPlaylist
     //
@@ -174,9 +174,9 @@ public class WaveControl : Form {
     this.grpPlaylist.Controls.Add(this.btnAdd);
     this.grpPlaylist.Controls.Add(this.lstPlaylist);
     this.grpPlaylist.Controls.Add(this.btnRemove);
-    this.grpPlaylist.Location = new System.Drawing.Point(12, 133);
+    this.grpPlaylist.Location = new Point(12, 133);
     this.grpPlaylist.Name = "grpPlaylist";
-    this.grpPlaylist.Size = new System.Drawing.Size(304, 184);
+    this.grpPlaylist.Size = new Size(304, 184);
     this.grpPlaylist.TabIndex = 6;
     this.grpPlaylist.TabStop = false;
     this.grpPlaylist.Text = "Playlist";
@@ -186,67 +186,67 @@ public class WaveControl : Form {
     this.checkBoxRandom.Appearance = System.Windows.Forms.Appearance.Button;
     this.checkBoxRandom.Enabled = false;
     this.checkBoxRandom.Image = null;
-    this.checkBoxRandom.Location = new System.Drawing.Point(224, 24);
+    this.checkBoxRandom.Location = new Point(224, 24);
     this.checkBoxRandom.Name = "checkBoxRandom";
-    this.checkBoxRandom.Size = new System.Drawing.Size(56, 23);
+    this.checkBoxRandom.Size = new Size(56, 23);
     this.checkBoxRandom.TabIndex = 13;
     this.checkBoxRandom.Text = "Random";
     this.checkBoxRandom.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
     this.checkBoxRandom.Visible = false;
     this.checkBoxRandom.CheckedChanged +=
-        new System.EventHandler(this.checkBoxRandom_CheckedChanged);
+        new EventHandler(this.checkBoxRandom_CheckedChanged);
     //
     // checkBoxLoop
     //
     this.checkBoxLoop.Appearance = System.Windows.Forms.Appearance.Button;
     this.checkBoxLoop.Enabled = false;
     this.checkBoxLoop.Image = null;
-    this.checkBoxLoop.Location = new System.Drawing.Point(176, 24);
+    this.checkBoxLoop.Location = new Point(176, 24);
     this.checkBoxLoop.Name = "checkBoxLoop";
-    this.checkBoxLoop.Size = new System.Drawing.Size(40, 23);
+    this.checkBoxLoop.Size = new Size(40, 23);
     this.checkBoxLoop.TabIndex = 12;
     this.checkBoxLoop.Text = "Loop";
     this.checkBoxLoop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-    this.checkBoxLoop.CheckedChanged += new System.EventHandler(this.checkBoxLoop_CheckedChanged);
+    this.checkBoxLoop.CheckedChanged += new EventHandler(this.checkBoxLoop_CheckedChanged);
     //
     // btnAdd
     //
     this.btnAdd.Image = null;
-    this.btnAdd.Location = new System.Drawing.Point(24, 24);
+    this.btnAdd.Location = new Point(24, 24);
     this.btnAdd.Name = "btnAdd";
-    this.btnAdd.Size = new System.Drawing.Size(48, 23);
+    this.btnAdd.Size = new Size(48, 23);
     this.btnAdd.TabIndex = 6;
     this.btnAdd.Text = "Add...";
-    this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+    this.btnAdd.Click += new EventHandler(this.btnAdd_Click);
     //
     // lstPlaylist
     //
-    this.lstPlaylist.Location = new System.Drawing.Point(16, 56);
+    this.lstPlaylist.Location = new Point(16, 56);
     this.lstPlaylist.Name = "lstPlaylist";
     this.lstPlaylist.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-    this.lstPlaylist.Size = new System.Drawing.Size(272, 108);
+    this.lstPlaylist.Size = new Size(272, 108);
     this.lstPlaylist.TabIndex = 0;
     this.lstPlaylist.SelectedIndexChanged +=
-        new System.EventHandler(this.lstPlaylist_SelectedIndexChanged);
-    this.lstPlaylist.DoubleClick += new System.EventHandler(this.lstPlaylist_DoubleClick);
+        new EventHandler(this.lstPlaylist_SelectedIndexChanged);
+    this.lstPlaylist.DoubleClick += new EventHandler(this.lstPlaylist_DoubleClick);
     //
     // btnRemove
     //
     this.btnRemove.Enabled = false;
     this.btnRemove.Image = null;
-    this.btnRemove.Location = new System.Drawing.Point(80, 24);
+    this.btnRemove.Location = new Point(80, 24);
     this.btnRemove.Name = "btnRemove";
-    this.btnRemove.Size = new System.Drawing.Size(56, 23);
+    this.btnRemove.Size = new Size(56, 23);
     this.btnRemove.TabIndex = 11;
     this.btnRemove.Text = "Remove";
-    this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+    this.btnRemove.Click += new EventHandler(this.btnRemove_Click);
     //
     // textBox1
     //
-    this.textBox1.Location = new System.Drawing.Point(12, 321);
+    this.textBox1.Location = new Point(12, 321);
     this.textBox1.Multiline = true;
     this.textBox1.Name = "textBox1";
-    this.textBox1.Size = new System.Drawing.Size(392, 62);
+    this.textBox1.Size = new Size(392, 62);
     this.textBox1.TabIndex = 63;
     //
     // createBoxTS
@@ -254,41 +254,41 @@ public class WaveControl : Form {
     this.createBoxTS.Appearance = System.Windows.Forms.Appearance.Button;
     this.createBoxTS.Enabled = false;
     this.createBoxTS.Font =
-        new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular,
+        new Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular,
                                 System.Drawing.GraphicsUnit.Point, ((byte)(0)));
     this.createBoxTS.Image = null;
-    this.createBoxTS.Location = new System.Drawing.Point(332, 195);
+    this.createBoxTS.Location = new Point(332, 195);
     this.createBoxTS.Name = "createBoxTS";
-    this.createBoxTS.Size = new System.Drawing.Size(72, 24);
+    this.createBoxTS.Size = new Size(72, 24);
     this.createBoxTS.TabIndex = 65;
     this.createBoxTS.Text = "Create Wtr ID";
     this.createBoxTS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
     this.createBoxTS.Visible = false;
-    this.createBoxTS.CheckedChanged += new System.EventHandler(this.createBoxTS_CheckedChanged);
+    this.createBoxTS.CheckedChanged += new EventHandler(this.createBoxTS_CheckedChanged);
     //
     // TXIDBoxTS
     //
     this.TXIDBoxTS.Appearance = System.Windows.Forms.Appearance.Button;
     this.TXIDBoxTS.Enabled = false;
     this.TXIDBoxTS.Font =
-        new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular,
+        new Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular,
                                 System.Drawing.GraphicsUnit.Point, ((byte)(0)));
     this.TXIDBoxTS.Image = null;
-    this.TXIDBoxTS.Location = new System.Drawing.Point(332, 223);
+    this.TXIDBoxTS.Location = new Point(332, 223);
     this.TXIDBoxTS.Name = "TXIDBoxTS";
-    this.TXIDBoxTS.Size = new System.Drawing.Size(72, 24);
+    this.TXIDBoxTS.Size = new Size(72, 24);
     this.TXIDBoxTS.TabIndex = 64;
     this.TXIDBoxTS.Text = "WaterID Play";
     this.TXIDBoxTS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
     this.TXIDBoxTS.Visible = false;
-    this.TXIDBoxTS.CheckedChanged += new System.EventHandler(this.TXIDBoxTS_CheckedChanged);
+    this.TXIDBoxTS.CheckedChanged += new EventHandler(this.TXIDBoxTS_CheckedChanged);
     //
     // chkBoxMP3
     //
     this.chkBoxMP3.Image = null;
-    this.chkBoxMP3.Location = new System.Drawing.Point(186, 391);
+    this.chkBoxMP3.Location = new Point(186, 391);
     this.chkBoxMP3.Name = "chkBoxMP3";
-    this.chkBoxMP3.Size = new System.Drawing.Size(165, 26);
+    this.chkBoxMP3.Size = new Size(165, 26);
     this.chkBoxMP3.TabIndex = 62;
     this.chkBoxMP3.Text = "QuickAudio Create MP3\r\n";
     this.chkBoxMP3.Visible = false;
@@ -296,26 +296,26 @@ public class WaveControl : Form {
     // chkQuickAudioFolder
     //
     this.chkQuickAudioFolder.Image = null;
-    this.chkQuickAudioFolder.Location = new System.Drawing.Point(12, 391);
+    this.chkQuickAudioFolder.Location = new Point(12, 391);
     this.chkQuickAudioFolder.Name = "chkQuickAudioFolder";
-    this.chkQuickAudioFolder.Size = new System.Drawing.Size(172, 26);
+    this.chkQuickAudioFolder.Size = new Size(172, 26);
     this.chkQuickAudioFolder.TabIndex = 61;
     this.chkQuickAudioFolder.Text = "QuickAudio Save Folder";
     this.chkQuickAudioFolder.Visible = false;
     this.chkQuickAudioFolder.CheckedChanged +=
-        new System.EventHandler(this.chkQuickAudioFolder_CheckedChanged);
+        new EventHandler(this.chkQuickAudioFolder_CheckedChanged);
     //
     // labelTS1
     //
     this.labelTS1.Font =
-        new System.Drawing.Font("Microsoft Sans Serif", 8.25F,
-                                ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold |
+        new Font("Microsoft Sans Serif", 8.25F,
+                                ((FontStyle)((System.Drawing.FontStyle.Bold |
                                                              System.Drawing.FontStyle.Italic))),
                                 System.Drawing.GraphicsUnit.Point, ((byte)(0)));
     this.labelTS1.Image = null;
-    this.labelTS1.Location = new System.Drawing.Point(9, 419);
+    this.labelTS1.Location = new Point(9, 419);
     this.labelTS1.Name = "labelTS1";
-    this.labelTS1.Size = new System.Drawing.Size(387, 26);
+    this.labelTS1.Size = new Size(387, 26);
     this.labelTS1.TabIndex = 56;
     this.labelTS1.Text =
         "NOTE:  In Receive, playback goes to the input of the receiver.                  I" +
@@ -326,33 +326,33 @@ public class WaveControl : Form {
     this.chkQuickPlay.Appearance = System.Windows.Forms.Appearance.Button;
     this.chkQuickPlay.Enabled = false;
     this.chkQuickPlay.Image = null;
-    this.chkQuickPlay.Location = new System.Drawing.Point(332, 285);
+    this.chkQuickPlay.Location = new Point(332, 285);
     this.chkQuickPlay.Name = "chkQuickPlay";
-    this.chkQuickPlay.Size = new System.Drawing.Size(72, 24);
+    this.chkQuickPlay.Size = new Size(72, 24);
     this.chkQuickPlay.TabIndex = 55;
     this.chkQuickPlay.Text = "Quick Play";
     this.chkQuickPlay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-    this.chkQuickPlay.CheckedChanged += new System.EventHandler(this.chkQuickPlay_CheckedChanged);
+    this.chkQuickPlay.CheckedChanged += new EventHandler(this.chkQuickPlay_CheckedChanged);
     //
     // chkQuickRec
     //
     this.chkQuickRec.Appearance = System.Windows.Forms.Appearance.Button;
     this.chkQuickRec.Image = null;
-    this.chkQuickRec.Location = new System.Drawing.Point(332, 253);
+    this.chkQuickRec.Location = new Point(332, 253);
     this.chkQuickRec.Name = "chkQuickRec";
-    this.chkQuickRec.Size = new System.Drawing.Size(72, 24);
+    this.chkQuickRec.Size = new Size(72, 24);
     this.chkQuickRec.TabIndex = 54;
     this.chkQuickRec.Text = "Quick Rec";
     this.chkQuickRec.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-    this.chkQuickRec.CheckedChanged += new System.EventHandler(this.chkQuickRec_CheckedChanged);
+    this.chkQuickRec.CheckedChanged += new EventHandler(this.chkQuickRec_CheckedChanged);
     //
     // groupBoxTS1
     //
     this.groupBoxTS1.Controls.Add(this.tbPreamp);
     this.groupBoxTS1.Controls.Add(this.udPreamp);
-    this.groupBoxTS1.Location = new System.Drawing.Point(324, 109);
+    this.groupBoxTS1.Location = new Point(324, 109);
     this.groupBoxTS1.Name = "groupBoxTS1";
-    this.groupBoxTS1.Size = new System.Drawing.Size(88, 80);
+    this.groupBoxTS1.Size = new Size(88, 80);
     this.groupBoxTS1.TabIndex = 53;
     this.groupBoxTS1.TabStop = false;
     this.groupBoxTS1.Text = "TX Gain (dB)";
@@ -360,36 +360,36 @@ public class WaveControl : Form {
     // tbPreamp
     //
     this.tbPreamp.AutoSize = false;
-    this.tbPreamp.Location = new System.Drawing.Point(8, 48);
+    this.tbPreamp.Location = new Point(8, 48);
     this.tbPreamp.Maximum = 70;
     this.tbPreamp.Minimum = -70;
     this.tbPreamp.Name = "tbPreamp";
-    this.tbPreamp.Size = new System.Drawing.Size(72, 16);
+    this.tbPreamp.Size = new Size(72, 16);
     this.tbPreamp.TabIndex = 53;
     this.tbPreamp.TickFrequency = 35;
-    this.tbPreamp.Scroll += new System.EventHandler(this.tbPreamp_Scroll);
+    this.tbPreamp.Scroll += new EventHandler(this.tbPreamp_Scroll);
     //
     // udPreamp
     //
     this.udPreamp.BackColor = System.Drawing.SystemColors.Window;
     this.udPreamp.ForeColor = System.Drawing.SystemColors.ControlText;
     this.udPreamp.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-    this.udPreamp.Location = new System.Drawing.Point(16, 24);
+    this.udPreamp.Location = new Point(16, 24);
     this.udPreamp.Maximum = new decimal(new int[] { 70, 0, 0, 0 });
     this.udPreamp.Minimum = new decimal(new int[] { 70, 0, 0, -2147483648 });
     this.udPreamp.Name = "udPreamp";
-    this.udPreamp.Size = new System.Drawing.Size(40, 20);
+    this.udPreamp.Size = new Size(40, 20);
     this.udPreamp.TabIndex = 52;
     this.udPreamp.Value = new decimal(new int[] { 0, 0, 0, 0 });
-    this.udPreamp.ValueChanged += new System.EventHandler(this.udPreamp_ValueChanged);
-    this.udPreamp.LostFocus += new System.EventHandler(this.udPreamp_LostFocus);
+    this.udPreamp.ValueChanged += new EventHandler(this.udPreamp_ValueChanged);
+    this.udPreamp.LostFocus += new EventHandler(this.udPreamp_LostFocus);
     //
     // groupBox2
     //
     this.groupBox2.Controls.Add(this.checkBoxRecord);
-    this.groupBox2.Location = new System.Drawing.Point(324, 37);
+    this.groupBox2.Location = new Point(324, 37);
     this.groupBox2.Name = "groupBox2";
-    this.groupBox2.Size = new System.Drawing.Size(88, 64);
+    this.groupBox2.Size = new Size(88, 64);
     this.groupBox2.TabIndex = 5;
     this.groupBox2.TabStop = false;
     this.groupBox2.Text = "Record";
@@ -398,14 +398,14 @@ public class WaveControl : Form {
     //
     this.checkBoxRecord.Appearance = System.Windows.Forms.Appearance.Button;
     this.checkBoxRecord.Image = null;
-    this.checkBoxRecord.Location = new System.Drawing.Point(16, 24);
+    this.checkBoxRecord.Location = new Point(16, 24);
     this.checkBoxRecord.Name = "checkBoxRecord";
-    this.checkBoxRecord.Size = new System.Drawing.Size(56, 24);
+    this.checkBoxRecord.Size = new Size(56, 24);
     this.checkBoxRecord.TabIndex = 0;
     this.checkBoxRecord.Text = "Record";
     this.checkBoxRecord.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
     this.checkBoxRecord.CheckedChanged +=
-        new System.EventHandler(this.checkBoxRecord_CheckedChanged);
+        new EventHandler(this.checkBoxRecord_CheckedChanged);
     //
     // grpPlayback
     //
@@ -416,27 +416,27 @@ public class WaveControl : Form {
     this.grpPlayback.Controls.Add(this.checkBoxPause);
     this.grpPlayback.Controls.Add(this.btnStop);
     this.grpPlayback.Controls.Add(this.checkBoxPlay);
-    this.grpPlayback.Location = new System.Drawing.Point(12, 37);
+    this.grpPlayback.Location = new Point(12, 37);
     this.grpPlayback.Name = "grpPlayback";
-    this.grpPlayback.Size = new System.Drawing.Size(304, 88);
+    this.grpPlayback.Size = new Size(304, 88);
     this.grpPlayback.TabIndex = 4;
     this.grpPlayback.TabStop = false;
     this.grpPlayback.Text = "Playback";
     //
     // txtCurrentFile
     //
-    this.txtCurrentFile.Location = new System.Drawing.Point(104, 24);
+    this.txtCurrentFile.Location = new Point(104, 24);
     this.txtCurrentFile.Name = "txtCurrentFile";
     this.txtCurrentFile.ReadOnly = true;
-    this.txtCurrentFile.Size = new System.Drawing.Size(184, 20);
+    this.txtCurrentFile.Size = new Size(184, 20);
     this.txtCurrentFile.TabIndex = 9;
     //
     // lblCurrentlyPlaying
     //
     this.lblCurrentlyPlaying.Image = null;
-    this.lblCurrentlyPlaying.Location = new System.Drawing.Point(16, 24);
+    this.lblCurrentlyPlaying.Location = new Point(16, 24);
     this.lblCurrentlyPlaying.Name = "lblCurrentlyPlaying";
-    this.lblCurrentlyPlaying.Size = new System.Drawing.Size(96, 23);
+    this.lblCurrentlyPlaying.Size = new Size(96, 23);
     this.lblCurrentlyPlaying.TabIndex = 10;
     this.lblCurrentlyPlaying.Text = "Currently Playing:";
     //
@@ -444,81 +444,81 @@ public class WaveControl : Form {
     //
     this.btnNext.Enabled = false;
     this.btnNext.Image = null;
-    this.btnNext.Location = new System.Drawing.Point(232, 56);
+    this.btnNext.Location = new Point(232, 56);
     this.btnNext.Name = "btnNext";
-    this.btnNext.Size = new System.Drawing.Size(40, 23);
+    this.btnNext.Size = new Size(40, 23);
     this.btnNext.TabIndex = 8;
     this.btnNext.Text = "Next";
-    this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+    this.btnNext.Click += new EventHandler(this.btnNext_Click);
     //
     // btnPrevious
     //
     this.btnPrevious.Enabled = false;
     this.btnPrevious.Image = null;
-    this.btnPrevious.Location = new System.Drawing.Point(184, 56);
+    this.btnPrevious.Location = new Point(184, 56);
     this.btnPrevious.Name = "btnPrevious";
-    this.btnPrevious.Size = new System.Drawing.Size(40, 23);
+    this.btnPrevious.Size = new Size(40, 23);
     this.btnPrevious.TabIndex = 7;
     this.btnPrevious.Text = "Prev";
-    this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+    this.btnPrevious.Click += new EventHandler(this.btnPrevious_Click);
     //
     // checkBoxPause
     //
     this.checkBoxPause.Appearance = System.Windows.Forms.Appearance.Button;
     this.checkBoxPause.Enabled = false;
     this.checkBoxPause.Image = null;
-    this.checkBoxPause.Location = new System.Drawing.Point(128, 56);
+    this.checkBoxPause.Location = new Point(128, 56);
     this.checkBoxPause.Name = "checkBoxPause";
-    this.checkBoxPause.Size = new System.Drawing.Size(48, 23);
+    this.checkBoxPause.Size = new Size(48, 23);
     this.checkBoxPause.TabIndex = 5;
     this.checkBoxPause.Text = "Pause";
     this.checkBoxPause.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-    this.checkBoxPause.CheckedChanged += new System.EventHandler(this.checkBoxPause_CheckedChanged);
+    this.checkBoxPause.CheckedChanged += new EventHandler(this.checkBoxPause_CheckedChanged);
     //
     // btnStop
     //
     this.btnStop.Enabled = false;
     this.btnStop.Image = null;
-    this.btnStop.Location = new System.Drawing.Point(32, 56);
+    this.btnStop.Location = new Point(32, 56);
     this.btnStop.Name = "btnStop";
-    this.btnStop.Size = new System.Drawing.Size(40, 23);
+    this.btnStop.Size = new Size(40, 23);
     this.btnStop.TabIndex = 4;
     this.btnStop.Text = "Stop";
-    this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+    this.btnStop.Click += new EventHandler(this.btnStop_Click);
     //
     // checkBoxPlay
     //
     this.checkBoxPlay.Appearance = System.Windows.Forms.Appearance.Button;
     this.checkBoxPlay.Enabled = false;
     this.checkBoxPlay.Image = null;
-    this.checkBoxPlay.Location = new System.Drawing.Point(80, 56);
+    this.checkBoxPlay.Location = new Point(80, 56);
     this.checkBoxPlay.Name = "checkBoxPlay";
-    this.checkBoxPlay.Size = new System.Drawing.Size(40, 23);
+    this.checkBoxPlay.Size = new Size(40, 23);
     this.checkBoxPlay.TabIndex = 3;
     this.checkBoxPlay.Text = "Play";
     this.checkBoxPlay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-    this.checkBoxPlay.CheckedChanged += new System.EventHandler(this.checkBoxPlay_CheckedChanged);
+    this.checkBoxPlay.CheckedChanged += new EventHandler(this.checkBoxPlay_CheckedChanged);
     //
     // menuStripOptions
     //
     this.menuStripOptions.Items.AddRange(
-        new System.Windows.Forms.ToolStripItem[] { this.optionsToolStripMenuItem });
-    this.menuStripOptions.Location = new System.Drawing.Point(0, 0);
+        new ToolStripItem[] { this.optionsToolStripMenuItem });
+    this.menuStripOptions.Location = new Point(0, 0);
     this.menuStripOptions.Name = "menuStripOptions";
-    this.menuStripOptions.Size = new System.Drawing.Size(416, 24);
+    this.menuStripOptions.Size = new Size(416, 24);
     this.menuStripOptions.TabIndex = 66;
     //
     // optionsToolStripMenuItem
     //
     this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-    this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+    this.optionsToolStripMenuItem.Size = new Size(61, 20);
     this.optionsToolStripMenuItem.Text = "Options";
     this.optionsToolStripMenuItem.Click +=
-        new System.EventHandler(this.optionsToolStripMenuItem_Click);
+        new EventHandler(this.optionsToolStripMenuItem_Click);
     //
     // WaveControl
     //
-    this.ClientSize = new System.Drawing.Size(416, 469);
+    this.ClientSize = new Size(416, 469);
     this.Controls.Add(this.createBoxTS);
     this.Controls.Add(this.TXIDBoxTS);
     this.Controls.Add(this.textBox1);
@@ -532,14 +532,14 @@ public class WaveControl : Form {
     this.Controls.Add(this.groupBox2);
     this.Controls.Add(this.grpPlayback);
     this.Controls.Add(this.menuStripOptions);
-    this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+    this.Icon = ((Icon)(resources.GetObject("$this.Icon")));
     this.Name = "WaveControl";
     this.Text = "Wave File Controls";
-    this.Closing += new System.ComponentModel.CancelEventHandler(this.WaveControl_Closing);
+    this.Closing += new CancelEventHandler(this.WaveControl_Closing);
     this.grpPlaylist.ResumeLayout(false);
     this.groupBoxTS1.ResumeLayout(false);
-    ((System.ComponentModel.ISupportInitialize)(this.tbPreamp)).EndInit();
-    ((System.ComponentModel.ISupportInitialize)(this.udPreamp)).EndInit();
+    ((ISupportInitialize)(this.tbPreamp)).EndInit();
+    ((ISupportInitialize)(this.udPreamp)).EndInit();
     this.groupBox2.ResumeLayout(false);
     this.grpPlayback.ResumeLayout(false);
     this.grpPlayback.PerformLayout();
@@ -795,7 +795,7 @@ public class WaveControl : Form {
 
 #region Event Handlers
 
-  private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e) {
+  private void openFileDialog1_FileOk(object sender, CancelEventArgs e) {
     foreach (string s in openFileDialog1.FileNames) {
       if (!file_list.Contains(s))
         file_list.Add(s);
@@ -805,7 +805,7 @@ public class WaveControl : Form {
   }
 
   private bool temp_vacbypass_play = false;
-  private void checkBoxPlay_CheckedChanged(object sender, System.EventArgs e) {
+  private void checkBoxPlay_CheckedChanged(object sender, EventArgs e) {
     if (checkBoxPlay.Checked) {
       string filename = (string)file_list[currently_playing];
       if (!OpenWaveFile(filename, 0)) {
@@ -856,7 +856,7 @@ public class WaveControl : Form {
   public static string scheduleName1; // ke9ns add for saving file name of recording
   public static string scheduleName2; // ke9ns add for saving file name of recording
 
-  private void checkBoxRecord_CheckedChanged(object sender, System.EventArgs e) {
+  private void checkBoxRecord_CheckedChanged(object sender, EventArgs e) {
     if (checkBoxRecord.Checked) {
       checkBoxRecord.BackColor = console.ButtonSelectedColor;
       string temp = console.RX1DSPMode.ToString() + " ";
@@ -910,9 +910,9 @@ public class WaveControl : Form {
     }
   }
 
-  private void btnAdd_Click(object sender, System.EventArgs e) { openFileDialog1.ShowDialog(); }
+  private void btnAdd_Click(object sender, EventArgs e) { openFileDialog1.ShowDialog(); }
 
-  private void btnRemove_Click(object sender, System.EventArgs e) {
+  private void btnRemove_Click(object sender, EventArgs e) {
     if (lstPlaylist.Items.Count == 0 || lstPlaylist.SelectedIndices.Count == 0)
       return;
 
@@ -942,23 +942,23 @@ public class WaveControl : Form {
     UpdatePlaylist();
   }
 
-  private void checkBoxLoop_CheckedChanged(object sender, System.EventArgs e) {
+  private void checkBoxLoop_CheckedChanged(object sender, EventArgs e) {
     if (checkBoxLoop.Checked)
       checkBoxLoop.BackColor = console.ButtonSelectedColor;
     else
       checkBoxLoop.BackColor = SystemColors.Control;
   }
 
-  private void btnStop_Click(object sender, System.EventArgs e) { checkBoxPlay.Checked = false; }
+  private void btnStop_Click(object sender, EventArgs e) { checkBoxPlay.Checked = false; }
 
-  private void checkBoxRandom_CheckedChanged(object sender, System.EventArgs e) {
+  private void checkBoxRandom_CheckedChanged(object sender, EventArgs e) {
     if (checkBoxRandom.Checked)
       checkBoxRandom.BackColor = console.ButtonSelectedColor;
     else
       checkBoxRandom.BackColor = SystemColors.Control;
   }
 
-  private void lstPlaylist_SelectedIndexChanged(object sender, System.EventArgs e) {
+  private void lstPlaylist_SelectedIndexChanged(object sender, EventArgs e) {
     if (lstPlaylist.SelectedIndex < 0) {
       btnPrevious.Enabled = false;
       btnNext.Enabled = false;
@@ -970,7 +970,7 @@ public class WaveControl : Form {
     }
   }
 
-  private void btnPrevious_Click(object sender, System.EventArgs e) {
+  private void btnPrevious_Click(object sender, EventArgs e) {
     if (checkBoxPlay.Checked) {
       checkBoxPlay.Checked = false;
       CurrentlyPlaying--;
@@ -979,7 +979,7 @@ public class WaveControl : Form {
       lstPlaylist.SelectedIndex--;
   }
 
-  private void btnNext_Click(object sender, System.EventArgs e) {
+  private void btnNext_Click(object sender, EventArgs e) {
     if (checkBoxPlay.Checked) {
       checkBoxPlay.Checked = false;
       if (CurrentlyPlaying == lstPlaylist.Items.Count - 1) {
@@ -996,13 +996,13 @@ public class WaveControl : Form {
     }
   }
 
-  private void WaveControl_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+  private void WaveControl_Closing(object sender, CancelEventArgs e) {
     e.Cancel = true;
     this.Hide();
     Common.SaveForm(this, "WaveOptions");
   }
 
-  private void checkBoxPause_CheckedChanged(object sender, System.EventArgs e) {
+  private void checkBoxPause_CheckedChanged(object sender, EventArgs e) {
     if (checkBoxPlay.Checked)
       Audio.WavePlayback = !checkBoxPause.Checked;
 
@@ -1012,7 +1012,7 @@ public class WaveControl : Form {
       checkBoxPause.BackColor = SystemColors.Control;
   }
 
-  private void lstPlaylist_DoubleClick(object sender, System.EventArgs e) {
+  private void lstPlaylist_DoubleClick(object sender, EventArgs e) {
     if (checkBoxPlay.Checked) {
       CurrentlyPlaying = lstPlaylist.SelectedIndex;
       checkBoxPlay.Checked = false;
@@ -1021,7 +1021,7 @@ public class WaveControl : Form {
       checkBoxPlay.Checked = true;
   }
 
-  private void mnuWaveOptions_Click(object sender, System.EventArgs e) {
+  private void mnuWaveOptions_Click(object sender, EventArgs e) {
     if (waveOptionsForm == null || waveOptionsForm.IsDisposed)
       waveOptionsForm = new WaveOptions();
 
@@ -1029,16 +1029,16 @@ public class WaveControl : Form {
     waveOptionsForm.Focus();
   }
 
-  private void udPreamp_ValueChanged(object sender, System.EventArgs e) {
+  private void udPreamp_ValueChanged(object sender, EventArgs e) {
     tbPreamp.Value = (int)udPreamp.Value;
     Audio.WavePreamp = Math.Pow(10.0, (int)udPreamp.Value / 20.0); // convert to scalar
   }
 
-  private void udPreamp_LostFocus(object sender, System.EventArgs e) {
+  private void udPreamp_LostFocus(object sender, EventArgs e) {
     udPreamp_ValueChanged(sender, e);
   }
 
-  private void tbPreamp_Scroll(object sender, System.EventArgs e) {
+  private void tbPreamp_Scroll(object sender, EventArgs e) {
     udPreamp.Value = (decimal)tbPreamp.Value;
   }
 
@@ -1061,14 +1061,14 @@ public class WaveControl : Form {
   //
 #pragma warning disable CS0414 // The field 'WaveControl.temp_record' is assigned but its value is
                                // never used
-  private bool temp_record = false;
+  private readonly bool temp_record = false;
 #pragma warning restore CS0414 // The field 'WaveControl.temp_record' is assigned but its value is
                                // never used
   private bool temp_play = false;
   private bool temp_mon = false;
 #pragma warning disable CS0414 // The field 'WaveControl.temp_pre' is assigned but its value is
                                // never used
-  private byte temp_pre = 0;   // ke9ns add for quickplay function
+  private readonly byte temp_pre = 0;   // ke9ns add for quickplay function
 #pragma warning restore CS0414 // The field 'WaveControl.temp_pre' is assigned but its value is
                                // never used
   private bool temp_txeq = false;
@@ -1080,7 +1080,7 @@ public class WaveControl : Form {
 
   public static int QAC = 0; // ke9ns add
 
-  private void chkQuickPlay_CheckedChanged(object sender, System.EventArgs e) {
+  private void chkQuickPlay_CheckedChanged(object sender, EventArgs e) {
     string file_name = console.AppDataPath + "\\SDRQuickAudio.wav";
 
     if (chkQuickPlay.Checked) {
@@ -1151,7 +1151,7 @@ public class WaveControl : Form {
 
   // public static string quickmp3; // ke9ns add
   //============================================================================================
-  private void chkQuickRec_CheckedChanged(object sender, System.EventArgs e) {
+  private void chkQuickRec_CheckedChanged(object sender, EventArgs e) {
     if (chkQuickRec.Checked) {
       //                 temp_record = Audio.RecordRXPreProcessed;
       //                 quickmp3SR = waveOptionsForm.comboSampleRate.Text;
@@ -1903,33 +1903,41 @@ public class Chunk {
     int data = reader.ReadInt32();
     if (data == 0x46464952) // RIFF chunk
     {
-      RIFFChunk riff = new RIFFChunk();
-      riff.chunk_id = data;
-      riff.file_size = reader.ReadInt32();
-      riff.riff_type = reader.ReadInt32();
-      return riff;
+                RIFFChunk riff = new RIFFChunk
+                {
+                    chunk_id = data,
+                    file_size = reader.ReadInt32(),
+                    riff_type = reader.ReadInt32()
+                };
+                return riff;
     } else if (data == 0x20746D66) // fmt chunk
     {
-      fmtChunk fmt = new fmtChunk();
-      fmt.chunk_id = data;
-      fmt.chunk_size = reader.ReadInt32();
-      fmt.format = reader.ReadInt16();
-      fmt.channels = reader.ReadInt16();
-      fmt.sample_rate = reader.ReadInt32();
-      fmt.bytes_per_sec = reader.ReadInt32();
-      fmt.block_align = reader.ReadInt16();
-      fmt.bits_per_sample = reader.ReadInt16();
-      return fmt;
+                fmtChunk fmt = new fmtChunk
+                {
+                    chunk_id = data,
+                    chunk_size = reader.ReadInt32(),
+                    format = reader.ReadInt16(),
+                    channels = reader.ReadInt16(),
+                    sample_rate = reader.ReadInt32(),
+                    bytes_per_sec = reader.ReadInt32(),
+                    block_align = reader.ReadInt16(),
+                    bits_per_sample = reader.ReadInt16()
+                };
+                return fmt;
     } else if (data == 0x61746164) // data chunk
     {
-      dataChunk data_chunk = new dataChunk();
-      data_chunk.chunk_id = data;
-      data_chunk.chunk_size = reader.ReadInt32();
-      return data_chunk;
+                dataChunk data_chunk = new dataChunk
+                {
+                    chunk_id = data,
+                    chunk_size = reader.ReadInt32()
+                };
+                return data_chunk;
     } else {
-      Chunk c = new Chunk();
-      c.chunk_id = data;
-      return c;
+                Chunk c = new Chunk
+                {
+                    chunk_id = data
+                };
+                return c;
     }
   }
 }
@@ -1962,12 +1970,12 @@ public class WaveFile {
 #region Variable Declaration
 
   private string filename;
-  private int format;
-  private int sample_rate;
-  private int channels;
-  private int bitdepth;
+  private readonly int format;
+  private readonly int sample_rate;
+  private readonly int channels;
+  private readonly int bitdepth;
   private TimeSpan length;
-  private bool valid = false;
+  private readonly bool valid = false;
 
 #endregion
 
@@ -2082,12 +2090,12 @@ public class Playlist {
 #region Wave File Writer Class
 
 unsafe public class WaveFileWriter {
-  private int id;
+  private readonly int id;
   private BinaryWriter writer;
   private bool record;
-  private short channels;
-  private short format_tag;
-  private short bit_depth;
+  private readonly short channels;
+  private readonly short format_tag;
+  private readonly short bit_depth;
   private UInt32
       length_counter; // klj: was int, failed over 2GB size! Proper use of unsigned gets you to 4GB
   private RingBufferFloat rb_l;
@@ -2095,55 +2103,55 @@ unsafe public class WaveFileWriter {
   private float[] in_buf_l;
   private float[] in_buf_r;
   private float[] out_buf_l;
-  private float[] out_buf_r;
-  private float[] out_buf;
-  private byte[] byte_buf;
+  private readonly float[] out_buf_r;
+  private readonly float[] out_buf;
+  private readonly byte[] byte_buf;
   private const int IN_BLOCK = 2048;
-  private string filename;
+  private readonly string filename;
 
   WaveFileWriter() {}
 
-  unsafe private void *rcvr_resamp_l = null;
+  private readonly void *rcvr_resamp_l = null;
   unsafe public void *RcvrResampL {
     get { return rcvr_resamp_l; }
   }
 
-  unsafe private void *rcvr_resamp_r = null;
+  private readonly void *rcvr_resamp_r = null;
   unsafe public void *RcvrResampR {
     get { return rcvr_resamp_r; }
   }
 
-  unsafe private void *xmtr_resamp_l = null;
+  private readonly void *xmtr_resamp_l = null;
   unsafe public void *XmtrResampL {
     get { return xmtr_resamp_l; }
   }
 
-  unsafe private void *xmtr_resamp_r = null;
+  private readonly void *xmtr_resamp_r = null;
   unsafe public void *XmtrResampR {
     get { return xmtr_resamp_r; }
   }
 
-  private int sample_rate;
+  private readonly int sample_rate;
   public int BaseRate {
     get { return sample_rate; }
   }
 
-  private int rcvr_rate;
+  private readonly int rcvr_rate;
   public int RcvrRate {
     get { return rcvr_rate; }
   }
 
-  private int rcvr_size;
+  private readonly int rcvr_size;
   public int RcvrSize {
     get { return rcvr_size; }
   }
 
-  private int xmtr_rate;
+  private readonly int xmtr_rate;
   public int XmtrRate {
     get { return xmtr_rate; }
   }
 
-  private int xmtr_size;
+  private readonly int xmtr_size;
   public int XmtrSize {
     get { return xmtr_size; }
   }
@@ -2294,10 +2302,9 @@ unsafe public class WaveFileWriter {
   private void Write_32(int length, ref UInt32 count, int out_cnt) {
 
     byte[] temp = new byte[4];
-    int result;
-    int intSample;
+            int intSample;
 
-    for (int i = 0; i < length; i++) {
+            for (int i = 0; i < length; i++) {
       switch (format_tag) {
       case 3:
         dither = false;
@@ -2311,7 +2318,7 @@ unsafe public class WaveFileWriter {
           byte_buf[i * 4 + 1] = (byte)(((uint)intSample >> 8) & 0xFF);
           byte_buf[i * 4] = (byte)(intSample & 0xFF);
         } else {
-          Convert(out_buf[i], out result);
+          Convert(out_buf[i], out int result);
           temp = BitConverter.GetBytes(result);
         }
         break;
@@ -2486,34 +2493,34 @@ unsafe public class WaveFileWriter {
 #region Wave File Reader Class
 
 unsafe public class WaveFileReader1 {
-  private int id;
-  int rcvr_rate;
-  int xmtr_rate;
-  int rcvr_size;
-  int xmtr_size;
+  private readonly int id;
+        readonly int rcvr_rate;
+        readonly int xmtr_rate;
+        readonly int rcvr_size;
+        readonly int xmtr_size;
   private WaveControl wave_form;
   private BinaryReader reader;
-  private int format;
-  private int sample_rate;
-  private int channels;
-  private int bitdepth;
+  private readonly int format;
+  private readonly int sample_rate;
+  private readonly int channels;
+  private readonly int bitdepth;
   private bool playback;
   private RingBufferFloat rb_l;
   private RingBufferFloat rb_r;
   private float[] buf_l_in;
   private float[] buf_r_in;
-  private float[] buf_l_out;
-  private float[] buf_r_out;
-  private int IN_BLOCK;
-  private int OUT_BLOCK;
-  private byte[] io_buf;
-  private int io_buf_size;
+  private readonly float[] buf_l_out;
+  private readonly float[] buf_r_out;
+  private readonly int IN_BLOCK;
+  private readonly int OUT_BLOCK;
+  private readonly byte[] io_buf;
+  private readonly int io_buf_size;
   private bool eof = false;
   private int total_samps_written;
   private int total_samps_read;
 
-  unsafe private void *rcvr_resamp_l, rcvr_resamp_r;
-  unsafe private void *xmtr_resamp_l, xmtr_resamp_r;
+  private readonly void *rcvr_resamp_l, rcvr_resamp_r;
+  private readonly void *xmtr_resamp_l, xmtr_resamp_r;
 
   public WaveFileReader1(int wfr_id, WaveControl form, int fmt, int samp_rate, int chan,
                          int bit_depth, ref BinaryReader binread) {

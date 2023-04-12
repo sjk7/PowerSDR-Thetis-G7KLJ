@@ -4,8 +4,9 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java:
 // http://www.viva64.com
 #include <windows.h>
+#include <assert.h>
 #include "iasiodrv.h"
-#include "asiolist.h"
+#include "../../host/pc/asiolist.h"
 
 #define ASIODRV_DESC "description"
 #define INPROC_SERVER "InprocServer32"
@@ -17,13 +18,15 @@
 // ******************************************************************
 static LONG findDrvPath(char* clsidstr, char* dllpath, int dllpathsize) {
     HKEY hkEnum, hksub, hkpath;
-    char databuf[512];
+    char databuf[512] = {0};
     LONG cr, rc = -1;
     DWORD datatype, datasize;
     DWORD index;
     OFSTRUCT ofs;
     HFILE hfile;
     BOOL found = FALSE;
+    assert(dllpath);
+    if (!dllpath) return -1;
 
     CharLowerBuff(clsidstr, (DWORD)strlen(clsidstr));
     if ((cr = RegOpenKey(HKEY_CLASSES_ROOT, COM_CLSID, &hkEnum))
@@ -67,16 +70,18 @@ static LONG findDrvPath(char* clsidstr, char* dllpath, int dllpathsize) {
 static LPASIODRVSTRUCT newDrvStruct(
     HKEY hkey, char* keyname, int drvID, LPASIODRVSTRUCT lpdrv) {
     HKEY hksub;
-    char databuf[256];
+
     char dllpath[MAXPATHLEN];
-    WORD wData[100];
-    CLSID clsid;
+
+    CLSID clsid = {0};
     DWORD datatype, datasize;
     LONG cr, rc;
 
     if (!lpdrv) {
+
         if ((cr = RegOpenKeyEx(hkey, (LPCTSTR)keyname, 0, KEY_READ, &hksub))
             == ERROR_SUCCESS) {
+            char databuf[256] = {0};
 
             datatype = REG_SZ;
             datasize = 256;
@@ -85,8 +90,10 @@ static LPASIODRVSTRUCT newDrvStruct(
             if (cr == ERROR_SUCCESS) {
                 rc = findDrvPath(databuf, dllpath, MAXPATHLEN);
                 if (rc == 0) {
+
                     lpdrv = new ASIODRVSTRUCT[1];
-                    if (lpdrv) {
+                    if (lpdrv) { //-V668
+                        WORD wData[100] = {0};
                         memset(lpdrv, 0, sizeof(ASIODRVSTRUCT));
                         lpdrv->drvID = drvID;
                         MultiByteToWideChar(
@@ -149,11 +156,10 @@ static LPASIODRVSTRUCT getDrvStruct(int drvID, LPASIODRVSTRUCT lpdrv) {
 // ******************************************************************
 AsioDriverList::AsioDriverList() {
     HKEY hkEnum = 0;
-    char keyname[MAXDRVNAMELEN];
+    char keyname[MAXDRVNAMELEN] = {0};
     LPASIODRVSTRUCT pdl;
     LONG cr;
     DWORD index = 0;
-    BOOL fin = FALSE;
 
     numdrv = 0;
     lpdrvlist = 0;
@@ -163,8 +169,7 @@ AsioDriverList::AsioDriverList() {
         if ((cr = RegEnumKey(hkEnum, index++, (LPTSTR)keyname, MAXDRVNAMELEN))
             == ERROR_SUCCESS) {
             lpdrvlist = newDrvStruct(hkEnum, keyname, 0, lpdrvlist);
-        } else
-            fin = TRUE;
+        }
     }
     if (hkEnum) RegCloseKey(hkEnum);
 
@@ -174,7 +179,19 @@ AsioDriverList::AsioDriverList() {
         pdl = pdl->next;
     }
 
-    if (numdrv) CoInitialize(0); // initialize COM
+    HRESULT hr = S_OK;
+    (void)hr;
+
+    if (numdrv) hr = CoInitialize(0); // initialize COM
+    if (FAILED(hr)) {
+
+        CoUninitialize();
+        hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
+        assert(SUCCEEDED(hr));
+        // otherwise if you call Pa_Initialize on a non-STA thread, you get no
+        // devices in ASIO!
+    }
+    assert(SUCCEEDED(hr));
 }
 
 AsioDriverList::~AsioDriverList() {
@@ -191,7 +208,7 @@ LONG AsioDriverList::asioGetNumDev(VOID) {
 LONG AsioDriverList::asioOpenDriver(int drvID, LPVOID* asiodrv) {
     LPASIODRVSTRUCT lpdrv = 0;
     long rc;
-
+    HRESULT hr = ::CoInitialize(NULL);
     if (!asiodrv) return DRVERR_INVALID_PARAM;
 
     if ((lpdrv = getDrvStruct(drvID, lpdrvlist)) != 0) {
@@ -229,20 +246,20 @@ LONG AsioDriverList::asioCloseDriver(int drvID) {
 }
 
 LONG AsioDriverList::asioGetDriverName(
-    int drvID, char* drvname, int drvnamesize) {
+    int drvID, char* drvname, const size_t drvnamesize) {
     LPASIODRVSTRUCT lpdrv = 0;
-
+#define MINUS_FOUR -4
     if (!drvname) return DRVERR_INVALID_PARAM;
 
     if ((lpdrv = getDrvStruct(drvID, lpdrvlist)) != 0) {
-        if (strlen(lpdrv->drvname) < (unsigned int)drvnamesize) {
+        if (strlen(lpdrv->drvname) < drvnamesize) {
             strcpy(drvname, lpdrv->drvname);
         } else {
-            memcpy(drvname, lpdrv->drvname, drvnamesize - 4);
-            drvname[drvnamesize - 4] = '.';
-            drvname[drvnamesize - 3] = '.';
-            drvname[drvnamesize - 2] = '.';
-            drvname[drvnamesize - 1] = 0;
+            memcpy(drvname, lpdrv->drvname, drvnamesize - MINUS_FOUR);
+            drvname[(size_t)((int)drvnamesize - MINUS_FOUR)] = '.';
+            drvname[(size_t)((int)drvnamesize - 3)] = '.';
+            drvname[(size_t)((int)drvnamesize - 2)] = '.';
+            drvname[(size_t)((int)drvnamesize - 1)] = 0;
         }
         return 0;
     }

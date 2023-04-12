@@ -205,7 +205,7 @@ set {
 }
 }
 
-public new System.Drawing.Size ClientSize { get { return base.ClientSize;
+public new Size ClientSize { get { return base.ClientSize;
 }
 set {
   if (base.InvokeRequired)
@@ -365,7 +365,7 @@ set {
 }
 }
 
-public new System.Drawing.Point Location { get { return base.Location;
+public new Point Location { get { return base.Location;
 }
 set {
   if (base.InvokeRequired)
@@ -425,7 +425,7 @@ set {
 }
 }
 
-public new System.Drawing.Size Size { get { return base.Size;
+public new Size Size { get { return base.Size;
 }
 set {
   if (base.InvokeRequired)
@@ -606,7 +606,7 @@ return (bool)this.EndInvoke(result);
 else return base.Focus();
 }
 
-public new Control GetChildAtPoint(System.Drawing.Point pt) { if (base.InvokeRequired) {
+public new Control GetChildAtPoint(Point pt) { if (base.InvokeRequired) {
   IAsyncResult result = this.BeginInvoke(new UI.CtrlRetFunc(UI.CallControlGetChildAtPoint),
                                          new object[] { this, new object[] { pt } });
 return (Control)this.EndInvoke(result);
@@ -724,18 +724,18 @@ public new void PerformLayout(Control affectedControl, string affectedProperty) 
     base.PerformLayout(affectedControl, affectedProperty);
 }
 
-public new System.Drawing.Point PointToClient(System.Drawing.Point p) { if (base.InvokeRequired) {
+public new Point PointToClient(Point p) { if (base.InvokeRequired) {
   IAsyncResult result = this.BeginInvoke(new UI.CtrlRetFunc(UI.CallControlPointToClient),
                                          new object[] { this, new object[] { p } });
-return (System.Drawing.Point)this.EndInvoke(result);
+return (Point)this.EndInvoke(result);
 }
 else return base.PointToClient(p);
 }
 
-public new System.Drawing.Point PointToScreen(System.Drawing.Point p) { if (base.InvokeRequired) {
+public new Point PointToScreen(Point p) { if (base.InvokeRequired) {
   IAsyncResult result = this.BeginInvoke(new UI.CtrlRetFunc(UI.CallControlPointToScreen),
                                          new object[] { this, new object[] { p } });
-return (System.Drawing.Point)this.EndInvoke(result);
+return (Point)this.EndInvoke(result);
 }
 else return base.PointToScreen(p);
 }

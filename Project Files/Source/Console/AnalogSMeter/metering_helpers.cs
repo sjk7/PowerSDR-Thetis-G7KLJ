@@ -68,7 +68,7 @@ namespace metering {
         public ImageStructEx() { this.data = new ImageStruct(); }
         public ImageStruct data = new ImageStruct();
         public Bitmap bitmap;
-        public metering.BuiltInMeters resourceId {
+        public BuiltInMeters resourceId {
             get { return data.resourceid; }
             set {
                 data.resourceid = value;
@@ -85,7 +85,7 @@ namespace metering {
     }
 
     public class helpers {
-        private Thetis.Console m_console;
+        private Console m_console;
         public helpers(Console c) { m_console = c; }
         // makes a "GDI friendly" bitmap for efficient display
         public static Bitmap makeBitmap(Image value) {

@@ -36,7 +36,7 @@ namespace Thetis
         public Setup setupForm;   // ke9ns communications with setupform  (i.e. allow combometertype.text update from inside console.cs) 
 
         //   private ArrayList file_list;
-        private string wave_folder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\Thetis";
+        private readonly string wave_folder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\Thetis";
 
         private Button button1;
         private Button button2;
@@ -95,25 +95,25 @@ namespace Thetis
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScanControl));
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.lowFBox = new System.Windows.Forms.TextBox();
-            this.stepBox = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.currFBox = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.highFBox = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.speedBox = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.chkAlwaysOnTop = new System.Windows.Forms.CheckBoxTS();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(ScanControl));
+            this.button1 = new Button();
+            this.button2 = new Button();
+            this.button3 = new Button();
+            this.button4 = new Button();
+            this.button5 = new Button();
+            this.button6 = new Button();
+            this.lowFBox = new TextBox();
+            this.stepBox = new TextBox();
+            this.textBox3 = new TextBox();
+            this.currFBox = new TextBox();
+            this.label2 = new Label();
+            this.label1 = new Label();
+            this.highFBox = new TextBox();
+            this.label3 = new Label();
+            this.speedBox = new TextBox();
+            this.label4 = new Label();
+            this.label5 = new Label();
+            this.chkAlwaysOnTop = new CheckBoxTS();
             this.SuspendLayout();
             // 
             // button1
@@ -124,7 +124,7 @@ namespace Thetis
             this.button1.TabIndex = 0;
             this.button1.Text = "Start";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -152,7 +152,7 @@ namespace Thetis
             this.button4.TabIndex = 3;
             this.button4.Text = "Scan SWL";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -162,7 +162,7 @@ namespace Thetis
             this.button5.TabIndex = 4;
             this.button5.Text = "Scan Band";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button5.Click += new EventHandler(this.button5_Click);
             // 
             // button6
             // 
@@ -172,7 +172,7 @@ namespace Thetis
             this.button6.TabIndex = 5;
             this.button6.Text = "Scan Mem";
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.button6.Click += new EventHandler(this.button6_Click);
             // 
             // lowFBox
             // 
@@ -183,8 +183,8 @@ namespace Thetis
             this.lowFBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.lowFBox.Size = new System.Drawing.Size(172, 29);
             this.lowFBox.TabIndex = 6;
-            this.lowFBox.Click += new System.EventHandler(this.lowFBox_Click);
-            this.lowFBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lowFBox_KeyDown);
+            this.lowFBox.Click += new EventHandler(this.lowFBox_Click);
+            this.lowFBox.KeyDown += new KeyEventHandler(this.lowFBox_KeyDown);
             // 
             // stepBox
             // 
@@ -244,8 +244,8 @@ namespace Thetis
             this.highFBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.highFBox.Size = new System.Drawing.Size(170, 29);
             this.highFBox.TabIndex = 21;
-            this.highFBox.Click += new System.EventHandler(this.highFBox_Click);
-            this.highFBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.highFBox_KeyDown);
+            this.highFBox.Click += new EventHandler(this.highFBox_Click);
+            this.highFBox.KeyDown += new KeyEventHandler(this.highFBox_KeyDown);
             // 
             // label3
             // 
@@ -292,7 +292,7 @@ namespace Thetis
             this.chkAlwaysOnTop.Size = new System.Drawing.Size(104, 24);
             this.chkAlwaysOnTop.TabIndex = 59;
             this.chkAlwaysOnTop.Text = "Always On Top";
-            this.chkAlwaysOnTop.CheckedChanged += new System.EventHandler(this.chkAlwaysOnTop_CheckedChanged);
+            this.chkAlwaysOnTop.CheckedChanged += new EventHandler(this.chkAlwaysOnTop_CheckedChanged);
             // 
             // ScanControl
             // 
@@ -320,8 +320,8 @@ namespace Thetis
             this.MinimumSize = new System.Drawing.Size(330, 446);
             this.Name = "ScanControl";
             this.Text = "Scanner";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ScanControl_FormClosing);
-            this.Load += new System.EventHandler(this.ScanControl_Load);
+            this.FormClosing += new FormClosingEventHandler(this.ScanControl_FormClosing);
+            this.Load += new EventHandler(this.ScanControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -363,9 +363,6 @@ namespace Thetis
         // ke9ns add scan just the Band stacking reg for the SWL bands
         private void button4_Click(object sender, EventArgs e)
         {
-            bool CTUN;
-            int ZoomFactor;
-            double CenterFreq;
 
             /*
             BLMF, // ke9ns move down below vhf
@@ -393,12 +390,9 @@ namespace Thetis
             }
             last_band = "160M";
 
-            string filter, mode;
-            double freq;
-
             band_index = console.band_160m_index;
 
-            if (DB.GetBandStack(last_band, band_index, out mode, out filter, out freq, out CTUN, out ZoomFactor, out CenterFreq))
+            if (DB.GetBandStack(last_band, band_index, out string mode, out string filter, out double freq, out bool CTUN, out int ZoomFactor, out double CenterFreq))
             {
                 filter = filter.Substring(0, 2); // ke9ns add for bandstack lockout
 

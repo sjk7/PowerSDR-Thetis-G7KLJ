@@ -128,8 +128,7 @@ namespace Thetis
         {
             if (s.ToUpper().StartsWith("COM") && s.Length > 3)
             {
-                int port = 0;
-                bool valid = int.TryParse(s.Substring(3, s.Length - 3), out port);
+                bool valid = int.TryParse(s.Substring(3, s.Length - 3), out int port);
 
                 if (!valid) return false;
 
@@ -183,8 +182,7 @@ namespace Thetis
         {
             if (s.ToUpper().StartsWith("COM") && s.Length > 3)
             {
-                int port = 0;
-                bool valid = int.TryParse(s.Substring(3, s.Length - 3), out port);
+                bool valid = int.TryParse(s.Substring(3, s.Length - 3), out int port);
 
                 if (!valid) return false;
 

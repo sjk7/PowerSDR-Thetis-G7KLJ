@@ -282,6 +282,7 @@ namespace Thetis
         {
             console.ForcePureSignalAutoCalDisable();
             if (!OFF) OFF = true;
+            Debug.Assert(true);
             console.PSState = false;
         }
 
@@ -319,18 +320,22 @@ namespace Thetis
         private void btnPSSave_Click(object sender, EventArgs e)
         {
             System.IO.Directory.CreateDirectory(console.AppDataPath + "\\PureSignal\\");
-            SaveFileDialog savefile1 = new SaveFileDialog();
-            savefile1.InitialDirectory = console.AppDataPath + "PureSignal\\";
-            savefile1.RestoreDirectory = true;
+            SaveFileDialog savefile1 = new SaveFileDialog
+            {
+                InitialDirectory = console.AppDataPath + "PureSignal\\",
+                RestoreDirectory = true
+            };
             if (savefile1.ShowDialog() == DialogResult.OK)
                 puresignal.PSSaveCorr(txachannel, savefile1.FileName);
         }
 
         private void btnPSRestore_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openfile1 = new OpenFileDialog();
-            openfile1.InitialDirectory = console.AppDataPath + "PureSignal\\";
-            openfile1.RestoreDirectory = true;
+            OpenFileDialog openfile1 = new OpenFileDialog
+            {
+                InitialDirectory = console.AppDataPath + "PureSignal\\",
+                RestoreDirectory = true
+            };
             if (openfile1.ShowDialog() == DialogResult.OK)
             {
                 console.ForcePureSignalAutoCalDisable();
@@ -784,12 +789,12 @@ namespace Thetis
             if (advancedON)
             {
                 advancedON = false;
-                console.psform.ClientSize = new System.Drawing.Size(560, 60);
+                console.psform.ClientSize = new Size(560, 60);
             }
             else
             {
                 advancedON = true;
-                console.psform.ClientSize = new System.Drawing.Size(560, 300);
+                console.psform.ClientSize = new Size(560, 300);
             }
         }
 
@@ -922,8 +927,8 @@ namespace Thetis
         }
 
 
-        public static int[] Info = new int[16];
-        private static int[] oldInfo = new int[16];
+        public volatile static int[] Info = new int[16];
+        private static readonly int[] oldInfo = new int[16];
         public static void GetInfo(int txachannel)
         {
             //make copy of old, used in HasInfoChanged & CalibrationAttemptsChanged MW0LGE

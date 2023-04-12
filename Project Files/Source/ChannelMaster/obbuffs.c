@@ -41,11 +41,19 @@ struct _obpointers {
 
 void start_obthread(int id) {
 #pragma warning(disable : 4312)
-    _beginthread(ob_main, 0, (void*)id);
+    _beginthread(ob_main, 0, (void*)(ptrdiff_t)id);
 #pragma warning(default : 4312)
 }
 
 void create_obbuffs(int id, int accept, int max_insize, int outsize) {
+
+    OBB existing = obp.pcbuff[id];
+    if (existing) {
+        // return; // KLJ: prevents multiple instances of thread when radio
+        // turned on more than once in current session.
+        destroy_obbuffs(id);
+    }
+
     OBB a = (OBB)calloc(1, sizeof(obb));
     assert(a);
 
@@ -109,8 +117,10 @@ PORT void OutBound(int id, int nsamples, double* in) {
 
     if (last_outbound_time) {
         volatile DWORD took = timeGetTime() - last_outbound_time;
-        if (took > 10) {
+        if (took > 20) {
+#ifdef _DEBUG
             printf("What's the hold-up? %ld\n", (int)took);
+#endif
         }
     }
     DWORD d1 = timeGetTime();

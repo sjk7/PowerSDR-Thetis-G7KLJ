@@ -44,7 +44,7 @@ public class HiPerfTimer {
     private static extern bool QueryPerformanceFrequency(out long lpFrequency);
 
     private long startTime, stopTime, elapsedTime;
-    private long freq;
+    private readonly long freq;
 
     // Constructor
     public HiPerfTimer() {
@@ -98,9 +98,8 @@ public class HiPerfTimer {
     }
 
     public long GetFreq() {
-        long freq = 0;
-        QueryPerformanceFrequency(out freq);
-        return freq;
+            QueryPerformanceFrequency(out long freq);
+            return freq;
     }
 }
 }

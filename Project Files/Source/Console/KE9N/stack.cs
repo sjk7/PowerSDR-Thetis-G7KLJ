@@ -39,7 +39,7 @@ using System.Threading.Tasks;
 
 namespace Thetis
 {
-    public class StackControl : System.Windows.Forms.Form
+    public class StackControl : Form
     {
 
 
@@ -51,16 +51,16 @@ namespace Thetis
         public Setup setupForm;   // ke9ns communications with setupform  (i.e. allow combometertype.text update from inside console.cs) 
 
         //   private ArrayList file_list;
-        private string wave_folder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\Thetis";
+        private readonly string wave_folder = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic) + "\\Thetis";
 
 #pragma warning disable CS0169 // The field 'StackControl.openFileDialog1' is never used
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private readonly OpenFileDialog openFileDialog1;
 #pragma warning restore CS0169 // The field 'StackControl.openFileDialog1' is never used
 #pragma warning disable CS0169 // The field 'StackControl.grpPlayback' is never used
-        private System.Windows.Forms.GroupBoxTS grpPlayback;
+        private readonly GroupBoxTS grpPlayback;
 #pragma warning restore CS0169 // The field 'StackControl.grpPlayback' is never used
 #pragma warning disable CS0169 // The field 'StackControl.grpPlaylist' is never used
-        private System.Windows.Forms.GroupBox grpPlaylist;
+        private readonly GroupBox grpPlaylist;
 #pragma warning restore CS0169 // The field 'StackControl.grpPlaylist' is never used
         private TextBox textBox3;
         public TextBox textBox1;
@@ -108,19 +108,19 @@ namespace Thetis
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StackControl));
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.buttonSort = new System.Windows.Forms.Button();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(StackControl));
+            this.textBox3 = new TextBox();
+            this.textBox1 = new TextBox();
+            this.buttonSort = new Button();
             this.SuspendLayout();
             // 
             // textBox3
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(12, 12);
+            this.textBox3.Font = new Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.Location = new Point(12, 12);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(228, 94);
+            this.textBox3.Size = new Size(228, 94);
             this.textBox3.TabIndex = 9;
             this.textBox3.TabStop = false;
             this.textBox3.Text = "Left Click on line to change frequency.\r\nRight Click on line to LOCK/UNLOCK.\r\nWhe" +
@@ -129,50 +129,50 @@ namespace Thetis
             // 
             // textBox1
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.textBox1.Anchor = ((AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox1.BackColor = System.Drawing.Color.LightYellow;
             this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Font = new Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.HideSelection = false;
-            this.textBox1.Location = new System.Drawing.Point(12, 112);
-            this.textBox1.MaximumSize = new System.Drawing.Size(254, 222);
+            this.textBox1.Location = new Point(12, 112);
+            this.textBox1.MaximumSize = new Size(254, 222);
             this.textBox1.MaxLength = 1000;
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(228, 162);
+            this.textBox1.Size = new Size(228, 162);
             this.textBox1.TabIndex = 60;
             this.textBox1.TabStop = false;
-            this.textBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.textBox1_MouseDown);
-            this.textBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.textBox1_MouseUp);
+            this.textBox1.MouseDown += new MouseEventHandler(this.textBox1_MouseDown);
+            this.textBox1.MouseUp += new MouseEventHandler(this.textBox1_MouseUp);
             // 
             // buttonSort
             // 
-            this.buttonSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSort.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonSort.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonSort.Location = new System.Drawing.Point(165, 280);
+            this.buttonSort.Location = new Point(165, 280);
             this.buttonSort.Name = "buttonSort";
-            this.buttonSort.Size = new System.Drawing.Size(75, 23);
+            this.buttonSort.Size = new Size(75, 23);
             this.buttonSort.TabIndex = 61;
             this.buttonSort.Text = "Sort";
             this.buttonSort.UseVisualStyleBackColor = false;
-            this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
+            this.buttonSort.Click += new EventHandler(this.buttonSort_Click);
             // 
             // StackControl
             // 
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(255, 313);
+            this.ClientSize = new Size(255, 313);
             this.Controls.Add(this.buttonSort);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBox3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(200, 200);
+            this.Icon = ((Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new Size(200, 200);
             this.Name = "StackControl";
             this.ShowInTaskbar = false;
             this.Text = "Band Stack";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.StackControl_FormClosing);
-            this.Load += new System.EventHandler(this.StackControl_Load);
+            this.FormClosing += new FormClosingEventHandler(this.StackControl_FormClosing);
+            this.Load += new EventHandler(this.StackControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,16 +226,16 @@ namespace Thetis
         double CenterFreq;
 
 #pragma warning disable CS0169 // The field 'StackControl.locker' is never used
-        string locker;
+        readonly string locker;
 #pragma warning restore CS0169 // The field 'StackControl.locker' is never used
 
-        double[] freq1 = new double[20];
-        string[] filter1 = new string[20];
-        string[] filter2 = new string[20]; // ke9ns add   F4 would indicate a unlocked bandstack memory, but F4L would indicate its a locked bandstank memory
-        string[] mode1 = new string[20];
-        bool[] CTUN1 = new bool[20];
-        int[] ZoomFactor1 = new int[20];
-        double[] CenterFreq1 = new double[20];
+        readonly double[] freq1 = new double[20];
+        readonly string[] filter1 = new string[20];
+        readonly string[] filter2 = new string[20]; // ke9ns add   F4 would indicate a unlocked bandstack memory, but F4L would indicate its a locked bandstank memory
+        readonly string[] mode1 = new string[20];
+        readonly bool[] CTUN1 = new bool[20];
+        readonly int[] ZoomFactor1 = new int[20];
+        readonly double[] CenterFreq1 = new double[20];
 
         int iii = 0; // 0-41 based on last_band
 
@@ -362,9 +362,8 @@ namespace Thetis
 
 
 
-            int value;
 
-            if (int.TryParse(console.regBox1.Text, out value))
+            if (int.TryParse(console.regBox1.Text, out int value))
             {
 
                 if (value > 0)
@@ -749,7 +748,7 @@ namespace Thetis
 
                 try
                 {
-                    if (console.band_stacks[iii] <= 3) // for Peter, VKK -- FINDME! lol!
+                     if (console.band_stacks[iii] <= 1) // reduced from <= 3 to allow single bandstack entry, G7VKK //
                     {
                         return;    // dont allow removing all the bandstacks
                     }

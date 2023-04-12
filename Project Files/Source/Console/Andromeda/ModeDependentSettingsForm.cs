@@ -33,7 +33,7 @@ namespace Thetis
     ///  Mode dependent settings popup form.
     /// </summary>
 
-    public class ModeDependentSettingsForm : System.Windows.Forms.Form
+    public class ModeDependentSettingsForm : Form
     {
         #region Variable Declaration
         /// <summary>
@@ -41,7 +41,7 @@ namespace Thetis
         /// </summary>
         private System.ComponentModel.IContainer components = null;
         private ButtonTS btnClose;
-        private Console console;
+        private readonly Console console;
         #endregion
 
 
@@ -81,7 +81,7 @@ namespace Thetis
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ModeDependentSettingsForm));
-            this.btnClose = new System.Windows.Forms.ButtonTS();
+            this.btnClose = new ButtonTS();
             this.SuspendLayout();
             // 
             // btnClose
@@ -93,7 +93,7 @@ namespace Thetis
             this.btnClose.TabIndex = 0;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.BtnClose_Click);
+            this.btnClose.Click += new EventHandler(this.BtnClose_Click);
             // 
             // ModeDependentSettingsForm
             // 
@@ -106,7 +106,7 @@ namespace Thetis
             this.Name = "ModeDependentSettingsForm";
             this.Text = "ModeDependentSettingsForm";
             this.TopMost = true;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModeDependentSettingsForm_FormClosing);
+            this.FormClosing += new FormClosingEventHandler(this.ModeDependentSettingsForm_FormClosing);
             this.ResumeLayout(false);
 
         }

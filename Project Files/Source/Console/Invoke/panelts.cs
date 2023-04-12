@@ -112,7 +112,7 @@ namespace System.Windows.Forms
             }
         }
 
-        public new System.Drawing.Size AutoScrollMargin
+        public new Size AutoScrollMargin
         {
             get { return base.AutoScrollMargin; }
             set
@@ -123,7 +123,7 @@ namespace System.Windows.Forms
             }
         }
 
-        public new System.Drawing.Size AutoScrollMinSize
+        public new Size AutoScrollMinSize
         {
             get { return base.AutoScrollMinSize; }
             set
@@ -134,7 +134,7 @@ namespace System.Windows.Forms
             }
         }
 
-        public new System.Drawing.Point AutoScrollPosition
+        public new Point AutoScrollPosition
         {
             get { return base.AutoScrollPosition; }
             set
@@ -226,7 +226,7 @@ namespace System.Windows.Forms
             }
         }
 
-        public new System.Drawing.Size ClientSize
+        public new Size ClientSize
         {
             get { return base.ClientSize; }
             set
@@ -348,7 +348,7 @@ namespace System.Windows.Forms
             }
         }
 
-        public new System.Drawing.Point Location
+        public new Point Location
         {
             get { return base.Location; }
             set
@@ -414,7 +414,7 @@ namespace System.Windows.Forms
             }
         }
 
-        public new System.Drawing.Size Size
+        public new Size Size
         {
             get { return base.Size; }
             set
@@ -611,7 +611,7 @@ namespace System.Windows.Forms
             else return base.Focus();
         }
 
-        public new Control GetChildAtPoint(System.Drawing.Point pt)
+        public new Control GetChildAtPoint(Point pt)
         {
             if (base.InvokeRequired)
             {
@@ -780,26 +780,26 @@ namespace System.Windows.Forms
             else base.PerformLayout(affectedControl, affectedProperty);
         }
 
-        public new System.Drawing.Point PointToClient(System.Drawing.Point p)
+        public new Point PointToClient(Point p)
         {
             if (base.InvokeRequired)
             {
                 IAsyncResult result = this.BeginInvoke(
                     new UI.CtrlRetFunc(UI.CallControlPointToClient),
                     new object[] { this, new object[] { p } });
-                return (System.Drawing.Point)this.EndInvoke(result);
+                return (Point)this.EndInvoke(result);
             }
             else return base.PointToClient(p);
         }
 
-        public new System.Drawing.Point PointToScreen(System.Drawing.Point p)
+        public new Point PointToScreen(Point p)
         {
             if (base.InvokeRequired)
             {
                 IAsyncResult result = this.BeginInvoke(
                     new UI.CtrlRetFunc(UI.CallControlPointToScreen),
                     new object[] { this, new object[] { p } });
-                return (System.Drawing.Point)this.EndInvoke(result);
+                return (Point)this.EndInvoke(result);
             }
             else return base.PointToScreen(p);
         }

@@ -87,6 +87,9 @@
     <ClInclude Include="debug_flags.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BitDepthConvert.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="amix.c">
@@ -169,5 +172,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+    <None Include="ChannelMaster.def">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

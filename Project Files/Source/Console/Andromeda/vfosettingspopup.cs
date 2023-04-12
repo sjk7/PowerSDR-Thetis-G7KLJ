@@ -77,11 +77,11 @@ namespace Thetis
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VFOSettingsPopup));
-            this.buttonClose = new System.Windows.Forms.ButtonTS();
-            this.labelTS1 = new System.Windows.Forms.LabelTS();
-            this.buttonPlus = new System.Windows.Forms.ButtonTS();
-            this.buttonMinus = new System.Windows.Forms.ButtonTS();
-            this.txtBoxTuneStep = new System.Windows.Forms.TextBoxTS();
+            this.buttonClose = new ButtonTS();
+            this.labelTS1 = new LabelTS();
+            this.buttonPlus = new ButtonTS();
+            this.buttonMinus = new ButtonTS();
+            this.txtBoxTuneStep = new TextBoxTS();
             this.SuspendLayout();
             // 
             // buttonClose
@@ -94,7 +94,7 @@ namespace Thetis
             this.buttonClose.TabIndex = 4;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.ButtonClose_Click);
+            this.buttonClose.Click += new EventHandler(this.ButtonClose_Click);
             // 
             // labelTS1
             // 
@@ -117,7 +117,7 @@ namespace Thetis
             this.buttonPlus.TabIndex = 2;
             this.buttonPlus.Text = "+";
             this.buttonPlus.UseVisualStyleBackColor = true;
-            this.buttonPlus.Click += new System.EventHandler(this.ButtonPlus_Click);
+            this.buttonPlus.Click += new EventHandler(this.ButtonPlus_Click);
             // 
             // buttonMinus
             // 
@@ -129,7 +129,7 @@ namespace Thetis
             this.buttonMinus.TabIndex = 1;
             this.buttonMinus.Text = "-";
             this.buttonMinus.UseVisualStyleBackColor = true;
-            this.buttonMinus.Click += new System.EventHandler(this.ButtonMinus_Click);
+            this.buttonMinus.Click += new EventHandler(this.ButtonMinus_Click);
             // 
             // txtBoxTuneStep
             // 
@@ -138,7 +138,7 @@ namespace Thetis
             this.txtBoxTuneStep.Name = "txtBoxTuneStep";
             this.txtBoxTuneStep.Size = new System.Drawing.Size(122, 26);
             this.txtBoxTuneStep.TabIndex = 0;
-            this.txtBoxTuneStep.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TextBoxTuneStep_MouseDown);
+            this.txtBoxTuneStep.MouseDown += new MouseEventHandler(this.TextBoxTuneStep_MouseDown);
             // 
             // VFOSettingsPopup
             // 
@@ -155,8 +155,8 @@ namespace Thetis
             this.Name = "VFOSettingsPopup";
             this.Text = "VFO Settings";
             this.TopMost = true;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VFOSettingsPopup_FormClosing);
-            this.Load += new System.EventHandler(this.VFOSettingsPopup_Load);
+            this.FormClosing += new FormClosingEventHandler(this.VFOSettingsPopup_FormClosing);
+            this.Load += new EventHandler(this.VFOSettingsPopup_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

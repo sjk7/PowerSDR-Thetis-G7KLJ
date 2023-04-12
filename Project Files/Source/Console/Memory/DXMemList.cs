@@ -44,10 +44,10 @@ public class DXMemList {
 #region Properties
 
     public bool isValid = false;
-    private Thetis.SortableBindingList<DXMemRecord> list
-        = new Thetis.SortableBindingList<DXMemRecord>();
+    private readonly SortableBindingList<DXMemRecord> list
+        = new SortableBindingList<DXMemRecord>();
 
-    public Thetis.SortableBindingList<DXMemRecord> List {
+    public SortableBindingList<DXMemRecord> List {
         get { return list; }
     }
 
@@ -76,7 +76,7 @@ public class DXMemList {
         try {
             XmlSerializer ser = new XmlSerializer(typeof(DXMemList),
                 new Type[] { typeof(DXMemRecord),
-                    typeof(Thetis.SortableBindingList<DXMemRecord>),
+                    typeof(SortableBindingList<DXMemRecord>),
                     typeof(int) });
             ser.Serialize(writer, this);
         } catch (Exception ex) {
@@ -118,7 +118,7 @@ public class DXMemList {
 
             XmlSerializer ser = new XmlSerializer(typeof(DXMemList),
                 new Type[] { typeof(DXMemRecord),
-                    typeof(Thetis.SortableBindingList<DXMemRecord>),
+                    typeof(SortableBindingList<DXMemRecord>),
                     typeof(int) });
 
             mem_list1 = (DXMemList)ser.Deserialize(reader);
@@ -138,7 +138,7 @@ public class DXMemList {
             try {
                 XmlSerializer ser = new XmlSerializer(typeof(DXMemList),
                     new Type[] { typeof(DXMemRecord),
-                        typeof(Thetis.SortableBindingList<DXMemRecord>),
+                        typeof(SortableBindingList<DXMemRecord>),
                         typeof(int) });
                 mem_list1 = (DXMemList)ser.Deserialize(reader);
             } catch (Exception ex2) {

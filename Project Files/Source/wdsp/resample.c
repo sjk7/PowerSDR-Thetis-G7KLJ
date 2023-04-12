@@ -120,9 +120,12 @@ PORT void flush_resample(RESAMPLE a) {
 PORT int xresample(RESAMPLE a) {
     int outsamps = 0;
     if (a->run) {
-        int i, j, n;
-        int idx_out;
-        double I, Q;
+        int i = 0;
+        int j = 0;
+        int n = 0;
+        int idx_out = 0;
+        double I = 0.0;
+        double Q = 0.0;
 
         for (i = 0; i < a->size; i++) {
             a->ring[2 * a->idx_in + 0] = a->in[2 * i + 0];
@@ -145,8 +148,12 @@ PORT int xresample(RESAMPLE a) {
             a->phnum -= a->L;
             if (--a->idx_in < 0) a->idx_in = a->ringsize - 1;
         }
-    } else if (a->in != a->out)
+    } 
+    else if (a->in != a->out) {
+
         memcpy(a->out, a->in, a->size * sizeof(WDSP_COMPLEX));
+    }
+    
     return outsamps;
 }
 

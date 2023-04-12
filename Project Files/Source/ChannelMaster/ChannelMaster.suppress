@@ -119,4 +119,28 @@
     <CodeCurrent>2271631499</CodeCurrent>
     <CodeNext>10023465</CodeNext>
   </ChannelMaster>
+  <ChannelMaster>
+    <FileName>cmbuffs.c</FileName>
+    <ErrorCode>V665</ErrorCode>
+    <Message>Possibly, the usage of '#pragma warning(default: X)' is incorrect in this context. The '#pragma warning(push/pop)' should be used instead. Check lines: _, _.</Message>
+    <CodePrev>4828801</CodePrev>
+    <CodeCurrent>2093656343</CodeCurrent>
+    <CodeNext>125829673</CodeNext>
+  </ChannelMaster>
+  <ChannelMaster>
+    <FileName>obbuffs.c</FileName>
+    <ErrorCode>V665</ErrorCode>
+    <Message>Possibly, the usage of '#pragma warning(default: X)' is incorrect in this context. The '#pragma warning(push/pop)' should be used instead. Check lines: _, _.</Message>
+    <CodePrev>4828801</CodePrev>
+    <CodeCurrent>2093656343</CodeCurrent>
+    <CodeNext>0</CodeNext>
+  </ChannelMaster>
+  <ChannelMaster>
+    <FileName>obbuffs.c</FileName>
+    <ErrorCode>V665</ErrorCode>
+    <Message>Possibly, the usage of '#pragma warning(default: X)' is incorrect in this context. The '#pragma warning(push/pop)' should be used instead. Check lines: _, _.</Message>
+    <CodePrev>2135732013</CodePrev>
+    <CodeCurrent>2093656337</CodeCurrent>
+    <CodeNext>125</CodeNext>
+  </ChannelMaster>
 </NewDataSet>

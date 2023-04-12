@@ -312,7 +312,7 @@ namespace Thetis
 
             if (imageArray == null)
             {
-                string CodeStr = "500 " + ((System.Net.HttpStatusCode)500).ToString();
+                string CodeStr = "500 " + ((HttpStatusCode)500).ToString();
 
                 string Html = "<html><body><h1>" + CodeStr + "</h1></body></html>";
 

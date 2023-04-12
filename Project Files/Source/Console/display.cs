@@ -62,9 +62,9 @@ using AlphaMode = SharpDX.Direct2D1.AlphaMode;
 using Device = SharpDX.Direct3D11.Device;
 using RectangleF = SharpDX.RectangleF;
 using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
-    using System.Threading;
+using System.Threading;
 
-    class Display {
+class Display {
 #region Variable Declaration
 
     public const float CLEAR_FLAG = -999.999F; // for resetting buffers
@@ -128,45 +128,46 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
     public static Rectangle AGCRX2Knee = new Rectangle();
     public static Rectangle AGCRX2Hang = new Rectangle();
 
-    private static Color notch_callout_active_color = Color.Chartreuse;
-    private static Color notch_callout_inactive_color = Color.OrangeRed;
+    private static readonly Color notch_callout_active_color = Color.Chartreuse;
+    private static readonly Color notch_callout_inactive_color
+        = Color.OrangeRed;
 
-    private static Color notch_highlight_color = Color.Chartreuse;
-    private static Color notch_tnf_off_colour = Color.Olive;
+    private static readonly Color notch_highlight_color = Color.Chartreuse;
+    private static readonly Color notch_tnf_off_colour = Color.Olive;
 
-    private static Color notch_active_colour = Color.Yellow;
-    private static Color notch_inactive_colour = Color.Gray;
+    private static readonly Color notch_active_colour = Color.Yellow;
+    private static readonly Color notch_inactive_colour = Color.Gray;
 
-    private static Color notch_bw_colour = Color.Yellow;
-    private static Color notch_bw_colour_inactive = Color.Gray;
+    private static readonly Color notch_bw_colour = Color.Yellow;
+    private static readonly Color notch_bw_colour_inactive = Color.Gray;
 
-    private static Color channel_background_on
+    private static readonly Color channel_background_on
         = Color.FromArgb(150, Color.DodgerBlue);
-    private static Color channel_background_off
+    private static readonly Color channel_background_off
         = Color.FromArgb(100, Color.RoyalBlue);
-    private static Color channel_foreground = Color.Cyan;
+    private static readonly Color channel_foreground = Color.Cyan;
 
     private static Pen m_pTNFInactive = new Pen(notch_tnf_off_colour, 1);
-    private static Brush m_bTNFInactive
+    private static readonly Brush m_bTNFInactive
         = new SolidBrush(changeAlpha(notch_tnf_off_colour, 92));
 
     private static Pen m_pNotchActive = new Pen(notch_active_colour, 1);
     private static Pen m_pNotchInactive = new Pen(notch_inactive_colour, 1);
     private static Pen m_pHighlighted = new Pen(notch_highlight_color, 1);
 
-    private static Brush m_bBWFillColour
+    private static readonly Brush m_bBWFillColour
         = new SolidBrush(changeAlpha(notch_bw_colour, 92));
-    private static Brush m_bBWFillColourInactive
+    private static readonly Brush m_bBWFillColourInactive
         = new SolidBrush(changeAlpha(notch_bw_colour_inactive, 92));
-    private static Brush m_bBWHighlighedFillColour
+    private static readonly Brush m_bBWHighlighedFillColour
         = new SolidBrush(changeAlpha(notch_highlight_color, 92));
 
-    private static Brush m_bTextCallOutActive
+    private static readonly Brush m_bTextCallOutActive
         = new SolidBrush(notch_callout_active_color);
-    private static Brush m_bTextCallOutInactive
+    private static readonly Brush m_bTextCallOutInactive
         = new SolidBrush(notch_callout_inactive_color);
     private static Font m_fntCallOutFont
-        = new System.Drawing.Font("Trebuchet MS", 9, FontStyle.Regular);
+        = new Font("Trebuchet MS", 9, FontStyle.Regular);
 
     private static ColorSheme color_sheme = ColorSheme.enhanced;
     public static ColorSheme ColorSheme {
@@ -218,7 +219,7 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
         set { display_duplex = value; }
     }
 
-    private static Object m_objSplitDisplayLock = new Object();
+    private static readonly Object m_objSplitDisplayLock = new Object();
     private static bool split_display = false;
     public static bool SplitDisplay {
         get { return split_display; }
@@ -1389,17 +1390,15 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
         set { _linlog_corr = value; }
     }
 
-    private static SolidBrush pana_text_brush = new SolidBrush(Color.Khaki);
-    private static System.Drawing.Font pana_font = new System.Drawing.Font(
+    private static readonly SolidBrush pana_text_brush
+        = new SolidBrush(Color.Khaki);
+    private static Font pana_font = new Font(
         "Tahoma", 7F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
-
-    private static Pen dhp = new Pen(Color.FromArgb(0, 255, 0)),
-                       dhp1 = new Pen(Color.FromArgb(150, 0, 0, 255)),
-                       dhp2 = new Pen(Color.FromArgb(150, 255, 0, 0));
-
-    private static System.Drawing.Font font14
-        = new System.Drawing.Font("Arial", 14, FontStyle.Bold),
-        font9 = new System.Drawing.Font("Arial", 9);
+    private static Pen dhp = new Pen(Color.FromArgb(0, 255, 0));
+    private static readonly Pen dhp1 = new Pen(Color.FromArgb(150, 0, 0, 255));
+    private static readonly Pen dhp2 = new Pen(Color.FromArgb(150, 255, 0, 0));
+    private static Font font14 = new Font("Arial", 14, FontStyle.Bold),
+                        font9 = new Font("Arial", 9);
 
 #endregion
 
@@ -2255,9 +2254,9 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
 
     private static Pen p1 = new Pen(Color.YellowGreen,
         2.0f); // ke9ns add vert line color and thickness  DXSPOTTER
-    private static Pen p3 = new Pen(
+    private static readonly Pen p3 = new Pen(
         Color.Blue, 2.5f); // ke9ns add vert line color and thickness    MEMORY
-    private static Pen p2 = new Pen(
+    private static readonly Pen p2 = new Pen(
         Color.Purple, 2.0f); // ke9ns add color for vert line of SWL list
 
     // private static SizeF length;                                          //
@@ -2266,11 +2265,11 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
     // so we can do usb/lsb and define a box to click into
 
     private static bool m_bLSB = false; // ke9ns add true=LSB, false=USB
-    private static int rx2 = 0; // ke9ns add 0-49 spots for rx1 panadapter
-                                // window for qrz callup  (50-100 for rx2)
-    // private static int rx3 = 0;                                          //
-    // ke9ns add 0-49 spots for rx1 panadapter window for qrz callup  (50-100
-    // for rx2)
+    private static int rx2
+        = 0; // ke9ns add 0-49 spots for rx1 panadapter
+             // window for qrz callup  (50-100 for rx2)
+             // private static int rx3 = 0; // ke9ns add 0-49 spots for rx1
+             // panadapter window for qrz callup  (50-100 for rx2)
 
     public static int VFOLow
         = 0; // ke9ns low freq (left side of screen) in HZ (used in DX_spot)
@@ -6283,24 +6282,23 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
     private static Texture2D backBuffer;
     private static RenderTarget d2dRenderTarget;
     private static SharpDX.Direct2D1.Factory d2dFactory;
-    private static Object m_objDX2Lock = new Object();
-        public static volatile bool shut_dx2 = false;
-        public static volatile bool dx_running = false;
+    private static readonly Object m_objDX2Lock = new Object();
+    public static volatile bool shut_dx2 = false;
+    public static volatile bool dx_running = false;
 
     public static void ShutdownDX2D() {
-            if (!m_bDX2Setup) return;
+        if (!m_bDX2Setup) return;
 
-            shut_dx2 = true;
-            int slept = 0;
-            while (dx_running)
-            {
-                Thread.Sleep(1);
-                if (slept > 1000)
-                    break;
-            }
-        
+        shut_dx2 = true;
+        int slept = 0;
+        while (dx_running) {
+            Thread.Sleep(1);
+            Application.DoEvents(); // prevent dx thread stuck trying to refresh
+                                    // picbox in GDI mode
+            if (slept > 1000) break;
+        }
+
         lock (m_objDX2Lock) {
-            
 
             waterfall_bmp_dx2d.Dispose();
             waterfall_bmp2_dx2d.Dispose();
@@ -6476,7 +6474,7 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
 
                 d2dRenderTarget.BeginDraw();
 
-                // midldle pixel align shift, NOTE: waterfall will switch
+                // middle pixel align shift, NOTE: waterfall will switch
                 // internally to identity, and then restore
                 Matrix3x2 t = d2dRenderTarget.Transform;
                 t.TranslationVector = m_pixelShift;
@@ -6593,7 +6591,7 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
                             DrawScopeDX2D(
                                 displayTargetWidth, m_nRX1DisplayHeight, false);
                             break;
-                         case DisplayMode.PHASE:
+                        case DisplayMode.PHASE:
                             DrawPhaseDX2D(
                                 displayTargetWidth, m_nRX1DisplayHeight, false);
                             break;
@@ -6621,7 +6619,6 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
                                 displayTargetWidth, m_nRX1DisplayHeight, 1,
                                 true);
                             break;
-  
                     }
 
                     m_nRX2DisplayHeight = displayTargetHeight / 2;
@@ -6649,11 +6646,21 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
                                 displayTargetWidth, m_nRX2DisplayHeight, 2,
                                 true);
                             break;
-                        }
+                    }
+                }
+
+                bool should_show_swr = high_swr;
+                if (!should_show_swr) {
+                    if (console.swr_protected != 0) {
+                        should_show_swr = Thetis.Console.timeGetTime()
+                                - console.swr_protected
+                            <= 5000;
+                    }
                 }
 
                 // HIGH swr display warning
-                if (high_swr) {
+                if (should_show_swr) {
+
                     drawStringDX2D(
                         "High SWR", fontDX2d_font14, m_bDX2_Red, 245, 20);
                     d2dRenderTarget.DrawRectangle(
@@ -6784,7 +6791,7 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
     static private HiPerfTimer m_objPeakHoldTimer = new HiPerfTimer();
     static private Maximums[] m_nRX1Maximums
         = new Maximums[20]; // max of 20 blobs
-    static private Maximums[] m_nRX2Maximums
+    private static readonly Maximums[] m_nRX2Maximums
         = new Maximums[20]; // max of 20 blobs
     static private void processMaximums(
         int rx, float nMaxY, int nX, int nMaxY_pixel) {
@@ -6803,8 +6810,7 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
                 maximums[nOccupiedIndex].X = nX;
                 maximums[nOccupiedIndex].MaxY_pixel = nMaxY_pixel;
                 maximums[nOccupiedIndex].Time = m_objPeakHoldTimer.ElapsedMsec;
-                Array.Sort<Maximums>(
-                    maximums, (x, y) => y.MaxY.CompareTo(x.MaxY));
+                Array.Sort(maximums, (x, y) => y.MaxY.CompareTo(x.MaxY));
             }
             return;
         }
@@ -6920,8 +6926,7 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
         return displayduplex;
     }
 
-    static private SharpDX.Direct2D1.Ellipse m_objEllipse
-        = new SharpDX.Direct2D1.Ellipse(Vector2.Zero, 5f, 5f);
+    static private Ellipse m_objEllipse = new Ellipse(Vector2.Zero, 5f, 5f);
     unsafe static private bool DrawPanadapterDX2D(
         int nVerticalShift, int W, int H, int rx, bool bottom) {
         if (grid_control) {
@@ -7070,14 +7075,13 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
         // Y = (int)(Math.Floor((grid_max - max) * H / yRange));
         Y = (int)(((grid_max - max) * H / yRange)
             - 0.5f); // -0.5 to mimic floor
-        // Y = Math.Min(Y, H);
+                     // Y = Math.Min(Y, H);
         Y = Y < H ? Y : H;
         Y += nVerticalShift;
 
-        SharpDX.Vector2 point = new SharpDX.Vector2();
-        SharpDX.Vector2 bottomPoint
-            = new SharpDX.Vector2(0, nVerticalShift + H);
-        SharpDX.Vector2 previousPoint = new SharpDX.Vector2(0, Y);
+        Vector2 point = new Vector2();
+        Vector2 bottomPoint = new Vector2(0, nVerticalShift + H);
+        Vector2 previousPoint = new Vector2(0, Y);
 
         float local_max_Pixel_y = float.MinValue;
 
@@ -7097,7 +7101,7 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
                 // Y = (int)(Math.Floor((grid_max - max) * H / yRange));
                 Y = (int)(((grid_max - max) * H / yRange)
                     - 0.5f); // -0.5 to mimic floor
-                // Y = Math.Min(Y, H);
+                             // Y = Math.Min(Y, H);
                 Y = Y < H ? Y : H;
                 Y += nVerticalShift;
 
@@ -8418,10 +8422,8 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
     private static Color4 convertColour(Color c) {
         return new Color4(c.R / 255f, c.G / 255f, c.B / 255f, c.A / 255f);
     }
-    private static SharpDX.Direct2D1.SolidColorBrush convertBrush(
-        SolidBrush b) {
-        return new SharpDX.Direct2D1.SolidColorBrush(
-            d2dRenderTarget, convertColour(b.Color));
+    private static SolidColorBrush convertBrush(SolidBrush b) {
+        return new SolidColorBrush(d2dRenderTarget, convertColour(b.Color));
     }
 
     public static void SetDX2BackgoundImage(System.Drawing.Image image) {
@@ -8435,7 +8437,7 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
 
         if (graphicsImage != null) graphicsImage.Dispose();
     }
-    public static void SetDX2BackgoundImage(System.Drawing.Bitmap bitmap) {
+    public static void SetDX2BackgoundImage(Bitmap bitmap) {
         lock (m_objDX2Lock) {
             if (!m_bDX2Setup) return;
 
@@ -8450,9 +8452,8 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
 
     private static SharpDX.Direct2D1.Bitmap m_bitmapBackground;
     private static SharpDX.Direct2D1.Bitmap SDXBitmapFromSysBitmap(
-        RenderTarget device, System.Drawing.Bitmap bitmap) {
-        Rectangle sourceArea
-            = new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height);
+        RenderTarget device, Bitmap bitmap) {
+        Rectangle sourceArea = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
         BitmapProperties bitmapProperties
             = new BitmapProperties(new SDXPixelFormat(
                 SharpDX.DXGI.Format.R8G8B8A8_UNorm, AlphaMode.Premultiplied));
@@ -8544,7 +8545,7 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
     private static SharpDX.Direct2D1.Brush m_bDX2_dhp1;
     private static SharpDX.Direct2D1.Brush m_bDX2_dhp2;
 
-    private static SharpDX.Direct2D1.StrokeStyle m_styleDots;
+    private static StrokeStyle m_styleDots;
 
     private static SharpDX.Direct2D1.Brush m_bDX2_m_bHightlightNumberScale;
     private static SharpDX.Direct2D1.Brush m_bDX2_m_bHightlightNumbers;
@@ -8732,9 +8733,8 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
                 = convertBrush((SolidBrush)grid_text_pen.Brush);
 
             StrokeStyleProperties ssp = new StrokeStyleProperties();
-            ssp = new SharpDX.Direct2D1.StrokeStyleProperties() {
-                DashOffset = 2, DashStyle = SharpDX.Direct2D1.DashStyle.Dash
-            };
+            ssp = new StrokeStyleProperties() { DashOffset = 2,
+                DashStyle = SharpDX.Direct2D1.DashStyle.Dash };
 
             m_styleDots = new StrokeStyle(d2dFactory, ssp);
         }
@@ -8807,18 +8807,15 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
     private static void drawLineDX2D(SharpDX.Direct2D1.Brush b, float x1,
         float y1, float x2, float y2, float strokeWidth = 1f) {
         // 0.5f's to move into 'centre' of desired pixel
-        d2dRenderTarget.DrawLine(
-            new SharpDX.Vector2(x1 /* + 0.5f*/, y1 /* + 0.5f*/),
-            new SharpDX.Vector2(x2 /* + 0.5f*/, y2 /* + 0.5f*/), b,
-            strokeWidth);
+        d2dRenderTarget.DrawLine(new Vector2(x1 /* + 0.5f*/, y1 /* + 0.5f*/),
+            new Vector2(x2 /* + 0.5f*/, y2 /* + 0.5f*/), b, strokeWidth);
     }
     private static void drawLineDX2D(SharpDX.Direct2D1.Brush b, float x1,
         float y1, float x2, float y2, StrokeStyle strokeStyle,
         float strokeWidth = 1f) {
         // 0.5f's to move into 'centre' of desired pixel
-        d2dRenderTarget.DrawLine(
-            new SharpDX.Vector2(x1 /* + 0.5f*/, y1 /* + 0.5f*/),
-            new SharpDX.Vector2(x2 /* + 0.5f*/, y2 /* + 0.5f*/), b, strokeWidth,
+        d2dRenderTarget.DrawLine(new Vector2(x1 /* + 0.5f*/, y1 /* + 0.5f*/),
+            new Vector2(x2 /* + 0.5f*/, y2 /* + 0.5f*/), b, strokeWidth,
             strokeStyle);
     }
     private static void drawFillRectangleDX2D(
@@ -8829,9 +8826,9 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
     }
     private static void drawElipseDX2D(SharpDX.Direct2D1.Brush b, float xMiddle,
         float yMiddle, float w, float h) {
-        Ellipse e = new Ellipse(
-            new SharpDX.Vector2(xMiddle /* + 0.5f*/, yMiddle /* + 0.5f*/),
-            w / 2, h / 2);
+        Ellipse e
+            = new Ellipse(new Vector2(xMiddle /* + 0.5f*/, yMiddle /* + 0.5f*/),
+                w / 2, h / 2);
 
         d2dRenderTarget.DrawEllipse(e, b);
     }
@@ -8881,9 +8878,9 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
                 top + height - 1, p.Width);
         }
     }
-    private static Dictionary<string, System.Drawing.SizeF> stringSizes
-        = new Dictionary<string, System.Drawing.SizeF>();
-    private static System.Drawing.SizeF measureStringDX2D(
+    private static Dictionary<string, SizeF> stringSizes
+        = new Dictionary<string, SizeF>();
+    private static SizeF measureStringDX2D(
         String s, SharpDX.DirectWrite.TextFormat tf) {
         // keep cache of calced sizes as this is quite a slow process
         // String key = s + tf.FontFamilyName + tf.FontSize; // very unlikely we
@@ -8897,8 +8894,7 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
         if (stringSizes.Count > 100)
             stringSizes.Remove(
                 stringSizes.Keys.First()); // keep 100, dump oldest
-        System.Drawing.SizeF sz = new System.Drawing.SizeF(
-            layout.Metrics.Width, layout.Metrics.Height);
+        SizeF sz = new SizeF(layout.Metrics.Width, layout.Metrics.Height);
         layout.Dispose();
         stringSizes.Add(s, sz);
 
@@ -10767,8 +10763,8 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
         }
 
         int Y;
-        SharpDX.Vector2 point = new SharpDX.Vector2();
-        SharpDX.Vector2 previousPoint = new SharpDX.Vector2();
+        Vector2 point = new Vector2();
+        Vector2 previousPoint = new Vector2();
 
         // inital state for X,Y, so we dont get a line from 0,0
         float max;
@@ -10976,7 +10972,8 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
                     if (label.Length == 3)
                         xOffset = (int)measureStringDX2D("0", fontDX2d_font9)
                                       .Width; // use 0 here instead of a - sign
-                    // int offset = (int)(label.Length * 4.1);
+                                              // int offset = (int)(label.Length
+                                              // * 4.1);
                     SizeF size = measureStringDX2D(label, fontDX2d_font9);
 
                     int x = 0;
@@ -11248,8 +11245,8 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
 
         DrawScopeGridDX2D(W, H, bottom);
 
-        SharpDX.Vector2 pointMin = new SharpDX.Vector2();
-        SharpDX.Vector2 pointMax = new SharpDX.Vector2();
+        Vector2 pointMin = new Vector2();
+        Vector2 pointMax = new Vector2();
         // SharpDX.Vector2 previousPointMin = new SharpDX.Vector2();
         // SharpDX.Vector2 previousPointMax = new SharpDX.Vector2();
 
@@ -11355,13 +11352,13 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
         float xScale = (float)samples / W;
         float yScale = (float)H / 4;
 
-        SharpDX.Vector2 point = new SharpDX.Vector2();
-        SharpDX.Vector2 previousPoint = new SharpDX.Vector2();
+        Vector2 point = new Vector2();
+        Vector2 previousPoint = new Vector2 {
 
-        // the 0.5f's to move to middle pixel
-        // draw the left input samples
-        previousPoint.X = 0;
-        previousPoint.Y = (int)(y1 - (scope2_max[0] * yScale));
+            // the 0.5f's to move to middle pixel
+            // draw the left input samples
+            X = 0, Y = (int)(y1 - (scope2_max[0] * yScale))
+        };
 
         for (int x = 0; x < W; x++) {
             int i = (int)Math.Truncate((float)x * xScale);
@@ -11415,7 +11412,7 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
 
         int nShift = m_nPhasePointSize / 2;
 
-        SharpDX.Vector2 point = new SharpDX.Vector2();
+        Vector2 point = new Vector2();
 
         for (int i = 0, j = 0; i < num_points; i++, j += 8) // fill point array
         {
@@ -11488,7 +11485,7 @@ using SDXPixelFormat = SharpDX.Direct2D1.PixelFormat;
 
         int nShift = m_nPhasePointSize / 2;
 
-        SharpDX.Vector2 point = new SharpDX.Vector2();
+        Vector2 point = new Vector2();
 
         for (int i = 0; i < num_points; i++) {
             int x = 0;

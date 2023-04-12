@@ -42,6 +42,7 @@
     <ProjectGuid>{0A18A071-125E-442F-AFF7-A3F68ABECF99}</ProjectGuid>
     <RootNamespace>portaudio</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>PortAudioForCoolSDR</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMinDependency|Win32'" Label="Configuration">
@@ -86,6 +87,7 @@
     <VCToolsVersion>
     </VCToolsVersion>
     <UseDebugLibraries>true</UseDebugLibraries>
+    <EnableASAN>false</EnableASAN>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -144,10 +146,10 @@
     <TargetName>PortaudioForThetis</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)\build\$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\$(PlatformTarget)\$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>PortaudioForThetis</TargetName>
+    <TargetName>$(ProjectName)</TargetName>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -161,10 +163,10 @@
     <TargetName>PortaudioForThetis</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\build\$(HPSDR_PLATFORM)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)\build\$(PlatformTarget)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\build\$(PlatformTarget)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <TargetName>PortaudioForThetis</TargetName>
+    <TargetName>$(ProjectName)</TargetName>
     <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
     <CopyLocalDebugSymbols>true</CopyLocalDebugSymbols>
   </PropertyGroup>
@@ -338,7 +340,7 @@
       <OutputFile>$(Platform)\$(Configuration)\portaudio_x64.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>copy /Y "$(OutDir)$(TargetName).dll" "$(PROJECTDIR)../../../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(TargetName).dll";</Command>
+      <Command>copy /Y "$(OutDir)$(TargetName).dll" "../../../../$(ProjectDir) /bin/$(PlatformTarget)/$(Configuration)/$(TargetName).dll";</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copying PortaudioforThetis to working Directory</Message>
@@ -465,7 +467,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\..\src\common;..\..\include;.\;..\..\src\os\win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_WIN64;_DEBUG;_USRDLL;PA_ENABLE_DEBUG_OUTPUT;_CRT_SECURE_NO_DEPRECATE;PAWIN_USE_WDMKS_DEVICE_INFO=1;PA_USE_ASIO=1;PA_USE_DS=1;PA_USE_WMME=1;PA_USE_WASAPI=1;PA_USE_WDMKS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WIN64;_DEBUG;_USRDLL;_CRT_SECURE_NO_DEPRECATE;PAWIN_USE_WDMKS_DEVICE_INFO=1;PA_USE_ASIO=1;PA_USE_DS=1;PA_USE_WMME=1;PA_USE_WASAPI=1;PA_USE_WDMKS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -502,7 +504,7 @@
       <OutputFile>$(Platform)\$(Configuration)/portaudio_x64.bsc</OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Command>copy /Y "$(OutDir)$(TargetName).dll" "$(PROJECTDIR)../../../../bin/$(HPSDR_PLATFORM)/$(Configuration)/$(TargetName).dll";</Command>
+      <Command>copy /Y "$(OutDir)$(TargetName).dll" "$(SolutionDir)../bin/$(PlatformTarget)/$(Configuration)/$(TargetName).dll";</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copying PortaudioforThetis to working Directory</Message>

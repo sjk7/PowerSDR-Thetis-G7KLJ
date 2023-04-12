@@ -1260,7 +1260,7 @@ class DB {
     }
 
     private static void AddRegion2BandText() {
-        // Default bandtext - US Region 2
+        // NewVFOAnalogSignalGauge bandtext - US Region 2
         // ds.Tables.Add("BandText");
         DataTable t = ds.Tables["BandText"];
 
@@ -11316,7 +11316,7 @@ class DB {
 #region Default
 
         DataRow dr = t.NewRow();
-        dr["Name"] = "Default";
+        dr["Name"] = "NewVFOAnalogSignalGauge";
         dr["FilterLow"] = 100;
         dr["FilterHigh"] = 3000;
         dr["TXEQNumBands"] = 10;
@@ -11492,7 +11492,7 @@ class DB {
 #region Default DX
 
         dr = t.NewRow();
-        dr["Name"] = "Default DX";
+        dr["Name"] = "NewVFOAnalogSignalGauge DX";
         dr["FilterLow"] = 200;
         dr["FilterHigh"] = 3100;
         dr["TXEQNumBands"] = 10;
@@ -15776,10 +15776,10 @@ class DB {
     //-W2PA Expand an old TxProfile table into a newer one with more colunms.
     //Fill in missing ones with default values.
     private static DataTable ExpandOldTxProfileTable(DataTable oldTable) {
-        // Get a Default TXProfile to fill in missing columns in an old version
+        // Get a NewVFOAnalogSignalGauge TXProfile to fill in missing columns in an old version
         DataTable dsTXPDefTable = ds.Tables["TXProfileDef"];
         DataTable expandedTable = dsTXPDefTable.Clone();
-        DataRow[] DefaultRows = dsTXPDefTable.Select("Name = 'Default'");
+        DataRow[] DefaultRows = dsTXPDefTable.Select("Name = 'NewVFOAnalogSignalGauge'");
         DataRow DefaultRow;
         if (DefaultRows.Length > 0)
             DefaultRow = DefaultRows[0]; // Found a row of default values
@@ -15797,16 +15797,16 @@ class DB {
                             col.ColumnName)) // Don't import a row having a
                                              // colummn that's no longer used
                 {
-                    System.Type oldType = OldRow[col.ColumnName].GetType();
-                    System.Type newType = newRow[col.ColumnName].GetType();
+                        Type oldType = OldRow[col.ColumnName].GetType();
+                        Type newType = newRow[col.ColumnName].GetType();
                     if (newType.FullName
                         == oldType.FullName) // Don't assign a value of a
                                              // different type
                         newRow[col.ColumnName] = OldRow[col.ColumnName];
                 }
             }
-            if ("Default"
-                != (string)(newRow["Name"])) // Don't take in the old Default
+            if ("NewVFOAnalogSignalGauge"
+                != (string)(newRow["Name"])) // Don't take in the old NewVFOAnalogSignalGauge
                                              // TXProfile at all
                 expandedTable.ImportRow(newRow);
         }

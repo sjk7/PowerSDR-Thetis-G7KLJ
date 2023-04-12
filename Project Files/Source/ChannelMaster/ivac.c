@@ -33,15 +33,22 @@ warren@wpratt.com
 #include "cmcomm.h"
 #include "pa_win_wasapi.h"
 #include "pa_win_wdmks.h"
+#include "BitDepthConvert.hpp"
 
 __declspec(align(16)) IVAC pvac[MAX_EXT_VACS];
+
+int nextPowerOfTwo(int x) {
+    double next = pow(2, ceil(log(x) / log(2)));
+    return (int)next;
+}
 
 void create_resamps(IVAC a) {
     a->MMThreadApiHandle = 0;
     // a->exclusive = 0; <-- overriding checkbox setting!
-    a->INringsize = (int)(2 * a->mic_rate * a->in_latency); // FROM VAC to mic
-    a->OUTringsize
-        = (int)(2 * a->vac_rate * a->out_latency); // TO VAC from rx audio
+    int sz = nextPowerOfTwo((int)(2 * a->mic_rate * a->in_latency));
+    a->INringsize = sz; // FROM VAC to mic
+    sz = nextPowerOfTwo((int)(2 * a->vac_rate * a->out_latency));
+    a->OUTringsize = sz; // TO VAC from rx audio
 
     a->rmatchIN = create_rmatchV(a->vac_size, a->mic_size, a->vac_rate,
         a->mic_rate, a->INringsize); // data FROM VAC TO TX MIC INPUT
@@ -93,6 +100,8 @@ PORT void create_ivac(int id, int run,
     a->INfvar = 1.0;
     a->OUTforce = 0;
     a->OUTfvar = 1.0;
+    a->convbuf = 0;
+    a->convbuf_size = 0;
     create_resamps(a);
     {
         int inrate[2] = {a->audio_rate, a->txmon_rate};
@@ -106,6 +115,11 @@ void destroy_resamps(IVAC a) {
     _aligned_free(a->bitbucket);
     destroy_rmatchV(a->rmatchOUT);
     destroy_rmatchV(a->rmatchIN);
+    if (a->convbuf_size) {
+        a->convbuf_size = 0;
+        free(a->convbuf);
+        a->convbuf = 0;
+    }
 }
 
 PORT void destroy_ivac(int id) {
@@ -187,34 +201,75 @@ void StreamFinishedCallback(void* userData) {
         a->MMThreadApiHandle = 0;
     }
 
-#pragma warning(default : 4311)
+#pragma warning(default : 4311) //-V665
 }
 
-int CallbackIVAC(const void* input, void* output, unsigned long frameCount,
-    const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags,
-    void* userData) {
+// KLJ
+int make_ivac_thread_max_priority(IVAC a) {
 
-#pragma warning(disable : 4311)
-    int id = (int)userData;
-#pragma warning(default : 4311)
-    IVAC a = pvac[id];
     if (a->have_set_thread_priority == -1) {
         a->have_set_thread_priority = 10;
         a->MMThreadApiHandle = prioritise_thread_max();
-        if (a->MMThreadApiHandle)
-            a->have_set_thread_priority = 1;
-        else
-            a->have_set_thread_priority = 0;
-    }
-    double* out_ptr = (double*)output;
-    double* in_ptr = (double*)input;
-    (void)timeInfo;
-    (void)statusFlags;
+        if (a->MMThreadApiHandle) {
 
-    if (!a->run) return 0;
-    xrmatchIN(a->rmatchIN, in_ptr); // MIC data from VAC
-    xrmatchOUT(a->rmatchOUT, out_ptr); // audio or I-Q data to VAC
-    // if (id == 0)  WriteAudio (120.0, 48000, a->vac_size, out_ptr, 3); //
+            a->have_set_thread_priority = 1;
+            return 1;
+        } else {
+
+            a->have_set_thread_priority = 0;
+            // assert("Unable to prioritise audio thread" == 0);
+            return 0;
+        }
+    }
+    return 1;
+}
+
+static inline void size_64_bit_buffer(IVAC a, size_t sz_bytes) {
+    // prepare buffer for conversion, if necessary:
+    assert(sz_bytes > 0);
+    size_t tmpsz = sz_bytes * 2; // oversized to avoid re-allocation.
+    if (a->convbuf_size < tmpsz) {
+        if (a->convbuf != 0) {
+            free(a->convbuf);
+            a->convbuf = 0;
+        }
+        a->convbuf = malloc(tmpsz * sizeof(double));
+        a->convbuf_size = tmpsz;
+        if (a->convbuf) memset(a->convbuf, 0, a->convbuf_size * sizeof(double));
+    }
+}
+
+int CallbackIVAC(const void* input, void* output, unsigned long frameCount,
+    const PaStreamCallbackTimeInfo* ti, PaStreamCallbackFlags f,
+    void* userData) {
+
+    int id = (int)(ptrdiff_t)userData;
+    IVAC a = pvac[id];
+    const unsigned int dblSz = sizeof(double);
+    const unsigned int fltSz = sizeof(float);
+
+    if (a->have_set_thread_priority == -1) {
+        make_ivac_thread_max_priority(a);
+    }
+
+    const size_t floatBufferSize = fltSz * frameCount * a->num_channels;
+    const size_t dblBufferSize = max(a->INringsize, a->OUTringsize);
+    // const size_t det = a->
+    size_64_bit_buffer(a, dblBufferSize);
+
+    float* out_ptr = (float*)output;
+    float* in_ptr = (float*)input;
+    if (!a->run) {
+        memset(in_ptr, 0, floatBufferSize);
+        memset(out_ptr, 0, floatBufferSize);
+        return 0;
+    }
+
+    Float32_To_Float64(a->convbuf, 1, in_ptr, 1, frameCount * 2);
+    xrmatchIN(a->rmatchIN, a->convbuf); // MIC data from VAC
+    xrmatchOUT(a->rmatchOUT, a->convbuf); // audio or I-Q data to VAC
+    Float64_To_Float32(out_ptr, 1, a->convbuf, 1, frameCount * 2);
+
     return 0;
 }
 
@@ -229,12 +284,14 @@ PORT int StartAudioIVAC(int id) {
     a->inParam.device = in_dev;
     a->inParam.channelCount = 2;
     a->inParam.suggestedLatency = a->pa_in_latency;
-    a->inParam.sampleFormat = paFloat64;
+    a->inParam.sampleFormat
+        = paFloat32; // KLJ: Changed to support audio cards, especially loopback
+                     // devices, more directly
 
     a->outParam.device = out_dev;
     a->outParam.channelCount = 2;
     a->outParam.suggestedLatency = a->pa_out_latency;
-    a->outParam.sampleFormat = paFloat64;
+    a->outParam.sampleFormat = paFloat32;
 
     /*/
        Pa_OpenStream:
@@ -246,6 +303,8 @@ PORT int StartAudioIVAC(int id) {
     const PaHostApiInfo* hinf = Pa_GetHostApiInfo(a->host_api_index);
     PaWasapiStreamInfo w = {0};
     PaWinWDMKSInfo x = {0};
+    // FIXME: There is a possibilty that w and x do not live long enough!
+    // they should be in the a-> struct, probably.
 
     if (hinf->type == paWASAPI) {
 
@@ -300,7 +359,7 @@ PORT int StartAudioIVAC(int id) {
             a->have_set_thread_priority = 0;
         }
     }
-#pragma warning(default : 4312)
+#pragma warning(default : 4312) //-V665
 
     if (error != paNoError) return error;
 
@@ -308,7 +367,11 @@ PORT int StartAudioIVAC(int id) {
 
     if (error != paNoError) return error;
 
-    // const PaStreamInfo* inf = Pa_GetStreamInfo(a->Stream);
+    a->streamInfo = Pa_GetStreamInfo(a->Stream);
+    printf("Stream Info input latency %f\n", a->streamInfo->inputLatency);
+    printf("Stream Info output latency %f\n", a->streamInfo->outputLatency);
+    fflush(stdout);
+
     return paNoError;
 }
 
@@ -469,7 +532,7 @@ PORT void SetIVACInLatency(int id, double lat, int reset) {
 
 PORT void SetIVACOutLatency(int id, double lat, int reset) {
     IVAC a = pvac[id];
-
+    assert(!a->run);
     if (a->out_latency != lat) {
         a->out_latency = lat;
         destroy_resamps(a);
@@ -479,7 +542,7 @@ PORT void SetIVACOutLatency(int id, double lat, int reset) {
 
 PORT void SetIVACPAInLatency(int id, double lat, int reset) {
     IVAC a = pvac[id];
-
+    assert(!a->run);
     if (a->pa_in_latency != lat) {
         a->pa_in_latency = lat;
     }
@@ -493,6 +556,24 @@ PORT void SetIVACExclusive(int id, int excl) {
 PORT int GetIVACExclusive(int id) {
     IVAC a = pvac[id];
     return a->exclusive;
+}
+
+PORT int GetInputLatencyMs(int id) {
+    IVAC a = pvac[id];
+    if (a->streamInfo) {
+        PaTime ret = a->streamInfo->inputLatency;
+        return (int)(ret * 1000.0f);
+    }
+    return 0;
+}
+
+PORT int GetOutputLatencyMs(int id) {
+    IVAC a = pvac[id];
+    if (a->streamInfo) {
+        PaTime ret = a->streamInfo->outputLatency;
+        return (int)(ret * 1000.0f);
+    }
+    return 0;
 }
 
 PORT void SetIVACPAOutLatency(int id, double lat, int reset) {

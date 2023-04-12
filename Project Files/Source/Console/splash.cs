@@ -38,7 +38,8 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 
 namespace Thetis {
-public class Splash : System.Windows.Forms.Form {
+public class Splash : Form
+    {
     // MW0LGE
     [DllImport("user32.dll")]
     static extern bool InvalidateRect(IntPtr hWnd, IntPtr lpRect, bool bErase);
@@ -74,10 +75,10 @@ public class Splash : System.Windows.Forms.Form {
     private const string REG_KEY_INITIALIZATION = "Initialization";
     private const string REGVALUE_PB_MILISECOND_INCREMENT = "Increment";
     private const string REGVALUE_PB_PERCENTS = "Percents";
-    private System.Windows.Forms.LabelTS lblTimeRemaining;
+    private LabelTS lblTimeRemaining;
     private System.Windows.Forms.Timer timer1;
-    private System.Windows.Forms.LabelTS lblStatus;
-    private System.Windows.Forms.Panel pnlStatus;
+    private LabelTS lblStatus;
+    private Panel pnlStatus;
     private LabelTS labelTS1;
     private LabelTS labelTS2;
     private LabelTS labelTS3;
@@ -114,15 +115,15 @@ public class Splash : System.Windows.Forms.Form {
     private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Splash));
-            this.pnlStatus = new System.Windows.Forms.Panel();
+            this.pnlStatus = new Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.labelTS1 = new System.Windows.Forms.LabelTS();
-            this.lblTimeRemaining = new System.Windows.Forms.LabelTS();
-            this.lblStatus = new System.Windows.Forms.LabelTS();
-            this.labelTS2 = new System.Windows.Forms.LabelTS();
-            this.labelTS3 = new System.Windows.Forms.LabelTS();
-            this.labelTS4 = new System.Windows.Forms.LabelTS();
-            this.labelTS5 = new System.Windows.Forms.LabelTS();
+            this.labelTS1 = new LabelTS();
+            this.lblTimeRemaining = new LabelTS();
+            this.lblStatus = new LabelTS();
+            this.labelTS2 = new LabelTS();
+            this.labelTS3 = new LabelTS();
+            this.labelTS4 = new LabelTS();
+            this.labelTS5 = new LabelTS();
             this.SuspendLayout();
             // 
             // pnlStatus
@@ -130,54 +131,54 @@ public class Splash : System.Windows.Forms.Form {
             this.pnlStatus.BackColor = System.Drawing.Color.White;
             this.pnlStatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pnlStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlStatus.Location = new System.Drawing.Point(0, 399);
+            this.pnlStatus.Location = new Point(0, 399);
             this.pnlStatus.Name = "pnlStatus";
-            this.pnlStatus.Size = new System.Drawing.Size(677, 17);
+            this.pnlStatus.Size = new Size(677, 17);
             this.pnlStatus.TabIndex = 2;
-            this.pnlStatus.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlStatus_Paint);
+            this.pnlStatus.Paint += new PaintEventHandler(this.pnlStatus_Paint);
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer1.Tick += new EventHandler(this.timer1_Tick);
             // 
             // labelTS1
             // 
             this.labelTS1.BackColor = System.Drawing.Color.Transparent;
-            this.labelTS1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTS1.Font = new Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTS1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.labelTS1.Image = null;
-            this.labelTS1.Location = new System.Drawing.Point(331, 24);
+            this.labelTS1.Location = new Point(338, 20);
             this.labelTS1.Name = "labelTS1";
-            this.labelTS1.Size = new System.Drawing.Size(89, 16);
+            this.labelTS1.Size = new Size(89, 16);
             this.labelTS1.TabIndex = 3;
             this.labelTS1.Text = "De G7KLJ";
             this.labelTS1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblTimeRemaining
             // 
-            this.lblTimeRemaining.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTimeRemaining.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTimeRemaining.BackColor = System.Drawing.Color.Transparent;
-            this.lblTimeRemaining.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTimeRemaining.Font = new Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTimeRemaining.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblTimeRemaining.Image = null;
-            this.lblTimeRemaining.Location = new System.Drawing.Point(586, 380);
+            this.lblTimeRemaining.Location = new Point(586, 380);
             this.lblTimeRemaining.Name = "lblTimeRemaining";
-            this.lblTimeRemaining.Size = new System.Drawing.Size(79, 16);
+            this.lblTimeRemaining.Size = new Size(79, 16);
             this.lblTimeRemaining.TabIndex = 1;
             this.lblTimeRemaining.Text = "Starting ...";
             this.lblTimeRemaining.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblStatus
             // 
-            this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblStatus.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblStatus.BackColor = System.Drawing.Color.Transparent;
-            this.lblStatus.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.Font = new Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblStatus.Image = null;
-            this.lblStatus.Location = new System.Drawing.Point(262, 380);
+            this.lblStatus.Location = new Point(262, 380);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(303, 16);
+            this.lblStatus.Size = new Size(303, 16);
             this.lblStatus.TabIndex = 0;
             this.lblStatus.Text = "Status";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -186,26 +187,26 @@ public class Splash : System.Windows.Forms.Form {
             // 
             this.labelTS2.AutoSize = true;
             this.labelTS2.BackColor = System.Drawing.Color.Transparent;
-            this.labelTS2.Font = new System.Drawing.Font("Arial", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTS2.Font = new Font("Arial", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTS2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.labelTS2.Image = null;
-            this.labelTS2.Location = new System.Drawing.Point(12, 9);
+            this.labelTS2.Location = new Point(12, 9);
             this.labelTS2.Name = "labelTS2";
-            this.labelTS2.Size = new System.Drawing.Size(291, 34);
+            this.labelTS2.Size = new Size(313, 34);
             this.labelTS2.TabIndex = 4;
-            this.labelTS2.Text = "CoolSDR -- Thetis --";
+            this.labelTS2.Text = "PowerSDR -- Thetis --";
             this.labelTS2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelTS3
             // 
             this.labelTS3.AutoSize = true;
             this.labelTS3.BackColor = System.Drawing.Color.Transparent;
-            this.labelTS3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTS3.Font = new Font("Arial", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTS3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.labelTS3.Image = null;
-            this.labelTS3.Location = new System.Drawing.Point(15, 61);
+            this.labelTS3.Location = new Point(15, 61);
             this.labelTS3.Name = "labelTS3";
-            this.labelTS3.Size = new System.Drawing.Size(125, 14);
+            this.labelTS3.Size = new Size(125, 14);
             this.labelTS3.TabIndex = 5;
             this.labelTS3.Text = "Special \'9+30dB Edition\'";
             this.labelTS3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -214,27 +215,27 @@ public class Splash : System.Windows.Forms.Form {
             // 
             this.labelTS4.AutoSize = true;
             this.labelTS4.BackColor = System.Drawing.Color.Transparent;
-            this.labelTS4.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTS4.Font = new Font("Arial", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTS4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.labelTS4.Image = null;
-            this.labelTS4.Location = new System.Drawing.Point(541, 329);
+            this.labelTS4.Location = new Point(541, 329);
             this.labelTS4.Name = "labelTS4";
-            this.labelTS4.Size = new System.Drawing.Size(112, 14);
+            this.labelTS4.Size = new Size(112, 14);
             this.labelTS4.TabIndex = 6;
             this.labelTS4.Text = "Also for ANAN radios";
             this.labelTS4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelTS5
             // 
-            this.labelTS5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelTS5.Anchor = ((AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelTS5.AutoSize = true;
             this.labelTS5.BackColor = System.Drawing.Color.Transparent;
-            this.labelTS5.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTS5.Font = new Font("Arial", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTS5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.labelTS5.Image = null;
-            this.labelTS5.Location = new System.Drawing.Point(506, 9);
+            this.labelTS5.Location = new Point(506, 9);
             this.labelTS5.Name = "labelTS5";
-            this.labelTS5.Size = new System.Drawing.Size(147, 14);
+            this.labelTS5.Size = new Size(147, 14);
             this.labelTS5.TabIndex = 7;
             this.labelTS5.Text = "Our users say: \"It\'s all good\"";
             this.labelTS5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -243,9 +244,9 @@ public class Splash : System.Windows.Forms.Form {
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSize = true;
-            this.BackgroundImage = global::Thetis.Properties.Resources.HL2___front_sml;
+            this.BackgroundImage = global::Thetis.Properties.Resources.HL2Front;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(677, 416);
+            this.ClientSize = new Size(677, 416);
             this.Controls.Add(this.labelTS5);
             this.Controls.Add(this.labelTS4);
             this.Controls.Add(this.labelTS3);
@@ -257,11 +258,11 @@ public class Splash : System.Windows.Forms.Form {
             this.Cursor = System.Windows.Forms.Cursors.AppStarting;
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Splash";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Thetis Starting ...";
-            this.Load += new System.EventHandler(this.Splash_Load);
+            this.Load += new EventHandler(this.Splash_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -386,17 +387,16 @@ public class Splash : System.Windows.Forms.Form {
         string sPBIncrementPerTimerInterval
             = RegistryAccess.GetStringRegistryValue(
                 REGVALUE_PB_MILISECOND_INCREMENT, "0.0015");
-        double dblResult;
 
-        if (Double.TryParse(sPBIncrementPerTimerInterval,
-                System.Globalization.NumberStyles.Float,
-                System.Globalization.NumberFormatInfo.InvariantInfo,
-                out dblResult))
-            m_dblPBIncrementPerTimerInterval = dblResult;
-        else
-            m_dblPBIncrementPerTimerInterval = .0015;
+            if (Double.TryParse(sPBIncrementPerTimerInterval,
+                    System.Globalization.NumberStyles.Float,
+                    System.Globalization.NumberFormatInfo.InvariantInfo,
+                    out double dblResult))
+                m_dblPBIncrementPerTimerInterval = dblResult;
+            else
+                m_dblPBIncrementPerTimerInterval = .0015;
 
-        string sPBPreviousPctComplete
+            string sPBPreviousPctComplete
             = RegistryAccess.GetStringRegistryValue(REGVALUE_PB_PERCENTS, "");
 
         if (sPBPreviousPctComplete != "") {
@@ -404,15 +404,14 @@ public class Splash : System.Windows.Forms.Form {
             m_alPreviousCompletionFraction = new ArrayList();
 
             for (int i = 0; i < aTimes.Length; i++) {
-                double dblVal;
-                if (Double.TryParse(aTimes[i],
-                        System.Globalization.NumberStyles.Float,
-                        System.Globalization.NumberFormatInfo.InvariantInfo,
-                        out dblVal))
-                    m_alPreviousCompletionFraction.Add(dblVal);
-                else
-                    m_alPreviousCompletionFraction.Add(1.0);
-            }
+                    if (Double.TryParse(aTimes[i],
+                            System.Globalization.NumberStyles.Float,
+                            System.Globalization.NumberFormatInfo.InvariantInfo,
+                            out double dblVal))
+                        m_alPreviousCompletionFraction.Add(dblVal);
+                    else
+                        m_alPreviousCompletionFraction.Add(1.0);
+                }
         } else {
             m_bFirstLaunch = true;
             lblTimeRemaining.Text = "";
@@ -449,7 +448,7 @@ public class Splash : System.Windows.Forms.Form {
     // Tick Event handler for the Timer control.
     // Handle fade in and fade out.  Also
     // handle the smoothed progress bar.
-    private void timer1_Tick(object sender, System.EventArgs e) {
+    private void timer1_Tick(object sender, EventArgs e) {
         lblStatus.Text = m_sStatus;
 
         if (m_dblOpacityIncrement > 0) {
@@ -514,7 +513,7 @@ public class Splash : System.Windows.Forms.Form {
 
     // Paint the portion of the panel invalidated during the tick event.
     private void pnlStatus_Paint(
-        object sender, System.Windows.Forms.PaintEventArgs e) {
+        object sender, PaintEventArgs e) {
             try
             {
                 {

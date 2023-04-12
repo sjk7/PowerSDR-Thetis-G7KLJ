@@ -82,7 +82,7 @@ namespace HttpServer
                         setParam(data[0], data[1]);
                     }
                 }
-                catch (System.Exception e)
+                catch (Exception e)
                 {
                     Debug.WriteLine(e.ToString());
                 }

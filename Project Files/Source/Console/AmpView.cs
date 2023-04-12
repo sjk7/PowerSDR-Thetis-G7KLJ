@@ -33,7 +33,7 @@ public unsafe partial class AmpView : Form {
   private static Object intslock = new Object();
 
   private void AmpView_Load(object sender, EventArgs e) {
-    PSForm.ampv.ClientSize = new System.Drawing.Size(560, 445); //
+    PSForm.ampv.ClientSize = new Size(560, 445); //
     Common.RestoreForm(this, "AmpView", false);
     hx = GCHandle.Alloc(x, GCHandleType.Pinned);
     hym = GCHandle.Alloc(ym, GCHandleType.Pinned);

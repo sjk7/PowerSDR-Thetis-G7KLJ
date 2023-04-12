@@ -170,7 +170,7 @@ namespace Thetis
         public SDRSerialPort SIO;
 
         Console console;
-        ASCIIEncoding AE = new ASCIIEncoding();
+        readonly ASCIIEncoding AE = new ASCIIEncoding();
         private bool Fpass = true;
         private bool cat_enabled = false;  // is cat currently enabled by user?
 
@@ -456,7 +456,7 @@ namespace Thetis
         public SDRSerialPort2 SIO2;
 
         Console console;
-        ASCIIEncoding AE = new ASCIIEncoding();
+        readonly ASCIIEncoding AE = new ASCIIEncoding();
         private bool Fpass = true;
         private bool cat2_enabled = false;
 
@@ -688,7 +688,7 @@ namespace Thetis
         public SDRSerialPort3 SIO3;
 
         Console console;
-        ASCIIEncoding AE = new ASCIIEncoding();
+        readonly ASCIIEncoding AE = new ASCIIEncoding();
         private bool Fpass = true;
         private bool cat3_enabled = false;
 
@@ -915,7 +915,7 @@ namespace Thetis
         public SDRSerialPort4 SIO4;
 
         Console console;
-        ASCIIEncoding AE = new ASCIIEncoding();
+        readonly ASCIIEncoding AE = new ASCIIEncoding();
         private bool Fpass = true;
         private bool cat4_enabled = false;
 
@@ -1088,7 +1088,7 @@ namespace Thetis
         public SDRSerialPort5 SIO5;
 
         Console console;
-        ASCIIEncoding AE = new ASCIIEncoding();
+        readonly ASCIIEncoding AE = new ASCIIEncoding();
         private bool Fpass = true;
         private bool cat5_enabled = false;
 
@@ -1262,7 +1262,7 @@ namespace Thetis
         public SDRSerialPort6 SIO6;
 
         Console console;
-        ASCIIEncoding AE = new ASCIIEncoding();
+        readonly ASCIIEncoding AE = new ASCIIEncoding();
         private bool Fpass = true;
         private bool cat6_enabled = false;
 
@@ -1436,7 +1436,7 @@ namespace Thetis
         public SDRSerialPort7 SIO7;
 
         Console console;
-        ASCIIEncoding AE = new ASCIIEncoding();
+        readonly ASCIIEncoding AE = new ASCIIEncoding();
         private bool Fpass = true;
         private bool cat7_enabled = false;
 
